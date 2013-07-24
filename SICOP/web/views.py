@@ -4,6 +4,6 @@ from django.template import loader
 from django.http.response import HttpResponse
 
 def home(request):
-    template = loader.get_template("index.html")
+    template = loader.get_template("base.html")
     c = Context ({})
     return HttpResponse(template.render(c))
