@@ -89,7 +89,7 @@ class DjangoSite(models.Model):
         db_table = 'django_site'
 
 class Tbcaixa(models.Model):
-    id = models.IntegerField(primary_key=True)
+#    id = models.IntegerField(primary_key=True)
     nmlocalarquivo = models.CharField(max_length=80, blank=True)
     qtdprocessos = models.IntegerField(null=True, blank=True)
     tbtipocaixa = models.ForeignKey('Tbtipocaixa')
@@ -97,13 +97,13 @@ class Tbcaixa(models.Model):
         db_table = 'tbcaixa'
 
 class Tbclassificacaoprocesso(models.Model):
-    id = models.IntegerField(primary_key=True)
+#    id = models.IntegerField(primary_key=True)
     nmclassificacao = models.CharField(max_length=80, blank=True)
     class Meta:
         db_table = 'tbclassificacaoprocesso'
 
 class Tbconjuge(models.Model):
-    id = models.IntegerField(primary_key=True)
+#    id = models.IntegerField(primary_key=True)
     tbprocessobase = models.ForeignKey('Tbprocessobase')
     nrcpf = models.CharField(max_length=11, blank=True)
     nmconjuge = models.CharField(max_length=100, blank=True)
@@ -111,14 +111,14 @@ class Tbconjuge(models.Model):
         db_table = 'tbconjuge'
 
 class Tbcontrato(models.Model):
-    id = models.IntegerField(primary_key=True)
+#    id = models.IntegerField(primary_key=True)
     nrcontrato = models.CharField(max_length=10, blank=True)
     nmempresa = models.CharField(max_length=100, blank=True)
     class Meta:
         db_table = 'tbcontrato'
 
 class Tbgleba(models.Model):
-    id = models.IntegerField(primary_key=True)
+#    id = models.IntegerField(primary_key=True)
     cdgleba = models.IntegerField(null=True, blank=True)
     nmgleba = models.CharField(max_length=80, blank=True)
     tbsubarea = models.ForeignKey('Tbsubarea')
@@ -136,7 +136,7 @@ class Tbmovimentacao(models.Model):
         db_table = 'tbmovimentacao'
 
 class Tbmunicipio(models.Model):
-    id = models.IntegerField(primary_key=True)
+#    id = models.IntegerField(primary_key=True)
     nome_mun_maiusculo = models.CharField(max_length=50, db_column='Nome_Mun_Maiusculo', blank=True) # Field name made lowercase.
     nome_mun = models.CharField(max_length=50, db_column='Nome_Mun', blank=True) # Field name made lowercase.
     codigo_mun = models.IntegerField(null=True, db_column='Codigo_Mun', blank=True) # Field name made lowercase.
@@ -214,7 +214,7 @@ class Tbpecastecnicas(models.Model):
         db_table = 'tbpecastecnicas'
 
 class Tbpendencia(models.Model):
-    id = models.IntegerField(primary_key=True)
+#    id = models.IntegerField(primary_key=True)
     tbprocessobase = models.ForeignKey('Tbprocessobase')
     auth_user = models.ForeignKey(AuthUser)
     tbtipopendencia = models.ForeignKey('Tbtipopendencia')
@@ -294,34 +294,33 @@ class Tbprocessourbano(models.Model):
         db_table = 'tbprocessourbano'
 
 class Tbsituacaoprocessourbano(models.Model):
-    id = models.IntegerField(primary_key=True)
+#    id = models.IntegerField(primary_key=True)
     nmsituacao = models.CharField(max_length=80, blank=True)
     class Meta:
         db_table = 'tbsituacaoprocessourbano'
 
 class Tbstatuspendencia(models.Model):
-    id = models.IntegerField(primary_key=True)
+#    id = models.IntegerField(primary_key=True)
     stpendencia = models.IntegerField(null=True, blank=True)
     dspendencia = models.CharField(max_length=100, blank=True)
     class Meta:
         db_table = 'tbstatuspendencia'
 
 class Tbsubarea(models.Model):
-    id = models.IntegerField(primary_key=True)
+#    id = models.IntegerField(primary_key=True)
     cdsubarea = models.CharField(max_length=10, blank=True)
     nmsubarea = models.CharField(max_length=80, blank=True)
     class Meta:
         db_table = 'tbsubarea'
 
 class Tbtipocaixa(models.Model):
-    id = models.IntegerField(primary_key=True)
-    nmtipocaixa = models.CharField(max_length=80, blank=True)
+#    nmtipocaixa = models.CharField(max_length=80, blank=True)
     desctipocaixa = models.TextField(blank=True)
     class Meta:
         db_table = 'tbtipocaixa'
 
 class Tbtipopendencia(models.Model):
-    id = models.IntegerField(primary_key=True)
+#    id = models.IntegerField(primary_key=True)
     cdtipopend = models.IntegerField(null=True, blank=True)
     dspendencia = models.CharField(max_length=50, blank=True)
     cdgrupo = models.CharField(max_length=20, blank=True)
@@ -329,7 +328,7 @@ class Tbtipopendencia(models.Model):
         db_table = 'tbtipopendencia'
 
 class Tbtipoprocesso(models.Model):
-    id = models.IntegerField(primary_key=True)
+#    id = models.IntegerField(primary_key=True)
     nome = models.CharField(max_length=80, blank=True)
     tabela = models.CharField(max_length=50, blank=True)
     class Meta:
