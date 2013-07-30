@@ -1,7 +1,8 @@
 from django.contrib import admin
 from web.models import Tbtipocaixa, Tbmunicipio, Tbtipopendencia,\
     Tbstatuspendencia, Tbsubarea, Tbconjuge, Tbcontrato, Tbgleba,\
-    Tbsituacaoprocessourbano, Tbclassificacaoprocesso, Tbtipoprocesso, Tbcaixa
+    Tbsituacaoprocessourbano, Tbclassificacaoprocesso, Tbtipoprocesso, Tbcaixa,\
+    Tbprocessobase, Tbprocesso
 
 # tbtipocaixa,
 # tbcaixa,

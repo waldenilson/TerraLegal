@@ -99,6 +99,8 @@ class Tbcaixa(models.Model):
 class Tbclassificacaoprocesso(models.Model):
 #    id = models.IntegerField(primary_key=True)
     nmclassificacao = models.CharField(max_length=80, blank=True)
+    def __unicode__(self):
+        return self.nmclassificacao
     class Meta:
         db_table = 'tbclassificacaoprocesso'
 
@@ -316,6 +318,8 @@ class Tbsubarea(models.Model):
 class Tbtipocaixa(models.Model):
 #    nmtipocaixa = models.CharField(max_length=80, blank=True)
     desctipocaixa = models.TextField(blank=True)
+    def __unicode__(self):
+        return self.desctipocaixa
     class Meta:
         db_table = 'tbtipocaixa'
 
