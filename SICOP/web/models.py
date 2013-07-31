@@ -305,6 +305,8 @@ class Tbstatuspendencia(models.Model):
 #    id = models.IntegerField(primary_key=True)
     stpendencia = models.IntegerField(null=True, blank=True)
     dspendencia = models.CharField(max_length=100, blank=True)
+    def __unicode__(self):
+        return self.dspendencia
     class Meta:
         db_table = 'tbstatuspendencia'
 
@@ -316,10 +318,10 @@ class Tbsubarea(models.Model):
         db_table = 'tbsubarea'
 
 class Tbtipocaixa(models.Model):
-#    nmtipocaixa = models.CharField(max_length=80, blank=True)
+    nmtipocaixa = models.CharField(max_length=80, blank=True)
     desctipocaixa = models.TextField(blank=True)
     def __unicode__(self):
-        return self.desctipocaixa
+        return self.nmtipocaixa
     class Meta:
         db_table = 'tbtipocaixa'
 
@@ -335,5 +337,7 @@ class Tbtipoprocesso(models.Model):
 #    id = models.IntegerField(primary_key=True)
     nome = models.CharField(max_length=80, blank=True)
     tabela = models.CharField(max_length=50, blank=True)
+    def __unicode__(self):
+        return self.nome
     class Meta:
         db_table = 'tbtipoprocesso'

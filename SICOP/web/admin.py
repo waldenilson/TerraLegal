@@ -2,7 +2,7 @@ from django.contrib import admin
 from web.models import Tbtipocaixa, Tbmunicipio, Tbtipopendencia,\
     Tbstatuspendencia, Tbsubarea, Tbconjuge, Tbcontrato, Tbgleba,\
     Tbsituacaoprocessourbano, Tbclassificacaoprocesso, Tbtipoprocesso, Tbcaixa,\
-    Tbprocessobase, Tbprocesso
+    Tbprocessobase, Tbprocesso, Tbpecastecnicas
 
 # tbtipocaixa,
 # tbcaixa,
@@ -20,8 +20,8 @@ from web.models import Tbtipocaixa, Tbmunicipio, Tbtipopendencia,\
 # TABELAS BASICAS (VARIAVEIS STATUS E/OU TIPOS)
 admin.site.register(Tbtipocaixa)
 admin.site.register(Tbtipoprocesso)
-admin.site.register(Tbtipopendencia)
-admin.site.register(Tbsituacaoprocessourbano)
+# admin.site.register(Tbtipopendencia)
+# admin.site.register(Tbsituacaoprocessourbano)
 admin.site.register(Tbclassificacaoprocesso)
 admin.site.register(Tbstatuspendencia)
 
