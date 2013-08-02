@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 
 # Uncomment the next two lines to enable the admin: ALTERADO EDUARDO
+#inclui linha
 from django.contrib import admin
 admin.autodiscover()
 
