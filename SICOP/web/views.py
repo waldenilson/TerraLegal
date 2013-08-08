@@ -8,18 +8,15 @@ from web.models import Tbcaixa, Tbtipocaixa
 from web.forms import FormPecasTecnicas
 from django.http import request
 
-
 @login_required
 def home(request):
     # template = loader.get_template("base.html")
     c = Context ({"titulo":"SEU TITULO"})
     #return HttpResponse(template.render(c))
-    return render(request, "index.html", c)
-
+    return render(request, "sicop/index.html", c)
 
 @login_required
-def consultas(request):
-    
+def consultas(request):    
     #form = FormPecasTecnicas()
     #return render_to_response("consultas.html",{"form":form}, context_instance = RequestContext(request))
     
@@ -30,7 +27,7 @@ def consultas(request):
         
     lista = Tbtipocaixa.objects.filter( nmtipocaixa__contains=retorno ).order_by('id')
     
-    return render_to_response('consultas.html',{'lista':lista,'retorno':retorno}, 
+    return render_to_response('sicop/consultas.html',{'lista':lista,'retorno':retorno}, 
                               context_instance = RequestContext(request))    
     
     

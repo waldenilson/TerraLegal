@@ -7,9 +7,11 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'web.views.home', name='home'),
-    url(r'^consultas/', 'web.views.consultas'),
-    url(r'^login/', 'django.contrib.auth.views.login', {"template_name":"login.html"}),
-     url(r'^logout/', 'django.contrib.auth.views.logout_then_login', {"login_url":"/login/"}),
+    url(r'^web/rural', 'web.viewspublicas.rural'),
+    url(r'^web/urbano', 'web.viewspublicas.urbano'),
+    url(r'^sicop/consultas/', 'web.views.consultas'),
+    url(r'^sicop/login/', 'django.contrib.auth.views.login', {"template_name":"sicop/login.html"}),
+    url(r'^logout/', 'django.contrib.auth.views.logout_then_login', {"login_url":"/sicop/login/"}),
     # url(r'^web/$', 'web.views.txt', name='texto'),
     # url(r'^SICOP/', include('SICOP.foo.urls')),
 
@@ -17,5 +19,5 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^sicop/admin/', include(admin.site.urls)),
 )

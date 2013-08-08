@@ -141,8 +141,8 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 )
 
-LOGIN_URL = "/login/"
-LOGOUT_URL = "/logout/"
+LOGIN_URL = "/sicop/login/"
+LOGOUT_URL = "/sicop/logout/"
 LOGIN_REDIRECT_URL = "/"
 
 # A sample logging configuration. The only tangible logging

@@ -1,0 +1,59 @@
+{% extends "base.html" %} 
+
+{% block login %}
+
+<div class="grids top">
+	<div class="grid-6 grid intro">
+	</div>
+	<!--end of slogan div-->
+
+	<div class="grid-10 grid">
+		<div class="flexslide">
+
+			{% if form.errors %} {{ form.non_field_errors }} {% endif %}
+
+			<form action="." method="post">
+				{% csrf_token %}
+				<div style="width: 100%">
+					{{ form.username.label_tag }} {{ form.username }}<br /> 
+					{{ form.password.label_tag }} {{ form.password }}<br />
+					<button type="submit">LOGIN</button>
+				</div>
+			</form>
+
+		</div>
+	</div>
+
+</div>
+<!--end of div grids-->
+
+{% endblock %}
+
+{% block index %}
+
+<!--========================================================================== Content Part 1 =====================================================================================-->
+
+<div class="wrapper">
+
+	<div class="grids">
+
+		<div class="grid-10 grid">
+			<p style="text-align: justify;">Sistema desenvolvido pela SRFA02,
+				vinculada ao Terra Legal com o objetivo de controlar todos os
+				processos de regularizacao fundiaria, liberacao de clausulas
+				resolutivas, recebimento e conferencia de pecas tecnicas de imoveis
+				integrantes da regiao definida como a amazonia Legal.</p>
+
+
+		</div>
+		<!--end of grid-10-->
+
+	</div>
+	<!--end of grids-->
+
+</div>
+<!--end of wrapper-->
+<hr />
+
+{% endblock %}
+

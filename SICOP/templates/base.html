@@ -30,7 +30,6 @@
 <link rel="stylesheet" type="text/css" media="screen"
 	href="{% static "css/mycss.css" %}" />
 
-
 <style media="all" type="text/css">
 #barra-brasil div,#barra-brasil a,#barra-brasil ul,#barra-brasil li {
 	margin: 0;
@@ -126,7 +125,7 @@
 <DIV class="divHeaderBrasil"></DIV><!-- sublayout -->
 
 <A accessKey="1" id="portal-logo" 
-class="baixoContraste" tabIndex="1" href="http://www.brasil.gov.br/?set_language=pt-br"><IMG 
+class="baixoContraste" tabIndex="1" href="/"><IMG 
 title="Portal Brasil" alt="" src="{% static "img/terralegal.jpg" %}" width="263" 
 height="69"></A><!--IDIOMAS-->
 <STYLE>
@@ -166,7 +165,13 @@ height="69"></A><!--IDIOMAS-->
   <LI><A title="Español" 
   href="#">Español</A></LI></UL></DIV><!--FIM IDIOMAS--><!--BUSCA-->
 <DIV class="divBusca">
-	 {% block userlogado %}{% endblock %} {% block login %} {% endblock %}
+
+	{% if user.is_active %}	 
+		{% block userlogado %}{% endblock %} 
+	{% else %}
+	 	{% block login %} {% endblock %}
+	{% endif %}
+	
 </DIV><!--FIM BUSCA-->
 
 <DIV class="visualClear"></DIV>
@@ -190,13 +195,16 @@ height="69"></A><!--IDIOMAS-->
 <DIV>
 <UL id="portal-siteactions" class=" ">
   <LI id="siteaction-Sobre o Portal" class="siteaction-Sobre o Portal"><A 
+  accessKey="" title="Home" href="/">Home</A></LI>
+ 
+  <LI id="siteaction-Sobre o Portal" class="siteaction-Sobre o Portal"><A 
   accessKey="" title="Sobre o Portal" href="#">Sobre o Portal</A></LI>
   
   <LI id="siteaction-Sobre o Portal" class="siteaction-Sobre o Portal"><A 
-  accessKey="" title="Sobre o Portal" href="#">Terra Legal</A></LI>
+  accessKey="" title="Terra Legal" href="#">Terra Legal</A></LI>
   
   <LI id="siteaction-Sobre o Portal" class="siteaction-Sobre o Portal"><A 
-  accessKey="" title="Sobre o Portal" href="#">MDA</A></LI>
+  accessKey="" title="Ministério do Desenvolvimento Agrário" href="#">MDA</A></LI>
   
   </UL>
 <DIV class="divbgAzul"></DIV></DIV></DIV></DIV>
@@ -222,7 +230,7 @@ height="69"></A><!--IDIOMAS-->
 
 									<div class="first-child last-child">
 
-										<a href="#"
+										<a href="/web/rural.html"
 											class="state-published navTreeFolderish first-child last-child"
 											title=""> <span class="first-child last-child">Rural</span>
 										</a>
@@ -238,7 +246,7 @@ height="69"></A><!--IDIOMAS-->
 
 									<div class="first-child last-child">
 
-										<a href="#"
+										<a href="/web/urbano.html"
 											class="state-published navTreeFolderish first-child last-child"
 											title=""> <span class="first-child last-child">Urbano</span>
 										</a>
