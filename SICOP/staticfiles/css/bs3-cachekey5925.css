@@ -1,0 +1,815 @@
+
+/* - bs3.css - */
+@media screen {
+/* http://www.brasil.gov.br/portal_css/bs3.css?original=1 */
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeq .boxConteudosBottomPeq .thumbImgs{overflow-x:hidden;width:310px;height:356px;overflow:auto;margin:41px 0 0;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeq .boxConteudosBottomPeq .jScrollPaneContainer{margin:13px 0 0;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeq .boxConteudosBottomPeq .thumbImgs .divBlocoThumb H5{width:170px;font:bold 1.4em Arial,Helvetica,sans-serif;float:left;color:#007cc2;padding:0 0 0 5px;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeq .boxConteudosBottomPeq SPAN.excluirTudo{width:80px;float:right;margin:12px 15px 0 0;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeq .boxConteudosBottomPeq H3.titFavoritos{width:218px;font:bold 1.7em Arial,Helvetica,sans-serif;float:left;color:#fff;margin:8px 0 0;padding:0;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosBottomPeqVerde SPAN.excluirTudo{width:80px;float:right;margin:-31px 15px 0 0;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosBottomPeqVerde SPAN.excluirTudo A{font:1.2em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/btn/btnExcluirTudoVerde.gif) no-repeat;color:#fff;text-decoration:none;padding:0 0 0 17px;}
+BODY.contraste .divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosBottomPeqVerde SPAN.excluirTudo A{background:url(http://www.brasil.gov.br/btn/btnExcluirTudoVerde_c.gif) no-repeat;color:#000;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusFavoritosConteudosBottom H3{width:500px;font:1.2em Arial,Helvetica,sans-serif;float:left;color:#007cc2;padding:8px 0 15px 17px;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusFavoritosConteudosBottom H3.titFavoritos{width:500px;font:bold 1.7em Arial,Helvetica,sans-serif;float:left;color:#fff;margin:8px 0 15px;padding:0 0 0 3px;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde{width:342px;display:inline;background:url(http://www.brasil.gov.br/bg/bgBoxMeusContPeqCenterVerde.gif) repeat-y;float:left;margin:10px 0 0 16px;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde{width:342px;background:url(http://www.brasil.gov.br/bg/bgBoxMeusContPeqTopVerde.gif) no-repeat 50% top;float:left;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde{width:324px;background:url(http://www.brasil.gov.br/bg/bgBoxMeusContPeqBottomVerde.gif) no-repeat 50% bottom;float:left;padding:0 0 34px 18px;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde P.maisNoticias{font:bold 1.2em Arial,Helvetica,sans-serif;float:right;height:15px;color:#ffb400;margin:10px 0 0;padding:0 10px 0 0;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde P.maisNoticias A{color:#ffb400;text-decoration:none;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde H4{font:bold 1.4em Arial,Helvetica,sans-serif;float:left;color:#000;margin:0 0 10px;padding:8px 0 0 12px;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde .thumbImgs{width:300px;height:405px;margin:41px 0 0;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde .thumbImgs SPAN.relogio{width:351px;font:1.2em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/ico/icoRelogioVerde.gif) no-repeat left top;float:left;color:#666766;margin:8px 0 0;padding:0 0 0 12px;}
+BODY.contraste .divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde .thumbImgs SPAN.relogio{background:url(http://www.brasil.gov.br/ico/icoRelogioVerde_c.gif) no-repeat left top;color:#fff;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde .thumbImgs P{border-bottom:#cfcfcf 1px dotted;float:left;color:#000;margin:0;padding:0 0 8px;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde .thumbImgs H5{font:bold 1.2em Arial,Helvetica,sans-serif;float:left;color:#077cc1;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde .thumbImgs H5.titNoImage{width:291px;font:bold 1.2em Arial,Helvetica,sans-serif;float:left;color:#077cc1;clear:both;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde .thumbImgs H5 A{color:#077cc1;text-decoration:none;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde .thumbImgs .divBlocoThumb H5{width:151px;font:bold 1.4em Arial,Helvetica,sans-serif;float:left;color:#007cc2;clear:none;padding:0 0 0 5px !important;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde H3.titFavoritos{width:305px;float:left;color:#fff;cursor:move;padding:0;}
+.divConteudoMeuBrasil .pfinalEsquerda{border-bottom:#ffb400 2px solid;float:left;padding:10px 0;}
+.divConteudoMeuBrasil H2{border-bottom:#e5e5e5 1px solid;width:100%;float:left;clear:both;font-weight:400;padding:0;}
+.divConteudoMeuBrasil P.grande{width:507px;float:left;clear:both;padding:0 0 20px;}
+.divConteudoMeuBrasilCadeado .cadeado{z-index:999;position:absolute;width:72px;background:url(http://www.brasil.gov.br/imgCadeado.png) no-repeat;height:90px;top:19px;left:-23px;}
+.divConteudoMeuBrasilCadeado P.grande{width:507px;float:left;clear:both;padding:5px 0 20px 8px;}
+.divConteudoMeuBrasil .divBoxMeuBrasil{width:698px;float:left;margin:15px 0 0;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop{width:698px;float:left;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom{width:658px;float:left;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasilCadeado{width:698px;background:url(http://www.brasil.gov.br/bg/bgBoxExpandeMeuBrasilCenter.gif) repeat-y;float:left;margin:15px 0 0;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasilCadeado .divBoxMeuBrasilTopCadeado{width:698px;background:url(http://www.brasil.gov.br/bg/bgBoxExpandeMeuBrasilTop.gif) no-repeat 50% top;float:left;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasilCadeado .divBoxMeuBrasilTopCadeado .divBoxMeuBrasilBottomCadeado{width:658px;background:url(http://www.brasil.gov.br/bg/bgBoxExpandeMeuBrasilBottom.gif) no-repeat 50% bottom;float:left;padding:20px;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasilCadeado .divBoxMeuBrasilTopCadeado .divBoxMeuBrasilBottomCadeado P.pMensagem{text-align:center;font:bold 1.2em Arial,Helvetica,sans-serif;height:15px;color:#00a349;margin:0;padding:0 0 10px;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasilCadeado .divBoxMeuBrasilTopCadeado .divBoxMeuBrasilBottomCadeado P.gMensagem{text-align:center;font:bold 1.6em Arial,Helvetica,sans-serif;height:15px;color:#00a349;margin:0;padding:0 0 10px;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasil{width:692px;background:url(http://www.brasil.gov.br/bg/boxCenterSecaoMeuBrasilG.gif) repeat-y;float:left;margin:15px 0 0;padding:0 12px 0 0;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop{width:692px;background:url(http://www.brasil.gov.br/bg/boxTopSecaoMeuBrasilG.gif) no-repeat left top;float:left;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom{width:652px;background:url(http://www.brasil.gov.br/bg/boxBottomSecaoMeuBrasilG.gif) no-repeat 50% bottom;float:left;padding:20px;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom P{float:none;clear:both;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom P.pCerteza{text-align:center;font:bold 1.6em Arial,Helvetica,sans-serif;float:none;clear:both;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET{width:650px;float:left;margin:0;padding:0;}
+.divConteudoMeuBrasilCadeado{position:relative;min-height:654px;width:709px;background:url(http://www.brasil.gov.br/bg/bgMeuBrasil.gif) no-repeat left top;float:left;height:auto !important;margin:0;padding:35px 10px 0 25px;}
+.divConteudoMeuBrasilCadeado P{font:1.2em Arial,Helvetica,sans-serif;float:left;color:#000;padding:10px 0;}
+.divConteudoMeuBrasilCadeado H2{border-bottom:#f9c93f 1px solid;width:100%;display:inline;float:left;clear:both;font-weight:400;margin:0 0 0 12px;padding:0;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL{font-family:Arial,Helvetica,sans-serif;color:#000;font-size:1.2em;padding:0 10px 0 0;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral H4{border-bottom:#f9c93f 1px solid;line-height:normal;font-variant:normal;width:508px;font-family:Arial,Helvetica,sans-serif;color:#007cc2;font-size:1.7em;font-weight:700;margin:0 0 15px;padding:0;}
+BODY.contraste .divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral H4{border-bottom:#fff600 1px solid;color:#00dbef;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral .divLisIdioma .jquery-selectbox{float:right;vertical-align:top;margin:0;padding:0;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral BUTTON.btnSalvar{border-bottom:medium none;border-left:medium none;text-indent:-9999px;width:50px;background:url(http://www.brasil.gov.br/btn/btnSalvar.gif) no-repeat;float:right;height:26px;border-top:medium none;cursor:pointer;border-right:medium none;margin:0 5px 0 0;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral BUTTON.btnCancelar{border-bottom:medium none;border-left:medium none;text-indent:-9999px;width:62px;background:url(http://www.brasil.gov.br/btn/btnCancelar.gif) no-repeat;float:left;height:26px;border-top:medium none;cursor:pointer;border-right:medium none;margin:0 5px 0 0;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL.lblBgSeta{width:260px;display:inline;background:url(http://www.brasil.gov.br/ico/icoSetaAmarela.gif) no-repeat 0 5px;float:left;height:22px;padding:0 0 0 10px;}
+BODY.contraste .divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL.lblBgSeta{background:url(http://www.brasil.gov.br/ico/icoCalendDestEvent_c.gif) no-repeat 0 5px;color:#fff;}
+.divConteudoMeuBrasilCadeado .loginDireita{width:311px;float:right;padding:10px 0 0;}
+.divConteudoMeuBrasilCadeado .loginDireita .boxlogin{width:301px;background:url(http://www.brasil.gov.br/bg/boxLoginCenter.jpg) repeat-y;float:left;}
+.divConteudoMeuBrasilCadeado .loginDireita .boxlogin .boxloginTop{width:301px;background:url(http://www.brasil.gov.br/bg/boxLoginTop.jpg) no-repeat 50% top;float:left;}
+.divConteudoMeuBrasilCadeado .loginDireita .boxlogin .boxloginTop .boxloginBottom{text-align:center;width:261px;background:url(http://www.brasil.gov.br/bg/boxLoginBottom.jpg) no-repeat 50% bottom;float:left;padding:20px;}
+.divConteudoMeuBrasilCadeado .loginDireita .boxlogin .boxloginTop .boxloginBottom LABEL{text-align:left;width:246px;font:1.2em Arial,Helvetica,sans-serif;float:left;height:auto;color:#000;clear:both;padding:12px 0 0;}
+.divConteudoMeuBrasilCadeado .loginDireita .boxlogin .boxloginTop .boxloginBottom LABEL .correioEletronico{border-bottom:medium none;border-left:medium none;width:254px;background:url(http://www.brasil.gov.br/bg/bgInputCorreioEletr.gif) no-repeat;height:26px;border-top:medium none;border-right:medium none;}
+.divConteudoMeuBrasilCadeado .loginDireita .boxlogin .boxloginTop .boxloginBottom .divEsqueciSenha{border-bottom:#dedede 1px solid;width:256px;display:inline;float:left;clear:both;border-top:#dedede 1px dashed;margin:15px 0;padding:10px 0;}
+.divConteudoMeuBrasilCadeado .loginDireita .boxlogin .boxloginTop .boxloginBottom .divEsqueciSenha P.esqueci{display:inline;width:88px;margin-top:-12px;}
+.divConteudoMeuBrasilCadeado .loginDireita .boxlogin .boxloginTop .boxloginBottom .divEsqueciSenha P.esqueci A{text-align:left;width:200px;font:bold 1em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/ico/icoSetaAzul.gif) no-repeat 0 5px;float:left;color:#ffb400;clear:both;text-decoration:none;padding:0 0 0 13px;}
+BODY.contraste .divConteudoMeuBrasilCadeado .loginDireita .boxlogin .boxloginTop .boxloginBottom .divEsqueciSenha P.esqueci A{background:url(http://www.brasil.gov.br/ico/icoSetaAmarela_c.gif) no-repeat 0 5px;color:#fff600;}
+.divConteudoMeuBrasilCadeado .loginDireita .boxlogin .boxloginTop .boxloginBottom P.textoCadast{text-align:center;width:260px;font:bold 1.2em Arial,Helvetica,sans-serif;float:left;height:4px;color:#000;clear:both;padding:0 0 15px;}
+.divConteudoMeuBrasilCadeado .loginDireita .boxlogin .boxloginTop .boxloginBottom .divEsqueciSenha .btnEntrar{border-bottom:medium none;border-left:medium none;width:49px;background:url(http://www.brasil.gov.br/btn/btnEntrar.gif) no-repeat;float:right;height:26px;border-top:medium none;border-right:medium none;}
+.divConteudoMeuBrasilCadeado .loginEsquerda{width:388px;float:left;border-bottom:2px solid #FEAC00;margin-bottom:25px;}
+.divConteudoMeuBrasilCadeado .loginEsquerda H3{float:left;padding:15px 0 10px 12px;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom .pMensagem{text-align:center;font:bold 1.6em Arial,Helvetica,sans-serif;color:#00a349;padding:2px 0 20px;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom .pCerteza{text-align:center;font:bold 1.6em Arial,Helvetica,sans-serif;color:#000;padding:2px 0 20px;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral{width:658px;float:left;margin:0;padding:0;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral H4{border-bottom:#f9c93f 1px solid;width:508px;font:bold 1.7em Arial,Helvetica,sans-serif;color:#007cc2;margin:0 0 15px;padding:0;}
+BODY.contraste .divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral H4{border-bottom:#fff600 1px solid;color:#00eaff;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral FIELDSET.fieldDadosPessoais{width:508px;float:left;padding:0 0 15px;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral FIELDSET.fieldDadosConta{width:517px;float:left;padding:0 0 15px;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral FIELDSET.fieldDadosEmpresa{width:658px;float:left;margin:0 0 10px;padding:0 0 15px;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral FIELDSET.fieldButtons{width:500px;float:left;border-top:#e4e4e4 1px solid;margin:5px 0 0;padding:15px 0 0;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral FIELDSET.fieldButtons .btnVoltar{border-bottom:medium none;border-left:medium none;text-indent:-9999px;width:46px;background:url(http://www.brasil.gov.br/btn/btnVoltar.gif) no-repeat;float:left;height:26px;border-top:medium none;border-right:medium none;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral FIELDSET.fieldButtons .btnVoltar-en{BORDER-BOTTOM:medium none;BORDER-LEFT:medium none;TEXT-INDENT:-9999px;WIDTH:46px;BACKGROUND:url(http://www.brasil.gov.br/btn/btnVoltar_en.gif) no-repeat;FLOAT:left;HEIGHT:26px;BORDER-TOP:medium none;BORDER-RIGHT:medium none}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral FIELDSET.fieldButtons .btnVoltar-es{BORDER-BOTTOM:medium none;BORDER-LEFT:medium none;TEXT-INDENT:-9999px;WIDTH:46px;BACKGROUND:url(http://www.brasil.gov.br/btn/btnVoltar_es.gif) no-repeat;FLOAT:left;HEIGHT:26px;BORDER-TOP:medium none;BORDER-RIGHT:medium none}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral FIELDSET.fieldButtons .btnCancelar{border-bottom:medium none;border-left:medium none;text-indent:-9999px;width:61px;background:url(http://www.brasil.gov.br/btn/btnCancelar.gif) no-repeat;float:right;height:26px;border-top:medium none;border-right:medium none;margin:0 5px 0 0;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral FIELDSET.fieldButtons .btnSalvar{border-bottom:medium none;border-left:medium none;text-indent:-9999px;width:50px;background:url(http://www.brasil.gov.br/btn/btnSalvar.gif) no-repeat;float:right;height:26px;border-top:medium none;border-right:medium none;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL{font:1.2em Arial,Helvetica,sans-serif;color:#000;padding:0 10px 0 0;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral A.esqueciSenha{font:bold 1.2em Arial,Helvetica,sans-serif;float:left;color:#ffb400;text-decoration:none;padding:8px 0 0;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL.lblBgSeta{width:270px;display:inline;background:url(http://www.brasil.gov.br/ico/icoSetaAmarela.gif) no-repeat left 50%;float:left;padding:0 0 0 10px;}
+BODY.contraste .divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL.lblBgSeta{background:url(http://www.brasil.gov.br/ico/icoSetaAmarela_c.gif) no-repeat left 50%;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral SPAN.spanTitle{width:100%;font:1.2em Arial,Helvetica,sans-serif;float:left;color:#000;padding:10px 0 5px;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral INPUT.inpNome{border-bottom:medium none;border-left:medium none;width:398px;display:block;font:1.4em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/bgInpNomeMeuBrasil.jpg) no-repeat right center;height:24px;color:#000;border-top:medium none;border-right:medium none;margin:5px 0 0;padding:2px 8px 0;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral INPUT.inpCorrerio{border-bottom:medium none;border-left:medium none;width:238px;display:block;font:1.4em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/bgInpCorreio.jpg) no-repeat right center;height:24px;color:#000;border-top:medium none;border-right:medium none;margin:5px 0 0;padding:2px 8px 0;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral INPUT.inpDdd{border-bottom:medium none;border-left:medium none;width:21px;display:block;font:1.4em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/bgInpDDD.jpg) no-repeat right center;height:24px;color:#000;border-top:medium none;border-right:medium none;margin:5px 0 0;padding:2px 4px 0;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral INPUT.inpTel{border-bottom:medium none;border-left:medium none;width:68px;display:block;font:1.4em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/bgInpTelefone.jpg) no-repeat right center;height:24px;color:#000;border-top:medium none;border-right:medium none;margin:5px 0 0;padding:2px 4px 0;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL.lblCep{width:353px;font:1.2em Arial,Helvetica,sans-serif;float:left;color:#000;padding:0;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral INPUT.inpCep01{border-bottom:medium none;border-left:medium none;width:50px;font:1.4em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/inputCep01.gif) no-repeat right center;float:left;height:25px;color:#000;border-top:medium none;border-right:medium none;margin:5px 0 0;padding:0;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral INPUT.inpCep02{border-bottom:medium none;border-left:medium none;width:35px;font:1.4em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/inputCep02.gif) no-repeat right center;height:25px;color:#000;border-top:medium none;border-right:medium none;margin:5px 0 0 5px;padding:0;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL.lblEndereco{width:465px;font:1.2em Arial,Helvetica,sans-serif;float:left;color:#000;padding:10px 0 0;}
+BODY.contraste .divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL.lblEndereco{width:457px;color:#fff;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL.lblEndereco .inpEndereco{border-bottom:medium none;border-left:medium none;width:461px;background:url(http://www.brasil.gov.br/bg/bgEndereco.gif) no-repeat;height:26px;border-top:medium none;border-right:medium none;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL.lblNumero{width:85px;font:1.2em Arial,Helvetica,sans-serif;float:left;color:#000;padding:10px 0 0;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL.lblComplemento{width:85px;font:1.2em Arial,Helvetica,sans-serif;float:left;color:#000;padding:10px 0 0 5px;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL.lblBairro{width:266px;float:left;height:64px;padding:10px 0 0;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL.lblBairro .inpBairro{border-bottom:medium none;border-left:medium none;width:254px;background:url(http://www.brasil.gov.br/bg/bginputBairro.gif) no-repeat;float:left;height:26px;border-top:medium none;border-right:medium none;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL.lblEstado{width:68px;float:left;padding:10px 0 0;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL.lblEstado .selEstado{width:60px;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL.lblCidade{width:229px;float:left;padding:10px 0 0;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL.lblCidade .selCidade{width:216px;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral SELECT{width:100px;}
+BODY.contraste .divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral BUTTON.btnLimpar{background:url(http://www.brasil.gov.br/btn/btnLimpar_c.gif) no-repeat;}
+BODY.contraste .divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral BUTTON.btnProximoPasso{border-bottom:medium none;border-left:medium none;text-indent:-9999px;width:88px;float:right;height:26px;border-top:medium none;cursor:pointer;border-right:medium none;}
+.divConteudoInterna .divMapaLinks{border-bottom:#d0d0d0 1px solid;width:100%;margin-bottom:16px;float:left;}
+.divConteudoInterna .divMapaLinks .liFechar{background:url(http://www.brasil.gov.br/ico/icoFechaTodos.gif) no-repeat left center;float:right;padding:5px 2px 5px 20px;}
+BODY.contraste .divConteudoInterna .divMapaBlocoSimplesLaranja UL{border-bottom:#fff600 2px solid;border-left:#e5e5e5 1px solid;border-top:#fff600 2px solid;border-right:#e5e5e5 1px solid;}
+.divConteudoInterna .divMapaBlocoSimplesLaranja UL LI SPAN{display:block;background:url(http://www.brasil.gov.br/ico/icoSetaLista_off.gif) no-repeat left center;padding:4px 0 4px 9px;}
+BODY.contraste .divConteudoInterna .divMapaBlocoSimplesLaranja UL LI SPAN{background:url(http://www.brasil.gov.br/ico/icoSetaLista_off_c.gif) no-repeat left center;}
+.divConteudoInterna .divMapaBlocoSimplesAzul UL{border-bottom:#c5deec 2px solid;border-left:#e5e5e5 1px solid;border-top:#c5deec 2px solid;border-right:#e5e5e5 1px solid;margin:5px 0 28px;padding:10px;}
+.divConteudoInterna .divMapaBlocoSimplesAzul UL LI{display:block;background:url(http://www.brasil.gov.br/ico/icoSetaListaAzul_off.gif) no-repeat left center}
+BODY.contraste .divConteudoInterna .divMapaBlocoAvancadoLaranja UL.divMapaSubBlocoAvancadoLaranja{border-left:#fff 1px solid;background:#000;border-right:#fff 1px solid;}
+.divConteudoInterna .divMapaBlocoAvancadoLaranja UL.divMapaSubBlocoAvancadoLaranja LI.liActive SPAN{background:url(http://www.brasil.gov.br/ico/icoSetaTopVerdeP.gif) no-repeat left center;}
+.divConteudoInterna .divMapaBlocoAvancadoLaranja UL.divMapaSubSubBlocoAvancadoLaranja{border-bottom:#cfcfcf 1px solid;border-left:#cfcfcf 1px solid;display:none;margin-bottom:5px;background:#fff;border-top:#cfcfcf 1px solid;border-right:#cfcfcf 1px solid;padding:0 10px;}
+.divConteudoInterna .divMapaBlocoAvancadoLaranja UL.divMapaSubSubBlocoAvancadoLaranja LI{border-bottom:0;border-left:0;background:#fff;border-top:0;border-right:0;}
+.divConteudoInterna .divMapaBlocoAvancadoLaranja UL.divMapaSubSubBlocoAvancadoLaranja LI SPAN{background:url(http://www.brasil.gov.br/ico/icoSetaListaVerde_off.gif) no-repeat left center;padding:4px 0 4px 9px;}
+BODY.contraste .divConteudoInterna .divMapaBlocoAvancadoLaranja UL.divMapaSubSubBlocoAvancadoLaranja LI SPAN{background:url(http://www.brasil.gov.br/ico/icoSetaListaVerde_off_c.gif) no-repeat left center;}
+.divConteudoInterna .divFaleCom UL LI.first-child{border-top:#cfcfcf 1px dotted;}
+BODY.contraste .divConteudoInterna .divFaleCom UL.divFaleComSubBloco{border-left:#fff 1px solid;background:#000;border-top:medium none;border-right:#fff 1px solid;}
+.divConteudoInterna .divFaleCom UL.divFaleComSubBloco LI.liActive{border-bottom:#cfcfcf 1px dotted;background:#f6f6f6;}
+.divConteudoInterna .divFaleCom UL.divFaleComSubBloco LI SPAN{padding:7px 0 7px 23px;cursor:pointer}
+.divConteudoInterna .divFaleCom UL.divFaleComSubSubBloco{border-bottom:0;border-left:0;display:none;margin-bottom:5px;border-top:0;border-right:0;padding:0 10px;}
+BODY.contraste .divConteudoInterna .divFaleCom UL.divFaleComSubSubBloco{border-bottom:#000 1px solid;border-left:#000 1px solid;border-top:#000 1px solid;border-right:#000 1px solid;}
+.divConteudoInterna .divFaleCom UL.divFaleComSubSubBloco LI{border-bottom:#f6f6f6 1px solid;border-left:#f6f6f6 1px solid;background:#f6f6f6;border-top:#f6f6f6 1px solid;border-right:#f6f6f6 1px solid;}
+.divConteudoInterna .divFaleCom UL.divFaleComSubSubBloco LI SPAN A{font-family:Arial;color:#007cc2;font-size:1.2em;font-weight:bold;text-decoration:none;}
+.divBoxNavEstud{margin:10px 0 0}
+.divBoxNavEstud .divModNavEstud{width:516px;background:url(http://www.brasil.gov.br/bg/bgModNavEstudReplica.jpg) repeat-y;float:left;}
+BODY.contraste .divBoxNavEstud .divModNavEstud{background:url(http://www.brasil.gov.br/bg/bgModNavEstudReplica_c.jpg) repeat-y;}
+.divBoxNavEstud .divModNavEstud .divModNavEstudTop{width:516px;background:url(http://www.brasil.gov.br/bg/bgModNavEstud.jpg) no-repeat 50% top;float:left;}
+BODY.contraste .divBoxNavEstud .divModNavEstud .divModNavEstudTop{background:url(http://www.brasil.gov.br/bg/bgModNavEstud_c.jpg) no-repeat 50% top;}
+.divBoxNavEstud .divModNavEstud .divModNavEstudTop .divModNavEstudBottom{width:486px;background:url(http://www.brasil.gov.br/bg/bgModNavEstudBottom.jpg) no-repeat 50% bottom;float:left;padding:10px 15px;}
+BODY.contraste .divBoxNavEstud .divModNavEstud .divModNavEstudTop .divModNavEstudBottom{background:url(http://www.brasil.gov.br/bg/bgModNavEstudBottom_c.jpg) no-repeat 50% bottom;}
+.divBoxNavEstud .divModNavEstud .divModNavEstudTop .divModNavEstudBottom .divboxListagem{width:486px;float:left;}
+.divBoxNavEstud .divModNavEstud .divModNavEstudTop .divModNavEstudBottom .divboxListagem H6{width:100%;display:block;font:bold 1.7em Arial,Helvetica,sans-serif;float:left;color:#000;margin:0 0 16px;}
+BODY.contraste .divBoxNavEstud .divModNavEstud .divModNavEstudTop .divModNavEstudBottom .divboxListagem H6{width:300px;color:#fff;}
+.divBoxNavEstud .divModNavEstud .divModNavEstudTop .divModNavEstudBottom .divboxListagem UL{width:500px;}
+.divBoxNavEstud .divModNavEstud .divModNavEstudTop .divModNavEstudBottom .divboxListagem UL LI{width:163px;float:left;height:auto;}
+.divBoxNavEstud .divModNavEstud .divModNavEstudTop .divModNavEstudBottom .divboxListagem UL LI DL{width:155px;float:left;}
+.divBoxNavEstud .divModNavEstud .divModNavEstudTop .divModNavEstudBottom .divboxListagem UL LI DL DT{font:bold 1.4em Arial,Helvetica,sans-serif;color:#961d16;}
+BODY.contraste .divBoxNavEstud .divModNavEstud .divModNavEstudTop .divModNavEstudBottom .divboxListagem UL LI DL DT{color:#ff2d2d;}
+.divBoxNavEstud .divModNavEstud .divModNavEstudTop .divModNavEstudBottom .divboxListagem UL LI DL DD{border-bottom:#cfcfcf 1px dotted;font:1.2em Arial,Helvetica,sans-serif;color:#000;padding:6px 0 4px;}
+BODY.contraste .divBoxNavEstud .divModNavEstud .divModNavEstudTop .divModNavEstudBottom .divboxListagem UL LI DL DD{border-bottom:#fff 1px dotted;color:#fff;}
+.divBoxNavEstud .divModNavEstud .divModNavEstudTop .divModNavEstudBottom .divboxListagem UL LI DL DD A{background:url(http://www.brasil.gov.br/ico/icoSetaAmarela.gif) no-repeat left 50%;color:#000;text-decoration:none;padding:0 0 0 10px;}
+BODY.contraste .divBoxNavEstud .divModNavEstud .divModNavEstudTop .divModNavEstudBottom .divboxListagem UL LI DL DD A{background:url(http://www.brasil.gov.br/ico/icoSetaAmarela_c.gif) no-repeat left 50%;color:#fff;}
+.divBoxNavEstud .divModNavEstud .divModNavEstudTop .divModNavEstudBottom .divboxListagem UL LI DL DD A:hover{color:#000;text-decoration:underline;}
+.divBoxVideoEstud H4{padding:0 0 11px;}
+.divBoxVideoEstud UL LI{border-bottom:#ccc 1px solid;width:252px;float:left;padding:10px 0;}
+.divBoxVideoEstud UL LI IMG{border-bottom:#c5c5c5 1px solid;border-left:#c5c5c5 1px solid;float:left;border-top:#c5c5c5 1px solid;border-right:#c5c5c5 1px solid;margin:0 10px 0 0;padding:1px;}
+.divBoxVideoEstud UL LI H6{font:bold 1.6em Arial,Helvetica,sans-serif;}
+.divBoxVideoEstud UL LI H6 A{line-height:17px;color:#0f020d;text-decoration:none;}
+.divBoxVideoEstud UL LI SPAN.spanTempo{font:1em Arial,Helvetica,sans-serif;color:#7f7f7f;}
+.divBoxVideoEstud A IMG{padding:6px 0 0;}
+.divBoxInteratividade{width:232px;background:#da5b29;margin:0 0 20px 5px;padding:10px;}
+.divBoxInteratividade H4{margin:0;padding:0 4px 0 0;}
+.divBoxInteratividade UL LI{border-bottom:#fff 2px solid;margin:0;padding:13px 0 10px;}
+.divBoxInteratividade UL LI H5{font:bold 2.4em Arial,Helvetica,sans-serif;padding:0;}
+.divBoxInteratividade UL LI H5 A{color:#fff;text-decoration:none;padding:0;}
+.divBoxInteratividade UL LI P{font:1.2em Arial,Helvetica,sans-serif;color:#5e1616;padding:0;}
+.divBoxInteratividade .last-child{border-bottom:medium none;border-left:medium none;padding-bottom:0;border-top:medium none;border-right:medium none;}
+.divModListServAcesEstud H4{line-height:0;width:250px;float:left;padding:0 0 5px;}
+.divModListServAcesEstud H4 .numero{width:55px;display:block;float:left;height:23px;color:#971e16;font-size:40px;padding:27px 0 0;}
+.divModListServAcesEstud H4 .titDestaque{line-height:24px;background-color:#971e16;width:190px;display:block;float:left;height:50px;color:#fff;font-size:20px;padding:0 0 0 5px;}
+BODY.contraste .divModListServAcesEstud H4 .titDestaque{background:red;}
+.divModListServAcesEstud UL{padding:0 0 0 10px;}
+.divModListServAcesEstud UL LI{font:1.2em Arial,Helvetica,sans-serif;color:#961d16;padding:0 0 3px;}
+.divModListServAcesEstud UL LI A{background:url(http://www.brasil.gov.br/ico/icoSetaVinha.gif) no-repeat left 50%;color:#961d16;text-decoration:none;padding:0 0 0 10px;}
+BODY.contraste .divModListServAcesEstud UL LI A{background:url(http://www.brasil.gov.br/ico/icoCalendDestEvent_c.gif) no-repeat left 50%;color:#fff;}
+.divModListServAcesEstud UL LI A:hover{text-decoration:underline;}
+.divModListServAcesEstud .servicos{width:250px;background:url(http://www.brasil.gov.br/bg/bg_todosServicos.gif) no-repeat;float:left;height:18px;}
+BODY.contraste .divModListServAcesEstud .servicos{background:url(http://www.brasil.gov.br/bg/bg_todosServicos_c.gif) no-repeat;}
+.divModListServAcesEstud .servicos .txtServicos{background-color:#961d16;color:#fff;font-size:12px;font-weight:700;margin:0 0 0 92px;}
+BODY.contraste .divModListServAcesEstud .servicos .txtServicos{background-color:red;color:#000;margin:0 0 0 96px;}
+.divModNoticiasEstud H4{text-transform:uppercase;font:bold 2em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/tit/titNoticiasEstud.gif) #2a4f18 no-repeat 7px 5px;height:30px;color:#fff;margin:0;padding:5px 0 0 33px;}
+BODY.contraste .divModNoticiasEstud H4{background:url(http://www.brasil.gov.br/tit/titNoticiasEstud_c.gif) #53ff6f no-repeat 7px 5px;color:#000;}
+.divModNoticiasEstud UL LI{border-bottom:#a8d800 1px solid;padding:9px 0 6px;}
+.divModNoticiasEstud UL LI SPAN.spanData{font:1.2em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/ico/icoRelogioVerde.gif) no-repeat 0 7px;color:#29510f;padding:5px 0 5px 15px;}
+BODY.contraste .divModNoticiasEstud UL LI SPAN.spanData{background:url(http://www.brasil.gov.br/ico/icoRelogioVerde_c.gif) no-repeat 0 7px;color:#53ff6f;}
+.divModNoticiasEstud UL LI P{font:bold 1.2em Arial,Helvetica,sans-serif;color:#29510f;}
+.divModNoticiasEstud UL LI P A{color:#29510f;text-decoration:none;padding:0 3px;}
+.divModNoticiasEstud UL LI P SPAN{background:url(http://www.brasil.gov.br/bg/bgDivisorConteudoRelacionado.gif) no-repeat left 50%;padding:0 0 0 7px;}
+.divModNoticiasEstud .servicos{width:250px;background:url(http://www.brasil.gov.br/bg/bg_todosNoticias.gif) no-repeat;float:left;height:18px;}
+BODY.contraste .divModNoticiasEstud .servicos{background:url(http://www.brasil.gov.br/bg/bg_todosNoticias_c.gif) no-repeat;}
+.divModNoticiasEstud .servicos .txtServicos{background-color:#2b5118;color:#fff;font-size:12px;font-weight:700;margin:0 0 0 105px;}
+BODY.contraste .divModNoticiasEstud .servicos .txtServicos{background-color:#53ff6f;}
+.divModForumEstud H4{text-transform:uppercase;font:bold 2em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/tit/titForumEstud.gif) #3f132f no-repeat 7px 3px;height:30px;color:#fff;margin:0;padding:5px 0 0 33px;}
+BODY.contraste .divModForumEstud H4{background:url(http://www.brasil.gov.br/tit/titForumEstud_c.gif) #ff7fd1 no-repeat 7px 3px;color:#000;}
+.divModForumEstud P{font:1.2em Arial,Helvetica,sans-serif;color:#3f132f;padding:0 0 0 10px;}
+BODY.contraste .divModForumEstud P{color:#ff7fd0;}
+.divModForumEstud FORM{padding:8px 0 0 10px;}
+.divModForumEstud FORM FIELDSET LABEL SELECT{width:233px;}
+.divModOpineEstud{width:252px;float:left;padding:0 0 20px 0px;}
+.divModOpineEstud H4{text-transform:uppercase;font:bold 2em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/tit/titOpineEstud.gif) #28295d no-repeat 7px 3px;height:30px;color:#fff;margin:0;padding:5px 0 0 33px;}
+BODY.contraste .divModOpineEstud H4{background:url(http://www.brasil.gov.br/tit/titOpineEstud_c.gif) #a6a7ff no-repeat 7px 3px;color:#000;}
+.divModOpineEstud P{font:1.2em Arial,Helvetica,sans-serif;color:#28295d;padding:4px 0 10px 10px;}
+.divModOpineEstud FORM{padding:0 0 13px 10px;}
+.divModOpineEstud FORM FIELDSET LABEL{display:block;font:1.2em Arial,Helvetica,sans-serif;color:#28295d;padding:0 0 10px;}
+.divModOpineEstud FORM FIELDSET BUTTON.btnVotar{border-bottom:medium none;border-left:medium none;text-indent:-9999px;width:49px;background:url(http://www.brasil.gov.br/btn/btnVotarRoxo.gif) no-repeat;float:right;height:26px;overflow:hidden;border-top:medium none;cursor:pointer;border-right:medium none;}
+BODY.contraste .divModOpineEstud FORM FIELDSET BUTTON.btnVotar{background:url(http://www.brasil.gov.br/btn/btnVotarRoxo_c.gif) no-repeat;}
+.divModOpineEstud UL LI{display:inline;background:#28295d;float:left;padding:4px 5px;}
+BODY.contraste .divModOpineEstud UL LI{background:#a6a7ff;}
+.divModOpineEstud UL LI A{font:bold 1.1em Arial,Helvetica,sans-serif;color:#fff;text-decoration:none;}
+.divModSeloEstud UL LI{padding:0 0 20px;}
+#divModOpineResultado{display:none }
+.divModOpineEstud #divModOpineVotar{display:none }
+.divModOpineEstud .ModOpineEsconde{display:none }
+.divModOpineEstud #ModOpineParcial{display:none}
+.ModOpineLoading{display:block;float:right;width:230px;text-align:center;padding-top:5px;display:none;}
+.divModDestaque{margin-top:10px;float:left;padding:5px;}
+.divModDestaque .divBoxEdicoes{border-bottom:#ffb400 1px solid;padding-bottom:5px;width:504px;float:left;margin:0 0 6px;}
+.divModDestaque .divModDestaqueAntes{margin-right:2px;}
+.divModDestaque .last-child{margin-right:0;}
+.divModDestaque .divBoxEdicoes LABEL SPAN{float:left;color:#000;font-size:1.7em;margin:2px 4px 0 0;}
+.divModDestaqueAntes SPAN.legendaDestaques{text-transform:uppercase;font:1em Arial,Helvetica,sans-serif;float:left;color:#666766;padding:10px 0 0;}
+.divModDestaqueAntes A{text-decoration:none;}
+.divChamadas UL.chamadasAntes .cut_thu_120_65{float:left;width:110px;height:65px;overflow:hidden}
+.divChamadas UL.chamadasAntes LI{border-bottom:#ccc 1px solid;list-style-type:none;width:250px;display:inline;float:left;height:79px;list-style-image:none;margin:0 8px 15px 0;padding:0 0 13px;}
+.divChamadas UL.chamadasAntes LI.grande H3.noimage{width:516px;font:bold 1.4em Arial,Helvetica,sans-serif;float:left;color:#007cc2;padding:0 0 0 5px;}
+.divChamadas UL.chamadasAntes LI.grande P.noimage{width:516px;font:1.2em Arial,Helvetica,sans-serif;float:left;color:#000;padding:5px 0 0 5px;}
+.divChamadas UL.chamadasAntes LI H3{width:123px;font:bold 1.4em Arial,Helvetica,sans-serif;float:left;color:#007cc2;margin:0;padding:0 0 0 13px;}
+.divChamadas UL.chamadasAntes a:hover h3{text-decoration:underline}
+.divChamadas UL.agenciaBrasil{border-bottom:#ccc 1px solid;width:517px;float:left;clear:both;margin:0 0 15px;padding:0 0 15px;}
+.divChamadas UL.agenciaBrasil LI{width:255px;display:inline;float:left;}
+.divChamadas UL.agenciaBrasil LI H3{font:bold 2em Arial,Helvetica,sans-serif;float:left;color:#007cc2;clear:both;margin:0;}
+.divChamadas UL.agenciaBrasil LI SPAN.spanData{font:1.2em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/ico/icoRelogio.gif) no-repeat 0 5px;float:left;color:#666766;padding:5px 0 5px 15px;}
+UL.agenciaBrasil A{background-color:inherit;color:inherit;text-decoration:inherit;}
+UL.agenciaBrasil A:hover H3{text-decoration:underline}
+BODY.contraste .divChamadas UL.agenciaBrasil LI SPAN.spanData{background:url(http://www.brasil.gov.br/ico/icoRelogio_c.gif) no-repeat 0 5px;color:#fff;}
+.bannerAntes{width:780px;float:left;margin:0 0 15px;padding:15px 0 0;}
+.bannerAntes A IMG{float:left;padding:0 7px 0 0;}
+.bannerAntes UL{width:780px;float:left;margin:0;padding:15px 0 0;}
+.bannerAntes UL LI{display:inline;float:left;margin:0;padding:0 5px 0 0;}
+.bannerAntes UL LI.last-child IMG{padding-right:0;}
+.divEmDestaques H3{font:bold 1.7em Arial,Helvetica,sans-serif;color:#000;}
+.divEmDestaques UL LI{list-style-type:none;width:252px;display:block;float:left;clear:both;border-top:#ccc 1px dotted;list-style-image:none;padding:10px 0 8px;}
+.divEmDestaques UL LI.first-child{border-bottom:medium none;border-top:#ccc 1px solid;}
+.divEmDestaques UL LI H4{width:118px;font:bold 1.4em Arial,Helvetica,sans-serif;float:right;color:#007cc2;}
+.divEmDestaques UL LI H4 A{width:124px;font:bold 1em Arial,Helvetica,sans-serif;float:right;color:#007cc2;text-decoration:none;}
+.divEmDestaques UL LI H4 A:hover{text-decoration:underline}
+BODY.contraste .divEmDestaques UL LI H4 A{color:#00eaff !important;}
+.boxChamadas5{float:left;padding:15px 0 0;}
+.div10mais{position:relative;float:left;padding:8px 0 0 10px;}
+.divBoxPos01{width:252px;float:left;height:294px;overflow:hidden;padding:4px 12px 0 0;}
+.divBoxPos01_1{width:252px;float:left;height:276px;overflow:hidden;padding:4px 12px 0 0;}
+.divBoxPos01_1r{width:252px;float:right;height:290px;overflow:hidden;padding:4px 12px 0 0;}
+.divBoxPos01_2{border-bottom:#ccc 1px solid;display:inline;float:left;overflow:hidden;margin:0 10px 30px 0;padding:4px 0 0;}
+.divBoxPos02{width:516px;float:left;margin:0;padding:1px 0 18px;}
+.divBoxPos02_1{width:516px;float:right;margin:0;padding:0 0 18px;}
+.divBoxPos02_2{width:516px;float:right;margin:20px 0;padding:0;}
+.divBoxPos02_3{width:516px;float:right;margin:20px 0 31px;padding:0;}
+.divBoxPos03_1{margin-top:9px;width:252px;float:left;padding:0;}
+.divBoxPos04{width:516px;float:right;height:374px;margin:0 0 38px;padding:0;}
+.divBoxPos04_2{width:516px;float:left;height:380px;padding:0 0 12px 12px;}
+.divBoxPos04_3{width:516px;}
+.divBoxPos04_4{width:520px;float:left;}
+.divBoxPos04_5{width:516px;float:left;margin:0 0 70px;}
+.divBoxPos04_5_1{width:516px;float:left;margin:0;}
+.divBoxPos04_6{width:516px;float:right;padding:0 0 20px;}
+.divBoxPos04_7{width:516px;float:left;height:374px;margin:0 0 13px;padding:0;}
+.divBoxPos05_2{width:516px;float:left;padding:0 12px 0 0;}
+.divBoxPos06{position:relative;width:252px;float:left;padding:0;}
+.divBoxPos06_1{width:252px;float:left;padding:0 0 0 10px;}
+.divBoxPos06_2{width:252px;float:left;padding:8px 0 0;}
+.divBoxPos06_3{width:252px;float:left;padding:0;}
+.divBoxPos06_4{width:516px;float:left;padding:20px 0 0 10px;}
+.divBoxPos08{width:252px;background:gray;float:left;height:10px;padding:0 12px 0 0;}
+.divBoxPos10{width:780px;float:left;margin:0;padding:0;}
+.divBoxPos11{width:252px;float:left;height:10px;padding:0;}
+.divBoxPos12{width:780px;float:left;padding:0;}
+.divBoxPos13{position:relative;width:780px;float:left;padding:20px 0 15px;}
+.divBoxPos14{width:257px;float:left;}
+.divBoxPos15{border-bottom:#ccc 1px solid;width:253px;float:left;border-top:#ccc 1px dashed;}
+.divBoxPos16{width:385px;float:left;}
+.divBoxPos16_01{width:385px;float:left;_padding:0;padding:0 0 0 10px;}
+.divBoxDestImgGrande{width:516px;float:left;padding:0 0 30px;}
+.divBoxDestImgGrande IMG{border-bottom:#e0e1e0 1px solid;border-left:#e0e1e0 1px solid;border-top:#e0e1e0 1px solid;border-right:#e0e1e0 1px solid;padding:2px;}
+.divBoxAudioNPor{border-bottom:#cfcfcf 1px dotted;width:252px;display:inline;float:left;margin:0 12px 20px 0;padding:0 0 17px;}
+.divBoxImagemNPor{border-bottom:#cfcfcf 1px solid;width:252px;display:inline;float:left;margin:0 12px 20px 0;padding:0 0 20px;}
+.divSidebarEsq .divDestArea03{position:relative;width:230px;float:left;padding:0 0 15px 17px;}
+.divSidebarEsq .divDestArea03 H4{font:1.4em Arial,Helvetica,sans-serif;color:#000;padding:0 0 3px;}
+.divSidebarEsq .divDestArea03 H5{border-bottom:medium none;border-left:medium none;font:bold 2em Arial,Helvetica,sans-serif;color:#007cc2;border-top:medium none;border-right:medium none;padding:10px 0 4px;}
+.divSidebarEsq .divDestArea03 P A{color:#000;text-decoration:none;}
+.divBoxPublicacoes{position:relative;width:252px;float:left;padding:0 0 20px 12px;}
+.divModPublicacoes{width:252px;background:url(http://www.brasil.gov.br/bg/bgBoxPublicacoesReplica.jpg) repeat-y;float:left;}
+.divModPublicacoes .divModPublicacoesTop{width:252px;background:url(http://www.brasil.gov.br/bg/bgBoxPublicacoesTop.jpg) no-repeat 50% top;float:left;}
+.divModPublicacoes .divModPublicacoesTop .divModPublicacoesBottom{width:240px;background:url(http://www.brasil.gov.br/bg/bgBoxPublicacoesRodape.jpg) no-repeat 50% bottom;float:left;padding:20px 6px;}
+.divModPublicacoes .divModPublicacoesTop .divModPublicacoesBottom DL DT A{font:bold 1.4em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/ico/icoSetaPublicacoes_off.gif) no-repeat left 50%;color:#ff8400;text-decoration:none;padding:0 0 0 20px;}
+BODY.contraste .divModPublicacoes .divModPublicacoesTop .divModPublicacoesBottom DL DT A{background:url(http://www.brasil.gov.br/ico/icoSetaPublicacoes_off_c.gif) no-repeat left 50%;color:#000;}
+.divModPublicacoes .divModPublicacoesTop .divModPublicacoesBottom DL DT.dtActive A{font:bold 1.8em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/ico/icoSetaPublicacoes_on.gif) no-repeat left 50%;color:#a85600;text-decoration:none;padding:0 0 0 20px;}
+BODY.contraste .divModPublicacoes .divModPublicacoesTop .divModPublicacoesBottom DL DT.dtActive A{background:url(http://www.brasil.gov.br/ico/icoSetaPublicacoes_on_c.gif) no-repeat left 50%;color:#000;}
+.divModPublicacoes .divModPublicacoesTop .divModPublicacoesBottom DL DD{font:1.2em Arial,Helvetica,sans-serif;color:#000;padding:5px 0 20px 6px;}
+.divBoxDestAudioG{border-bottom:#cfcfcf 1px dotted;width:252px;float:left;margin:0 0 20px;padding:0 0 20px;}
+.divBoxDestImagem{border-bottom:#cfcfcf 1px solid;width:252px;float:left;margin:0 0 20px;padding:0 0 20px;}
+.divModDestAudioG{width:120px;float:left;}
+.divModDestAudioG IMG{margin:0 0 10px;}
+.divModDestAudioG H6{font:bold 1.4em Arial,Helvetica,sans-serif;padding:0 0 10px;}
+.divModDestAntes SPAN.legendaDestaques{text-transform:uppercase;font:1em Arial,Helvetica,sans-serif;float:left;color:#666766;padding:0;}
+.divBoxDestaques{position:relative;width:516px;float:left;padding:0;}
+.divBoxDestaques H4{border-bottom:#cfcfcf 1px solid;font:bold 1.7em Arial,Helvetica,sans-serif;color:#000;margin:0 0 10px;padding:0 0 6px;}
+.divModDestAudioP SPAN{font:1em Arial,Helvetica,sans-serif;color:#fff;}
+.divModDestAudioPM{width:223px;float:left;}
+.divBoxAudioAbas{position:relative;width:516px;float:left;margin:0 0 20px;padding:0;}
+.divBoxAudioAbas UL.ulAbas{z-index:10;position:absolute;width:516px;top:7px;left:0;}
+.divBoxAudioAbas UL.ulAbas LI{display:inline;float:left;padding:0 10px 0 0;}
+.divBoxAudioAbas UL.ulAbas LI.liDivisor{width:5px;background:url(http://www.brasil.gov.br/bg/bgDivisorSubmenu.gif) no-repeat 0 12px;float:left;height:13px;padding:10px 3px 6px;}
+.divBoxAudioAbas UL.ulAbas LI A{font:1.7em Arial,Helvetica,sans-serif;float:left;color:#000;text-decoration:none;padding:5px 0 0;}
+.divBoxAudioAbas UL.ulAbas LI.liActive A.tamanho1{width:80px;font:1.7em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/bgAbaNPorRecentes.jpg) no-repeat;float:left;height:24px;color:#007cc2;text-decoration:none;padding:7px 0 0 12px;}
+BODY.contraste .divBoxAudioAbas UL.ulAbas LI.liActive A.tamanho1{background:url(http://www.brasil.gov.br/bg/bgAbaNPorRecentes_c.jpg) no-repeat;color:#fff;}
+.divBoxAudioAbas UL.ulAbas LI.liActive A.tamanho2{text-align:center;width:140px;font:1.7em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/bgAbaNPorRecentes2.jpg) no-repeat;float:left;height:24px;color:#007cc2;text-decoration:none;padding:7px 0 0;}
+BODY.contraste .divBoxAudioAbas UL.ulAbas LI.liActive A.tamanho2{background:url(http://www.brasil.gov.br/bg/bgAbaNPorRecentes2_c.jpg) no-repeat;color:#fff;}
+.divBoxAudioAbas UL.ulAbas LI.liActive A.tamanho3{width:118px;font:1.7em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/bgAbaNPorRecentes3.jpg) no-repeat;float:left;height:24px;color:#007cc2;text-decoration:none;padding:7px 0 0 12px;}
+BODY.contraste .divBoxAudioAbas UL.ulAbas LI.liActive A.tamanho3{background:url(http://www.brasil.gov.br/bg/bgAbaNPorRecentes3_c.jpg) no-repeat;color:#fff;}
+.divBoxAudioAbas .divBoxAudioFiltro{width:516px;background:url(http://www.brasil.gov.br/bg/bgBoxAudioFiltroReplica.jpg) repeat-y;float:left;margin:35px 0 0;}
+.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop{width:516px;background:url(http://www.brasil.gov.br/bg/bgBoxAudioFiltroTop.jpg) no-repeat 50% top;float:left;}
+.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom{width:476px;background:url(http://www.brasil.gov.br/bg/bgBoxAudioFiltroBottom.jpg) no-repeat 50% bottom;float:left;padding:20px;}
+.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom FORM{border-bottom:#cfcfcf 1px dotted;width:476px;float:left;margin:0 0 10px;padding:0 0 10px;}
+.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom FORM FIELDSET LABEL DIV.jquery-selectbox{float:left;margin-right:2px;}
+.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom FORM FIELDSET LABEL SELECT.selTema{width:206px;margin:0 10px 0 0;}
+.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom FORM FIELDSET LABEL SELECT.selSubtema{width:206px;}
+.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom FORM FIELDSET BUTTON.btnFiltrar{border-bottom:medium none;border-left:medium none;text-indent:-9999px;width:49px;background:url(http://www.brasil.gov.br/btn/btnFiltrar.gif) no-repeat;height:26px;vertical-align:middle;overflow:hidden;border-top:medium none;cursor:pointer;border-right:medium none;}
+.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom UL.chamadasAntes LI.grande{border-bottom:#ccc 1px solid;list-style-type:none;width:476px;display:inline;float:left;height:94px;list-style-image:none;padding:10px 0;}
+.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom UL.chamadasAntes LI.grande H3{width:333px;font:bold 1.4em Arial,Helvetica,sans-serif;float:left;color:#007cc2;padding:0 0 0 5px;}
+.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom UL.chamadasAntes LI.grande H3.noimage{width:476px;font:bold 1.4em Arial,Helvetica,sans-serif;float:left;color:#007cc2;padding:0 0 0 5px;}
+.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom UL.chamadasAntes LI.grande P{width:333px;font:1.2em Arial,Helvetica,sans-serif;float:left;color:#000;padding:5px 0 0 5px;}
+.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom .divPaginacao{width:476px;float:left;padding:10px 0 0;}
+.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom .divPaginacao UL LI{display:inline;float:left;padding:1px 4px 0 1px;}
+.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom .divPaginacao UL LI.liNumeracao{display:inline;font:1.1em Arial,Helvetica,sans-serif;float:left;margin:0;padding:0;}
+.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom .divPaginacao UL LI.liNumeracao A{width:17px;display:inline;font:1.1em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/bgListPaginacao.gif) no-repeat 2px 0;float:left;height:18px;color:#52665a;text-decoration:none;padding:2px 4px 0;}
+BODY.contraste .divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom .divPaginacao UL LI.liNumeracao A{background:url(http://www.brasil.gov.br/bg/bgListPaginacao_c.gif) no-repeat 2px 0;height:18px;color:#000;}
+.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom .divPaginacao UL LI.liNumeracao A.aActive{width:18px;display:inline;font:1.1em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/bgListPaginacaoActive.gif) no-repeat 2px 0;float:left;height:19px;color:#fff;}
+BODY.contraste .divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom .divPaginacao UL LI.liNumeracao A.aActive{background:url(http://www.brasil.gov.br/bg/bgListPaginacaoActive_c.gif) no-repeat;color:#000;}
+.divBoxCategorias{margin-top:0;width:252px;margin-bottom:20px;background:url(http://www.brasil.gov.br/bg/bgBoxCategoriasReplica.jpg) repeat-y;float:left;}
+.divBoxCategorias .divBoxCategoriasTop .divBoxCategoriasBottom UL LI{font:bold 1.2em Arial,Helvetica,sans-serif;color:#007cc2;padding:0 0 8px;}
+.divBoxBrasilResp{width:252px;margin-bottom:20px;background:url(http://www.brasil.gov.br/bg/bgBoxCategoriasReplica.jpg) repeat-y;float:left;}
+.divBoxBrasilResp .divBoxBrasilRespTop .divBoxBrasilRespBottom .divBoxListBrasilResp{border-bottom:#ccc 1px dotted;width:232px;float:left;margin:0 0 8px;padding:0 0 8px;}
+.divBoxBrasilResp .divBoxBrasilRespTop .divBoxBrasilRespBottom .divBoxListBrasilResp UL LI.liData{font:1em Arial,Helvetica,sans-serif;color:#666766;padding:0 0 4px;}
+.divBoxBrasilResp .divBoxBrasilRespTop .divBoxBrasilRespBottom .divBoxListBrasilResp UL LI.liResp{font:bold 1.2em Arial,Helvetica,sans-serif;color:#007cc2;padding:4px 0 0;}
+.divBoxBrasilResp .divBoxBrasilRespTop .divBoxBrasilRespBottom SPAN{font:bold 1.2em Arial,Helvetica,sans-serif;float:right;color:#ffb400;}
+.divBoxBrasilResp .divBoxBrasilRespTop .divBoxBrasilRespBottom SPAN A{background:url(http://www.brasil.gov.br/ico/icoSetaAzul.gif) no-repeat left 50%;color:#ffb400;text-decoration:none;padding:0 0 0 12px;}
+BODY.contraste .divBoxBrasilResp .divBoxBrasilRespTop .divBoxBrasilRespBottom SPAN A{background:url(http://www.brasil.gov.br/ico/icoSetaAzul_c.gif) no-repeat left 50%;color:#53ff6f;}
+.divSidebarEsq .divModFeitoBrasil SPAN.spanMais{width:252px;float:left;border-top:#ccc 1px solid;padding:10px 0 0;}
+.divModTestemunhais{position:relative;width:252px;float:left;padding:0 0 0 12px;}
+.divModTestemunhais .divBoxTestemunhais{width:252px;background:url(http://www.brasil.gov.br/bg/bgBoxTestemunhaisReplica.jpg) repeat-y;float:left;}
+.divModTestemunhais .divBoxTestemunhais .divBoxTestemunhaisTop{width:252px;background:url(http://www.brasil.gov.br/bg/bgBoxTestemunhaisTop.jpg) no-repeat 50% top;float:left;}
+.divModTestemunhais .divBoxTestemunhais .divBoxTestemunhaisTop .divBoxTestemunhaisBottom{width:232px;background:url(http://www.brasil.gov.br/bg/bgBoxTestemunhaisBottom.jpg) no-repeat 50% bottom;float:left;padding:20px 10px;}
+.divModTestemunhais .divBoxTestemunhais .divBoxTestemunhaisTop .divBoxTestemunhaisBottom SPAN.spanMais{width:232px;float:left;border-top:#ccc 1px solid;padding:10px 0 0;}
+.divBoxSelosSitios{width:252px;float:left;padding:10px 0 20px 12px;}
+.divModTextAudioLink P A{font:bold 1.2em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/ico/icoSetaAmarela.gif) no-repeat left 50%;color:#007cc2;text-decoration:none;padding:0 0 0 10px;}
+BODY.contraste .divModTextAudioLink P A{background:url(http://www.brasil.gov.br/ico/icoSetaAmarela_c.gif) no-repeat left 50%;color:#00eaff;}
+.divModNotCopa{width:252px;background:url(http://www.brasil.gov.br/bg/bgBoxUltCopaReplica.jpg) repeat-y;float:left;}
+.divModNotCopa .divModNotCopaTop{width:252px;background:url(http://www.brasil.gov.br/bg/bgBoxUltCopaTop.jpg) no-repeat 50% top;float:left;}
+.divModNotCopa .divModNotCopaTop .divModNotCopaBottom{width:240px;background:url(http://www.brasil.gov.br/bg/bgBoxUltCopaRodape.jpg) no-repeat 50% bottom;float:left;padding:20px 6px;}
+.divModNotCopa .divModNotCopaTop .divModNotCopaBottom DL DT.dtBg2{background:#1c3400;}
+.divModNotCopa .divModNotCopaTop .divModNotCopaBottom DL DT A{font:bold 1.4em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/ico/icoSetaCopa_off.gif) no-repeat left 50%;color:#c9fea8;text-decoration:none;padding:0 0 0 20px;}
+BODY.contraste .divModNotCopa .divModNotCopaTop .divModNotCopaBottom DL DT A{background:url(http://www.brasil.gov.br/ico/icoSetaCopa_off_c.gif) no-repeat left 50%;color:#000;}
+.divModNotCopa .divModNotCopaTop .divModNotCopaBottom DL DT.dtActive A{font:bold 1.8em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/ico/icoSetaCopa_on.gif) no-repeat left 50%;color:#fff;text-decoration:none;padding:0 0 0 20px;}
+BODY.contraste .divModNotCopa .divModNotCopaTop .divModNotCopaBottom DL DT.dtActive A{background:url(http://www.brasil.gov.br/ico/icoSetaCopa_on_c.gif) no-repeat left 50%;color:#000;}
+.divModNotCopa .divModNotCopaTop .divModNotCopaBottom DL DD{font:1.2em Arial,Helvetica,sans-serif;color:#dbffa5;padding:5px 0 20px 6px;}
+.chamada_tv H2{font:bold 1.9em Arial,Helvetica,sans-serif;color:#007cc2;}
+.chamada_tv P{font:1.2em Arial,Helvetica,sans-serif;color:#000;padding-top:5px;}
+.chamada_tv .mostra_img{z-index:0;position:relative;height:163px;overflow:hidden;top:20px;}
+.chamada_tv .mostra_img IMG{position:absolute;}
+.chamada_tv .mostra_texto{margin-top:25px;}
+.chamada_tv UL{z-index:10;position:absolute;right:0;}
+.chamada_tv UL LI{text-align:center;float:left;}
+.chamada_tv UL LI.space{text-align:center;width:1px;background:url(http://www.brasil.gov.br/bg/traco_navDHTML.gif) no-repeat right 8px;float:left;height:20px;}
+.chamada_tv UL LI A{width:21px;display:block;font:bold 1.4em Arial,Helvetica,sans-serif;float:left;height:25px;color:#b3b3b3;text-decoration:none;padding-top:3px;}
+.chamada_tv UL LI.active A{width:21px;display:block;background:url(http://www.brasil.gov.br/bg/bg_tvNavegador.gif) no-repeat;float:left;height:25px;color:#fff;}
+BODY.contraste .chamada_tv UL LI.active A{background:url(http://www.brasil.gov.br/bg/bg_tvNavegador_c.gif) no-repeat;height:25px;color:#000;}
+.banner_250{width:250px;float:left;margin:0;padding:5px 0 0 7px;}
+.banner_250 UL LI{width:250px;float:left;padding-top:10px;margin:0;}
+.banner_250_unitario{width:250px;float:left;margin:0;padding:12px 0 10px 3px;}
+.banner_250_unitario UL LI{width:250px;float:left;padding-top:10px;}
+.divSidebarEsq .divMaisComentadas .servicos_acessados{width:252px;background:url(http://www.brasil.gov.br/bg/bgBoxFilBuscaReplica.jpg) repeat-y;float:left;margin:0;}
+.servicos_acessados SPAN.mais10{display:block;font:bold 4em Arial,Helvetica,sans-serif;float:left;color:#000;}
+BODY.contraste .servicos_acessados SPAN.mais10{font:bold 4em Arial,Helvetica,sans-serif;color:#fff;}
+.servicos_acessados H4{border-bottom:medium none;border-left:medium none;width:170px;font:bold 1.7em Arial,Helvetica,sans-serif;float:left;color:#000;border-top:medium none;border-right:medium none;margin:3px 0 0 10px;}
+.servicos_acessados UL{border-bottom:#cecece 1px dotted;clear:both;border-top:#cecece 1px dotted;}
+.servicos_acessados UL LI{background:url(http://www.brasil.gov.br/ico/icoCalendDestEvent.gif) no-repeat 0 6px;padding:3px 0;}
+.servicos_acessados UL LI A{padding-left:10px;font:bold 1.2em Arial,Helvetica,sans-serif;color:#007cc2;text-decoration:none;}
+.servicos_acessados SPAN.spanMais A{font:1.2em Arial,Helvetica,sans-serif;float:right;color:#ffb400;text-decoration:none;padding:5px 6px 0 0;}
+.ServicosNaveguePor DIV.ServicosNavegueCont{width:250px;float:left;border-top:#cfcfcf 1px dotted;margin-right:6px;padding:5px 0 0;}
+.ServicosNaveguePor DIV.ServicosNavegueCont P{text-align:left;display:inline;font:1.2em Arial,Helvetica,sans-serif;float:left !important;color:#007cc2;padding:0;}
+.ServicosNaveguePor DIV.ServicosNavegueCont SPAN{width:70%;display:block;font:1.2em Arial,Helvetica,sans-serif;float:left;color:#000;}
+.ServicosNaveguePorImg{overflow:hidden;width:65px;height:65px;display:block;float:left;margin-right:10px;}
+.ServicosNaveguePorImg img{float:left;}
+BODY.contraste .ServicosNaveguePorImg img{margin-top:-65px;float:left }
+.destaquesPublicacoes H3{padding-bottom:5px;font:bold 1.6em Arial,Helvetica,sans-serif;color:#000;}
+.bordaMostra{border-bottom:#cfcfcf 1px dotted;width:100%;float:left;clear:both;border-top:#cfcfcf 1px dotted;}
+BODY.contraste .bordaMostra{border-bottom:#999 1px dotted;border-top:#999 1px dotted;}
+.bordaMostra .box{border-left:#cfcfcf 1px dotted;width:96px;float:left;height:120px;margin:10px 0;padding:13px 11px;}
+.bordaMostra .fst{border-left:medium none;}
+.bordaMostra .box A{border-bottom:#cfcfcf 1px solid;border-left:#cfcfcf 1px solid;margin-top:-10px;width:91px;display:block;float:left;border-top:#cfcfcf 1px solid;border-right:#cfcfcf 1px solid;padding:2px;}
+.bordaMostra .box P{text-align:center;}
+.bordaMostra .box P A{border-bottom:medium none;border-left:medium none;margin-top:0;border-top:medium none;border-right:medium none;}
+.bordaMostra .box SPAN{text-align:center;display:block;}
+.busca_sala_imprensa{width:780px !important;background:url(http://www.brasil.gov.br/bg/bg_busca_sala_imprensa.gif) no-repeat;float:left;height:65px;padding:6px 0 0 5px;}
+BODY.contraste .busca_sala_imprensa{background:url(http://www.brasil.gov.br/bg/bg_busca_sala_imprensa_c.gif) no-repeat;}
+.busca_sala_imprensa LABEL.tit{font:bold 1.7em Arial,Helvetica,sans-serif;float:left;color:#000;}
+.busca_sala_imprensa LABEL{display:block;font:1.1em Arial,Helvetica,sans-serif;float:left;color:#007cc2;margin:0 8px 0 6px;padding:0;}
+.busca_sala_imprensa LABEL INPUT{position:relative;top:1px;left:-3px;}
+.busca_sala_imprensa SPAN LABEL INPUT{border-bottom:medium none;border-left:medium none;width:419px !important;background:url(http://www.brasil.gov.br/bg/bg_input_busca_imprensa.gif) no-repeat right 50%;height:23px;border-top:medium none;border-right:medium none;margin:-4px 0 0;padding:4px 10px 0;}
+body.contraste .busca_sala_imprensa SPAN LABEL INPUT{background:url(http://www.brasil.gov.br/bg/bg_input_busca_imprensa_c.gif) no-repeat right 50%;}
+.busca_sala_imprensa SPAN LABEL .jquery-selectbox{width:122px !important;}
+.busca_sala_imprensa SPAN LABEL .jquery-selectbox .jquery-selectbox-list{width:102px !important;}
+.busca_sala_imprensa SPAN .btnBuscar{border-bottom:medium none;border-left:medium none;width:49px;background:url(http://www.brasil.gov.br/btn/btnBuscar.gif) no-repeat;height:26px;border-top:medium none;cursor:pointer;border-right:medium none;}
+.Noticia_1_img_1_txt_01{width:390px;float:left;}
+.divModDest4ColAbas .divConteudosAbas .divConteudosAbasTop .faleBrasilEnvieQuestao P.first-child{border-bottom:#cfcfcf 1px dotted;padding:8px 0;}
+.divModDest4ColAbas .divConteudosAbas .divConteudosAbasTop .faleBrasilEnvieQuestao FORM FIELDSET LABEL .jquery-selectbox{margin-top:7px;}
+.divModDest4ColAbas .divConteudosAbas .divConteudosAbasTop .faleBrasilEnvieQuestao FORM FIELDSET .dejesarRespostaEmail{width:50%;}
+.faleComBrasil .divBoxSecao{width:525px;background:url(http://www.brasil.gov.br/bg/boxCenterSecaoMeuBrasil.gif) repeat-y;float:left;}
+.faleComBrasil .divBoxSecao .divBoxSecaoTop{width:525px;background:url(http://www.brasil.gov.br/bg/boxTopSecaoMeuBrasil.gif) no-repeat 50% top;float:left;}
+.faleComBrasil .divBoxSecao .divBoxSecaoTop .divBoxSecaoBottom{text-align:center;width:485px;background:url(http://www.brasil.gov.br/bg/boxBottomSecaoMeuBrasil.gif) no-repeat 50% bottom;float:left;padding:20px;}
+.faleComBrasil .divBoxSecao .divBoxSecaoTop .divBoxSecaoBottom .pMensagem{text-align:center;font:bold 1.6em Arial,Helvetica,sans-serif;color:#00a349;padding:10px 0 0;}
+.faleComBrasil P.chamadaAssociada{border-bottom:#e5e5e5 1px solid;float:left;margin:10px 0;padding:0 4px;}
+.faleComBrasil P.chamadaAssociada IMG{position:relative;left:50%;margin:10px 0 10px -35px;}
+.faleComBrasil .loginForm{border-bottom:#e5e5e5 1px dotted;text-align:center;float:left;border-top:#e5e5e5 1px solid;padding:10px 0 5px;}
+.faleComBrasil .loginForm FORM{text-align:left;width:260px;font-family:Arial;margin-left:120px;font-size:1.2em;}
+.faleComBrasil .loginForm .loginForm FORM FIELDSET .divEsqueciSenha{width:251px;float:left;border-top:#cfcfcf 1px dotted;padding-top:10px;}
+.faleComBrasil .loginForm FORM FIELDSET P.esqueci{width:180px;display:block;float:left;}
+.faleComBrasil .loginForm FORM FIELDSET P.esqueci A{text-align:left;width:200px;font-family:Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/ico/icoSetaAzul.gif) no-repeat 0 5px;float:left;color:#ffb400;clear:both;font-size:1em;font-weight:700;text-decoration:none;padding:0 0 0 13px;}
+BODY.contraste .faleComBrasil .loginForm FORM FIELDSET P.esqueci A{background:url(http://www.brasil.gov.br/ico/icoSetaAzul_c.gif) no-repeat 0 5px;color:#53ff6f;}
+.faleComBrasil .loginForm .btnEntrar{border-bottom:medium none;border-left:medium none;width:49px;background:url(http://www.brasil.gov.br/btn/btnEntrar.gif) no-repeat 0 0;float:right;height:26px;border-top:medium none;cursor:pointer;border-right:medium none;}
+.faleComBrasil .loginForm .btnEntrar-en{BORDER-BOTTOM:medium none;BORDER-LEFT:medium none;WIDTH:49px;BACKGROUND:url(http://www.brasil.gov.br/btn/btnEntrar_en.gif) no-repeat 0px 0px;FLOAT:right;HEIGHT:26px;BORDER-TOP:medium none;CURSOR:pointer;BORDER-RIGHT:medium none}
+.faleComBrasil .loginForm .btnEntrar-es{BORDER-BOTTOM:medium none;BORDER-LEFT:medium none;WIDTH:49px;BACKGROUND:url(http://www.brasil.gov.br/btn/btnEntrar_es.gif) no-repeat 0px 0px;FLOAT:right;HEIGHT:26px;BORDER-TOP:medium none;CURSOR:pointer;BORDER-RIGHT:medium none}
+.faleComBrasil .loginForm INPUT{border-bottom:medium none;border-left:medium none;width:254px;margin-bottom:10px;background:url(http://www.brasil.gov.br/bg/bgInputCorreioEletr.gif) no-repeat 0 0;height:26px;border-top:medium none;border-right:medium none;}
+.faleComBrasil .listaQuestoes{z-index:10;border-bottom:#e5e5e5 1px solid;position:relative;margin-top:1px;width:500px;margin-bottom:10px;float:left;border-top:#e5e5e5 1px solid;}
+.faleComBrasil .listaQuestoes .listaQuestoesItem{position:relative;margin-top:-1px;width:500px;float:left;border-top:#e5e5e5 1px dotted;padding:10px 0;}
+.faleComBrasil .listaQuestoes .listaQuestoesItem SMALL{font-family:Arial,Helvetica,sans-serif;float:left;color:#666766;font-size:1em;}
+.faleComBrasil .listaQuestoes .listaQuestoesItem STRONG{display:block;font-family:Arial,Helvetica,sans-serif;float:left;color:#000;font-size:1.2em;font-weight:700;}
+.faleComBrasil .listaQuestoes .listaQuestoesTextos{width:300px;float:left;}
+.faleComBrasil .listaQuestoes .listaQuestoesItem P.AJudaWarapper{border-bottom:medium none;border-left:medium none;width:10px;float:left;height:10px;border-top:medium none;border-right:medium none;margin:-1px 0 0;padding:0;}
+.faleComBrasil .listaQuestoes .listaQuestoesItem P.listaQuestoesItemResposta{position:relative;color:#666766;border-right:#cfcfcf 1px dotted;margin:0 120px 0 0;padding:0 10px 20px 0;}
+.faleComBrasil .listaQuestoes .listaQuestoesItem P.listaQuestoesItemResposta P{position:relative;color:#666766;border-right:medium none;margin:0;padding:0;}
+.faleComBrasil .listaQuestoes .listaQuestoesItem P.listaQuestoesItemResposta B{color:#fda611;}
+.faleComBrasil .listaQuestoes .listaQuestoesItem P.listaQuestoesItemResposta STRONG{color:#666766;font-size:1em;}
+.faleComBrasil .listaQuestoes .listaQuestoesItem P.listaQuestoesItemResposta A{margin-top:0;float:left;color:#009241;font-size:1em;font-weight:400;}
+.faleComBrasil .listaQuestoes .listaQuestoesItem .listaQuestoesItemCadastro{position:relative;border-right:#cfcfcf 1px dotted;margin:0 120px 0 0;padding:0 10px 20px 0;}
+.faleComBrasil .listaQuestoes .listaQuestoesItem .divModBoxAudioP1{position:relative;width:auto;border-right:#cfcfcf 1px dotted;margin:0 120px 0 0;padding:0 9px 0 0;}
+.faleComBrasil .listaQuestoes .listaQuestoesItem .divModBoxAudioP1 P{border-bottom:medium none;border-left:medium none;border-top:medium none;border-right:medium none;margin:0;padding:0 0 9px;}
+.faleComBrasil .listaQuestoes .listaQuestoesItem .divModBoxAudioP1 A{margin-top:0;font-weight:400;}
+.faleComBrasil .divBoxVideoG{margin-top:-10px;}
+.faleComBrasil .divBoxBaixar{border-bottom:#e5e5e5 1px solid;margin-bottom:5px;}
+.faleComBrasil .listaQuestoes .listaQuestoesItem .listaQuestoesItemCadastro STRONG{display:block;border-top:#cfcfcf 1px dotted;padding:10px 0 0;}
+.faleComBrasil .listaQuestoes .listaQuestoesItem .listaQuestoesItemCadastro P{border-right:medium none;margin:0 0 10px;padding:0;}
+.faleComBrasil .listaQuestoes .listaQuestoesItem .listaQuestoesItemCadastro FIELDSET INPUT{border-bottom:0;border-left:0;margin-top:10px;width:238px;font:1.2em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/inputCaptcha.jpg) no-repeat right center;float:right;height:24px;color:#000;border-top:0;border-right:0;font-size-adjust:none;font-stretch:normal;padding:2px 8px 0;}
+.faleComBrasil .listaQuestoes .listaQuestoesItem .listaQuestoesItemCadastro FIELDSET BUTTON{border-bottom:medium none;border-left:medium none;width:113px;background:url(http://www.brasil.gov.br/btn/btnFinalizarVotacao.gif) no-repeat;float:right;height:26px;border-top:medium none;border-right:medium none;}
+.faleComBrasil .listaQuestoes .listaQuestoesItem A{display:block;background:url(http://www.brasil.gov.br/ico/icoSetaAmarela.gif) no-repeat left center;float:left;color:#007cc2;font-size:1.2em;font-weight:700;text-decoration:none;padding:0 10px;}
+BODY.contraste .faleComBrasil .listaQuestoes .listaQuestoesItem A{background:url(http://www.brasil.gov.br/ico/icoSetaAmarela_c.gif) no-repeat left center;color:#53ff6f;}
+.faleComBrasil .listaQuestoes .listaQuestoesItem A.showLinks{padding-left:20px;background:url(http://www.brasil.gov.br/ico/icoSetaPublicacoes_off.gif) no-repeat left center;font-weight:400;}
+BODY.contraste .faleComBrasil .listaQuestoes .listaQuestoesItem A.showLinks{background:url(http://www.brasil.gov.br/ico/icoSetaBottomAmarela.gif) no-repeat 0 0;}
+BODY.contraste .faleComBrasil .listaQuestoes .listaQuestoesItem .divModBoxAudioP1 .divBoxBaixarAudioP1 UL LI.liBaixar A{background:url(http://www.brasil.gov.br/ico/icoBaixar_off_c.gif) no-repeat left bottom;color:#fff;}
+BODY.contraste .faleComBrasil .listaQuestoes .listaQuestoesItem .divModBoxAudioP1 .divBoxBaixarAudioP1 UL LI.liBaixar A:hover{background:url(http://www.brasil.gov.br/ico/icoBaixar_on_c.gif) no-repeat left bottom;color:#fff;}
+.faleComBrasil .listaQuestoes .listaQuestoesItem P A{display:inline-block;background:none transparent scroll repeat 0 0;float:right;margin:5px 0 0;padding:0;}
+.faleComBrasil .listaQuestoes .listaQuestoesItem .listaQuestoesItemContador{text-align:center;border-left:#cfcfcf 1px dotted;line-height:16px;width:122px;font-family:Arial,Helvetica,sans-serif;float:left;height:36px;color:#ffb400;font-size:1.6em;font-weight:700;margin:17px 0 0 10px;}
+.faleComBrasil .listaQuestoes .listaQuestoesItem .listaQuestoesItemContador STRONG{float:none;clear:none;font-family:Arial,Helvetica,sans-serif;color:#007cc2;font-size:1.6em;}
+.faleComBrasil .listaQuestoes .listaQuestoesItem .divBoxCopieLink{width:520px;float:left;clear:both;}
+.faleComBrasil .listaQuestoes .listaQuestoesItem .divBoxCopieLink FIELDSET LABEL.links{width:520px;display:block;color:#fff;font-size:12px;padding:10px 5px 0 0;}
+.faleComBrasil .listaQuestoes .listaQuestoesItem .divBoxCopieLink FIELDSET INPUT{border-bottom:medium none;border-left:medium none;width:386px;background:url(http://www.brasil.gov.br/bg/bgInputProcurarImagem.gif) no-repeat left bottom;height:23px;border-top:medium none;border-right:medium none;padding:3px 5px 0;}
+BODY.contraste .faleComBrasil .listaQuestoes .listaQuestoesItem .divBoxCopieLink FIELDSET INPUT{background:url(http://www.brasil.gov.br/bg/bgInputProcurarImagemPi.gif) no-repeat left bottom;color:#fff;}
+.faleComBrasil .listaQuestoesAba H3{line-height:normal;font-family:Arial,Helvetica,sans-serif;float:left;color:#000;font-size:1.7em;font-weight:700;padding:7px 5px 0;}
+.faleComBrasil .listaQuestoesAba UL.ulAbas{position:relative;float:left;margin:0 0 -2px 2px;}
+.faleComBrasil .listaQuestoesAba UL.ulAbas LI{display:inline;float:left;margin:0 3px 0 0;padding:0;}
+.faleComBrasil .listaQuestoesAba UL.ulAbas LI A{line-height:normal;font-family:Arial,Helvetica,sans-serif;float:left;color:#000;font-size:1.7em;text-decoration:none;padding:8px 0 0;}
+.faleComBrasil .listaQuestoesAba UL.ulAbas LI SPAN{display:none;float:left;}
+.faleComBrasil .listaQuestoesAba UL.ulAbas LI.liActive SPAN{display:block;}
+.faleComBrasil .listaQuestoesAba UL.ulAbas LI.liActive{background:url(http://www.brasil.gov.br/bg/bgConteudosAbas.jpg) repeat-x 0 0;}
+BODY.contraste .faleComBrasil .listaQuestoesAba UL.ulAbas LI.liActive{background:url(http://www.brasil.gov.br/bg/bgConteudosAbas_c.jpg) repeat-x 0 0;}
+.faleComBrasil .listaQuestoesAba UL.ulAbas LI.liDivisor{width:1px;background:url(http://www.brasil.gov.br/bg/bgDivisorVoto.gif) no-repeat center bottom;float:left;height:12px;padding:13px 5px 0;}
+.divBotoes{margin-top:10px;width:516px;float:left;border-top:#e5e5e5 1px solid;padding-top:10px;}
+.divBotoes A{float:right;margin-left:10px;}
+.jScrollPaneContainer{position:relative;float:left;overflow:hidden;}
+.jScrollPaneContainer A.jScrollArrowUp{z-index:1;position:absolute;text-indent:-2000px;display:block;background:url(http://www.brasil.gov.br/bg/bgScrollButtonTop.gif) #030303 0 0;height:18px;overflow:hidden;top:0;right:0;}
+BODY.contraste .jScrollPaneContainer A.jScrollArrowUp{background:url(http://www.brasil.gov.br/bg/bgScrollButtonTop_c.gif) #030303 0 0;}
+.jScrollPaneContainer .jScrollPaneTrack{position:absolute;background:#ebebec 0 0;height:100%;top:0;cursor:pointer;right:0;}
+.jScrollPaneContainer .jScrollPaneDrag{position:absolute;background:url(http://www.brasil.gov.br/bg/bgScrollTrackBg.gif) #666 center 50%;overflow:hidden;cursor:pointer;}
+BODY.contraste .jScrollPaneContainer .jScrollPaneDrag{background:url(http://www.brasil.gov.br/bg/bgScrollTrackBg_c.gif) #000 center 50%;}
+.jScrollPaneContainer .jScrollPaneDrag .jScrollPaneDragTop{position:absolute;background:url(http://www.brasil.gov.br/bg/bgScrollTrackTop.gif) 0 0;height:4px;top:0;left:0;}
+BODY.contraste .jScrollPaneDrag .jScrollPaneDragTop{background:url(http://www.brasil.gov.br/bg/bgScrollTrackTop_c.gif) 0 0;}
+.jScrollPaneContainer .jScrollPaneDrag .jScrollPaneDragBottom{position:absolute;bottom:0;background:url(http://www.brasil.gov.br/bg/bgScrollTrackBottom.gif) 0 0;height:4px;left:0;}
+BODY.contraste .jScrollPaneDrag .jScrollPaneDragBottom{background:url(http://www.brasil.gov.br/bg/bgScrollTrackBottom_c.gif) 0 0;}
+.jScrollPaneContainer A.jScrollArrowDown{z-index:1;position:absolute;text-indent:-2000px;bottom:0;display:block;background:url(http://www.brasil.gov.br/bg/bgScrollButtonBottom.gif) #030303 0 0;height:18px;overflow:hidden;right:0;}
+BODY.contraste .jScrollPaneContainer A.jScrollArrowDown{background:url(http://www.brasil.gov.br/bg/bgScrollButtonBottom_c.gif) #030303 0 0;}
+.versaoFlash{position:absolute;width:150px;font-family:Arial,Helvetica,sans-serif;font-size:1.2em;top:1;right:0;}
+.divConteudoInterna H4.titGaleriaImagens{width:334px;font:bold 2px Arial,Helvetica,sans-serif;float:left;color:#007cc2;margin:5px 0 0;padding:0 0 20px;}
+.divConteudoInterna .envieSuaImagem{text-align:right;width:148px;float:left;height:60px;padding:15px 0 0;}
+.divModTitSubmenu H3.titGaleriaArte{border-bottom:#ffb400 1px solid;line-height:27px;width:750px;font-family:Arial,Helvetica,sans-serif;color:#000;font-size:3.6em;font-size-adjust:none;margin:0;padding:0 0 10px;}
+.divSidebarEsq .divMaisComentadas .divBoxComentadas .divBoxComentadasTop .divBoxComentadasBottom .aba-content H3{font:bold 1.6em Arial,Helvetica,sans-serif;color:#000;}
+.divSidebarEsq .divMaisComentadas .divBoxComentadas .divBoxComentadasTop .divBoxComentadasBottom .divBoxThumbs SPAN{font:1.1em Arial,Helvetica,sans-serif;color:#7f7f7f;}
+.divSidebarEsq .divMaisComentadas .divBoxComentadas .divBoxComentadasTop .divBoxComentadasBottom .maisArtistas{font:bold 1.1em Arial,Helvetica,sans-serif;float:right;color:#ffb400;margin:5px 0 0;}
+.divSidebarEsq .divMaisComentadas .divBoxComentadas .divBoxComentadasTop .divBoxComentadasBottom .maisArtistas A{font:bold 1.1em Arial,Helvetica,sans-serif;color:#ffb400;text-decoration:none;}
+.divConteudoInterna .divCompartilhamento .divCompartilhamentoTop .divCompartilhamentoBottom H4{font:bold 1.6em Arial,Helvetica,sans-serif;color:#000;text-decoration:none;}
+.divConteudoInterna .divCompartilhamento .divCompartilhamentoTop .divCompartilhamentoBottom FORM FIELDSET{width:500px;float:left;margin:0;padding:0;}
+.divConteudoInterna .divCompartilhamento .divCompartilhamentoTop .divCompartilhamentoBottom FORM FIELDSET LABEL{width:470px;font:1.2em Arial,Helvetica,sans-serif;float:left;color:#000;padding:10px 0 0 15px;}
+.divConteudoInterna .divCompartilhamento .divCompartilhamentoTop .divCompartilhamentoBottom FORM FIELDSET LABEL.nospace{width:470px;font:1.2em Arial,Helvetica,sans-serif;float:left;color:#000;padding:0 0 0 15px;}
+.divConteudoInterna .divCompartilhamento .divCompartilhamentoTop .divCompartilhamentoBottom FORM FIELDSET LABEL INPUT.nomeImagem{border-bottom:medium none;border-left:medium none;width:461px;background:url(http://www.brasil.gov.br/bg/bgEndereco.gif) no-repeat;float:left;height:25px;clear:both;border-top:medium none;border-right:medium none;padding:3px 0 0 5px;}
+.divConteudoInterna .divCompartilhamento .divCompartilhamentoTop .divCompartilhamentoBottom FORM FIELDSET LABEL INPUT.procurarImagem{border-bottom:medium none;border-left:medium none;width:391px;background:url(http://www.brasil.gov.br/bg/bgInputProcurarImagem.gif) no-repeat;float:left;height:25px;border-top:medium none;border-right:medium none;padding:3px 0 0 5px;}
+.divConteudoInterna .divCompartilhamento .divCompartilhamentoTop .divCompartilhamentoBottom FORM FIELDSET LABEL .procurar{display:inline;float:left;margin:3px 0 0;}
+.divConteudoInterna .divCompartilhamento .divCompartilhamentoTop .divCompartilhamentoBottom FORM FIELDSET .enviarImagem{border-bottom:medium none;border-left:medium none;width:93px;background:url(http://www.brasil.gov.br/btn/btnEnviarImagem.gif) no-repeat;float:right;height:26px;border-top:medium none;border-right:medium none;margin:0 23px 0 0;}
+.divConteudoInterna .divCompartilhamento .divCompartilhamentoTop .divCompartilhamentoBottom FORM FIELDSET LABEL DIV.jquery-selectbox{width:370px !important;}
+.divConteudoInterna .divCompartilhamento .divCompartilhamentoTop .divCompartilhamentoBottom FORM FIELDSET P{float:left;padding:3px 0 0 15px;}
+.divConteudoInterna .divCompartilhamento .divCompartilhamentoTop .divCompartilhamentoBottom FORM FIELDSET P.obs{font:1.1em Arial,Helvetica,sans-serif;float:left;padding:3px 0 0 15px;}
+.buscaAcervoDigital H4.titAcervoDigital{font:1.4em Arial,Helvetica,sans-serif;color:#000;}
+.buscaAcervoDigital FORM FIELDSET LABEL DIV.jquery-selectbox{width:250px !important;}
+.buscaAcervoDigital FORM FIELDSET .btnIr{border-bottom:medium none;border-left:medium none;width:30px;background:url(http://www.brasil.gov.br/btn/btnIr.gif) no-repeat;height:26px;border-top:medium none;border-right:medium none;margin:0;padding:0;}
+.buscaAcervoDigital FORM FIELDSET .btnLimpar{border-bottom:medium none;border-left:medium none;width:47px;background:url(http://www.brasil.gov.br/btn/btnLimpar.gif) no-repeat;height:26px;border-top:medium none;border-right:medium none;margin:0;padding:0;}
+.buscaAcervoDigital FORM FIELDSET LABEL{display:inline;margin:0;padding:0;}
+.buscaAcervoDigital FORM FIELDSET LABEL.selectBusca{float:left;margin:0;padding:4px;}
+.buscaAcervoDigital FORM FIELDSET LABEL INPUT.inputBuscaGaleria{border-bottom:medium none;border-left:medium none;width:169px;font:1.4em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/bgInputBuscar.gif) no-repeat right center;height:26px;color:#000;border-top:medium none;border-right:medium none;margin:0;padding:7px 0 0 5px;}
+.divConteudoInterna .listaAcervoDigital{border-bottom:#e5e5e5 1px solid;width:510px;float:left;margin:0 0 15px;}
+.divConteudoInterna .listaAcervoDigital UL{width:510px;float:left;}
+.divConteudoInterna .listaAcervoDigital UL LI{width:120px;display:inline;float:left;margin:0;padding:0 6px 0 0;}
+.divConteudoInterna .listaAcervoDigital UL LI H4{text-align:center;font:bold 1.4em Arial,Helvetica,sans-serif;color:#007cc2;}
+.divConteudoInterna .listaAcervoDigital UL LI.last-child{display:inline;float:left;margin:0;padding:0;}
+H4.titGaleriaColaborativa{font:bold 2.4px Arial,Helvetica,sans-serif;color:#007cc2;font-size-adjust:none;font-stretch:normal;margin:0;padding:0 0 20px;}
+P.txtGaleriaColaborativa{font:1.2em Arial,Helvetica,sans-serif;color:#000;font-size-adjust:none;font-stretch:normal;padding:0 0 20px;}
+.palavra_chave{width:496px;margin-bottom:0;background:url(http://www.brasil.gov.br/bg/bg_palavra_chave.gif) no-repeat 0 0;height:65px;padding:20px 0 0 20px;}
+.palavra_chave FIELDSET LEGEND{width:100%;font:1.2em Arial,Helvetica,sans-serif;}
+.palavra_chave FIELDSET INPUT{border-bottom:medium none;border-left:medium none;width:400px;background:url(http://www.brasil.gov.br/bg/inputNomeMeuBrasil.gif) no-repeat 0 0;float:left;height:26px;border-top:medium none;border-right:medium none;padding:4px 10px 0 6px;font-size:11pt;}
+BODY.contraste .palavra_chave FIELDSET INPUT{background:url(http://www.brasil.gov.br/bg/inputNomeMeuBrasil_c.gif) no-repeat 0 0;color:#fff;}
+.palavra_chave FIELDSET BUTTON.btnBuscar{border-bottom:medium none;border-left:medium none;width:50px;background:url(http://www.brasil.gov.br/btn/btnBuscar.gif) no-repeat 0 0;float:left;height:26px;border-top:medium none;cursor:pointer;border-right:medium none;margin:0 0 0 5px;}
+UL.result_faleCom{float:left;border-top:#cfcfcf 1px solid;padding:0 0 20px;}
+UL.result_faleCom LI.wd{background:#f6f6f6;}
+UL.result_faleCom LI H2 A{width:503px;font:0.5em Arial,Helvetica,sans-serif;color:#007cc2;padding:7px 0 0 10px;}
+UL.result_faleCom LI A{display:block;font:1.2em Arial,Helvetica,sans-serif;color:#000;text-decoration:none;padding:4px 0 5px 10px;}
+.divConteudoInterna P.personalidade{font:bold 1.2em Arial,Helvetica,sans-serif;color:#000;padding:0;}
+.divConteudoInterna P.empresa{font:bold 1.2em Arial,Helvetica,sans-serif;color:#000;padding:0 0 8px;}
+.divBoxDestImagemG{border-bottom:#cfcfcf 1px solid;min-height:235px;width:252px;float:left;height:auto !important;margin:0 0 20px;padding:0 0 20px;}
+.divDestMineG{border-bottom:medium none;border-left:medium none;width:244px;float:left;border-top:medium none;border-right:medium none;padding:12px 0 2px 2px;}
+.divDestMineG H3{font-family:Arial,Helvetica,sans-serif;float:left;color:#007cc2;clear:both;font-size:1.6em;font-weight:700;padding:10px 0;}
+.divDestMineG P.detVideo{font:1.2em Arial,Helvetica,sans-serif;float:left;color:#000;clear:both;padding:12px 0 2px;}
+.divDestMineG P{font:bold 1.4em Arial,Helvetica,sans-serif;color:#007cc2;padding:0 0 2px;}
+.divConteudoInterna .divLinhaDoTempoItens .divLinhaDoTempoItem{width:472px;background:#f6f6f6;float:left;clear:both;border-top:#d0d0d0 1px dotted;padding:10px 22px 12px;}
+.divConteudoInterna .divLinhaDoTempoItens .divLinhaDoTempoItem .divLinhaDoTempoItemImagem{border-bottom:#b0b0b0 1px solid;border-left:#b0b0b0 1px solid;width:118px;display:inline-block;float:left;height:88px;border-top:#7f7f7f 1px solid;margin-right:12px;border-right:#7f7f7f 1px solid;}
+.divLinhaDoTempoItens .divLinhaDoTempoItem .divLinhaDoTempoItemDescricao H5{color:#007cc2;font-size:1.2em;}
+BODY.contraste .divLinhaDoTempoItens .divLinhaDoTempoItem .divLinhaDoTempoItemDescricao H5{color:#00eaff;padding:0 0 4px;}
+.buscaLinhaDoTempo{width:780px;float:left;height:45px;padding:6px 0 0;}
+.buscaLinhaDoTempo P{font-size:1.2em;padding:0 0 10px;}
+.buscaLinhaDoTempo LABEL{display:block;font-family:Arial,Helvetica,sans-serif;float:left;color:#007cc2;font-size:1.1em;margin:0 6px 0 4px;padding:0;}
+.buscaLinhaDoTempo SPAN LABEL .jquery-selectbox{width:126px !important;}
+.buscaLinhaDoTempo SPAN .btnBuscar{border-bottom:medium none;border-left:medium none;width:49px;background:url(http://www.brasil.gov.br/btn/btnBuscar.gif) no-repeat 0 0;height:26px;border-top:medium none;cursor:pointer;border-right:medium none;}
+.buscaLinhaDoTempo LABEL INPUT.inpBusca{border-bottom:0;border-left:0;width:145px;font-family:Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/bgInpBusca.gif) no-repeat right center;float:left;height:22px;color:#000;font-size:1.4em;border-top:0;border-right:0;margin:1px 3px 0 0;padding:4px 7px 0;}
+.divConteudoInterna .divLinhaDoTempoItensBusca .divLinhaDoTempoItemBusca{width:472px;background:#f6f6f6;float:left;clear:both;border-top:#d0d0d0 1px dotted;padding:10px 22px 0;}
+.divConteudoInterna .divLinhaDoTempoItensBusca .divLinhaDoTempoItemBusca H5{color:#007cc2;font-weight:400;}
+.divConteudoInterna .divLinhaDoTempoItensAssunto .divLinhaDoTempoItemAssunto{width:516px;background:#fff;float:left;clear:both;border-top:#d0d0d0 1px solid;padding:10px 0 12px;}
+BODY.contraste .divConteudoInterna .divLinhaDoTempoItensAssunto .divLinhaDoTempoItemAssunto{background:none transparent scroll repeat 0 0;border-top:#fff 1px solid;}
+.divConteudoInterna .divLinhaDoTempoItensAssunto .divLinhaDoTempoItemAssunto .divLinhaDoTempoItemImagemAssunto{width:118px;display:inline-block;float:right;margin-left:12px;}
+.divConteudoInterna .divLinhaDoTempoItensAssunto .divLinhaDoTempoItemAssunto .divLinhaDoTempoItemImagemAssunto IMG{border-bottom:#b0b0b0 1px solid;border-left:#b0b0b0 1px solid;border-top:#7f7f7f 1px solid;border-right:#7f7f7f 1px solid;}
+.divConteudoInterna .divLinhaDoTempoItensAssunto .divLinhaDoTempoItemAssunto .divLinhaDoTempoItemImagemAssunto SMALL{margin-top:10px;display:inline-block;color:#7f7f7f;}
+.divConteudoInterna .divLinhaDoTempoItensAssunto .divLinhaDoTempoItemAssunto .divLinhaDoTempoItemDescricaoAssunto H5{margin-bottom:4px;color:#000;font-size:1.7em;}
+.divConteudoInterna .divLinhaDoTempoItensAssunto .divLinhaDoTempoItemAssunto .divLinhaDoTempoItemDescricaoAssunto H6{margin-bottom:10px;color:#666766;font-size:1em;font-weight:400;}
+BODY.contraste .divConteudoInterna .divLinhaDoTempoItensAssunto .divLinhaDoTempoItemAssunto .divLinhaDoTempoItemDescricaoAssunto H5{padding-left:0;padding-right:0;color:#fff;padding-top:0;}
+.divConteudoInterna .divLinhaDoTempoFiltroTema LABEL{display:inline-block;float:left;font-size:1.2em;vertical-align:top;margin-right:10px;padding-top:6px;}
+.divConteudoInterna .divLinhaDoTempoFiltroTema .jquery-selectbox{width:100px !important;float:left;margin-right:10px;}
+.divConteudoInterna .divLinhaDoTempoFiltroTema P{float:left;clear:both;font-size:1.1em;}
+.divConteudoInterna .divLinhaDoTempoFiltroTema .btnBuscar{border-bottom:medium none;border-left:medium none;width:49px;background:url(http://www.brasil.gov.br/btn/btnBuscar.gif) no-repeat 0 0;float:left;height:26px;border-top:medium none;cursor:pointer;margin-right:10px;border-right:medium none;}
+.divConteudoInterna .divLinhaDoTempoItensGuia .divLinhaDoTempoItemGuia{width:492px;background:#f6f6f6;float:left;clear:both;border-top:#d0d0d0 1px dotted;padding:10px 10px 0;}
+.divConteudoInterna .divLinhaDoTempoItensGuia .divLinhaDoTempoItemGuia H5{color:#007cc2;font-size:1.2em;font-weight:700;}
+.divConteudoInterna .divLinhaDoTempoItensGuia .divLinhaDoTempoItemGuia .buttons{margin-top:-18px;float:right;height:28px;}
+.divConteudoInterna .divLinhaDoTempoBtn{margin-top:-10px;width:258px;margin-bottom:20px;float:right;}
+.divConteudoInterna .divLinhaDoTempoMensagem{width:516px;background:url(http://www.brasil.gov.br/bg/bgBoxCenterBuscaAvan.gif) repeat-y 0 0;float:left;margin:-15px 0 15px;}
+.divConteudoInterna .divLinhaDoTempoMensagem .divLinhaDoTempoMensagemTop{width:516px;background:url(http://www.brasil.gov.br/bg/bgBoxTopBuscaAvan.gif) no-repeat center top;float:left;}
+.divConteudoInterna .divLinhaDoTempoMensagem .divLinhaDoTempoMensagemBottom{width:500px;background:url(http://www.brasil.gov.br/bg/bgBoxBottomBuscaAvan.gif) no-repeat center bottom;float:left;padding:12px 4px 10px 10px;}
+.divConteudoInterna .divLinhaDoTempoMensagem .divLinhaDoTempoMensagemBottom P{text-align:center;padding:4px 0 10px;}
+.divConteudoInterna .divLinhaDoTempoMensagem .divLinhaDoTempoMensagemBottom UL LI{display:inline;font-family:Arial,Helvetica,sans-serif;float:left;color:#007cc2;font-size:1.2em;}
+.divConteudoInterna .divLinhaDoTempoMensagem .divLinhaDoTempoMensagemTop .divLinhaDoTempoMensagemBottom UL LI.liAdicionarGuia A{background:url(http://www.brasil.gov.br/ico/icoAdicionarGuia.gif) no-repeat left 50%;float:left;height:27px;color:#007cc2;text-decoration:none;padding:9px 0 0 32px;}
+BODY.contraste .divConteudoInterna .divLinhaDoTempoMensagem .divLinhaDoTempoMensagemTop .divLinhaDoTempoMensagemBottom UL LI.liAdicionarGuia A{background:url(http://www.brasil.gov.br/ico/icoAdicionarGuia_c.gif) no-repeat left 50%;color:#fff;}
+.divConteudoInterna .divMaisComentadas .servicos_acessados{width:252px;background:url(http://www.brasil.gov.br/bg/bgBoxFilBuscaReplica.jpg) repeat-y;float:left;margin:0;padding:0 3px;}
+.divConteudoInterna .divMaisComentadas{margin-top:15px;margin-bottom:20px;float:left;}
+.divConteudoInterna .divMaisComentadas .servicos_acessados UL.ulListaNoticias{border-bottom:0;border-left:0;width:222px;border-top:0;border-right:0;}
+.divConteudoInterna .divMaisComentadas .servicos_acessados UL.ulListaNoticias LI{border-bottom:0;border-left:0;border-top:0;border-right:0;margin:0;padding:0;}
+.divConteudoInterna .divMaisComentadas .servicos_acessados UL.ulListaNoticias LI A{font-size:1em;}
+.divConteudoInterna .divMaisComentadas .servicos_acessados UL.ulListaNoticias LI P{padding:2px 0 8px;}
+.divSidebarEsq .divDestAudio{border-bottom:#ccc 1px solid;border-left:#ccc 1px solid;width:244px;float:left;border-top:#ccc 1px solid;border-right:#ccc 1px solid;margin:0 0 20px 13px;padding:2px 0 0 6px;}
+.divSidebarEsq .divDestAudio P{font-family:Arial,Helvetica,sans-serif;color:#007cc2;font-size:1.4em;font-weight:700;padding:0 0 2px;}
+.divDestAudio .divBoxBaixarAudioP UL{border-bottom:#cacaca 1px dotted;padding-bottom:5px;width:234px;float:left;}
+.divDestAudio .divBoxBaixarAudioP UL LI.liBaixar A.aActive{padding-top:0;}
+.divConteudoInterna .divModSubMenuLinks{border-bottom:#ffb400 1px solid;border-left:#e5e5e5 1px solid;width:104px;display:inline-block;float:right;border-top:#ffb400 1px solid;border-right:#e5e5e5 1px solid;margin:0 0 5px 15px;padding:4px 10px 10px;}
+.divConteudoInterna .divModSubMenuLinksP{margin:0 0 5px 5px;}
+.divConteudoInterna .divModSubMenuLinks UL LI{border-bottom:#cfcfcf 1px dotted;padding:6px 0 2px;}
+.divConteudoInterna .divModSubMenuLinks UL LI A{font-family:Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/ico/icoSetaAmarela.gif) no-repeat left center;color:#000;font-size:1.2em;text-decoration:none;padding:0 0 0 10px;}
+BODY.contraste .divConteudoInterna .divModSubMenuLinks UL LI A{background:url(http://www.brasil.gov.br/ico/icoSetaAmarela_c.gif) no-repeat left center;color:#fff;}
+BODY.contraste H4{color:#fff;margin:0;}
+H5.titTexto{font:bold 1.7em Arial,Helvetica,sans-serif;color:#000;margin:0;padding:0 0 20px;}
+BODY.contraste H5{font:bold 1.7em Arial,Helvetica,sans-serif;color:#00eaff;margin:0;padding:0 0 4px;}
+H5.h5TercNivel{font:bold 1.8px Arial,Helvetica,sans-serif;color:#ff9000;line-height:18px;font-size:18px;margin:0;padding:0 0 4px;}
+UL.ulIcoAcervoSobre LI.liAcervo{padding:0 10px 0 0;}
+UL.ulIcoAcervoSobre LI.liAcervo A{font:12px Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/ico/icoAcervo_off.gif) no-repeat left 50%;color:#007cc2;text-decoration:none;padding:0 0 0 21px;}
+UL.ulIcoAcervoSobre LI.liSobre A{font:12px Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/ico/icoSobreArtista_off.gif) no-repeat left 50%;color:#007cc2;text-decoration:none;padding:0 0 0 21px;}
+STRONG.strPergunta{font:bold 1.2em Arial,Helvetica,sans-serif;color:#000;}
+P A.external-link{background:url(http://www.brasil.gov.br/ico/icoLinkExterno.gif) no-repeat right 50%;color:#007cc2;text-decoration:none;padding:0 11px 0 0;}
+BODY.contraste P A.external-link{background:url(http://www.brasil.gov.br/ico/icoLinkExterno_c.gif) no-repeat right 50%;color:#00eaff !important;}
+P A.aAjuda{background:url(http://www.brasil.gov.br/ico/icoAjuda.gif) no-repeat right 50%;color:#007cc2;text-decoration:none;padding:0 11px 0 0;}
+BODY.contraste P A.aAjuda{background:url(http://www.brasil.gov.br/ico/icoAjuda.gif) no-repeat right 50%;color:#00eaff;}
+P.pAutor{font:1em Arial,Helvetica,sans-serif;color:#7f7f7f;padding:0 0 5px;}
+P.pAtualizado{font:1em Arial,Helvetica,sans-serif;color:#009241;padding:0 0 20px;}
+P.pResultFalGoverno{font:1.2em Arial,Helvetica,sans-serif;color:#000;border-top:#d3d3d3 1px solid;margin:5px 0 0;padding:5px 0;}
+.divBoxErroForm{width:516px;background:url(http://www.brasil.gov.br/bg/bgBoxFalePresReplica.jpg) repeat-y;float:left;margin-left:43px;}
+.divBoxErroForm .divBoxErroFormTop{width:516px;background:url(http://www.brasil.gov.br/bg/bgBoxFalePresTop.jpg) no-repeat 50% top;float:left;}
+.divBoxErroForm .divBoxErroFormTop .divBoxErroFormBottom{width:476px;background:url(http://www.brasil.gov.br/bg/bgBoxFalePresBottom.jpg) no-repeat 50% bottom;float:left;padding:20px;}
+.divBoxErroForm .divBoxErroFormTop .divBoxErroFormBottom .divErro{text-align:center;width:420px;margin:0 0 20px;}
+.divBoxErroForm .divBoxErroFormTop .divBoxErroFormBottom .divErro SPAN.spanErro{font:bold 1.6em Arial,Helvetica,sans-serif;color:#d62222;}
+.divBoxErroForm .divBoxErroFormTop .divBoxErroFormBottom UL{width:350px;margin:0 auto;padding:0 0 10px;}
+.divBoxErroForm .divBoxErroFormTop .divBoxErroFormBottom UL LI{font:1.2em Arial,Helvetica,sans-serif;color:#000;padding:0 0 3px;}
+.divBoxOkForm{width:516px;background:url(http://www.brasil.gov.br/bg/bgBoxFalePresReplica.jpg) repeat-y;margin:20px auto 200px auto;}
+.divBoxOkForm .divBoxOkFormTop{width:516px;float:left;background:url(http://www.brasil.gov.br/bg/bgBoxFalePresTop.jpg) top no-repeat;}
+.divBoxOkForm .divBoxOkFormTop .divBoxOkFormBottom{width:476px;float:left;padding:20px 20px 20px 20px;background:url(http://www.brasil.gov.br/bg/bgBoxFalePresBottom.jpg) bottom no-repeat;}
+.divBoxOkForm .divBoxOkFormTop .divBoxOkFormBottom .divOk{width:475px;margin:0 auto;text-align:center;margin:0 0 20px 0;}
+.divBoxOkForm .divBoxOkFormTop .divBoxOkFormBottom .divOk span.spanOk{font:bold 1.6em Arial,Helvetica,sans-serif;color:#009241;}
+.divBoxOkForm .divBoxOkFormTop .divBoxOkFormBottom ul{width:350px;margin:0 auto;padding:0 0 10px 0;}
+.divBoxOkForm .divBoxOkFormTop .divBoxOkFormBottom ul li{font:1.2em Arial,Helvetica,sans-serif;color:#000000;padding:0 0 3px 0;}
+body.contraste .divBoxOkForm .divBoxOkFormTop .divBoxOkFormBottom ul li{color:#fff;}
+.divBoxOkForm .divBoxOkFormTop .divBoxOkFormBottom span.spanVoltar{float:right;}
+.divBoxOkForm .divBoxOkFormTop .divBoxOkFormBottom span.spanAcessarPortal {float:right;margin-left:3px;}
+.divModHowInvest{width:248px;background:url(http://www.brasil.gov.br/bg/bgBoxHowInvest.jpg) no-repeat 50% top;float:left;margin:24px 0 0;}
+.divModHowInvest H3{font:1.8em Arial,Helvetica,sans-serif;color:#fff;padding:4px 0 8px 14px;}
+.divModHowInvest UL LI.liLink01{background:url(http://www.brasil.gov.br/bg/bgHowInvestLink01.jpg) no-repeat;padding:4px 0 3px 9px;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeq .boxConteudosBottomPeq .jScrollPaneContainer .thumbImgs,.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde .jScrollPaneContainer .thumbImgs{margin:0;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeq .boxConteudosBottomPeq .thumbImgs .divBlocoThumb,.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde .thumbImgs .divBlocoThumb{border-bottom:#c5c5c5 1px dotted;width:290px;float:left;height:auto;padding:15px 0 8px;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeq .boxConteudosBottomPeq .thumbImgs .divBlocoThumb IMG.thumbs,.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde .thumbImgs .divBlocoThumb IMG.thumbs{border-bottom:#c5c5c5 1px solid;border-left:#c5c5c5 1px solid;float:left;border-top:#c5c5c5 1px solid;border-right:#c5c5c5 1px solid;padding:2px;}
+BODY.contraste .divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeq .boxConteudosBottomPeq .thumbImgs .divBlocoThumb H5,BODY.contraste .divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde .thumbImgs H5 A,BODY.contraste .divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde .thumbImgs .divBlocoThumb H5,BODY.contraste .divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde .thumbImgs .divBlocoThumb H5 A,BODY.contraste .divModDestaqueAntes H3,BODY.contraste .divChamadas UL.chamadasAntes LI.grande H3.noimage,BODY.contraste .divChamadas UL.chamadasAntes LI.last-child H3,BODY.contraste .divChamadas UL.chamadasAntes LI H3,BODY.contraste .divChamadas UL.agenciaBrasil LI H3,BODY.contraste .divSidebarEsq .divDestArea03 H5,BODY.contraste .divModDestAntes H3,BODY.contraste .divModDestAudioP H6 A,BODY.contraste .divModDestAudioPM H6 A,BODY.contraste .divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom UL.chamadasAntes LI.grande H3,BODY.contraste .chamada_tv H2,BODY.contraste .servicos_acessados UL LI A,BODY.contraste .ServicosNaveguePor DIV P,BODY.contraste .Noticia_1_img_1_txt_01 P,BODY.contraste .Noticia_1_img_1_txt_02 P,BODY.contraste .multiConversorUnidade FIELDSET LABEL SPAN,BODY.contraste UL.result_faleCom LI H2 A,BODY.contraste .divDestMineG H3,BODY.contraste P A,BODY.contraste P A:hover,BODY.contraste P A.external-link:hover,BODY.contraste P A.aAjuda:hover{color:#00eaff;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeq .boxConteudosBottomPeq .thumbImgs .divBlocoThumb SPAN,.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde .thumbImgs .divBlocoThumb SPAN{width:170px;font:1em Arial,Helvetica,sans-serif;float:left;color:#7f7f7f;padding:0 0 0 5px;}
+BODY.contraste .divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeq .boxConteudosBottomPeq .thumbImgs .divBlocoThumb SPAN,BODY.contraste .divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeq .boxConteudosBottomPeq .thumbImgs .divBlocoThumb UL LI,BODY.contraste .divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeq .boxConteudosBottomPeq .thumbImgs .divBlocoThumb UL LI A,BODY.contraste .divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde H4,BODY.contraste .divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde .thumbImgs P,BODY.contraste .divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde .thumbImgs .divBlocoThumb SPAN,BODY.contraste .divConteudoMeuBrasilCadeado P.grande,BODY.contraste .divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral .divListCheckLeft LABEL,BODY.contraste .divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral .divListCheckRight LABEL,BODY.contraste .divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral .divListCheckCenter LABEL,BODY.contraste .divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL.lblCaderno,BODY.contraste .divConteudoMeuBrasilCadeado .loginDireita .boxlogin .boxloginTop .boxloginBottom LABEL,BODY.contraste .divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL,BODY.contraste .divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral SPAN.spanTitle1,BODY.contraste .divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral SPAN.spanTitle,BODY.contraste .divConteudoInterna .divMapaLinks .liFechar A,BODY.contraste .divConteudoInterna .divMapaBlocoSimplesLaranja UL LI SPAN A,BODY.contraste .divConteudoInterna .divMapaBlocoSimplesAzul UL LI SPAN A,BODY.contraste .divConteudoInterna .divMapaBlocoAvancadoLaranja UL LI SPAN,BODY.contraste .divConteudoInterna .divFaleCom UL LI SPAN A,BODY.contraste .divBoxVideoEstud UL LI H6 A,BODY.contraste .divBoxVideoEstud UL LI SPAN.spanTempo,BODY.contraste .divModDestaque .divBoxEdicoes LABEL SPAN,BODY.contraste .divModDestaqueAntes SPAN.legendaDestaques,BODY.contraste .divModDestaqueAntes P,BODY.contraste .divChamadas UL.chamadasAntes LI.grande P,BODY.contraste .divChamadas UL.chamadasAntes LI.last-child P,BODY.contraste .divBoxDestImgGrande SPAN.spanTema,BODY.contraste .divSidebarEsq .divDestArea03 H4,BODY.contraste .divSidebarEsq .divDestArea03 P,BODY.contraste .divModDestAudioG SPAN,BODY.contraste .divModDestAntes SPAN.legendaDestaques,BODY.contraste .divModDestAntes P,BODY.contraste .divModDestAudioP SPAN.spanTema,BODY.contraste .divModDestAudioPM SPAN,BODY.contraste .divBoxAudioAbas UL.ulAbas LI A,BODY.contraste .divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom UL.chamadasAntes LI.grande P,BODY.contraste .divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom .divPaginacao UL LI,BODY.contraste .divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom .divPaginacao UL LI A,BODY.contraste .divBoxCategorias .divBoxCategoriasTop .divBoxCategoriasBottom H4,BODY.contraste .divBoxBrasilResp .divBoxBrasilRespTop .divBoxBrasilRespBottom H4,BODY.contraste .divBoxBrasilResp .divBoxBrasilRespTop .divBoxBrasilRespBottom .divBoxListBrasilResp UL LI,BODY.contraste .chamada_tv P,BODY.contraste .servicos_acessados SPAN.mais10 STRONG,BODY.contraste .ServicosNaveguePor DIV SPAN,BODY.contraste .destaquesPublicacoes H3,BODY.contraste .bordaMostra .box SPAN,BODY.contraste .busca_sala_imprensa LABEL.tit,BODY.contraste .busca_sala_imprensa LABEL,BODY.contraste .faleComBrasil .loginForm FORM FIELDSET LABEL,BODY.contraste .faleComBrasil .listaQuestoes .listaQuestoesItem SMALL,BODY.contraste .faleComBrasil .listaQuestoes .listaQuestoesItem STRONG,BODY.contraste .faleComBrasil .listaQuestoesAba H3,BODY.contraste .faleComBrasil .listaQuestoesAba UL.ulAbas LI A,BODY.contraste .versaoFlash A,BODY.contraste .divSidebarEsq .divMaisComentadas .divBoxComentadas .divBoxComentadasTop .divBoxComentadasBottom .aba-content H3,BODY.contraste .divSidebarEsq .divMaisComentadas .divBoxComentadas .divBoxComentadasTop .divBoxComentadasBottom .divBoxThumbs SPAN,BODY.contraste .divConteudoInterna .divCompartilhamento .divCompartilhamentoTop .divCompartilhamentoBottom H4,BODY.contraste .divConteudoInterna .divCompartilhamento .divCompartilhamentoTop .divCompartilhamentoBottom FORM FIELDSET LABEL,BODY.contraste .multiConversorFerramenta .divModDest4ColAbas .divConteudosAbas .divConteudosAbasTop .divConteudosAbasBottom FIELDSET LABEL SPAN,BODY.contraste .multiConversorFerramenta .divModDest4ColAbas .divConteudosAbas .divConteudosAbasTop .divConteudosAbasBottom FIELDSET LEGEND,BODY.contraste .palavra_chave FIELDSET LEGEND,BODY.contraste UL.result_faleCom LI A,BODY.contraste .divConteudoInterna P.personalidade,BODY.contraste .divConteudoInterna P.empresa,BODY.contraste .buscaLinhaDoTempo P,BODY.contraste .divConteudoInterna .divLinhaDoTempoItensAssunto .divLinhaDoTempoItemAssunto .divLinhaDoTempoItemImagemAssunto SMALL,BODY.contraste .divConteudoInterna .divLinhaDoTempoItensAssunto .divLinhaDoTempoItemAssunto .divLinhaDoTempoItemDescricaoAssunto H6,BODY.contraste .divConteudoInterna .divLinhaDoTempoFiltroTema LABEL,BODY.contraste .divSidebarEsq .divDestAudio SPAN,BODY.contraste H5.titTexto,BODY.contraste STRONG.strPergunta,BODY.contraste P,BODY.contraste .divBoxErroForm .divBoxErroFormTop .divBoxErroFormBottom UL LI{color:#fff;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeq .boxConteudosBottomPeq .thumbImgs .divBlocoThumb UL,.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde .thumbImgs .divBlocoThumb UL{width:170px;float:left;margin:0;padding:0 0 0 5px;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeq .boxConteudosBottomPeq .thumbImgs .divBlocoThumb UL LI,.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde .thumbImgs .divBlocoThumb UL LI{display:inline;font:bold 1.2em Arial,Helvetica,sans-serif;float:left;color:#007cc2;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeq .boxConteudosBottomPeq .thumbImgs .divBlocoThumb UL LI A,.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusFavoritosConteudosBottom H3 A,.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde .thumbImgs .divBlocoThumb H5 A,.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde .thumbImgs .divBlocoThumb UL LI A,.divConteudoInterna .divMapaLinks .liFechar A,.divModDestAudioG H6 A,.divModDestAudioP H6 A,.divModDestAudioPM H6 A,.versaoFlash A,.divConteudoInterna .listaAcervoDigital UL LI H4 A,H4 A,P A{color:#007cc2;text-decoration:none;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusFavoritosConteudosBottom .boxConteudos .boxConteudosTop .boxConteudosBottom SPAN.excluirTudo A,.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeq .boxConteudosBottomPeq SPAN.excluirTudo A{font:1.2em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/btn/btnExcluirTudo.gif) no-repeat;color:#fff;text-decoration:none;padding:0 0 0 17px;}
+BODY.contraste .divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusFavoritosConteudosBottom .boxConteudos .boxConteudosTop .boxConteudosBottom SPAN.excluirTudo A,BODY.contraste .divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeq .boxConteudosBottomPeq SPAN.excluirTudo A{background:url(http://www.brasil.gov.br/btn/btnExcluirTudo_c.gif) no-repeat;color:#000;}
+BODY.contraste .divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusFavoritosConteudosBottom H3,BODY.contraste .divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusFavoritosConteudosBottom H3 A,BODY.contraste .divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusFavoritosConteudosBottom H3.titFavoritos,BODY.contraste .divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde H3.titFavoritos,BODY.contraste .divBoxInteratividade UL LI H5 A,BODY.contraste .divBoxInteratividade UL LI P,BODY.contraste .divModListServAcesEstud .servicos .txtServicos A:link,BODY.contraste .divModNoticiasEstud .servicos .txtServicos A:link,BODY.contraste .divModOpineEstud UL LI A,BODY.contraste .divModNotCopa .divModNotCopaTop .divModNotCopaBottom DL DD{color:#000;}
+.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusFavoritosConteudosBottom H3 IMG,.divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde P.maisNoticias IMG,.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral .divLisIdioma DIV,.divSidebarEsq .divDestArea03 H4 IMG,.divSidebarEsq .divDestArea03 P IMG,.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom FORM FIELDSET LABEL DIV,.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom .divPaginacao UL LI IMG,.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom .divPaginacao UL LI.liBtnLeft IMG,.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom .divPaginacao UL LI.liBtnRight IMG,.faleComBrasil .listaQuestoesAba UL.ulAbas LI IMG,.versaoFlash IMG,.divSidebarEsq .divMaisComentadas .divBoxComentadas .divBoxComentadasTop .divBoxComentadasBottom .maisArtistas IMG{vertical-align:middle;}
+BODY.contraste .divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde P.maisNoticias,BODY.contraste .divConteudoMeuBrasilCadeado .boxMeusFavoritosConteudos .boxMeusConteudosTop .boxMeusFavoritosConteudosBottom .boxConteudosPeqVerde .boxConteudosTopPeqVerde .boxConteudosBottomPeqVerde P.maisNoticias A,BODY.contraste .divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral A.esqueciSenha,BODY.contraste .servicos_acessados SPAN.spanMais A,BODY.contraste .faleComBrasil .listaQuestoes .listaQuestoesItem .listaQuestoesItemContador,BODY.contraste .faleComBrasil .listaQuestoes .listaQuestoesItem .listaQuestoesItemContador STRONG,BODY.contraste .divSidebarEsq .divMaisComentadas .divBoxComentadas .divBoxComentadasTop .divBoxComentadasBottom .maisArtistas,BODY.contraste .divSidebarEsq .divMaisComentadas .divBoxComentadas .divBoxComentadasTop .divBoxComentadasBottom .maisArtistas A,BODY.contraste .divLinhaDoTempoItens .divLinhaDoTempoItem .divLinhaDoTempoItemDescricao P STRONG,BODY.contraste .divConteudoInterna .divLinhaDoTempoItensBusca .divLinhaDoTempoItemBusca P STRONG,BODY.contraste .divConteudoInterna .divLinhaDoTempoItensAssunto .divLinhaDoTempoItemAssunto .divLinhaDoTempoItemDescricaoAssunto P STRONG,BODY.contraste .divConteudoInterna .divLinhaDoTempoItensGuia .divLinhaDoTempoItemGuia P STRONG{color:#fff600;}
+.divConteudoMeuBrasil UL,.divConteudoMeuBrasilCadeado UL{width:514px;float:left;padding:0 0 8px;}
+.divConteudoMeuBrasil UL LI,.divConteudoMeuBrasilCadeado UL LI{display:inline;float:left;padding:8px 0 0 3px;}
+.divConteudoMeuBrasil UL LI.liCampos,.divConteudoMeuBrasilCadeado UL LI.liCampos{font:1.2em Arial,Helvetica,sans-serif;float:right;color:#db0f0f;}
+.divConteudoMeuBrasil .divboxMeuBrasilGrande,.divConteudoMeuBrasilCadeado .divboxMeuBrasilGrande,.divChamadas UL.chamadasAntes LI IMG,.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom UL.chamadasAntes LI IMG{float:left;padding:0;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasilCadeado .divBoxMeuBrasilTopCadeado .divBoxMeuBrasilBottomCadeado P,.divChamadas UL.chamadasAntes LI.grande IMG.mais,.divChamadas UL.chamadasAntes LI.last-child IMG.mais,.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom UL.chamadasAntes LI.grande IMG.mais,.Noticia_1_img_1_txt_01 P A IMG,.Noticia_1_img_1_txt_02 P A IMG{float:none;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral SPAN.spanTitle1,.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral SPAN.spanTitle1{width:100%;font:1.2em Arial,Helvetica,sans-serif;float:left;color:#000;padding:10px 0 15px;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM,.divConteudoMeuBrasilCadeado FORM,.divConteudoMeuBrasilCadeado FORM FIELDSET,.buscaAcervoDigital FORM,.buscaAcervoDigital FORM FIELDSET{float:left;margin:0;padding:0;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET LEGEND,.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LEGEND,.divModForumEstud FORM FIELDSET LEGEND,.divModOpineEstud FORM FIELDSET LEGEND,.divModDestaque .divBoxEdicoes LEGEND,.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom FORM FIELDSET LEGEND,.faleComBrasil .listaQuestoes .listaQuestoesItem .divBoxCopieLink FIELDSET LEGEND,.divConteudoInterna .divCompartilhamento .divCompartilhamentoTop .divCompartilhamentoBottom FORM FIELDSET LEGEND,.buscaAcervoDigital FORM FIELDSET LEGEND{display:none;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral .divListCheckRight,.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral .divListCheckRight{width:155px;float:left;border-right:#b1b1b1 1px dotted;margin:0;padding:0 10px 0 0;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral .divListCheckRightNoBorder,.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral .divListCheckRightNoBorder{width:155px;float:left;margin:0;padding:0 10px 0 0;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral .divListCheckRightNoBorder LABEL,.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral .divListCheckLeft LABEL,.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral .divListCheckRight LABEL,.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral .divListCheckCenter LABEL,.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral .divListCheckRightNoBorder LABEL,.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral .divListCheckLeft LABEL,.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral .divListCheckRight LABEL,.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral .divListCheckCenter LABEL{display:block;padding:0 0 10px;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral .divListCheckLeft,.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral .divListCheckLeft{width:165px;float:left;margin:0;padding:0 0 0 26px;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral .divListCheckCenter,.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral .divListCheckCenter{width:139px;float:left;border-right:#b1b1b1 1px dotted;margin:0;padding:0 0 0 26px;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral .divLisIdioma,.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral .divLisIdioma{width:658px;float:left;padding:0 0 10px;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral BUTTON.btnLimpar,.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral BUTTON.btnLimpar{border-bottom:medium none;border-left:medium none;text-indent:-9999px;width:45px;background:url(http://www.brasil.gov.br/btn/btnLimpar.gif) no-repeat;float:right;height:26px;border-top:medium none;cursor:pointer;border-right:medium none;margin:0 5px 0 0;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral BUTTON.btnLimpar-en{BORDER-BOTTOM:medium none;BORDER-LEFT:medium none;TEXT-INDENT:-9999px;MARGIN:0px 5px 0px 0px;WIDTH:45px;BACKGROUND:url(http://www.brasil.gov.br/btn/btnLimpar_en.gif) no-repeat;FLOAT:right;HEIGHT:26px;BORDER-TOP:medium none;CURSOR:pointer;BORDER-RIGHT:medium none}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral BUTTON.btnLimpar-es{BORDER-BOTTOM:medium none;BORDER-LEFT:medium none;TEXT-INDENT:-9999px;MARGIN:0px 5px 0px 0px;WIDTH:45px;BACKGROUND:url(http://www.brasil.gov.br/btn/btnLimpar_es.gif) no-repeat;FLOAT:right;HEIGHT:26px;BORDER-TOP:medium none;CURSOR:pointer;BORDER-RIGHT:medium none}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral BUTTON.btnProximoPasso,.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral BUTTON.btnProximoPasso{border-bottom:medium none;border-left:medium none;text-indent:-9999px;width:88px;background:url(http://www.brasil.gov.br/btn/btnProximoPasso.gif) no-repeat;float:right;height:26px;border-top:medium none;cursor:pointer;border-right:medium none;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL SPAN,.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL SPAN,.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral SPAN.spanTitle STRONG,.divModDest4ColAbas .divConteudosAbas .divConteudosAbasTop .faleBrasilEnvieQuestao P Q{color:#db0f0f;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL.lblCaderno,.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL.lblCaderno{width:140px;font:1.2em Arial,Helvetica,sans-serif;float:left;color:#000;padding:0 10px 0 0;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL.lblFloatLeft,.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL.lblFloatLeft,.divEmDestaques UL LI IMG.imgEmDestaque,.divEmDestaques UL LI IMG,.bordaMostra .box A IMG,.faleComBrasil,.faleComBrasil .listaQuestoes .listaQuestoesItem .listaQuestoesItemCadastro FIELDSET *,.faleComBrasil .listaQuestoesAba,.buscaAcervoDigital,.divConteudoInterna .divLinhaDoTempoItensAssunto,BODY.contraste .divConteudoInterna .divLinhaDoTempoItensAssunto,.divConteudoInterna .textBlock{float:left;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL.lblCheck,.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL.lblCheck{width:100%;float:left;border-top:#e4e4e4 1px solid;margin:18px 0 0;padding:20px 0 0;}
+.divConteudoMeuBrasilCadeado .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral SELECT.selIdioma,.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral SELECT.selIdioma,.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral SELECT.selAAAA{width:110px;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral P,.divBoxSelosSitios UL LI{padding:0 0 10px;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL.lblNumero .inputNumero,.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral LABEL.lblComplemento .inputComplemento{border-bottom:medium none;border-left:medium none;width:73px;background:url(http://www.brasil.gov.br/bg/bginputNumero.gif) no-repeat;float:left;height:26px;border-top:medium none;border-right:medium none;}
+.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral SELECT.selDD,.divConteudoMeuBrasil .divBoxMeuBrasil .divBoxMeuBrasilTop .divBoxMeuBrasilBottom FORM FIELDSET.fieldGeral SELECT.selMM{width:85px;}
+.divConteudoInterna .divMapaBlocoSimplesLaranja UL,.divConteudoInterna .divMapaBlocoAvancadoLaranja UL,.divConteudoInterna .divFaleCom UL{border-bottom:#ffb400 2px solid;border-left:#e5e5e5 1px solid;border-top:#ffb400 2px solid;border-right:#e5e5e5 1px solid;margin:5px 0 28px;padding:10px;}
+.divConteudoInterna .divMapaBlocoSimplesLaranja UL LI,.divConteudoInterna .divMapaBlocoSimplesAzul UL LI,.divConteudoInterna .divMapaBlocoAvancadoLaranja UL LI,.divConteudoInterna .divFaleCom UL LI{border-bottom:#cfcfcf 1px dotted;padding:0 10px;}
+.divConteudoInterna .divMapaBlocoSimplesAzul UL LI{padding:4px 0 4px 9px;font-size:1.2em;}
+.divConteudoInterna .divMapaBlocoSimplesAzul h4{font-size:16px;font-family:Arial,Helvetica;color:#000;font-weight:bold}
+.divConteudoInterna .divMapaBlocoSimplesLaranja UL LI SPAN A,.divConteudoInterna .divMapaBlocoSimplesAzul UL LI SPAN A,.divConteudoInterna .divMapaBlocoAvancadoLaranja UL.divMapaSubSubBlocoAvancadoLaranja LI SPAN A{font-family:Arial;color:#000;font-size:1.2em;font-weight:400;text-decoration:none;}
+.divConteudoInterna .divMapaBlocoSimplesLaranja UL LI.first-child,.divConteudoInterna .divMapaBlocoSimplesAzul UL LI.first-child,.divConteudoInterna .divMapaBlocoAvancadoLaranja UL LI.first-child{border-top:#cfcfcf 1px solid;}
+.divConteudoInterna .divMapaBlocoSimplesLaranja UL LI.last-child,.divConteudoInterna .divMapaBlocoSimplesAzul UL LI.last-child,.divConteudoInterna .divMapaBlocoAvancadoLaranja UL LI.last-child{border-bottom:#cfcfcf 1px solid;}
+.divConteudoInterna .divMapaBlocoSimplesLaranja h3{font-size:16px;}
+.divConteudoInterna .divMapaBlocoAvancadoLaranja h3{font-size:23px }
+BODY.contraste .divConteudoInterna .divMapaBlocoSimplesAzul UL LI SPAN}
+BODY.contraste .divConteudoInterna .divMapaBlocoAvancadoLaranja UL,BODY.contraste .divConteudoInterna .divFaleCom UL{border-bottom:#fff 1px solid;border-left:#fff 1px solid;border-top:#fff 1px solid;border-right:#fff 1px solid;}
+.divConteudoInterna .divMapaBlocoAvancadoLaranja UL LI.liActive,.divConteudoInterna .divFaleCom UL LI.liActive{border-bottom:#009241 2px solid;background:#f6f6f6;}
+BODY.contraste .divConteudoInterna .divMapaBlocoAvancadoLaranja UL LI.liActive,BODY.contraste .divConteudoInterna .divFaleCom UL LI.liActive{border-bottom:#fff 2px solid;background:#000;}
+.divConteudoInterna .divMapaBlocoAvancadoLaranja UL LI SPAN,.divConteudoInterna .divFaleCom UL LI SPAN{display:block;background:url(http://www.brasil.gov.br/ico/icoSeta2BottomAmarela.gif) no-repeat left center;padding:9px 0 9px 23px;}
+BODY.contraste .divConteudoInterna .divMapaBlocoAvancadoLaranja UL LI SPAN,BODY.contraste .divConteudoInterna .divFaleCom UL LI SPAN a{background:url(http://www.brasil.gov.br/ico/icoSeta2BottomAmarela_c.gif) no-repeat left center;}
+BODY.contraste .divConteudoInterna .divMapaBlocoAvancadoLaranja UL LI.liActive SPAN,BODY.contraste .divConteudoInterna .divFaleCom UL LI.liActive SPAN{background:url(http://www.brasil.gov.br/ico/icoSetaTopVerde_c.gif) no-repeat left center;}
+.divConteudoInterna .divMapaBlocoAvancadoLaranja UL.divMapaSubBlocoAvancadoLaranja LI SPAN{background:url(http://www.brasil.gov.br/ico/icoSetaBottomAmarelaP.gif) no-repeat left center;padding:7px 0 7px 23px;}
+.divConteudoInterna .divMapaBlocoAvancadoLaranja UL LI.liActive SPAN,.divConteudoInterna .divFaleCom UL LI.liActive SPAN{background:url(http://www.brasil.gov.br/ico/icoSetaTopVerde.gif) no-repeat left center;}
+.divConteudoInterna .divMapaSubBlocoAvancadoLaranja LI SPAN{background:url(http://www.brasil.gov.br/ico/icoSetaTopVerdeP.gif) no-repeat left center;}
+.divConteudoInterna .divMapaBlocoAvancadoLaranja UL LI.liActive .divMapaSubBlocoAvancadoLaranja LI SPAN{background:url(http://www.brasil.gov.br/ico/icoSetaTopVerdeP.gif) no-repeat left center;}
+.divConteudoInterna .divMapaBlocoAvancadoLaranja UL LI SPAN,.divConteudoInterna .divFaleCom UL LI SPAN A{font-family:Arial;color:#007cc2;font-size:1.3em;font-weight:700;text-decoration:none;}
+.divConteudoInterna .divMapaBlocoAvancadoLaranja UL LI SPAN .aActive,.divConteudoInterna .divFaleCom UL LI SPAN A.aActive{color:#009241;}
+.divConteudoInterna .divMapaBlocoAvancadoLaranja UL.divMapaSubBlocoAvancadoLaranja,.divConteudoInterna .divFaleCom UL.divFaleComSubBloco{border-bottom:medium none;border-left:medium none;background:#fff;border-top:medium none;border-right:medium none;margin:0 10px 20px;padding:0;}
+.divConteudoInterna .divMapaBlocoAvancadoLaranja UL.divMapaSubBlocoAvancadoLaranja LI,.divConteudoInterna .divFaleCom UL.divFaleComSubBloco LI,BODY.contraste .divBoxInteratividade,BODY.contraste .divModPublicacoes .divModPublicacoesTop .divModPublicacoesBottom DL DT.dtBg2,BODY.contraste .divModPublicacoes .divModPublicacoesTop .divModPublicacoesBottom DL DD.dtBg2,.divModNotCopa .divModNotCopaTop .divModNotCopaBottom DL DD.dtBg2,BODY.contraste .divModNotCopa .divModNotCopaTop .divModNotCopaBottom DL DT.dtBg2,.divConteudoInterna .divLinhaDoTempoItens .blank,.divConteudoInterna .divLinhaDoTempoItensBusca .blank,.divConteudoInterna .divLinhaDoTempoItensGuia .blank{background:#fff;}
+BODY.contraste .divConteudoInterna .divMapaBlocoAvancadoLaranja UL.divMapaSubBlocoAvancadoLaranja LI,BODY.contraste .divConteudoInterna .divFaleCom UL.divFaleComSubBloco LI,BODY.contraste UL.result_faleCom LI{background:#000;}
+.divConteudoInterna .divMapaBlocoAvancadoLaranja UL.divMapaSubBlocoAvancadoLaranja LI.liActive,.divConteudoInterna .divFaleCom UL LI.last-child,UL.result_faleCom LI{border-bottom:#cfcfcf 1px dotted;}
+BODY.contraste .divConteudoInterna .divMapaBlocoAvancadoLaranja UL.divMapaSubBlocoAvancadoLaranja LI SPAN  {background:url(http://www.brasil.gov.br/ico/icoSetaBottomAmarelaP_c.gif) no-repeat left center;}
+BODY.contraste .divConteudoInterna .divMapaBlocoAvancadoLaranja UL.divMapaSubBlocoAvancadoLaranja LI.liActive SPAN,BODY.contraste .divConteudoInterna .divFaleCom UL.divFaleComSubBloco LI.liActive SPAN{background:url(http://www.brasil.gov.br/ico/icoSetaTopVerdeP_c.gif) no-repeat left center;}
+.divConteudoInterna .divMapaBlocoAvancadoLaranja UL.divMapaSubBlocoAvancadoLaranja LI SPAN A,BODY.contraste .divConteudoInterna .divMapaBlocoAvancadoLaranja UL.divMapaSubBlocoAvancadoLaranja LI SPAN A,BODY.contraste .divConteudoInterna .divFaleCom UL.divFaleComSubBloco LI SPAN A,.divSidebarEsq .divDestAudio SPAN{font-size:1.1em;}
+BODY.contraste .divConteudoInterna .divMapaBlocoAvancadoLaranja UL.divMapaSubSubBlocoAvancadoLaranja,BODY.contraste .divConteudoInterna .divFaleCom UL.divFaleComSubSubBloco LI{border-bottom:#000 1px solid;border-left:#000 1px solid;background:#000;border-top:#000 1px solid;border-right:#000 1px solid;}
+BODY.contraste .divConteudoInterna .divMapaBlocoAvancadoLaranja UL.divMapaSubSubBlocoAvancadoLaranja LI SPAN A,BODY.contraste .divConteudoInterna .divFaleCom UL.divFaleComSubSubBloco LI SPAN A{font-family:Arial;font-size:1.2em;font-weight:400;text-decoration:none;}
+.divConteudoInterna .divBoxFlashCategorias,.divBoxNavEstud,.divBoxPos04_1{width:516px;float:left;padding:0 0 20px;}
+.section-navegue_por.template-br_video .divBoxPos04_1{width:auto;margin-left:13px;}
+.section-oqueobrasiltem ul.tagClouds li{padding-left:0;width:auto;}
+.section-oqueobrasiltem ul.tagClouds{padding-left:0;}
+.divBoxNavEstud .divModNavEstud .divModNavEstudTop .divModNavEstudBottom .divBoxListagem .divBoxNavegacao,.divModOpineEstud UL LI.liRight,.divBoxDestAudioG UL LI.last-child,.divBoxDestaques UL LI.liRight,.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom UL.ulMod LI.liRight,UL.ulIcoAcervoSobre,.divBoxErroForm .divBoxErroFormTop .divBoxErroFormBottom SPAN.spanVoltar{float:right;}
+.divBoxVideoEstud,.divModListServAcesEstud{width:252px;float:left;padding:0 0 20px;}
+.divBoxVideoEstud .last-child,.divModNoticiasEstud UL .last-child,.divSidebarEsq .divModFeitoBrasil UL LI.last-child,.divModTestemunhais .divBoxTestemunhais .divBoxTestemunhaisTop .divBoxTestemunhaisBottom UL LI.last-child,.bordaMostra .box P A:hover,.divConteudoInterna .divLinhaDoTempoItens .divLinhaDoTempoItem .divLinhaDoTempoItemDescricao,.divConteudoInterna .divLinhaDoTempoItens .divLinhaDoTempoItemAssunto .divLinhaDoTempoItemImagemAssunto,.divConteudoInterna .divLinhaDoTempoItens .divLinhaDoTempoItemAssunto .divLinhaDoTempoItemDescricaoAssunto,.divConteudoInterna .divModSubMenuLinks UL LI.last-child{border-bottom:medium none;border-left:medium none;border-top:medium none;border-right:medium none;}
+BODY.contraste .divModListServAcesEstud H4 .numero,BODY.contraste .multiConversorFerramenta .divModDest4ColAbas .divConteudosAbas .divConteudosAbasTop .divConteudosAbasBottom FIELDSET.resultado LABEL.to INPUT{color:red;}
+.divModListServAcesEstud A IMG,.divModNoticiasEstud A IMG,body.contraste .divModListServAcesEstud A IMG,body.contraste .divModNoticiasEstud A IMG {padding:5px 0 0;}
+.divModListServAcesEstud .servicos .txtServicos A:link,.divModListServAcesEstud .servicos .txtServicos A:visited,.divModNoticiasEstud .servicos .txtServicos A:link,.divModNoticiasEstud .servicos .txtServicos A:visited,BODY.contraste .chamada_tv UL LI A{color:#fff;text-decoration:none;}
+.divModNoticiasEstud,.divModForumEstud,.divModSeloEstud,.divSidebarEsq .divModFeitoBrasil,.divBoxEnquete,.divBoxNotCopa{width:252px;float:left;padding:0 0 20px 12px;}
+BODY.contraste .divModNoticiasEstud UL LI,BODY.contraste .divConteudoInterna .divLinhaDoTempoItens,BODY.contraste .divConteudoInterna .divLinhaDoTempoItensBusca,BODY.contraste .divConteudoInterna .divLinhaDoTempoItensGuia{border-bottom:#fff 1px solid;}
+BODY.contraste .divModNoticiasEstud UL LI P A,BODY.contraste .divBoxCategorias .divBoxCategoriasTop .divBoxCategoriasBottom UL LI,BODY.contraste .faleComBrasil .divBoxSecao .divBoxSecaoTop .divBoxSecaoBottom .pMensagem,BODY.contraste .multiConversorFerramenta .divModDest4ColAbas .divConteudosAbas .divConteudosAbasTop .divConteudosAbasBottom FIELDSET.resultado INPUT{color:#53ff6f;}
+.divModNoticiasEstud UL LI P SPAN IMG,P.pAtualizado IMG{vertical-align:middle;padding:0 2px 0 0;}
+BODY.contraste .divModOpineEstud P,BODY.contraste .divModOpineEstud FORM FIELDSET LABEL{color:#a6a7ff;}
+.divModDestaqueAntes,.divEmDestaques,.divModDestAntes,.divModDestAudioP{width:252px;float:left;}
+.divModDestaqueAntes H3,.divModDestAntes H3 A,.divModDestAntes H3.titGrandeNaveguePor{font:bold 1.8em Arial,Helvetica,sans-serif;color:#007cc2;}
+.divModDestaqueAntes P,.divSidebarEsq .divDestArea03 P{font:1.2em Arial,Helvetica,sans-serif;color:#000;}
+.divModDestaqueAntes a:hover{text-decoration:underline}
+.divChamadas,.divChamadas UL.chamadasAntes,.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom UL.chamadasAntes{width:517px;float:left;margin:0;padding:0;}
+.divChamadas UL.chamadasAntes LI.last-child,.divChamadas UL.chamadasAntes LI.grande{border-bottom:#ccc 1px solid;list-style-type:none;width:516px;display:inline;float:left;height:94px;list-style-image:none;padding:10px 0 0;}
+.divChamadas UL.chamadasAntes LI.grande H3,.divChamadas UL.chamadasAntes LI.last-child H3{width:383px;font:bold 1.4em Arial,Helvetica,sans-serif;float:left;color:#007cc2;padding:0 0 0 5px;}
+.divChamadas UL.chamadasAntes LI.grande P,.divChamadas UL.chamadasAntes LI.last-child P{width:353px;font:1.2em Arial,Helvetica,sans-serif;float:left;color:#000;padding:5px 0 0 5px;}
+.divChamadas UL.agenciaBrasil LI H3 SPAN,.Noticia_1_img_1_txt_01 P SPAN,.Noticia_1_img_1_txt_02 P SPAN{background:url(http://www.brasil.gov.br/bg/bgDivisorConteudoRelacionado.gif) no-repeat left 50%;padding:0 0 0 12px;}
+.bannerAntes UL LI.last-child,.faleComBrasil .listaQuestoes .listaQuestoesItem .divModBoxAudioP1 UL LI.liLink02,.multiConversorFerramenta .divModDest4ColAbas .divConteudosAbas .divConteudosAbasTop .divConteudosAbasBottom FORM,.multiConversorFerramenta .divModDest4ColAbas .divConteudosAbas .divConteudosAbasTop .divConteudosAbasBottom FIELDSET.resultado LABEL{padding:0;}
+.divEmDestaques UL,.divModTextAudioLink{width:252px;}
+.divBoxPos03,.divBoxPos09{width:252px;float:left;padding:0 12px 0 0;}
+.divBoxPos05,.divBoxPos05_1{width:516px;float:left;padding:18px 12px 0 0;}
+.divBoxPos07,.divBoxPos07_2{width:512px;float:left;padding:0 8px 0 0;}
+.divBoxPos13 .divModTableM,.chamada_tv{position:relative;}
+.divBoxDestImgGrande SPAN.spanTema,.divModDestAudioP SPAN.spanTema,.divModDestAudioPM SPAN.spanTema{text-transform:uppercase;font:1em Arial,Helvetica,sans-serif;color:#666766;padding:0 0 7px;}
+.divModPublicacoes .divModPublicacoesTop .divModPublicacoesBottom H4,.divModNotCopa .divModNotCopaTop .divModNotCopaBottom H4{margin:0;padding:0 0 8px 6px;}
+.divModPublicacoes .divModPublicacoesTop .divModPublicacoesBottom DL DT,.divModNotCopa .divModNotCopaTop .divModNotCopaBottom DL DT{padding:8px 0 8px 6px;}
+.divModPublicacoes .divModPublicacoesTop .divModPublicacoesBottom DL DT.dtBg2,.divModPublicacoes .divModPublicacoesTop .divModPublicacoesBottom DL DD.dtBg2{background:#fff1de;}
+.divModPublicacoes .divModPublicacoesTop .divModPublicacoesBottom DL DD IMG,.divModNotCopa .divModNotCopaTop .divModNotCopaBottom DL DD IMG{border-bottom:#ccc 1px solid;border-left:#ccc 1px solid;display:inline;float:left;border-top:#ccc 1px solid;border-right:#ccc 1px solid;margin:0 10px 0 0;}
+.divModPublicacoes .divModPublicacoesTop .divModPublicacoesBottom DL DD A IMG,.divModNotCopa .divModNotCopaTop .divModNotCopaBottom DL DD A IMG{border-bottom:medium none;border-left:medium none;float:none;vertical-align:middle;border-top:medium none;border-right:medium none;margin:0;}
+.divBoxDestAudioG UL LI,UL.ulIcoAcervoSobre LI{display:inline;float:left;}
+BODY.contraste .divModDestAudioG H6 A,BODY.contraste .divConteudoInterna .listaAcervoDigital UL LI H4 A{color:#00eaff;text-decoration:none;}
+.divModDestAudioG SPAN,.divModDestAudioPM SPAN{font:1em Arial,Helvetica,sans-serif;color:#666766;}
+.divModDestAntes P,.divBoxBrasilResp .divBoxBrasilRespTop .divBoxBrasilRespBottom .divBoxListBrasilResp UL LI{font:1.2em Arial,Helvetica,sans-serif;color:#000;padding:0;}
+.divBoxDestaques UL LI,.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom UL.ulMod LI{border-bottom:#cfcfcf 1px dotted;display:inline;float:left;margin:0 0 10px;padding:0 0 10px;min-height:65px;}
+.divModDestAudioP H6,.divModDestAudioPM H6{font:bold 1.4em Arial,Helvetica,sans-serif;color:#007cc2;}
+.divModDestAudioP IMG,.divModDestAudioPM IMG{border-bottom:#c5c5c5 1px solid;border-left:#c5c5c5 1px solid;display:inline;float:left;border-top:#c5c5c5 1px solid;border-right:#c5c5c5 1px solid;margin:0 8px 0 0;padding:1px;}
+.divModDestAudioP IMG.hover,.divModDestAudioPM IMG.hover{border-bottom:#ffb400 2px solid;border-left:#ffb400 2px solid;display:inline;float:left;border-top:#ffb400 2px solid;border-right:#ffb400 2px solid;margin:0 8px 0 0;padding:0;}
+.divModDestAudioP h6 a:hover{text-decoration:underline }
+.divModDestAudioPM h6 a:hover{text-decoration:underline }
+.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom .divPaginacao UL LI A,.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom .divPaginacao UL LI.liBtn A{font:1.2em Arial,Helvetica,sans-serif;color:#007cc2;text-decoration:none;}
+.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom .divPaginacao UL LI.liBtnLeft,.divBoxAudioAbas .divBoxAudioFiltro .divBoxAudioFiltroTop .divBoxAudioFiltroBottom .divPaginacao UL LI.liBtnRight{float:right;padding:0 0 0 21px;}
+BODY.contraste .divBoxCategorias,BODY.contraste .divBoxCategorias .divBoxCategoriasTop,BODY.contraste .divBoxBrasilResp,BODY.contraste .divBoxBrasilResp .divBoxBrasilRespTop,BODY.contraste #divContentGeral #divConteudo .faleComBrasil .divBoxSecao,BODY.contraste #divContentGeral #divConteudo .faleComBrasil .divBoxSecao .divBoxSecaoTop,BODY.contraste .divConteudoInterna .divLinhaDoTempoMensagem .divLinhaDoTempoMensagemTop,BODY.contraste .divConteudoInterna .divLinhaDoTempoMensagem .divLinhaDoTempoMensagemBottom{background:none transparent scroll repeat 0 0;}
+.divBoxCategorias .divBoxCategoriasTop,.divBoxBrasilResp .divBoxBrasilRespTop{width:252px;background:url(http://www.brasil.gov.br/bg/bgBoxCategorias.jpg) no-repeat 50% top;float:left;}
+.divBoxCategorias .divBoxCategoriasTop .divBoxCategoriasBottom,.divBoxBrasilResp .divBoxBrasilRespTop .divBoxBrasilRespBottom{width:232px;background:url(http://www.brasil.gov.br/bg/bgBoxCategoriasBottom.jpg) no-repeat 50% bottom;float:left;padding:10px;}
+BODY.contraste .divBoxCategorias .divBoxCategoriasTop .divBoxCategoriasBottom,BODY.contraste .divBoxBrasilResp .divBoxBrasilRespTop .divBoxBrasilRespBottom{border-bottom:#f9f9f9 1px solid;border-left:#f9f9f9 1px solid;background:none transparent scroll repeat 0 0;border-top:#f9f9f9 1px solid;border-right:#f9f9f9 1px solid;}
+.divBoxCategorias .divBoxCategoriasTop .divBoxCategoriasBottom H4,.divBoxBrasilResp .divBoxBrasilRespTop .divBoxBrasilRespBottom H4{border-bottom:#e3e3e3 1px solid;font:bold 1.7em Arial,Helvetica,sans-serif;color:#030303;margin:0 0 10px;padding:0 0 6px;}
+.divBoxCategorias .divBoxCategoriasTop .divBoxCategoriasBottom UL LI A,.divBoxBrasilResp .divBoxBrasilRespTop .divBoxBrasilRespBottom .divBoxListBrasilResp UL LI.liResp A{background:url(http://www.brasil.gov.br/ico/icoSetaAmarela.gif) no-repeat left 50%;color:#007cc2;text-decoration:none;padding:0 0 0 10px;}
+BODY.contraste .divBoxCategorias .divBoxCategoriasTop .divBoxCategoriasBottom UL LI A,BODY.contraste .divBoxBrasilResp .divBoxBrasilRespTop .divBoxBrasilRespBottom .divBoxListBrasilResp UL LI.liResp A{background:url(http://www.brasil.gov.br/ico/icoSetaAmarela_c.gif) no-repeat left 50%;color:#53ff6f;}
+.divSidebarEsq .divModFeitoBrasil H4,.divModTestemunhais .divBoxTestemunhais .divBoxTestemunhaisTop .divBoxTestemunhaisBottom H4{border-bottom:#ccc 1px solid;font:bold 1.7em Arial,Helvetica,sans-serif;color:#000;margin:0 0 10px;padding:0 0 6px;}
+BODY.contraste .divSidebarEsq .divModFeitoBrasil H4,BODY.contraste .divModTestemunhais .divBoxTestemunhais .divBoxTestemunhaisTop .divBoxTestemunhaisBottom H4{border-bottom:#ccc 1px solid;color:#fff;}
+.divSidebarEsq .divModFeitoBrasil UL LI,.divModTestemunhais .divBoxTestemunhais .divBoxTestemunhaisTop .divBoxTestemunhaisBottom UL LI{border-bottom:#cfcfcf 1px dotted;width:100%;float:left;margin:0 0 8px;padding:0 0 8px;}
+.divSidebarEsq .divModFeitoBrasil SPAN.spanMais A,.divModTestemunhais .divBoxTestemunhais .divBoxTestemunhaisTop .divBoxTestemunhaisBottom SPAN.spanMais A{font:bold 1.2em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/ico/icoSetaAzul.gif) no-repeat left 50%;float:right;color:#ffb400;text-decoration:none;padding:0 0 0 12px;}
+BODY.contraste .divSidebarEsq .divModFeitoBrasil SPAN.spanMais A,BODY.contraste .divModTestemunhais .divBoxTestemunhais .divBoxTestemunhaisTop .divBoxTestemunhaisBottom SPAN.spanMais A{background:url(http://www.brasil.gov.br/ico/icoSetaAzul_c.gif) no-repeat left 50%;color:#fff600;}
+BODY.contraste .divSidebarEsq .divMaisComentadas .servicos_acessados,BODY.contraste .divConteudoInterna .divMaisComentadas .servicos_acessados{background:url(http://www.brasil.gov.br/bg/bgBoxFilBuscaReplica_c.jpg) repeat-y;}
+.divSidebarEsq .divMaisComentadas .servicos_acessados .servicos_acessadosTop,.divConteudoInterna .divMaisComentadas .servicos_acessados .servicos_acessadosTop{width:252px;background:url(http://www.brasil.gov.br/bg/bgBoxFilBuscaTop.jpg) no-repeat 50% top;float:left;}
+BODY.contraste .divSidebarEsq .divMaisComentadas .servicos_acessados .servicos_acessadosTop,BODY.contraste .divConteudoInterna .divMaisComentadas .servicos_acessados .servicos_acessadosTop{background:url(http://www.brasil.gov.br/bg/bgBoxFilBuscaTop_c.jpg) no-repeat 50% top;}
+.divSidebarEsq .divMaisComentadas .servicos_acessados .servicos_acessadosTop .servicos_acessadosBottom,.divConteudoInterna .divMaisComentadas .servicos_acessados .servicos_acessadosTop .servicos_acessadosBottom{width:226px;background:url(http://www.brasil.gov.br/bg/bgBoxFilBuscaBottom.jpg) no-repeat 50% bottom;float:left;padding:15px 13px;}
+BODY.contraste .divSidebarEsq .divMaisComentadas .servicos_acessados .servicos_acessadosTop .servicos_acessadosBottom,BODY.contraste .divConteudoInterna .divMaisComentadas .servicos_acessados .servicos_acessadosTop .servicos_acessadosBottom{background:url(http://www.brasil.gov.br/bg/bgBoxFilBuscaBottom_c.jpg) no-repeat 50% bottom;}
+.servicos_acessados SPAN.mais10 STRONG,.divConteudoInterna .divModSubMenuLinks UL LI.liActive A{color:#ffb400;}
+.ServicosNaveguePor,.faleComBrasil .listaQuestoes .listaQuestoesItem .listaQuestoesItemCadastro FIELDSET LABEL{width:100%;}
+.ServicosNaveguePor DIV IMG,.Noticia_1_img_1_txt_01 IMG,.Noticia_1_img_1_txt_02 IMG{padding-right:10px;float:left;}
+.ServicosNaveguePor DIV SPAN P A,.ServicosNaveguePor DIV SPAN P A IMG{float:none !important;}
+.busca_sala_imprensa SPAN,.buscaLinhaDoTempo SPAN{display:block;clear:left;}
+.Noticia_1_img_1_txt_02,.faleComBrasil .listaQuestoes .listaQuestoesItem .listaQuestoesItemListagem{width:380px;float:left;}
+.Noticia_1_img_1_txt_01 P A,.Noticia_1_img_1_txt_02 P A{font:bold 1.8em Arial,Helvetica,sans-serif;color:#007cc2;text-decoration:none;}
+.divModDest4ColAbas .divConteudosAbas .divConteudosAbasTop .faleBrasilEnvieQuestao P,.divModDest4ColAbas .divConteudosAbas .divConteudosAbasTop .faleBrasilEnvieQuestao FORM{padding:8px 0 0;}
+BODY.contraste .faleComBrasil .divBoxSecao .divBoxSecaoTop .divBoxSecaoBottom,BODY.contraste .divConteudoInterna .divLinhaDoTempoMensagem{border-bottom:#fff 1px solid;border-left:#fff 1px solid;background:none transparent scroll repeat 0 0;border-top:#fff 1px solid;border-right:#fff 1px solid;}
+.faleComBrasil .listaQuestoes .listaQuestoesItem P,.multiConversorUnidade,.multiConversorFerramenta,.multiConversorNoComputador{width:100%;float:left;}
+BODY.contraste .faleComBrasil .listaQuestoes .listaQuestoesItem .divModBoxAudioP1 .divBoxBaixarAudioP1 UL LI.liLink01 A,BODY.contraste .faleComBrasil .listaQuestoes .listaQuestoesItem .divModBoxAudioP1 .divBoxBaixarAudioP1 UL LI.liLink02 A{background:url(http://www.brasil.gov.br/ico/icoSeta2BottomAmarela_c.gif) no-repeat left bottom;color:#fff;}
+.multiConversorFerramenta .divModDest4ColAbas .divConteudosAbas .divConteudosAbasTop .divConteudosAbasBottom FIELDSET.calculo LABEL SELECT,.multiConversorFerramenta .divModDest4ColAbas .divConteudosAbas .divConteudosAbasTop .divConteudosAbasBottom FIELDSET.calculo LABEL .jquery-selectbox{width:180px !important;}
+.divConteudoInterna .divLinhaDoTempoLista,.divConteudoInterna .divLinhaDoTempoListaBusca,.divConteudoInterna .divLinhaDoTempoListaAssunto,.divConteudoInterna .divLinhaDoTempoListaGuia{float:left;}
+.divConteudoInterna .divLinhaDoTempoItens,.divConteudoInterna .divLinhaDoTempoItensBusca,.divConteudoInterna .divLinhaDoTempoItensGuia{border-bottom:#d0d0d0 1px dotted;float:left;}
+BODY.contraste .divConteudoInterna .divLinhaDoTempoItens .divLinhaDoTempoItem,BODY.contraste .divConteudoInterna .divLinhaDoTempoItensBusca .divLinhaDoTempoItemBusca,BODY.contraste .divConteudoInterna .divLinhaDoTempoItensGuia .divLinhaDoTempoItemGuia{background:none transparent scroll repeat 0 0;border-top:#fff 1px dotted;}
+.divConteudoInterna .divLinhaDoTempoItens DIV.first-child,.divConteudoInterna .divLinhaDoTempoItensBusca DIV.first-child,.divConteudoInterna .divLinhaDoTempoItensGuia DIV.first-child{border-top:#d0d0d0 1px solid;}
+BODY.contraste .divConteudoInterna .divLinhaDoTempoItens DIV.first-child,BODY.contraste .divConteudoInterna .divLinhaDoTempoItensBusca DIV.first-child,BODY.contraste .divConteudoInterna .divLinhaDoTempoItensGuia DIV.first-child{border-top:#fff 1px solid;}
+.divLinhaDoTempoItens .divLinhaDoTempoItem .divLinhaDoTempoItemDescricao P STRONG,.divConteudoInterna .divLinhaDoTempoItensBusca .divLinhaDoTempoItemBusca P STRONG,.divConteudoInterna .divLinhaDoTempoItensAssunto .divLinhaDoTempoItemAssunto .divLinhaDoTempoItemDescricaoAssunto P STRONG,.divConteudoInterna .divLinhaDoTempoItensGuia .divLinhaDoTempoItemGuia P STRONG{color:#0e9800;}
+BODY.contraste .divConteudoInterna .divLinhaDoTempoItensBusca .divLinhaDoTempoItemBusca H5,BODY.contraste .divConteudoInterna .divLinhaDoTempoItensGuia .divLinhaDoTempoItemGuia H5{color:#00eaff;padding:0 0 4px;}
+.divConteudoInterna .divLinhaDoTempoItensAssunto DIV.first-child,BODY.contraste .divConteudoInterna .divLinhaDoTempoItensAssunto DIV.first-child{border-top:medium none;}
+BODY.contraste .divConteudoInterna .divModSubMenuLinks,BODY.contraste .divConteudoInterna .divModSubMenuLinks UL LI{border-color:#fff;}
+UL.ulIcoAcervoSobre LI.liAcervo A:hover,UL.ulIcoAcervoSobre LI.liAcervo A.aActive{font:12px Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/ico/icoAcervo_on.gif) no-repeat left 50%;color:#009241;text-decoration:none;padding:0 0 0 21px;}
+UL.ulIcoAcervoSobre LI.liSobre A:hover,UL.ulIcoAcervoSobre LI.liSobre A.aActive{font:12px Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/ico/icoSobreArtista_on.gif) no-repeat left 50%;color:#009241;text-decoration:none;padding:0 0 0 21px;}
+P A:hover,P A.external-link:hover,P A.aAjuda:hover{color:#007cc2;text-decoration:underline;}
+.divConteudoInterna .divFaleCom UL.divFaleComSubSubBloco LI SPAN{background:none;background-image:url(http://www.brasil.gov.br/ico/icoSetaAzul.gif) no-repeat left center;padding:4px 0 4px 0px;}
+.ServicosNaveguePor div a p:hover {text-decoration:underline;cursor:pointer;}
+.divBoxNavEstud .divModNavEstud .divModNavEstudTop .divModNavEstudBottom .divboxListagem ul li {border-right:1px dotted #ccc;min-height:170px;_height:170px;padding:0 10px;width:140px;}
+.divBoxNavEstud .divModNavEstud .divModNavEstudTop .divModNavEstudBottom .divboxListagem ul li dl {width:135px;}
+.divModNoticiasEstud ul li {padding:9px 0 0;}
+.todosContatos{background:url('bgcontatos.png');width:253px;height:333px;float:right;margin-top:15px;}
+.titContatos{padding-top:11px;border-bottom:1px solid #d2d3d3;margin:0 11px 0 11px;}
+.listaContatos ul{margin:16px 0 0 10px;width:92%;}
+.listaContatos ul li{list-style-type:none;font-size:1.4em;color:#009241;height:24px;}
+.listaContatos ul li odd{background:url('bgLinhaContato.png');}
+.listaContatos ul li strong{margin-left:5px;}
+.linkAmarelo{background:transparent url(http://www.brasil.gov.br/ico/icoSetaAzul.gif) no-repeat scroll 0 5px;clear:both;color:#FFB400;float:left;font-family:Arial,Helvetica,sans-serif;font-size:1em;font-size-adjust:none;font-stretch:normal;font-style:normal;font-variant:normal;font-weight:bold;line-height:normal;padding:0 0 0 13px;text-align:left;text-decoration:none;width:200px;}
+#galBotaoFlash{background-color:transparent;background-image:url("btFlashGaleria.png");background-position:left center;background-repeat:no-repeat;color:#007CC2;display:block;float:right;font-size:1.2em;height:26px;line-height:26px;margin-top:-35px;padding-left:34px;text-decoration:none;width:100px;}
+.portlet-static-galeria-de-arte{background:url("http://www.brasil.gov.br/bg/bordaBottom_box250.jpg");background-position:-1px bottom;}
+dl.portlet-static-galeria-de-arte dt{background:url(http://www.brasil.gov.br/bg/bordaTop_box250.jpg) no-repeat scroll center top;height:20px;margin-left:-1px;padding:0;font-size:1.4em;font-weight:bold;padding-top:15px;padding-left:15px;width:235px;}
+dl.portlet-static-galeria-de-arte dd.portletItem{padding-left:15px;width:220px;padding-right:15px;display:table;}
+dl.portlet-static-galeria-de-arte dd.portletItem img{margin-bottom:20px;}
+.portlet-static-galeria-de-arte .external-link{background-image:none;}
+dl.portlet-static-mais-acoes dt{height:20px;font-size:1.4em;font-weight:bold;}
+dl.portlet-static-mais-acoes dd.portletItem a{float:left;display:block;width:157px;height:40px;padding-top:10px;padding-left:10px;color:#007cc2;font-size:1.2em
+}
+dl.portlet-static-mais-acoes dd.portletItem a:hover{text-decoration:underline;}
+dl.portlet-static-mais-acoes dd.portletItem img{float:left;}
+.divBoxFalePres .jquery-selectbox{width:100px !important;}
+.divBoxFalePres .jquery-selectbox-list{width:95px !important;}
+#content .mapsMarker .tab p{font-size:9px !important;}
+#content h1.documentFirstHeading{width:100% !important;}
+
+}
+

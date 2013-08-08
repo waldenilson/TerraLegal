@@ -1,0 +1,1262 @@
+
+/* - bs4.css - */
+@media screen {
+/* http://www.brasil.gov.br/portal_css/bs4.css?original=1 */
+.divModHowInvest UL LI.liLink02{background:url(http://www.brasil.gov.br/bg/bgHowInvestLink02.jpg) no-repeat;padding:4px 0 3px 9px;}
+.divModHowInvest UL LI.liLink03{background:url(http://www.brasil.gov.br/bg/bgHowInvestLink03.jpg) no-repeat;padding:4px 0 3px 9px;}
+.divModHowInvest UL LI.liLink04{background:url(http://www.brasil.gov.br/bg/bgHowInvestLink04.jpg) no-repeat;padding:4px 0 4px 9px;}
+.divModHowInvest UL LI A{font:1.6em Arial,Helvetica,sans-serif;color:#007cc2;text-decoration:none;}
+.divModManyReasotns{width:390px;float:left;}
+.divModManyReasotns H3{font:bold 4.7em Arial,Helvetica,sans-serif;float:left;color:#007cc2;}
+.divModManyReasotns UL.ulTitle LI.liTit01{font:1.5em Arial,Helvetica,sans-serif;color:#666;margin:5px 0 -9px;}
+.divModManyReasotns UL.ulTitle LI.liTit02{font:2.5em Arial,Helvetica,sans-serif;color:#666;}
+.divModManyReasotns UL.ulNavMany{width:56px;display:inline;background:url(http://www.brasil.gov.br/bg/bgNavMany.jpg) no-repeat 50% top;float:right;height:26px;margin:25px 0 0;padding:6px 0 0 7px;}
+.divModManyReasotns UL.ulNavMany LI{display:inline;float:left;padding:0 1px 0 0;}
+.divModManyReasotns .divBoxCarroselMany{width:380px;background:url(http://www.brasil.gov.br/bg/bgCarroselManyReasotns.jpg) no-repeat 50% top;float:left;padding:9px 0 0;}
+.divModManyReasotns .divBoxCarroselMany UL LI{width:150px;display:inline;float:left;padding:0 30px 0 9px;}
+.divModManyReasotns .divBoxCarroselMany UL LI.liDivsor{width:1px;background:#ffb400;height:50px;padding:0;}
+.divModManyReasotns .divBoxCarroselMany UL LI H6{text-align:center;width:33px;display:inline;font:bold 2em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/bgTitCircleAzul.gif) no-repeat;float:left;height:30px;color:#fff;margisn:0 4px 20px 0;padding:3px 0 0;}
+.divModManyReasotns .divBoxCarroselMany UL LI SPAN{font:1.4em Arial,Helvetica,sans-serif;color:#007cc2;}
+.divModSeletorInvest{width:390px;float:left;padding:0 0 20px;}
+.divModSeletorInvest UL.ulAbas{position:relative;float:left;margin:0 0 -5px 4px;}
+.divModSeletorInvest UL.ulAbas LI{display:inline;float:left;margin:0 3px 0 0;padding:0;}
+.divModSeletorInvest UL.ulAbas LI.liDivisor{width:1px;background:url(http://www.brasil.gov.br/bg/bgDivisorVoto.gif) no-repeat center bottom;float:left;height:12px;padding:13px 5px 0;}
+.divModSeletorInvest UL.ulAbas LI.liActive{background:url(http://www.brasil.gov.br/bg/bgConteudosAbas_c.jpg) repeat-x;}
+.divModSeletorInvest UL.ulAbas LI.liActive SPAN{width:10px;display:block;}
+BODY.contraste .divModSeletorInvest UL.ulAbas LI.liActive A{color:#00eaff;}
+.divModSeletorInvest .divBoxSeletorInvest{width:390px;background:url(http://www.brasil.gov.br/bg/bgBoxSeletorInvestReplica.jpg) repeat-y;float:left;}
+.divModSeletorInvest .divBoxSeletorInvest .divBoxSeletorInvestTop{width:390px;background:url(http://www.brasil.gov.br/bg/bgBoxSeletorInvestTop.jpg) no-repeat 50% top;float:left;}
+.divModSeletorInvest .divBoxSeletorInvest .divBoxSeletorInvestTop .divBoxSeletorInvestBottom{width:354px;background:url(http://www.brasil.gov.br/bg/bgBoxSeletorInvestBottom.jpg) no-repeat 50% bottom;float:left;padding:20px 18px;}
+.divModSeletorInvest .divBoxSeletorInvest .divBoxSeletorInvestTop .divBoxSeletorInvestBottom IMG.imgIcone{float:left;padding:0 12px 0 0;}
+.divModSeletorInvest .divBoxSeletorInvest .divBoxSeletorInvestTop .divBoxSeletorInvestBottom FORM{padding:15px 0 0;}
+.divModSeletorInvest .divBoxSeletorInvest .divBoxSeletorInvestTop .divBoxSeletorInvestBottom FORM FIELDSET LEGEND{font:1.2em Arial,Helvetica,sans-serif;color:#000;padding:0 0 10px;}
+.divModSeletorInvest .divBoxSeletorInvest .divBoxSeletorInvestTop .divBoxSeletorInvestBottom FORM FIELDSET LABEL SELECT{width:238px;}
+.divModSeletorInvest .divBoxSeletorInvest .divBoxSeletorInvestTop .divBoxSeletorInvestBottom FORM FIELDSET BUTTON.btnSearch{border-bottom:0;border-left:0;text-indent:-9999px;width:49px;background:url(http://www.brasil.gov.br/btn/btnSearch.gif) no-repeat;height:26px;vertical-align:top;border-top:0;cursor:pointer;border-right:0;}
+.divModGoogleMap{width:528px;float:left;padding:20px 0 0;}
+.divModGoogleMap H3{font:3px Arial,Helvetica,sans-serif;color:#007cc2;padding:0 0 8px;}
+.divModGoogleMap P{font:1.2em Arial,Helvetica,sans-serif;color:#000;padding:0 0 25px;}
+.divModGoogleMap .divBoxGoogleMap{border-bottom:#c8c8c8 1px solid;border-left:#c8c8c8 1px solid;width:525px;float:left;height:263px;border-top:#c8c8c8 1px solid;border-right:#c8c8c8 1px solid;}
+.divModBannerLateral{width:243px;float:right;padding:20px 0 0;}
+.divModBannerLateral UL LI{border-bottom:#d3d0d0 1px solid;width:243px;float:left;padding:23px 0;}
+.divModBannerLateral UL LI.first-child{padding:0 0 23px;}
+.divModBannerLateral UL LI.last-child{border-bottom:medium none;border-left:medium none;border-top:medium none;border-right:medium none;padding:23px 0 0;}
+.divModBannerLateral UL LI H4{float:left;padding:0 0 10px;}
+.divModBannerLateral UL LI SPAN A{font:1.1em Arial,Helvetica,sans-serif;color:#000;text-decoration:none;}
+.divBoxVideoG OBJECT{z-index:0 !important;position:relative !important;overflow:hidden;}
+.jcarousel-container{position:relative;float:left;}
+.jcarousel-clip{z-index:2;position:relative;overflow:hidden;margin:0;padding:0;}
+.jcarousel-container-horizontal{width:601px;margin-left:17px;}
+.jcarousel-clip-horizontal{width:606px;}
+.jcarousel-container-vertical{width:64px;height:160px;margin:22px 0;}
+.jcarousel-clip-vertical{width:64px;height:160px;}
+.jcarousel-list{z-index:1;position:relative;overflow:hidden;top:0;left:0;margin:0;padding:0;}
+.jcarousel-next-horizontal{background-image:url(http://www.brasil.gov.br/btn/btnServPublicosRight.gif);width:16px;height:78px;top:0;right:-16px;}
+BODY.contraste .jcarousel-next-horizontal{background-image:url(http://www.brasil.gov.br/btn/btnServPublicosRight_c.gif);}
+.jcarousel-next-vertical{background-image:url(http://www.brasil.gov.br/btn/btnSetaGaleriaBottom.gif);width:64px;bottom:-19px;height:17px;left:0;}
+BODY.contraste .jcarousel-next-vertical{background-image:url(http://www.brasil.gov.br/btn/btnSetaGaleriaBottom_c.gif);}
+.jcarousel-prev-horizontal{background-image:url(http://www.brasil.gov.br/btn/btnServPublicosLeft.gif);width:16px;height:78px;top:0;left:-16px;}
+BODY.contraste .jcarousel-prev-horizontal{background-image:url(http://www.brasil.gov.br/btn/btnServPublicosLeft_c.gif);}
+.jcarousel-prev-vertical{background-image:url(http://www.brasil.gov.br/btn/btnSetaGaleriaTop.gif);width:64px;height:17px;top:-22px;left:0;}
+BODY.contraste .jcarousel-prev-vertical{background-image:url(http://www.brasil.gov.br/btn/btnSetaGaleriaTop_c.gif);}
+.jcarousel-skin-tango .jcarousel-container-horizontal{width:515px;padding:0 20px;}
+.jcarousel-skin-tango .jcarousel-container-vertical{width:75px;height:245px;padding:40px 20px;}
+.jcarousel-skin-tango .jcarousel-clip-horizontal{width:515px;height:263px;}
+.jcarousel-skin-tango .jcarousel-clip-vertical{width:75px;height:245px;}
+.jcarousel-skin-tango .jcarousel-item{position:relative;width:97px;height:262px;}
+.jcarousel-skin-tango .jcarousel-item-horizontal{margin-right:7px;}
+.jcarousel-skin-tango .jcarousel-item-horizontal A{position:relative;width:97px;display:block;margin-bottom:7px;height:60px;}
+.jcarousel-skin-tango .jcarousel-item-vertical{margin-bottom:10px;}
+.jcarousel-skin-tango .jcarousel-next-horizontal{position:absolute;width:10px;background:url(http://www.brasil.gov.br/bt-next.gif) no-repeat 0 0;height:15px;top:83px;cursor:pointer;right:4px;}
+.jcarousel-skin-tango .jcarousel-prev-horizontal{position:absolute;width:10px;background:url(http://www.brasil.gov.br/bt-preview.gif) no-repeat 0 0;height:15px;top:83px;cursor:pointer;left:3px;}
+.jcarousel-skin-tango .jcarousel-next-vertical{position:absolute;width:32px;bottom:5px;background:url(http://www.brasil.gov.br/next-vertical.png) no-repeat 0 0;height:32px;cursor:pointer;left:43px;}
+.jcarousel-skin-tango .jcarousel-prev-vertical{position:absolute;width:32px;background:url(http://www.brasil.gov.br/prev-vertical.png) no-repeat 0 0;height:32px;top:5px;cursor:pointer;left:43px;}
+.jcarousel-skin-video-horizontal .jcarousel-clip-horizontal{width:196px;}
+.jcarousel-skin-video-horizontal .jcarousel-container-horizontal{width:196px;margin-left:20px;}
+.jcarousel-skin-video-horizontal .jcarousel-next-horizontal{background-image:url(http://www.brasil.gov.br/btn/btnCarrossel_right.gif);width:17px;height:36px;top:0;right:-19px;left:auto;}
+.jcarousel-skin-video-horizontal .jcarousel-next-disabled,.jcarousel-skin-video-horizontal .jcarousel-prev-disabled{background-position:17px;}
+BODY.contraste .jcarousel-skin-video-horizontal .jcarousel-next-horizontal{background-image:url(http://www.brasil.gov.br/btn/btnCarrossel_right_c.gif);}
+.jcarousel-skin-video-horizontal .jcarousel-prev-horizontal{background-image:url(http://www.brasil.gov.br/btn/btnCarrossel_left.gif);width:17px;height:36px;top:0;left:-19px;}
+BODY.contraste .jcarousel-skin-video-horizontal .jcarousel-prev-horizontal{background-image:url(http://www.brasil.gov.br/btn/btnCarrossel_left_c.gif);}
+.jcarousel-skin-video-revista-digital-horizontal .jcarousel-list-horizontal LI{border-bottom:#fff 2px solid;border-left:#fff 2px solid;width:108px;height:auto;overflow:hidden;border-top:#fff 2px solid;border-right:#fff 2px solid;}
+.jcarousel-skin-video-revista-digital-horizontal .jcarousel-prev-horizontal{height:71px;top:2px;left:-10px;}
+.jcarousel-skin-video-revista-digital-horizontal .jcarousel-next-horizontal{height:71px;top:2px;right:-27px;}
+.jcarousel-skin-listagem .jcarousel-list-horizontal LI{width:163px;height:100%;overflow:hidden;}
+.contentViews{border-bottom:#ffb200 1px solid;border-left:#ffb200 0 solid;line-height:normal;background-color:transparent;list-style-type:none;padding-left:1em;border-top:#ffb200 0 solid;list-style-image:none;border-right:#ffb200 0 solid;clear:both;margin:0;}
+.contentViews LI{display:inline;padding-top:0.5em;}
+.contentViews LI A{z-index:1;border-bottom:#ffb200 1px solid;border-left:#ffb200 1px solid;line-height:normal;text-transform:none;background-color:transparent;height:auto;color:#578308;border-top:#ffb200 1px solid;margin-right:0.5em;border-right:#ffb200 1px solid;text-decoration:none;padding:0 1em;}
+.contentViews .selected A{border-bottom:#ffdb00 1px solid;background-color:#ffdb00;color:#578308;}
+.configlet .contentViews{font-size:90%;}
+.contentActions{z-index:2;position:relative;text-align:right;border-left:#ffb200 1px solid;text-transform:none;background-color:#ffdb00;height:1.6em;color:#578308;border-right:#ffb200 1px solid;padding:0 0 0 1em;}
+.contentActions UL{text-align:left;line-height:1.6em;list-style-type:none;color:#000;list-style-image:none;margin:0;}
+.contentActions LI{text-align:left;line-height:1.6em;list-style-type:none;color:#000;list-style-image:none;z-index:4;border-left:#ffb200 1px solid;float:right;margin:0;}
+.contentActions A{color:#578308;cursor:pointer;text-decoration:none;padding:0 0.5em;}
+.contentActions SPAN.subMenuTitle{position:relative;display:inline;white-space:nowrap;padding:0 0.5em;}
+.contentActions A SPAN.subMenuTitle{display:inline;padding:0;}
+.actionMenu{position:relative;margin:0;padding:0;}
+.actionMenu .actionMenuHeader{font-weight:normal;margin:0;padding:0;}
+.activated.actionMenu .actionMenuHeader{z-index:10;position:relative;}
+.arrowDownAlternative{font-size:0.85em;}
+.actionMenu .actionMenuContent{z-index:5;position:absolute;display:none;height:auto;top:1.6em;right:-1px;margin:0;padding:0;}
+.activated.actionMenu .actionMenuContent{border-spacing:0;display:table !important;border-collapse:collapse;}
+.actionMenu .actionMenuContent UL{border-bottom:#ffb200 1px solid;border-left:#ffb200 1px solid;display:block;background:#ffdb00;border-top:#ffb200 1px;border-right:#ffb200 1px solid;margin:-2px 0 0;padding:0;}
+.actionMenu .actionMenuContent LI{border-bottom:0;border-left:0;background-color:transparent;display:inline;float:none;border-top:0;border-right:0;margin:0;padding:0;}
+.actionMenu .actionMenuContent LI A{display:block;white-space:nowrap;margin:0.2em 0;}
+.actionMenu .actionMenuContent .selected{display:block;white-space:nowrap;margin:0.2em 0;padding:0 0.5em;}
+.actionMenu .actionMenuContent LI A:hover{background-color:#ffb200;color:#FFF;}
+.actionMenu .actionMenuContent .actionSeparator A{border-top:#ffb200 1px solid;padding-top:0.2em;}
+#templateMenu LI A{padding-left:16px;}
+UL.configlets{list-style-type:none;list-style-image:none;margin:1em 0;}
+UL.configlets LI A{border-bottom:medium none;border-left:medium none;border-top:medium none;border-right:medium none;text-decoration:none;}
+UL.configletDetails{list-style-type:none;list-style-image:none;margin:0 1em 1em 4em;}
+UL.configletDetails LI{display:inline;margin-bottom:1em;}
+UL.configletDetails LI.configletDescription{display:block;color:#76797c;font-size:90%;margin:0;}
+.stx TABLE{border-spacing:0;border-collapse:collapse;font-size:90%;border-bottom:#8cacbb 1px solid;border-left:#8cacbb 1px solid;border-top:#8cacbb 1px solid;border-right:#8cacbb 1px solid;margin:1em 0;}
+.comment{border-bottom:#8cacbb 1px solid;border-left:#8cacbb 1px solid;margin-bottom:1em;background:#eef3f5;border-top:#8cacbb 1px solid;border-right:#8cacbb 1px solid;padding:0.25em 1em 0.5em;}
+.comment H3 A{background-image:url(http://www.brasil.gov.br/discussionitem_icon.gif);line-height:1.6em;min-height:1.6em;padding-left:18px;background-repeat:no-repeat;margin-bottom:1px;height:auto;margin-left:-1px;}
+.commentBody{margin:0 1em 1em;}
+.spacer{margin:1em;}
+DL.collapsible{border-bottom:#8cacbb 1px solid;border-left:#8cacbb 1px solid;border-top:#8cacbb 1px solid;border-right:#8cacbb 1px solid;margin:1em 0 0;padding:0;}
+DL.collapsible DT.collapsibleHeader{position:relative;line-height:1.2em;width:auto;display:block;background:#FFF;float:left;font-size:90%;vertical-align:middle;top:-0.6em;margin:0 0 -0.6em 1em;padding:0 0.5em;}
+DL.collapsible DD.collapsibleContent{clear:left;margin:0;padding:0 1em;}
+DL.collapsedBlockCollapsible{border-bottom:medium none;border-left:medium none;width:auto;height:1em;border-top:medium none;border-right:medium none;}
+DL.collapsedBlockCollapsible DT.collapsibleHeader{position:static;line-height:1em;background:url(treeCollapsed.gif) no-repeat 6px 50%;float:none;cursor:pointer;margin:0;padding:0 0 0 22px;}
+DL.collapsedInlineCollapsible{border-bottom:medium none;border-left:medium none;width:auto;display:inline;height:1em;border-top:medium none;border-right:medium none;}
+DL.collapsedInlineCollapsible DT.collapsibleHeader{position:static;line-height:1em;display:inline;background:url(treeCollapsed.gif) no-repeat 6px 50%;float:none;cursor:pointer;margin:0;padding:0 0 0 22px;}
+.documentEditable{margin:0 -1em;padding:0 !important;}
+.documentEditable .documentContent{border-bottom:0;border-left:0;border-top:0;border-right:0;padding:0;}
+.documentEditable .imagem-destaque {bottom:0px !important;}
+.label{padding-right:0.5em;display:inline;font-weight:bold;}
+.optionsToggle{border-bottom:#8cacbb 1px solid;border-left:#8cacbb 1px solid;background-color:#dee7ec;color:#000;font-size:90%;border-top:#8cacbb 1px solid;font-weight:normal !important;border-right:#8cacbb 1px solid;}
+DL.searchResults .highlightedSearchTerm{background-color:transparent;font-weight:bold;}
+.noInheritedRoles{color:#a0a0a0;}
+.currentItem{border-bottom:orange 2px solid;border-left:orange 2px solid;border-collapse:collapse;border-top:orange 2px solid;border-right:orange 2px solid;padding:1px;}
+.managePortletsLink{display:block;color:#76797c;font-size:90%;font-weight:normal;}
+UL.formTabs{position:relative;text-align:center;list-style-type:none;display:block;margin:0 0 -2em;padding:0;}
+LI.formTab{display:inline;margin:0;padding:0;}
+LI.formTab A{display:inline-block;border-bottom:#8cacbb 1px solid;border-left:#8cacbb 1px dotted;background:#FFF;border-top:#8cacbb 1px solid;text-decoration:none;margin:0;padding:0.12em 0.75em;}
+LI.formTab A:visited{color:inherit;}
+LI.firstFormTab A{border-left:#8cacbb 1px solid;}
+LI.formTab A.notify{background-color:#ffce7b;color:#000;}
+LI.formTab A.required SPAN{background-image:url(http://www.brasil.gov.br/required.gif);padding-right:8px;background-repeat:no-repeat;background-position:right center;}
+LI.formTab A.notify:hover{background-color:orange;}
+.formPanel{border-bottom:#8cacbb 1px solid;border-left:#8cacbb 1px solid;border-top:#8cacbb 1px solid;border-right:#8cacbb 1px solid;padding:1em;}
+TABLE.controlpanel-listing DL{margin-top:0;}
+TABLE.controlpanel-listing DL DT A .trigger{font-weight:normal;}
+TABLE.controlpanel-listing TD.checker{text-align:center;}
+TABLE.controlpanel-listing TH.smallcolumn{width:1.5em;}
+.chooser-right{margin-bottom:0 !important;float:right;margin-right:0 !important;}
+.rule-element{background-color:#eef3f5;width:auto;margin:0.5em 0;padding:0.3em 1em;}
+UL.visualNoMarker{line-height:1em;list-style-type:none;list-style-image:none;margin:0.5em 0 0;}
+.visualOverflow{overflow:auto;margin:0 0 1em;}
+.visualClear{display:block;clear:both;}
+TR.dragging TD{background-color:#ff6 !important;}
+TEXTAREA{border-bottom:#ddd 1px solid;border-left:#666 1px solid;width:100%;font:12pt Monaco,"Courier New",Courier,monospace;background:url(http://www.brasil.gov.br/input_background.gif) #FFF repeat-x;color:#000;border-top:#666 1px solid;border-right:#ddd 1px solid;}
+INPUT{border-bottom:#ddd 1px solid;border-left:#666 1px solid;background:url(http://www.brasil.gov.br/input_background.gif) #FFF repeat-x;color:#000;font-size:1em;vertical-align:middle;border-top:#666 1px solid;border-right:#ddd 1px solid;}
+#searchGadget{border-bottom:#8cacbb 1px solid;border-left:#8cacbb 1px solid;border-top:#8cacbb 1px solid;border-right:#8cacbb 1px solid;}
+BUTTON{border-bottom:#8cacbb 1px solid;border-left:#8cacbb 1px solid;text-transform:none;background-color:#dee7ec;color:#000;font-size:90%;vertical-align:middle;border-top:#8cacbb 1px solid;cursor:pointer;border-right:#8cacbb 1px solid;padding:1px;}
+.divSidebarEsq .divFiltroBusca .divBoxFiltroBusca .divBoxFiltroBuscaTop .divBoxFiltroBuscaBottom FORM FIELDSET .diBoxResultados .btnBuscar{border-bottom:0;border-left:0;width:49px;background:url(http://www.brasil.gov.br/btn/btnBuscar.gif) no-repeat;float:right;height:26px;vertical-align:middle;border-top:0;cursor:pointer;border-right:0;margin:10px 0 0 6px;}
+.divSidebarEsq .divFiltroBusca .divBoxFiltroBusca .divBoxFiltroBuscaTop .divBoxFiltroBuscaBottom FORM FIELDSET .diBoxResultados .btnBuscar-en{background:url(http://www.brasil.gov.br/btn/btnBuscar_en.gif) no-repeat;}
+.divSidebarEsq .divFiltroBusca .divBoxFiltroBusca .divBoxFiltroBuscaTop .divBoxFiltroBuscaBottom FORM FIELDSET .diBoxResultados .btnBuscar-es{background:url(http://www.brasil.gov.br/btn/btnBuscar_es.gif) no-repeat;}
+FIELDSET{outline-color:invert;line-height:1.5em;width:auto;border-bottom:0;border-left:0;outline-style:none;outline-width:0;background:0 0;vertical-align:baseline;border-top:0;border-right:0;margin:0;padding:0;}
+OPTGROUP{font-style:normal;padding-left:0.25em;color:#999;font-weight:bold;}
+OPTGROUP > OPTION{padding:0 0.25em 0 1em;}
+DL.enableFormTabbing DD{margin-left:0;padding-top:2em;}
+#login-form{margin:0 auto;}
+#login-form .field{clear:none;}
+#login-form INPUT{font-size:150%;}
+#login-form INPUT.context{background-position:9px 5px;margin-bottom:1em;padding:1px 10px 1px 20px;}
+#forgotten-password{width:35%;float:right;margin:0 1em;}
+.formControls .actionButtons .button{border-bottom:#8cacbb 1px solid;border-left:#8cacbb 1px solid;text-transform:none;background:url(http://www.brasil.gov.br/linkTransparent.gif) no-repeat 9px 1px;color:#000;font-size:90%;border-top:#8cacbb 1px solid;cursor:pointer;border-right:#8cacbb 1px solid;padding:1px 1px 1px 15px;}
+FORM.searchPage INPUT.searchButton{background-position:5px 7px;padding:1px 10px 1px 25px;}
+INPUT.searchButton{border-bottom:#8cacbb 1px solid;border-left:#8cacbb 1px solid;text-transform:none;margin-bottom:1px !important;color:#000;border-top:#8cacbb 1px solid;cursor:pointer;border-right:#8cacbb 1px solid;background:none transparent scroll repeat 0 0;font-size:1em;padding:2px 1px !important;}
+.searchSection{margin-top:0.25em;color:#76797c;}
+.field{clear:both;top:0;left:0;margin:0 1em 1em 0;}
+.fieldRequired{background:url(http://www.brasil.gov.br/required.gif) no-repeat left center;color:#000;padding:0 0 0 8px;}
+.fieldUploadFile{text-align:right;display:none;margin-right:0.75em;}
+.fieldTextFormat{text-align:right;margin-right:0.75em;}
+.formHelp{color:#76797c;font-size:90%;margin:0 0 0.2em;}
+.formHelp:hover{color:#000;cursor:default;}
+DIV.error{width:95%;margin:0 0 1em;padding:0.5em;}
+.error .fieldRequired{color:#d00;}
+INPUT.inputLabelActive{color:#76797c;}
+TEXTAREA#form.description{width:99%;height:6em;}
+.kupu-save-message{z-index:999;position:fixed;background-color:red;color:#FFF;top:0;right:0;font-weight:bold;padding:0.3em;}
+#kss-spinner{position:fixed;margin-top:-10px;width:20px;display:none;background-position:center center;height:20px;margin-left:-10px;top:50%;left:50%;}
+H1 DIV.formControls INPUT{font-size:55% !important;}
+.documentContent .portletItemDetails{margin-top:-0.5em;color:#76797c;font-size:90%;}
+.cpPanels .cpPanel{margin:1em 0 0;}
+.cpPanelsHeading{text-align:right;background-color:#E6E6FA;white-space:nowrap;}
+.cpPanelHeading{background-color:#E6E6FA;}
+.cpPanelHeading TD{text-align:right;}
+.cpViewletItem A{white-space:nowrap;}
+.cpViewletItem SPAN{background-color:#90EE90;white-space:nowrap;}
+.cpPages{margin-top:0;white-space:nowrap;float:right;}
+.cpPages LI A{z-index:1;border-bottom:#ffb200 1px solid;border-left:#ffb200 1px solid;text-transform:none;background-color:transparent;color:#578308;font-size:90%;border-top:#ffb200 1px solid;margin-right:0.5em;border-right:#ffb200 1px solid;text-decoration:none;padding:0 1em;}
+.zopezenPortletWrapper DT.portletHeader{border-bottom:#dee7ec 2px solid;border-left:medium none;text-transform:capitalize;background-color:#FFF;font-style:normal;border-top:medium none;border-right:medium none;}
+.alertPortletWrapper DL.portlet DT.portletHeader{text-transform:uppercase;padding-left:2.5em;background:url(http://www.brasil.gov.br/info_icon.gif) orange no-repeat 5px 50%;font-weight:bold;border-color:orange;}
+.dottedPortletWrapper DL.portlet DT.portletHeader{border-bottom:#dee7ec 2px dotted;border-left:medium none;text-transform:capitalize;padding-left:0;background:#FFF;color:#000;border-top:medium none;font-weight:bold;border-right:medium none;}
+.dottedPortletWrapper DL.portlet{border-bottom:#dee7ec 2px dotted;}
+.imageNewsImage{float:left;margin:0.5em;}
+.viewlet-rss-link{padding-right:2px;display:block;float:right;}
+UL.tabbernav{border-bottom:#74ae0b 1px solid;text-align:center;margin:0;padding:1px 0;}
+UL.tabbernav LI{list-style-type:none;display:inline;list-style-image:none;margin:0;}
+UL.tabbernav LI A{border-bottom:#74ae0b 1px solid;position:relative;border-left:#74ae0b 1px dotted;background-color:#FFF;color:#5d8811;margin-left:0;border-top:#74ae0b 1px solid;top:1em;border-right:#74ae0b 1px;text-decoration:none;padding:3px 0.5em;}
+UL.tabbernav LI A:hover{background-color:#cde2a7;border-color:#74ae0b;}
+UL.tabbernav LI A:active{color:#5d8811;}
+UL.tabbernav LI.tabberactive A{background-color:#cde2a7;color:#5d8811;}
+UL.tabbernav LI.tabberactive A:hover{background-color:#cde2a7;}
+.tabberlive .tabbertab{border-bottom:#74ae0b 1px solid;border-left:#74ae0b 1px solid;border-top:0;border-right:#74ae0b 1px solid;padding:1em 0.1em 0.1em;}
+#undefinednav1{border-left:#74ae0b 1px solid;}
+#undefinednav2{border-right:#74ae0b 1px solid;}
+.smartlistSearchPanel SELECT{width:20em;}
+.smartlistSearchResults{border-bottom:1px solid;border-left:1px solid;border-top:1px solid;border-right:1px solid;padding:0.5em;}
+.smartlistSearchResults UL{list-style-type:none;list-style-image:none;margin:0.5em 0;padding:0;}
+#carousel-banners{float:left;margin-right:1em;}
+A.carousel-button{display:block;text-decoration:none;margin:0 1em;padding:1em 0;}
+A.selected.carousel-button{border-bottom:#eee 1px solid;border-top:#eee 1px solid;}
+.carousel-title{display:block;font-size:1.5em;}
+.googleMapLocation.googleMapActive{min-width:20em;width:50%;float:right;height:25em;}
+.googleMapLocation .googleMapPane{height:25em;}
+.portletPopoll H5{margin:0;padding:0 0 0.5em;}
+.portletPopoll .portletItem{padding:0.5em 1em;}
+.portletPopoll UL{list-style-type:none !important;list-style-image:none !important;margin:0;}
+#form-widgets-data_nascimento-day{border-bottom:medium none;text-align:center;border-left:medium none;width:30px;display:inline-block;font-family:Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/bgInpDiaMeuBrasil.jpg) no-repeat;height:24px;color:#000;font-size:1.4em;border-top:medium none;border-right:medium none;padding-top:4px;margin:-14px 5px 0 0;}
+#form-widgets-data_nascimento-year{border-bottom:medium none;text-align:center;border-left:medium none;width:45px;display:inline-block;font-family:Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/bgInpAnoMeuBrasil.jpg) no-repeat;height:24px;color:#000;font-size:1.4em;border-top:medium none;border-right:medium none;padding-top:4px;margin:-14px 0 0 5px;}
+.requiredField{color:#db0f0f;}
+.btnProximoPasso{border-bottom:medium none;border-left:medium none;text-indent:-9999px;width:88px;background:url(http://www.brasil.gov.br/btn/btnProximoPasso.gif) no-repeat 0 0;float:right;height:26px;border-top:medium none;cursor:pointer;border-right:medium none;}
+#formfield-form-widgets-temas{margin-top:15px;width:550px;height:100%;}
+#formfield-form-widgets-publicacoes{margin-top:10px;display:inline;float:left;}
+#formfield-form-widgets-publicacoes SPAN.option{display:block;height:45px;}
+#formfield-form-widgets-idioma_caderno_destaques{margin-top:-155px;width:220px;float:right;margin-right:200px;}
+#formfield-form-widgets-idioma_em_questao{margin-top:-105px;width:220px;float:right;margin-right:200px;}
+#formfield-form-widgets-idioma_revista_digital{margin-top:-55px;width:220px;float:right;margin-right:200px;}
+SPAN.label{display:inline;font:1em Arial,Helvetica,sans-serif;color:#000 !important;font-size-adjust:none;font-stretch:normal;padding:0 10px 0 0;}
+.documentContent DD A{border-bottom:medium none;text-decoration:inherit;}
+.BoxListagem DL DD A{border-bottom:#ccc 0 solid;}
+.documentDescription{line-height:1.5em;display:block;font-weight:bold;width:auto;font-size:1.2em;margin:0 0 0.5em;}
+.documentActions{text-align:right;border-top:#8cacbb 1px solid;width:auto;font-size:1.2em;margin:1em 0;padding:0;}
+.divBoxHr{border-bottom:#ffb400 2px solid;float:left;height:auto;width:auto;font-size:1.2em;margin:15px 0;padding:0;}
+.plain P{padding:0 0 20px;}
+.selBusca{width:120px !important;}
+BODY.kupu{background-image:none;background-color:#fff;font-size:1.2em;}
+BODY.kupu P{padding-bottom:20px;}
+#content P{padding-bottom:10px;}
+#divBoxMenu{width:1000px;margin-bottom:4px;float:left;padding:0;margin-top:18px;}
+.legendModalBox{float:left;color:#888;clear:both;padding-top:5px;}
+.star-rating{background:url(star.gif) repeat-x left 50%;position:relative;list-style-type:none;width:90px;background-position:left top;height:17px;overflow:hidden;list-style-image:none;margin:0;padding:0;float:left;}
+.star-rating .current-rating{background:url(star.gif) repeat-x left 50%;border-bottom:medium none;position:absolute;border-left:medium none;line-height:16px;text-indent:-1000em;outline-style:none;outline-color:invert;outline-width:medium;height:16px;overflow:hidden;border-top:medium none;top:0;border-right:medium none;left:0;z-index:1;background-position:left center;}
+.star-rating A{border-bottom:medium none;position:absolute;border-left:medium none;line-height:16px;text-indent:-1000em;outline-style:none;outline-color:invert;outline-width:medium;height:16px;overflow:hidden;border-top:medium none;top:0;border-right:medium none;left:0;}
+.inline-rating{display:inline-block;vertical-align:middle;}
+.small-star{width:50px;background-image:url(star_small.gif);line-height:10px;height:10px;}
+.dashboard-column{padding-bottom:10em !important;}
+.portletwrapper{background-color:#FFF;}
+SPAN.noEntries{width:20.6em;display:block;padding:0.5em;}
+.portletItemEmpty{border-left:#b2cbdc 1px solid;border-right:#b2cbdc 1px solid;}
+#dashboard-add-portlet FORM{display:block;float:left;}
+DIV#dashboard #dashboard-add-portlet{text-align:left;padding-top:1em;}
+BODY.section-konto DIV#portal-column-two{margin-top:8.2em;}
+#dashboard .portletItemEmpty{margin:0;padding:1em;}
+.popup{background:#fff;}
+.cpttableless{text-align:left;display:block;float:left;}
+H1.documentFirstHeading{border-bottom:#e5e5e5 1px solid;line-height:27px;width:776px;display:block;color:#000;font-size:2.6em;margin:0;padding:0 0 10px;clear:both;}
+.portal-header{padding:0px;float:left;position:relative}
+.divHeaderBrasil{width:988px;background:url(http://www.brasil.gov.br/bg/bgHeaderBrasil-bv3.png) no-repeat center top;float:left;height:50px;padding:0px;padding:0 6px;margin:0px;position:relative;top:0px;}
+.divHeaderBrasil UL{width:988px;float:left;padding:0 6px 0 0;}
+.divHeaderBrasil ul li.barraPBR_logo {display:inline;float:left;margin:7px 0 0 30px;}
+.divHeaderBrasil li.barraGovFed_logo{display:block;float:right;margin:5px 21px;}
+.divHeaderBrasil UL LI.liIcoBrasil{float:right;padding:3px 12px 0 0;}
+.divIdiomas{text-align:right;margin-top:-48px;float:right;padding:8px 20px 8px 0;position:relative;}
+.divIdiomas ul li a{color:#fff !important;}
+.divIdiomas ul li.active a{color:#ffd25f !important;}
+.selIdioma{width:120px;}
+.divIdiomas FORM FIELDSET LABEL.lblIdioma{float:left;vertical-align:top;padding:5px 6px 0 0;position:relative;}
+.divIdiomas FORM FIELDSET LABEL{font:1.4em Arial,Geneva,sans-serif;color:#fff;font-size-adjust:none;font-stretch:normal;-x-system-font:none;}
+.divBusca{float:right;height:50px;left:500px;padding:21px 17px 0 0;position:absolute;text-align:right;top:43px;width:482px;}
+.divBusca FORM FIELDSET{float:right;margin:0;padding:0;}
+.divBusca FORM{float:right;margin:0;padding:0;}
+.divBusca FORM FIELDSET DIV{float:left;clear:none;vertical-align:middle;}
+.divBusca FORM FIELDSET LABEL INPUT.inpBusca{border-bottom:0;border-left:0;width:145px;font:1.4em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/bgInpBusca.gif) no-repeat 0 center;float:left;height:26px;line-height:26px;color:#000;border-top:0;border-right:0;margin:0 3px 0 0;padding:4px 7px 0;padding-bottom:5px;margin-top:-3px}
+BODY.contraste .divBusca FORM FIELDSET LABEL INPUT.inpBusca{background:url(http://www.brasil.gov.br/bg/bgInpBusca_c.gif) no-repeat 0 center;color:#000;}
+.divHeaderBrasil .divBusca FORM FIELDSET LABEL SELECT.selBusca{width:120px;float:left;}
+.divBusca FORM FIELDSET BUTTON{border-bottom:0;border-left:0;width:24px;height:24px;vertical-align:middle;border-top:0;cursor:pointer;border-right:0;margin:0 0 0 6px;}
+.divBusca FORM FIELDSET BUTTON.busca{background:url(http://www.brasil.gov.br/btn/btBuscaPortal.png) no-repeat 0 0;}
+.divBusca .btBuscaAvancada {clear:both;color:#FFFFFF;float:right;font-size:1em;}
+.palavra_chave FORM FIELDSET BUTTON.busca{background:url(http://www.brasil.gov.br/btn/btnBuscar.gif) no-repeat 0 0;width:49px;height:26px;border:0;}
+BUTTON.busca-en{background:url(http://www.brasil.gov.br/btn/btnBuscar_en.gif) no-repeat 0 0;width:49px;height:26px;border:0;}
+BUTTON.busca-es{background:url(http://www.brasil.gov.br/btn/btnBuscar_es.gif) no-repeat 0 0;width:49px;height:26px;border:0;}
+#divBoxMenu .divMenuAcessibilidade{position:relative;float:right;margin:0 0 -5px;padding:0;}
+#divBoxMenu .divMenuAcessibilidade UL LI{display:inline;font:1.1em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/bgMenuAcessibilidade.png) repeat-x;float:left;color:#666;margin:0;padding:6px 0 0;}
+BODY.contraste #divBoxMenu .divMenuAcessibilidade UL LI{background:none transparent scroll repeat 0 0;color:#fff;}
+#divBoxMenu .divMenuAcessibilidade UL LI A{height:17px;display:inline-block;font:1.1em Arial,Helvetica,sans-serif;background:#fff scroll repeat 0 0;color:#666;text-decoration:none;margin:0;padding-top:4px;padding-left:9px;padding-right:7px;}
+BODY.contraste #divBoxMenu .divMenuAcessibilidade UL LI A{background:#000;color:#fff;}
+#divBoxMenu .divMenuAcessibilidade UL LI A:hover{font:1.1em Arial,Helvetica,sans-serif;color:#666;text-decoration:underline;}
+#divBoxMenu .divMenuAcessibilidade UL LI.liLateraisDir{width:16px;background:url(http://www.brasil.gov.br/bg/bgMenuAcessibilidadeRight.png) no-repeat;float:left;height:28px;padding:0;}
+#divBoxMenu .divMenuAcessibilidade UL LI.liLateraisEsq{width:15px;background:url(http://www.brasil.gov.br/bg/bgMenuAcessibilidadeLeft.png) no-repeat;float:left;height:28px;padding:0;}
+#divBoxMenu .divMenuAcessibilidade UL LI.liDivisor{width:1px;float:left;vertical-align:middle;padding-top:6px}
+#divBoxMenu .divMenuAcessibilidade UL LI A IMG{vertical-align:middle;padding:0 4px 0 0;}
+.divbgAzul{height:26px;position:absolute;top:146px;left:3px;width:994px;z-index:0;background:url(http://www.brasil.gov.br/fundo-siteactions.gif) repeat-x 50% top;}
+BODY.contraste .divbgAzul{background:url(http://www.brasil.gov.br/fundo-siteactions_c.gif) repeat-x left bottom;left:0;}
+BODY.contraste #portal-siteactions LI{background:url(http://www.brasil.gov.br/bgDivisorMeuBrasil_c.gif) no-repeat 0 5px;}
+#portal-siteactions #meubrasil A{color:#0a7636;}
+BODY.contraste .personal-meubrasil{background:url(http://www.brasil.gov.br/ico/icoMeuBrasil_c.gif) no-repeat left 50%;}
+.personal-logout{padding-left:20px;background:url(http://www.brasil.gov.br/btnSairMeuBrasil.gif) no-repeat left 50%;}
+.personal-editar{padding-left:20px;background:url(http://www.brasil.gov.br/btnEditarMeuBrasil.gif) no-repeat left 50%;}
+.personal-join{background:url(http://www.brasil.gov.br/ico/icoRegistrar.gif) no-repeat left 50%;padding-left:17px;}
+BODY.contraste .personal-join{background:url(http://www.brasil.gov.br/ico/icoRegistrar_c.gif) no-repeat left 50%;}
+.divBreadcrumb .bread-1 A{text-transform:capitalize;display:block;background:url(http://www.brasil.gov.br/bg/breadCrumb_1_2.gif) #b2b2b2 no-repeat left top;float:left;height:18px;color:#fff;text-decoration:none;margin:10px 0 0;padding:0 0 0 20px;}
+.contraste .divBreadcrumb .bread-1 A{background:url(http://www.brasil.gov.br/bg/breadCrumb_1_2_c.gif) #fff no-repeat left top;color:#000;}
+.divBreadcrumb SPAN.bread-ultimo{font:1.1em Arial,Helvetica,sans-serif;text-transform:none;display:block;background:url(http://www.brasil.gov.br/bg/breadCrumb_2_3.gif) #ffb400 no-repeat left top;float:left;height:16px;color:#fff;text-decoration:none;margin:10px 0 0;padding:2px 0 0 20px;}
+.divBreadcrumb .bread-1 SPAN.bread-ultimo{text-transform:none;display:block;background:url(http://www.brasil.gov.br/bg/breadCrumb_1_3.gif) #ffb400 no-repeat left top;float:left;height:16px;color:#fff;text-decoration:none;margin:10px 0 0;padding:2px 0 0 20px;}
+.divBreadcrumb IMG{float:left;margin:10px 0 0;}
+#portal-columns{background:url(http://www.brasil.gov.br/fundo-conteudo.png) repeat-y left 50%;margin:0;padding:0;}
+.contraste #portal-columns{background:url(http://www.brasil.gov.br/bg/bgConteudoGeral_c.png) repeat-y left 50%;}
+#menu-secondlevel{margin-bottom:10px;border-top:#ffb400 1px solid;padding:2px 0 10px;}
+#menu-secondlevel LI{border-bottom:#e5e5e5 1px solid;display:inline;background:url(http://www.brasil.gov.br/bg/bgDivisorSubMenu.jpg) no-repeat right 50%;float:left;padding:2px 15px 4px 0;}
+#menu-secondlevel LI A{border-bottom:#ececec 1px solid;color:#000;font-size:120%;text-decoration:none;}
+#content #menu-secondlevel{border-bottom:#ffb400 1px solid;border-left:#e5e5e5 1px solid;width:232px;float:right;border-right:#e5e5e5 1px solid;}
+#content #menu-secondlevel LI{border-bottom:medium none;border-left:medium none;display:block;background:url(http://www.brasil.gov.br/ico/icoSetaAmarela.gif) no-repeat left center;float:none;border-top:medium none;border-right:medium none;margin:0 10px;padding:10px;}
+#content #menu-secondlevel LI A{border-bottom:medium none;border-left:medium none;display:block;border-top:medium none;border-right:medium none;}
+.portletNavigationTree{width:170px;padding:0 0 20px 8px;}
+.portletNavigationTree UL LI{position:relative;width:160px;font:1.4em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/bgMenuSidebar.gif) no-repeat center bottom;color:#009241;margin:0;padding:6px 0;}
+BODY.contraste .portletNavigationTree UL LI{border-bottom:#fff 1px solid;}
+.portletNavigationTree LI A{display:block;padding-left:20px;background:url(http://www.brasil.gov.br/ico/icoMenuSidebar_off.gif) no-repeat left center;color:#009241 !important;text-decoration:none;}
+.portletNavigationTree ul li a span{display:block;width:136px;word-wrap:break-word;}
+BODY.contraste .portletNavigationTree LI A{background:url(http://www.brasil.gov.br/ico/icoMenuSidebar_off_c.gif) no-repeat left 50%;color:#53ff6f !important;}
+.navTreeSection-para .portletHeader{text-indent:-2000px;width:160px;background:url(http://www.brasil.gov.br/tit/titPara.gif) no-repeat;height:30px;margin-left:4px;}
+.navTreeSection-para .portletHeader {display:none;}
+.navTreeSection-para .portletHeader-en{text-indent:-2000px;background:url(http://www.brasil.gov.br/tit/titPara_en.gif) no-repeat;height:30px;margin-left:4px;}
+.navTreeSection-para .portletHeader-en{text-indent:-2000px;background:none transparent !important;height:0 !important;margin-left:0 !important;display:none !important;}
+.navTreeSection-para .portletHeader-es{text-indent:-2000px;background:url(http://www.brasil.gov.br/tit/titPara_es.gif) no-repeat;height:30px;margin-left:4px;}
+.navTreeSection-para .portletHeader-es{text-indent:-2000px;background:none transparent !important;height:0 !important;margin-left:0 !important;display:none !important;}
+.navTreeSection-sobre .portletHeader{text-indent:-2000px;background:url(http://www.brasil.gov.br/tit/titSobre.gif) no-repeat;height:30px;margin-left:4px;margin-top:5px;}
+.navTreeSection-sobre .portletHeader-en{text-indent:-2000px;background:url(http://www.brasil.gov.br/tit/titSobre_en.gif) no-repeat;height:30px;margin-left:4px;}
+.navTreeSection-sobre .portletHeader-es{text-indent:-2000px;background:url(http://www.brasil.gov.br/tit/titSobre_es.gif) no-repeat;height:30px;margin-left:4px;}
+.navTreeSection-secoes .portletHeader{text-indent:-2000px;background:url(http://www.brasil.gov.br/tit/titSecoes.gif) no-repeat;height:30px;margin-left:4px;margin-top:5px;}
+.navTreeSection-secoes .portletHeader-en{text-indent:-2000px;background:url(http://www.brasil.gov.br/tit/titSecoes_en.gif) no-repeat;height:30px;margin-left:4px;}
+.navTreeSection-secoes .portletHeader-es{text-indent:-2000px;background:url(http://www.brasil.gov.br/tit/titSecoes_es.gif) no-repeat;height:30px;margin-left:4px;}
+.navTreeSection-multimedia .portletHeader{text-indent:-2000px;}
+.navTreeSection-multimedia .portletHeader-en{text-indent:-2000px;background:url(http://www.brasil.gov.br/tit/titMultimedia_en.gif) no-repeat;height:30px;margin-left:4px;}
+.navTreeSection-multimedia .portletHeader-es{text-indent:-2000px;background:url(http://www.brasil.gov.br/tit/titMultimedia_es.gif) no-repeat;height:30px;margin-left:4px;}
+BODY.contraste .navTreeSection-para .portletHeader{background:url(http://www.brasil.gov.br/tit/titPara_c.gif) no-repeat;}
+BODY.contraste .navTreeSection-sobre .portletHeader{background:url(http://www.brasil.gov.br/tit/titSobre_c.gif) no-repeat;}
+.portlet-static-navegue-por{background:url(http://www.brasil.gov.br/bg/bgNavegueReplica.jpg) repeat-y;}
+.portlet-static-navegue-por UL{padding-bottom:7px;background:url(http://www.brasil.gov.br/bg/bgNavegueBottom.jpg) no-repeat left bottom;}
+BODY.contraste .portlet-static-navegue-por{background:url(http://www.brasil.gov.br/bg/bgNavegueReplica_c.jpg) repeat-y;}
+BODY.contraste .portlet-static-navegue-por UL{background:url(http://www.brasil.gov.br/bg/bgNavegueBottom_c.jpg) no-repeat left bottom;}
+.portlet-static-navegue-por DT.portletHeader{text-indent:-2000px;background:url(http://www.brasil.gov.br/titNaveguePor.gif) no-repeat;height:40px;margin-top:5px;}
+.portlet-static-navegue-por DT.portletHeader-en{text-indent:-2000px;background:url(http://www.brasil.gov.br/titNaveguePor_en.gif) no-repeat;height:40px;}
+.portlet-static-navegue-por DT.portletHeader-es{text-indent:-2000px;background:url(http://www.brasil.gov.br/titNaveguePor_es.gif) no-repeat;height:40px;}
+BODY.contraste .portlet-static-navegue-por DT.portletHeader{background:url(http://www.brasil.gov.br/titNaveguePor_c.gif) no-repeat;}
+.portlet-static-navegue-por UL LI{width:157px;display:block;font:1.4em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/bgDivisorNavegue.gif) no-repeat 2px 0;color:#000;margin-left:10px;padding:3px 0;}
+.portlet-static-navegue-por UL LI.first-child{background:none;}
+.portlet-static-navegue-por UL LI.last-child{border-bottom:#ffb400 7px solid;}
+BODY.contraste .portlet-static-navegue-por UL LI.last-child{border-color:#fff;}
+.portlet-static-navegue-por LI A:hover{color:#ef9b08;}
+#portal-columns .documentContent{width:776px;background:none transparent scroll repeat 0 0;}
+.documentActions UL{list-style-type:none;display:block;list-style-image:none;margin:-0.9em 0 0;padding:0 0 0 0.5em;}
+.documentActions A{text-decoration:none !important;}
+.documentActions LI{background-color:#FFF;display:inline;font-size:90%;color:#436976;margin:0;padding:3px 3px 3px 20px;}
+#document-action-print{background:url(http://www.brasil.gov.br/ico-print.gif) #FFF no-repeat;}
+#document-action-sendto{background:url(http://www.brasil.gov.br/ico-mail.gif) #FFF no-repeat;}
+#document-action-rss{text-transform:capitalize;background:url(http://www.brasil.gov.br/ico-rss.gif) #FFF no-repeat;}
+DL.searchResults DD{margin-left:0;}
+FORM.searchPage{text-align:left;padding-bottom:10px;}
+.searchPage INPUT.searchButton{padding:1px !important;}
+#divFooter{background:url(http://www.brasil.gov.br/fundo-conteudo.png) repeat-y;float:left;padding:0 6px 7px 0px;}
+#divFooter .divDestaques{float:left;padding:40px 0 40px 20px;}
+#divFooter .divDestaques .divBoxDestaque01{width:296px;float:left;border-right:silver 1px solid;padding:10px 16px 10px 0;}
+#divFooter .divDestaques .divBoxDestaque01 IMG.imgRight{float:right;padding:0 0 0 6px;}
+#divFooter .divDestaques .divBoxDestaque02{width:296px;float:left;border-right:silver 1px solid;padding:10px 0 10px 16px;}
+#divFooter .divDestaques .divBoxDestaque02 H5{padding:0 0 10px;}
+#divFooter .divDestaques .divBoxDestaque02 IMG.imgRight{float:right;padding:0 0 0 9px;}
+#divFooter .divDestaques .divBoxDestaque03{width:320px;float:left;padding:10px 0 0 16px;}
+#divFooter .divDestaques .divBoxDestaque03 H5{padding:0 0 9px;}
+#divFooter .divDestaques .divBoxDestaque03 IMG.imgRight{float:right;padding:10px 0 0 3px;}
+#divFooter .divBoxMenu{width:978px;float:left;padding:0 0 0 15px;}
+#divFooter .divDestaques p a{color:#000;}
+BODY.contraste #divFooter .divBoxMenu{padding:0 0 0 10px;}c
+.plain{width:auto;}
+.divBoxFalePres{width:516px;background:url(http://www.brasil.gov.br/bg/bgBoxFalePresReplica.jpg) repeat-y;float:left;}
+.divBoxFalePres .divBoxFalePresTop{width:516px;background:url(http://www.brasil.gov.br/bg/bgBoxFalePresTop.jpg) no-repeat 50% top;float:left;}
+.divBoxFalePres .divBoxFalePresTop .divBoxFalePresBottom{width:476px;background:url(http://www.brasil.gov.br/bg/bgBoxFalePresBottom.jpg) no-repeat 50% bottom;float:left;padding:20px;}
+.divBoxFalePres .divBoxFalePresTop .divBoxFalePresBottom FORM INPUT.inpNome{border-bottom:0;border-left:0;width:434px;font:1.2em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/bgInpFalePresNome.jpg) no-repeat right center;height:22px;color:#000;border-top:0;border-right:0;margin:7px 0 0;padding:4px 8px 0;}
+.divBoxFalePres .divBoxFalePresTop .divBoxFalePresBottom .ArchetypesTextAreaWidget TEXTAREA{border-bottom:0;border-left:0;width:444px;font:1.2em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/bgFalePresTextarea.jpg) no-repeat;float:left;height:74px;color:#000;border-top:0;border-right:0;margin:7px 0 0;padding:2px 4px 16px;}
+.divBoxFalePres .divBoxFalePresTop .divBoxFalePresBottom textarea {border-bottom:0;border-left:0;width:447px;font:1.2em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/bgFalePresTextarea.jpg) no-repeat;float:left;height:74px;color:#000;border-top:0;border-right:0;margin:7px 0 0;padding:2px 4px 16px;}
+.divBoxFalePres .divBoxFalePresTop .divBoxFalePresBottom form input.standalone,.divBoxFalePres .divBoxFalePresTop .divBoxFalePresBottom form input.context {background:url(http://www.brasil.gov.br/btn/btformcinza.gif) no-repeat scroll 0 1px transparent;border:0 none;color:#007CC2;cursor:pointer;float:right;font-size:0.9em;font-weight:normal;height:27px;margin-left:10px;text-transform:uppercase;width:45px;}
+.divBoxFalePres .divBoxFalePresTop .divBoxFalePresBottom UL{border-bottom:#cfcfcf 1px dotted;width:476px;float:left;padding:0 0 10px;}
+.divBoxFalePres .divBoxFalePresTop .divBoxFalePresBottom UL LI{font:1.2em Arial,Helvetica,sans-serif;color:#000;padding:0 0 3px;}
+.divModHowInvest UL LI IMG,.divModSeletorInvest LI IMG,.divBusca FORM FIELDSET IMG,#divBoxMenu .divMenuAcessibilidade UL LI.liLateraisDir IMG,#divBoxMenu .divMenuAcessibilidade UL LI.liLateraisEsq IMG,.divBreadcrumb SPAN.nivel1 IMG,#divGeral #divContentGeral .divBreadcrumb SPAN.nivel2 IMG,#divGeral #divContentGeral .divBreadcrumb SPAN.nivel3 IMG{vertical-align:middle;}
+.divModManyReasotns UL.ulTitle,.divModSeletorInvest LI SPAN,.cpPanelsHeading .cpPanelsHeadingInput,.cpPanelHeading .cpPanelsHeadingInput,.cpEditFormInputValues,.ui-datepicker .ui-datepicker-buttonpane BUTTON.ui-datepicker-current,.ui-datepicker-multi .ui-datepicker-group,.ui-datepicker-rtl .ui-datepicker-buttonpane BUTTON,#portal-logo{float:left;}
+.divModManyReasotns UL.ulTitle LI.liTit02 SPAN,.divModSeletorInvest UL.ulAbas LI.liActive A{color:#007cc2;}
+.divModManyReasotns .divBoxCarroselMany UL LI P,#divFooter .divDestaques .divBoxDestaque01 P,#divFooter .divDestaques .divBoxDestaque02 P,#divFooter .divDestaques .divBoxDestaque03 P{font:1.2em Arial,Helvetica,sans-serif;color:#000;}
+.divModSeletorInvest UL.ulAbas LI SPAN,DL.collapsedInlineCollapsible DD.collapsibleContent,DL.collapsedBlockCollapsible DD.collapsibleContent,.hidden.formPanel,DIV.formControls INPUT.hidden,.netscape4,.inlineForm .formHelp,.inlineForm .fieldRequired,.inlineForm LABEL,.notitlePortletWrapper DT.portletHeader,.tabberlive .tabbertabhide,.tabberlive .tabbertab H2,.visualOnlyPrint,.ui-helper-hidden,.ui-resizable-disabled .ui-resizable-handle,.ui-resizable-autohide .ui-resizable-handle,.divIdiomas FORM FIELDSET LEGEND,.divBusca FORM FIELDSET LEGEND{display:none;}
+BODY.contraste .divModSeletorInvest UL.ulAbas LI A,BODY.contraste,BODY.contraste #content A,.contraste .documentByLine,.contraste H1,.contraste H1.documentFirstHeading,BODY.contraste .portlet-static-navegue-por LI A,#portal-footer P A,BODY.contraste #divFooter .divDestaques .divBoxDestaque01 P,BODY.contraste #divFooter .divDestaques .divBoxDestaque01 P A,BODY.contraste #divFooter .divDestaques .divBoxDestaque02 P,BODY.contraste #divFooter .divDestaques .divBoxDestaque02 P A,BODY.contraste #divFooter .divDestaques .divBoxDestaque03 P,BODY.contraste #divFooter .divDestaques .divBoxDestaque03 P A{color:#fff;}
+.divModSeletorInvest LI.lst,#portal-siteactions #meubrasil{background:none transparent scroll repeat 0 0;}
+.divModBannerLateral UL LI IMG.imgRight,.cpEditFormSubmitButtons,.ui-datepicker .ui-datepicker-title SELECT.ui-datepicker-year,.ui-datepicker-rtl .ui-datepicker-buttonpane BUTTON.ui-datepicker-current,.ui-datepicker-rtl .ui-datepicker-group,.divBusca FORM FIELDSET DIV .jquery-selectbox-moreButton{float:right;}
+BODY.contraste #legendWrapper #imgTitle,OPTION,.searchSection LABEL:hover,BODY.contraste #portal-siteactions LI A,BODY.contraste #portal-siteactions LI A:hover,.contraste #portal-personaltools LI A,.portlet-static-navegue-por LI A{color:#000;}
+DD.portletItem,.ui-resizable{position:relative;}
+.jcarousel-list LI,.jcarousel-item{list-style-type:none;float:left;list-style-image:none;}
+.jcarousel-list-horizontal LI,.jcarousel-item-horizontal{width:107px;height:64px;overflow:hidden;}
+.jcarousel-list-vertical LI,.jcarousel-item-vertical{width:64px;height:38px;}
+.jcarousel-next,.jcarousel-prev{z-index:3;position:absolute;display:none;cursor:pointer;}
+.jcarousel-skin-tango .jcarousel-item-horizontal .mask,.carousel-banner{position:absolute;}
+.jcarousel-skin-tango .jcarousel-item-placeholder,BODY.contraste .divBreadcrumb .nivel1,BODY.contraste .divBreadcrumb .nivel1 A{background:#fff;color:#000;}
+.jcarousel-next-disabled-horizontal,.jcarousel-next-disabled-horizontal:hover,.jcarousel-next-disabled-horizontal:active,.jcarousel-prev-disabled-horizontal,.jcarousel-prev-disabled-horizontal:hover,.jcarousel-prev-disabled-horizontal:active,.jcarousel-skin-tango .jcarousel-prev-disabled-vertical,.jcarousel-skin-tango .jcarousel-prev-disabled-vertical:hover,.jcarousel-skin-tango .jcarousel-prev-disabled-vertical:active{cursor:default;}
+.jcarousel-skin-tango .jcarousel-next-vertical:hover,.jcarousel-skin-tango .jcarousel-prev-vertical:hover,.ui-icon-arrow-1-n{background-position:0 -32px;}
+.jcarousel-skin-tango .jcarousel-next-vertical:active,.jcarousel-skin-tango .jcarousel-prev-vertical:active,.ui-icon-arrowreturnthick-1-w{background-position:0 -64px;}
+.jcarousel-skin-tango .jcarousel-next-disabled-vertical,.jcarousel-skin-tango .jcarousel-next-disabled-vertical:hover,.jcarousel-skin-tango .jcarousel-next-disabled-vertical:active,.portletHeader{cursor:default !important;}
+.jcarousel-skin-video-horizontal .jcarousel-list-horizontal LI,.jcarousel-skin-video-horizontal .jcarousel-item-horizontal{width:64px;height:34px;}
+.jcarousel-skin-video-revista-digital-horizontal .jcarousel-clip-horizontal,.jcarousel-skin-video-revista-digital-horizontal .jcarousel-container-horizontal{width:450px;margin-left:10px;}
+.jcarousel-skin-listagem .jcarousel-clip-horizontal,.jcarousel-skin-listagem .jcarousel-container-horizontal{width:489px;margin-left:0;}
+.jcarousel-skin-infograficos .jcarousel-clip-horizontal,.jcarousel-skin-infograficos .jcarousel-container-horizontal{width:635px;margin-left:0;}
+.jcarousel-skin-infograficos .jcarousel-list-horizontal LI,.jcarousel-skin-infograficos2 .jcarousel-list-horizontal LI{width:127px;height:auto;overflow:hidden;}
+.jcarousel-skin-infograficos2 .jcarousel-clip-horizontal,.jcarousel-skin-infograficos2 .jcarousel-container-horizontal{width:380px;margin-left:0;}
+.contentViews LI A:hover,.cpPages LI.selected A,.cpPages LI A:hover{background-color:#ffdb00;color:#578308;}
+.actionMenu .actionMenuHeader A,.carousel-description,.ui-helper-clearfix,.ui-accordion .ui-accordion-content-active,#formfield-form-widgets-dados_interacao SPAN.option{display:block;}
+.deactivated.actionMenu .actionMenuContent,.ui-tabs .ui-tabs-hide{display:none !important;}
+UL.configlets LI,.tabberlive,#carousel{margin-bottom:1em;}
+UL.configlets LI A:visited,UL.configlets LI A:active{background-color:transparent;color:inherit;}
+UL.configlets LI LABEL,UL.configletDetails LI LABEL,LABEL,.imageNewsTitle,A.selected.carousel-button .carousel-title,.ui-priority-primary,.ui-widget-content .ui-priority-primary,#formfield-form-widgets-navegue_por LABEL,#formfield-form-widgets-perfis LABEL,#formfield-form-widgets-temas LABEL,#formfield-form-widgets-publicacoes LABEL{font-weight:bold;}
+UL.configletDetails LI A,.documentContent LI A:visited,.portlet-static-navegue-por UL LI A{text-decoration:none;}
+.stx TABLE P,DL.collapsible DD.collapsibleContent > DL,.mapsMarker{margin:0;padding:0;}
+.reviewHistory,.contentHistory{display:inline;color:#000;font-size:110% !important;}
+.comment H1,.comment H2,.comment H3,.comment H4,.comment H5,.comment H6{border-bottom:#76797c 1px solid;font-weight:normal;}
+DL.expandedInlineCollapsible DT.collapsibleHeader,DL.expandedBlockCollapsible DT.collapsibleHeader{background:url(treeExpanded.gif) #FFF no-repeat 6px 50%;cursor:pointer;padding:0 6px 0 22px;}
+.configlet .documentEditable,?? .documentContent{padding:0 !important;}
+#portal-column-content FIELDSET > * INPUT:focus,#portal-column-content FIELDSET > * TEXTAREA:focus{border-color:orange;border-width:1px;}
+.highlightedSearchTerm,TR.selected{background-color:#ffa;}
+LI.lastFormTab A,.summaryColumn{border-right:#8cacbb 1px solid;}
+LI.formTab A.selected,LI.formTab A:hover{background:#dee7ec;}
+.inlineDisplay,.inlineForm .ArchetypesSelectionWidget LABEL,.cpRelatedContent LI.cpRelatedItem,.cpPages LI,.ui-accordion .ui-accordion-li-fix,.star-rating LI{display:inline;}
+TABLE.controlpanel-listing,.ui-datepicker SELECT.ui-datepicker-month-year,.portlets-manager SELECT{width:100%;}
+TABLE.controlpanel-listing TD,TABLE.controlpanel-listing TH{font-size:120%;}
+TABLE.controlpanel-listing DD,.rule-element DL DD{margin-left:1em;}
+TABLE .controlpanel-listing TD,SELECT,.smartlistContainer TR{vertical-align:top;}
+.rule-updown,.rule-operations{float:right;padding-top:0.8em;}
+DIV.portalMessage,P.portalMessage,.system-message,#error-handling{background-image:url(http://www.brasil.gov.br/info_icon.gif);border-bottom:orange 1px solid;border-left:orange 1px solid;background-color:#ffce7b;background-repeat:no-repeat;background-position:5px 50%;color:#000;font-size:90%;vertical-align:middle;border-top:orange 1px solid;border-right:orange 1px solid;margin:1em 0;padding:0.5em 1em 0.5em 3em;}
+.visualOverflow PRE,.visualOverflow TABLE,.visualOverflow IMG,.field .field,.documentContent .viewlet .portlet,.documentContent UL,.plain H5.h5TercNivel{margin:0;}
+.hiddenStructure,.hiddenLabel{border-bottom:medium none;border-left:medium none;width:1px;display:block;background:none transparent scroll repeat 0 0;height:1px;overflow:hidden;border-top:medium none;border-right:medium none;margin:-1px 0 0 -1px;padding:0;}
+.contentViews .hiddenStructure,.contentActions .hiddenStructure{position:absolute;top:-200px;left:-200px;}
+.draggingHook,.ui-draggable .ui-dialog-titlebar{cursor:move;}
+.noborder,.documentEditable * .noborder,INPUT[type=checkbox]{border-bottom:medium none;border-left:medium none;background:none transparent scroll repeat 0 0;border-top:medium none;border-right:medium none;margin:0;}
+.standalone,.documentEditable * .standalone,.context,.documentEditable * .context,.destructive,.documentEditable * .destructive{border-bottom:#8cacbb 1px solid;border-left:#8cacbb 1px solid;text-transform:none;font-size:90%;border-top:#8cacbb 1px solid;cursor:pointer;border-right:#8cacbb 1px solid;background:#FFF;color:#436976;font-weight:bold;border-color:#8cacbb;padding:2px 3px !important;}
+#archetypes-fieldname-title INPUT,INPUT#form.title{width:99%;font-family:"Lucida Grande",Verdana,Lucida,Helvetica,Arial,sans-serif;font-size:160%;font-weight:normal;}
+.formlibInlineEditable,.inlineEditable{display:block;padding:1px;}
+BODY.kssActive .inlineEditable:hover,BODY.kssActive .formlibInlineEditable:hover{border-bottom:#ddd 1px solid;border-left:#666 1px solid;background:url(input_background.gif) #FFF repeat-x;border-top:#666 1px solid;cursor:text;border-right:#ddd 1px solid;padding:0;}
+BODY.kssActive .inlineEditable A:hover,BODY.kssActive .formlibInlineEditable A:hover,.ui-tabs-collapsible.ui-tabs .ui-tabs-nav LI.ui-tabs-selected A{cursor:pointer;}
+BODY.kssActive .formlibInlineForm:hover,BODY.kssActive .formlibInlineForm A:hover{border-bottom:medium none;border-left:medium none;background:none transparent scroll repeat 0 0;border-top:medium none;cursor:default;border-right:medium none;padding:1px;}
+.inlineForm #archetypes-fieldname-title INPUT,.inlineForm #archetypes-fieldname-title,#region-content .viewlet .portlet{font-size:100%;}
+.documentContent .portletFooter,.documentContent .portletItem{padding:0.3em;}
+.notitlePortletWrapper .portlet,.notitlePortletWrapper DD.portletFooter,.notitlePortletWrapper DD.portletItem,.boxPortletWrapper DL.portlet DD.portletFooter,.boxPortletWrapper DL.portlet DD.portletItem,.boxPortletWrapper DL.portlet,.zopezenPortletWrapper DL.portlet,.zopezenPortletWrapper DL.portlet DD.portletFooter,.zopezenPortletWrapper DL.portlet DD.portletItem{border-bottom:medium none;border-left:medium none;border-top:medium none;border-right:medium none;}
+.alertPortletWrapper DL.portlet DD.portletFooter,.alertPortletWrapper DL.portlet DD.portletItem{background-color:#ffce7b;}
+.dottedPortletWrapper DL.portlet DD.portletFooter,.dottedPortletWrapper DL.portlet DD.portletItem{border-bottom:medium none;border-left:#dee7ec 2px dotted;border-top:medium none;border-right:#dee7ec 2px dotted;}
+* HTML .tabbertab,* HTML .ui-helper-clearfix{height:1%;}
+.googleMapActive.googleMapView,.googleMapPane{height:40em;}
+#form-widgets-email,#form-widgets-password,#form-widgets-confirm_password,#form-widgets-tel_com_01,#form-widgets-tel_com_02,#form-widgets-telefone_comercial,#form-widgets-telefone_residencial,#form-widgets-telefone_celular,#form-widgets-cep,#form-widgets-numero,#form-widgets-complemento,#form-widgets-bairro,#form-widgets-cidade,#form-widgets-logradouro{border-bottom:medium none;border-left:medium none;width:238px;display:block;font:1.4em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/bgInpCorreio.jpg) no-repeat right center;height:24px;color:#000;border-top:medium none;border-right:medium none;margin:5px 0 0;padding:2px 8px 0;}
+#form-widgets-fullname,#form-widgets-empresa,#form-widgets-area,#form-widgets-nome_blog,#form-widgets-home_page,#form-widgets-instituicao_ensino{border-bottom:medium none;border-left:medium none;width:398px;display:block;font:1.4em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/bgInpNomeMeuBrasil.jpg) no-repeat right center;height:24px;color:#000;border-top:medium none;border-right:medium none;margin:5px 0 0;padding:2px 8px 0;}
+#formfield-form-widgets-navegue_por,#formfield-form-widgets-perfis{margin-top:15px;width:500px;height:100%;}
+#formfield-form-widgets-navegue_por SPAN.option,#formfield-form-widgets-perfis SPAN.option,#formfield-form-widgets-temas SPAN.option{width:150px !important;display:inline-table;height:27px;overflow:hidden;margin-right:20px;border-right:#b1b1b1 1px dotted;}
+#formfield-form-widgets-idioma_caderno_destaques LABEL,#formfield-form-widgets-idioma_em_questao LABEL,#formfield-form-widgets-idioma_revista_digital LABEL{width:270px;display:inline;background:url(http://www.brasil.gov.br/ico/icoSetaAmarela.gif) no-repeat left center;float:left;padding:0 0 0 10px;}
+FIELDSET.fieldsetDadosPessoais,FIELDSET.fieldsetDadosConta{width:508px;float:left;padding:0 0 15px;}
+FIELDSET.fieldsetDadosInteracao,FIELDSET.fieldsetDadosEmpresa,FIELDSET.fieldsetDadosBlogueiro,FIELDSET.fieldsetDadosEstudante{width:508px;display:none;float:left;padding:0 0 15px;}
+SPAN.state-pendente,A.state-pendente{color:orange;}
+SPAN.state-bloqueada,A.state-bloqueada,SPAN.state-reprovada,A.state-reprovada{color:red;}
+SPAN.state-em_votacao,A.state-em_votacao{color:#1e90ff;}
+SPAN.state-publicada,A.state-publicada{color:#00f;}
+kupu.ul,ku.ol{list-style:inherit;margin:inherit;}
+kupu.h1,kupu.h2,kupu.h3,kupu.h4,kupu.h5,kupu.h6{line-height:21px;}
+#pacontent #parent-fieldname-text{width:500px;}
+#content p,#pacontent p{line-height:1.4em;font-size:1.2em!important;}
+.portletNavigationTree LI.navTreeItemInPath A,.portletNavigationTree LI A:hover,.portletNavigationTree LI A.navTreeCurrentItem{background:url(http://www.brasil.gov.br/ico/icoMenuSidebar_on.gif) no-repeat left 50%;color:#ef9b08 !important;}
+.star-rating A:hover,.star-rating A:active,.star-rating A:focus{background:url(star.gif) repeat-x left 50%;background-position:left bottom;}
+.small-star A:hover,.small-star A:active,.small-star A:focus,.small-star .current-rating{background-image:url(star_small.gif);line-height:10px;height:10px;}
+.average-rating,.user-rating{text-align:center;padding-top:10px;}
+.fold,.close,.edit{float:right;cursor:pointer;}
+.folded DD,.folded FORM{display:none;visibility:hidden;}
+A,LI{border-bottom:0;border-left:0;outline-style:none;outline-width:0;background:0 0;vertical-align:baseline;border-top:0;border-right:0;margin:0;padding:0;}
+BIG,CODE,STRIKE,SUB,SUP,TT,VAR,DL,DD,CAPTION,TFOOT,THEAD{outline-color:invert;border-bottom:0;border-left:0;outline-style:none;outline-width:0;background:0 0;vertical-align:baseline;border-top:0;border-right:0;margin:0;padding:0;}
+.divBusca FORM FIELDSET LABEL INPUT,#divBoxMenu .divMenuAcessibilidade UL LI IMG{float:left;vertical-align:middle;}
+#portal-siteactions #meubrasil A IMG,.portlet-static-navegue-por LI A IMG{vertical-align:bottom;}
+.personal-meubrasil,.personal-dashboard{padding-left:15px;background:url(http://www.brasil.gov.br/ico/icoMeuBrasil.gif) no-repeat left 50%;}
+.divBreadcrumb .bread-2 A,.divBreadcrumb .bread-3 A,.divBreadcrumb .bread-4 A,.divBreadcrumb .bread-5 A,.divBreadcrumb .bread-6 A,.divBreadcrumb .bread-7 A,.divBreadcrumb .bread-8 A,.divBreadcrumb .bread-9 A{text-transform:capitalize;display:block;background:url(http://www.brasil.gov.br/bg/breadCrumb_2_2.gif) #b2b2b2 no-repeat left top;float:left;height:18px;color:#fff;text-decoration:none;margin:10px 0 0;padding:0 0 0 20px;}
+.contraste .divBreadcrumb .bread-2 A,.contraste .divBreadcrumb .bread-3 A,.contraste .divBreadcrumb .bread-4 A,.contraste .divBreadcrumb .bread-5 A,.contraste .divBreadcrumb .bread-6 A,.contraste .divBreadcrumb .bread-7 A,.contraste .divBreadcrumb .bread-8 A,.contraste .divBreadcrumb .bread-9 A{background:url(http://www.brasil.gov.br/bg/breadCrumb_2_2_c.gif) #fff no-repeat left top;color:#000;}
+.contraste .divBreadcrumb SPAN.bread-ultimo,.contraste .divBreadcrumb .bread-1 SPAN.bread-ultimo{background:url(http://www.brasil.gov.br/bg/breadCrumb_2_3_c.gif) #fff300 no-repeat left top;color:#000;}
+BODY.contraste .portletNavigationTree LI,BODY.contraste .portlet-static-navegue-por UL LI,BODY.contraste #divFooter{background:#000;}
+BODY.contraste .portletNavigationTree LI A:hover,BODY.contraste .portletNavigationTree LI A.navTreeCurrentItem{background:url(http://www.brasil.gov.br/ico/icoMenuSidebar_on_c.gif) no-repeat left 50%;color:#fff600 !important;}
+.contraste .documentActions LI,.contraste .documentActions LI A{background:#000;color:#fff !important;}
+.formControls INPUT,.kupu-dialog-button{background:#FFF;color:#436976;font-weight:bold;border-color:#8cacbb;padding:2px 3px !important;}
+#divFooter .divDestaques .divBoxDestaque01 P IMG,#divFooter .divDestaques .divBoxDestaque02 P IMG,#divFooter .divDestaques .divBoxDestaque03 P IMG{vertical-align:middle;padding:0;}
+.plain H1,.plain H2,.plain H3,.plain H4,.plain H5,.plain H6{margin-bottom:20px !important;}
+.divBoxFalePres .divBoxFalePresTop .divBoxFalePresBottom FORM SPAN,.divBoxFalePres .divBoxFalePresTop .divBoxFalePresBottom UL LI.liCampos{font:1.1em Arial,Helvetica,sans-serif;color:#db0f0f;}
+#search .jquery-selectbox{margin-top:1px }
+.avisoHeaderBG{width:519px;display:block;margin:0;background:url(http://www.brasil.gov.br/avisoHeaderMiddle.gif);background-position:bottom;background-repeat:repeat-y;float:left;clear:both;}
+.avisoHeaderBG .avisoTop{float:left;display:block;width:519px;height:6px;background:url(http://www.brasil.gov.br/avisoHeaderTop.gif);}
+.avisoHeaderBG .avisoBottom{float:left;display:block;width:519px;height:6px;background:url(http://www.brasil.gov.br/avisoHeaderBottom.gif);clear:both;}
+.avisoHeaderBG .avisoTxt{float:left;font-family:Arial;font-size:13px;font-weight:bold;margin:0;padding:4px 0 5px 0px;width:438px;}
+.avisoHeaderBG .avisoHeaderBorda{display:block;float:left;width:519px;background:url(http://www.brasil.gov.br/avisoHeaderBorda.gif);background-repeat:repeat-y;}
+.avisoHeaderBG .info{color:#00a349;}
+.avisoHeaderBG .avisoHeaderIcone{margin-left:10px;display:block;float:left;}
+.avisoHeaderBG .error{color:#d62222;}
+.avisoHeaderBG .warning .avisoHeaderIcone{background-image:url(http://www.brasil.gov.br/ico/avisoHeaderBG_ico_amarelo.png);background-position:left center;background-repeat:no-repeat;padding-left:33px;}
+.avisoHeaderBG .info .avisoHeaderIcone{background-image:url(http://www.brasil.gov.br/ico/avisoHeaderBG_ico_verde.png);background-position:left center;background-repeat:no-repeat;padding-left:33px;}
+.avisoHeaderBG .error .avisoHeaderIcone{background-image:url(http://www.brasil.gov.br/ico/avisoHeaderBG_ico_vermelho.png);background-position:left center;background-repeat:no-repeat;padding-left:33px;}
+.avisoHeaderBG .icoLimpo .avisoHeaderIcone{margin:0px;}
+.avisoHeaderBG .icoLimpo .avisoTxt{width:496px;padding-left:10px;}
+table.cp_pgbanner1,table.cp_Untitled {width:252px;}
+.divConteudosAbas .divConteudosAbasTop .divConteudosAbasBottom .divDestArea01 a:hover {text-decoration:underline;}
+.divConteudosAbas .divConteudosAbasTop .divConteudosAbasBottom .divDestArea02 a:hover {text-decoration:underline;}
+.divConteudosAbas .divConteudosAbasTop .divConteudosAbasBottom .divDestArea03 a:hover {text-decoration:underline;}
+.divBoxGalVideo a:hover {text-decoration:underline;}
+.divModServ5Mais ul li a:hover {text-decoration:underline;}
+#content .CallNaveguePor {float:none !important;font-size:16px;}
+.MapasFiltro .MapasFiltroRepeat{background:url(http://www.brasil.gov.br/bg/borda_repeat_filtroMapas.png) left top  repeat-y;}
+.MapasFiltro .DegradeFiltro{position:relative;z-index:10;top:12px;padding:0 0 15px 20px;width:232px;font-size:1.2em;}
+.MapasFiltro .DegradeFiltro .filtrar{width:50px;height:24px;border:none;cursor:pointer;margin:0 0 0 40px;background:url(http://www.brasil.gov.br/btn/btnFiltrar.gif) 0 0 no-repeat;}
+.MapasFiltro .DegradeFiltro a.linkExtra{color:#007cc2;text-decoration:none;font-size:0.8em
+}
+.MapasFiltro .DegradeFiltro strong{color:#ccc
+}
+.MapasFiltro h4{font-size:1.4em;padding:5px 0 15px 0
+}
+.MapasFiltro ul{padding:0 2px;width:213px;}
+.MapasFiltro ul li ul{padding:0 2px;width:192px;}
+.MapasFiltro ul li ul.last-child{padding:0 0 15px 11px;}
+.MapasFiltro ul li{background:url(http://www.brasil.gov.br/bg/borda_base_filtro.png) left bottom no-repeat;margin:0 0 10px 0;}
+.MapasFiltro ul li input{float:right;position:relative;right:10px;top:10px;}
+.MapasFiltro ul li span{display:block;width:213px;height:25px;padding:10px 0 0 10px;background:url(http://www.brasil.gov.br/bg/borda_topo_filtro.png) left top no-repeat;}
+.MapasFiltro ul li span.nivel a,.MapasFiltro ul li ul li span.nivel a{padding:0 0 0 12px;color:#000;text-decoration:none;background:url(http://www.brasil.gov.br/ico/setaFechadaFiltro.png) left  no-repeat;}
+.MapasFiltro li.liActive > span.nivel > a{background-image:url(http://www.brasil.gov.br/ico/setaAbertaFiltro.png);}
+.MapasFiltro ul li a.singleItem{cursor:text !important;background:url(http://www.brasil.gov.br/ico/setaFiltroSingleItem.png) left no-repeat !important;}
+.MapasFiltro ul li ul li span.subnivel,.MapasFiltro ul li ul li ul li span.subnivel{padding:0 0 0 12px;margin:0 0 0 7px;}
+.MapasFiltro ul li ul li span{display:inline;height:0;background:none;}
+.MapasFiltro ul li ul li ul{width:179px;line-height:22px;}
+.MapasFiltro ul li ul li ul li.first-child{padding:13px 0 0 0;}
+.MapasFiltro ul li ul li ul.last-child{padding:0  13px;}
+.MapasFiltro ul li ul li{background:none;padding:0
+}
+.MapasFiltro ul li ul li input{position:static}
+.GalArte_Busca_Acervo{clear:both;padding:10px 0 0 0
+}
+.GalArte_Busca_Acervo form fieldset label{float:left;display:block;height:33px;}
+.GalArte_Busca_Acervo form fieldset legend {font-size:1.5em;padding:0 0 10px 0}
+.GalArte_Busca_Acervo form fieldset label .jquery-selectbox{height:33px;}
+.GalArte_Busca_Acervo form fieldset label select{width:215px;height:33px;}
+.GalArte_Busca_Acervo form fieldset .GalArte_Localizacao .jquery-selectbox{width:266px !important;}
+.GalArte_Busca_Acervo form fieldset label input.inpBusca{background:transparent url(http://www.brasil.gov.br/bg/bgInpBusca.gif) no-repeat scroll right center;border:0 none;color:#000;float:left;font-family:Arial,Helvetica,sans-serif;font-size:1.4em;height:22px;margin:10px 0px 0 0;padding:4px 7px 0;width:147px;float:none;position:relative;top:-9px
+}
+.GalArte_Busca_Acervo button{width:49px;height:26px;border:0;cursor:pointer;background:url(http://www.brasil.gov.br/btn/btnBuscar.gif) no-repeat;vertical-align:middle;margin:0 0 0 6px;float:left;}
+.GalArte_Busca_Acervo .border{margin:0;float:left;padding-left:10px;}
+.GalArte_Busca_Acervo form fieldset .btnLimpar{width:45px;height:26px;border:none;float:left;cursor:pointer;margin:0px 10px 0 7px;background:url(http://www.brasil.gov.br/btn/btnLimpar.gif) no-repeat;text-indent:-999em;}
+body.contraste .GalArte_Busca_Acervo form fieldset label .btnLimpar{background:url(http://www.brasil.gov.br/btn/btnLimpar_c.gif) no-repeat;}
+.GalArte_chamada_lista{width:516px;overflow:hidden;float:left;padding:4px 4px 0 0;}
+.GalArte_chamada_lista ul{overflow:hidden
+}
+.GalArte_chamada_lista ul li{width:120px;height:100px;float:left;padding:12px 9px 10px 0;}
+.GalArte_chamada_lista ul li a{color:#007cc2;font-size:1.2em;font-weight:bold;text-decoration:none
+}
+.GalArte_chamada_lista ul li a img{border:none
+}
+.template-br_template_completo .GalArte_chamada_lista ul li{height:auto;}
+.template-br_template_completo .GalArte_chamada_lista ul li a{font-weight:normal;}
+.tree-default ul {margin:5px 5px 5px 10px;}
+.tree-default li.last {margin-top:5px;}
+.info_modalbox{display:none;}
+.info_lista{padding-top:10px;clear:both;}
+.Apple-style-span{font-size:1em;}
+.template-newsitem_view #content p{font-size:1.4em !important;font:120% Arial !important;}
+.liLegend{font-size:1em !important;}
+.template-newsitem_view #content-plain p{font-size:1.1em
+}
+.section-navegue_por #portal-column-two .portlet{border:medium none;margin:auto;}
+.section-navegue_por #portal-column-two .portletHeader{border-bottom:none;margin:0;}
+dl.baixe-o-corretor-ortografico,dl.agenda-telefonica-em-seu-celular,dl.telefones-de-emergencia,dl.explore-outros-aplicativos{width:250px;float:left;border:0;}
+dl.baixe-o-corretor-ortografico dt,dl.agenda-telefonica-em-seu-celular dt,dl.telefones-de-emergencia dt,dl.explore-outros-aplicativos dt{background:url(http://www.brasil.gov.br/bg/bordaTop_box250.jpg) no-repeat scroll center top;height:80px;margin-left:-1px;padding:0;}
+dl.baixe-o-corretor-ortografico dd,dl.agenda-telefonica-em-seu-celular dd,dl.telefones-de-emergencia dd,dl.explore-outros-aplicativos dd.last-child{width:193px;border:none;float:left;font-size:1.1em;line-height:16px;padding:13px 28px 10px;background:url(http://www.brasil.gov.br/bg/bordaBottom_box250.jpg) bottom  no-repeat;}
+dl.explore-outros-aplicativos dd img {display:none;}
+dl.explore-outros-aplicativos dd {list-style-image:url(http://www.brasil.gov.br/ico/bullet_circle_blue.gif);}
+dl.explore-outros-aplicativos dd a{background:url(bull_setdireita.gif) left 4px no-repeat;padding-left:10px;color:#1083C6;font-size:1.2em;}
+#portal-column-two dl.baixe-o-corretor-ortografico dt.portletHeader{margin-left:-1px;}
+dl.baixe-o-corretor-ortografico dt span.portletTopLeft{padding:38px 0 0 44px;width:55px;background:url(http://www.brasil.gov.br/ico/ico_baixar_corretor.gif) no-repeat scroll center bottom;float:left;font-size:1.4em;height:38px;line-height:16px;}
+dl.baixe-o-corretor-ortografico dt span{display:block;font-weight:bold;height:93px;line-height:18px;padding:27px 0 0;width:228px;}
+dl.baixe-o-corretor-ortografico dt span.portletTopRight{display:none;}
+dl.baixe-o-corretor-ortografico dd p{text-align:left !important;}
+dl.baixe-o-corretor-ortografico dd p a.internal-link{width:144px;height:31px;display:block;margin:20px 0 0 23px;background:url(http://www.brasil.gov.br/btn/btn_baixar_aplicativo.jpg)  no-repeat 0 0;text-indent:-99999px;}
+dl.agenda-telefonica-em-seu-celular dt span.portletTopLeft{padding:38px 0 0 44px;width:55px;background:url(http://www.brasil.gov.br/ico/ico_agenda_telefonica.gif) no-repeat scroll center bottom;float:left;font-size:1.4em;height:38px;line-height:16px;}
+dl.agenda-telefonica-em-seu-celular dt span{display:block;font-size:1.4em;font-weight:bold;height:93px;line-height:18px;padding:27px 0 0;width:228px;}
+dl.agenda-telefonica-em-seu-celular dt span.portletTopRight{display:none;}
+dl.agenda-telefonica-em-seu-celular dt span.portletTopLeft{width:55px;height:20px
+background:url(http://www.brasil.gov.br/ico/ico_baixar_corretor.gif) bottom  no-repeat;}
+dl.agenda-telefonica-em-seu-celular dd p{text-align:left !important;margin:3px 0 12px 13px;font-size:0.9em !important;}
+dl.agenda-telefonica-em-seu-celular dd p.first-child{font-size:1.1em !important;margin:12px 0;}
+dl.agenda-telefonica-em-seu-celular dd a{display:block;padding:0 0 10px;word-wrap:break-word;}
+dl.agenda-telefonica-em-seu-celular dd em{font-size:0.9em;color:#838383;font-style:normal;}
+dl.agenda-telefonica-em-seu-celular dd strong{float:left
+}
+dl.agenda-telefonica-em-seu-celular dd p a.internal-link{width:144px;height:31px;display:block;margin:20px 0 0 23px;background:url(http://www.brasil.gov.br/btn/btn_baixar_aplicativo.jpg)  no-repeat 0 0;text-indent:-99999px;}
+dl.explore-outros-aplicativos dt span{display:block;font-weight:bold;height:93px;line-height:18px;padding:27px 0 0;width:228px;}
+dl.explore-outros-aplicativos dt span.portletTopLeft{padding:38px 0 0 44px;width:55px;background:url(http://www.brasil.gov.br/ico/ico_explore_aplicativos.gif) no-repeat scroll center bottom;float:left;font-size:1.4em;height:38px;line-height:16px;}
+dl.explore-outros-aplicativos dt span h3{width:131px;line-height:1.1em;font-size:1.1em;margin:-12px 0 0 70px;}
+dl.explore-outros-aplicativos dt span.portletTopRight{display:none;}
+dl.explore-outros-aplicativos dt span.portletTopLeft{width:55px;height:20px
+background:url(http://www.brasil.gov.br/ico/ico_baixar_corretor.gif) bottom  no-repeat;}
+dl.explore-outros-aplicativos dt span.excluirTudo{display:none
+}
+dl.explore-outros-aplicativos dd.last-child{padding:6px 22px 10px;background:url(http://www.brasil.gov.br/bg/bordaBottom_box250.jpg) left bottom  no-repeat;width:206px;}
+dl.explore-outros-aplicativos dd{background:url(http://www.brasil.gov.br/bg/bordaBottom_box250.jpg) 0 0  no-repeat;font-size:1.1em;line-height:16px;padding:6px 21px 0;}
+dl.explore-outros-aplicativos dd span.relogio{display:none
+}
+dl.explore-outros-aplicativos dd h5{font-size:0.9em;color:#007cc2;font-weight:normal;padding:3px 0 0 9px !important;background:url(http://www.brasil.gov.br/ico/icoSetaListaAzul_off.gif) left  no-repeat;}
+dl.explore-outros-aplicativos dd.last-child h5{margin:0 0 0 -7px;}
+dl.explore-outros-aplicativos p.maisNoticias{display:none
+}
+#portal-column-two dl.telefones-de-emergencia dt.portletHeader{margin-left:-1px;}
+dl.telefones-de-emergencia dt span.portletTopLeft{padding:38px 0 0 44px;width:55px;background:url(http://www.brasil.gov.br/ico/ico_telefones_de_emergencia.gif) no-repeat scroll center bottom;float:left;font-size:1.4em;height:41px;line-height:16px;}
+dl.telefones-de-emergencia dt span{display:block;line-height:18px;padding:27px 0 0;width:228px;}
+dl.telefones-de-emergencia dd{font-size:1.2em !important;}
+dl.telefones-de-emergencia dt span.portletTopRight{display:none;}
+dl.telefones-de-emergencia dd ul li{padding:0 0 0 10px;background:url(http://www.brasil.gov.br/ico/bullet_circle_blue.gif) no-repeat scroll 0 6px;}
+.simpleMessageForm p{text-align:center !important;}
+.Maior .jcarousel-skin-video-horizontal .jcarousel-container-horizontal{height:82px;margin-left:16px;width:447px;}
+.Maior .jcarousel-skin-video-horizontal .jcarousel-clip-horizontal{margin-left:2px;width:442px;}
+.Maior .jcarousel-skin-video-horizontal .jcarousel-clip-horizontal ul .carrosel{width:850px;}
+.Maior .jcarousel-skin-video-horizontal .jcarousel-list-horizontal li,.jcarousel-skin-video-horizontal .jcarousel-item-horizontal{height:60px;width:82px;}
+.Maior .jcarousel-skin-video-horizontal .jcarousel-prev-horizontal{background-image:url(http://www.brasil.gov.br/btn/btnCarrossel_left2.gif);height:60px
+}
+.Maior .jcarousel-skin-video-horizontal .jcarousel-next-horizontal{background-image:url(http://www.brasil.gov.br/btn/btnCarrossel_right2.gif);height:60px;}
+.Maior .divDestMineCarrossel .jcarousel-list{width:850px
+}
+.divBoxAudioP{border-bottom:1px solid #ccc;padding-bottom:20px;margin-bottom:10px
+}
+.multiConversor{width:526px}
+#manage-portlets-view{width:516px;float:left;}
+.imagemLink2col{margin-bottom:10px;margin-top:30px;margin-left:0px;float:left;}
+.section-para .imagem-destaque .imagemLink2col{margin-top:10px !important;}
+a.creditosBlockLink{color:#fff;}
+a.creditosBlockLink:hover{text-decoration:none;color:#fff;}
+#portal-siteactions.foreigner{margin-right:0;}
+#linha-do-tempo .siteaction-Sobre a,#participe .siteaction-Participe a,#fale-com-o-governo .siteaction-Fale a,#brasil.template-sitemap .siteaction-Mapa a {color:#ffcc99;}
+#brasil.template-login_form_meubrasil .siteaction-Mapa a {color:#fff;!important}
+#portal-siteactions #siteaction-Participe {display:none !important;}
+p.txtNormal{font-weight:normal;color:#000000;padding-bottom:4px;}
+p.titNoMargim{padding-bottom:10px;padding-top:8px;}
+#content p.titNoMargim a{color:#007CC2;}
+.titUltimosVideos{color:#000000;font-size:1em;color:#000000;font:bold 1.7em Arial,Helvetica,sans-serif;margin:10px 0 7px 0;padding:0;}
+.containerBoxDestaques {background:url("bgDestaquesVideos.jpg") repeat scroll 0 0 transparent;border:1px solid #E5E5E5;margin-bottom:20px;padding:20px 20px 0;width:468px;}
+.containerBoxDestaques .divModDestAudioP {width:225px;}
+.containerBoxDestaques .footerMais {clear:both;padding:0 0 5px 0 !important;text-align:right;}
+.containerBoxDestaques .footerMais a {font-weight:bold;color:#ffb300 !important;background:url(http://www.brasil.gov.br/ico/icoSetaDuplaAzul.gif) 0 center no-repeat;padding-left:14px;}
+.listaVideosContainer {border-bottom:1px dotted #ccc;border-top:1px dotted #ccc;padding-bottom:10px;width:515px;}
+.listaVideos {border-bottom:1px dotted #ccc;float:left;margin:7px 9px 0 0;padding-bottom:7px;width:247px;min-height:55px;}
+.imagemListaVideos {border:1px solid #ccc;float:left;padding:1px;width:110px;}
+.imagemListaVideos:hover {border:2px solid orange;float:left;padding:0;width:110px;}
+.textoListaVideos {color:#007CC2;float:left;font:bold 1.4em Arial,Helvetica,sans-serif;margin-left:7px;width:125px;}
+.listaVideosPequenaContainer {border:1px solid #ccc;padding:3px;width:260px;}
+.listaVideosPequena {border-bottom:1px dotted #ccc;margin-top:7px;padding-bottom:7px;}
+.listaMaisNoticias a{background:url(http://www.brasil.gov.br/ico/icoSetaDuplaAzul.gif) no-repeat scroll 0 center transparent;color:#FFB300 !important;display:block;float:right;font-size:1.2em;font-weight:bold;margin:10px 5px 0;padding-left:14px;}
+.brasilTem {margin-top:-13px;}
+.divSumarioAlfanumerico.sumarioContatos ul.ulTitle{padding:0 0 10px;}
+.divSumarioAlfanumerico.sumarioContatos ul.ulTitle li.liFechar{padding:0;}
+.divSumarioAlfanumerico.sumarioContatos .descricaoItensSumario{font-size:1em !important;}
+.sumario_titulo_pasta{font-size:1.6em;font-weight:bold;}
+.sumario_descricao{font-size:1.2em;margin-bottom:20px;}
+.template-view_mapa .sumario_descricao{width:745px;}
+.template-view_mapa #content{width:745px;}
+#exploreContatosPor{background:url("bgExplore.jpg") no-repeat;height:332px;margin-left:6px;width:253px;}
+#exploreContatosPor a{color:#009241;font-size:1.4em;font-weight:bold;}
+#exploreContatosPor .blocoExplore{margin:2px 0;min-height:19px;_height:19px;padding-top:5px;width:241px;}
+#exploreContatosContainer{margin:0 auto;width:242px;}
+#exploreContatosContainer .tituloExplore{border-bottom:1px solid #CCCCCC;margin:0 auto 10px;padding:10px 0 5px;width:218px;color:#007CC2;font-weight:bold;font-size:2em;}
+#exploreContatosPor .exploreLeft{float:left;width:13px;}
+#exploreContatosPor .exploreRight{float:left;margin-left:5px;width:211px;}
+#exploreContatosPor .blocoExplore.listaMarcada{background:#def3eb;}
+#content a.desabilitado{background:url("bg/bgListPaginacao.gif") no-repeat scroll 0 0 transparent;color:#DDDDDD;cursor:default;display:inline;float:left;font:1.1em Arial,Helvetica,sans-serif;height:18px;padding:2px 1px 0;text-align:center;text-decoration:none;width:17px;}
+#home-en .divDestMineCarrossel {margin-bottom:20px;}
+#home-en .containerServPub {border:none;}
+#home-es2 .divDestMineCarrossel {margin-bottom:20px;}
+#home-es2 .containerServPub {border:none;}
+body#ministerios #exploreContatosContainer #ministerios,.ministerios #ministerios,body#secretarias #exploreContatosContainer #secretarias,.secretarias #secretarias,.outros-orgaos-publicos #outros-orgaos-publicos,.embaixadas-no-brasil #embaixadas-no-brasil,.embaixadas-no-exterior #embaixadas-no-exterior,.consulados-no-brasil #consulados-no-brasil,.consulados-no-exterior #consulados-no-exterior,.camaras-de-comercio-no-brasil #camaras-de-comercio-no-brasil,.contatos-de-imprensa #contatos-de-imprensa,.sindicatos-1 #sindicatos-1 {color:#ef9b08;}
+.template-view_sumario_contatos .sumario_titulo_pasta{color:#EF9B08;}
+.jquery-selectbox {font-size:1em;}
+.listaIndicadoresContainer {border:1px solid #CFCFCF;margin-bottom:20px;padding-top:15px;width:520px;}
+.listaIndicadoresPag {border-top:1px dotted #CFCFCF;margin:20px auto;width:480px;}
+.listaIndicadoresPag .divPaginacao .divIrPagina {display:none;}
+.listaIndicadoresPag .divPaginacao {float:none;margin:10px auto;width:400px;}
+.listaIndicadores,.topoListaIndicadores {margin:0 auto;width:480px;}
+.listaIndicadores .listaIndicadoresItem {border-top:1px dotted #cfcfcf;padding:5px 0;}
+.listaIndicadores .listaIndicadoresItem a {color:#007cc2;font-size:1.3em;font-weight:bold;}
+.listaIndicadoresItem .listaIndicadoresCol1 {float:left;padding-top:3px;width:13px;}
+.listaIndicadoresItem .listaIndicadoresCol2 {float:left;width:467px;}
+#form-widgets-keywords{background:url("bgFundoBusca.jpg") no-repeat scroll 0 center transparent;border:0 none;color:#000000;float:left;font:1.4em/26px Arial,Helvetica,sans-serif;height:26px;margin:-3px 3px 0 0;padding:4px 7px 5px;width:277px;}
+#form-buttons-buscar{background:url("bgBtnBuscar.gif") no-repeat scroll 0 0 transparent;border:medium none;color:#007CC2;font-size:0.9em;height:26px;padding-bottom:2px;text-transform:uppercase;width:51px;}
+.buscaIndicadores {margin:10px 0;}
+.buscaIndicadores .fieldRequired,.buscaIndicadores label {display:none;}
+.buscaIndicadores .row {float:left;}
+.buscaIndicadores h5 {padding-bottom:0 !important;}
+.tituloListaIndicadores {font-size:1.6em;font-weight:bold;}
+.buscaIndicadores .jquery-selectbox{width:145px !important;}
+.buscaIndicadores .jquery-selectbox-list{width:139px !important;}
+.indiceBusca {font-size:1em;margin-bottom:10px;}
+.resultadoBuscaContainer {font-size:1em;}
+.resultadoBuscaContainer ul li a {color:#007CC2;font-size:1.7em;font-weight:bold;}
+.resultadoBuscaContainer ul li {border-top:1px dotted #cfcfcf;margin-bottom:5px;padding-top:5px;}
+.infoIndicadorContainer {border-top:1px solid #cfcfcf;font-size:1.3em;margin-bottom:20px;padding-top:15px;}
+.infoIndicadorContainer .nomeIndicador {color:#FF9004;display:block;font-size:1.3em;font-weight:bold;margin-bottom:10px;}
+.formFiltrarContainer {border-top:1px solid #cfcfcf;padding-top:10px;}
+.formFiltrarContainer  label {float:left;}
+.formFiltrarContainer .row {float:left;}
+.formFiltrarContainer  .formHelp {color:#76797C;float:left;font-size:90%;margin:0 0 0 10px;}
+.indicadorGraficoContainer {border-top:1px solid #cfcfcf;border-bottom:1px solid #cfcfcf;margin:10px 0;padding-top:20px;}
+.tabelaHeader tr.first-child {background:#082c46;color:#fff;padding:2px;}
+.tabelaIndicadorContainer {font-size:1.3em;display:none;}
+.tabelaIndicadorContainer .indiceValor {color:#276b98;padding-top:3px;}
+.tabelaIndicadorContainer td {border:1px solid #fff;}
+.tabelaIndicadorContainer td.last-child {padding-left:20px;}
+.linksRodapeGrafico {padding:10px 0;}
+.linksRodapeGrafico div.link {float:left;}
+.linksRodapeGrafico div.linkDireita {float:right;}
+.linksDownloadTabela {background:url("setaDownload.gif") no-repeat scroll 0 0 transparent;color:#007cc2;display:block;font-size:1em;height:19px;padding-left:20px;width:147px;}
+.formComparar {border-bottom:1px solid #CFCFCF;margin-bottom:20px;padding-bottom:20px;}
+.formComparar .jquery-selectbox {background-repeat:repeat-x;width:430px !important;}
+.formComparar .jquery-selectbox-list {width:430px !important;}
+.formComparar .field {float:left;}
+.formComparar h3 {margin:0;padding:0;}
+.formComparar .jquery-selectbox .jquery-selectbox-currentItem {font-size:1.1em;}
+.formComparar .jquery-selectbox .jquery-selectbox-item {font-size:1.1em;}
+.formComparar label,.formComparar .fieldRequired {display:none;}
+.formComparar #form-widgets-indicador {width:430px !important;}
+#linksRodape {border-top:1px solid #cfcfcf;border-bottom:1px solid #cfcfcf;margin:10px 0;padding:10px 0;}
+#linksRodape  ul li {margin:5px 0;}
+#form-widgets-inicio {float:left;width:200px;}
+#form-widgets-fim {float:left;width:200px;}
+#form-buttons-filtrar {background:url(bgBtnIndicadores.gif) no-repeat;border:none;color:#007CC2;font-size:1em;cursor:pointer;height:26px;text-transform:uppercase;width:70px;}
+#form-widgets-tema {width:122px !important;}
+#form-buttons-comparar{background:url("bgBtnComparar.gif") no-repeat scroll 0 0 transparent;border:medium none;color:#007CC2;cursor:pointer;font-size:0.8em;height:26px;padding-top:0;text-transform:uppercase;width:68px;}
+.divBuscaNaveguePor{background:none repeat scroll 0 0 #F2F2F2;border:1px solid #CCCCCC;padding:5px;}
+.inputProcurePor{border-bottom:0;border-left:0;width:145px;font:1.4em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/bgInpBusca.gif) no-repeat 0 center;float:left;height:26px;line-height:26px;color:#000;border-top:0;border-right:0;margin:0 3px 0 0;padding:4px 7px 0;padding-bottom:5px;margin-top:-3px}
+.buscaNaveguePor{background:url(http://www.brasil.gov.br/btn/btnBuscar.gif) no-repeat 0 0;border:0 none;cursor:pointer;height:26px;margin:0 0 0 6px;vertical-align:middle;width:49px;text-indent:-999px;}
+#portal-column-two .portlet{border:1px solid #f1f1f1;margin:0 0 20px;padding:10px;}
+#portal-column-two .portletHeader{border-bottom:1px solid #cccccc;font-size:1.7em;font-weight:bold;margin:0 0 10px 0;padding:0 0 6px;}
+#portal-column-two .portletItem a.tile{color:#007cc2;font-size:1.4em;font-weight:bold;display:block;padding-bottom:10px;}
+#portal-column-two .portletItemDetails{color:#666666;display:block;font-size:0.8em;}
+#portal-column-two .portletFooter {text-align:right;}
+#portal-column-two .portletFooter a{color:#FFB400;font-weight:bold;padding-left:12px;background:url(http://www.brasil.gov.br/ico/icoSetaDuplaAzul.gif) no-repeat transparent left;font-size:1.2em;text-transform:lowercase;}
+.linhadotempo{border-bottom:1px solid #CECECE;float:left;margin:0;padding:10px 0 0;width:516px;}
+.linhadotempo h5{color:#007CC2;font-family:Arial,Helvetica,sans-serif;font-size:1.7em;font-weight:bold;padding:0 0 4px;}
+.columns-listing dt{width:244px;border-bottom:1px solid #cacaca;padding:10px 0 10px 0;margin:0 10px 0 0;float:left;}
+.columns-listing .itemEven{clear:left;}
+.columns-listing a{color:#007CC2;text-decoration:none;font-size:1.3em;font-weight:bold;}
+.columns-listing p{margin:0;padding:0;}
+.simple-listing dt{margin:0;padding:0;}
+.simple-listing dt a{background:url("http://www.brasil.gov.br/ico/icoCalendDestEvent.gif") no-repeat scroll 0 3px transparent;color:#007CC2;font:bold 1.3em Arial,Helvetica,sans-serif;margin:15px 0;padding:0 0 0 10px;display:block;}
+.section-brasilia .cloud1 {font-size:11px;}
+.section-brasilia .cloud2 {font-size:14px;}
+.section-brasilia .cloud3 {font-size:16px;}
+.section-brasilia .cloud4 {font-size:18px;}
+.section-brasilia .cloud5 {font-size:20px;}
+.section-brasilia .cloud6 {font-size:22px;}
+.section-brasilia #galBotaoFlash {margin-top:-50px;}
+.section-brasilia .documentDescription {font-weight:normal;}
+.section-brasilia .portlet-static-calendario-de-acontecimentos .portletItem {padding:0 0 0 5px;}
+.section-brasilia .portlet-static-calendario-de-acontecimentos .portletItem p strong {margin-bottom:5px;}
+.section-brasilia #cloud span {color:#007CD7;font-size:1.7em;font-weight:bold;padding:0 0 6px 0;}
+.section-brasilia #portal-column-two .portlet.portletPortletTagCloud {border:none;!important}
+.section-brasilia .spanPublicadoEm {display:none;}
+.section-brasilia .divModTitSubmenu {margin-bottom:20px;}
+.section-brasilia .portletBuscaAvancada .optionsToggle {background-color:#FFFFFF;border:medium none;font-size:1em;line-height:30px;}
+.section-brasilia .portletBuscaAvancada .portletHeader {display:none;}
+.section-brasilia .portletBuscaAvancada label {font-size:1.2em;font-weight:normal;}
+.section-brasilia .portletBuscaAvancada label.first-child {color:#007CC2;font-weight:bold;font-size:1.4em}
+.section-brasilia .portletBuscaAvancada div.last-child {line-height:30px;}
+.section-brasilia .portletBuscaAvancada .formControls input.context {background:url("btnFiltrar.jpg") no-repeat scroll 0 0 transparent;border:medium none;display:block;height:28px;text-indent:-5000px;width:51px;}
+.panelet h2{color:#007CC2;font-weight:bold;font-size:1.7em;border:none;width:auto;padding:8px 0 0 0;}
+.panelet h2 a{color:#007CC2;}
+.panelet h3{color:#000000;font-weight:bold;font-size:1.5em;padding-bottom:10px;}
+.template-contentpanels_view table table,.template-contentpanels_config_form table table{width:auto !important;}
+.section-galeriadearte .divMenuAcessibilidadeMinisitios {margin-bottom:-15px !important;}
+.section-brasil-agora .divMenuAcessibilidadeMinisitios {margin-bottom:-15px !important;}
+html[lang=en] dl.baixe-o-corretor-ortografico dd p a.internal-link{background:url("btn_baixar_aplicativo_en.jpg") no-repeat scroll 0 0 transparent;}
+html[lang=es] dl.baixe-o-corretor-ortografico dd p a.internal-link{background:url("btn_baixar_aplicativo_es.jpg") no-repeat scroll 0 0 transparent;}
+.divConteudoInterna .divPaginacao ul li.liBtnLeft,.divConteudoInterna .divPaginacao ul li.liBtnRight {width:80px;}
+.divConteudoInterna .divPaginacao ul li.liBtnRight img {float:right;}
+.template-conhecendo_brasil #portal-column-two .portletHeader {border:medium none;}
+.template-conhecendo_brasil #portal-column-two .portlet {border:medium none;}
+#content .divModImgHorP .ampliar{display:block;float:right;color:#007CC2;font:1.3em Arial,Helvetica,sans-serif !important;background:url(ico/icoAmpliar.gif) 0 center no-repeat;padding:1px 0 1px 20px;cursor:pointer;}
+#content .divBoxLegenda ul li.liLegend,#content .divModImgHorP .liLegend{font:1em Arial,Helvetica,sans-serif !important;}
+#content h3 .divModImgHorP .liLegend,#content h3 .divBoxLegenda ul li.liLegend {font-size:0.855em !important;}
+.section-brasilia #portal-column-two .portletCollectionStyleshed .portletItem a.tile{background:url("http://www.brasil.gov.br/ico/icoSetaAmarela.gif") no-repeat scroll left 15% transparent;color:#000000;font-size:1.2em;font-weight:normal;padding-left:10px;}
+.section-brasilia #portal-column-two .portletCollectionStyleshed .portletItem{border-bottom:1px dotted #E5E5E5;margin:8px auto 0;width:208px;}
+#thank-you .divCompartilhamento,#brasil-ratings{display:none;}
+body.section-brasilia .portlet-static-galeria-de-arte {background:none;}
+#slide-show-wrap{width:516px;height:204px;overflow:hidden;background:#000;}
+#slide-show-wrap img{border:0;}
+#slide-show-wrap ul{margin:0;padding:0;}
+#slide-show-wrap ul li{width:516px;height:204px;margin:0;padding:0;list-style:none;}
+#slide-show-view li{display:none;}
+li#slide-show-imgid-1{display:block;}
+#slide-show-set-wrap{background:url("box-bg.png") no-repeat 10px 0;*background:url("box-bg.png") no-repeat 10px 0;display:block;float:right;height:198px;margin:3px 0 0 458px;margin:3px 0px 0px 458px;*margin:3px 0px 0px -58px;position:absolute;width:58px;z-index:2;}
+#slide-show-wrap ul#slide-show-set{width:58px;background:url(square-set.png) no-repeat 0 0;position:relative;z-index:2;}
+#slide-show-wrap ul#slide-show-set li{width:48px;height:48px;margin:1px 0 0 10px;}
+#slide-show-wrap ul#slide-show-set li a{position:relative;z-index:2;}
+.template-comments-report #content-plain,.template-admin-comments #content-plain{width:970px;}
+.template-comments-report #portal-column-one,.template-admin-comments #portal-column-one{padding:0 0 0 15px;width:970px;}
+.template-comments-report .menuModeracao,.template-admin-comments .menuModeracao{border-bottom:1px solid #CCCCCC;padding-bottom:6px;}
+.template-comments-report .menuModeracao li,.template-admin-comments .menuModeracao li{display:inline;display:inline;font:bold 1.4em Arial,Helvetica,sans-serif;margin:0 0 0 3px;padding-left:8px;padding-right:10px;background:url(http://www.brasil.gov.br/ico/icoCalendDestEvent.gif) no-repeat 0 4px;}
+.template-comments-report .menuModeracao li a,.template-admin-comments .menuModeracao li a{color:#007CC2;text-decoration:none;}
+.template-comments-report h1,.template-admin-comments h1{border-bottom:none;color:#000;display:block;font:bold 2.8em Arial,Helvetica,sans-serif;margin:3px 0 0;padding:32px 0 3px;width:100%;}
+.template-comments-report .divModTitSubmenu,.template-admin-comments .divModTitSubmenu{float:none;width:100%;}
+.template-comments-report .divModTitSubmenu .divModSubMenu,.template-admin-comments .divModTitSubmenu .divModSubMenu{width:100%;padding:0;margin-bottom:25px;padding-bottom:3px;}
+.template-admin-comments .divModTitSubmenu .divModSubMenu li.active a{color:#FF9000;}
+.template-admin-comments table{clear:both;border:1px solid #000;font:1.2em Arial,Helvetica,sans-serif;margin-top:4px;}
+.template-admin-comments table tr th{border:1px solid #000;background-color:#007CC2;color:#fff;}
+.template-admin-comments table tr td{border:1px solid #000;}
+.template-admin-comments .divPublicacao .inputPublicar{background:url(inputPublicar.png) no-repeat;width:60px;height:26px;text-indent:-9999px;border:0;cursor:pointer;margin-left:5px;}
+.template-admin-comments .divPublicacao .inputReprovar{background:url(inputReprovar.png) no-repeat;width:60px;height:26px;text-indent:-9999px;border:0;cursor:pointer;}
+.template-admin-comments form .selectAll{margin:-3px 0 0 7px;}
+.template-admin-comments form .spanSelect{font:1.2em Arial,Helvetica,sans-serif;}
+.template-admin-comments form div.inputs{float:right;}
+.template-admin-comments .divPublicacao{clear:both;float:right;margin-bottom:50px;}
+.template-admin-comments .divPaginacao{float:right;font:1.2em Arial,Helvetica,sans-serif;margin-top:-10px;}
+.template-admin-comments .divPaginacao ul li{display:inline;}
+.template-admin-comments .divPaginacao P {padding-bottom:4px;}
+.template-admin-comments .divPaginacao UL LI.liNumeracao {display:inline;font:1.1em Arial,Helvetica,sans-serif;float:left;margin:0;padding:0 2px;}
+.template-admin-comments .divPaginacao UL LI.liNumeracaoReticencias {display:inline;font:1.1em Arial,Helvetica,sans-serif;float:left;margin:0;padding:0 2px;}
+.template-admin-comments .divPaginacaoAlfabeto UL LI.liNumeracao {display:inline;font:1.1em Arial,Helvetica,sans-serif;float:left;margin:0;padding:0;}
+.template-admin-comments .divPaginacao ul li.liNumeracao a.desabilitado,.template-admin-comments .divPaginacaoAlfabeto ul li.liNumeracao a.desabilitado {background:url("bg/bgListPaginacao.gif") no-repeat scroll 0 0 transparent;color:#ddd;cursor:default;display:inline;float:left;font:1.1em Arial,Helvetica,sans-serif;height:18px;padding:2px 1px 0;text-align:center;text-decoration:none;width:17px;}
+.template-admin-comments .divPaginacao .divIrPagina {display:none;}
+.template-admin-comments .divPaginacao,.template-admin-comments .divPaginacaoAlfabeto {width:100%;float:left;padding:0 0 10px;margin-top:10px;}
+.template-admin-comments .divPaginacao UL LI,.template-admin-comments .divPaginacaoAlfabeto UL LI {display:inline;float:left;padding:1px 4px 0 1px;}
+.template-admin-comments .divPaginacao UL LI.liNumeracao A,.template-admin-comments .divPaginacaoAlfabeto UL LI.liNumeracao A {text-align:center;width:17px;display:inline;font:1.1em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/bgListPaginacao.gif) no-repeat;float:left;height:18px;color:#52665a;text-decoration:none;padding:1px 1px 0;}
+.template-admin-comments .divPaginacao UL LI.liNumeracaoReticencias A {cursor:default;text-align:center;width:17px;display:inline;font:1.1em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/bgListPaginacao.gif) no-repeat;float:left;height:18px;color:#52665a;text-decoration:none;padding:2px 1px 0;}
+.template-admin-comments .divPaginacao UL LI.liNumeracao A.numero,.template-admin-comments .divPaginacaoAlfabeto UL LI.liNumeracao A.numero {font:1em Arial,Helvetica,sans-serif;}
+.template-admin-comments .divPaginacao UL LI.liNumeracao A.aActive,.template-admin-comments .divPaginacaoAlfabeto UL LI.liNumeracao A.aActive {width:18px;display:inline;font:1.1em Arial,Helvetica,sans-serif;background:url(http://www.brasil.gov.br/bg/bgListPaginacaoActive.gif) no-repeat;float:left;height:19px;color:#fff;}
+.template-admin-comments .divPaginacao UL LI.liBtnLeft,.template-admin-comments .divPaginacao UL LI.liBtnRight {float:right;padding:0 0 0 40px;}
+.template-admin-comments legend{display:none;}
+.template-admin-comments .divPaginacao,.template-admin-comments .divPaginacaoAlfabeto{float:left;margin-top:-4px;padding:0 0 10px 0;width:969px;}
+.template-comments-report form{margin-top:20px;}
+.template-comments-report form .spanTipo{border-right:1px dotted #CCCCCC;display:block;float:left;font:1.2em Arial,Helvetica,sans-serif;width:200px;}
+.template-comments-report form .spanTipo p{font-weight:bold;padding:0 0 10px 0;}
+.template-comments-report form .spanEstado{margin-left:10px;display:block;float:left;font:1.2em Arial,Helvetica,sans-serif;width:150px;}
+.template-comments-report form .spanEstado p{font-weight:bold;padding:0 0 10px 0;}
+.template-comments-report form .option{float:left;clear:both;padding:0 0 8px 0;}
+.template-comments-report form .option label{font-weight:normal;}
+.template-comments-report form .spanData{font:1.2em Arial,Helvetica,sans-serif;clear:both;display:block;padding:20px 0 0 0;}
+.template-comments-report form .spanData p{font:1em Arial,Helvetica,sans-serif;font-weight:bold;padding-bottom:8px;}
+.template-comments-report form input.btFiltrar{background:url(btFiltrarRelatorios.png) no-repeat;width:109px;height:26px;text-indent:-9999px;border:0;cursor:pointer;margin-left:5px;}
+.template-comments-report form input.inputData{height:21px;width:68px;font:1.1em Arial,Helvetica,sans-serif;padding:0 3px;}
+.template-comments-report table{clear:both;border:1px solid #000;font:1.2em Arial,Helvetica,sans-serif;margin-top:40px;width:100%;}
+.template-comments-report table tr th{border:1px solid #000;background-color:#007CC2;color:#fff;}
+.template-comments-report table tr td{border:1px solid #000;}
+.template-comments-report form a.btnExportar{background:url(btExportarPlanilha.png) no-repeat;width:109px;height:26px;text-indent:-9999px;border:0;cursor:pointer;display:block;margin-bottom:50px;}
+.template-admin-comments .spanResposta{display:block;float:right;font:1.2em Arial,Helvetica,sans-serif;margin:30px 0 0;text-align:right;}
+.template-admin-comments .spanResposta a{font:0.9em Arial,Helvetica,sans-serif;margin-left:3px;color:#007CC2;}
+.template-admin-comments .spanResposta textarea{display:block;height:100px;margin:5px 0 10px;width:500px;}
+.template-admin-comments .spanEnviarEmail{float:right;font:1.2em Arial,Helvetica,sans-serif;margin:6px 12px 0 0;}
+.divListaVideosInfo{float:left;}
+.exibindo{font-size:14pt !important;font-weight:bold !important;color:#ff7800 !important;}
+.lista_especial{border-bottom:1px solid #fbd0bc;padding:15px 0 9px;width:100%;}
+.lista_especial .imagem{float:left;border:1px #c5c5c5 solid;padding:1px;margin-right:8px;}
+#content .lista_especial .conteudo{float:left;width:390px;}
+#portal-column-two .lista_especial .conteudo{float:left;width:105px;}
+.lista_especial .conteudo a{font-size:11pt;font-weight:bold;color:#00aeef}
+.lista_especial .conteudo a h5{color:#f26522;font-size:13pt !important;padding-bottom:3px !important;}
+#content .lista_especial .conteudo p{color:#000;font-size:10pt !important;}
+.especial_inovacao h1.documentFirstHeading{width:auto !important;display:inline-block !Important;}
+#portal-column-two .portlet-inovacao .portletTitle{background:url(http://www.brasil.gov.br/portlet_inovacao_vejamais.gif) no-repeat 0 0;height:33px;text-indent:-2000px;margin-bottom:18px;}
+#portal-column-two .portletPortletMidia .portletHeader{border:0 !important;}
+#portal-column-two  .portletPortletMidia.first-child.last-child span.portletTitle{background:url(http://www.brasil.gov.br/bg_inovacao_midia.gif) no-repeat 0 0;width:228px;height:33px;text-indent:-2000px;margin-bottom:18px;}
+.portletPortletMidia .portletTitle{display:block;width:100%;}
+.portletPortletMidia .portletHeader{display:block;width:150px;}
+.portletPortletMidia .imgThumb{display:inline-block;}
+.portletPortletMidia .imgContainer{float:left;margin-bottom:3px;margin-right:3px;background:url(http://www.brasil.gov.br/mediaGalleryPortLetIcoThumbShadow.png) no-repeat;width:230px;background-position:center center;display:block;}
+.portletPortletMidia .imgContainer a{display:block;float:left;padding:3px;height:70px;width:70px;text-align:center;}
+.portletMidiaAudio .imgContainer a{padding:0px!important;}
+.portletPortletMidia .imgContainer img{border:3px solid #fff;}
+.portletPortletMidia .imgsContainer{width:230px;float:left;margin-left:-3px;display:none;}
+.s_portlet_vejamais ul{list-style-image:none!important;list-style-type:none!important;}
+.portletPortletMidia .headerClique{display:block;width:115px;padding-left:28px;float:left;height:40px;line-height:40px;font-size:17px;font-weight:normal;text-transform:none;color:#727272;}
+.portletPortletMidia .headerClique span{color:#727272;float:left;display:block;}
+.portletPortletMidia .headerCliqueImg{background:url(http://www.brasil.gov.br/mediaGalleryPortLetIco-img_inovacao.png) no-repeat left center;}
+.portletPortletMidia .headerCliqueVideo{background:url(http://www.brasil.gov.br/mediaGalleryPortLetIco-video_inovacao.png) no-repeat left center;}
+.portletPortletMidia .headerCliqueInfografico{background:url(http://www.brasil.gov.br/mediaGalleryPortLetIco-img_inovacao.png) no-repeat left center;}
+.portletPortletMidia .headerCliqueAudio{background:url(http://www.brasil.gov.br/mediaGalleryPortLetIco-audio_inovacao.png) no-repeat left center;}
+.portletPortletMidia .headerClique img{float:right;margin-top:12px;}
+.portletPortletMidia .portletFooter{clear:both !important;}
+.portletPortletMidia .topo_sombra{background:url(http://www.brasil.gov.br/inovacao_img_bg_top.gif) left top repeat-x;position:relative;width:73px;}
+.portletPortletMidia .topo_sombra .left {float:left;background:url(http://www.brasil.gov.br/inovacao_img_bg_tl.gif) left top no-repeat;width:5px;height:7px;overflow:hidden;}
+.portletPortletMidia .topo_sombra .right {float:right;background:url(http://www.brasil.gov.br/inovacao_img_bg_tr.gif) right top no-repeat;width:6px;height:7px;overflow:hidden;}
+.portletPortletMidia .bg_sombra{width:73px;}
+.portletPortletMidia .bg_sombra .left{background:url(http://www.brasil.gov.br/inovacao_img_bg_left.gif) left bottom no-repeat;padding-left:5px}
+.portletPortletMidia .bg_sombra .right{background:url(http://www.brasil.gov.br/inovacao_img_bg_right.gif) right bottom no-repeat;padding-right:6px }
+.portletPortletMidia .bottom_sombra{background:url(http://www.brasil.gov.br/inovacao_img_bg_bottom.gif) left bottom repeat-x;position:relative;width:73px;}
+.portletPortletMidia .bottom_sombra .left {float:left;background:url(http://www.brasil.gov.br/inovacao_img_bg_bl.gif) left bottom no-repeat;width:5px;height:7px;overflow:hidden;}
+.portletPortletMidia .bottom_sombra .right {float:right;background:url(http://www.brasil.gov.br/inovacao_img_bg_br.gif) right bottom no-repeat;width:6px;height:7px;overflow:hidden;}
+.portletPortletMidia .portletBodyMultimidia{padding:0 0 15px 0;background:url(http://www.brasil.gov.br/inovacao_portlet_bottom.gif) left bottom repeat-x;float:left !important;width:225px;}
+#portal-column-one .navTreeSection-secoes dd.even{background:transparent !important;}
+body.template-conhecendo_brasil dl.mapsMarker ol li{display:inline !important;}
+body.template-conhecendo_brasil dl.mapsMarker ol li img{float:none !important;}
+.divRssWrapper{background:url(http://www.brasil.gov.br/bg_rss.gif) left top no-repeat;padding:25px 0 25px 18px;}
+.divRsswrapper{position:relative;}
+.divRssWrapper .divRssHeader .divRssHeaderIcon{background:url(rss_ico.png) left top no-repeat;height:81px;width:51px;float:left;margin-right:15px;}
+.divRssWrapper .divRssHeader .divRssHeaderTitle{float:left;width:675px;}
+.divRssWrapper .divRssHeader .divRssHeaderTitle h1{text-indent:-9999px;background:url(rss_title.png) left top no-repeat;height:50px;padding:0;width:675px !important;border-bottom:1px solid #f9c93f;margin-bottom:15px;}
+.divRssWrapper .divRssHeader .divRssHeaderDescription{color:#3b3b3b;font-size:0.9em;}
+.divRssWrapper .divRssConteudo{margin-top:30px;}
+.divRssWrapper .divRssConteudo .divRssCol{float:left;}
+.divRssWrapper .divRssConteudo .divRssCol2{width:193px;}
+.divRssWrapper .divRssConteudo .divRssCol1 ul,.divRssWrapper .divRssConteudo .divRssCol3 ul{height:335px;}
+.divRssWrapper .divRssConteudo .divRssCol2 ul{height:129px;}
+.divRssWrapper .divRssConteudo .boxLista{width:189px;float:left;position:relative;}
+.divRssWrapper .divRssConteudo .RssNoticias{width:190px;}
+.divRssWrapper .divRssConteudo .divLista{float:left;position:relative;}
+.divRssWrapper .divLista.RssDicasProgramas{margin-left:65px;}
+.divRssWrapper .imgLeft{float:left;clear:both;margin-right:20px;margin-top:-3px;}
+.divRssWrapper .divRssConteudo .boxLista div,.divRssWrapper .divRssConteudo .divLista div.icone{position:absolute;top:0;left:0;z-index:20;width:40px;height:40px;}
+.divRssWrapper .divRssConteudo .boxLista ul{border:1px solid #ededed;background:url(bg_rss_box.gif) left top;padding:25px 5px 25px 18px;margin:12px 10px 12px 14px;font-size:0.9em;}
+.divRssWrapper .divRssConteudo .boxLista ul li{padding:3px 0 3px 23px;background:url(rss_bullet.png) 0 6px no-repeat;}
+.divRssWrapper .titulo{color:#007dc6;font-size:13pt !important;font-weight:bold;background:transparent !important;padding:0 0 3px 2px !important;}
+.divRssWrapper .subtitulo{font-size:13pt !important;color:#1e935e;font-weight:bold;}
+.divRssWrapper .divLista p{margin-bottom:18px;}
+.divRssWrapper .divLista p.titulo{margin-bottom:10px;}
+.divRssWrapper .divLista p.subtitulo{margin-bottom:4px;}
+.divRssWrapper .divRssConteudo .boxLista ul li a{color:#1e935e;font-size:9pt !important;text-decoration:none !important;}
+.divRssWrapper  .divLista div.conteudo{border:1px solid #ededed;background:url(bg_rss_box.gif) left top;padding:25px 42px;margin:12px 10px 12px 14px;}
+.divRssWrapper .divRssConteudo .divLista div.conteudo{width:463px;}
+.divRssWrapper .divRssConteudo .divLista a.rssBtn{background:url(rss_input.png) left top no-repeat;width:175px;display:block;text-align:center;line-height:23px;border:0;text-decoration:none;color:#1e935e;font-weight:9pt !important;}
+.divRssWrapper a.rss_btn{background:url(bg_rss_link.gif) left top no-repeat;width:88px;display:block;text-align:center;line-height:25px;border:0;text-decoration:none;color:#1e935e;font-weight:9pt !important;}
+.divRssWrapper .divRssConteudo .RssSobre div.icone{background:url(rss_ico_sobre.png) left top no-repeat;}
+.divRssWrapper .divRssConteudo .RssPerfil div.icone{background:url(rss_ico_perfil.png) left top no-repeat;}
+.divRssWrapper .divRssConteudo .RssMultimidia div.icone{background:url(rss_ico_multimidia.png) left top no-repeat;}
+.divRssWrapper .divRssConteudo .RssNoticias div.icone{background:url(rss_ico_noticia.png) left top no-repeat;}
+.divRssWrapper .divRssConteudo .RssSecoes div.icone{background:url(rss_ico_secoes.png) left top no-repeat;}
+.divRssWrapper .divRssConteudo .RssProgramas div.icone{background:url(rss_ico_programas.png) left top no-repeat;}
+.divRssWrapper .divRssConteudo .RssDicas div.icone{background:url(rss_ico_dicas.png) left top no-repeat;}
+#portal-personaltools{display:none;}
+#portal-siteactions{margin-right:120px;}
+.divCompartilhamento .divCompartilhamentoTop .divCompartilhamentoBottom UL LI.liMeuBrasil{display:none;}
+#wrap-mod-carousel{padding:1px;border:1px solid #CDCDCD;width:245px;height:227px;}
+#wrap-mod-carousel h2{font-size:16px;font-weight:normal;background:url(header-modulo-chart.gif) no-repeat;width:245px;height:33px;color:#fff;overflow:hidden;}
+#wrap-mod-carousel span.indicadoresIcon{background:url(header-modulo-chart.gif) no-repeat;height:33px;width:30px;padding-top:5px !important;}
+#wrap-mod-carousel h2 *{float:left;}
+#wrap-mod-carousel span{display:block;padding:7px;width:185px;}
+#wrap-mod-carousel h3{margin:25px 0 3px 0;border-bottom:1px dotted #CECECE;padding:0 0 6px 0;}
+#wrap-mod-carousel h3 a{color:#007DC7;font-size:16px;font-weight:bold;}
+#wrap-mod-carousel p{color:#343434;font-size:1.3em;}
+.jcarousel-skin-modindicadores .jcarousel-direction-rtl{direction:rtl;}
+.jcarousel-skin-modindicadores .jcarousel-container-horizontal{width:230px;margin-left:7px;}
+.jcarousel-skin-modindicadores .jcarousel-clip{overflow:hidden;}
+.jcarousel-skin-modindicadores .jcarousel-clip-horizontal{width:230px;height:155px;}
+.jcarousel-skin-modindicadores .jcarousel-item{width:230px;height:155px;}
+.jcarousel-skin-modindicadores .jcarousel-item-horizontal{margin-left:0;margin-right:0;}
+.jcarousel-skin-modindicadores .jcarousel-direction-rtl .jcarousel-item-horizontal{margin-left:0;margin-right:0;}
+.jcarousel-skin-modindicadores .jcarousel-item-placeholder{background:#fff;color:#000;}
+.jcarousel-skin-modindicadores .jcarousel-next-horizontal{background:url("arrow-more.gif") no-repeat right 0;cursor:pointer;height:15px;position:absolute;right:0;top:165px;width:80px;}
+.jcarousel-skin-modindicadores .jcarousel-direction-rtl .jcarousel-next-horizontal{right:auto;background-image:url(arrow-less.gif);}
+.jcarousel-skin-modindicadores .jcarousel-prev-horizontal{background:url("arrow-less.gif") no-repeat left 0;cursor:pointer;height:15px;left:0;position:absolute;text-align:right;top:165px;width:80px;}
+.jcarousel-skin-modindicadores .jcarousel-direction-rtl .jcarousel-prev-horizontal{left:auto;background-image:url(arrow-more.gif);}
+.divBoxGalVideo p span.first-child.last-child a{display:none !important;}
+.icone_rss{float:right;margin-left:20px;width:20px;padding-right:5px;}
+.icone_rss.titUltimosVideosIcone a{display:block !important;}
+.icone_rss.titUltimosVideosIcone img{margin:10px 0 7px 0;}
+.maisRecentes.titUltimosVideos,.listagem_252 h5{float:left !important;}
+.field.error{border:1px solid red;}
+.listagem_252 h5{position:relative;padding-bottom:10px;font:bold 1.7em Arial,Helvetica,sans-serif;color:black;width:185px !important;float:left !important;}
+.divBtnVersTexto{display:none;}
+body.template-pa_model1 .divBoxTitAgencSub,body.template-pa_model2 .divBoxTitAgencSub,body.template-pa_model3 .divBoxTitAgencSub,body.template-pa_model4 .divBoxTitAgencSub,body.template-pa_model5 .divBoxTitAgencSub,body.template-pa_model6 .divBoxTitAgencSub,body.template-pa_model7 .divBoxTitAgencSub,body.template-pa_model8 .divBoxTitAgencSub,body.template-pa_model9 .divBoxTitAgencSub,body.template-pa_model10 .divBoxTitAgencSub,body.template-pa_model11 .divBoxTitAgencSub,body.template-br_model1 .divBoxTitAgencSub,body.template-br_video .divBoxTitAgencSub,body.template-pa_image_gallery .divBoxTitAgencSub,body.template-br_infografico .divBoxTitAgencSub,body.template-br_template_completo .divBoxTitAgencSub{display:none;}
+#content,#pacontent {width:516px;float:left;}
+.divModSubMenu3Nivel{margin-top:70px;}
+.googleVideo{width:516px;}
+#viewlet-social-like{clear:both;margin-top:5px;margin-bottom:3px;width:260px;}
+#content #viewlet-social-like .twitter-count-horizontal {height:20px !important;margin-bottom:-3px;}
+#viewlet-social-like .fb_edge_widget_with_comment {position:relative;margin-top:0px;width:120px;}
+.twitter-share-button {margin-top:0.8px;}
+#content .horizontal .fb_edge_comment_widget iframe {height:250px !important;}
+.crNoticiasHeader,.crHeaderNoticias{background:url(http://www.brasil.gov.br/cr/noticias_headerbg.gif) no-repeat scroll 10px 0 #00A2C1 !important;height:45px;width:520px;}
+.crNoticiasBody{margin-top:7px;min-height:180px;overflow:hidden;position:relative;width:520px;}
+.crNoticiasBody .miniwrapper{width:520px;min-height:180px;float:left;}
+.crNoticiasBody .portletItem{float:left;min-height:165px;padding-top:10px;position:relative;width:170px;}
+.crNoticias .crPalco{background-color:#F0F0F0;min-height:170px;position:absolute;width:20000em;}
+.crNoticias .crPalco .portletItem a{color:#333333;font:1.3em Arial,Verdana,sans-serif !important;}
+.crNoticiasData .crData{color:#00A2C1;font-size:1.2em !important;font-weight:bold;line-height:1.2em !important;padding-bottom:0 !important;}
+.crNoticiasData .crHora{color:#00A2C1;font-size:1.1em !important;font-style:italic;line-height:1.1em !important;padding-bottom:0 !important;}
+.crNoticiasData{background:url(http://www.brasil.gov.br/cr/noticias_icone.gif) no-repeat scroll 0 5px transparent;border-top:1px solid #CACACA;bottom:5px;display:block;margin-left:15px;padding-left:10px;padding-top:5px;position:absolute;width:130px;}
+.crNoticias{position:relative;}
+.crNoticias .cs{bottom:-20px;position:absolute;right:10px;}
+.crNavegacaoNoticias .prev{background:url(http://www.brasil.gov.br/cr/noticias_seta_esquerda.png) no-repeat scroll 0 0 transparent;display:block;float:left;height:37px;text-indent:-9999px;width:21px;}
+.crNavegacaoNoticias .next{background:url(http://www.brasil.gov.br/cr/noticias_seta_direita.png) no-repeat scroll 0 0 transparent;display:block;float:left;height:37px;margin-left:1px;text-indent:-9999px;width:21px;}
+.crNavegacaoNoticias{position:absolute;right:10px;top:15px;}
+.crMultimidia{min-height:345px;position:relative;width:765px;}
+.crMultimidia .crMultimidiaHeader,.crContent .crHeader{background:url(http://www.brasil.gov.br/cr/multimidia_headerbg.gif) no-repeat scroll 15px 0 #00C19A;height:45px;margin-bottom:7px;width:765px;}
+.crMultimidia .crFundo{position:absolute;}
+.crMultimidiaBody .crPalco{position:absolute;width:20000em;}
+.crNavegacaoMultimidia{position:absolute;right:10px;top:15px;}
+.crNavegacaoMultimidia .prev{background:url(http://www.brasil.gov.br/cr/multimidia_seta_esquerda.png) no-repeat scroll 0 0 transparent;display:block;float:left;height:37px;text-indent:-9999px;width:21px;}
+.crNavegacaoMultimidia .next{background:url(http://www.brasil.gov.br/cr/multimidia_seta_direita.png) no-repeat scroll 0 0 transparent;display:block;float:left;height:37px;margin-left:1px;text-indent:-9999px;width:21px;}
+.crMultimidia .crPalco .portletItem .crTitulo a{color:#333333;font-family:Arial,Verdana,sans-serif !important;font-size:2.2em !important;font-weight:bold !important;line-height:1em !important;}
+.crMultimidia .crPalco .portletItem .crTitulo{max-height:68px !important;overflow:hidden !important;margin-top:12px;}
+.crMultimidia .crPalco .portletItem .crDescricao a{color:#333333;font-family:Arial,Verdana,sans-serif !important;font-size:1.2em !important;line-height:1.2em !important;}
+.crMultimidia .crPalco .portletItem .crDescricao{margin-top:5px;max-height:60px !important;overflow:hidden !important;}
+.crMultimidiaBody{height:291px;overflow:hidden;position:relative;width:765px;color:#333333;}
+.crMultimidia .crsaibaMais{bottom:30px;position:absolute;right:10px;}
+.crMultimidiaBody .portletItem{float:left;margin-top:10px;height:185px;margin-left:330px;position:relative;width:425px;}
+div.tvflash{position:relative;width:224px;height:532px;}
+.tvflash .palco{width:224px;height:532px;overflow:hidden;position:absolute;display:none;}
+.tvflash .palco-1{display:block;}
+.tvflash .palco .imgTvFlash{position:absolute;}
+.tvflash .linhafina{color:#fff;background:url(http://www.brasil.gov.br/cr/tvflash_player_titulo.png) left top no-repeat;min-height:104px;padding:8px 22px 0 18px;position:absolute;width:184px;text-transform:uppercase;bottom:0;font-family:arial;font-size:1.45em;font-weight:bold;}
+.tvflash .linhafina .titulo{margin-bottom:61px;max-height:125px;overflow:hidden;}
+.tvflash .linhafina .assistir{bottom:15px;position:absolute;}
+.tvflash .controlador{position:absolute;left:7px;top:7px;}
+.tvflash .controlador .player{display:block;height:46px;width:52px;text-indent:-9999em;margin-bottom:2px;}
+.tvflash .controlador .player-1{background:url(http://www.brasil.gov.br/cr/tvflash_player01.png) left top no-repeat;}
+.tvflash .controlador .player-2{background:url(http://www.brasil.gov.br/cr/tvflash_player02.png) left top no-repeat;}
+.tvflash .controlador .player-3{background:url(http://www.brasil.gov.br/cr/tvflash_player03.png) left top no-repeat;}
+.tvflash .controlador .player-more{background:url(http://www.brasil.gov.br/cr/tvflash_player_mais.png) left top no-repeat;}
+.tvflash .controlador .player-1.ativo{background:url(http://www.brasil.gov.br/cr/tvflash_player01_ativo.png) left top no-repeat !important;}
+.tvflash .controlador .player-2.ativo{background:url(http://www.brasil.gov.br/cr/tvflash_player02_ativo.png) left top no-repeat !important;}
+.tvflash .controlador .player-3.ativo{background:url(http://www.brasil.gov.br/cr/tvflash_player03_ativo.png) left top no-repeat !important;}
+.tvflash .linhafina .titulo a{display:block;margin-bottom:5px;}
+.tvflash .assistir a{display:block;width:182px;height:40px;text-indent:-9999px;background:url(http://www.brasil.gov.br/cr/tvflash_player_btn.png) left top no-repeat;}
+.crLista .divBoxTitAgenc H4{color:#FFB400;font-size:1.8em !important;text-align:right;}
+.crLista .divIrPagina{display:none;}
+.crContent .crHeader{width:520px !important;}
+.crContent{border-bottom:1px dotted #d0d0d0;width:520px !important;}
+.crListaBody{background:#f7f7f7;padding:25px 35px 25px 20px;margin-bottom:20px;}
+.crItem{padding-left:35px;margin-bottom:8px;}
+.crContent .cr-News,.crContent .crItem{background:url(http://www.brasil.gov.br/cr/lista_newsitem.png) left top no-repeat;}
+.crContent .cr-News,.crContent .cr-Page{background:url(http://www.brasil.gov.br/cr/lista_newsitem.png) left top no-repeat;}
+.crContent .cr-Image{background:url(http://www.brasil.gov.br/cr/lista_imagens.png) left top no-repeat !important;}
+.crContent .cr-Audio{background:url(http://www.brasil.gov.br/cr/lista_audio.png) left top no-repeat !important;}
+.crContent .cr-Google{background:url(http://www.brasil.gov.br/cr/lista_videos.png) left top no-repeat !important;}
+.crContent a{display:block;height:27px;border-bottom:1px solid #d0d0d0 !important;color:#333 !important;}
+.tvflash #playlist{display:none;}
+div.fechaModal{text-align:right;background:#f05400;}
+#modal-video{background:#000;float:left;height:400px;width:640px;}
+.modal-videoInfo{width:265px;float:left;height:400px;padding-left:15px;}
+.modal-videoInfo .videoNav{text-align:right;clear:both;}
+.modal-videoInfo .videoNav .videoNext{background:url("cr/modal_seta_direita.png") left top transparent;display:block;float:right;height:37px;text-indent:-9999px;width:21px;}
+.modal-videoInfo .videoNav .videoPrev{background:url("cr/modal_seta_esquerda.png") left top transparent;display:block;float:right;height:37px;text-indent:-9999px;width:21px;margin-right:1px;}
+.modal-videoInfo .modal-info{height:250px;border-bottom:1px solid #d6d6d6;padding-top:15px;font-size:1.3em;color:#333333 !important;}
+.modal-videoInfo .modal-info h3{font-size:1.8em !important;color:#333333 !important;}
+.modal-videoInfo .modal-rodape{color:#f05400;font-size:1.3em;padding-top:5px;height:90px;}
+.modal-videoInfo .modal-rodape .modal-data-icone{background:url(cr/modal_data_icone.gif) left 1px no-repeat;float:left;width:20px;height:20px;}
+.modal-videoInfo .modal-rodape #modal-date {font-weight:bold;}
+.modal-videoInfo .modal-rodape #modal-hour {font-style:italic;}
+.modal-videoInfo .modal-rodape .videoTotal{bottom:15px;color:#333333;font-size:1.3em;font-weight:bold;position:absolute;right:15px;}
+.modal-videoInfo .modal-rodape .videoTotal .atual {color:#F05400;font-size:1.4em;}
+.divDestMine .spanMais .textoSaibaMais {float:left;font-size:11px;margin:7px 5px 0 0;}
+.divDestMineCarrossel .spanMais .textoSaibaMais {float:left;font-size:11px;margin:7px 5px 0 0;}
+.divBoxGalVideo .spanMais .textoSaibaMais {float:left;margin:8px 5px 0 0;}
+body.template-cr_viewnoticias #portal-column-two .tvflash img,body.template-cr_viewgenerica #portal-column-two .tvflash img{width:215px;}
+.crNoticias .crPalco .portletItem p{padding-left:15px;max-height:105px;overflow:hidden;}
+.crNoticias .crPalco .portletItem p{max-height:101px\9;*max-height:101px !important;}
+#portal-column-two .portletStaticText .tvflash{margin-top:20px !important;}
+#visual-portal-wrapper fieldset {border:none !Important;margin:0 !Important;padding:0 !Important;}
+#visual-portal-wrapper fieldset{border:none !Important;margin:0 !Important;padding:0 !Important;}
+#visual-portal-wrapper #searchBrowserBox {display:none;}
+#plone-browser.popup{left:-187px;position:absolute;top:82px;}
+#plone-browser.popup .window {z-index:2;}
+#plone-browser.popup .window #plone-browser-body{height:377px !Important;width:760px !Important;background:#fff !important;padding:14px;overflow-y:scroll;overflow-x:hidden;z-index:2;border:2px solid #FFB500;-moz-box-shadow:0 20px 400px #000000;-webkit-box-shadow:0 20px 400px #000000;box-shadow:0 20px 400px #000000;-ms-filter:progid:DXImageTransform.Microsoft.Shadow(Strength=7,Direction=225,Color='#000')
+progid:DXImageTransform.Microsoft.Shadow(Strength=7,Direction=135,Color='#000');filter:progid:DXImageTransform.Microsoft.Shadow(Strength=7,Direction=225,Color='#000')
+progid:DXImageTransform.Microsoft.Shadow(Strength=7,Direction=135,Color='#000');}
+#plone-browser.popup .window .imageFolder {width:20px !Important;float:left !Important;}
+#plone-browser.popup #browser-crumbs,#plone-browser.popup #plone-browser-tab,#plone-browser.popup #searchBrowserBox {display:none;}
+#plone-browser.popup .window .floatContainer {clear:both !Important;}
+#plone-browser.popup .statusBar {position:absolute;right:0;bottom:66px;}
+#jquery-overlay{position:absolute;top:0;left:0;z-index:90;width:100%;height:500px;-moz-opacity:0.8;-khtml-opacity:0.8;-webkit-opacity:0.8;}
+#jquery-lightbox{position:absolute;top:0;left:0;width:100%;z-index:100;text-align:center;line-height:0;}
+#jquery-lightbox a img{border:none;}
+#lightbox-container-image-box{position:relative;background-color:#fff;width:250px;height:250px;margin:0 auto;}
+#lightbox-container-image{padding:10px;}
+#lightbox-loading{position:absolute;top:40%;left:0%;height:25%;width:100%;text-align:center;line-height:0;}
+#lightbox-nav{position:absolute;top:0;left:0;height:100%;width:100%;z-index:10;}
+#lightbox-container-image-box > #lightbox-nav{left:0;}
+#lightbox-nav a{outline:none;}
+#lightbox-nav-btnPrev,#lightbox-nav-btnNext{width:49%;height:100%;zoom:1;display:block;}
+#lightbox-nav-btnPrev{left:0;float:left;}
+#lightbox-nav-btnNext{right:0;float:right;}
+#lightbox-container-image-data-box{font-size:11px;background-color:#fff;margin:0 auto;line-height:1.4em;overflow:auto;width:100%;padding:0 10px 10px;}
+#lightbox-container-image-data{padding:0 10px;color:#888;}
+#lightbox-container-image-data #lightbox-image-details{width:99%;float:left;text-align:left;}
+#lightbox-image-details-currentNumber{display:block;clear:left;padding-bottom:1.0em;}
+#lightbox-secNav-btnClose{float:right;cursor:pointer;position:relative;z-index:100;padding:6px 10px 5px 0;}
+#kss-menu {position:relative;}
+.listaboxesq,.listaboxdir{width:220px;margin:10px;font-size:13px;border:1px solid #eee !Important;padding:15px 10px 30px 10px;}
+.listaboxdir {float:right;}
+.listaboxesq {float:left;}
+.listaboxesq strong,.listaboxdir strong {padding-bottom:10px;font-size:14px;}
+.listaboxesq ul li,.listaboxdir ul li{border-bottom:1px dotted #cecece !Important;color:#007cd5;padding:10px;background:transparent url(bullet-servicos-publicos.gif) no-repeat 0 15px;}
+.listaboxdir ul li a,.listaboxesq ul li a {color:#007cd5;text-decoration:none;}
+.listaboxdir ul li a:hover,.listaboxesq ul li a:hover {color:#007cd5;text-decoration:underline;}
+.videoesq,.videodir{width:220px;margin:2px;border:1px solid #eee !Important;}
+.videodir {float:right;}
+.videoesq {float:left;}
+#estados.section-para #containerMapa,#capa-mapa.section-para #containerMapa {width:550px;}
+#estados.section-para .imgMapa,#capa-mapa.section-para .imgMapa {margin:13px 0 0;}
+#estados.section-para .documentDescription,#capa-mapa.section-para .documentDescription {display:none;}
+#estados.section-para .viewlet .documentDescription,#capa-mapa.section-para .viewlet .documentDescription {display:block;}
+#estados.section-para .listagem_517 .ulListaChamadas li,#capa-mapa.section-para .listagem_517 .ulListaChamadas li{background:#f0f0f0;margin-bottom:10px;padding:5px 10px;}
+#estados.section-para .listagem_517 .ulListaChamadas li h3,#capa-mapa.section-para .listagem_517 .ulListaChamadas li h3 {color:#2B3E45 !important;font-size:18px;font-weight:normal;}
+#estados.section-para .listagem_517 .ulListaChamadas li span.dsc,#capa-mapa.section-para .listagem_517 .ulListaChamadas li span.dsc {font-size:12px;color:#70787b;margin-bottom:7px;}
+#estados.section-para .listagem_517 .ulListaChamadas li .saibamais,#capa-mapa.section-para .listagem_517 .ulListaChamadas li .saibamais{border-top:1px solid #70787b;font-size:14px;color:#f98b00 !Important;text-align:right;display:block;margin-top:10px !Important;padding-top:7px !Important;}
+#estados.section-para .listagem_517 .ulListaChamadas li .saibamais .lnk,#capa-mapa.section-para .listagem_517 .ulListaChamadas li .saibamais .lnk{background:url(saibamaisbulet.jpg??5) no-repeat;padding-left:20px;color:#000000;}
+#estados.section-para.template-contentpanels_view .documentDescription,#capa-mapa.section-para.template-contentpanels_view .documentDescription{background:#f68a03;color:#fff;width:540px;margin-bottom:0;padding:5px;font-style:italic;font-weight:normal;}
+.listagem_517.Laranja .portletHeader {background:#E85007 url(acoesregionais.png) no-repeat;}
+.listagem_517.Verde .portletHeader {background:#1C7D5E url(acoesregionais.png) no-repeat;}
+.listagem_517.Azul .portletHeader {background:#659ED6 url(acoesregionais.png) no-repeat;}
+.listagem_517.Amarelo .portletHeader,.listagem_517 .portletHeader{color:#FFFFFF;background:#f68a03 url(acoesregionais.png) no-repeat;font-family:Verdana;font-size:20px;font-weight:normal;margin-bottom:10px;padding:5px 5px 10px 43px;}
+.crMultimidiam{height:345px;overflow:hidden !important;margin-left:-20px !Important;}
+.crMultimidiam .crsaibaMais {top:215px;}
+.crNavegacaoMultimidia{top:13px!important;}
+.crNavegacaoMultimidia{right:28px!important;}
+.crNoticiasm .cs {z-index:900;}
+.crNoticiasm .cs.last-child {bottom:-20px;right:0;}
+.crNoticiasm .cs p{padding-bottom:13px!important;}
+.crNoticiasm .cs.last-child p a{background:transparent url("http://www.brasil.gov.br/imagens/campanhas-regionais/cr_noticias_saibamais.png") no-repeat;display:block;height:31px;width:21px;}
+.crNoticiasm .cs.last-child p a img {display:none;}
+.cr_not.portletHeader{background:url("headVejatbmBlue.png") no-repeat scroll 0 0 #00A2C1;color:#FFFFFF;margin-bottom:13px;font-family:Verdana;font-size:27px;font-weight:normal;padding:5px 5px 5px 43px;}
+.crNoticiasm .portletHeader > a,.servicos .portletHeader > a{display:block;width:155px;word-wrap:break-word;}
+.crNoticiasm .crNoticiasData {width:200px !important;bottom:auto !Important;border-top:0;}
+.crNoticiasm .crNoticiasData .crData {padding-left:19px;}
+.crNoticiasm .crNoticiasHeader,.crNoticiasm .crNoticiasBody,.crNoticiasm .crNoticiasBody .portletItem,.crNoticiasm .crNoticiasBody .miniwrapper {width:242px !important;}
+.crNoticiasm .crNoticiasData .crHora,.crNoticiasm .crNoticiasData .crData {color:#000;}
+.crNoticiasm .crNoticiasBody{position:relative;}
+.crNoticiasm .crNoticiasBody .portletItem {border-bottom:6px solid white;padding-top:15px!important;float:none;min-height:auto !important;}
+.crNoticiasm .crPalco {position:relative;min-height:auto!important;}
+.crNoticiasm .crPalco .crNoticiasTit{margin-top:29px;padding-bottom:17px !important;}
+.crNoticiasm .crNavegacaoNoticias{position:relative !important;float:right;z-index:10;bottom:1px !important;top:auto!important;margin-top:-29px;}
+#content P {padding-right:14px !important;}
+#PalcoLinks {overflow:hidden;}
+.Azul .cr_not.portletHeader{background:url("headVejatbmBlue.png") no-repeat scroll 0 0 #659ED6;}
+.Verde .cr_not.portletHeader{background:url("headVejatbmBlue.png") no-repeat scroll 0 0 #1C7D5E;}
+.Amarelo .cr_not.portletHeader{background:url("headVejatbmBlue.png") no-repeat scroll 0 0 #f68a03;}
+.Laranja .cr_not.portletHeader{background:url("headVejatbmBlue.png") no-repeat scroll 0 0 #E85007;}
+.Laranja .crNavegacaoNoticias .vert.prev{background:url("arrowVertLa.png") no-repeat scroll 0 0 transparent;}
+.Laranja .crNavegacaoNoticias .vert.right{background:url("arrowVertLa.png")  no-repeat scroll 0 -21px transparent;}
+.Amarelo .crNavegacaoNoticias .vert.prev{background:url("arrowVertYe.png") no-repeat scroll 0 0 transparent;}
+.Amarelo .crNavegacaoNoticias .vert.right{background:url("arrowVertYe.png")  no-repeat scroll 0 -21px transparent;}
+.Azul .crNavegacaoNoticias .vert.prev{background:url("arrowVertBlue.png") no-repeat scroll 0 0 transparent;}
+.Azul .crNavegacaoNoticias .vert.right{background:url("arrowVertBlue.png")  no-repeat scroll 0 -21px transparent;}
+.Verde .crNavegacaoNoticias .vert.prev{background:url("arrowVertGreen.png") no-repeat scroll 0 0 transparent;}
+.Verde .crNavegacaoNoticias .vert.right{background:url("arrowVertGreen.png")  no-repeat scroll 0 -21px transparent;}
+.crNavegacaoNoticias.Verde .vert.prev {background:url("arrowVertGreen.png?") no-repeat scroll 0 0 transparent;}
+.crNavegacaoNoticias.Verde .vert.right {background:url("arrowVertGreen.png?")  no-repeat scroll 0 -21px transparent;}
+.crNavegacaoNoticias.Azul .vert.prev {background:url("arrowVertBlue.png?") no-repeat scroll 0 0 transparent;}
+.crNavegacaoNoticias.Azul .vert.right {background:url("arrowVertBlue.png?")  no-repeat scroll 0 -21px transparent;}
+.crNavegacaoNoticias .vert.prev{background:url("arrowVertBlue.png?") no-repeat scroll 0 0 transparent;float:none;height:22px;width:24px;}
+.crNavegacaoNoticias .vert.right{background:url("arrowVertBlue.png?")  no-repeat scroll 0 -21px transparent;float:none;height:22px;margin-left:0;width:24px;}
+.cr_links {position:relative;width:241px;margin-bottom:30px;}
+.cr_links .portletHeader{background:url("hedServico.png") no-repeat scroll 0 0 #f68a03;color:#FFFFFF;margin-top:19px;font-family:Verdana;font-size:28px;font-weight:normal;padding:5px 5px 5px 43px;width:194px;}
+.cr_links .portletItem{background:none repeat scroll 0 0 #F0F0F0;color:#3A4C52;font-size:16px;margin-top:6px;width:221px;padding:14px 10px;}
+.crNavegacaoLinksT {position:absolute;right:7px;top:9px;}
+.crNavegacaoLinksT .vert.prev{background:url("arrowVertBlue.png?") no-repeat scroll 0 0 transparent;float:none;height:21px;width:24px;display:block;text-indent:-9000px;}
+.crNavegacaoLinksT .vert.right{background:url("arrowVertBlue.png?")  no-repeat scroll 0 -21px transparent;float:none;display:block;text-indent:-9000px;height:22px;margin-left:0;width:24px;}
+.servicos .crNavegacaoLinks{display:block;font-size:15px;position:relative!important;float:right;height:0;text-indent:-9000px;left:auto !important;z-index:8;margin-top:-26px;margin-right:6px;}
+.Azul.cr_links .portletHeader{background:url("hedServico.png") no-repeat scroll 0 0 #659ED6;}
+.Verde.cr_links .portletHeader{background:url("hedServico.png") no-repeat scroll 0 0 #1C7D5E;}
+.Amarelo.cr_links .portletHeader{background:url("hedServico.png") no-repeat scroll 0 0 #f68a03;}
+.Laranja.cr_links .portletHeader{background:url("hedServico.png") no-repeat scroll 0 0 #E85007;}
+.servicos .crNavegacaoLinks .next {display:block;height:23px;width:25px;}
+.servicos .crNavegacaoLinks .prev {display:block;}
+.Azul .crNavegacaoLinks .vert.prev{background:url("arrowVertBlue.png") no-repeat scroll 0 0 transparent;}
+.Azul .crNavegacaoLinks .vert.next{background:url("arrowVertBlue.png") no-repeat scroll 0 -21px transparent;}
+.Verde .crNavegacaoLinks .vert.prev{background:url("arrowVertGreen.png") no-repeat scroll 0 0 transparent;}
+.Verde .crNavegacaoLinks .vert.next{background:url("arrowVertGreen.png") no-repeat scroll 0 -21px transparent;}
+.Amarelo .crNavegacaoLinks .vert.prev{background:url("arrowVertYe.png") no-repeat scroll 0 0 transparent;}
+.Amarelo .crNavegacaoLinks .vert.next{background:url("arrowVertYe.png") no-repeat scroll 0 -21px transparent;}
+.Laranja .crNavegacaoLinks .vert.prev{background:url("arrowVertLa.png") no-repeat scroll 0 0 transparent;}
+.Laranja .crNavegacaoLinks .vert.next{background:url("arrowVertLa.png") no-repeat scroll 0 -21px transparent;}
+.crNavegacaoLinks .next {background:url("arrowVertBlue.png?") no-repeat scroll 0 -21px transparent;}
+.crNavegacaoLinks .prev {background:url("arrowVertBlue.png?") no-repeat scroll 0 0 transparent;}
+.crNavegacaoLinks .prev,.crNavegacaoLinks .next{height:20px;}
+.cr_links .crNavegacaoNoticias .vert.prev{background:url("arrowVertYe.png") no-repeat scroll 0 0 transparent;float:none;height:22px;width:24px;}
+.cr_links .crNavegacaoNoticias .vert.right{background:url("arrowVertYe.png")  no-repeat scroll 0 -21px transparent;float:none;height:22px;margin-right:0;width:24px;}
+.carrosselL li {height:auto!important;}
+.cr_vejatbm {position:relative;width:518px;margin-bottom:13px;float:left;}
+.cr_vejatbm .portletHeader{background:url("hedVejaTbmGreen.png?1") repeat scroll 0 0  #1c7d5e;color:#FFFFFF;margin-top:20px;margin-bottom:10px;font-family:Verdana;font-size:27px;font-weight:normal;padding:5px 5px 5px 43px;}
+.cr_vejatbm .portletHeader a {width:430px !important;word-wrap:break-word;display:block;}
+.cr_vejatbm #wrapperitems {background:none repeat scroll 0 0 #F0F0F0;margin-top:-10px;padding:10px;}
+.cr_vejatbm .portletItem{background:#F0F0F0;color:#3A4C52;font-size:13px;padding:0 10px 10px 10px;margin-top:10px;}
+.cr_vejatbm .tycon,.cr_vejatbm .type-PloneArticle,.cr_vejatbm .type-Image,.cr_vejatbm .type-Google,.cr_vejatbm .type-SuperVideo {padding-left:37px;background:transparent url(bltArticle.png) no-repeat;display:block;margin-top:10px;}
+.cr_vejatbm .type-Google,.cr_vejatbm .type-SuperVideo {padding-left:30px;padding-bottom:7px;background:transparent url(bltVideo.png) no-repeat;}
+.cr_vejatbm .type-Image {padding-left:30px;padding-bottom:7px;background:transparent url(bltImage.png) no-repeat;}
+.cr_vejatbm .portletItem a {border-bottom:1px solid #d0d0d0;display:block;padding-bottom:14px;}
+.cr_vejatbm .portletItem.last-child a {border-bottom:1px solid #d0d0d0 !important;height:25px;;}
+.cr_vejatbm .portletFooter a{background:url("cr_saibamaisVerde.png") repeat scroll 0 0 transparent;bottom:-12px;display:block;height:31px;position:absolute;right:10px;text-indent:-90000px;width:20px;z-index:900;margin-right:5px;}
+.cr_vejatbm .crNavegacaoLinksT{background:none repeat scroll 0 0 transparent !important;float:right;height:0 !important;margin-top:-39px;position:relative;width:28px;z-index:3;}
+.cr_vejatbm .portletHeader.Verde {background:url("headVejatbmBlue.png") no-repeat scroll 0 0 hsl(161,63%,30%) !important;}
+.cr_vejatbm .portletFooter.Verde a{background:url("cr_saibamaisVerde.png") repeat scroll 0 0 transparent;z-index:900;}
+.cr_vejatbm .portletHeader.Azul {background:url("headVejatbmBlue.png") no-repeat scroll 0 0 #659ED6 !important;}
+.cr_vejatbm .portletFooter.Azul a{background:url("http://www.brasil.gov.br/imagens/campanhas-regionais/cr_noticias_saibamais.png") repeat scroll 0 0 transparent;z-index:900!important;}
+.cr_vejatbm .portletHeader.Amarelo {background:url("headVejatbmBlue.png") no-repeat scroll 0 0 #f68a03 !important;}
+.cr_vejatbm .portletFooter.Amarelo a {background:url("icon_mais_amarelo.jpg") no-repeat;}
+.cr_vejatbm .portletHeader.Laranja {background:url("headVejatbmBlue.png") no-repeat scroll 0 0 #E85007 !important;}
+.cr_vejatbm .portletFooter.Laranja a {background:url("icon_mais_laranja.jpg") no-repeat;}
+.cr_vejatbm .portletHeader.Verde {background:url("hedVejaTbmGreen.png?1") repeat scroll 0 0 #1c7d5e;}
+.cr_vejatbm .portletHeader.Azul {background:url("hedVejaTbmBlue.png?1") repeat scroll 0 0 #00A2C1;}
+#destaquesvideos {top:-31px;overflow:hidden;max-height:460px;}
+#text-destaquesvideos{background-color:#F0F0F0;padding:6px 0 5px 13px;bottom:0px;position:relative;}
+#text-destaquesvideos .descricaoVideo:first-child{bottom:4px;color:#3A3A3A;font-weight:bold;position:relative;text-transform:uppercase;padding-bottom:0 !important;padding-right:13px;}
+#text-destaquesvideos .descricaoVideo:last-child{bottom:4px;color:#707070;font-size:9px !important;font-weight:bold;line-height:10px;position:relative;padding-bottom:0 !important;padding-right:13px;}
+.cp_colunas td:first-child{padding-right:16px;}
+.carousel_videos {overflow:hidden;width:527px;}
+span.titleVideo{float:none !important;left:0!important;position:relative;text-indent:0;top:0!important;font-family:Verdana;font-size:27px;color:#fff;font-weight:normal;}
+.carousel_videos .portletHeader{background:url("logoVideo2.png") no-repeat scroll 0 0 #E85007;height:34px;margin-bottom:4px;color:#FFFFFF;padding:5px 5px 5px 43px;}
+.carousel_videos span{bottom:31em;color:blue;font-size:16px;left:29em;position:relative;text-indent:-9000px;height:37px;display:block;float:left;top:20px;}
+.descricaoVideo {max-width:360px;border-right:1px solid #b4b4b4;}
+.maisVideos{background:url("mais_videos.png") no-repeat scroll 0 0 transparent;height:30px;left:400px;position:absolute;top:8px;width:116px;}
+.carousel_videos .nextV {background:url("video_seta_esq.png") no-repeat scroll 0 0 transparent;width:20px;left:414px;top:-32px;}
+.carousel_videos .prevV {background:url("video_seta_dir.png") no-repeat scroll 0 0 transparent;margin-left:2px;width:21px;top:-32px;left:413px}
+.Laranja .carousel_videos .portletHeader{background:url("logoVideo2.png") no-repeat scroll 0 0 #E85007;}
+.Azul .carousel_videos .portletHeader{background:url("logoVideo2.png") no-repeat scroll 0 0 #659ED6;}
+.Verde .carousel_videos .portletHeader{background:url("logoVideo2.png") no-repeat scroll 0 0 #1C7D5E;}
+.Amarelo .carousel_videos .portletHeader{background:url("logoVideo2.png") no-repeat scroll 0 0 #f68a03;}
+.Laranja .carousel_videos .nextV {background:url("video_seta_esq.png") no-repeat scroll 0 0 transparent;}
+.Laranja .carousel_videos .prevV {background:url("video_seta_dir.png") no-repeat scroll 0 0 transparent;}
+.Azul .carousel_videos .nextV {background:url("esq_azul.jpg") no-repeat scroll 0 0 transparent;margin-top:1px;}
+.Azul .carousel_videos .prevV {background:url("dir_azul.jpg") no-repeat scroll 0 0 transparent;margin-top:1px;}
+.Amarelo .carousel_videos .nextV {background:url("esq_amarelo.jpg") no-repeat scroll 0 0 transparent;margin-top:1px;}
+.Amarelo .carousel_videos .prevV {background:url("dir_amarelo.jpg") no-repeat scroll 0 0 transparent;margin-top:1px;}
+.Verde .carousel_videos .nextV {background:url("http://tv1-lnx-04.grupotv1.com/portalbrasil/cr/multimidia_seta_esquerda.png") no-repeat scroll 0 0 transparent;}
+.Verde .carousel_videos .prevV {background:url("http://tv1-lnx-04.grupotv1.com/portalbrasil/cr/multimidia_seta_direita.png") no-repeat scroll 0 0 transparent;}
+.carousel_videos .nextV,.carousel_videos .prevV{top:-31px;}
+span.titleVideo{color:hsl(0,0%,100%);float:none !important;font-family:Verdana;font-size:27px;font-weight:normal;left:0;position:relative;text-indent:0;top:0;}
+.portletHeader.Azul .crNavegacaoLinksT.Azul {background:url("cr_noticias_saibamais.png") no-repeat;}
+.portletHeader.Laranja .crNavegacaoLinksT.Laranja {background:url("icon_mais_laranja.jpg") no-repeat;}
+.portletHeader.Amarelo .crNavegacaoLinksT.Amarelo {background:url("icon_mais_amarelo.jpg") no-repeat;}
+.portletHeader.Verde .crNavegacaoLinksT.Verde{background:url("icon_mais_verde.jpg") no-repeat;}
+.crNavegacaoLinksT.Verde .vert.prev {background:url("arrowVertGreen.png?") no-repeat scroll 0 0 transparent;}
+.crNavegacaoLinksT.Verde .vert.right {background:url("arrowVertGreen.png?") no-repeat scroll 0 -21px transparent}
+.crNavegacaoLinksT.Laranja .vert.prev {background:url("arrowVertLa.png?") no-repeat scroll 0 0 transparent;}
+.crNavegacaoLinksT.Laranja .vert.right {background:url("arrowVertLa.png?") no-repeat scroll 0 -21px transparent}
+.crNavegacaoLinksT.Amarelo .vert.prev {background:url("arrowVertYe.png?") no-repeat scroll 0 0 transparent;}
+.crNavegacaoLinksT.Amarelo .vert.right{background:url("arrowVertYe.png?") no-repeat scroll 0 -21px transparent;}
+.crNavegacaoLinksT.Azul .vert.prev {background:url("arrowVertBlue.png?") no-repeat scroll 0 0 transparent;}
+.crNavegacaoLinksT.Azul .vert.right{background:url("arrowVertBlue.png?") no-repeat scroll 0 -21px transparent}
+.crNavegacaoLinksT.Azul .vert.prev,.crNavegacaoLinksT.Azul .vert.right,.crNavegacaoLinksT.Verde .vert.prev,.crNavegacaoLinksT.Verde .vert.right {z-index:10;}
+.crNavegacaoLinksT.Laranja .vert.prev {background:url("arrowVertLa.png?") no-repeat scroll 0 0 transparent;z-index:10;}
+.crNavegacaoLinksT.Laranja .vert.right {background:url("arrowVertLa.png?") no-repeat scroll 0 -21px transparent;z-index:10;}
+.crNavegacaoLinksT.Amarelo .vert.prev {background:url("arrowVertYe.png?") no-repeat scroll 0 0 transparent;z-index:10;}
+.crNavegacaoLinksT.Amarelo .vert.right {background:url("arrowVertYe.png?") no-repeat scroll 0 -21px transparent;z-index:10;}
+.Laranja .crNoticiasm .cs.last-child p a{background:url("icon_mais_laranja.jpg") no-repeat}
+.Amarelo .crNoticiasm .cs.last-child p a{background:url("icon_mais_amarelo.jpg") no-repeat}
+.Verde .crNoticiasm .cs.last-child p a{background:url("icon_mais_verde.jpg") no-repeat}
+.section-para .divChamada1 {border:medium none !important;padding-bottom:0;}
+.section-para .notitlePortletWrapper.capa-mais-noticias-homologacao,.section-para .notitlePortletWrapper.capa-veja-tambem-homologacao{background:none repeat scroll 0 0 hsl(0,0%,97%);margin:0 !important;padding:0 11px;width:500px;}
+.listagem_517  {margin-top:-10px;}
+.cp_colunas{margin-top:20px!important;}
+.cp_colunas td:first-child{padding-right:13px!important;}
+.cp_multimidia {margin-left:20px;margin-top:-20px !important;}
+.cp_multimidia {margin-left:20px;margin-top:-20px !important;}
+.crMultimidiam .crMultimidiaHeader,.crContent .crHeader{margin-bottom:5px!important;}
+.imagem-destaque{position:relative;bottom:35px;}
+.section-para .chamadas-em-destaque-noticioso .divBoxPos07,.section-para .chamadas-em-destaque-institucional .divBoxPos07{background:#f7f7f7!important;padding:4px 7px 1px 19px!important;width:495px!important;margin-top:15px!important;}
+.section-para .chamadas-em-destaque-noticioso .divChamada1,.section-para .chamadas-em-destaque-institucional .divChamada1{border-top:1px solid hsl(0,0%,82%) !important;max-width:485px;padding-top:24px;}
+.section-para .chamadas-em-destaque-noticioso .divChamada1.first-child,.section-para .chamadas-em-destaque-institucional .divChamada1.first-child {border:none!important;padding-top:10px;}
+.section-para .chamadas-em-destaque-noticioso .divChamada1 img.baixoContraste,.section-para .chamadas-em-destaque-institucional .divChamada1 img.baixoContraste {display:none;}
+.section-para .chamadas-em-destaque-noticioso .divBoxPos07 .imgLeft,.section-para .chamadas-em-destaque-institucional .divBoxPos07 .imgLeft {padding-bottom:9px;}
+.section-para .chamadas-em-destaque-noticioso .divChamada1 H5,.section-para .chamadas-em-destaque-institucional .divChamada1 H5{font-size:1.4em;padding-bottom:8px !important;}
+.section-para .chamadas-em-destaque-noticioso .divChamada1 p,.section-para .chamadas-em-destaque-institucional .divChamada1 p{color:hsl(0,0%,40%);font-size:1.1em !important;}
+.section-para .galeria-de-videos .imagemLink2col{margin-top:15px!important;}
+
+}
+

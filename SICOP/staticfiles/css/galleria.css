@@ -1,0 +1,797 @@
+
+/* - galleria.classic.css - */
+@media all {
+/* http://www.brasil.gov.br/portal_css/galleria.classic.css?original=1 */
+.galleria-container{
+position:relative;
+height: 600px; /* */
+}
+.galleria-container img{
+-moz-user-select:none;
+-webkit-user-select:none;
+-o-user-select:none;
+}
+.triggerAmpliarOpt {
+display: none;
+}
+.galleria-stage{
+position:absolute;
+top:120px;
+bottom:90px;
+left:0;
+right:0;
+overflow:hidden;
+}
+.galleria-controllers{
+clear: both;
+float: none;
+position: relative;
+}
+.galleria-thumbnails-container{
+height:73px;
+}
+.galleria-carousel .galleria-thumbnails-list{
+margin-left:0;
+margin-right:0;
+margin: 0 20px;
+}
+.galleria-carousel .galleria-thumbnails-list .galleria-thumbnails{
+margin-top:4px;
+opacity:0;
+height:64px !important;
+}
+.galleria-thumbnails .galleria-image{
+height:60px;
+background:#fff;
+margin:0 10px 0 0;
+float:left;
+cursor:pointer;
+}
+.galleria-counter{
+position:relative;
+float: left;
+}
+.galleria-loader{
+background:#000;
+width:20px;
+height:20px;
+position:absolute;
+top:10px;
+right:10px;
+z-index:2;
+display:none;
+background:url(classic-loader.gif) no-repeat 2px 2px;
+}
+.galleria-info{
+float: left;
+width: 100%;
+margin-top: 400px;
+}
+.galleria-info-text{
+background-color:#000;
+background-color:rgba(0,0,0,.9);
+padding: 12px;
+}
+.galleria-info-title{
+font:bold 12px/1.1 arial,sans-serif;
+margin:0;color:#fff;
+}
+.galleria-info-description{
+font: 12px/1.4 georgia,serif;
+margin:0;color:#bbb;
+}
+.galleria-info-title+.galleria-info-description{
+margin-top:7px;
+}
+.galleria-info-close{
+width:9px;
+height:9px;
+position:absolute;
+top:5px;
+right:5px;
+background-position:-753px -11px;
+opacity:.5;
+cursor:pointer;
+display:none;
+}
+.galleria-info-link{
+background-position:-669px -5px;
+opacity:.8;
+position:absolute;
+width:20px;
+height:20px;
+cursor:pointer;
+background-color:#000;
+}
+.galleria-info-link:hover,
+.galleria-info-close:hover{
+opacity:.5;
+}
+.galleria-image-nav{
+position:absolute;
+top:50%;
+margin-top:-15px;
+width:100%;
+height:31px;
+left:0;
+}
+.galleria-image-nav-left,
+.galleria-image-nav-right{
+opacity:.7;
+cursor:pointer;
+width:16px;
+height:31px;
+position:absolute;
+left:10px;
+z-index:2;
+}
+.galleria-image-nav-right{
+left:auto;
+right:10px;
+background-position:-300px 0;
+z-index:2;
+}
+.galleria-image-nav-left:hover,
+.galleria-image-nav-right:hover{
+opacity:.5;
+}
+.galleria-thumb-nav-left,
+.galleria-thumb-nav-right{
+cursor:pointer;
+display:none;
+background-position:-495px 5px;
+position:absolute;
+left:0;
+top:0;
+height:73px;
+width:19px;
+z-index:3;
+}
+.galleria-thumb-nav-right{
+background-position:-578px 5px;
+border-right:none;
+right:0;
+left:auto;
+}
+.galleria-thumbnails-container .disabled,
+.galleria-thumbnails-container .disabled:hover{
+cursor:default;
+}
+.galleria-thumb-nav-left:hover,
+.galleria-thumb-nav-right:hover{
+background-color:#111;
+}
+.galleria-carousel .galleria-thumb-nav-left,
+.galleria-carousel .galleria-thumb-nav-right{
+display:block;
+}
+.galleria-thumb-nav-left,
+.galleria-thumb-nav-right,
+.galleria-info-link,
+.galleria-info-close,
+.galleria-image-nav-left,
+.galleria-image-nav-right{
+background-image:url(classic-map.png);
+background-repeat:no-repeat;
+}
+.galleria-carousel .galleria-thumbnails-list{
+height:73px;
+}
+.galleria-thumbnails-container .galleria-thumb-nav-left{
+height:73px;
+width:19px;
+}
+.galleria-thumbnails-container .galleria-thumb-nav-right{
+height:73px;
+width:19px;
+}
+
+}
+
+
+/* - carousel-gallery.css - */
+@media all {
+/* http://www.brasil.gov.br/portal_css/carousel-gallery.css?original=1 */
+.jcarousel-skin-tango .jcarousel-container {
+-moz-border-radius: 10px;
+background: #F0F6F9;
+border: 1px solid #346F97;
+}
+.jcarousel-skin-tango .jcarousel-direction-rtl {
+direction: rtl;
+}
+.jcarousel-skin-tango .jcarousel-container-horizontal {
+width: 380px;
+padding: 20px 40px;
+}
+.jcarousel-skin-tango .jcarousel-clip-horizontal {
+width: 380px;
+height: 64px;
+}
+.jcarousel-skin-tango .jcarousel-item {
+width: 64px;
+height: 48px;
+}
+.jcarousel-skin-tango .jcarousel-item-horizontal {
+margin-left: 0;
+margin-right: 10px;
+}
+.jcarousel-skin-tango .jcarousel-direction-rtl .jcarousel-item-horizontal {
+margin-left: 10px;
+margin-right: 0;
+}
+.jcarousel-skin-tango .jcarousel-item-placeholder {
+background: #fff;
+color: #000;
+}
+.jcarousel-skin-tango .jcarousel-next-horizontal {
+position: absolute;
+top: 43px;
+right: 5px;
+width: 32px;
+height: 32px;
+cursor: pointer;
+background: transparent url(next-horizontal.png) no-repeat 0 0;
+}
+.jcarousel-skin-tango .jcarousel-direction-rtl .jcarousel-next-horizontal {
+left: 5px;
+right: auto;
+background-image: url(prev-horizontal.png);
+}
+.jcarousel-skin-tango .jcarousel-next-horizontal:hover {
+background-position: -32px 0;
+}
+.jcarousel-skin-tango .jcarousel-next-horizontal:active {
+background-position: -64px 0;
+}
+.jcarousel-skin-tango .jcarousel-next-disabled-horizontal,
+.jcarousel-skin-tango .jcarousel-next-disabled-horizontal:hover,
+.jcarousel-skin-tango .jcarousel-next-disabled-horizontal:active {
+cursor: default;
+background-position: -96px 0;
+}
+.jcarousel-skin-tango .jcarousel-prev-horizontal {
+position: absolute;
+top: 43px;
+left: 5px;
+width: 32px;
+height: 32px;
+cursor: pointer;
+background: transparent url(prev-horizontal.png) no-repeat 0 0;
+}
+.jcarousel-skin-tango .jcarousel-direction-rtl .jcarousel-prev-horizontal {
+left: auto;
+right: 5px;
+background-image: url(next-horizontal.png);
+}
+.jcarousel-skin-tango .jcarousel-prev-horizontal:hover {
+background-position: -32px 0;
+}
+.jcarousel-skin-tango .jcarousel-prev-horizontal:active {
+background-position: -64px 0;
+}
+.jcarousel-skin-tango .jcarousel-prev-disabled-horizontal,
+.jcarousel-skin-tango .jcarousel-prev-disabled-horizontal:hover,
+.jcarousel-skin-tango .jcarousel-prev-disabled-horizontal:active {
+cursor: default;
+background-position: -96px 0;
+}
+
+}
+
+
+/* - mg_audio.css - */
+@media all {
+/* http://www.brasil.gov.br/portal_css/mg_audio.css?original=1 */
+/* */
+.audioInfo {
+background: #f0ebe7 !important;
+padding: 8px;
+margin: 0 0 0 6px;
+width: 496px;
+}
+.audioTitle {
+font: 12px Arial, Helvetica, Sans-serif;
+font-weight: bold;
+color: #727272 !important;
+margin-bottom: 15px;
+}
+.audioDescription {
+font: 12px Arial, Helvetica, Sans-serif;
+color: #727272;
+}
+.audioData {
+margin-bottom: 0;
+padding-bottom: 0;
+}
+.audioLinks {
+margin: 5px 0 0 6px;
+width: 512px;
+}
+.boxlink {
+text-align: right;
+}
+.boxlink ul { margin: 0; }
+.boxlink li {
+display: inline;
+margin-left: 5px;
+}
+.boxlink li a {
+font: 12px Arial, Helvetica, Sans-serif;
+color: #178d00 !important;
+border: none !important;
+text-decoration: none !important;
+}
+.boxlink li a:hover { text-decoration: underline !important; }
+.boxlink li a.permalink {
+background: url(http://www.brasil.gov.br/icoPermalink.gif) 0 center no-repeat !important;
+padding-left: 18px !important;
+}
+.boxlink li a.incorporar {
+background: url(http://www.brasil.gov.br/icoIncorporar.gif) 0 center no-repeat !important;
+padding-left: 24px !important;
+}
+.boxlink li div {
+float: left;
+width: 435px;
+}
+.boxlink li .inputbox {
+border: 1px solid #8cacbb;
+padding: 0 8px 8px;
+margin: 10px 0;
+text-align: left;
+}
+.boxlink li .inputbox p {
+background: #ffffff;
+position: relative:
+display: inline;
+margin: -10px 0 0 0;
+padding: 0 5px;
+float: left;
+}
+.boxlink li .inputbox input {
+width: 98% !important;
+clear: both;
+margin-top: 10px;
+display: block;
+color: #727272;
+}
+.audiosList {
+margin: 10px 0 10px 8px !important;
+clear: both;
+background: url(http://www.brasil.gov.br/pontinho.gif) 0 0 repeat-x;
+padding-top: 12px;
+}
+.audiosList li { margin: 0 0 4px 0; }
+.audiosList li a {
+border: none !important;
+color: #9d9c99 !important;
+font: 12px Arial, Helvetica, Sans-serif;
+background: url(http://www.brasil.gov.br/icoAudio.gif) 0 3px no-repeat !important;
+padding: 3px 0 3px 24px !important;
+}
+.audiosList li a:hover { text-decoration: underline !important; }
+.audiosList li a.active {
+color: #727272;
+font-weight: bold;
+}
+/* */
+
+}
+
+
+/* - mg_video.css - */
+@media all {
+/* http://www.brasil.gov.br/portal_css/mg_video.css?original=1 */
+/* */
+.video-stage {
+width: 494px;
+height: 395px;
+background: url(http://www.brasil.gov.br/bgVideoGaleria.gif) 0 0 no-repeat;
+text-align: center;
+padding: 7px 0 0 0;
+margin-top: 7px;
+}
+.video-stage img {
+width: 480px;
+height: 385px;
+}
+.videoInfo {
+background: #f0ebe7 !important;
+padding: 8px;
+margin: 0 0 0 7px;
+width: 465px;
+}
+.videoTitle {
+font: 12px Arial, Helvetica, Sans-serif;
+font-weight: bold;
+color: #727272 !important;
+margin-bottom: 15px;
+}
+.videoDescription {
+font: 12px Arial, Helvetica, Sans-serif;
+color: #727272;
+}
+.videoData {
+margin-bottom: 0;
+padding-bottom: 0;
+}
+.videoLinks {
+margin: 5px 0 0 6px;
+width: 480px;
+}
+.jcarousel-skin-tango {
+margin-left: 3px;
+}
+.jcarousel-skin-tango .jcarousel-container {
+border: none;
+background: #e1d8d0;
+-moz-border-radius: 0;
+border-radius: 0;
+}
+.jcarousel-skin-tango .jcarousel-container-horizontal {
+padding: 4px 20px;
+width: 445px;
+}
+.jcarousel-skin-tango .jcarousel-clip-horizontal {
+width: 435px;
+padding-left: 8px;
+}
+.jcarousel-skin-tango .jcarousel-item {
+width: 100px;
+height: 62px;
+}
+.jcarousel-skin-tango .jcarousel-item a,
+.jcarousel-skin-tango .jcarousel-item a img {
+float: left;
+overflow: hidden;
+border-color: #ffffff;
+}
+.jcarousel-skin-tango .jcarousel-item a:hover,
+.jcarousel-skin-tango .jcarousel-item a.video-active {
+border-style: solid;
+border-width: 2px;
+}
+.jcarousel-skin-tango .jcarousel-item a:hover img,
+.jcarousel-skin-tango .jcarousel-item a.video-active img {
+margin: -2px;
+}
+.jcarousel-skin-tango .jcarousel-clip-horizontal img {
+width: 100px !important;
+height: 62px !important;
+}
+.jcarousel-skin-tango .jcarousel-next-horizontal {
+background: url(http://www.brasil.gov.br/nav_next.gif) 0 0 no-repeat !important;
+width: 19px;
+height: 72px;
+right: 0;
+top: 0;
+}
+.jcarousel-skin-tango .jcarousel-prev-horizontal {
+background: url(http://www.brasil.gov.br/nav_prev.gif) 0 0 no-repeat !important;
+width: 19px;
+height: 72px;
+left: 0;
+top: 0;
+}
+/* */
+
+}
+
+
+/* - mg_image.css - */
+@media all {
+/* http://www.brasil.gov.br/portal_css/mg_image.css?original=1 */
+/* */
+/* */
+
+}
+
+
+/* - brasil.app.barragov.css - */
+@media all {
+/*  */
+/* */
+
+html, body {
+overflow-x: hidden;
+}
+
+#barra-governo-wrap {
+    position:absolute;
+    clear:both;
+    overflow:hidden;
+    margin-left: -50%;
+    width: 1000%;
+    min-width:1000px;
+    height:28px;
+    background:#00500f;
+    top: 0;
+    z-index:999;
+}
+
+#barra-governo-wrap .wrap {
+    display:block;
+    width:10%;
+    height:28px;
+    background:url(barra-brasil-v3-bgx.gif) 0 bottom repeat-x;
+}
+
+#barra-governo {
+    position:relative;
+    clear:both;
+    overflow:hidden;
+    width:100%;
+    height:28px;
+    background:#00500f;
+    z-index:1000;
+}
+
+#barra-governo .centro {
+    background: url(barra-brasil-v3-azul.gif) right top no-repeat;
+    position:absolute;
+    width: 100%;
+    height: 24px;
+    top:4px;
+    left:50%;
+    margin-left:-500px;
+}
+
+#barra-governo .centro .logoBrasil {
+float: right;
+display: block;
+height: 23px;
+width: 100px;
+}
+
+#barra-governo .centro .ai {
+    background: url("ai.png") no-repeat 0 0;
+    display: block;
+    float: right;
+    height: 28px;
+    margin-right: 25px;
+    text-indent: -1000px;
+    width: 161px;
+}
+
+
+.section-galeriadearte #portal-siteactions, .section-galeriadearte .divbgAzul {
+display: none !important;
+}
+
+.section-galeriadearte #barra-governo-wrap {
+background: #000 !important;
+)width: 1834px !important;
+}
+.section-galeriadearte #barra-governo-wrap .wrap {
+)width: 40% !important;
+}
+.section-galeriadearte #barra-governo {
+background: #000;
+}
+.section-galeriadearte #barra-governo .centro {
+background: url(barra-brasil-v3-preto.gif) right top no-repeat;
+}
+
+.section-brasil-agora #barra-governo-wrap {
+)width: 1834px !important;
+background: #004B82 !important;
+}
+.section-brasil-agora #barra-governo-wrap .wrap {
+)width: 40% !important;
+}
+.section-brasil-agora #barra-governo {
+background: #004B82 !important;
+margin-bottom: 50px;
+}
+.section-brasil-agora #portal-header {
+overflow-x: visible !important;
+overflow-y: visible !important;
+}
+
+.section-brasil-agora #barra-governo .centro {
+background: url(barra-brasil-v3-azul.gif) right top no-repeat;
+}
+
+
+body.section-consumo-consciente.template-contentpanels_view #portal-header {
+margin: 49px 0 0 !important;
+overflow: visible !important;
+}
+
+.section-consumo-consciente .divHeaderBrasil, .section-galeriadearte .divHeaderBrasil, .section-brasil-agora .divHeaderBrasil {
+background: transparent !important;
+display: none !important
+}
+
+.section-consumo-consciente .divHeaderBrasil ul {
+display: none !important
+}
+
+.section-consumo-consciente #barra-governo-wrap {
+)width: 1834px !important;
+}
+
+.section-consumo-consciente #barra-governo-wrap .wrap {
+)width: 40% !important;
+}
+
+
+
+/*  */
+}
+
+
+/* - ++resource++plone.app.jquerytools.overlays.css - */
+@media screen {
+/* http://www.brasil.gov.br/portal_css/++resource++plone.app.jquerytools.overlays.css?original=1 */
+div.overlay {
+width: auto;
+height: auto;
+/* */
+display: none;
+/* */
+margin: 1em;
+}
+div.overlay-iframe,
+div.overlay-ajax {
+width: 60%;
+min-height: 100px;
+z-index: 99; /* */
+}
+div.overlay-iframe {
+height: 60%;
+}
+/* */
+div.overlaybg div.close,
+div.overlay div.close {
+background-image: url(++resource++plone.app.jquerytools.pb_close.png);
+position: absolute;
+left: -14px;
+top: -14px;
+cursor: pointer;
+height: 30px;
+width: 30px;
+}
+.pb-ajax {
+overflow-y: auto;
+}
+.pb-ajax, .pb-image {
+background-color: #fff;
+border: 1px solid #999;
+white-space: normal;
+box-shadow: 0 0 3em 0.5em #666;
+-moz-box-shadow: 0 0 3em 0.5em #666;
+-webkit-box-shadow: 0 0 3em #666;
+}
+.pb-ajax > div {
+width: 92%;
+padding: 1em;
+}
+.pb-ajax .documentActions {display:none}
+div.overlay div.close span {
+display: block;
+height: 1px;
+margin: -1px 0 0 -1px;
+overflow: hidden;
+padding: 0;
+width: 1px;
+}
+div.overlay textarea { width: 100%; }
+/* */
+div.overlay .link-parent { display: none; }
+div.overlay #createGroup legend { display: none; }
+div.overlay #createGroup fieldset { border: none; }
+/* */
+div.overlay p {
+margin-bottom: 1em;
+}
+div.overlay label {
+margin-bottom: 0.25em;
+}
+div.overlay a:hover {
+color: #75ad0a;
+}
+div.overlay a.selected {
+color: #000000;
+}
+div.overlay .formTab {
+margin-right:1em;
+font-weight: bold;
+}
+div.overlay .formTab.lastFormTab {
+margin-right:0em;
+}
+div.overlay .formControls a {
+display: block;
+margin: 0.75em;
+}
+}
+
+
+/* - ++resource++plone.app.jquerytools.overlays.css - */
+@media screen {
+/* http://www.brasil.gov.br/portal_css/++resource++plone.app.jquerytools.overlays.css?original=1 */
+div.overlay {
+width: auto;
+height: auto;
+/* */
+display: none;
+/* */
+margin: 1em;
+}
+div.overlay-iframe,
+div.overlay-ajax {
+width: 60%;
+min-height: 100px;
+z-index: 99; /* */
+}
+div.overlay-iframe {
+height: 60%;
+}
+/* */
+div.overlaybg div.close,
+div.overlay div.close {
+background-image: url(++resource++plone.app.jquerytools.pb_close.png);
+position: absolute;
+left: -14px;
+top: -14px;
+cursor: pointer;
+height: 30px;
+width: 30px;
+}
+.pb-ajax {
+overflow-y: auto;
+}
+.pb-ajax, .pb-image {
+background-color: #fff;
+border: 1px solid #999;
+white-space: normal;
+box-shadow: 0 0 3em 0.5em #666;
+-moz-box-shadow: 0 0 3em 0.5em #666;
+-webkit-box-shadow: 0 0 3em #666;
+}
+.pb-ajax > div {
+width: 92%;
+padding: 1em;
+}
+.pb-ajax .documentActions {display:none}
+div.overlay div.close span {
+display: block;
+height: 1px;
+margin: -1px 0 0 -1px;
+overflow: hidden;
+padding: 0;
+width: 1px;
+}
+div.overlay textarea { width: 100%; }
+/* */
+div.overlay .link-parent { display: none; }
+div.overlay #createGroup legend { display: none; }
+div.overlay #createGroup fieldset { border: none; }
+/* */
+div.overlay p {
+margin-bottom: 1em;
+}
+div.overlay label {
+margin-bottom: 0.25em;
+}
+div.overlay a:hover {
+color: #75ad0a;
+}
+div.overlay a.selected {
+color: #000000;
+}
+div.overlay .formTab {
+margin-right:1em;
+font-weight: bold;
+}
+div.overlay .formTab.lastFormTab {
+margin-right:0em;
+}
+div.overlay .formControls a {
+display: block;
+margin: 0.75em;
+}
+}
+

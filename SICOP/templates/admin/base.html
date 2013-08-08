@@ -1,120 +1,115 @@
-{% load admin_static %}
+{% load admin_static %} {% load staticfiles %}
 <!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE|default:" en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<html><!-- use class="debug" here if you develope a template and want to check-->
 <head>
+	<meta charset="utf-8" />
+	<title>SICOP</title>
+			            
+            <link rel="stylesheet" href="{% static "css/inuit.css" %}" />
+            <link rel="stylesheet" href="{% static "css/fluid-grid16-1100px.css" %}" />
+            <link rel="stylesheet" href="{% static "css/eve-styles.css" %}" />
+            <link rel="shortcut icon" href="{% static "icon.png" %}" />
+            <link rel="apple-touch-icon-precomposed" href="{% static "img/icon.png" %}" />
+            <link rel="stylesheet" href="{% static "css/flexslider.css" %}" />
+               
+                    <!--Hide the hr img because of ugly borders in IE7. You can change the color of border-top to display a line -->
+                    <!--[if lte IE 7]>
 
-<title>.:: SICOP - Terra Legal MA ::.</title>
-<link rel="stylesheet" href="{% static "css/style.css" %}" />
-<meta name="description" content="description here">
-<meta name="author" content="content here">
-<meta charset="utf-8">
-<!--[if IE]><![endif]-->
-<style type="text/css">
-<!--
-body {
-	background-image: url({%  static "img/bg.jpg" %
-}
-);
-}
--->
-</style>
+                        <style>
+                    		hr { display:block; height:1px; border:0; border-top:1px solid #fff; margin:1em 0; padding:0; }
+                            .grid-4{ width:22% }
+                        </style>
+                    <![endif]-->
+
 </head>
 {% load i18n %}
+<!--===============================================================  Logo, social and menu =====================================================================================--> 
 
-<body
-	class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
-	<div id="header-container">
-		<header class="wrapper">
-			<div id="logo">
-				<!--<img src="images/terralegal.png" alt="Logo here" width="180" height="178"> -->
-			</div>
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
+	<div class="wrapper">	
+                   <a href="/" >
+                   		<img style="height:100px" src="{% static "img/terralegal.jpg" %}" alt="Sicop TerraLegal" />
+                      <h1 class="accessibility">SICOP titulo</h1>
+                   </a>
+                   
+                  <div class="social">
+						Usuario: {% filter force_escape %}{% firstof user.get_short_name user.get_username %}{% endfilter %} | <a href="/logout/">Sair do
+							Sistema</a>
+				  </div>
+					
+					<ul id="nav" class="main">
+						<li><a href="/">Inicio</a></li>
+						<li><a href="/consultas/">Consultas</a></li>
+						<li><a href="/admin/">Administracao</a></li>
+					</ul>
 
-			<!--start navigation -->
-			<nav></nav>
+                   
+                   <!--These are just samples, use your own icons. If you use larger ones, make sure too change the css-file to fit them in.
+                       Dont´t forget to place your links -->
+                                       
+                   
+            
+        </div><!--end of wrapper div-->    
+	<div class="clear"></div> 
+    
+<!--========================================================================== Intro and FlexSlider =====================================================================================-->    
+<div class="wrapper">
 
-		</header>
-	</div>
+	<div class="grids">
 
-	<div id="main" class="wrapper">
-
-		<div id="enter" style="text-align: justify">Sistema desenvolvido
-			pela SRFA02, vinculada ao Terra Legal com o objetivo de controlar
-			todos os processos de regularização fundiária, liberação de cláusulas
-			resolutivas, recebimento e conferência de peças técnicas de imóveis
-			integrantes da região definida como a amazônia Legal.</div>
-		
-		<div id="enter" style="text-align:center">
-		
-				<!-- Container -->
-				<div id="container">
-		
-					{% if not is_popup %}
-					<!-- Header -->
-					<div id="header">
-						<div id="branding">
-							<!--         {% block branding %}{% endblock %} -->
-						</div>
-						{% if user.is_active and user.is_staff %}
-						<div id="user-tools">
-							{% trans 'Welcome,' %} <strong>{% filter force_escape %}{%firstof user.get_short_name user.get_username %}{% endfilter %}</strong>.
-							{% block userlinks %} {% url 'django-admindocs-docroot' as docsroot
-							%} {% if docsroot %} <a href="{{ docsroot }}">{% trans
-								'Documentation' %}</a> / {% endif %} {% if user.has_usable_password %}
-							<a href="{% url 'admin:password_change' %}">{% trans 'Change
-								password' %}</a> / {% endif %} <a href="{% url 'admin:logout' %}">{%
-								trans 'Log out' %}</a> {% endblock %}
-						</div>
-						{% endif %} {% block nav-global %}{% endblock %}
-					</div>
-					<!-- END Header -->
-					{% block breadcrumbs %}
+		<div class="grid-10 grid">
+			{% block breadcrumbs %}
 					<div class="breadcrumbs">
 						<a href="{% url 'admin:index' %}">{% trans 'Home' %}</a> 
 						{% if title %} &rsaquo; {{ title }}{% endif %}
 					</div>
-					{% endblock %} {% endif %} {% block messages %} {% if messages %}
-					<ul class="messagelist">
-						{% for message in messages %}
-						<li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{
-							message }}</li> {% endfor %}
-					</ul>
-					{% endif %} {% endblock messages %}
-		
-					 <!-- Content -->
-					    <div id="content" class="{% block coltype %}colM{% endblock %}">
-					        {% block pretitle %}{% endblock %}
+					{% endblock %}
+					{% block pretitle %}{% endblock %}
 					        {% block content_title %}{% if title %}<h1>{{ title }}</h1>{% endif %}{% endblock %}
 					        {% block content %}
 					        {% block object-tools %}{% endblock %}
 					        {{ content }}
 					        {% endblock %}
-					        {% block sidebar %}{% endblock %}
-					        <br class="clear" />
-					    </div>
-					    <!-- END Content -->
-					  <!--start footer -->
-<!-- 					 <div id="footer-container"> -->
-<!-- 					           <footer class="wrapper"> -->
-<!-- 					             <div class="footer-nav"> -->
-					               
-<!-- 					             </div> -->
-<!-- 					             <div class="footer-nav"> -->
-					               
-<!-- 					             </div> -->
-<!-- 					             <div class="social"></div> -->
-<!-- 					             <div id="enter" style="color:white" class="copy"> -->
-					             	{% block footer %}
-									<div id="footer"></div>
-									{% endblock %}
-<!-- 					             </div> -->
-<!-- 					             end footer nav -->
-<!-- 					           </footer> -->
-					       </div>
-					<!--end footer -->  
-					
-				</div>
-			</div>
-			<!-- END Container -->
+
 		</div>
+		<!--end of grid-10-->
+
+
+		<div class="grid-6 grid grey">
+				{% block messages %} {% if messages %}
+						<ul class="messagelist">
+							{% for message in messages %}
+							<li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> {% endfor %}
+						</ul>
+				{% endif %} {% endblock messages %}
+		
+			{% block sidebar %}{% endblock %}
+		</div>
+
+
+	</div>
+	<!--end of grids-->
+
+</div>
+<hr/>
+<!--========================================================================== Footer =====================================================================================-->     
+		<div class="wrapper">
+					<div id="footer">             
+                			<div class="grids">
+                                <div class="grid-5 grid text-center">
+                                    <p>01</p>
+                                </div>
+                                <div class="grid-6 grid text-center">
+                                    <p>sicop</p>
+                                </div>
+                                
+                                <div class="grid-5 grid text-center">
+                                  <p>srfa</p>
+                                </div>
+                                
+                           </div><!--end of grids-->
+                   </div><!--end of footer-->
+		   </div><!--end of wrapper-->
+	
 </body>
 </html>

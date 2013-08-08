@@ -1,0 +1,45 @@
+{% extends "base.html" %} 
+
+{% block userlogado %}
+
+<div class="social">
+	Usuario: {% filter force_escape %}{% firstof user.get_short_name user.get_username %}{% endfilter %} | <a href="/logout/">Sair do
+		Sistema</a>
+</div>
+
+<ul id="nav" class="main">
+	<li><a href="/">Inicio</a></li>
+	<li><a href="/consultas/">Consultas</a></li>
+	<li><a href="/admin/">Administracao</a></li>
+</ul>
+
+{% endblock %} 
+
+{% block index %}
+
+<!--========================================================================== Content Part 1 =====================================================================================-->
+
+<div class="wrapper">
+
+	<div class="grids">
+
+		<div class="grid-10 grid">
+			<p style="text-align: justify;">Sistema desenvolvido pela SRFA02,
+				vinculada ao Terra Legal com o objetivo de controlar todos os
+				processos de regularizacao fundiaria, liberacao de clausulas
+				resolutivas, recebimento e conferencia de pecas tecnicas de imoveis
+				integrantes da regiao definida como a amazonia Legal.</p>
+
+
+		</div>
+		<!--end of grid-10-->
+
+	</div>
+	<!--end of grids-->
+
+</div>
+<!--end of wrapper-->
+<hr />
+
+
+{% endblock %}

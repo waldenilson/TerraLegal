@@ -1,13 +1,15 @@
 from django.conf.urls import patterns, include, url
 
-# Uncomment the next two lines to enable the admin: ALTERADO EDUARDO
-#inclui linha
+# Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'web.views.home', name='home'),
+    url(r'^consultas/', 'web.views.consultas'),
+    url(r'^login/', 'django.contrib.auth.views.login', {"template_name":"login.html"}),
+     url(r'^logout/', 'django.contrib.auth.views.logout_then_login', {"login_url":"/login/"}),
     # url(r'^web/$', 'web.views.txt', name='texto'),
     # url(r'^SICOP/', include('SICOP.foo.urls')),
 

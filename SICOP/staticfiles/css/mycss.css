@@ -1,0 +1,31 @@
+
+
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+
+
+}
+
+
+.portletItem a, .portletItem a:visited, .portletItem a:hover,
+.portletFooter a, .portletFooter a:visited, .portletFooter a:hover,
+a, a:visited, a:hover,
+#content a, #content a:visited, #content a:hover{
+
+}
+
+body {
+background: #FFFFFF url(img/bg.jpg) no-repeat scroll center top;
+}
+
+
+
+#divGeral #divAreaUtil #divGeralConteudo #divConteudo .divHeader {
+display:none;
+}
+
+
+
+
+
+

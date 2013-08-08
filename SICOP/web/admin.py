@@ -25,10 +25,11 @@ admin.site.register(Tbtipoprocesso)
 admin.site.register(Tbclassificacaoprocesso)
 admin.site.register(Tbstatuspendencia)
 
+
 # TABELAS CONTROLE CRUD (MIGRACAO)
 # admin.site.register(Tbmunicipio)
 # admin.site.register(Tbsubarea)
 # admin.site.register(Tbconjuge)
 # admin.site.register(Tbcontrato)
 # admin.site.register(Tbgleba)
-# admin.site.register(Tbcaixa)
+admin.site.register(Tbcaixa)

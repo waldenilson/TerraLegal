@@ -1,13 +1,36 @@
 # Create your views here.
-from django.template.context import Context
 from django.template import loader
 from django.http.response import HttpResponse
-from django.shortcuts import render_to_response
+from django.template.context import Context, RequestContext
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, render_to_response
+from web.models import Tbcaixa, Tbtipocaixa
+from web.forms import FormPecasTecnicas
+from django.http import request
 
+
+@login_required
 def home(request):
-    template = loader.get_template("base.html")
-    c = Context ({})
-    return HttpResponse(template.render(c))
+    # template = loader.get_template("base.html")
+    c = Context ({"titulo":"SEU TITULO"})
+    #return HttpResponse(template.render(c))
+    return render(request, "index.html", c)
 
-def search(request):
-    return render_to_response()
+
+@login_required
+def consultas(request):
+    
+    #form = FormPecasTecnicas()
+    #return render_to_response("consultas.html",{"form":form}, context_instance = RequestContext(request))
+    
+    if request.method == "POST":
+        retorno = request.POST['query']
+    else:
+        retorno = ''
+        
+    lista = Tbtipocaixa.objects.filter( nmtipocaixa__contains=retorno ).order_by('id')
+    
+    return render_to_response('consultas.html',{'lista':lista,'retorno':retorno}, 
+                              context_instance = RequestContext(request))    
+    
+    
