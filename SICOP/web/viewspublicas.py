@@ -10,7 +10,6 @@ def rural(request):
     return render_to_response('web/rural.html',{'retorno':retorno},
                               context_instance = RequestContext(request))
     
-
 def urbano(request):
     
     js = "processos"

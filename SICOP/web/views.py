@@ -8,7 +8,6 @@ from web.models import Tbcaixa, Tbtipocaixa
 from web.forms import FormPecasTecnicas
 from django.http import request
 
-@login_required
 def home(request):
     # template = loader.get_template("base.html")
     c = Context ({"titulo":"SEU TITULO"})

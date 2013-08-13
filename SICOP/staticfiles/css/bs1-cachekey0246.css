@@ -106,7 +106,7 @@ TABLE.grid TD {border-bottom:#8cacbb 1px solid;border-left:#8cacbb 1px solid;bor
 OL.visualNoMarker {line-height:1em;list-style-type:none;list-style-image:none;margin:0.5em 0 0}
 UL.discreet {list-style-type:disc;list-style-image:none}
 .productCredits {text-align:right;color:#76797c;clear:both;font-size:90%;font-weight:400}
-#portal-footer {line-height:1.2em;background-color:#dee7ec;float:none;border-bottom:0;text-align:left;border-left:0;background:url(http://www.brasil.gov.br/bgFooterDireitos.gif) no-repeat;color:#fff;border-top:0;border-right:0;margin:0;padding:2px 20px 0}
+#portal-footer {line-height:1.2em;background-color:#dee7ec;float:none;border-bottom:0;text-align:left;border-left:0;background:url("{% static "img/terralegal.jpg" %}") no-repeat;color:#fff;border-top:0;border-right:0;margin:0;padding:2px 20px 0}
 #portal-footer A {border-bottom:medium none;border-left:medium none;border-top:medium none;border-right:medium none;text-decoration:none;color:#fff}
 #portal-colophon {text-align:center;float:none;color:#666;margin:0 0 1em;padding:0 0 1em}
 #portal-colophon UL {list-style-type:none;list-style-image:none}

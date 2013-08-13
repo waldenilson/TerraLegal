@@ -1,20 +1,11 @@
 {% extends "base.html" %} 
 
-{% block userlogado %}
 
-<div class="social">
-	Usuario: {% filter force_escape %}{% firstof user.get_short_name user.get_username %}{% endfilter %} | <a href="/logout/">Sair do
-		Sistema</a>
-</div>
-
-<ul id="nav" class="main">
-	<li><a href="/">Inicio</a></li>
-	<li><a href="/sicop/consultas/">Consultas</a></li>
-	<li><a href="/sicop/admin/">Administracao</a></li>
-</ul>
-
-{% endblock %} 
-
+{% block titulo %}
+	<p style="text-align: justify;">Consulta Processos Rurais</p>
+	<hr />
+{% endblock %}
+			
 {% block index %}
 
 <!--========================================================================== Content Part 1 =====================================================================================-->
@@ -24,9 +15,7 @@
 	<div class="grids">
 
 		<div class="grid-10 grid">
-			<p style="text-align: justify;">Consulta Processos Rurais.</p>
-
-
+			<input type="text" name="date" id="date" />
 		</div>
 		<!--end of grid-10-->
 
@@ -35,7 +24,6 @@
 
 </div>
 <!--end of wrapper-->
-<hr />
 
 
 {% endblock %}

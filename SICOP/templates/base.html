@@ -6,9 +6,7 @@
 
 <meta charset="utf-8" />
 	<title>SICOP : Sistema de Processos</title>
-<link rel="stylesheet" type="text/css" media="print"
-	href="{% static "css/print-cachekey1637.css" %}" />
-
+	
 <link rel="stylesheet" type="text/css" media="screen"
 	href="{% static "css/bs1-cachekey0246.css" %}" />
 
@@ -21,14 +19,14 @@
 <link rel="stylesheet" type="text/css" media="screen"
 	href="{% static "css/bs4-cachekey9210.css" %}" />
 
-<link rel="stylesheet" type="text/css"
-	href="{% static "css/invisibles-cachekey2219.css" %}" />
 
-<link rel="stylesheet" type="text/css"
-	href="{% static "css/galleria.css" %}" />
+<link rel="stylesheet" href="{% static "css/themename/jquery-ui.custom.css" %}" />
+<link rel="stylesheet" href="{% static "css/themename/jquery-ui.custom.min.css" %}" />
 
-<link rel="stylesheet" type="text/css" media="screen"
-	href="{% static "css/mycss.css" %}" />
+<script src="{% static "js/jquery-ui.custom.js" %}"></script>
+<script src="{% static "js/jquery-ui.custom.min.js" %}"></script>
+
+
 	
 <script src="{% static "js/jquery.js" %}" type="text/javascript"></script>
 
@@ -41,6 +39,7 @@ jQuery(function($){
 	$("#phone").mask("(999) 999-9999");
 	$("#tin").mask("99-9999999");
 	$("#ssn").mask("999-99-9999");
+	$( "#date2" ).datepicker();
 });
 </script>
 
@@ -107,7 +106,6 @@ jQuery(function($){
 		no-repeat 0 4px
 }
 </style>
-
 
 </head>
 
@@ -180,12 +178,6 @@ height="69"></A><!--IDIOMAS-->
   href="#">Español</A></LI></UL></DIV><!--FIM IDIOMAS--><!--BUSCA-->
 <DIV class="divBusca">
 
-	{% if user.is_active %}	 
-		{% block userlogado %}{% endblock %} 
-	{% else %}
-	 	{% block login %} {% endblock %}
-	{% endif %}
-	
 </DIV><!--FIM BUSCA-->
 
 <DIV class="visualClear"></DIV>
@@ -203,26 +195,15 @@ height="69"></A><!--IDIOMAS-->
                 John
            </span
        ></a></li>
-   </tal:block-->
-  <LI><A class="personal-meubrasil" href="http://www.brasil.gov.br/login_form_meubrasil">Meu 
-  Brasil</A></LI></UL>
+   </tal:block--></UL>
 <DIV>
-<UL id="portal-siteactions" class=" ">
+<UL id="portal-siteactions"  class=" ">
+
   <LI id="siteaction-Sobre o Portal" class="siteaction-Sobre o Portal"><A 
-  accessKey="" title="Home" href="/">Home</A></LI>
- 
-  <LI id="siteaction-Sobre o Portal" class="siteaction-Sobre o Portal"><A 
-  accessKey="" title="Sobre o Portal" href="#">Sobre o Portal</A></LI>
-  
-  <LI id="siteaction-Sobre o Portal" class="siteaction-Sobre o Portal"><A 
-  accessKey="" title="Terra Legal" href="#">Terra Legal</A></LI>
-  
-  <LI id="siteaction-Sobre o Portal" class="siteaction-Sobre o Portal"><A 
-  accessKey="" title="Ministério do Desenvolvimento Agrário" href="#">MDA</A></LI>
+  accessKey="" title="Ministério do Desenvolvimento Agrário" href="/sicop/consultas/">Acesso Restrito</A></LI>
   
   </UL>
 <DIV class="divbgAzul"></DIV></DIV></DIV></DIV>
-
 		
 
 		<div id="portal-column-content" class="visualColumnHideTwo">
@@ -235,40 +216,34 @@ height="69"></A><!--IDIOMAS-->
 					class="portletWrapper kssattr-portlethash-706c6f6e652e6c656674636f6c756d6e0a636f6e746578740a2f636c69656e7465732f62726173696c2f62726173696c0a6e617669676174696f6e2d31">
 					<dl
 						class="portlet portletNavigationTree navTreeSection-sobre first-child last-child">
-						<h2>Cidadão</h2>
 						  
 						<dd class="portletItem lastItem last-child">
-							<ul class="navTree navTreeLevel0 first-child">
-
-								<li class="navTreeItem visualNoMarker navTreeFolderish">
-
-									<div class="first-child last-child">
-
-										<a href="/web/rural.html"
-											class="state-published navTreeFolderish first-child last-child"
-											title=""> <span class="first-child last-child">Rural</span>
-										</a>
-
-									</div>
-
-
-
+							<ul style="font-size:9px">
+								<li>
+									<a href="/" title="">
+										<span class="first-chid lastchild">Inicio</span>
+									</a>
 								</li>
-
-
-								<li class="navTreeItem visualNoMarker navTreeFolderish">
-
-									<div class="first-child last-child">
-
-										<a href="/web/urbano.html"
-											class="state-published navTreeFolderish first-child last-child"
-											title=""> <span class="first-child last-child">Urbano</span>
-										</a>
-
-									</div>
-
+								<li>
+									<a href="/" title="">
+										<span class="first-chid lastchild">Terra Legal</span>
+									</a>
 								</li>
-
+								<li>
+									<a href="/" title="">
+										<span class="first-chid lastchild">MDA</span>
+									</a>
+								</li>
+								<li>
+									<a href="/web/rural.html" title="">
+										<span class="first-chid lastchild">Processo Rural</span>
+									</a>
+								</li>
+								<li>
+									<a href="/web/urbano.html" title="">
+										<span class="first-chid lastchild">Regularização Urbana</span>
+									</a>
+								</li>
 							</ul>
 							
 						</dd>
@@ -338,33 +313,13 @@ divBoxVideo {
 						<tbody class="first-child last-child">
 							
 							<tr class="first-child last-child">
-								<td class="first-child" style="background:#fff;width: 510px" valign="top"
+								<td class="first-child" style="background:#fff;width: 776px" valign="top"
 									width="#">
-									
+									{% block titulo %} {% endblock %}
 									<div
 										class="viewlet defaultPortletWrapper pais-tem-menor-taxa-de-desemprego-da-historia"
 										style="margin: 2px 20px 4px 2px">
 											 {% block index %} {% endblock %}      				
-									</div>
-
-								</td>
-								<td class="last-child" style="width: 252px" valign="top"
-									width="#">
-
-									<div class="viewlet defaultPortletWrapper crack-1 first-child"
-										style="margin: 0 0px 4px 2px">
-
-										<div class="imagemLink2col first-child">
-											<a class="paneletTrack first-child last-child"
-												rev="destaque-direta-inferior"
-												href="http://www.brasil.gov.br/crackepossivelvencer/home">
-												<img src="Portal%20Brasil_arquivos/image_5.jpeg" alt="Crack"
-												title="Crack" class="first-child last-child" height="204"
-												width="252" />
-											</a>
-										</div>
-										<div class="visualClear last-child"></div>
-
 									</div>
 
 								</td>
@@ -401,7 +356,7 @@ divBoxVideo {
 		</div>
 
 		<!--COLLOPHON-->
-		<div id="divCollophon">
+		<div id="divCollophon" >
 			<div class="first-child last-child">
 				<div class="divCollophonGif baixoContraste first-child last-child">
 
