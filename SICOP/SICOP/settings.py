@@ -143,7 +143,7 @@ INSTALLED_APPS = (
 
 LOGIN_URL = "/sicop/login/"
 LOGOUT_URL = "/sicop/logout/"
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/sicop/acesso_restrito/"
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

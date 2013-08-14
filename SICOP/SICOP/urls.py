@@ -5,19 +5,19 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    url(r'^$', 'web.views.home', name='home'),
-    url(r'^web/rural', 'web.viewspublicas.rural'),
-    url(r'^web/urbano', 'web.viewspublicas.urbano'),
-    url(r'^sicop/consultas/', 'web.views.consultas'),
+    
+    # ACESSO AO PUBLICO
+    url(r'^$', 'web.views_publicas.inicio'),
+    url(r'^web/terra_legal/', 'web.views_publicas.terra_legal'),
+    url(r'^web/mda/', 'web.views_publicas.mda'),
+    url(r'^web/processo_rural/', 'web.views_publicas.processo_rural'),
+    url(r'^web/regularizacao_urbana/', 'web.views_publicas.regularizacao_urbana'),
+    
+    # ACESSO RESTRITO AO SICOP
+    url(r'^sicop/acesso_restrito/', 'web.views.acesso_restrito'),
+    
+    # CONTROLE AUTENTICACAO
     url(r'^sicop/login/', 'django.contrib.auth.views.login', {"template_name":"sicop/login.html"}),
     url(r'^logout/', 'django.contrib.auth.views.logout_then_login', {"login_url":"/sicop/login/"}),
-    # url(r'^web/$', 'web.views.txt', name='texto'),
-    # url(r'^SICOP/', include('SICOP.foo.urls')),
-
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
     url(r'^sicop/admin/', include(admin.site.urls)),
 )

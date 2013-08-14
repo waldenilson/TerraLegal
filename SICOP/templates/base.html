@@ -1,7 +1,6 @@
 {% load staticfiles %} 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html style="font-size: 16px;" xmlns="http://www.w3.org/1999/xhtml"
-	xml:lang="pt-br" lang="pt-br">
+<html style="font-size: 16px;" xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-br" lang="pt-br">
 <head>
 
 <meta charset="utf-8" />
@@ -20,11 +19,8 @@
 	href="{% static "css/bs4-cachekey9210.css" %}" />
 
 
-<link rel="stylesheet" href="{% static "css/themename/jquery-ui.custom.css" %}" />
-<link rel="stylesheet" href="{% static "css/themename/jquery-ui.custom.min.css" %}" />
-
-<script src="{% static "js/jquery-ui.custom.js" %}"></script>
-<script src="{% static "js/jquery-ui.custom.min.js" %}"></script>
+<link rel="stylesheet" href="{% static "css/themename/bootstrap.min.css" %}" />
+<script src="{% static "js/bootstrap.min.js" %}"></script>
 
 
 	
@@ -198,9 +194,9 @@ height="69"></A><!--IDIOMAS-->
    </tal:block--></UL>
 <DIV>
 <UL id="portal-siteactions"  class=" ">
-
-  <LI id="siteaction-Sobre o Portal" class="siteaction-Sobre o Portal"><A 
-  accessKey="" title="Ministério do Desenvolvimento Agrário" href="/sicop/consultas/">Acesso Restrito</A></LI>
+	<LI style="color:white" id="siteaction-Sobre o Portal" class="siteaction-Sobre o Portal">
+		Você está aqui: {% block breadcumbs %} {% endblock %}
+	</LI>
   
   </UL>
 <DIV class="divbgAzul"></DIV></DIV></DIV></DIV>
@@ -225,23 +221,28 @@ height="69"></A><!--IDIOMAS-->
 									</a>
 								</li>
 								<li>
-									<a href="/" title="">
+									<a href="/web/terra_legal/" title="">
 										<span class="first-chid lastchild">Terra Legal</span>
 									</a>
 								</li>
 								<li>
-									<a href="/" title="">
+									<a href="/web/mda/" title="">
 										<span class="first-chid lastchild">MDA</span>
 									</a>
 								</li>
 								<li>
-									<a href="/web/rural.html" title="">
+									<a href="/web/processo_rural/" title="">
 										<span class="first-chid lastchild">Processo Rural</span>
 									</a>
 								</li>
 								<li>
-									<a href="/web/urbano.html" title="">
+									<a href="/web/regularizacao_urbana/" title="">
 										<span class="first-chid lastchild">Regularização Urbana</span>
+									</a>
+								</li>
+								<li>
+									<a href="/sicop/acesso_restrito/" title="">
+										<span class="first-chid lastchild">Acesso Restrito</span>
 									</a>
 								</li>
 							</ul>
@@ -307,7 +308,6 @@ divBoxVideo {
 						<!-- -->
 					</div>
 
-
 					<table class="cp_Página sem título" align="center" width="776">
 
 						<tbody class="first-child last-child">
@@ -315,11 +315,14 @@ divBoxVideo {
 							<tr class="first-child last-child">
 								<td class="first-child" style="background:#fff;width: 776px" valign="top"
 									width="#">
-									{% block titulo %} {% endblock %}
 									<div
 										class="viewlet defaultPortletWrapper pais-tem-menor-taxa-de-desemprego-da-historia"
-										style="margin: 2px 20px 4px 2px">
-											 {% block index %} {% endblock %}      				
+										style="height:420px;margin: 30px 10px 5px 10px">
+											<p style="color:green;font-size: 16px;font-weight: bold;text-align: justify;">
+												{% block titulo %} {% endblock %}
+												<hr/>{% block userlogado %} {% endblock %}<br/><br/>
+											</p>
+											{% block index %} {% endblock %}   				
 									</div>
 
 								</td>

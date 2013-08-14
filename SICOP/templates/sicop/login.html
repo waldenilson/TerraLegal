@@ -1,8 +1,11 @@
 {% extends "base.html" %} 
 
+{% block breadcumbs %}
+	Acesso Restrito
+{% endblock %}
+
 {% block titulo %}
-	<p style="text-align: justify;">Acesso Restrito</p>
-	<hr/>
+	Acesso Restrito
 {% endblock %}							
 
 {% block index %}
@@ -25,14 +28,16 @@
 					<div class="grid-10 grid">
 						<div class="flexslide">
 				
-							{% if form.errors %} {{ form.non_field_errors }} {% endif %}
-				
+							{% if form.errors %} {{ form.non_field_errors }} <br/> {% endif %}
+							
 							<form action="." method="post">
 								{% csrf_token %}
-								<div style="width: 100%">
-									{{ form.username.label_tag }} {{ form.username }}<br /> 
-									{{ form.password.label_tag }} {{ form.password }}<br />
-									<button type="submit">LOGIN</button>
+								<div style="width: 100%;text-align:center;font-size:12px">
+									<div>
+										<div> {{ form.username.label_tag }} {{ form.username }} </div><br /> 
+										<div> {{ form.password.label_tag }} {{ form.password }} </div><br />
+										<div> <button type="submit">Entrar</button> </div>
+									</div>
 								</div>
 							</form>
 				

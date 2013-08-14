@@ -1,0 +1,44 @@
+{% extends "base.html" %} 
+
+{% block breadcumbs %}
+	Acesso Restrito
+{% endblock %}
+
+{% block titulo %}
+	Acesso Restrito
+{% endblock %}
+
+{% block userlogado %}
+
+<div style="width:100%;text-align:right">
+	Usuario: 
+		{% filter force_escape %}{% firstof user.get_short_name user.get_username %}{% endfilter %} 
+		| <a href="/logout/">Sair do Sistema</a>
+</div>
+
+{% endblock %} 
+
+{% block index %}
+
+<!--========================================================================== Content Part 1 =====================================================================================-->
+
+<div class="wrapper">
+
+	<div class="grids">
+
+		<div class="grid-10 grid">
+			<div style="width:100%;font-size:12px;color:green">
+				<a href="#">Processos</a> | 
+				<a href="#">Pecas Tecnicas</a> | 
+				<a href="#">Relatorios</a>
+			</div>
+		</div>
+		<!--end of grid-10-->
+
+	</div>
+	<!--end of grids-->
+
+</div>
+<!--end of wrapper-->
+
+{% endblock %}
