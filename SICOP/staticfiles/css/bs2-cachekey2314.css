@@ -255,8 +255,7 @@ BODY.contraste .divMenuFooter .divMenuFooterTop .last-child {border-right:medium
 .divMenuFooter .divMenuFooterTop .divMenuItens UL LI A {background:url(http://www.brasil.gov.br/ico/icoSetaAzulFooter.gif) no-repeat left 50%;color:#333;text-decoration:none;padding:0 0 0 9px;}
 BODY.contraste .divMenuFooter .divMenuFooterTop .divMenuItens UL LI A {background:url(http://www.brasil.gov.br/ico/icoSetaAmarela_c.gif) no-repeat left 50%;color:#fff;}
 .divMenuFooter .divMenuFooterTop .divMenuItens UL LI A:hover {color:#333;text-decoration:underline;}
-#divCollophon {width:1000px;background:url(http://www.brasil.gov.br/bg/bgFooterDireitos.png) no-repeat;float:left;margin:0 0 30px;padding:0;}
-#divCollophon .divCollophonGif {width:1000px;background:url(http://www.brasil.gov.br/bg/bgFooterDireitos.gif) no-repeat;float:left;height:29px;}
+#divCollophon {width:1000px;height:30px;float:left;margin:0 0 0px;padding:0;}
 #divCollophon P {font:1.2em Arial,Helvetica,sans-serif;float:left;color:#fff;padding:3px 0 0 16px;}
 #divCollophon P.creditos {font:1.1em Arial,Helvetica,sans-serif;color:#fff;float:right;padding:3px 19px 0 0;}
 #divCollophon P.creditos IMG {vertical-align:top;margin:0;}
