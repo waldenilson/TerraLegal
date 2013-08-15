@@ -1,0 +1,24 @@
+{% extends "sicop/acesso_restrito.html" %} 
+
+{% block breadcumbs %}
+	Acesso Restrito | Pecas Tecnicas | Edicao
+{% endblock %}
+
+{% block subtitulo %}
+	
+	PECAS TECNICAS
+	
+{% endblock %}
+
+{% block conteudo %}
+	
+	<div style="width:100%;font-size:12px;text-align:right">
+		<a href="/sicop/pecas_tecnicas/" class="classname2">Consultar Pecas Tecnicas</a>
+		<a href="/sicop/pecas_tecnicas/" class="classname" onclick="alert('Peca Tecnica Salva com sucesso!');">Salvar Pecas Tecnicas</a>
+	</div>
+	<br/><br/>
+	<div style="width:100%;font-size:12px;text-align:center">
+		campos para edicao da peca tecnica
+	</div>
+	
+{% endblock %}

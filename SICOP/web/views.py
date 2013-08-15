@@ -8,7 +8,6 @@ from web.models import Tbcaixa, Tbtipocaixa
 from web.forms import FormPecasTecnicas
 from django.http import request
 
-
 @login_required
 def acesso_restrito(request):    
     #form = FormPecasTecnicas()
@@ -24,4 +23,34 @@ def acesso_restrito(request):
     return render_to_response('sicop/acesso_restrito.html',{'lista':lista,'retorno':retorno}, 
                               context_instance = RequestContext(request))    
     
-    
+#processos
+@login_required
+def processos(request):
+    return render_to_response('sicop/processos.html',{})
+
+@login_required
+def processos_novo(request):
+    return render_to_response('sicop/processos_novo.html',{})
+
+@login_required
+def processos_edicao(request):
+    return render_to_response('sicop/processos_edicao.html',{})
+
+#pecas tecnicas
+@login_required
+def pecas_tecnicas(request):
+    return render_to_response('sicop/pecas_tecnicas.html',{})
+
+@login_required
+def pecas_tecnicas_novo(request):
+    return render_to_response('sicop/pecas_tecnicas_novo.html',{})
+
+@login_required
+def pecas_tecnicas_edicao(request):
+    return render_to_response('sicop/pecas_tecnicas_edicao.html',{})
+
+#relatorios
+@login_required
+def relatorios(request):
+    return render_to_response('sicop/relatorios.html',{})
+

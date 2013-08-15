@@ -1,0 +1,24 @@
+{% extends "sicop/acesso_restrito.html" %} 
+
+{% block breadcumbs %}
+	Acesso Restrito | Processos | Novo
+{% endblock %}
+
+{% block subtitulo %}
+	
+	PROCESSOS
+	
+{% endblock %}
+
+{% block conteudo %}
+	
+	<div style="width:100%;font-size:12px;text-align:right">
+		<a href="/sicop/processos/" class="classname2">Consultar Processo</a>
+		<a href="/sicop/processos/" class="classname" onclick="alert('Processo Salvo com sucesso!');">Salvar Processo</a>
+	</div>
+	<br/><br/>
+	<div style="width:100%;font-size:12px;text-align:center">
+		campos para novo cadastro de processo
+	</div>
+	
+{% endblock %}

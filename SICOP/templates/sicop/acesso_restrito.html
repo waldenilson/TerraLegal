@@ -13,13 +13,14 @@
 <div style="width:100%;text-align:right">
 	Usuario: 
 		{% filter force_escape %}{% firstof user.get_short_name user.get_username %}{% endfilter %} 
+		| <a href="/sicop/admin/">Administracao</a>
 		| <a href="/logout/">Sair do Sistema</a>
 </div>
 
 {% endblock %} 
 
-{% block index %}
 
+{% block index %}
 <!--========================================================================== Content Part 1 =====================================================================================-->
 
 <div class="wrapper">
@@ -28,10 +29,19 @@
 
 		<div class="grid-10 grid">
 			<div style="width:100%;font-size:12px;color:green">
-				<a href="#">Processos</a> | 
-				<a href="#">Pecas Tecnicas</a> | 
-				<a href="#">Relatorios</a>
+				<a href="/sicop/processos/">Processos</a> | 
+				<a href="/sicop/pecas_tecnicas/">Pecas Tecnicas</a> | 
+				<a href="/sicop/relatorios/">Relatorios</a>
 			</div>
+			
+			<div style="width:100%;font-size:12px;color:green">
+				<br/><br/><br/>
+				<div style="height:40px;width:100%;font-size:14px;text-align:left;font-weight:bold;color:green">
+					{% block subtitulo %} {% endblock %}
+				</div>
+				{% block conteudo %} {% endblock %}
+			</div>
+			
 		</div>
 		<!--end of grid-10-->
 
@@ -40,5 +50,4 @@
 
 </div>
 <!--end of wrapper-->
-
 {% endblock %}

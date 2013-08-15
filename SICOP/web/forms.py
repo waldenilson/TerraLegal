@@ -3,16 +3,6 @@ from django.forms import models
 from web.models import Tbcaixa, Tbpecastecnicas
 
 
-
-
-
-
-
-
-
-
-
-
 class FormPecasTecnicas(models.ModelForm):
     class Meta:
         model = Tbpecastecnicas

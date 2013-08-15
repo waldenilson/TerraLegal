@@ -1,7 +1,7 @@
-from django.conf.urls import patterns, include, url
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+from django.conf.urls import patterns, url, include
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -15,6 +15,15 @@ urlpatterns = patterns('',
     
     # ACESSO RESTRITO AO SICOP
     url(r'^sicop/acesso_restrito/', 'web.views.acesso_restrito'),
+    url(r'^sicop/processos/', 'web.views.processos'),
+    url(r'^sicop/processos_novo/', 'web.views.processos_novo'),
+    url(r'^sicop/processos_edicao/', 'web.views.processos_edicao'),
+   
+    url(r'^sicop/pecas_tecnicas/', 'web.views.pecas_tecnicas'),
+    url(r'^sicop/pecas_tecnicas_novo/', 'web.views.pecas_tecnicas_novo'),
+    url(r'^sicop/pecas_tecnicas_edicao/', 'web.views.pecas_tecnicas_edicao'),
+   
+    url(r'^sicop/relatorios/', 'web.views.relatorios'),
     
     # CONTROLE AUTENTICACAO
     url(r'^sicop/login/', 'django.contrib.auth.views.login', {"template_name":"sicop/login.html"}),
