@@ -2,9 +2,12 @@
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 from django.conf.urls import patterns, url, include
+from dajaxice.core import dajaxice_config
 admin.autodiscover()
 
 urlpatterns = patterns('',
+    
+    url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
     
     # ACESSO AO PUBLICO
     url(r'^$', 'web.views_publicas.inicio'),
