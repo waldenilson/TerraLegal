@@ -37,7 +37,7 @@ jQuery(function($){
 
 </head>
 
-<body style="background: #ffff66" 
+<body style="background: yellow" 
 	id="home-pt" dir="ltr" class="section-home template-contentpanels_view">
 	
 	<div class="first-child"
@@ -71,10 +71,10 @@ jQuery(function($){
 				
 				<div style="margin-top:10px" class="baixoContraste first-child last-child">
 
-					<p class="first-child">
+					<p style="font-weight: bold;" class="first-child">
 						Você está aqui: {% block breadcumbs %} {% endblock %}
 					</p>
-					<p class="creditos last-child">
+					<p style="font-weight: bold;" class="creditos last-child">
 						{% if user.is_active %}
 							Usuario: 
 							{% filter force_escape %}{% firstof user.get_short_name user.get_username %}{% endfilter %} 

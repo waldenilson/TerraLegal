@@ -78,7 +78,6 @@
 
 #cssmenu_v ul {
   position: relative;
-  z-index: 597;
   float: left; }
 
 #cssmenu_v ul li {
@@ -88,9 +87,9 @@
   vertical-align: middle; }
 
 #cssmenu_v ul li.hover,
-#cssmenu_v ul li:hover {
+#cssmenu_v ul li a:hover {
+  color: #34db4b;
   position: relative;
-  z-index: 599;
   cursor: default; }
 
 #cssmenu_v ul ul {
@@ -98,7 +97,6 @@
   position: absolute;
   top: 100%;
   left: 0;
-  z-index: 598;
   width: 100%; }
 
 #cssmenu_v ul ul li {
@@ -173,16 +171,17 @@
   #cssmenu_v ul, #cssmenu_v li {
     width: 100%; }
   #cssmenu_v li {
-    background: green url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAJCAMAAAA8eE0hAAAAUVBMVEX////MzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzNzc3l5eXg4ODZ2dnMzMzi4uLS0tLe3t7Q0NDV1dXj4+PW1tbk5OTc3NzPz8/R0dH0Zv5RAAAAC3RSTlMAM2YekAmlPHuEAwArv7wAAAA/SURBVHheY2Dl5mdigABGKV5BNnYok4dHQpKFGcrkEefj5gAzQUBABM7kFYQyRcX4mUBMkEpOLrA2IWGwfgYAn0UDZszv8IwAAAAASUVORK5CYII=) repeat-x;
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #00cc00), color-stop(1, green));
-    background-image: -webkit-linear-gradient(top, #00cc00, green);
-    background-image: -moz-linear-gradient(top, #00cc00, green);
-    background-image: -ms-linear-gradient(top, #00cc00, green);
-    background-image: -o-linear-gradient(top, #00cc00, green);
-    background-image: linear-gradient(#e5e5e5, green); }
+    background: #34db4b url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAJCAMAAAA8eE0hAAAAUVBMVEX////MzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzNzc3l5eXg4ODZ2dnMzMzi4uLS0tLe3t7Q0NDV1dXj4+PW1tbk5OTc3NzPz8/R0dH0Zv5RAAAAC3RSTlMAM2YekAmlPHuEAwArv7wAAAA/SURBVHheY2Dl5mdigABGKV5BNnYok4dHQpKFGcrkEefj5gAzQUBABM7kFYQyRcX4mUBMkEpOLrA2IWGwfgYAn0UDZszv8IwAAAAASUVORK5CYII=) repeat-x;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #7af48b), color-stop(1, #34db4b));
+    background-image: -webkit-linear-gradient(top, #7af48b, #34db4b);
+    background-image: -moz-linear-gradient(top, #7af48b, #34db4b);
+    background-image: -ms-linear-gradient(top, #7af48b, #34db4b);
+    background-image: -o-linear-gradient(top, #7af48b, #34db4b);
+    background-image: linear-gradient(#e5e5e5, #34db4b); }
     #cssmenu_v li:hover {
-      background: #00ff66; }
+      background: yellow; }
   #cssmenu_v a {
+    font-weight: bold;
     color: #fff;
     line-height: 160%;
     padding: 11px 28px 11px 28px;
@@ -244,7 +243,7 @@
 }
 #cssmenu {
   height: 70px;
-  background-color: green;
+  background-color: #34db4b;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.4);
   width: auto;
 }
@@ -254,7 +253,8 @@
   position: relative;
 }
 #cssmenu > ul > li > a {
-  color: #a0a0a0;
+  color: #fff;
+  font-weight: bold;
   font-family: Verdana, 'Lucida Grande';
   font-size: 15px;
   line-height: 70px;
@@ -265,7 +265,7 @@
   transition: color .15s;
 }
 #cssmenu > ul > li > a:hover {
-  color: #ffffff;
+  color: yellow;
 }
 #cssmenu > ul > li > ul {
   opacity: 0;
@@ -351,7 +351,8 @@
 }
 #cssmenu ul ul a:hover {
   background-color: #ffff00;
-  color: #f0f0f0;
+  color: #34db4b;
+  font-weight: bold;
 }
 
 
