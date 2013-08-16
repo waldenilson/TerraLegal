@@ -6,19 +6,29 @@
 
 {% block subtitulo %}
 	
-	PECAS TECNICAS
+	CADASTRAR PECA TECNICA
 	
 {% endblock %}
 
 {% block conteudo %}
-	
-	<div style="width:100%;font-size:12px;text-align:right">
-		<a href="/sicop/pecas_tecnicas/" class="classname2">Consultar Peca Tecnica</a>
-		<a href="/sicop/pecas_tecnicas/" class="classname" onclick="alert('Peca Tecnica Salva com sucesso!');">Salvar Peca Tecnica</a>
+
+	<div style="width:100%;font-size:12px;text-align:left">
+		<form method="post" action=".">
+			<table>
+				{% for field in form %}
+				<tr>
+			    	<td style="padding-right: 10px;padding-bottom: 10px;">
+			    		{{ field.label_tag }}:
+			    	</td>
+			    	<td>{{ field }}</td>
+			    </tr>
+			    {% endfor %}
+			</table>
+		</form>
 	</div>
 	<br/><br/>
-	<div style="width:100%;font-size:12px;text-align:center">
-		campos para novo cadastro de peca tecnica
-	</div>
-	
+	<div style="width:100%;font-size:12px;text-align:right">
+		<a href="/sicop/pecas_tecnicas/" class="button_red">VOLTAR</a>
+		<a href="/sicop/pecas_tecnicas/" class="button_green" onclick="alert('Peca Tecnica Salva com sucesso!');">SALVAR</a>
+	</div>	
 {% endblock %}

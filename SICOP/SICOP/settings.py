@@ -18,6 +18,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASES = {
+             
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'newsicop',                      # Or path to database file if using sqlite3.
@@ -91,7 +92,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'django.contrib.staticfiles.finders.DefaultStorageFinder',
-    'dajaxice.finders.DajaxiceFinder',
+    #'dajaxice.finders.DajaxiceFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -138,8 +139,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'web',
-    'dajaxice',
-    'dajax',
+    #'dajaxice',
+    #'dajax',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )

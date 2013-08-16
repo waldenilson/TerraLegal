@@ -2,12 +2,16 @@
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 from django.conf.urls import patterns, url, include
-from dajaxice.core import dajaxice_config
 admin.autodiscover()
+
+handler404 = 'web.views_excecoes.pagina_nao_encontrada'
+handler403 = 'web.views_excecoes.permissao_negada'
+handler500 = 'web.views_excecoes.erro_servidor'
 
 urlpatterns = patterns('',
     
-    url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
+    # DAJAXICE AJAX DO PROJETO
+    #url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
     
     # ACESSO AO PUBLICO
     url(r'^$', 'web.views_publicas.inicio'),
@@ -32,4 +36,6 @@ urlpatterns = patterns('',
     url(r'^sicop/login/', 'django.contrib.auth.views.login', {"template_name":"sicop/login.html"}),
     url(r'^logout/', 'django.contrib.auth.views.logout_then_login', {"login_url":"/sicop/login/"}),
     url(r'^sicop/admin/', include(admin.site.urls)),
+    
+    
 )

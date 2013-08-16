@@ -4,18 +4,6 @@
 	Acesso Restrito
 {% endblock %}
 
-{% block userlogado %}
-
-<div style="width:100%;text-align:right">
-	Usuario: 
-		{% filter force_escape %}{% firstof user.get_short_name user.get_username %}{% endfilter %} 
-		| <a href="/sicop/admin/">Administracao</a>
-		| <a href="/logout/">Sair do Sistema</a>
-</div>
-
-{% endblock %} 
-
-
 {% block index %}
 <!--========================================================================== Content Part 1 =====================================================================================-->
 
@@ -26,13 +14,13 @@
 		<div class="grid-10 grid">
 			<div id="cssmenu" style="width:100%;font-size:12px;color:green">
 				<ul>
-					<li><a href="/sicop/acesso_restrito/">Processos</a>
+					<li><a href="/sicop/processos/">Processos</a>
 						<ul>
 							<li><a href="/sicop/processos/">Consultar</a>
 							<li><a href="/sicop/processos_novo/">Cadastrar</a>
 						</ul>
 					</li>
-					<li class="has-sub"><a href="/sicop/acesso_restrito/">Pecas Tecnicas</a>
+					<li><a href="/sicop/pecas_tecnicas/">Pecas Tecnicas</a>
 						<ul>
 							<li><a href="/sicop/pecas_tecnicas/">Consultar</a>
 							<li><a href="/sicop/pecas_tecnicas_novo/">Cadastrar</a>
@@ -46,6 +34,7 @@
 				<br/><br/><br/>
 				<div style="height:40px;width:100%;font-size:14px;text-align:left;font-weight:bold;color:green">
 					{% block subtitulo %} {% endblock %}
+					<hr/>
 				</div>
 				{% block conteudo %} {% endblock %}
 			</div>
