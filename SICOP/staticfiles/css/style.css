@@ -1,5 +1,19 @@
 /* BARRA BRASIL */
 
+.colunaTabela
+{
+	padding-right: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+}
+
+.colunaTabelaConsulta
+{
+	padding: 10px;
+	padding: 10px;
+	border: 1px #ccc solid;
+}
+
 #barra-brasil div,#barra-brasil a,#barra-brasil ul,#barra-brasil li {
 	margin: 0;
 	padding: 0;

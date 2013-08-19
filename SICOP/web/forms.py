@@ -6,7 +6,8 @@ from web.models import Tbcaixa, Tbpecastecnicas, Tbprocesso, Tbprocessobase
 class FormPecasTecnicas(models.ModelForm):
     class Meta:
         model = Tbpecastecnicas
-        fields = ('tbcaixa','tbcontrato','tbgleba','stenviadobrasilia','nrarea','nrperimetro','dsobservacao')
+        fields = ('tbcaixa','tbcontrato','nrentrega','nrcpfrequerente','nmrequerente','tbgleba','stpecatecnica',
+                  'stanexadoprocesso','stenviadobrasilia','nrarea','nrperimetro','dsobservacao')
         
 class FormProcessos(models.ModelForm):
     class Meta:

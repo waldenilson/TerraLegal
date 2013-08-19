@@ -93,6 +93,8 @@ class Tbcaixa(models.Model):
     nmlocalarquivo = models.CharField(max_length=80, blank=True)
     qtdprocessos = models.IntegerField(null=True, blank=True)
     tbtipocaixa = models.ForeignKey('Tbtipocaixa')
+    def __unicode__(self):
+        return self.nmlocalarquivo
     class Meta:
         db_table = 'tbcaixa'
 
