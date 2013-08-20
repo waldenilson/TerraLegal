@@ -11,32 +11,33 @@
 {% endblock %}
 
 {% block conteudo %}
-
-	Validacoes: mascara cpf, caixas do tipo pecatecnica, contrato|caixa|gleba nao vazios
-
-	<div style="width:100%;font-size:12px;text-align:left">
-		<form method="post" action=".">
-			<table>
-			
-			   <tr> <td class="colunaTabela"> <label>Contrato:</label> </td><td>{{ form.tbcontrato }} </td> </tr>
-			   <tr> <td class="colunaTabela"> <label>Entrega:</label> </td><td>{{ form.nrentrega }} </td> </tr>
-			   <tr> <td class="colunaTabela"> <label>CPF do Requerente:</label> </td><td> <input size="15" id="cpf" name="nrcpfrequerente" /> </td> </tr>
-			   <tr> <td class="colunaTabela"> <label>Nome do Requerente:</label> </td><td> <input size="35" name="nmrequerente" /> </td> </tr>
-			   <tr> <td class="colunaTabela"> <label>Caixa:</label> </td><td>{{ form.tbcaixa }} </td> </tr>
-			   <tr> <td class="colunaTabela"> <label>Area:</label> </td><td>{{ form.nrarea }} </td> </tr>
-			   <tr> <td class="colunaTabela"> <label>Perimetro:</label> </td><td>{{ form.nrperimetro }} </td> </tr>
-			   <tr> <td class="colunaTabela"> <label>Gleba:</label> </td><td>{{ form.tbgleba }} </td> </tr>
-			   <tr> <td class="colunaTabela"> <label>Anexado ao processo:</label> </td><td>{{ form.stanexadoprocesso }} </td> </tr>
-			   <tr> <td class="colunaTabela"> <label>Enviado Brasilia:</label> </td><td>{{ form.stenviadobrasilia }} </td> </tr>
-			   <tr> <td class="colunaTabela"> <label>Peca Tecnica Aprovada:</label> </td><td>{{ form.stpecatecnica }} </td> </tr>			   
-			   <tr> <td class="colunaTabela"> <label>Observacao:</label> </td><td> <textarea rows="4" cols="40" name="dsobservacao"></textarea></td> </tr>
-			    
-			</table>
-		</form>
-	</div>
-	<br/><br/>
-	<div style="width:100%;font-size:12px;text-align:right">
-		<a href="/sicop/pecas_tecnicas/" class="button_red">VOLTAR</a>
-		<a href="/sicop/pecas_tecnicas/" class="button_green" onclick="alert('Peca Tecnica Salva com sucesso!');">SALVAR</a>
-	</div>	
+	
+		Validacoes: mascara cpf, caixas do tipo pecatecnica, contrato|caixa|gleba nao vazios
+	<form method="post" action=".">
+		{% csrf_token %}
+		<div style="width:100%;font-size:12px;text-align:left">
+				<table>
+					
+				   <tr> <td class="colunaTabela"> <label>Contrato:</label> </td><td>{{ form.tbcontrato }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Entrega:</label> </td><td>{{ form.nrentrega }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>CPF do Requerente:</label> </td><td> <input size="15" id="cpf" name="nrcpfrequerente" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Nome do Requerente:</label> </td><td> <input size="35" name="nmrequerente" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Caixa:</label> </td><td>{{ form.tbcaixa }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Area:</label> </td><td>{{ form.nrarea }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Perimetro:</label> </td><td>{{ form.nrperimetro }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Gleba:</label> </td><td>{{ form.tbgleba }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Anexado ao processo:</label> </td><td>{{ form.stanexadoprocesso }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Enviado Brasilia:</label> </td><td>{{ form.stenviadobrasilia }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Peca Tecnica Aprovada:</label> </td><td>{{ form.stpecatecnica }} </td> </tr>			   
+				   <tr> <td class="colunaTabela"> <label>Observacao:</label> </td><td> <textarea rows="4" cols="40" name="dsobservacao"></textarea></td> </tr>
+				    
+				</table>
+		</div>
+		<br/><br/>
+		<div style="width:100%;font-size:12px;text-align:right">
+			<button onclick="/sicop/pecas_tecnicas/" class="button_red">VOLTAR</button>
+			<button type="submit" class="button_green" >SALVAR</button>
+		</div>	
+	</form>
+	
 {% endblock %}

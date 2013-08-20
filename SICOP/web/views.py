@@ -1,6 +1,6 @@
 # Create your views here.
 from django.template import loader
-from django.http.response import HttpResponse
+from django.http.response import HttpResponse, HttpResponseRedirect
 from django.template.context import Context, RequestContext
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, render_to_response, get_object_or_404
@@ -46,15 +46,23 @@ def processos_edicao(request):
 def pecas_tecnicas(request):
     if request.method == "POST":
         requerente = request.POST['requerente']
+        cpf = request.POST['cpf']
         print requerente
-        lista = Tbpecastecnicas.objects.filter( nmrequerente__contains=requerente ).order_by('id')
+        lista = Tbpecastecnicas.objects.filter( nmrequerente__contains=requerente, nrcpfrequerente__contains=cpf ).order_by('id')
     else:
         lista = Tbpecastecnicas.objects.all()
     return render_to_response('sicop/pecas_tecnicas.html',{'lista_peca_tecnica':lista}, context_instance = RequestContext(request))
 
 @login_required
 def pecas_tecnicas_novo(request):
-    form = FormPecasTecnicas()
+    if request.method == "POST":
+        form = FormPecasTecnicas(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect("/sicop/pecas_tecnicas/")
+    else:
+        form = FormPecasTecnicas()
+    
     return render_to_response('sicop/pecas_tecnicas_novo.html',{"form":form}, context_instance = RequestContext(request))
 
 @login_required

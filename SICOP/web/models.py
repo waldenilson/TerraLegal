@@ -118,6 +118,9 @@ class Tbcontrato(models.Model):
 #    id = models.IntegerField(primary_key=True)
     nrcontrato = models.CharField(max_length=10, blank=True)
     nmempresa = models.CharField(max_length=100, blank=True)
+    def __unicode__(self):
+        return self.nrcontrato
+
     class Meta:
         db_table = 'tbcontrato'
 
@@ -126,6 +129,8 @@ class Tbgleba(models.Model):
     cdgleba = models.IntegerField(null=True, blank=True)
     nmgleba = models.CharField(max_length=80, blank=True)
     tbsubarea = models.ForeignKey('Tbsubarea')
+    def __unicode__(self):
+        return self.nmgleba
     class Meta:
         db_table = 'tbgleba'
 
@@ -184,6 +189,8 @@ class Tbmunicipio(models.Model):
     geometry1_yhi = models.CharField(max_length=50, db_column='Geometry1_YHI', blank=True) # Field name made lowercase.
     num_ver = models.IntegerField(null=True, db_column='Num_Ver', blank=True) # Field name made lowercase.
     pref = models.CharField(max_length=50, db_column='Pref', blank=True) # Field name made lowercase.
+    def __unicode__(self):
+        return self.nome_mun
     class Meta:
         db_table = 'tbmunicipio'
 
@@ -200,7 +207,7 @@ class Tbmunicipiomodulo(models.Model):
         db_table = 'tbmunicipiomodulo'
 
 class Tbpecastecnicas(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     tbcaixa = models.ForeignKey(Tbcaixa)
     tbcontrato = models.ForeignKey(Tbcontrato)
     tbgleba = models.ForeignKey(Tbgleba)
@@ -316,6 +323,8 @@ class Tbsubarea(models.Model):
 #    id = models.IntegerField(primary_key=True)
     cdsubarea = models.CharField(max_length=10, blank=True)
     nmsubarea = models.CharField(max_length=80, blank=True)
+    def __unicode__(self):
+        return self.nmsubarea
     class Meta:
         db_table = 'tbsubarea'
 

@@ -1,10 +1,22 @@
-{% extends "admin/base.html" %}
+{% extends "sicop/acesso_restrito.html" %}
 {% load i18n %}
 
-{% block title %}{{ title }} | {% trans 'Django site admin' %}{% endblock %}
 
-{% block branding %}
-<h1 id="site-name">{% trans 'Django administration' %}</h1>
+{% block breadcumbs %}
+	Acesso Restrito | Administracao
 {% endblock %}
 
-{% block nav-global %}{% endblock %}
+{% block subtitulo %}
+	
+	ADMINISTRACAO
+	
+{% endblock %}
+
+{% block conteudo %}
+
+	{% block content %}
+        {% block object-tools %}{% endblock %}
+        {{ content }}
+    {% endblock %}	
+	
+{% endblock %}
