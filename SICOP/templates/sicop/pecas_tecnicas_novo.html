@@ -12,7 +12,14 @@
 
 {% block conteudo %}
 	
-		Validacoes: mascara cpf, caixas do tipo pecatecnica, contrato|caixa|gleba nao vazios
+	{% if messages %}
+		<ul class="messages">
+		    {% for message in messages %}
+		    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+		    {% endfor %}
+		</ul>
+	{% endif %}
+		
 	<form method="post" action=".">
 		{% csrf_token %}
 		<div style="width:100%;font-size:12px;text-align:left">
@@ -20,10 +27,18 @@
 					
 				   <tr> <td class="colunaTabela"> <label>Contrato:</label> </td><td>{{ form.tbcontrato }} </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Entrega:</label> </td><td>{{ form.nrentrega }} </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>CPF do Requerente:</label> </td><td> <input size="15" id="cpf" name="nrcpfrequerente" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>CPF do Requerente:</label> </td><td> <input  size="15" id="cpf" name="nrcpfrequerente" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Nome do Requerente:</label> </td><td> <input size="35" name="nmrequerente" /> </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Caixa:</label> </td><td>{{ form.tbcaixa }} </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Area:</label> </td><td>{{ form.nrarea }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
+				   		<td>
+				   			<select id="id_tbcaixa" name="tbcaixa">
+								{% for obj in caixa %}
+									<option value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
+								{% endfor %}
+							</select>
+						</td>
+				   	</tr>
+				   <tr> <td class="colunaTabela"> <label>Area:</label> </td><td> {{ form.nrarea }} </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Perimetro:</label> </td><td>{{ form.nrperimetro }} </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Gleba:</label> </td><td>{{ form.tbgleba }} </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Anexado ao processo:</label> </td><td>{{ form.stanexadoprocesso }} </td> </tr>

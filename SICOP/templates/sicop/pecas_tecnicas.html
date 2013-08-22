@@ -1,5 +1,6 @@
 {% extends "sicop/acesso_restrito.html" %} 
 {% load staticfiles %} 
+{% load pagination_tags %}
 
 {% block breadcumbs %}
 	Acesso Restrito | Pecas Tecnicas
@@ -14,20 +15,46 @@
 {% block conteudo %}
 	
 	<div style="width:100%;font-size:11px;text-align:center">
-		
-		
+				
 <!-- 		FORMULARIOS DOS FILTROS / CONSULTAS -->
 
 		<form action="." method="post">
 			{% csrf_token %}
 			<table>
 				   <tr> 
-				   		<td class="colunaTabela"> <label>Contrato:</label> </td><td> <input name="contrato" /> </td>
+				   		<td class="colunaTabela"> <label>Contrato:</label> </td>
+				   			<td>
+				   				<select id="id_tbcontrato" name="contrato">
+									<option value="0" selected="selected">---------</option>
+									{% for obj in contrato %}
+										<option value="{{ obj.id }}">{{ obj.nrcontrato }}</option>
+									{% endfor %}
+								</select>
+							</td>
+								
 				   		<td class="colunaTabela"> <label>Entrega:</label> </td><td> <input name="entrega" /> </td>
-				   		<td class="colunaTabela"> <label>Gleba:</label> </td><td> <input name="gleba" /> </td>
+				   		<td class="colunaTabela"> <label>Gleba:</label> </td>
+				   			<td>
+				   				<select id="id_tbgleba" name="gleba">
+									<option value="0" selected="selected">---------</option>
+									{% for obj in gleba %}
+										<option value="{{ obj.id }}">{{ obj.nmgleba }}</option>
+									{% endfor %}
+								</select>
+							</td>
+				   		
 				   </tr>
 				   <tr> 
-				   		<td class="colunaTabela"> <label>Caixa:</label> </td><td> <input name="caixa" /> </td>
+				   		<td class="colunaTabela"> <label>Caixa:</label> </td>
+				   			<td>
+				   				<select id="id_tbcaixa" name="caixa">
+									<option value="0" selected="selected">---------</option>
+									{% for obj in caixa %}
+										<option value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
+									{% endfor %}
+								</select>
+							</td>
+				   		
 				   		<td class="colunaTabela"> <label>CPF:</label> </td><td> <input name="cpf" /> </td>
 				   		<td class="colunaTabela"> <label>Requerente:</label> </td><td> <input name="requerente" /> </td>
 				   </tr>
@@ -38,29 +65,36 @@
 
 <!-- 		RESULTADO DOS FILTROS / CONSULTAS		 -->
 		
+		  {% autopaginate data 10 %}
+		  {% for data in lista %}
+		     <td>{{ data.id }}</td>
+		  </tr>
+		  {% endfor %}
+		  {% paginate %}
+			
 		<table>
 			<thead style="background:#e5e5e5;color:black">
 				<tr>
+					<th class="colunaTabelaConsulta" style="width:8%">Detalhes</th>
 					<th class="colunaTabelaConsulta" style="width:8%">Contrato</th>
 					<th class="colunaTabelaConsulta" style="width:14%">Gleba</th>
 					<th class="colunaTabelaConsulta" style="width:8%">Area</th>
 					<th class="colunaTabelaConsulta" style="width:8%">CPF</th>
 					<th class="colunaTabelaConsulta" style="width:40%">Nome</th>
 					<th class="colunaTabelaConsulta" style="width:14%">Caixa</th>
-					<th class="colunaTabelaConsulta" style="width:8%">Detalhes</th>
 				</tr>
 			</thead>
 			<tbody>
 				{% if lista_peca_tecnica %}
 					{% for obj in lista_peca_tecnica %}
-						<tr> 
+						<tr>
+							<td class="colunaTabelaConsulta"> <a href="/sicop/pecas_tecnicas/"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
 							<td class="colunaTabelaConsulta">{{ obj.tbcontrato.nrcontrato }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.tbgleba }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.nrarea }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.nrcpfrequerente }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.nmrequerente }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.tbcaixa.nmlocalarquivo }}</td>
-							<td class="colunaTabelaConsulta"> <a href="/sicop/pecas_tecnicas/"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td>
 						</tr>
 					{% endfor %}
 				{% else %}

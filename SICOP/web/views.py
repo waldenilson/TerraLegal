@@ -4,9 +4,14 @@ from django.http.response import HttpResponse, HttpResponseRedirect
 from django.template.context import Context, RequestContext
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, render_to_response, get_object_or_404
-from web.models import Tbcaixa, Tbtipocaixa, Tbpecastecnicas
+from web.models import Tbcaixa, Tbtipocaixa, Tbpecastecnicas, Tbgleba,\
+    Tbcontrato
 from web.forms import FormPecasTecnicas, FormProcessos
 from django.http import request
+from web.validacao import validacao_form_peca_tecnica
+from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage
+from django.core import paginator
 
 @login_required
 def acesso_restrito(request):
@@ -44,26 +49,43 @@ def processos_edicao(request):
 
 @login_required
 def pecas_tecnicas(request):
+    
     if request.method == "POST":
         requerente = request.POST['requerente']
         cpf = request.POST['cpf']
-        print requerente
-        lista = Tbpecastecnicas.objects.filter( nmrequerente__contains=requerente, nrcpfrequerente__contains=cpf ).order_by('id')
+        entrega = request.POST['entrega']
+        contrato = request.POST['contrato']
+        gleba = request.POST['gleba']
+        caixa = request.POST['caixa']
+        lista = Tbpecastecnicas.objects.filter( tbcontrato=contrato, tbgleba=gleba, tbcaixa=caixa, nmrequerente__contains=requerente, nrcpfrequerente__contains=cpf, nrentrega__contains=entrega ).order_by('id')
+    
     else:
         lista = Tbpecastecnicas.objects.all()
-    return render_to_response('sicop/pecas_tecnicas.html',{'lista_peca_tecnica':lista}, context_instance = RequestContext(request))
+    
+    # combobox
+    gleba = Tbgleba.objects.all()
+    # buscar caixa do tipo peca
+    caixa = Tbcaixa.objects.filter( tbtipocaixa = 2 )
+    contrato = Tbcontrato.objects.all()
+    
+    return render_to_response('sicop/pecas_tecnicas.html',{'lista_peca_tecnica':lista,'gleba':gleba,'contrato':contrato,'caixa':caixa}, context_instance = RequestContext(request))
 
 @login_required
 def pecas_tecnicas_novo(request):
+    
+    caixa = Tbcaixa.objects.filter( tbtipocaixa = 2 )
+    
     if request.method == "POST":
         form = FormPecasTecnicas(request.POST)
+        form.tbcaixa = request.POST['tbcaixa']
+        validacao_form_peca_tecnica(request)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect("/sicop/pecas_tecnicas/")
+            return HttpResponseRedirect("/sicop/pecas_tecnicas/") 
     else:
         form = FormPecasTecnicas()
     
-    return render_to_response('sicop/pecas_tecnicas_novo.html',{"form":form}, context_instance = RequestContext(request))
+    return render_to_response('sicop/pecas_tecnicas_novo.html',{"form":form,'caixa':caixa}, context_instance = RequestContext(request))
 
 @login_required
 def pecas_tecnicas_edicao(request):
