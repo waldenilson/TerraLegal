@@ -57,7 +57,13 @@ def pecas_tecnicas(request):
         contrato = request.POST['contrato']
         gleba = request.POST['gleba']
         caixa = request.POST['caixa']
-        lista = Tbpecastecnicas.objects.filter( tbcontrato=contrato, tbgleba=gleba, tbcaixa=caixa, nmrequerente__contains=requerente, nrcpfrequerente__contains=cpf, nrentrega__contains=entrega ).order_by('id')
+        lista = Tbpecastecnicas.objects.all().filter( nmrequerente__contains=requerente, nrcpfrequerente__contains=cpf, nrentrega__contains=entrega )
+        if contrato != '0':
+            lista = lista.filter( tbcontrato=contrato )
+        if gleba != '0':
+            lista = lista.filter( tbgleba=gleba )
+        if caixa != '0':
+            lista = lista.filter( tbcaixa=caixa )
     
     else:
         lista = Tbpecastecnicas.objects.all()
@@ -73,19 +79,21 @@ def pecas_tecnicas(request):
 @login_required
 def pecas_tecnicas_novo(request):
     
+    contrato = Tbcontrato.objects.all()
     caixa = Tbcaixa.objects.filter( tbtipocaixa = 2 )
+    gleba = Tbgleba.objects.all()
     
     if request.method == "POST":
         form = FormPecasTecnicas(request.POST)
         form.tbcaixa = request.POST['tbcaixa']
-        validacao_form_peca_tecnica(request)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect("/sicop/pecas_tecnicas/") 
+        if validacao_form_peca_tecnica(request):
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect("/sicop/pecas_tecnicas/") 
     else:
         form = FormPecasTecnicas()
     
-    return render_to_response('sicop/pecas_tecnicas_novo.html',{"form":form,'caixa':caixa}, context_instance = RequestContext(request))
+    return render_to_response('sicop/pecas_tecnicas_novo.html',{"form":form,'caixa':caixa,'contrato':contrato,'gleba':gleba}, context_instance = RequestContext(request))
 
 @login_required
 def pecas_tecnicas_edicao(request):
