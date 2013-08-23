@@ -11,16 +11,14 @@ from django.http import request
 from web.validacao import validacao_form_peca_tecnica
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage
-from django.core import paginator
+from django.core import paginator, serializers
 
 @login_required
 def acesso_restrito(request):
     return render_to_response('sicop/acesso_restrito.html')    
     
 
-
 #PROCESSOS -----------------------------------------------------------------------------------------------------------------------------
-
 
 
 @login_required
@@ -45,7 +43,6 @@ def processos_edicao(request):
 
 
 #PECAS TECNICAS -----------------------------------------------------------------------------------------------------------------------------
-
 
 @login_required
 def pecas_tecnicas(request):
@@ -96,13 +93,24 @@ def pecas_tecnicas_novo(request):
     return render_to_response('sicop/pecas_tecnicas_novo.html',{"form":form,'caixa':caixa,'contrato':contrato,'gleba':gleba}, context_instance = RequestContext(request))
 
 @login_required
-def pecas_tecnicas_edicao(request):
-    if request.method == "GET":
-        id_consulta = request.GET['id']
-        print id_consulta
+def pecas_tecnicas_edicao(request, id_peca):
+    
+    contrato = Tbcontrato.objects.all()
+    caixa = Tbcaixa.objects.filter( tbtipocaixa = 2 )
+    gleba = Tbgleba.objects.all()
+    
+    if request.method == "POST":
+        form = FormPecasTecnicas(request.POST)
+        form.tbcaixa = request.POST['tbcaixa']
+        if validacao_form_peca_tecnica(request):
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect("/sicop/pecas_tecnicas/") 
+    else:
+        id_consulta = id_peca
         objPeca = get_object_or_404(Tbpecastecnicas, pk=id_consulta)
 
-    return render_to_response('sicop/pecas_tecnicas_edicao.html',{"obj_peca":objPeca})
+    return render_to_response('sicop/pecas_tecnicas_edicao.html',{"obj_peca":objPeca,'caixa':caixa,'contrato':contrato,'gleba':gleba}, context_instance = RequestContext(request))
 
 
 #RELATORIOS -----------------------------------------------------------------------------------------------------------------------------

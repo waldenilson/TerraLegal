@@ -91,7 +91,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    #'django.contrib.staticfiles.finders.DefaultStorageFinder',
     #'dajaxice.finders.DajaxiceFinder',
 )
 
@@ -102,7 +102,7 @@ SECRET_KEY = 'sln8&&%o6=1g!jhmuranz2k@mh6dk48l#21qfp67p60h3l=q(2'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -149,9 +149,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'web',
-    'pagination',
-    'dajaxice',
-    'dajax',
+    #'pagination',
+    #'dajaxice',
+    #'dajax',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )

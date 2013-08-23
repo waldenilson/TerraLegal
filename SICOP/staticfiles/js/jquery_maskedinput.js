@@ -4,6 +4,8 @@
 	Licensed under the MIT license (http://digitalbush.com/projects/masked-input-plugin/#license)
 	Version: 1.3.1
 */
+
+
 (function($) {
 	function getPasteEvent() {
     var el = document.createElement('input'),

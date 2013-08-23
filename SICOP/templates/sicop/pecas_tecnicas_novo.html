@@ -1,5 +1,5 @@
 {% extends "sicop/acesso_restrito.html" %} 
-
+{% load staticfiles %} 
 {% block breadcumbs %}
 	Acesso Restrito | Pecas Tecnicas | Novo
 {% endblock %}
@@ -32,12 +32,12 @@
 									<option value="{{ obj.id }}">{{ obj.nrcontrato }}</option>
 								{% endfor %}
 							</select>
-							<a href="/sicop/admin/web/tbcontrato/add/"> Novo</a>
+							<a href="/sicop/admin/web/tbcontrato/add/"> <img alt="Novo Contrato" width="16" src="{% static "img/add.png" %}"> </a>
 						</td>
 				   	</tr>
 				   <tr> <td class="colunaTabela"> <label>Entrega:</label> </td><td>{{ form.nrentrega }} </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>CPF do Requerente:</label> </td><td> <input  size="15" id="cpf" name="nrcpfrequerente" /> </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Nome do Requerente:</label> </td><td> <input size="35" id="processo" name="nmrequerente" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Nome do Requerente:</label> </td><td> <input size="35" name="nmrequerente" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
 				   		<td>
 				   			<select id="id_tbcaixa" name="tbcaixa">
@@ -45,6 +45,7 @@
 									<option value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
 								{% endfor %}
 							</select>
+							<a href="/sicop/admin/web/tbcaixa/add/"> <img alt="Nova Caixa" width="16" src="{% static "img/add.png" %}"> </a>
 						</td>
 				   	</tr>
 				   <tr> <td class="colunaTabela"> <label>Area:</label> </td><td> {{ form.nrarea }} </td> </tr>
@@ -56,6 +57,7 @@
 									<option value="{{ obj.id }}">{{ obj.nmgleba }}</option>
 								{% endfor %}
 							</select>
+							<a href="/sicop/admin/web/tbgleba/add/"> <img alt="Nova Gleba" width="16" src="{% static "img/add.png" %}"> </a>
 						</td>
 				   	</tr>
 				   <tr> <td class="colunaTabela"> <label>Anexado ao processo:</label> </td><td>{{ form.stanexadoprocesso }} </td> </tr>

@@ -213,7 +213,7 @@ class Tbpecastecnicas(models.Model):
     tbgleba = models.ForeignKey(Tbgleba)
     cdpeca = models.CharField(max_length=50, blank=True)
     nrentrega = models.CharField(max_length=10, blank=True)
-    nrcpfrequerente = models.CharField(max_length=11, blank=True)
+    nrcpfrequerente = models.CharField(max_length=14, blank=True)
     nmrequerente = models.CharField(max_length=80, blank=True)
     stenviadobrasilia = models.BooleanField(null=False, blank=True)
     stpecatecnica = models.BooleanField(null=False, blank=True)

@@ -2,6 +2,8 @@
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 from django.conf.urls import patterns, url, include
+from dajaxice.core import dajaxice_config
+from dajaxice.core.Dajaxice import dajaxice_autodiscover
 admin.autodiscover()
 
 handler404 = 'web.views_excecoes.pagina_nao_encontrada'
@@ -28,7 +30,7 @@ urlpatterns = patterns('',
    
     url(r'^sicop/pecas_tecnicas/', 'web.views.pecas_tecnicas'),
     url(r'^sicop/pecas_tecnicas_novo/', 'web.views.pecas_tecnicas_novo'),
-    url(r'^sicop/pecas_tecnicas_edicao/', 'web.views.pecas_tecnicas_edicao'),
+    url(r'^sicop/pecas_tecnicas_edicao/(?P<id_peca>\d+)/', 'web.views.pecas_tecnicas_edicao'),
    
     url(r'^sicop/relatorios/', 'web.views.relatorios'),
     
@@ -36,6 +38,5 @@ urlpatterns = patterns('',
     url(r'^sicop/login/', 'django.contrib.auth.views.login', {"template_name":"sicop/login.html"}),
     url(r'^logout/', 'django.contrib.auth.views.logout_then_login', {"login_url":"/sicop/login/"}),
     url(r'^sicop/admin/', include(admin.site.urls)),
-    
     
 )

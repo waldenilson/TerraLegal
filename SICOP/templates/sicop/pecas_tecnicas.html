@@ -1,6 +1,5 @@
 {% extends "sicop/acesso_restrito.html" %} 
 {% load staticfiles %} 
-{% load pagination_tags %}
 
 {% block breadcumbs %}
 	Acesso Restrito | Pecas Tecnicas
@@ -81,7 +80,7 @@
 				{% if lista_peca_tecnica %}
 					{% for obj in lista_peca_tecnica %}
 						<tr>
-							<td class="colunaTabelaConsulta"> <a href="/sicop/pecas_tecnicas/"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
+							<td class="colunaTabelaConsulta"> <a href="/sicop/pecas_tecnicas_edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
 							<td class="colunaTabelaConsulta">{{ obj.tbcontrato.nrcontrato }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.tbgleba }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.nrarea }}</td>
