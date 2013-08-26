@@ -27,9 +27,9 @@
 				    <tr> <td class="colunaTabela"> <label>Contrato:</label> </td>
 				   		<td>
 				   			<select id="id_tbcontrato" name="tbcontrato">
-								<option selected="selected" value="{{ obj_peca.tbcontrato }}"> {{ obj_peca.tbcontrato.nrcontrato }} </option>
+								<option selected="selected" value="{{ obj_peca.tbcontrato.id }}"> {{ obj_peca.tbcontrato.nrcontrato }} </option>
 								{% for obj in contrato %}
-									<option value="{{ obj_peca.id }}">{{ obj.nrcontrato }}</option>
+									<option value="{{ obj.id }}">{{ obj.nrcontrato }}</option>
 								{% endfor %}
 							</select>
 							<a href="/sicop/admin/web/tbcontrato/add/"> <img alt="Novo Contrato" width="16" src="{% static "img/add.png" %}"> </a>
@@ -42,7 +42,7 @@
 					<tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
 				   		<td>
 				   			<select id="id_tbcaixa" name="tbcaixa">
-				   				<option selected="selected" value="{{ obj_peca.tbcaixa }}"> {{ obj_peca.tbcaixa.nmlocalarquivo }} </option>
+				   				<option selected="selected" value="{{ obj_peca.tbcaixa.id }}"> {{ obj_peca.tbcaixa.nmlocalarquivo }} </option>
 								{% for obj in caixa %}
 									<option value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
 								{% endfor %}
@@ -50,12 +50,12 @@
 							<a href="/sicop/admin/web/tbcaixa/add/"> <img alt="Nova Caixa" width="16" src="{% static "img/add.png" %}"> </a>
 						</td>
 				   	</tr>
-				   <tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input  size="15" value="{{ obj_peca.nrarea }}" name="nrarea" /> </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Perimetro:</label> </td><td> <input  size="15" value="{{ obj_peca.nrperimetro }}" name="nrperimetro" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input onkeypress="return SomenteNumero(event,this)"  size="15" value="{{ obj_peca.nrarea }}" name="nrarea" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Perimetro:</label> </td><td> <input id="perimetro"  size="15" value="{{ obj_peca.nrperimetro }}" name="nrperimetro" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Gleba:</label> </td>
 				   		<td>
 				   			<select id="id_tbgleba" name="tbgleba">
-								<option selected="selected" value="{{ obj_peca.tbgleba }}"> {{ obj_peca.tbgleba.nmgleba }} </option>
+								<option selected="selected" value="{{ obj_peca.tbgleba.id }}"> {{ obj_peca.tbgleba.nmgleba }} </option>
 								{% for obj in gleba %}
 									<option value="{{ obj.id }}">{{ obj.nmgleba }}</option>
 								{% endfor %}
@@ -66,14 +66,14 @@
 				   <tr> <td class="colunaTabela"> <label>Anexado ao processo:</label> </td><td> <input type="checkbox" value="{{ obj_peca.stanexadoprocesso }}" name="stanexadoprocesso" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Enviado Brasilia:</label> </td><td> <input type="checkbox" value="{{ obj_peca.stenviadobrasilia }}" name="stenviadobrasilia" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Peca Tecnica Aprovada:</label> </td><td> <input type="checkbox" value="{{ obj_peca.stpecatecnica }}" name="stpecatecnica" /> </td> </tr>	   
-				   <tr> <td class="colunaTabela"> <label>Observacao:</label> </td><td> <textarea rows="4" cols="40" name="dsobservacao"> {{ obj_peca.dsobservacao }} </textarea> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Observacao:</label> </td><td> <textarea rows="4" cols="40" name="dsobservacao">{{ obj_peca.dsobservacao }}</textarea> </td> </tr>
 				
 				</table>
 		</div>
 		<br/><br/>
 		<div style="width:100%;font-size:12px;text-align:right">
-			<button onclick="/sicop/pecas_tecnicas/" class="button_red">VOLTAR</button>
-			<button type="submit" class="button_green" >SALVAR</button>
+			<a href="/sicop/pecas_tecnicas/" class="button_red">VOLTAR</a>
+			<input type="submit" class="button_green" value="SALVAR" />
 		</div>	
 	</form>
 		

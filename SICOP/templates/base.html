@@ -34,6 +34,29 @@ jQuery(function($){
 	$("#ssn").mask("999-99-9999");
 	$("#processo").mask("99999.999999/9999-99");
 });
+
+function SomenteNumero(e, obj)
+{
+	var tecla=(window.event)?event.keyCode:e.which;
+	if((tecla>47 && tecla<58)) return true;
+	else
+	{
+
+		if (tecla==8 || tecla==0 ) return true;
+		else
+			if(tecla==46)
+			{
+				if (obj.value.indexOf(".") > 1)
+					return false;
+				else
+					return true;
+			}
+			else
+				return false;
+			
+	}
+}
+
 </script>
 
 </head>

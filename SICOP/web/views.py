@@ -65,6 +65,8 @@ def pecas_tecnicas(request):
     else:
         lista = Tbpecastecnicas.objects.all()
     
+    lista = lista.order_by( 'id' )
+    
     # combobox
     gleba = Tbgleba.objects.all()
     # buscar caixa do tipo peca
@@ -100,8 +102,11 @@ def pecas_tecnicas_edicao(request, id_peca):
     gleba = Tbgleba.objects.all()
     
     if request.method == "POST":
-        form = FormPecasTecnicas(request.POST)
+        instance = get_object_or_404(Tbpecastecnicas, id=id_peca)
+        form = FormPecasTecnicas(request.POST, instance=instance)
         form.tbcaixa = request.POST['tbcaixa']
+        form.tbgleba = request.POST['tbgleba']   
+        
         if validacao_form_peca_tecnica(request):
             if form.is_valid():
                 form.save()
@@ -110,7 +115,9 @@ def pecas_tecnicas_edicao(request, id_peca):
         id_consulta = id_peca
         objPeca = get_object_or_404(Tbpecastecnicas, pk=id_consulta)
 
-    return render_to_response('sicop/pecas_tecnicas_edicao.html',{"obj_peca":objPeca,'caixa':caixa,'contrato':contrato,'gleba':gleba}, context_instance = RequestContext(request))
+        return render_to_response('sicop/pecas_tecnicas_edicao.html',
+                              {"obj_peca":objPeca,'caixa':caixa,'contrato':contrato,'gleba':gleba}, 
+                              context_instance = RequestContext(request))
 
 
 #RELATORIOS -----------------------------------------------------------------------------------------------------------------------------

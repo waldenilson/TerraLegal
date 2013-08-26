@@ -3,6 +3,7 @@
 # Create your models here.
 from __future__ import unicode_literals
 from django.db import models
+from django.templatetags.l10n import localize
 
 class AuthGroup(models.Model):
     id = models.IntegerField(primary_key=True)
