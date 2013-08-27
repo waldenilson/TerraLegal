@@ -1,6 +1,7 @@
 {% extends "sicop/acesso_restrito.html" %} 
 {% load staticfiles %} 
 {% load pagination_tags %}
+{% load sorting_tags %}
 
 {% block breadcumbs %}
 	Acesso Restrito | Pecas Tecnicas
@@ -69,16 +70,17 @@
 			<thead style="background:#e5e5e5;color:black">
 				<tr>
 					<th class="colunaTabelaConsulta" style="width:8%">Detalhes</th>
-					<th class="colunaTabelaConsulta" style="width:8%">Contrato</th>
-					<th class="colunaTabelaConsulta" style="width:14%">Gleba</th>
-					<th class="colunaTabelaConsulta" style="width:8%">Area</th>
-					<th class="colunaTabelaConsulta" style="width:8%">CPF</th>
-					<th class="colunaTabelaConsulta" style="width:40%">Nome</th>
+					<th class="colunaTabelaConsulta" style="width:12%">{% anchor tbcontrato Contrato %}</th>
+					<th class="colunaTabelaConsulta" style="width:14%">{% anchor tbgleba Gleba %}</th>
+					<th class="colunaTabelaConsulta" style="width:8%">{% anchor nrarea Area %}</th>
+					<th class="colunaTabelaConsulta" style="width:8%">{% anchor nrcpfrequerente CPF %}</th>
+					<th class="colunaTabelaConsulta" style="width:36%">{% anchor nmrequerente Nome %}</th>
 					<th class="colunaTabelaConsulta" style="width:14%">Caixa</th>
 				</tr>
 			</thead>
 			<tbody>
 				{% if lista_peca_tecnica %}
+					{% autosort lista_peca_tecnica %}
 					{% autopaginate lista_peca_tecnica 1 %}
 					{% for obj in lista_peca_tecnica %}
 						<tr>
