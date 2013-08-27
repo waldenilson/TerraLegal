@@ -12,6 +12,7 @@ from web.validacao import validacao_form_peca_tecnica
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage
 from django.core import paginator, serializers
+from web.utils import get_datatables_records
 
 @login_required
 def acesso_restrito(request):
@@ -72,8 +73,7 @@ def pecas_tecnicas(request):
     # buscar caixa do tipo peca
     caixa = Tbcaixa.objects.filter( tbtipocaixa = 2 )
     contrato = Tbcontrato.objects.all()
-    
-    return render_to_response('sicop/pecas_tecnicas.html',{'lista_peca_tecnica':lista,'gleba':gleba,'contrato':contrato,'caixa':caixa}, context_instance = RequestContext(request))
+    return render_to_response('sicop/pecas_tecnicas.html' ,{'lista_peca_tecnica':lista,'gleba':gleba,'contrato':contrato,'caixa':caixa}, context_instance = RequestContext(request))
 
 @login_required
 def pecas_tecnicas_novo(request):
@@ -105,10 +105,15 @@ def pecas_tecnicas_edicao(request, id_peca):
         instance = get_object_or_404(Tbpecastecnicas, id=id_peca)
         form = FormPecasTecnicas(request.POST, instance=instance)
         form.tbcaixa = request.POST['tbcaixa']
-        form.tbgleba = request.POST['tbgleba']   
+        form.tbgleba = request.POST['tbgleba'] 
+        if 'stpecatecnica' in request.POST.keys():
+            form.stpecatecnica = True
+        else:
+            form.stpecatecnica = False
         
         if validacao_form_peca_tecnica(request):
             if form.is_valid():
+                print form.stpecatecnica
                 form.save()
                 return HttpResponseRedirect("/sicop/pecas_tecnicas/") 
     else:

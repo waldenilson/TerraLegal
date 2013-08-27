@@ -13,6 +13,9 @@
 	href="{% static "css/bs2-cachekey2314.css" %}" />
 
 <link rel="stylesheet" type="text/css" media="screen"
+	href="{% static "css/datatables.css" %}" />
+
+<link rel="stylesheet" type="text/css" media="screen"
 	href="{% static "css/bs3-cachekey5925.css" %}" />
 
 <link rel="stylesheet" type="text/css" media="screen"
@@ -24,6 +27,8 @@
 <script src="{% static "js/jquery.js" %}" type="text/javascript"></script>
 
 <script src="{% static "js/jquery_maskedinput.js" %}" type="text/javascript"></script>
+
+	<script type="text/javascript" src="{% static "js/jquery.dataTables.js" %}"></script>
 
 <script>
 jQuery(function($){   
@@ -58,6 +63,17 @@ function SomenteNumero(e, obj)
 }
 
 </script>
+
+
+	<script type="text/javascript">
+		/* <![CDATA[ */
+		$(document).ready(function() {
+		$('#table_peca_tecnica').dataTable({
+		'sPaginationType': 'full_numbers',
+		});
+		} );
+		/* ]]> */	
+	</script>
 
 </head>
 

@@ -1,5 +1,6 @@
 {% extends "sicop/acesso_restrito.html" %} 
 {% load staticfiles %} 
+{% load pagination_tags %}
 
 {% block breadcumbs %}
 	Acesso Restrito | Pecas Tecnicas
@@ -12,14 +13,14 @@
 {% endblock %}
 
 {% block conteudo %}
-	
+
 	<div style="width:100%;font-size:11px;text-align:center">
 				
 <!-- 		FORMULARIOS DOS FILTROS / CONSULTAS -->
 
 		<form action="." method="post">
 			{% csrf_token %}
-			<table>
+			<table id="table_peca_tecnica">
 				   <tr> 
 				   		<td class="colunaTabela"> <label>Contrato:</label> </td>
 				   			<td>
@@ -78,6 +79,7 @@
 			</thead>
 			<tbody>
 				{% if lista_peca_tecnica %}
+					{% autopaginate lista_peca_tecnica 1 %}
 					{% for obj in lista_peca_tecnica %}
 						<tr>
 							<td class="colunaTabelaConsulta"> <a href="/sicop/pecas_tecnicas_edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
@@ -89,6 +91,7 @@
 							<td class="colunaTabelaConsulta">{{ obj.tbcaixa.nmlocalarquivo }}</td>
 						</tr>
 					{% endfor %}
+					{% paginate %}
 				{% else %}
 					<tr> <td style="padding-top: 20px" colspan="6"> Nenhuma Peca Tecnica Encontrada </td> </tr>
 				{% endif %}

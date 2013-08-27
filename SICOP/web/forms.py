@@ -1,9 +1,10 @@
 # formularios customizados
 from django.forms import models
 from web.models import Tbcaixa, Tbpecastecnicas, Tbprocesso, Tbprocessobase
+from django import forms
 
 
-class FormPecasTecnicas(models.ModelForm):
+class FormPecasTecnicas(forms.ModelForm):
     class Meta:
         model = Tbpecastecnicas
         fields = ('tbcaixa','tbcontrato','nrentrega','nrcpfrequerente','nmrequerente','tbgleba','stpecatecnica',
