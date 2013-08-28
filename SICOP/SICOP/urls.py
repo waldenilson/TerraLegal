@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     # ACESSO AO PUBLICO
     url(r'^$', 'web.views_publicas.inicio'),
     url(r'^web/terra_legal/', 'web.views_publicas.terra_legal'),
+    url(r'^web/relatorio/', 'web.views_publicas.relatorio'),
     url(r'^web/mda/', 'web.views_publicas.mda'),
     url(r'^web/processo_rural/', 'web.views_publicas.processo_rural'),
     url(r'^web/regularizacao_urbana/', 'web.views_publicas.regularizacao_urbana'),

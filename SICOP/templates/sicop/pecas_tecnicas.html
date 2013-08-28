@@ -33,7 +33,6 @@
 								</select>
 							</td>
 								
-				   		<td class="colunaTabela"> <label>Entrega:</label> </td><td> <input name="entrega" /> </td>
 				   		<td class="colunaTabela"> <label>Gleba:</label> </td>
 				   			<td>
 				   				<select id="id_tbgleba" name="gleba">
@@ -44,8 +43,6 @@
 								</select>
 							</td>
 				   		
-				   </tr>
-				   <tr> 
 				   		<td class="colunaTabela"> <label>Caixa:</label> </td>
 				   			<td>
 				   				<select id="id_tbcaixa" name="caixa">
@@ -56,6 +53,9 @@
 								</select>
 							</td>
 				   		
+				   </tr>
+				   <tr> 
+				   		<td class="colunaTabela"> <label>Entrega:</label> </td><td> <input name="entrega" /> </td>
 				   		<td class="colunaTabela"> <label>CPF:</label> </td><td> <input name="cpf" /> </td>
 				   		<td class="colunaTabela"> <label>Requerente:</label> </td><td> <input name="requerente" /> </td>
 				   </tr>
@@ -67,6 +67,9 @@
 <!-- 		RESULTADO DOS FILTROS / CONSULTAS		 -->
 		
 		<table>
+			<div style="width:100%;text-align:right">
+				<a href="/web/relatorio/"> <img width="24" title="Relatorio da Peca Tecnica" src="{% static "img/pdf.png" %}" /> </a>
+			</div>
 			<thead style="background:#e5e5e5;color:black">
 				<tr>
 					<th class="colunaTabelaConsulta" style="width:8%">Detalhes</th>
@@ -81,7 +84,7 @@
 			<tbody>
 				{% if lista_peca_tecnica %}
 					{% autosort lista_peca_tecnica %}
-					{% autopaginate lista_peca_tecnica 1 %}
+					{% autopaginate lista_peca_tecnica 5 %}
 					{% for obj in lista_peca_tecnica %}
 						<tr>
 							<td class="colunaTabelaConsulta"> <a href="/sicop/pecas_tecnicas_edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
@@ -98,7 +101,7 @@
 					<tr> <td style="padding-top: 20px" colspan="6"> Nenhuma Peca Tecnica Encontrada </td> </tr>
 				{% endif %}
 			</tbody>
-		
+			
 		</table>
 	</div>
 	

@@ -66,7 +66,9 @@
 				   <tr> <td class="colunaTabela"> <label>Anexado ao processo:</label> </td><td> <input type="checkbox" value="{{ obj_peca.stanexadoprocesso }}" name="stanexadoprocesso" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Enviado Brasilia:</label> </td><td> <input type="checkbox" value="{{ obj_peca.stenviadobrasilia }}" name="stenviadobrasilia" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Peca Tecnica Aprovada:</label> </td><td> 
-				   		<input type="checkbox" value="{{ obj_peca.stpecatecnica }}" name="stpecatecnica" />				   
+				   		{{ obj_peca.stpecatecnica }}
+				   		<input type="checkbox" value="{{ obj_peca.stpecatecnica }}" name="stpecatecnica" />
+				   						   
 				   </td> </tr>	   
 				   <tr> <td class="colunaTabela"> <label>Observacao:</label> </td><td> <textarea rows="4" cols="40" name="dsobservacao">{{ obj_peca.dsobservacao }}</textarea> </td> </tr>
 				
