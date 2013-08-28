@@ -1,4 +1,4 @@
-
+#teste commit eduardo 20130828
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 from django.conf.urls import patterns, url, include
