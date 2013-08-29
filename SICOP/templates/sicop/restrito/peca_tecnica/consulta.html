@@ -19,53 +19,21 @@
 			{% csrf_token %}
 			<table id="table_peca_tecnica">
 				   <tr> 
-				   		<td class="colunaTabela"> <label>Contrato:</label> </td>
-				   			<td>
-				   				<select id="id_tbcontrato" name="contrato">
-									<option value="0" selected="selected">TODOS</option>
-									{% for obj in contrato %}
-										<option value="{{ obj.id }}">{{ obj.nrcontrato }}</option>
-									{% endfor %}
-								</select>
-							</td>
-								
-				   		<td class="colunaTabela"> <label>Gleba:</label> </td>
-				   			<td>
-				   				<select id="id_tbgleba" name="gleba">
-									<option value="0" selected="selected">TODAS</option>
-									{% for obj in gleba %}
-										<option value="{{ obj.id }}">{{ obj.nmgleba }}</option>
-									{% endfor %}
-								</select>
-							</td>
-				   		
-				   		<td class="colunaTabela"> <label>Caixa:</label> </td>
-				   			<td>
-				   				<select id="id_tbcaixa" name="caixa">
-									<option value="0" selected="selected">TODAS</option>
-									{% for obj in caixa %}
-										<option value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
-									{% endfor %}
-								</select>
-							</td>
-				   		
-				   </tr>
-				   <tr> 
 				   		<td class="colunaTabela"> <label>Entrega:</label> </td><td> <input name="entrega" /> </td>
 				   		<td class="colunaTabela"> <label>CPF:</label> </td><td> <input name="cpf" /> </td>
 				   		<td class="colunaTabela"> <label>Requerente:</label> </td><td> <input name="requerente" /> </td>
 				   </tr>
 			</table>
-			<div style="text-align: left;padding-bottom: 20px"> <button class="button_yellow" type="submit"> Consultar </button> </div>
+			<div style="text-align: left;padding-bottom: 20px">
+				<input class="button_yellow" type="submit" value="Consultar" />
+				<a class="button_green" href="/sicop/restrito/peca_tecnica/cadastro/"> Nova Peca Tecnica </a>
+			</div>
 		</form>
 {% endblock %}
 
 {% block resultado %}
 		
 		<table>
-			<div style="width:100%;text-align:right">
-				<a href="/web/relatorio/"> <img width="24" title="Relatorio da Peca Tecnica" src="{% static "img/pdf.png" %}" /> </a>
-			</div>
 			<thead style="background:#e5e5e5;color:black">
 				<tr>
 					<th class="colunaTabelaConsulta" style="width:8%">Detalhes</th>
@@ -97,6 +65,5 @@
 					<tr> <td style="padding-top: 20px" colspan="6"> Nenhuma Peca Tecnica Encontrada </td> </tr>
 				{% endif %}
 			</tbody>
-			
 		</table>
 {% endblock %}

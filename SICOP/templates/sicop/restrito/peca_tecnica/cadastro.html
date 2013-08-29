@@ -26,7 +26,6 @@
 									<option value="{{ obj.id }}">{{ obj.nrcontrato }}</option>
 								{% endfor %}
 							</select>
-							<a href="/sicop/admin/web/tbcontrato/add/"> <img alt="Novo Contrato" width="16" src="{% static "img/add.png" %}"> </a>
 						</td>
 				   	</tr>
 				   <tr> <td class="colunaTabela"> <label>Entrega:</label> </td><td>{{ form.nrentrega }} </td> </tr>
@@ -39,11 +38,10 @@
 									<option value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
 								{% endfor %}
 							</select>
-							<a href="/sicop/admin/web/tbcaixa/add/"> <img alt="Nova Caixa" width="16" src="{% static "img/add.png" %}"> </a>
 						</td>
 				   	</tr>
-				   <tr> <td class="colunaTabela"> <label>Area:</label> </td><td> {{ form.nrarea }} </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Perimetro:</label> </td><td>{{ form.nrperimetro }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input onkeypress="return SomenteNumero(event, this);" size="15" name="nrarea" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Perimetro:</label> </td><td> <input onkeypress="return SomenteNumero(event, this);" size="15" name="nrperimetro" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Gleba:</label> </td>
 				   		<td>
 				   			<select id="id_tbgleba" name="tbgleba">
@@ -51,7 +49,6 @@
 									<option value="{{ obj.id }}">{{ obj.nmgleba }}</option>
 								{% endfor %}
 							</select>
-							<a href="/sicop/admin/web/tbgleba/add/"> <img alt="Nova Gleba" width="16" src="{% static "img/add.png" %}"> </a>
 						</td>
 				   	</tr>
 				   <tr> <td class="colunaTabela"> <label>Anexado ao processo:</label> </td><td>{{ form.stanexadoprocesso }} </td> </tr>

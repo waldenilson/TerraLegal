@@ -15,17 +15,8 @@ def consulta(request):
         requerente = request.POST['requerente']
         cpf = request.POST['cpf']
         entrega = request.POST['entrega']
-        contrato = request.POST['contrato']
-        gleba = request.POST['gleba']
-        caixa = request.POST['caixa']
         lista = Tbpecastecnicas.objects.all().filter( nmrequerente__contains=requerente, nrcpfrequerente__contains=cpf, nrentrega__contains=entrega )
-        if contrato != '0':
-            lista = lista.filter( tbcontrato=contrato )
-        if gleba != '0':
-            lista = lista.filter( tbgleba=gleba )
-        if caixa != '0':
-            lista = lista.filter( tbcaixa=caixa )
-    
+       
     else:
         lista = Tbpecastecnicas.objects.all()
     
@@ -68,15 +59,11 @@ def edicao(request, id):
         
     if request.method == "POST":
         form = FormPecasTecnicas(request.POST,request.FILES,instance=instance)
-        form.tbcaixa = request.POST['tbcaixa']
-        form.tbgleba = request.POST['tbgleba'] 
-        form.stpecatecnica = request.POST['stpecatecnica']    
         
         if validacao(request):
             if form.is_valid():
-                print form.stpecatecnica
                 form.save()
-                return HttpResponseRedirect("sicop/restrito/peca_tecnica/consulta/")
+                return HttpResponseRedirect("/sicop/restrito/peca_tecnica/consulta/")
     #else:
      #   id_consulta = id_peca
       #  objPeca = get_object_or_404(Tbpecastecnicas, pk=id_consulta)
