@@ -1,4 +1,4 @@
-{% extends "sicop/acesso_restrito.html" %} 
+{% extends "sicop/base/restrito/cadastro_base.html" %} 
 {% load staticfiles %} 
 {% block breadcumbs %}
 	Acesso Restrito | Pecas Tecnicas | Edicao
@@ -10,15 +10,7 @@
 	
 {% endblock %}
 
-{% block conteudo %}
-	
-		{% if messages %}
-		<ul class="messages">
-		    {% for message in messages %}
-		    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-		    {% endfor %}
-		</ul>
-	{% endif %}
+{% block formulario %}
 		
 	<form method="post" action=".">
 		{% csrf_token %}
@@ -35,9 +27,9 @@
 							<a href="/sicop/admin/web/tbcontrato/add/"> <img alt="Novo Contrato" width="16" src="{% static "img/add.png" %}"> </a>
 						</td>
 				   </tr>
-				   <tr> <td class="colunaTabela"> <label>Entrega:</label> </td><td> <input  size="15" value="{{ obj_peca.nrentrega }}" name="nrentrega" /> </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>CPF do Requerente:</label> </td><td> <input  size="15" id="cpf" value="{{ obj_peca.nrcpfrequerente }}" name="nrcpfrequerente" /> </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Nome do Requerente:</label> </td><td> <input size="35" value="{{ obj_peca.nmrequerente }}" name="nmrequerente" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Entrega:</label> </td><td> {{ form.nrentrega }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>CPF do Requerente:</label> </td><td> <input  size="15" id="cpf" value="{{ form.nrcpfrequerente.value }}" name="nrcpfrequerente" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Nome do Requerente:</label> </td><td> {{ form.nmrequerente }} </td> </tr>
 					
 					<tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
 				   		<td>
@@ -66,9 +58,8 @@
 				   <tr> <td class="colunaTabela"> <label>Anexado ao processo:</label> </td><td> <input type="checkbox" value="{{ obj_peca.stanexadoprocesso }}" name="stanexadoprocesso" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Enviado Brasilia:</label> </td><td> <input type="checkbox" value="{{ obj_peca.stenviadobrasilia }}" name="stenviadobrasilia" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Peca Tecnica Aprovada:</label> </td><td> 
-				   		{{ obj_peca.stpecatecnica }}
-				   		<input type="checkbox" value="{{ obj_peca.stpecatecnica }}" name="stpecatecnica" />
-				   						   
+				   		{{ form.stpecatecnica }}
+						
 				   </td> </tr>	   
 				   <tr> <td class="colunaTabela"> <label>Observacao:</label> </td><td> <textarea rows="4" cols="40" name="dsobservacao">{{ obj_peca.dsobservacao }}</textarea> </td> </tr>
 				

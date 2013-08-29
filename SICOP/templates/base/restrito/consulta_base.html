@@ -1,0 +1,18 @@
+{% extends "base/restrito/acesso_restrito.html" %} 
+{% load staticfiles %} 
+{% load pagination_tags %}
+{% load sorting_tags %}
+
+{% block breadcumbs %} {% endblock %}
+
+{% block subtitulo %} {% endblock %}
+
+<div style="width:100%;font-size:11px;text-align:center">
+				
+<!-- 		FORMULARIOS DOS FILTROS / CONSULTAS -->
+{% block consulta %} {% endblock %}
+
+<!-- 		RESULTADO DOS FILTROS / CONSULTAS		 -->
+{% block resultado %} {% endblock %}		
+</div>
+	

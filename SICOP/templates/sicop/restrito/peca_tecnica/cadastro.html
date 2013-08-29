@@ -1,4 +1,4 @@
-{% extends "sicop/acesso_restrito.html" %} 
+{% extends "sicop/base/restrito/cadastro_base.html" %} 
 {% load staticfiles %} 
 {% block breadcumbs %}
 	Acesso Restrito | Pecas Tecnicas | Novo
@@ -10,15 +10,8 @@
 	
 {% endblock %}
 
-{% block conteudo %}
-	
-	{% if messages %}
-		<ul class="messages">
-		    {% for message in messages %}
-		    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-		    {% endfor %}
-		</ul>
-	{% endif %}
+
+{% block formulario %}
 		
 	<form method="post" action=".">
 		{% csrf_token %}

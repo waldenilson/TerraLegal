@@ -15,8 +15,8 @@ from reportlab.graphics.shapes import Image
 import time
 from reportlab.platypus.doctemplate import SimpleDocTemplate
 from reportlab.lib.pagesizes import letter
-from web.relatorio import relatorio_base
 from web.models import Tbpecastecnicas
+from web.sicop.relatorio import relatorio_base
 
 
 def relatorio(request):

@@ -24,14 +24,13 @@ urlpatterns = patterns('',
     url(r'^web/regularizacao_urbana/', 'web.views_publicas.regularizacao_urbana'),
     
     # ACESSO RESTRITO AO SICOP
-    url(r'^sicop/acesso_restrito/', 'web.views.acesso_restrito'),
-    url(r'^sicop/processos/', 'web.views.processos'),
-    url(r'^sicop/processos_novo/', 'web.views.processos_novo'),
-    url(r'^sicop/processos_edicao/', 'web.views.processos_edicao'),
+    url(r'^sicop/restrito/processo/consulta/', 'web.sicop.restrito.processo.consulta'),
+    url(r'^sicop/restrito/processo/cadastro/', 'web.sicop.restrito.processo.cadastro'),
+    url(r'^sicop/restrito/processo/edicao/', 'web.sicop.restrito.processo.edicao'),
    
-    url(r'^sicop/pecas_tecnicas/', 'web.views.pecas_tecnicas'),
-    url(r'^sicop/pecas_tecnicas_novo/', 'web.views.pecas_tecnicas_novo'),
-    url(r'^sicop/pecas_tecnicas_edicao/(?P<id_peca>\d+)/', 'web.views.pecas_tecnicas_edicao'),
+    url(r'^sicop/restrito/peca_tecnica/consulta/', 'web.sicop.restrito.peca_tecnica.consulta'),
+    url(r'^sicop/restrito/peca_tecnica/cadastro/', 'web.sicop.restrito.peca_tecnica.cadastro'),
+    url(r'^sicop/restrito/peca_tecnica/edicao/(?P<id_peca>\d+)/', 'web.sicop.restrito.peca_tecnica.edicao'),
    
     url(r'^sicop/relatorios/', 'web.views.relatorios'),
     

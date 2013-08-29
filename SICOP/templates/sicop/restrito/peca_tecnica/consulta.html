@@ -1,4 +1,4 @@
-{% extends "sicop/acesso_restrito.html" %} 
+{% extends "base/restrito/consulta_base.html" %} 
 {% load staticfiles %} 
 {% load pagination_tags %}
 {% load sorting_tags %}
@@ -13,11 +13,7 @@
 	
 {% endblock %}
 
-{% block conteudo %}
-
-	<div style="width:100%;font-size:11px;text-align:center">
-				
-<!-- 		FORMULARIOS DOS FILTROS / CONSULTAS -->
+{% block consulta %}
 
 		<form action="." method="post">
 			{% csrf_token %}
@@ -62,9 +58,9 @@
 			</table>
 			<div style="text-align: left;padding-bottom: 20px"> <button class="button_yellow" type="submit"> Consultar </button> </div>
 		</form>
+{% endblock %}
 
-
-<!-- 		RESULTADO DOS FILTROS / CONSULTAS		 -->
+{% block resultado %}
 		
 		<table>
 			<div style="width:100%;text-align:right">
@@ -103,6 +99,4 @@
 			</tbody>
 			
 		</table>
-	</div>
-	
 {% endblock %}
