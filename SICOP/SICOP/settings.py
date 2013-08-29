@@ -151,6 +151,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'web',
+    'newsicop',
+    'servidor',
     'pagination',
     'django_sorting',
     #'dajaxice',
@@ -159,9 +161,9 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 )
 
-LOGIN_URL = "/sicop/login/"
-LOGOUT_URL = "/sicop/logout/"
-LOGIN_REDIRECT_URL = "/sicop/acesso_restrito/"
+LOGIN_URL = "/login/"
+LOGOUT_URL = "/logout/"
+LOGIN_REDIRECT_URL = "/web/terra_legal/"
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

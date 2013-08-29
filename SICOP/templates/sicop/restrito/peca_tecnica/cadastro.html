@@ -1,7 +1,8 @@
-{% extends "sicop/base/restrito/cadastro_base.html" %} 
+{% extends "base/cadastro_base.html" %} 
 {% load staticfiles %} 
+
 {% block breadcumbs %}
-	Acesso Restrito | Pecas Tecnicas | Novo
+	Acesso Restrito | Peca Tecnica | Cadastro
 {% endblock %}
 
 {% block subtitulo %}
@@ -62,7 +63,7 @@
 		</div>
 		<br/><br/>
 		<div style="width:100%;font-size:12px;text-align:right">
-			<button onclick="/sicop/pecas_tecnicas/" class="button_red">VOLTAR</button>
+			<a href="/sicop/restrito/peca_tecnica/consulta/" class="button_red">VOLTAR</a>
 			<button type="submit" class="button_green" >SALVAR</button>
 		</div>	
 	</form>

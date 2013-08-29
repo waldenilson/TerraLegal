@@ -1,7 +1,7 @@
 # formularios customizados
 from django.forms import models
-from web.models import Tbcaixa, Tbpecastecnicas, Tbprocesso, Tbprocessobase
 from django import forms
+from newsicop.models import Tbpecastecnicas, Tbprocessobase
 
 
 class FormPecasTecnicas(forms.ModelForm):

@@ -1,15 +1,11 @@
 from django.http.response import HttpResponse
+from reportlab.pdfgen import canvas
 from reportlab.platypus.doctemplate import SimpleDocTemplate
 import time
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib.enums import TA_JUSTIFY, TA_CENTER
+from reportlab.lib.enums import TA_JUSTIFY
 from reportlab.platypus.paragraph import Paragraph
 from reportlab.platypus.flowables import Spacer
-from django.utils.datetime_safe import date
-from reportlab.pdfgen import canvas
-import Canvas
-from reportlab.lib import styles
-
 
 def relatorio_base(request, lista):
     response = HttpResponse(content_type='application/pdf')

@@ -1,4 +1,4 @@
-{% extends "base/restrito/consulta_base.html" %} 
+{% extends "base/consulta_base.html" %} 
 {% load staticfiles %} 
 {% load pagination_tags %}
 {% load sorting_tags %}
@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block consulta %}
-
+	
 		<form action="." method="post">
 			{% csrf_token %}
 			<table id="table_peca_tecnica">
@@ -83,7 +83,7 @@
 					{% autopaginate lista_peca_tecnica 5 %}
 					{% for obj in lista_peca_tecnica %}
 						<tr>
-							<td class="colunaTabelaConsulta"> <a href="/sicop/pecas_tecnicas_edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
+							<td class="colunaTabelaConsulta"> <a href="/sicop/restrito/peca_tecnica/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
 							<td class="colunaTabelaConsulta">{{ obj.tbcontrato.nrcontrato }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.tbgleba }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.nrarea }}</td>

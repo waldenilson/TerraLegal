@@ -1,5 +1,6 @@
-{% extends "base/restrito/acesso_restrito.html" %} 
+{% extends "base/acesso_restrito.html" %} 
 {% load staticfiles %} 
+
 {% block breadcumbs %} {% endblock %}
 
 {% block subtitulo %} {% endblock %}
@@ -15,7 +16,9 @@
 	{% endif %}
 
 {% endblock %}
-		
-{% block formulario %}
+
+{% block conteudo %}
+
+	{% block formulario %} {% endblock %}
 
 {% endblock %}
