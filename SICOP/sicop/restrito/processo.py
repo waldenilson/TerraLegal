@@ -2,7 +2,7 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
-from newsicop.forms import FormProcessos
+from sicop.forms import FormProcessos
 
 @login_required
 def consulta(request):

@@ -127,10 +127,10 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request"
 )
 
-ROOT_URLCONF = 'SICOP.urls'
+ROOT_URLCONF = 'TerraLegal.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'SICOP.wsgi.application'
+WSGI_APPLICATION = 'TerraLegal.wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -151,7 +151,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'web',
-    'newsicop',
+    'sicop',
     'servidor',
     'pagination',
     'django_sorting',

@@ -1,12 +1,12 @@
 from django.contrib import admin
-from newsicop.models import Tbtipocaixa, Tbtipoprocesso, Tbstatuspendencia,\
+from sicop.models import Tbtipocaixa, Tbtipoprocesso, Tbstatuspendencia,\
     Tbpecastecnicas, Tbclassificacaoprocesso, Tbsubarea, Tbconjuge, Tbcaixa,\
     Tbgleba, Tbcontrato, Tbsituacaoprocessourbano, Tbtipopendencia
 
 # tbtipocaixa,
 # tbcaixa,
 # tbmunicipio, 
-# tbtipopendencia, 
+# tbtipopendencia,
 # tbstatuspendencia, 
 # tbsubarea, 
 # tbconjuge,

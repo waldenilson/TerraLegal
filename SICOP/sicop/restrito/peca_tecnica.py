@@ -3,8 +3,8 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.template.context import RequestContext
 from django.contrib import messages
-from newsicop.forms import FormPecasTecnicas
-from newsicop.models import Tbpecastecnicas, Tbgleba, Tbcaixa, Tbcontrato
+from sicop.forms import FormPecasTecnicas
+from sicop.models import Tbpecastecnicas, Tbgleba, Tbcaixa, Tbcontrato
 
 #PECAS TECNICAS -----------------------------------------------------------------------------------------------------------------------------
 

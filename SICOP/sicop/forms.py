@@ -1,7 +1,7 @@
 # formularios customizados
 from django.forms import models
 from django import forms
-from newsicop.models import Tbpecastecnicas, Tbprocessobase
+from sicop.models import Tbpecastecnicas, Tbprocessobase, Tbtipopendencia
 
 
 class FormPecasTecnicas(forms.ModelForm):
@@ -14,3 +14,7 @@ class FormProcessos(models.ModelForm):
     class Meta:
         model = Tbprocessobase
         fields = ('tbtipoprocesso','tbmunicipio','tbgleba','tbcaixa')
+        
+class FormTipoStatusPendencia(models.ModelForm):
+    class Meta:
+        model = Tbtipopendencia
