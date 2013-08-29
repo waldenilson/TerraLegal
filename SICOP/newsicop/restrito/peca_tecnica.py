@@ -59,12 +59,12 @@ def cadastro(request):
     return render_to_response('sicop/restrito/peca_tecnica/cadastro.html',{"form":form,'caixa':caixa,'contrato':contrato,'gleba':gleba}, context_instance = RequestContext(request))
 
 @login_required
-def edicao(request, id_peca):
+def edicao(request, id):
     contrato = Tbcontrato.objects.all()
     caixa = Tbcaixa.objects.filter( tbtipocaixa = 2 )
     gleba = Tbgleba.objects.all()
     
-    instance = get_object_or_404(Tbpecastecnicas, id=id_peca)
+    instance = get_object_or_404(Tbpecastecnicas, id=id)
         
     if request.method == "POST":
         form = FormPecasTecnicas(request.POST,request.FILES,instance=instance)
