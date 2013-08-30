@@ -46,10 +46,10 @@
 				</tr>
 			</thead>
 			<tbody>
-				{% if lista_peca_tecnica %}
-					{% autosort lista_peca_tecnica %}
-					{% autopaginate lista_peca_tecnica 5 %}
-					{% for obj in lista_peca_tecnica %}
+				{% if lista %}
+					{% autosort lista %}
+					{% autopaginate lista 5 %}
+					{% for obj in lista %}
 						<tr>
 							<td class="colunaTabelaConsulta"> <a href="/sicop/restrito/peca_tecnica/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
 							<td class="colunaTabelaConsulta">{{ obj.tbcontrato.nrcontrato }}</td>
