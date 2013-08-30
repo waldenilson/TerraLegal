@@ -2,8 +2,9 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.forms import FormProcessos, FormCaixa
-from sicop.models import Tbcaixa
+from sicop.models import Tbcaixa, Tbtipocaixa
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 
 @login_required
 def consulta(request):
@@ -18,6 +19,7 @@ def consulta(request):
     
 @login_required
 def cadastro(request):
+    tipocaixa = Tbtipocaixa.objects.all()
     if request.method == "POST":
         form = FormCaixa(request.POST)
         if validacao(request):
@@ -26,10 +28,11 @@ def cadastro(request):
                 return HttpResponseRedirect("/sicop/restrito/caixa/consulta/") 
     else:
         form = FormCaixa()
-    return render_to_response('sicop/restrito/caixa/cadastro.html',{"form":form}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/caixa/cadastro.html',{"form":form,"tipocaixa":tipocaixa}, context_instance = RequestContext(request))
 
 @login_required
 def edicao(request, id):
+    tipocaixa = Tbtipocaixa.objects.all()
     instance = get_object_or_404(Tbcaixa, id=id)
     if request.method == "POST":
         form = FormCaixa(request.POST,request.FILES,instance=instance)
@@ -39,9 +42,12 @@ def edicao(request, id):
                 return HttpResponseRedirect("/sicop/restrito/caixa/consulta/")
     else:
         form = FormCaixa(instance=instance)
-    return render_to_response('sicop/restrito/caixa/edicao.html', {"form":form}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/caixa/edicao.html', {"form":form,"tipocaixa":tipocaixa}, context_instance = RequestContext(request))
 
 
 def validacao(request_form):
     warning = True
+    if request_form.POST['nmlocalarquivo'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe um nome para a caixa')
+        warning = False
     return warning

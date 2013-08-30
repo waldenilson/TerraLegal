@@ -12,25 +12,29 @@
 {% endblock %}
 
 {% block formulario %}
+		
+	<form method="post" action=".">
+		{% csrf_token %}
+		<div style="width:100%;font-size:12px;text-align:left">
+				<table>
+				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td>{{ form.nmlocalarquivo }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Tipo Caixa:</label> </td>
+				   	<td>
+				   		<select name="tbtipocaixa">
+							{% for obj in tipocaixa %}
+								<option value="{{ obj.id }}">{{ obj.nmtipocaixa }}</option>
+							{% endfor %}
+						</select>		
+				   	</td>
+				   </tr>
+				</table>
+		</div>
+		<br/><br/>
+		<div style="width:100%;font-size:12px;text-align:right">
+			<a href="/sicop/restrito/caixa/consulta/" class="button_red">VOLTAR</a>
+			<button type="submit" class="button_green" >SALVAR</button>
+		</div>	
+	</form>
 
-	<div style="width:100%;font-size:12px;text-align:left">
-		<form method="post" action=".">
-			<table>
-				{% for field in form %}
-				<tr>
-			    	<td style="padding-right: 10px;padding-bottom: 10px;">
-			    		{{ field.label_tag }}:
-			    	</td>
-			    	<td>{{ field }}</td>
-			    </tr>
-			    {% endfor %}
-			</table>
-		</form>
-	</div>
-	<br/><br/>
-	<div style="width:100%;font-size:12px;text-align:right">
-		<a href="/sicop/restrito/processo/consulta/" class="button_red">VOLTAR</a>
-		<button type="submit" class="button_green">SALVAR</button>
-	</div>
 	
 {% endblock %}
