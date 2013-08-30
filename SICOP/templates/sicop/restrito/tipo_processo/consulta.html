@@ -4,12 +4,12 @@
 {% load sorting_tags %}
 
 {% block breadcumbs %}
-	Acesso Restrito | Contrato
+	Acesso Restrito | Tipo Processo
 {% endblock %}
 
 {% block subtitulo %}
 	
-	CONSULTAR CONTRATO
+	CONSULTAR TIPO PROCESSO
 	
 {% endblock %}
 
@@ -18,13 +18,13 @@
 			{% csrf_token %}
 			<table>
 				   <tr> 
-				   		<td class="colunaTabela"> <label>Numero:</label> </td><td> <input name="nrcontrato" /> </td>
-				   		<td class="colunaTabela"> <label>Empresa:</label> </td><td> <input name="nmempresa" /> </td>
+				   		<td class="colunaTabela"> <label>Nome:</label> </td><td> <input name="nome" /> </td>
+				   		<td class="colunaTabela"> <label>Tabela:</label> </td><td> <input name="tabela" /> </td>
 				   </tr>
 			</table>
 			<div style="text-align: left;padding-bottom: 20px">
 				<button class="button_yellow" type="submit"> Consultar </button>
-				<a class="button_green" href="/sicop/restrito/contrato/cadastro/"> Novo Contrato </a>
+				<a class="button_green" href="/sicop/restrito/tipo_processo/cadastro/"> Novo Tipo Processo </a>
 			</div>
 		</form>
 {% endblock %}
@@ -35,8 +35,8 @@
 			<thead style="background:#e5e5e5;color:black">
 				<tr>
 					<th class="colunaTabelaConsulta" style="width:8%">Detalhes</th>
-					<th class="colunaTabelaConsulta" style="width:42%">{% anchor nrcontrato Numero %}</th>
-					<th class="colunaTabelaConsulta" style="width:50%">{% anchor nmempresa Empresa %}</th>
+					<th class="colunaTabelaConsulta" style="width:46%">{% anchor nome Nome %}</th>
+					<th class="colunaTabelaConsulta" style="width:46%">{% anchor tabela Tabela %}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -45,14 +45,14 @@
 					{% autopaginate lista 5 %}
 					{% for obj in lista %}
 						<tr>
-							<td class="colunaTabelaConsulta"> <a href="/sicop/restrito/contrato/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
-							<td class="colunaTabelaConsulta">{{ obj.nrcontrato }}</td>
-							<td class="colunaTabelaConsulta">{{ obj.nmempresa }}</td>
+							<td class="colunaTabelaConsulta"> <a href="/sicop/restrito/tipo_processo/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
+							<td class="colunaTabelaConsulta">{{ obj.nome }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tabela }}</td>
 						</tr>
 					{% endfor %}
 					{% paginate %}
 				{% else %}
-					<tr> <td style="padding-top: 20px" colspan="6"> Nenhum Contrato Encontrado </td> </tr>
+					<tr> <td style="padding-top: 20px" colspan="6"> Nenhum Tipo Processo Encontrado </td> </tr>
 				{% endif %}
 			</tbody>
 			

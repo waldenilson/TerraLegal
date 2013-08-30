@@ -4,12 +4,12 @@
 {% load sorting_tags %}
 
 {% block breadcumbs %}
-	Acesso Restrito | Contrato
+	Acesso Restrito | Tipo Pendencia
 {% endblock %}
 
 {% block subtitulo %}
 	
-	CONSULTAR CONTRATO
+	CONSULTAR TIPO PENDENCIA
 	
 {% endblock %}
 
@@ -18,13 +18,12 @@
 			{% csrf_token %}
 			<table>
 				   <tr> 
-				   		<td class="colunaTabela"> <label>Numero:</label> </td><td> <input name="nrcontrato" /> </td>
-				   		<td class="colunaTabela"> <label>Empresa:</label> </td><td> <input name="nmempresa" /> </td>
+				   		<td class="colunaTabela"> <label>Nome:</label> </td><td> <input name="dspendencia" /> </td>
 				   </tr>
 			</table>
 			<div style="text-align: left;padding-bottom: 20px">
 				<button class="button_yellow" type="submit"> Consultar </button>
-				<a class="button_green" href="/sicop/restrito/contrato/cadastro/"> Novo Contrato </a>
+				<a class="button_green" href="/sicop/restrito/tipo_pendencia/cadastro/"> Novo Tipo Pendencia </a>
 			</div>
 		</form>
 {% endblock %}
@@ -35,8 +34,7 @@
 			<thead style="background:#e5e5e5;color:black">
 				<tr>
 					<th class="colunaTabelaConsulta" style="width:8%">Detalhes</th>
-					<th class="colunaTabelaConsulta" style="width:42%">{% anchor nrcontrato Numero %}</th>
-					<th class="colunaTabelaConsulta" style="width:50%">{% anchor nmempresa Empresa %}</th>
+					<th class="colunaTabelaConsulta" style="width:92%">{% anchor dspendencia Nome %}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -45,14 +43,13 @@
 					{% autopaginate lista 5 %}
 					{% for obj in lista %}
 						<tr>
-							<td class="colunaTabelaConsulta"> <a href="/sicop/restrito/contrato/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
-							<td class="colunaTabelaConsulta">{{ obj.nrcontrato }}</td>
-							<td class="colunaTabelaConsulta">{{ obj.nmempresa }}</td>
+							<td class="colunaTabelaConsulta"> <a href="/sicop/restrito/tipo_pendencia/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
+							<td class="colunaTabelaConsulta">{{ obj.dspendencia }}</td>
 						</tr>
 					{% endfor %}
 					{% paginate %}
 				{% else %}
-					<tr> <td style="padding-top: 20px" colspan="6"> Nenhum Contrato Encontrado </td> </tr>
+					<tr> <td style="padding-top: 20px" colspan="6"> Nenhum Tipo Pendencia Encontrado </td> </tr>
 				{% endif %}
 			</tbody>
 			

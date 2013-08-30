@@ -1,27 +1,27 @@
 {% extends "base/cadastro_base.html" %} 
 {% load staticfiles %} 
 {% block breadcumbs %}
-	Acesso Restrito | Contrato | Edicao
+	Acesso Restrito | Tipo Pendencia | Edicao
 {% endblock %}
 
 {% block subtitulo %}
 	
-	EDITAR CONTRATO
+	EDITAR TIPO PENDENCIA
 	
 {% endblock %}
 
 {% block formulario %}
+	
 	<form method="post" action=".">
 		{% csrf_token %}
 		<div style="width:100%;font-size:12px;text-align:left">
 				<table>
-				   <tr> <td class="colunaTabela"> <label>Numero:</label> </td><td>{{ form.nrcontrato }} </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Nome da Empresa:</label> </td><td>{{ form.nmempresa }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td>{{ form.dspendencia }} </td> </tr>
 				</table>
 		</div>
 		<br/><br/>
 		<div style="width:100%;font-size:12px;text-align:right">
-			<a href="/sicop/restrito/contrato/consulta/" class="button_red">VOLTAR</a>
+			<a href="/sicop/restrito/tipo_pendencia/consulta/" class="button_red">VOLTAR</a>
 			<button type="submit" class="button_green" >SALVAR</button>
 		</div>	
 	</form>

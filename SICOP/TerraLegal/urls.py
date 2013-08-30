@@ -78,20 +78,20 @@ urlpatterns = patterns('',
     url(r'^sicop/restrito/tipo_pendencia/cadastro/', 'sicop.restrito.tipo_pendencia.cadastro'),
     url(r'^sicop/restrito/tipo_pendencia/edicao/(?P<id>\d+)/', 'sicop.restrito.tipo_pendencia.edicao'),
 
-    # ACESSO RESTRITO SICOP TIPO SITUACAO PROCESSO URBANO
-    url(r'^sicop/restrito/tipo_situacao_processo_urbano/consulta/', 'sicop.restrito.tipo_situacao_processo_urbano.consulta'),
-    url(r'^sicop/restrito/tipo_situacao_processo_urbano/cadastro/', 'sicop.restrito.tipo_situacao_processo_urbano.cadastro'),
-    url(r'^sicop/restrito/tipo_situacao_processo_urbano/edicao/(?P<id>\d+)/', 'sicop.restrito.tipo_situacao_processo_urbano.edicao'),
+    # ACESSO RESTRITO SICOP SITUACAO PROCESSO URBANO
+    url(r'^sicop/restrito/situacao_processo_urbano/consulta/', 'sicop.restrito.situacao_processo_urbano.consulta'),
+    url(r'^sicop/restrito/situacao_processo_urbano/cadastro/', 'sicop.restrito.situacao_processo_urbano.cadastro'),
+    url(r'^sicop/restrito/situacao_processo_urbano/edicao/(?P<id>\d+)/', 'sicop.restrito.situacao_processo_urbano.edicao'),
 
-    # ACESSO RESTRITO SICOP TIPO CLASSIFICACAO PROCESSO
-    url(r'^sicop/restrito/tipo_classificacao_processo/consulta/', 'sicop.restrito.tipo_classificacao_processo.consulta'),
-    url(r'^sicop/restrito/tipo_classificacao_processo/cadastro/', 'sicop.restrito.tipo_classificacao_processo.cadastro'),
-    url(r'^sicop/restrito/tipo_classificacao_processo/edicao/(?P<id>\d+)/', 'sicop.restrito.tipo_classificacao_processo.edicao'),
+    # ACESSO RESTRITO SICOP CLASSIFICACAO PROCESSO
+    url(r'^sicop/restrito/classificacao_processo/consulta/', 'sicop.restrito.classificacao_processo.consulta'),
+    url(r'^sicop/restrito/classificacao_processo/cadastro/', 'sicop.restrito.classificacao_processo.cadastro'),
+    url(r'^sicop/restrito/classificacao_processo/edicao/(?P<id>\d+)/', 'sicop.restrito.classificacao_processo.edicao'),
 
-    # ACESSO RESTRITO SICOP TIPO STATUS PENDENCIA
-    url(r'^sicop/restrito/tipo_status_pendencia/consulta/', 'sicop.restrito.tipo_status_pendencia.consulta'),
-    url(r'^sicop/restrito/tipo_status_pendencia/cadastro/', 'sicop.restrito.tipo_status_pendencia.cadastro'),
-    url(r'^sicop/restrito/tipo_status_pendencia/edicao/(?P<id>\d+)/', 'sicop.restrito.tipo_status_pendencia.edicao'),
+    # ACESSO RESTRITO SICOP STATUS PENDENCIA
+    url(r'^sicop/restrito/status_pendencia/consulta/', 'sicop.restrito.status_pendencia.consulta'),
+    url(r'^sicop/restrito/status_pendencia/cadastro/', 'sicop.restrito.status_pendencia.cadastro'),
+    url(r'^sicop/restrito/status_pendencia/edicao/(?P<id>\d+)/', 'sicop.restrito.status_pendencia.edicao'),
 
     # ACESSO RESTRITO SICOP MUNICIPIO
     url(r'^sicop/restrito/municipio/consulta/', 'sicop.restrito.municipio.consulta'),

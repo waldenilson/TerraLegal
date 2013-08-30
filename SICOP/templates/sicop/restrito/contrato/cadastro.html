@@ -13,24 +13,19 @@
 
 {% block formulario %}
 
-	<div style="width:100%;font-size:12px;text-align:left">
-		<form method="post" action=".">
-			<table>
-				{% for field in form %}
-				<tr>
-			    	<td style="padding-right: 10px;padding-bottom: 10px;">
-			    		{{ field.label_tag }}:
-			    	</td>
-			    	<td>{{ field }}</td>
-			    </tr>
-			    {% endfor %}
-			</table>
-		</form>
-	</div>
-	<br/><br/>
-	<div style="width:100%;font-size:12px;text-align:right">
-		<a href="/sicop/restrito/processo/consulta/" class="button_red">VOLTAR</a>
-		<button type="submit" class="button_green">SALVAR</button>
-	</div>
+	<form method="post" action=".">
+		{% csrf_token %}
+		<div style="width:100%;font-size:12px;text-align:left">
+				<table>
+				   <tr> <td class="colunaTabela"> <label>Numero:</label> </td><td>{{ form.nrcontrato }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Nome da Empresa:</label> </td><td>{{ form.nmempresa }} </td> </tr>
+				</table>
+		</div>
+		<br/><br/>
+		<div style="width:100%;font-size:12px;text-align:right">
+			<a href="/sicop/restrito/contrato/consulta/" class="button_red">VOLTAR</a>
+			<button type="submit" class="button_green" >SALVAR</button>
+		</div>	
+	</form>
 	
 {% endblock %}

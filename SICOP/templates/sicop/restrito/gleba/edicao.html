@@ -12,15 +12,30 @@
 
 {% block formulario %}
 	
-	<div style="width:100%;font-size:12px;text-align:right">
-		<a href="/sicop/processos/" class="button_red">VOLTAR</a>
-		<a href="/sicop/processos/" class="button_green" onclick="alert('Processo Salvo com sucesso!');">SALVAR</a>
-	</div>
-	<br/><br/>
-	<div style="width:100%;font-size:12px;text-align:center">
-
-		edicao processos		
-		
-	</div>
-	
+	<form method="post" action=".">
+		{% csrf_token %}
+		<div style="width:100%;font-size:12px;text-align:left">
+				<table>
+				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td>{{ form.nmgleba }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Sub Area:</label> </td>
+				   		<td>
+				   			<select name="tbsubarea">
+								{% for obj in subarea %}
+									{% if obj.id == form.tbsubarea.value %}
+										<option selected="selected" value="{{ obj.id }}">{{ obj.nmsubarea }}</option>
+									{% else %}
+										<option value="{{ obj.id }}">{{ obj.nmsubarea }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						</td>
+				   	</tr>
+				</table>
+		</div>
+		<br/><br/>
+		<div style="width:100%;font-size:12px;text-align:right">
+			<a href="/sicop/restrito/gleba/consulta/" class="button_red">VOLTAR</a>
+			<button type="submit" class="button_green" >SALVAR</button>
+		</div>	
+	</form>
 {% endblock %}

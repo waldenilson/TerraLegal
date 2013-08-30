@@ -1,12 +1,12 @@
 {% extends "base/cadastro_base.html" %} 
 {% load staticfiles %} 
 {% block breadcumbs %}
-	Acesso Restrito | Contrato | Edicao
+	Acesso Restrito | Tipo Processo | Edicao
 {% endblock %}
 
 {% block subtitulo %}
 	
-	EDITAR CONTRATO
+	EDITAR TIPO PROCESSO
 	
 {% endblock %}
 
@@ -15,14 +15,15 @@
 		{% csrf_token %}
 		<div style="width:100%;font-size:12px;text-align:left">
 				<table>
-				   <tr> <td class="colunaTabela"> <label>Numero:</label> </td><td>{{ form.nrcontrato }} </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Nome da Empresa:</label> </td><td>{{ form.nmempresa }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td>{{ form.nome }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Tabela:</label> </td><td>{{ form.tabela }} </td> </tr>
 				</table>
 		</div>
 		<br/><br/>
 		<div style="width:100%;font-size:12px;text-align:right">
-			<a href="/sicop/restrito/contrato/consulta/" class="button_red">VOLTAR</a>
+			<a href="/sicop/restrito/tipo_processo/consulta/" class="button_red">VOLTAR</a>
 			<button type="submit" class="button_green" >SALVAR</button>
 		</div>	
 	</form>
+	
 {% endblock %}
