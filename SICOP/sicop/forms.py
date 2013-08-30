@@ -2,7 +2,7 @@
 from django.forms import models
 from django import forms
 from sicop.models import Tbpecastecnicas, Tbprocessobase, Tbtipopendencia,\
-    Tbtipocaixa, Tbcaixa
+    Tbtipocaixa, Tbcaixa, Tbsubarea, Tbgleba
 
 
 class FormPecasTecnicas(forms.ModelForm):
@@ -25,3 +25,14 @@ class FormCaixa(models.ModelForm):
     class Meta:
         model = Tbcaixa
         fields = ('nmlocalarquivo','tbtipocaixa')
+        
+class FormSubArea(models.ModelForm):
+    class Meta:
+        model = Tbsubarea
+        fields = ('cdsubarea','nmsubarea')
+        
+class FormGleba(models.ModelForm):
+    class Meta:
+        model = Tbgleba
+        fields = ('nmgleba', 'tbsubarea')        
+        
