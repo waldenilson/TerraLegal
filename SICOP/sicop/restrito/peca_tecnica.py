@@ -10,25 +10,15 @@ from sicop.models import Tbpecastecnicas, Tbgleba, Tbcaixa, Tbcontrato
 
 @login_required
 def consulta(request):
-    
     if request.method == "POST":
         requerente = request.POST['requerente']
         cpf = request.POST['cpf']
         entrega = request.POST['entrega']
         lista = Tbpecastecnicas.objects.all().filter( nmrequerente__contains=requerente, nrcpfrequerente__contains=cpf, nrentrega__contains=entrega )
-       
     else:
         lista = Tbpecastecnicas.objects.all()
-    
     lista = lista.order_by( 'id' )
-    
-    # combobox
-    gleba = Tbgleba.objects.all()
-    # buscar caixa do tipo peca
-    caixa = Tbcaixa.objects.filter( tbtipocaixa = 2 )
-    contrato = Tbcontrato.objects.all()
-    
-    return render_to_response('sicop/restrito/peca_tecnica/consulta.html' ,{'lista_peca_tecnica':lista,'gleba':gleba,'contrato':contrato,'caixa':caixa}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/peca_tecnica/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @login_required
 def cadastro(request):
@@ -39,7 +29,6 @@ def cadastro(request):
     
     if request.method == "POST":
         form = FormPecasTecnicas(request.POST)
-        form.tbcaixa = request.POST['tbcaixa']
         if validacao(request):
             if form.is_valid():
                 form.save()
@@ -64,9 +53,6 @@ def edicao(request, id):
             if form.is_valid():
                 form.save()
                 return HttpResponseRedirect("/sicop/restrito/peca_tecnica/consulta/")
-    #else:
-     #   id_consulta = id_peca
-      #  objPeca = get_object_or_404(Tbpecastecnicas, pk=id_consulta)
     else:
         form = FormPecasTecnicas(instance=instance) 
 

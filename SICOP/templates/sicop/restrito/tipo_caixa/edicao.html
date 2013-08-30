@@ -11,16 +11,19 @@
 {% endblock %}
 
 {% block formulario %}
-	
-	<div style="width:100%;font-size:12px;text-align:right">
-		<a href="/sicop/processos/" class="button_red">VOLTAR</a>
-		<a href="/sicop/processos/" class="button_green" onclick="alert('Processo Salvo com sucesso!');">SALVAR</a>
-	</div>
-	<br/><br/>
-	<div style="width:100%;font-size:12px;text-align:center">
-
-		edicao processos		
-		
-	</div>
+	<form method="post" action=".">
+		{% csrf_token %}
+		<div style="width:100%;font-size:12px;text-align:left">
+				<table>
+				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td>{{ form.nmtipocaixa }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Descricao:</label> </td><td> <textarea rows="4" cols="40" name="desctipocaixa">{{ form.desctipocaixa.value }}</textarea></td> </tr>
+				</table>
+		</div>
+		<br/><br/>
+		<div style="width:100%;font-size:12px;text-align:right">
+			<a href="/sicop/restrito/tipo_caixa/consulta/" class="button_red">VOLTAR</a>
+			<button type="submit" class="button_green" >SALVAR</button>
+		</div>	
+	</form>
 	
 {% endblock %}
