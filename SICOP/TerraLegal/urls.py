@@ -115,6 +115,11 @@ urlpatterns = patterns('',
     
     #END------------------------------SICOP---------------------------------------------------------------------------------
     
+    #INIT------------------------------CONTROLE---------------------------------------------------------------------------------
+    # ACESSO SISTEMAS DE CONTROLE
+    url(r'^controle/', 'controle.views.inicio'),
+    #END------------------------------CONTROLE---------------------------------------------------------------------------------
+    
     
     # CONTROLE AUTENTICACAO
     url(r'^login/', 'django.contrib.auth.views.login', {"template_name":"base/login.html"}),

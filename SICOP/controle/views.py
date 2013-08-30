@@ -16,21 +16,6 @@ import time
 from reportlab.platypus.doctemplate import SimpleDocTemplate
 from reportlab.lib.pagesizes import letter
 
+@login_required
 def inicio(request):
-    return render(request, "web/index.html")
-
-def terra_legal(request):
-    return render(request, "web/terra_legal.html")
-
-def mda(request):
-    return render(request, "web/mda.html")
-
-def processo_rural(request):
-    return render_to_response('web/processo_rural.html',{},
-                              context_instance = RequestContext(request))
-    
-def regularizacao_urbana(request):
-    return render_to_response('web/regularizacao_urbana.html',{},
-                              context_instance = RequestContext(request))
-    
-    
+    return render(request, "controle/acesso_restrito.html")
