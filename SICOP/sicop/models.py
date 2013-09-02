@@ -353,3 +353,4 @@ class Tbtipoprocesso(models.Model):
         return self.nome
     class Meta:
         db_table = 'tbtipoprocesso'
+        

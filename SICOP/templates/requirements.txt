@@ -1,0 +1,38 @@
+django==1.4.5
+psycopg2==2.4.5
+#geraldo==0.4.14
+-e git+https://github.com/marinho/geraldo@732abbf425867e1ff5e0483cb7ca6c4bbd1f2448#egg=geraldo
+Pillow==1.7.7
+-e git+https://github.com/marinho/django-plus@a52f8712f64d4e8df461d5dae507cd2f9d8d25c3#egg=django-plus
+django-nose==1.0
+south==0.7.4
+django-pagination==1.0.7
+coverage==3.5.2
+lxml==2.3.4
+#ezodf
+#-e hg+https://bitbucket.org/mozman/ezodf#egg=ezodf
+-e hg+https://bitbucket.org/luizvital/ezodf-mozman#egg=ezodf
+pytz==2013b
+BeautifulSoup==3.2.1
+django-municipios==0.8
+#-e git+git://github.com/bradjasper/django-jsonfield.git#egg=django-jsonfield
+django-jsonfield==0.9.4
+unittest2==0.5.1
+mock==1.0.0
+simplejson==3.0.7
+geohash==1.0rc1
+qrcode==2.4.2
+django-mptt==0.5.5
+django-bootstrap-toolkit==2.8.0
+Django-Select2==4.0.0
+pyOpenSSL==0.13
+pyasn1==0.1.6
+networkx==1.7
+numpy==1.7.1
+matplotlib==1.2.1
+Fiona==0.14
+#MapProxy==1.5.0
+-e git://github.com/znc-sistemas/django-colorpicker.git#egg=django-colorpicker
+django-celery==3.0.17
+chardet==2.1.1
+-e git://github.com/madisona/django-contact-form.git#egg=django-contact-form

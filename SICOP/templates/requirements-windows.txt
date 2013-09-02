@@ -1,0 +1,41 @@
+﻿django==1.4.1
+geraldo==0.4.14
+django-plus==1.2.20    #pip install django-plus -U
+nose==1.1.2
+django-nose==1.0
+south==0.7.4
+django-pagination==1.0.7
+coverage==3.5.2
+mercurial==2.2
+-e hg+https://bitbucket.org/mozman/ezodf#egg=ezodf
+# é necessário fazer o download e instalar via setup.py (aqui nao consegui instalar via pip install -e)
+#-e git+git://github.com/bradjasper/django-jsonfield.git#egg=django-jsonfield
+pytz==2012c
+psycopg2==2.4.5             # http://www.stickpeople.com/projects/python/win-psycopg/
+lxml==2.3.4                 # http://pypi.python.org/pypi/lxml/2.3 instalar o executavel
+Pillow==1.7.7               # http://pypi.python.org/pypi/Pillow     # easy_install arquivo.egg
+django-mptt
+#django-municipios
+# https://github.com/znc-sistemas/django-municipios
+#numpy http://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy baixe o instalador
+matplotlib
+numpy
+networkx
+
+
+#ezodf
+# git clone -e git+https://github.com/marinho/ezodf
+
+pip install unittest2
+
+mock
+
+mock             # pip install mock -U
+simplejson       # pip install simplejson -U
+geohash          # pip install geohash
+
+qrcode           # pip install qrcode
+
+pycairo        #http://www.lfd.uci.edu/~gohlke/pythonlibs/#pycairo
+
+django-jsonfield   # pip install django-jsonfield

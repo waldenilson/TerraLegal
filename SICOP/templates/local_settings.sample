@@ -1,0 +1,20 @@
+ADMINS = (
+    ('root', 'root@localhost'),
+)
+
+LOCAL = True
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'sgf',
+        'USER': 'postgres',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
+    }
+}
+
+MUNICIPIOS_GEO = False
