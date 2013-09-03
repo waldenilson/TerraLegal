@@ -1,4 +1,4 @@
-{% extends "base/cadastro_base.html" %} 
+{% extends "base/consulta_base.html" %} 
 {% load staticfiles %} 
 {% load pagination_tags %}
 {% load sorting_tags %}
@@ -9,34 +9,64 @@
 
 {% block subtitulo %}
 	
+	CONSULTAR PROCESSO
+	
+{% endblock %}
+
+{% block consulta %}
+	
 	<form name="form" method="post" action=".">
 			{% csrf_token %}
-			<table>
-				 <tr>
-				 		<td class="colunaTabela">
-				 			CONSULTA DE:
-				 		</td>
-				 		<td >
-				   			<select name="escolha" onchange="proc();">
-								{% for obj in tipoprocesso %}
-									{% if obj.tabela == processo %}
-										<option selected="selected" value="{{ obj.tabela }}">{{ obj.nome }}</option>
-									{% else %}
-										<option value="{{ obj.tabela }}">{{ obj.nome }}</option>
-									{% endif %}
-								{% endfor %}
-							</select>
-						</td>
+			<table style="text-align: left">
+				   	<tr>
+				   		<td class="colunaTabela"><label> Pesquisar Por: </label></td>
+				   		<td>
+				   			<input checked="checked" type="radio" name="escolha" value="numero">Nº do Processo&nbsp;&nbsp;&nbsp;
+				   			<input type="radio" name="escolha" value="nome">Nome do Requerente&nbsp;&nbsp;&nbsp;
+				   			<input type="radio" name="escolha" value="cpf">CPF do Requerente&nbsp;&nbsp;&nbsp;
+				   			<input type="radio" name="escolha" value="cnpj">CNPJ
+				   		</td>
 				   	</tr>
+				   	<tr><td class="colunaTabela"> Informe os dados: </td> <td> <input name="pesquisa" /> </td> </tr>
 			</table>
+			<div style="text-align: left;padding-bottom: 20px; padding-top: 10px">
+				<input class="button_yellow" type="submit" value="Buscar" />
+				<a class="button_green" href="/sicop/restrito/processo/cadastro/"> Cadastrar Processo </a>
+			</div>
 		</form>
 	
 {% endblock %}
 
-{% block formulario %}
-
-			{% if div_processo == 'rural' %} {% include "sicop/restrito/processo/rural/consulta.html" %} {% endif %}
-			{% if div_processo == 'urbano' %} {% include "sicop/restrito/processo/urbano/consulta.html" %} {% endif %}
-			{% if div_processo == 'clausula' %} {% include "sicop/restrito/processo/clausula/consulta.html" %} {% endif %}
-				
+{% block resultado %}
+		<table>
+			<thead style="background:#e5e5e5;color:black">
+				<tr>
+					<th class="colunaTabelaConsulta" style="width:8%">Detalhes</th>
+					<th class="colunaTabelaConsulta" style="width:20%">{% anchor nrprocesso Processo %}</th>
+					<th class="colunaTabelaConsulta" style="width:15%">{% anchor tbtipoprocesso Tipo %}</th>
+					<th class="colunaTabelaConsulta" style="width:21%">{% anchor tbmunicipio Municipio %}</th>
+					<th class="colunaTabelaConsulta" style="width:18%">{% anchor tbgleba Gleba %}</th>
+					<th class="colunaTabelaConsulta" style="width:18%">{% anchor tbcaixa Caixa %}</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% if lista %}
+					{% autosort lista %}
+					{% autopaginate lista 5 %}
+					{% for obj in lista %}
+						<tr>
+							<td class="colunaTabelaConsulta"> <a href="#"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
+							<td class="colunaTabelaConsulta">{{ obj.nrprocesso }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbtipoprocesso.nome }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbmunicipio.nome_mun }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbgleba.nmgleba }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbcaixa.nmlocalarquivo }}</td>
+						</tr>
+					{% endfor %}
+					{% paginate %}
+				{% else %}
+					<tr> <td style="padding-top: 20px" colspan="6"> Nenhum Processo Encontrado </td> </tr>
+				{% endif %}
+			</tbody>
+		</table>
 {% endblock %}
