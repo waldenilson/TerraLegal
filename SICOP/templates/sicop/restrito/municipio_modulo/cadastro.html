@@ -2,12 +2,12 @@
 {% load staticfiles %} 
 
 {% block breadcumbs %}
-	Acesso Restrito | Classificacao Processo | Cadastro
+	Acesso Restrito | Municipio Modulo | Cadastro
 {% endblock %}
 
 {% block subtitulo %}
 	
-	CADASTRAR CLASSIFICACAO PROCESSO
+	CADASTRAR MUNICIPIO MODULO
 	
 {% endblock %}
 
@@ -17,12 +17,25 @@
 		{% csrf_token %}
 		<div style="width:100%;font-size:12px;text-align:left">
 				<table>
-				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td>{{ form.nmclassificacao }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Municipio:</label> </td>
+				   	<td>
+				   			<select name="tbmunicipio">
+								{% for obj in municipio %}
+									<option value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+								{% endfor %}
+							</select>
+						</td>
+				   </tr>
+				   <tr> <td class="colunaTabela"> <label>Numero Modulo Rural:</label> </td><td>{{ form.nrmodulorural }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Numero Modulo Fiscal:</label> </td><td>{{ form.nrmodulofiscal }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Codigo IBGE:</label> </td><td>{{ form.cdibge }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Codigo Postal:</label> </td><td>{{ form.cdpostal }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Fracao Minima:</label> </td><td>{{ form.nrfracaominima }} </td> </tr>
 				</table>
 		</div>
 		<br/><br/>
 		<div style="width:100%;font-size:12px;text-align:right">
-			<a href="/sicop/restrito/classificacao_processo/consulta/" class="button_red">VOLTAR</a>
+			<a href="/sicop/restrito/municipio_modulo/consulta/" class="button_red">VOLTAR</a>
 			<button type="submit" class="button_green" >SALVAR</button>
 		</div>	
 	</form>

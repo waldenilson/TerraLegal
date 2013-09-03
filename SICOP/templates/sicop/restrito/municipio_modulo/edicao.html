@@ -1,12 +1,12 @@
 {% extends "base/cadastro_base.html" %} 
 {% load staticfiles %} 
 {% block breadcumbs %}
-	Acesso Restrito | Classificacao Processo | Edicao
+	Acesso Restrito | Municipio Modulo | Edicao
 {% endblock %}
 
 {% block subtitulo %}
 	
-	EDITAR CLASSIFICACAO PROCESSO
+	EDITAR MUNICIPIO MODULO
 	
 {% endblock %}
 
@@ -15,12 +15,29 @@
 		{% csrf_token %}
 		<div style="width:100%;font-size:12px;text-align:left">
 				<table>
-				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td>{{ form.nmclassificacao }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Municipio:</label> </td>
+				   	<td>
+				   			<select name="tbmunicipio">
+								{% for obj in municipio %}
+									{% if obj.id == form.tbmunicipio.value %}
+										<option selected="selected" value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+									{% else %}
+										<option value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						</td>
+				   </tr>
+				   <tr> <td class="colunaTabela"> <label>Numero Modulo Rural:</label> </td><td>{{ form.nrmodulorural }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Numero Modulo Fiscal:</label> </td><td>{{ form.nrmodulofiscal }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Codigo IBGE:</label> </td><td>{{ form.cdibge }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Codigo Postal:</label> </td><td>{{ form.cdpostal }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Fracao Minima:</label> </td><td>{{ form.nrfracaominima }} </td> </tr>
 				</table>
 		</div>
 		<br/><br/>
 		<div style="width:100%;font-size:12px;text-align:right">
-			<a href="/sicop/restrito/classificacao_processo/consulta/" class="button_red">VOLTAR</a>
+			<a href="/sicop/restrito/municipio_modulo/consulta/" class="button_red">VOLTAR</a>
 			<button type="submit" class="button_green" >SALVAR</button>
 		</div>	
 	</form>
