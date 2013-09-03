@@ -1,4 +1,4 @@
-{% extends "base/consulta_base.html" %} 
+{% extends "base/cadastro_base.html" %} 
 {% load staticfiles %} 
 {% load pagination_tags %}
 {% load sorting_tags %}
@@ -12,16 +12,22 @@
 	CONSULTAR PROCESSO
 	
 {% endblock %}
+{% block formulario %}
 
-{% block consulta %}
-	
-	<div style="width:100%;font-size:12px;text-align:center">
-		tabela com dados e filtros / consultas
-	</div>
-	
-{% endblock %}
-
-
-{% block resultado %}
-
+		<form name="form" method="post" action=".">
+			{% csrf_token %}
+			<table>
+				 <tr>
+				 		<td>
+				   			<select name="escolha" onchange="proc();">
+				   				<option value="0">-- SELECIONE --</option>
+								{% for obj in tipoprocesso %}
+									<option value="{{ obj.tabela }}">{{ obj.nome }}</option>
+								{% endfor %}
+							</select>
+						</td>
+				   	</tr>
+			</table>
+			<input type="submit" value="Avancar" />
+		</form>			
 {% endblock %}

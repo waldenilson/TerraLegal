@@ -1,0 +1,26 @@
+{% extends "base/cadastro_base.html" %} 
+{% load staticfiles %} 
+{% block breadcumbs %}
+	Acesso Restrito | Processo Clausula Resolutiva | Edicao
+{% endblock %}
+
+{% block subtitulo %}
+	
+	EDITAR PROCESSO CLAUSULA RESOLUTIVA
+	
+{% endblock %}
+
+{% block formulario %}
+	
+	<div style="width:100%;font-size:12px;text-align:right">
+		<a href="/sicop/processos/" class="button_red">VOLTAR</a>
+		<a href="/sicop/processos/" class="button_green" onclick="alert('Processo Salvo com sucesso!');">SALVAR</a>
+	</div>
+	<br/><br/>
+	<div style="width:100%;font-size:12px;text-align:center">
+
+		edicao processos		
+		
+	</div>
+	
+{% endblock %}

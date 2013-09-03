@@ -1,0 +1,27 @@
+{% extends "base/cadastro_base.html" %} 
+{% load staticfiles %} 
+
+{% block breadcumbs %}
+	Acesso Restrito | Processo Urbano | Cadastro
+{% endblock %}
+
+{% block subtitulo %}
+	
+	CADASTRAR PROCESSO URBANO
+	
+{% endblock %}
+
+{% block formulario %}
+		<form name="form" method="post" action=".">
+			<table>
+				 <tr>
+				 		<td></td>
+				   	</tr>
+			</table>
+			<br/><br/>
+			<div style="width:100%;font-size:12px;text-align:right">
+				<a href="/sicop/restrito/processo/consulta/" class="button_red">VOLTAR</a>
+				<button type="submit" class="button_green">SALVAR</button>
+			</div>
+		</form>			
+{% endblock %}

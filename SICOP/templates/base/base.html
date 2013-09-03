@@ -40,6 +40,15 @@ jQuery(function($){
 	$("#processo").mask("99999.999999/9999-99");
 });
 
+function proc()
+{
+	if (document.form.tbtipoprocesso.value != "0")
+	{
+		//alert('eu');
+		document.form.submit();
+	} 
+}
+
 function SomenteNumero(e, obj)
 {
 	var tecla=(window.event)?event.keyCode:e.which;
