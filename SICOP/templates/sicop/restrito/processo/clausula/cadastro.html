@@ -1,34 +1,13 @@
-{% extends "base/cadastro_base.html" %} 
-{% load staticfiles %} 
-
-{% block breadcumbs %}
-	Acesso Restrito | Processo Clausula Resolutiva | Cadastro
-{% endblock %}
-
-{% block subtitulo %}
-	
-	CADASTRAR PROCESSO CLAUSULA RESOLUTIVA
-	
-{% endblock %}
 
 {% block formulario %}
 
-		<form name="form" method="post" action=".">
+		<form name="form_cadastro" method="post" action="/sicop/restrito/processo/clausula/cadastro/">
 			<table>
-				 <tr>
-				 		<td>
-				   			<select name="tbtipoprocesso" onchange="proc();">
-				   				<option value="0">-- SELECIONE --</option>
-								{% for obj in tipoprocesso %}
-									<option value="{{ obj.id }}">{{ obj.nome }}</option>
-								{% endfor %}
-							</select>
-						</td>
-				   	</tr>
+				<tr> <td class="colunaTabela"> <label>Nome do Requerente:</label> </td><td>{{ form.nmrequerente }} </td> </tr>
 			</table>
 			<br/><br/>
 			<div style="width:100%;font-size:12px;text-align:right">
-				<a href="/sicop/restrito/processo/consulta/" class="button_red">VOLTAR</a>
+				<a href="/sicop/restrito/processo/cadastro/" class="button_red">VOLTAR</a>
 				<button type="submit" class="button_green">SALVAR</button>
 			</div>
 		</form>			

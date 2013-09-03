@@ -237,7 +237,7 @@ class Tbpendencia(models.Model):
     class Meta:
         db_table = 'tbpendencia'
 
-class Tbprocesso(models.Model):
+class Tbprocessorural(models.Model):
     id = models.IntegerField(primary_key=True)
     tbprocessobase = models.ForeignKey('Tbprocessobase')
     tbclassificacaoprocesso = models.ForeignKey(Tbclassificacaoprocesso)
@@ -247,7 +247,7 @@ class Tbprocesso(models.Model):
     dtcadastrosistema = models.DateTimeField(null=True, blank=True)
     cdstatus = models.IntegerField(null=True, blank=True)
     class Meta:
-        db_table = 'tbprocesso'
+        db_table = 'tbprocessorural'
 
 class Tbprocessobase(models.Model):
     id = models.IntegerField(primary_key=True)

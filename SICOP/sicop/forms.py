@@ -4,7 +4,7 @@ from django import forms
 from sicop.models import Tbpecastecnicas, Tbprocessobase, Tbtipopendencia,\
     Tbtipocaixa, Tbcaixa, Tbsubarea, Tbgleba, Tbcontrato, Tbstatuspendencia,\
     Tbsituacaoprocessourbano, Tbclassificacaoprocesso, Tbmunicipiomodulo,\
-    Tbtipoprocesso
+    Tbtipoprocesso, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano
 
 
 class FormPecasTecnicas(forms.ModelForm):
@@ -12,11 +12,26 @@ class FormPecasTecnicas(forms.ModelForm):
         model = Tbpecastecnicas
         fields = ('tbcaixa','tbcontrato','nrentrega','nrcpfrequerente','nmrequerente','tbgleba','stpecatecnica',
                   'stanexadoprocesso','stenviadobrasilia','nrarea','nrperimetro','dsobservacao')
-        
+
+# ----PROCESSOS----------------------------------------------------------------------------------------------------------------------
 class FormProcessos(models.ModelForm):
     class Meta:
         model = Tbprocessobase
         fields = ('tbtipoprocesso','tbmunicipio','tbgleba','tbcaixa')
+
+class FormProcessoRural(models.ModelForm):
+    class Meta:
+        model = Tbprocessorural
+
+class FormProcessoUrbano(models.ModelForm):
+    class Meta:
+        model = Tbprocessourbano
+
+class FormProcessoClausula(models.ModelForm):
+    class Meta:
+        model = Tbprocessoclausula
+
+# ----PROCESSOS----------------------------------------------------------------------------------------------------------------------
         
 class FormTipoCaixa(models.ModelForm):
     class Meta:

@@ -32,15 +32,15 @@ urlpatterns = patterns('',
     # PROCESSO RURAL
     url(r'^sicop/restrito/processo/rural/consulta/', 'sicop.restrito.processo_rural.consulta'),
     url(r'^sicop/restrito/processo/rural/cadastro/', 'sicop.restrito.processo_rural.cadastro'),
-    url(r'^sicop/restrito/processo/rural/edicao/', 'sicop.restrito.processo_rural.edicao'),
+    url(r'^sicop/restrito/processo/rural/edicao/(?P<id>\d+)/', 'sicop.restrito.processo_rural.edicao'),
     # PROCESSO URBANO
     url(r'^sicop/restrito/processo/urbano/consulta/', 'sicop.restrito.processo_urbano.consulta'),
     url(r'^sicop/restrito/processo/urbano/cadastro/', 'sicop.restrito.processo_urbano.cadastro'),
-    url(r'^sicop/restrito/processo/urbano/edicao/', 'sicop.restrito.processo_urbano.edicao'),
+    url(r'^sicop/restrito/processo/urbano/edicao/(?P<id>\d+)/', 'sicop.restrito.processo_urbano.edicao'),
     # PROCESSO CLAUSULA RESOLUTIVA
     url(r'^sicop/restrito/processo/clausula/consulta/', 'sicop.restrito.processo_clausula.consulta'),
     url(r'^sicop/restrito/processo/clausula/cadastro/', 'sicop.restrito.processo_clausula.cadastro'),
-    url(r'^sicop/restrito/processo/clausula/edicao/', 'sicop.restrito.processo_clausula.edicao'),
+    url(r'^sicop/restrito/processo/clausula/edicao/(?P<id>\d+)/', 'sicop.restrito.processo_clausula.edicao'),
    
     
    # ACESSO RESTRITO SICOP PECA TECNICA 

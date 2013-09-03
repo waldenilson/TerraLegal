@@ -7,26 +7,34 @@
 
 {% block subtitulo %}
 	
-	CADASTRAR PROCESSO
-	
-{% endblock %}
-
-{% block formulario %}
-
-		<form name="form" method="post" action=".">
+	<form name="form" method="post" action="/sicop/restrito/processo/cadastro/">
 			{% csrf_token %}
 			<table>
 				 <tr>
-				 		<td>
+				 		<td class="colunaTabela">
+				 			CADASTRAR NOVO:
+				 		</td>
+				 		<td >
 				   			<select name="escolha" onchange="proc();">
-				   				<option value="0">-- SELECIONE --</option>
 								{% for obj in tipoprocesso %}
-									<option value="{{ obj.tabela }}">{{ obj.nome }}</option>
+									{% if obj.tabela == processo %}
+										<option selected="selected" value="{{ obj.tabela }}">{{ obj.nome }}</option>
+									{% else %}
+										<option value="{{ obj.tabela }}">{{ obj.nome }}</option>
+									{% endif %}
 								{% endfor %}
 							</select>
 						</td>
 				   	</tr>
 			</table>
-			<input type="submit" value="Avancar" />
-		</form>			
+		</form>
+	
+{% endblock %}
+
+{% block formulario %}
+
+			{% if div_processo == 'rural' %} {% include "sicop/restrito/processo/rural/cadastro.html" %} {% endif %}
+			{% if div_processo == 'urbano' %} {% include "sicop/restrito/processo/urbano/cadastro.html" %} {% endif %}
+			{% if div_processo == 'clausula' %} {% include "sicop/restrito/processo/clausula/cadastro.html" %} {% endif %}
+				
 {% endblock %}

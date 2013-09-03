@@ -9,25 +9,34 @@
 
 {% block subtitulo %}
 	
-	CONSULTAR PROCESSO
-	
-{% endblock %}
-{% block formulario %}
-
-		<form name="form" method="post" action=".">
+	<form name="form" method="post" action=".">
 			{% csrf_token %}
 			<table>
 				 <tr>
-				 		<td>
+				 		<td class="colunaTabela">
+				 			CONSULTA DE:
+				 		</td>
+				 		<td >
 				   			<select name="escolha" onchange="proc();">
-				   				<option value="0">-- SELECIONE --</option>
 								{% for obj in tipoprocesso %}
-									<option value="{{ obj.tabela }}">{{ obj.nome }}</option>
+									{% if obj.tabela == processo %}
+										<option selected="selected" value="{{ obj.tabela }}">{{ obj.nome }}</option>
+									{% else %}
+										<option value="{{ obj.tabela }}">{{ obj.nome }}</option>
+									{% endif %}
 								{% endfor %}
 							</select>
 						</td>
 				   	</tr>
 			</table>
-			<input type="submit" value="Avancar" />
-		</form>			
+		</form>
+	
+{% endblock %}
+
+{% block formulario %}
+
+			{% if div_processo == 'rural' %} {% include "sicop/restrito/processo/rural/consulta.html" %} {% endif %}
+			{% if div_processo == 'urbano' %} {% include "sicop/restrito/processo/urbano/consulta.html" %} {% endif %}
+			{% if div_processo == 'clausula' %} {% include "sicop/restrito/processo/clausula/consulta.html" %} {% endif %}
+				
 {% endblock %}

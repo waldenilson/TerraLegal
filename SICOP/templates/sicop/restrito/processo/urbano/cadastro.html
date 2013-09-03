@@ -1,26 +1,14 @@
-{% extends "base/cadastro_base.html" %} 
-{% load staticfiles %} 
-
-{% block breadcumbs %}
-	Acesso Restrito | Processo Urbano | Cadastro
-{% endblock %}
-
-{% block subtitulo %}
-	
-	CADASTRAR PROCESSO URBANO
-	
-{% endblock %}
 
 {% block formulario %}
-		<form name="form" method="post" action=".">
+
+		<form name="form_cadastro" method="post" action="/sicop/restrito/processo/urbano/cadastro/">
+			{% csrf_token %}
 			<table>
-				 <tr>
-				 		<td></td>
-				   	</tr>
+				<tr> <td class="colunaTabela"> <label>CNPJ:</label> </td><td>{{ form.nrcnpj }} </td> </tr>
 			</table>
 			<br/><br/>
 			<div style="width:100%;font-size:12px;text-align:right">
-				<a href="/sicop/restrito/processo/consulta/" class="button_red">VOLTAR</a>
+				<a href="/sicop/restrito/processo/cadastro/" class="button_red">VOLTAR</a>
 				<button type="submit" class="button_green">SALVAR</button>
 			</div>
 		</form>			
