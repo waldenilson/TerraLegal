@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.http.response import HttpResponseRedirect
 from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
-    Tbprocessoclausula, Tbprocessobase
+    Tbprocessoclausula, Tbprocessobase, Tbcaixa, Tbgleba, Tbmunicipio
 from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
 
@@ -56,8 +56,11 @@ def cadastro(request):
         if escolha == "tbprocessorural":
             div_processo = "rural"
             form = FormProcessoRural()
+            caixa = Tbcaixa.objects.filter( tbtipocaixa = 1 )
+            gleba = Tbgleba.objects.all()
+            municipio = Tbmunicipio.objects.all()
             return render_to_response('sicop/restrito/processo/cadastro.html',
-                    {"form":form,'tipoprocesso':tipoprocesso,'processo':escolha,
+                    {"form":form,'tipoprocesso':tipoprocesso,'gleba':gleba,'caixa':caixa,'municipio':municipio,'processo':escolha,
                     'div_processo':div_processo},
                     context_instance = RequestContext(request));  
         else:

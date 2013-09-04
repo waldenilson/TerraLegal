@@ -14,10 +14,9 @@ class FormPecasTecnicas(forms.ModelForm):
                   'stanexadoprocesso','stenviadobrasilia','nrarea','nrperimetro','dsobservacao')
 
 # ----PROCESSOS----------------------------------------------------------------------------------------------------------------------
-class FormProcessos(models.ModelForm):
+class FormProcessoBase(models.ModelForm):
     class Meta:
         model = Tbprocessobase
-        fields = ('tbtipoprocesso','tbmunicipio','tbgleba','tbcaixa')
 
 class FormProcessoRural(models.ModelForm):
     class Meta:
@@ -36,7 +35,6 @@ class FormProcessoClausula(models.ModelForm):
 class FormTipoCaixa(models.ModelForm):
     class Meta:
         model = Tbtipocaixa
-        fields = ('nmtipocaixa','desctipocaixa')
         
 class FormCaixa(models.ModelForm):
     class Meta:

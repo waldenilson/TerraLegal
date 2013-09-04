@@ -330,6 +330,7 @@ class Tbsubarea(models.Model):
         db_table = 'tbsubarea'
 
 class Tbtipocaixa(models.Model):
+    id = models.AutoField(primary_key=True)
     nmtipocaixa = models.CharField(max_length=80, blank=True)
     desctipocaixa = models.TextField(blank=True)
     def __unicode__(self):
