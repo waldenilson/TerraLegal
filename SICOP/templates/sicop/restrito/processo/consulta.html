@@ -21,7 +21,7 @@
 				   	<tr>
 				   		<td class="colunaTabela"><label> Pesquisar Por: </label></td>
 				   		<td>
-				   			<input checked="checked" type="radio" name="escolha" value="numero">Nº do Processo&nbsp;&nbsp;&nbsp;
+				   			<input checked="checked" type="radio" name="escolha" value="numero">N do Processo&nbsp;&nbsp;&nbsp;
 				   			<input type="radio" name="escolha" value="nome">Nome do Requerente&nbsp;&nbsp;&nbsp;
 				   			<input type="radio" name="escolha" value="cpf">CPF do Requerente&nbsp;&nbsp;&nbsp;
 				   			<input type="radio" name="escolha" value="cnpj">CNPJ
@@ -54,7 +54,7 @@
 					{% autosort lista %}
 					{% autopaginate lista 5 %}
 					{% for obj in lista %}
-						<tr>
+						<tr style="background: {{ obj.tbtipoprocesso.coridentificacao }}">
 							<td class="colunaTabelaConsulta"> <a href="#"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
 							<td class="colunaTabelaConsulta">{{ obj.nrprocesso }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.tbtipoprocesso.nome }}</td>

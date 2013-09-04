@@ -38,6 +38,7 @@ class AuthUser(models.Model):
     is_staff = models.BooleanField()
     is_active = models.BooleanField()
     date_joined = models.DateTimeField()
+    tbdivisao = models.ForeignKey('Tbdivisao')
     class Meta:
         db_table = 'auth_user'
 
@@ -108,7 +109,7 @@ class Tbclassificacaoprocesso(models.Model):
         db_table = 'tbclassificacaoprocesso'
 
 class Tbconjuge(models.Model):
-#    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     tbprocessobase = models.ForeignKey('Tbprocessobase')
     nrcpf = models.CharField(max_length=11, blank=True)
     nmconjuge = models.CharField(max_length=100, blank=True)
@@ -124,6 +125,13 @@ class Tbcontrato(models.Model):
 
     class Meta:
         db_table = 'tbcontrato'
+        
+class Tbdivisao(models.Model):
+    id = models.AutoField(primary_key=True)
+    nmdivisao = models.CharField(max_length=80, blank=True)
+    dsdivisao = models.TextField(blank=True)
+    class Meta:
+        db_table = 'tbdivisao'
 
 class Tbgleba(models.Model):
 #    id = models.IntegerField(primary_key=True)
@@ -238,11 +246,11 @@ class Tbpendencia(models.Model):
         db_table = 'tbpendencia'
 
 class Tbprocessorural(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     tbprocessobase = models.ForeignKey('Tbprocessobase')
     tbclassificacaoprocesso = models.ForeignKey(Tbclassificacaoprocesso)
     nmrequerente = models.CharField(max_length=100, blank=True)
-    nrcpfrequerente = models.CharField(max_length=11, blank=True)
+    nrcpfrequerente = models.CharField(max_length=14, blank=True)
     blconjuge = models.BooleanField(null=False, blank=True)
     dtcadastrosistema = models.DateTimeField(null=True, blank=True)
     cdstatus = models.IntegerField(null=True, blank=True)
@@ -250,14 +258,13 @@ class Tbprocessorural(models.Model):
         db_table = 'tbprocessorural'
 
 class Tbprocessobase(models.Model):
-    id = models.IntegerField(primary_key=True)
-    nrprocesso = models.CharField(max_length=17, blank=True)
-    auth_group = models.ForeignKey(AuthGroup)
+    id = models.AutoField(primary_key=True)
+    nrprocesso = models.CharField(max_length=20, blank=True)
     tbtipoprocesso = models.ForeignKey('Tbtipoprocesso')
     auth_user = models.ForeignKey(AuthUser)
-    tbmunicipio = models.ForeignKey(Tbmunicipio)
-    tbcaixa = models.ForeignKey(Tbcaixa)
-    tbgleba = models.ForeignKey(Tbgleba)
+    tbmunicipio = models.ForeignKey('Tbmunicipio')
+    tbcaixa = models.ForeignKey('Tbcaixa')
+    tbgleba = models.ForeignKey('Tbgleba')
     class Meta:
         db_table = 'tbprocessobase'
 
@@ -321,7 +328,7 @@ class Tbstatuspendencia(models.Model):
         db_table = 'tbstatuspendencia'
 
 class Tbsubarea(models.Model):
-#    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     cdsubarea = models.CharField(max_length=10, blank=True)
     nmsubarea = models.CharField(max_length=80, blank=True)
     def __unicode__(self):
@@ -347,9 +354,10 @@ class Tbtipopendencia(models.Model):
         db_table = 'tbtipopendencia'
 
 class Tbtipoprocesso(models.Model):
-#    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=80, blank=True)
     tabela = models.CharField(max_length=50, blank=True)
+    coridentificacao = models.CharField(max_length=20, blank=True)
     def __unicode__(self):
         return self.nome
     class Meta:

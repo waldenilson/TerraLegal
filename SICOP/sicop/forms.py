@@ -39,7 +39,6 @@ class FormTipoCaixa(models.ModelForm):
 class FormCaixa(models.ModelForm):
     class Meta:
         model = Tbcaixa
-        fields = ('nmlocalarquivo','tbtipocaixa')
         
 class FormSubArea(models.ModelForm):
     class Meta:

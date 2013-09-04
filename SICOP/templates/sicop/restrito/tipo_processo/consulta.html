@@ -36,7 +36,8 @@
 				<tr>
 					<th class="colunaTabelaConsulta" style="width:8%">Detalhes</th>
 					<th class="colunaTabelaConsulta" style="width:46%">{% anchor nome Nome %}</th>
-					<th class="colunaTabelaConsulta" style="width:46%">{% anchor tabela Tabela %}</th>
+					<th class="colunaTabelaConsulta" style="width:23%">{% anchor tabela Tabela %}</th>
+					<th class="colunaTabelaConsulta" style="width:23%">{% anchor coridentificacao Cor %}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -48,6 +49,7 @@
 							<td class="colunaTabelaConsulta"> <a href="/sicop/restrito/tipo_processo/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
 							<td class="colunaTabelaConsulta">{{ obj.nome }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.tabela }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.coridentificacao }}</td>
 						</tr>
 					{% endfor %}
 					{% paginate %}

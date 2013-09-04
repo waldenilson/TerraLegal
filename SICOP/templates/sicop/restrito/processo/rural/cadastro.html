@@ -4,15 +4,20 @@
 		<form name="form_cadastro" method="post" action="/sicop/restrito/processo/rural/cadastro/">
 			{% csrf_token %}
 			<table>
-				<tr> <td class="colunaTabela"> <label>Nº do Processo:</label> </td>
+				<tr> <td class="colunaTabela"> <label>N do Processo:</label> </td>
 					<td> <input name="nrprocesso" id="processo" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Nome do Requerente:</label> </td>
 					<td> <input name="nmrequerente" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>CPF do Requerente:</label> </td>
 					<td> <input id="cpf" name="nrcpfrequerente" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Nome do Conjuge:</label> </td>
+					<td> <input name="nmconjuge" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>CPF do Conjuge:</label> </td>
+					<td> <input id="cpf2" name="nrcpfconjuge" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Gleba:</label> </td>
 				   		<td>
-				   			<select name="tbgleba">
+				   			<select name="tbgleba" style="width: 200px">
+				   				<option value="">-- Selecione uma Gleba --</option>
 								{% for obj in gleba %}
 									<option value="{{ obj.id }}">{{ obj.nmgleba }}</option>
 								{% endfor %}
@@ -21,7 +26,8 @@
 				</tr>
 				<tr> <td class="colunaTabela"> <label>Municipio:</label> </td>
 				   		<td>
-				   			<select name="tbmunicipio">
+				   			<select name="tbmunicipio" style="width: 200px">
+								<option value="">-- Selecione um Municipio --</option>
 								{% for obj in municipio %}
 									<option value="{{ obj.id }}">{{ obj.nome_mun }}</option>
 								{% endfor %}
@@ -30,7 +36,8 @@
 				</tr>
 				<tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
 				   		<td>
-				   			<select name="tbcaixa">
+				   			<select name="tbcaixa" style="width: 200px">
+								<option value="">-- Selecione uma Caixa --</option>
 								{% for obj in caixa %}
 									<option value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
 								{% endfor %}
