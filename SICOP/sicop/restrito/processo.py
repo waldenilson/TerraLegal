@@ -49,6 +49,9 @@ def cadastro(request):
     tipoprocesso = Tbtipoprocesso.objects.all()
     escolha = "tbprocessorural"
     div_processo = "rural"
+    caixa = Tbcaixa.objects.all()
+    gleba = Tbgleba.objects.all()
+    municipio = Tbmunicipio.objects.all()
     form = FormProcessoRural()
         
     if request.method == "POST":
@@ -56,9 +59,6 @@ def cadastro(request):
         if escolha == "tbprocessorural":
             div_processo = "rural"
             form = FormProcessoRural()
-            caixa = Tbcaixa.objects.filter( tbtipocaixa = 1 )
-            gleba = Tbgleba.objects.all()
-            municipio = Tbmunicipio.objects.all()
             return render_to_response('sicop/restrito/processo/cadastro.html',
                     {"form":form,'tipoprocesso':tipoprocesso,'gleba':gleba,'caixa':caixa,'municipio':municipio,'processo':escolha,
                     'div_processo':div_processo},
@@ -80,5 +80,6 @@ def cadastro(request):
                          'div_processo':div_processo},
                         context_instance = RequestContext(request));  
        
-    return render_to_response('sicop/restrito/processo/cadastro.html',{"form":form,'tipoprocesso':tipoprocesso,'processo':escolha,'div_processo':div_processo}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/processo/cadastro.html',{"form":form,'gleba':gleba,'caixa':caixa,'municipio':municipio,
+            'tipoprocesso':tipoprocesso,'processo':escolha,'div_processo':div_processo}, context_instance = RequestContext(request))
 
