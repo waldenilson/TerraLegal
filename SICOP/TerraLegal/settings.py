@@ -156,6 +156,7 @@ INSTALLED_APPS = (
     'web',
     'sicop',
     'servidor',
+    'controle',
     'pagination',
     'django_sorting',
     #'dajaxice',
