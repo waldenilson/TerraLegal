@@ -4,7 +4,7 @@ from django.template.context import RequestContext
 from django.http.response import HttpResponseRedirect
 from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
     Tbprocessoclausula, Tbprocessobase, Tbcaixa, Tbgleba, Tbmunicipio,\
-    Tbcontrato
+    Tbcontrato, Tbsituacaoprocesso
 from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
 
@@ -54,30 +54,31 @@ def cadastro(request):
     gleba = Tbgleba.objects.all()
     municipio = Tbmunicipio.objects.all()
     contrato = Tbcontrato.objects.all()
+    situacaoprocesso = Tbsituacaoprocesso.objects.all()
             
     if request.method == "POST":
         escolha = request.POST['escolha']
         if escolha == "tbprocessorural":
             div_processo = "rural"
             return render_to_response('sicop/restrito/processo/cadastro.html',
-                    {'tipoprocesso':tipoprocesso,'gleba':gleba,'caixa':caixa,'municipio':municipio,'processo':escolha,
+                    {'tipoprocesso':tipoprocesso,'situacaoprocesso':situacaoprocesso,'gleba':gleba,'caixa':caixa,'municipio':municipio,'processo':escolha,
                     'div_processo':div_processo},
                     context_instance = RequestContext(request));  
         else:
             if escolha == "tbprocessourbano":
                 div_processo = "urbano"
                 return render_to_response('sicop/restrito/processo/cadastro.html',
-                    {'tipoprocesso':tipoprocesso,'gleba':gleba,'caixa':caixa,'municipio':municipio,'processo':escolha,
+                    {'tipoprocesso':tipoprocesso,'situacaoprocesso':situacaoprocesso,'gleba':gleba,'caixa':caixa,'municipio':municipio,'processo':escolha,
                     'div_processo':div_processo,'contrato':contrato},
                     context_instance = RequestContext(request));  
             else:
                 if escolha == "tbprocessoclausula":
                     div_processo = "clausula"
                     return render_to_response('sicop/restrito/processo/cadastro.html',
-                    {'tipoprocesso':tipoprocesso,'gleba':gleba,'caixa':caixa,'municipio':municipio,'processo':escolha,
+                    {'tipoprocesso':tipoprocesso,'situacaoprocesso':situacaoprocesso,'gleba':gleba,'caixa':caixa,'municipio':municipio,'processo':escolha,
                     'div_processo':div_processo},
                     context_instance = RequestContext(request));  
        
-    return render_to_response('sicop/restrito/processo/cadastro.html',{'gleba':gleba,'caixa':caixa,'municipio':municipio,
+    return render_to_response('sicop/restrito/processo/cadastro.html',{'gleba':gleba,'caixa':caixa,'municipio':municipio,'situacaoprocesso':situacaoprocesso,
             'tipoprocesso':tipoprocesso,'processo':escolha,'div_processo':div_processo}, context_instance = RequestContext(request))
 

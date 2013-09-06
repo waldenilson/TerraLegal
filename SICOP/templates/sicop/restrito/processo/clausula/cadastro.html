@@ -48,10 +48,10 @@
 				<tr> <td class="colunaTabela"> <label>Por Procuracao:</label> </td><td>{{ form.stprocuracao }} </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Situacao:</label> </td>
 				   		<td>
-				   			<select name="tbmunicipio" style="width: 200px">
+				   			<select name="tbsituacaoprocesso" style="width: 200px">
 								<option value="">-- Selecione uma Situacao --</option>
-								{% for obj in situacao %}
-									<option value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+								{% for obj in situacaoprocesso %}
+									<option value="{{ obj.id }}">{{ obj.nmsituacao }}</option>
 								{% endfor %}
 							</select>
 						</td>

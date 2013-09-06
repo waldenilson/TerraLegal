@@ -56,6 +56,16 @@
 							</select>
 						</td>
 				</tr>
+				<tr> <td class="colunaTabela"> <label>Situacao:</label> </td>
+				   		<td>
+				   			<select name="tbsituacaoprocesso" style="width: 200px">
+								<option value="">-- Selecione uma Situacao --</option>
+								{% for obj in situacaoprocesso %}
+									<option value="{{ obj.id }}">{{ obj.nmsituacao }}</option>
+								{% endfor %}
+							</select>
+						</td>
+				</tr>
 			</table>
 			<br/><br/>
 			<div style="width:100%;font-size:12px;text-align:right">

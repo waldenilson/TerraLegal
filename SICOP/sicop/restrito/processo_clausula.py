@@ -2,7 +2,8 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from sicop.models import Tbtipoprocesso, Tbmunicipio, Tbgleba, Tbcaixa,\
-    Tbprocessobase, AuthUser, Tbprocessoclausula, Tbclassificacaoprocesso
+    Tbprocessobase, AuthUser, Tbprocessoclausula, Tbclassificacaoprocesso,\
+    Tbsituacaoprocesso
 from sicop.forms import FormProcessoClausula
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect
@@ -16,6 +17,8 @@ def consulta(request):
 @permission_required('sicop.add tbprocesso', login_url='/sicop/acesso_restrito/', raise_exception=True)
 def cadastro(request):
     tipoprocesso = Tbtipoprocesso.objects.all()
+    
+    situacaoprocesso = Tbsituacaoprocesso.objects.all()
     caixa = Tbcaixa.objects.all()
     gleba = Tbgleba.objects.all()
     municipio = Tbmunicipio.objects.all()
@@ -32,6 +35,7 @@ def cadastro(request):
                                     tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
                                     tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
                                     tbtipoprocesso = Tbtipoprocesso.objects.get( pk = 2 ),
+                                    tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
                                     auth_user = AuthUser.objects.get( pk = request.user.id )
                                     )
             f_base.save()
@@ -51,7 +55,7 @@ def cadastro(request):
             return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
            
     return render_to_response('sicop/restrito/processo/cadastro.html',
-        {'tipoprocesso':tipoprocesso,'processo':escolha, 'gleba':gleba,'caixa':caixa,'municipio':municipio,'div_processo':div_processo},
+        {'tipoprocesso':tipoprocesso,'situacaoprocesso':situacaoprocesso,'processo':escolha, 'gleba':gleba,'caixa':caixa,'municipio':municipio,'div_processo':div_processo},
          context_instance = RequestContext(request))     
 
 @login_required

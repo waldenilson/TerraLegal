@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from sicop.models import Tbtipoprocesso, Tbcaixa, Tbgleba, Tbmunicipio, AuthUser,\
     AuthGroup, Tbprocessobase, Tbprocessorural, Tbclassificacaoprocesso,\
-    Tbconjuge
+    Tbconjuge, Tbsituacaoprocesso
 from sicop.forms import FormProcessoRural, FormProcessoBase
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect
@@ -17,6 +17,8 @@ def consulta(request):
 @permission_required('sicop.add tbprocesso', login_url='/sicop/acesso_restrito/', raise_exception=True)
 def cadastro(request):
     tipoprocesso = Tbtipoprocesso.objects.all()
+    
+    situacaoprocesso = Tbsituacaoprocesso.objects.all()
     caixa = Tbcaixa.objects.all()
     gleba = Tbgleba.objects.all()
     municipio = Tbmunicipio.objects.all()
@@ -34,6 +36,7 @@ def cadastro(request):
                                     tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
                                     tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
                                     tbtipoprocesso = Tbtipoprocesso.objects.get( pk = 1 ),
+                                    tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
                                     auth_user = AuthUser.objects.get( pk = request.user.id )
                                     )
             f_base.save()
@@ -62,7 +65,7 @@ def cadastro(request):
             return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
         
     return render_to_response('sicop/restrito/processo/cadastro.html',
-        {'gleba':gleba,'caixa':caixa,'municipio':municipio,'tipoprocesso':tipoprocesso, 'processo':escolha, 'div_processo':div_processo}, context_instance = RequestContext(request))    
+        {'gleba':gleba,'situacaoprocesso':situacaoprocesso,'caixa':caixa,'municipio':municipio,'tipoprocesso':tipoprocesso, 'processo':escolha, 'div_processo':div_processo}, context_instance = RequestContext(request))    
   
 @login_required
 def edicao(request):
@@ -73,19 +76,22 @@ def validacao(request_form):
     if request_form.POST['nrprocesso'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe o numero do processo')
         warning = False
-    if request_form.POST['nmrequerente'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe o nome do requerente')
-        warning = False
-    if request_form.POST['nrcpfrequerente'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe o CPF do requerente')
-        warning = False
     if request_form.POST['tbgleba'] == '':
         messages.add_message(request_form,messages.WARNING,'Escolha uma gleba')
         warning = False
     if request_form.POST['tbmunicipio'] == '':
         messages.add_message(request_form,messages.WARNING,'Escolha um municipio')
         warning = False
+    if request_form.POST['nmrequerente'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe o nome do requerente')
+        warning = False
+    if request_form.POST['nrcpfrequerente'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe o CPF do requerente')
+        warning = False
     if request_form.POST['tbcaixa'] == '':
         messages.add_message(request_form,messages.WARNING,'Escolha uma caixa')
+        warning = False
+    if request_form.POST['tbsituacaoprocesso'] == '':
+        messages.add_message(request_form,messages.WARNING,'Escolha a situacao do processo')
         warning = False
     return warning 
