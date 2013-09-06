@@ -4,12 +4,12 @@
 {% load sorting_tags %}
 
 {% block breadcumbs %}
-	Acesso Restrito | Situacao Processo Urbano
+	Acesso Restrito | Situacao Processo
 {% endblock %}
 
 {% block subtitulo %}
 	
-	CONSULTAR SITUACAO PROCESSO URBANO
+	CONSULTAR SITUACAO PROCESSO
 	
 {% endblock %}
 
@@ -23,7 +23,7 @@
 			</table>
 			<div style="text-align: left;padding-bottom: 20px">
 				<button class="button_yellow" type="submit"> Consultar </button>
-				<a class="button_green" href="/sicop/restrito/situacao_processo_urbano/cadastro/"> Nova Situacao Processo Urbano </a>
+				<a class="button_green" href="/sicop/restrito/situacao_processo/cadastro/"> Nova Situacao Processo </a>
 			</div>
 		</form>
 {% endblock %}
@@ -43,13 +43,13 @@
 					{% autopaginate lista 5 %}
 					{% for obj in lista %}
 						<tr>
-							<td class="colunaTabelaConsulta"> <a href="/sicop/restrito/situacao_processo_urbano/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
+							<td class="colunaTabelaConsulta"> <a href="/sicop/restrito/situacao_processo/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
 							<td class="colunaTabelaConsulta">{{ obj.nmsituacao }}</td>
 						</tr>
 					{% endfor %}
 					{% paginate %}
 				{% else %}
-					<tr> <td style="padding-top: 20px" colspan="6"> Nenhum Situacao Processo Urbano Encontrado </td> </tr>
+					<tr> <td style="padding-top: 20px" colspan="6"> Nenhuma Situacao Processo Encontrada </td> </tr>
 				{% endif %}
 			</tbody>
 			

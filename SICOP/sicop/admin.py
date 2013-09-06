@@ -1,7 +1,7 @@
 from django.contrib import admin
 from sicop.models import Tbtipocaixa, Tbtipoprocesso, Tbstatuspendencia,\
     Tbpecastecnicas, Tbclassificacaoprocesso, Tbsubarea, Tbconjuge, Tbcaixa,\
-    Tbgleba, Tbcontrato, Tbsituacaoprocessourbano, Tbtipopendencia
+    Tbgleba, Tbcontrato, Tbsituacaoprocesso, Tbtipopendencia
 
 # tbtipocaixa,
 # tbcaixa,
@@ -19,7 +19,7 @@ from sicop.models import Tbtipocaixa, Tbtipoprocesso, Tbstatuspendencia,\
 # TABELAS BASICAS (VARIAVEIS STATUS E/OU TIPOS)
 admin.site.register(Tbtipoprocesso)
 admin.site.register(Tbtipopendencia)
-admin.site.register(Tbsituacaoprocessourbano)
+admin.site.register(Tbsituacaoprocesso)
 admin.site.register(Tbclassificacaoprocesso)
 admin.site.register(Tbstatuspendencia)
 #admin.site.register(Tbpecastecnicas)

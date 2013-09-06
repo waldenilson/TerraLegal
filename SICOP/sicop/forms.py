@@ -3,8 +3,9 @@ from django.forms import models
 from django import forms
 from sicop.models import Tbpecastecnicas, Tbprocessobase, Tbtipopendencia,\
     Tbtipocaixa, Tbcaixa, Tbsubarea, Tbgleba, Tbcontrato, Tbstatuspendencia,\
-    Tbsituacaoprocessourbano, Tbclassificacaoprocesso, Tbmunicipiomodulo,\
-    Tbtipoprocesso, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano
+    Tbclassificacaoprocesso, Tbmunicipiomodulo,\
+    Tbtipoprocesso, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano,\
+    Tbsituacaoprocesso
 
 
 class FormPecasTecnicas(forms.ModelForm):
@@ -74,8 +75,8 @@ class FormClassificacaoProcesso(models.ModelForm):
     class Meta:
         model = Tbclassificacaoprocesso
         
-class FormSituacaoProcessoUrbano(models.ModelForm):        
+class FormSituacaoProcesso(models.ModelForm):        
     class Meta:
-        model = Tbsituacaoprocessourbano
+        model = Tbsituacaoprocesso
            
         

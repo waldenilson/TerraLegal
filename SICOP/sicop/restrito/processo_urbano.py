@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from sicop.models import Tbtipoprocesso, Tbprocessobase, Tbgleba, Tbmunicipio,\
-    Tbcaixa, AuthUser, Tbprocessourbano, Tbsituacaoprocessourbano, Tbcontrato
+    Tbcaixa, AuthUser, Tbprocessourbano, Tbsituacaoprocesso, Tbcontrato
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect
 from sicop.forms import FormProcessoUrbano
@@ -47,7 +47,7 @@ def cadastro(request):
                                        tbcontrato = Tbcontrato.objects.get( pk = request.POST['tbcontrato'] ),
                                        tbprocessobase = f_base,
                                        dtaberturaprocesso = datetime.datetime.now(),
-                                       tbsituacaoprocessourbano = Tbsituacaoprocessourbano.objects.get( pk = 1 )
+                                       tbsituacaoprocessourbano = Tbsituacaoprocesso.objects.get( pk = 1 )
                                        )
             f_rural.save()
             

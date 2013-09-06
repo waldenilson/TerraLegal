@@ -261,6 +261,7 @@ class Tbprocessobase(models.Model):
     id = models.AutoField(primary_key=True)
     nrprocesso = models.CharField(max_length=20, blank=True)
     tbtipoprocesso = models.ForeignKey('Tbtipoprocesso')
+    tbsituacaoprocesso = models.ForeignKey('Tbsituacaoprocesso')
     auth_user = models.ForeignKey(AuthUser)
     tbmunicipio = models.ForeignKey('Tbmunicipio')
     tbcaixa = models.ForeignKey('Tbcaixa')
@@ -278,6 +279,7 @@ class Tbprocessoclausula(models.Model):
     nrcpfinteressado = models.CharField(max_length=11, blank=True)
     nrarea = models.DecimalField(null=True, max_digits=10, decimal_places=4, blank=True)
     dtcadastrosistema = models.DateTimeField(null=True, blank=True)
+    dttitulacao = models.DateTimeField(null=True, blank=True)
     cdstatus = models.IntegerField(null=True, blank=True)
     dsobs = models.TextField(blank=True)
     stprocuracao = models.BooleanField(null=False, blank=True)
@@ -296,14 +298,13 @@ class Tbprocessosanexos(models.Model):
 
 class Tbprocessourbano(models.Model):
     id = models.AutoField(primary_key=True)
-    tbsituacaoprocessourbano = models.ForeignKey('Tbsituacaoprocessourbano')
     tbprocessobase = models.ForeignKey(Tbprocessobase)
     tbcontrato = models.ForeignKey(Tbcontrato)
     nmpovoado = models.CharField(max_length=80, blank=True)
     nrcnpj = models.CharField(max_length=18, blank=True)
     dtaberturaprocesso = models.DateTimeField(null=True, blank=True)
     dttitulacao = models.DateTimeField(null=True, blank=True)
-    stgeo = models.CharField(max_length=20, blank=True)
+    tbsituacaogeo = models.ForeignKey('Tbsituacaogeo')
     nrarea = models.DecimalField(null=True, max_digits=10, decimal_places=4, blank=True)
     nrperimetro = models.DecimalField(null=True, max_digits=18, decimal_places=4, blank=True)
     nrdomicilios = models.IntegerField(null=True, blank=True)
@@ -312,11 +313,17 @@ class Tbprocessourbano(models.Model):
     class Meta:
         db_table = 'tbprocessourbano'
 
-class Tbsituacaoprocessourbano(models.Model):
+class Tbsituacaoprocesso(models.Model):
 #    id = models.IntegerField(primary_key=True)
     nmsituacao = models.CharField(max_length=80, blank=True)
     class Meta:
-        db_table = 'tbsituacaoprocessourbano'
+        db_table = 'tbsituacaoprocesso'
+
+class Tbsituacaogeo(models.Model):
+    id = models.AutoField(primary_key=True)
+    nmsituacaogeo = models.CharField(max_length=80, blank=True)
+    class Meta:
+        db_table = 'tbsituacaogeo'
 
 class Tbstatuspendencia(models.Model):
 #    id = models.IntegerField(primary_key=True)
