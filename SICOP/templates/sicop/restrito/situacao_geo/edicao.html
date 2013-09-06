@@ -1,0 +1,28 @@
+{% extends "base/cadastro_base.html" %} 
+{% load staticfiles %} 
+{% block breadcumbs %}
+	Acesso Restrito | Situacao Geo | Edicao
+{% endblock %}
+
+{% block subtitulo %}
+	
+	EDITAR SITUACAO GEO
+	
+{% endblock %}
+
+{% block formulario %}
+	<form method="post" action=".">
+		{% csrf_token %}
+		<div style="width:100%;font-size:12px;text-align:left">
+				<table>
+				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td>{{ form.nmsituacaogeo }} </td> </tr>
+				</table>
+		</div>
+		<br/><br/>
+		<div style="width:100%;font-size:12px;text-align:right">
+			<a href="/sicop/restrito/situacao_geo/consulta/" class="button_red">VOLTAR</a>
+			<button type="submit" class="button_green" >SALVAR</button>
+		</div>	
+	</form>
+	
+{% endblock %}
