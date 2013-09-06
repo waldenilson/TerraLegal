@@ -3,13 +3,14 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.http.response import HttpResponseRedirect
 from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
-    Tbprocessoclausula, Tbprocessobase, Tbcaixa, Tbgleba, Tbmunicipio
+    Tbprocessoclausula, Tbprocessobase, Tbcaixa, Tbgleba, Tbmunicipio,\
+    Tbcontrato
 from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
 
 @login_required
 def consulta(request):
-    lista = Tbprocessobase.objects.all().filter( id = "0" )
+    lista = Tbprocessobase.objects.all()
     if request.method == "POST":
         escolha = request.POST['escolha']
         pesquisa = request.POST['pesquisa']
@@ -52,34 +53,31 @@ def cadastro(request):
     caixa = Tbcaixa.objects.all()
     gleba = Tbgleba.objects.all()
     municipio = Tbmunicipio.objects.all()
-    form = FormProcessoRural()
-        
+    contrato = Tbcontrato.objects.all()
+            
     if request.method == "POST":
         escolha = request.POST['escolha']
         if escolha == "tbprocessorural":
             div_processo = "rural"
-            form = FormProcessoRural()
             return render_to_response('sicop/restrito/processo/cadastro.html',
-                    {"form":form,'tipoprocesso':tipoprocesso,'gleba':gleba,'caixa':caixa,'municipio':municipio,'processo':escolha,
+                    {'tipoprocesso':tipoprocesso,'gleba':gleba,'caixa':caixa,'municipio':municipio,'processo':escolha,
                     'div_processo':div_processo},
                     context_instance = RequestContext(request));  
         else:
             if escolha == "tbprocessourbano":
-                form = FormProcessoUrbano()
                 div_processo = "urbano"
                 return render_to_response('sicop/restrito/processo/cadastro.html',
-                    {"form":form,'tipoprocesso':tipoprocesso,'processo':escolha,
-                    'div_processo':div_processo},
+                    {'tipoprocesso':tipoprocesso,'gleba':gleba,'caixa':caixa,'municipio':municipio,'processo':escolha,
+                    'div_processo':div_processo,'contrato':contrato},
                     context_instance = RequestContext(request));  
             else:
                 if escolha == "tbprocessoclausula":
-                    form = FormProcessoClausula()
                     div_processo = "clausula"
                     return render_to_response('sicop/restrito/processo/cadastro.html',
-                        {"form":form,'tipoprocesso':tipoprocesso,'processo':escolha,
-                         'div_processo':div_processo},
-                        context_instance = RequestContext(request));  
+                    {'tipoprocesso':tipoprocesso,'gleba':gleba,'caixa':caixa,'municipio':municipio,'processo':escolha,
+                    'div_processo':div_processo},
+                    context_instance = RequestContext(request));  
        
-    return render_to_response('sicop/restrito/processo/cadastro.html',{"form":form,'gleba':gleba,'caixa':caixa,'municipio':municipio,
+    return render_to_response('sicop/restrito/processo/cadastro.html',{'gleba':gleba,'caixa':caixa,'municipio':municipio,
             'tipoprocesso':tipoprocesso,'processo':escolha,'div_processo':div_processo}, context_instance = RequestContext(request))
 

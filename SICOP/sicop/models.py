@@ -3,6 +3,7 @@
 # Create your models here.
 from __future__ import unicode_literals
 from django.db import models
+from django.templatetags.l10n import localize
 
 class AuthGroup(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -90,7 +91,7 @@ class DjangoSite(models.Model):
         db_table = 'django_site'
 
 class Tbcaixa(models.Model):
-    id = models.AutoField(primary_key=True)
+#    id = models.IntegerField(primary_key=True)
     nmlocalarquivo = models.CharField(max_length=80, blank=True)
     qtdprocessos = models.IntegerField(null=True, blank=True)
     tbtipocaixa = models.ForeignKey('Tbtipocaixa')
@@ -100,7 +101,7 @@ class Tbcaixa(models.Model):
         db_table = 'tbcaixa'
 
 class Tbclassificacaoprocesso(models.Model):
-    id = models.AutoField(primary_key=True)
+#    id = models.IntegerField(primary_key=True)
     nmclassificacao = models.CharField(max_length=80, blank=True)
     def __unicode__(self):
         return self.nmclassificacao
@@ -110,13 +111,13 @@ class Tbclassificacaoprocesso(models.Model):
 class Tbconjuge(models.Model):
     id = models.AutoField(primary_key=True)
     tbprocessobase = models.ForeignKey('Tbprocessobase')
-    nrcpf = models.CharField(max_length=11, blank=True)
+    nrcpf = models.CharField(max_length=14, blank=True)
     nmconjuge = models.CharField(max_length=100, blank=True)
     class Meta:
         db_table = 'tbconjuge'
 
 class Tbcontrato(models.Model):
-    id = models.AutoField(primary_key=True)
+#    id = models.IntegerField(primary_key=True)
     nrcontrato = models.CharField(max_length=10, blank=True)
     nmempresa = models.CharField(max_length=100, blank=True)
     def __unicode__(self):
@@ -133,7 +134,7 @@ class Tbdivisao(models.Model):
         db_table = 'tbdivisao'
 
 class Tbgleba(models.Model):
-    id = models.AutoField(primary_key=True)
+#    id = models.IntegerField(primary_key=True)
     cdgleba = models.IntegerField(null=True, blank=True)
     nmgleba = models.CharField(max_length=80, blank=True)
     tbsubarea = models.ForeignKey('Tbsubarea')
@@ -143,7 +144,7 @@ class Tbgleba(models.Model):
         db_table = 'tbgleba'
 
 class Tbmovimentacao(models.Model):
-    id = models.AutoField(primary_key=True)
+    id = models.IntegerField(primary_key=True)
     tbprocessobase = models.ForeignKey('Tbprocessobase')
     tbcaixa_id = models.ForeignKey(Tbcaixa, db_column='tbcaixa_id',related_name='tbcaixa_id')
     tbcaixa_id_origem = models.ForeignKey(Tbcaixa, db_column='tbcaixa_id_origem',related_name='tbcaixa_id_origem')
@@ -153,7 +154,7 @@ class Tbmovimentacao(models.Model):
         db_table = 'tbmovimentacao'
 
 class Tbmunicipio(models.Model):
-    id = models.AutoField(primary_key=True)
+#    id = models.IntegerField(primary_key=True)
     nome_mun_maiusculo = models.CharField(max_length=50, db_column='Nome_Mun_Maiusculo', blank=True) # Field name made lowercase.
     nome_mun = models.CharField(max_length=50, db_column='Nome_Mun', blank=True) # Field name made lowercase.
     codigo_mun = models.IntegerField(null=True, db_column='Codigo_Mun', blank=True) # Field name made lowercase.
@@ -284,7 +285,7 @@ class Tbprocessoclausula(models.Model):
         db_table = 'tbprocessoclausula'
 
 class Tbprocessosanexos(models.Model):
-    id = models.AutoField(primary_key=True)
+    id = models.IntegerField(primary_key=True)
     tbcaixa = models.ForeignKey(Tbcaixa)
     tbprocessobase = models.ForeignKey(Tbprocessobase,db_column='tbprocessobase_id',related_name='tbprocessobase_id')
     tbprocessobase_id_anexo = models.ForeignKey(Tbprocessobase, db_column='tbprocessobase_id_anexo',related_name='tbprocessobase_id_anexo')
@@ -299,7 +300,7 @@ class Tbprocessourbano(models.Model):
     tbprocessobase = models.ForeignKey(Tbprocessobase)
     tbcontrato = models.ForeignKey(Tbcontrato)
     nmpovoado = models.CharField(max_length=80, blank=True)
-    nrcnpj = models.CharField(max_length=14, blank=True)
+    nrcnpj = models.CharField(max_length=18, blank=True)
     dtaberturaprocesso = models.DateTimeField(null=True, blank=True)
     dttitulacao = models.DateTimeField(null=True, blank=True)
     stgeo = models.CharField(max_length=20, blank=True)
@@ -312,13 +313,13 @@ class Tbprocessourbano(models.Model):
         db_table = 'tbprocessourbano'
 
 class Tbsituacaoprocessourbano(models.Model):
-    id = models.AutoField(primary_key=True)
+#    id = models.IntegerField(primary_key=True)
     nmsituacao = models.CharField(max_length=80, blank=True)
     class Meta:
         db_table = 'tbsituacaoprocessourbano'
 
 class Tbstatuspendencia(models.Model):
-    id = models.AutoField(primary_key=True)
+#    id = models.IntegerField(primary_key=True)
     stpendencia = models.IntegerField(null=True, blank=True)
     dspendencia = models.CharField(max_length=100, blank=True)
     def __unicode__(self):
@@ -345,7 +346,7 @@ class Tbtipocaixa(models.Model):
         db_table = 'tbtipocaixa'
 
 class Tbtipopendencia(models.Model):
-    id = models.AutoField(primary_key=True)
+#    id = models.IntegerField(primary_key=True)
     cdtipopend = models.IntegerField(null=True, blank=True)
     dspendencia = models.CharField(max_length=50, blank=True)
     cdgrupo = models.CharField(max_length=20, blank=True)

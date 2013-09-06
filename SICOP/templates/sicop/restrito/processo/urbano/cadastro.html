@@ -4,7 +4,58 @@
 		<form name="form_cadastro" method="post" action="/sicop/restrito/processo/urbano/cadastro/">
 			{% csrf_token %}
 			<table>
-				<tr> <td class="colunaTabela"> <label>CNPJ:</label> </td><td>{{ form.nrcnpj }} </td> </tr>
+				<tr> <td class="colunaTabela"> <label>N do Processo:</label> </td>
+					<td> <input name="nrprocesso" id="processo" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>CNPJ:</label> </td>
+					<td> <input id="cnpj" name="nrcnpj" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Nome do Povoado:</label> </td>
+					<td> <input name="nmpovoado" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Contrato:</label> </td>
+				   		<td>
+				   			<select name="tbcontrato" style="width: 200px">
+				   				<option value="">-- Selecione o Contrato --</option>
+								{% for obj in contrato %}
+									<option value="{{ obj.id }}">{{ obj.nrcontrato }}</option>
+								{% endfor %}
+							</select>
+						</td>
+				</tr>
+				<tr> <td class="colunaTabela"> <label>Numero de Habitantes:</label> </td>
+					<td> <input onkeypress="return SomenteNumeroOK(event, this);" name="nrhabitantes" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Numero de Domicilios:</label> </td>
+					<td> <input onkeypress="return SomenteNumeroOK(event, this);" name="nrdomicilios" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Numero do Pregao:</label> </td>
+					<td> <input name="nrpregao" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Gleba:</label> </td>
+				   		<td>
+				   			<select name="tbgleba" style="width: 200px">
+				   				<option value="">-- Selecione uma Gleba --</option>
+								{% for obj in gleba %}
+									<option value="{{ obj.id }}">{{ obj.nmgleba }}</option>
+								{% endfor %}
+							</select>
+						</td>
+				</tr>
+				<tr> <td class="colunaTabela"> <label>Municipio:</label> </td>
+				   		<td>
+				   			<select name="tbmunicipio" style="width: 200px">
+								<option value="">-- Selecione um Municipio --</option>
+								{% for obj in municipio %}
+									<option value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+								{% endfor %}
+							</select>
+						</td>
+				</tr>
+				<tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
+				   		<td>
+				   			<select name="tbcaixa" style="width: 200px">
+								<option value="">-- Selecione uma Caixa --</option>
+								{% for obj in caixa %}
+									<option value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
+								{% endfor %}
+							</select>
+						</td>
+				</tr>
 			</table>
 			<br/><br/>
 			<div style="width:100%;font-size:12px;text-align:right">

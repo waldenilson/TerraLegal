@@ -1,10 +1,12 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
-from sicop.models import Tbtipoprocesso
+from sicop.models import Tbtipoprocesso, Tbprocessobase, Tbgleba, Tbmunicipio,\
+    Tbcaixa, AuthUser, Tbprocessourbano, Tbsituacaoprocessourbano, Tbcontrato
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect
 from sicop.forms import FormProcessoUrbano
+import datetime
 
 @login_required
 def consulta(request):
@@ -13,22 +15,47 @@ def consulta(request):
 @login_required
 @permission_required('sicop.add tbprocesso', login_url='/sicop/acesso_restrito/', raise_exception=True)
 def cadastro(request):
-        
     tipoprocesso = Tbtipoprocesso.objects.all()
+    caixa = Tbcaixa.objects.all()
+    gleba = Tbgleba.objects.all()
+    municipio = Tbmunicipio.objects.all()
+    contrato = Tbcontrato.objects.all()
+    
     div_processo = "urbano"
-    escolha = "tbprocessourbano"
+    escolha = "tbprocessourbano"  
+    
     if request.method == "POST":
-        form = FormProcessoUrbano(request.POST)
         if validacao(request):
-            if form.is_valid():
-                form.save()
-                return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
-    else:
-        form = FormProcessoUrbano() 
+            # cadastrando o registro processo base            
+            f_base = Tbprocessobase (
+                                    nrprocesso = request.POST['nrprocesso'],
+                                    tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
+                                    tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
+                                    tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
+                                    tbtipoprocesso = Tbtipoprocesso.objects.get( pk = 3 ),
+                                    auth_user = AuthUser.objects.get( pk = request.user.id )
+                                    )
+            f_base.save()
+            
+            # cadastrando o registro processo rural
+            f_rural = Tbprocessourbano (
+                                       nmpovoado = request.POST['nmpovoado'],
+                                       nrcnpj = request.POST['nrcnpj'],
+                                       nrhabitantes = request.POST['nrhabitantes'],
+                                       nrdomicilios = request.POST['nrdomicilios'],
+                                       nrpregao = request.POST['nrpregao'],
+                                       tbcontrato = Tbcontrato.objects.get( pk = request.POST['tbcontrato'] ),
+                                       tbprocessobase = f_base,
+                                       dtaberturaprocesso = datetime.datetime.now(),
+                                       tbsituacaoprocessourbano = Tbsituacaoprocessourbano.objects.get( pk = 1 )
+                                       )
+            f_rural.save()
+            
+            return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
            
     return render_to_response('sicop/restrito/processo/cadastro.html',
-        {'form':form,'tipoprocesso':tipoprocesso,'processo':escolha,
-            'div_processo':div_processo}, context_instance = RequestContext(request))    
+        {'tipoprocesso':tipoprocesso,'processo':escolha, 'contrato':contrato,'gleba':gleba,'caixa':caixa,'municipio':municipio,'div_processo':div_processo},
+         context_instance = RequestContext(request))     
 
 @login_required
 def edicao(request):
@@ -36,7 +63,34 @@ def edicao(request):
 
 def validacao(request_form):
     warning = True
+    if request_form.POST['nrprocesso'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe o numero do processo')
+        warning = False
     if request_form.POST['nrcnpj'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe o CNPJ')
         warning = False
-    return warning
+    if request_form.POST['nmpovoado'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe o nome do povoado')
+        warning = False
+    if request_form.POST['tbcontrato'] == '':
+        messages.add_message(request_form,messages.WARNING,'Escolha o Contrato')
+        warning = False
+    if request_form.POST['nrhabitantes'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe o Numero de habitantes')
+        warning = False
+    if request_form.POST['nrdomicilios'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe o Numero de Domicilios')
+        warning = False
+    if request_form.POST['nrpregao'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe o Numero do Pregao')
+        warning = False
+    if request_form.POST['tbgleba'] == '':
+        messages.add_message(request_form,messages.WARNING,'Escolha uma gleba')
+        warning = False
+    if request_form.POST['tbmunicipio'] == '':
+        messages.add_message(request_form,messages.WARNING,'Escolha um municipio')
+        warning = False
+    if request_form.POST['tbcaixa'] == '':
+        messages.add_message(request_form,messages.WARNING,'Escolha uma caixa')
+        warning = False
+    return warning 

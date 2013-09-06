@@ -21,19 +21,21 @@
 					
 				   <tr> <td class="colunaTabela"> <label>Contrato:</label> </td>
 				   		<td>
-				   			<select id="id_tbcontrato" name="tbcontrato">
+				   			<select id="id_tbcontrato" style="width: 200px" name="tbcontrato">
+				   				<option value="">-- Selecione o Contrato --</option>
 								{% for obj in contrato %}
 									<option value="{{ obj.id }}">{{ obj.nrcontrato }}</option>
 								{% endfor %}
-							</select>
+							</select>&nbsp;*
 						</td>
-				   	</tr>
+					</tr>
 				   <tr> <td class="colunaTabela"> <label>Entrega:</label> </td><td>{{ form.nrentrega }} </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>CPF do Requerente:</label> </td><td> <input  size="15" id="cpf" name="nrcpfrequerente" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Nome do Requerente:</label> </td><td> <input size="35" name="nmrequerente" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
 				   		<td>
-				   			<select id="id_tbcaixa" name="tbcaixa">
+				   			<select id="id_tbcaixa" style="width: 200px" name="tbcaixa">
+								<option value="">-- Selecione uma Caixa --</option>
 								{% for obj in caixa %}
 									<option value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
 								{% endfor %}
@@ -44,7 +46,8 @@
 				   <tr> <td class="colunaTabela"> <label>Perimetro:</label> </td><td> <input onkeypress="return SomenteNumero(event, this);" size="15" name="nrperimetro" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Gleba:</label> </td>
 				   		<td>
-				   			<select id="id_tbgleba" name="tbgleba">
+				   			<select id="id_tbgleba" style="width: 200px" name="tbgleba">
+				   				<option value="">-- Selecione uma Gleba --</option>
 								{% for obj in gleba %}
 									<option value="{{ obj.id }}">{{ obj.nmgleba }}</option>
 								{% endfor %}

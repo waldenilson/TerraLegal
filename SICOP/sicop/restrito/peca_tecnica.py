@@ -63,7 +63,7 @@ def edicao(request, id):
 def validacao(request_form):
     warning = True
     if request_form.POST['tbcontrato'] == '':
-        messages.add_message(request_form,messages.WARNING,'Selecione um Contrato')
+        messages.add_message(request_form,messages.WARNING,'Selecione o Contrato')
         warning = False
     if request_form.POST['nrentrega'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe o numero da entrega')
@@ -73,6 +73,9 @@ def validacao(request_form):
         warning = False
     if request_form.POST['nmrequerente'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe o nome do requerente maior que 4 letras')
+        warning = False
+    if request_form.POST['tbcaixa'] == '':
+        messages.add_message(request_form,messages.WARNING,'Selecione uma Caixa') 
         warning = False
     if request_form.POST['nrarea'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe o numero da area')

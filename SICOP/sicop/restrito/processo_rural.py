@@ -23,14 +23,9 @@ def cadastro(request):
     
     div_processo = "rural"
     escolha = "tbprocessorural"
-    form_rural = FormProcessoRural() 
-    form_base = FormProcessoBase()
     
     if request.method == "POST":
         if validacao(request):
-            # preencher forms base e rural com os requests
-            form_rural.nmrequerente = request.POST['nmrequerente']
-            form_rural.nrcpfrequerente = request.POST['nrcpfrequerente']
             
             # cadastrando o registro processo base            
             f_base = Tbprocessobase (

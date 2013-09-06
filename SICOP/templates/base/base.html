@@ -35,6 +35,7 @@ jQuery(function($){
 	$("#date").mask("99/99/9999");
 	$("#cpf").mask("999.999.999-99");
 	$("#cpf2").mask("999.999.999-99");
+	$("#cnpj").mask("99.999.999/9999-99");
 	$("#phone").mask("(999) 999-9999");
 	$("#tin").mask("99-9999999");
 	$("#ssn").mask("999-99-9999");
@@ -67,6 +68,19 @@ function SomenteNumero(e, obj)
 			else
 				return false;
 			
+	}
+}
+
+function SomenteNumeroOK(e, obj)
+{
+	var tecla=(window.event)?event.keyCode:e.which;
+	if((tecla>47 && tecla<58)) return true;
+	else
+	{
+
+		if (tecla==8 || tecla==0 ) return true;
+		else
+			return false;
 	}
 }
 
