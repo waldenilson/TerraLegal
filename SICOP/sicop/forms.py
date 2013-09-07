@@ -5,7 +5,7 @@ from sicop.models import Tbpecastecnicas, Tbprocessobase, Tbtipopendencia,\
     Tbtipocaixa, Tbcaixa, Tbsubarea, Tbgleba, Tbcontrato, Tbstatuspendencia,\
     Tbclassificacaoprocesso, Tbmunicipiomodulo,\
     Tbtipoprocesso, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano,\
-    Tbsituacaoprocesso, Tbsituacaogeo
+    Tbsituacaoprocesso, Tbsituacaogeo , Tbservidor
 
 
 class FormPecasTecnicas(forms.ModelForm):
@@ -83,4 +83,12 @@ class FormSituacaoProcesso(models.ModelForm):
 class FormSituacaoGeo(models.ModelForm):        
     class Meta:
         model = Tbsituacaogeo
+        
+class FormServidor(forms.ModelForm):
+    class Meta:
+        model = Tbservidor
+        fields = ('nmservidor','nmunidade','nmlotacao','cdSIAPE','nrCPF',
+                  'dsportariacargo','dsportaria','nmcargo','nrtelefone1','nrtelefone2',
+                  'email','dsatividades')
+
         

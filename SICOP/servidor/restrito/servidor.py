@@ -1,42 +1,42 @@
-#Visoes para controle de servidores
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.template.context import RequestContext
 from django.contrib import messages
-from sicop.forms import FormPecasTecnicas
-from sicop.models import Tbpecastecnicas, Tbgleba, Tbcaixa, Tbcontrato
+from sicop.forms import FormPecasTecnicas, FormServidor
+from sicop.models import Tbpecastecnicas, Tbgleba, Tbcaixa, Tbcontrato, Tbservidor
 
-#PECAS TECNICAS -----------------------------------------------------------------------------------------------------------------------------
+#servidor -----------------------------------------------------------------------------------------------------------------------------
 
 @login_required
 def consulta(request):
     
     if request.method == "POST":
-        requerente = request.POST['requerente']
-        cpf = request.POST['cpf']
-        entrega = request.POST['entrega']
-        lista = Tbpecastecnicas.objects.all().filter( nmrequerente__contains=requerente, nrcpfrequerente__contains=cpf, nrentrega__contains=entrega )
+        nome = request.POST['nome']
+        #requerente = request.POST['requerente']
+        #cpf = request.POST['cpf']
+        #entrega = request.POST['entrega']
+        lista = Tbservidor.objects.all().filter( nome__contains=nome )
        
     else:
-        lista = Tbpecastecnicas.objects.all()
+        lista = Tbservidor.objects.all()
     
     lista = lista.order_by( 'id' )
     
     # combobox
-    gleba = Tbgleba.objects.all()
+    #gleba = Tbgleba.objects.all()
     # buscar caixa do tipo peca
-    caixa = Tbcaixa.objects.filter( tbtipocaixa = 2 )
-    contrato = Tbcontrato.objects.all()
+    #caixa = Tbcaixa.objects.filter( tbtipocaixa = 2 )
+    #contrato = Tbcontrato.objects.all()
     
-    return render_to_response('sicop/restrito/peca_tecnica/consulta.html' ,{'lista_peca_tecnica':lista,'gleba':gleba,'contrato':contrato,'caixa':caixa}, context_instance = RequestContext(request))
+    return render_to_response('controle/servidor/consulta.html' ,{'lista_servidor':lista}, context_instance = RequestContext(request))
 
 @login_required
 def cadastro(request):
-    
-    contrato = Tbcontrato.objects.all()
-    caixa = Tbcaixa.objects.filter( tbtipocaixa = 2 )
-    gleba = Tbgleba.objects.all()
+    #se for usar acesso a outras tabelas descomentar abaixo
+    #contrato = Tbcontrato.objects.all()
+    #caixa = Tbcaixa.objects.filter( tbtipocaixa = 2 )
+    #gleba = Tbgleba.objects.all()
     
     if request.method == "POST":
         form = FormPecasTecnicas(request.POST)
@@ -48,7 +48,8 @@ def cadastro(request):
     else:
         form = FormPecasTecnicas()
     
-    return render_to_response('sicop/restrito/peca_tecnica/cadastro.html',{"form":form,'caixa':caixa,'contrato':contrato,'gleba':gleba}, context_instance = RequestContext(request))
+# return render_to_response('sicop/restrito/peca_tecnica/cadastro.html',{"form":form,'caixa':caixa,'contrato':contrato,'gleba':gleba}, context_instance = RequestContext(request))
+    return render_to_response('controle/servidor/cadastro.html',{"form":form }, context_instance = RequestContext(request))
 
 @login_required
 def edicao(request, id):

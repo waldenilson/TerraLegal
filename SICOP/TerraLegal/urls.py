@@ -136,6 +136,8 @@ urlpatterns = patterns('',
     #INIT------------------------------CONTROLE---------------------------------------------------------------------------------
     # ACESSO SISTEMAS DE CONTROLE
     url(r'^controle/', 'controle.views.inicio'),
+    url(r'^controle/restrito/servidor', 'servidor.restrito.consulta'),
+    
     #END------------------------------CONTROLE---------------------------------------------------------------------------------
     
     

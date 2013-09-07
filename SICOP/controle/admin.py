@@ -1,5 +1,5 @@
-from django.contrib import admin
-from controle.models import Tbservidor
+#from django.contrib import admin
+#from controle.models import Tbservidor
 # tbtipocaixa,
 # tbcaixa,
 # tbmunicipio, 
@@ -14,4 +14,4 @@ from controle.models import Tbservidor
 # tbtipoprocesso
 
 # TABELAS BASICAS (VARIAVEIS STATUS E/OU TIPOS)
-admin.site.register(Tbservidor)
+#admin.site.register(Tbservidor)
