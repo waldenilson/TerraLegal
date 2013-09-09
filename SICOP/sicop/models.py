@@ -316,12 +316,14 @@ class Tbprocessourbano(models.Model):
 class Tbsituacaoprocesso(models.Model):
 #    id = models.IntegerField(primary_key=True)
     nmsituacao = models.CharField(max_length=80, blank=True)
+    dssituacao = models.TextField(blank=True)
     class Meta:
         db_table = 'tbsituacaoprocesso'
 
 class Tbsituacaogeo(models.Model):
     id = models.AutoField(primary_key=True)
     nmsituacaogeo = models.CharField(max_length=80, blank=True)
+    dssituacaogeo = models.TextField(blank=True)
     class Meta:
         db_table = 'tbsituacaogeo'
 

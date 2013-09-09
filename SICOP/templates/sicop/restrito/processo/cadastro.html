@@ -6,13 +6,20 @@
 {% endblock %}
 
 {% block subtitulo %}
+
+
+	CADASTRAR PROCESSO
 	
-	<form name="form" method="post" action="/sicop/restrito/processo/cadastro/">
+{% endblock %}
+
+{% block formulario %}
+
+		<form name="form" method="post" action="/sicop/restrito/processo/cadastro/">
 			{% csrf_token %}
 			<table>
 				 <tr>
 				 		<td class="colunaTabela">
-				 			CADASTRAR NOVO:
+				 			<label>Selecione o Tipo:</label>
 				 		</td>
 				 		<td >
 				   			<select name="escolha" onchange="proc();">
@@ -28,10 +35,7 @@
 				   	</tr>
 			</table>
 		</form>
-	
-{% endblock %}
-
-{% block formulario %}
+		<br />
 
 			{% if div_processo == 'rural' %} {% include "sicop/restrito/processo/rural/cadastro.html" %} {% endif %}
 			{% if div_processo == 'urbano' %} {% include "sicop/restrito/processo/urbano/cadastro.html" %} {% endif %}
