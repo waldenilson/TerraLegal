@@ -18,5 +18,5 @@ from reportlab.lib.pagesizes import letter
 
 @login_required
 def inicio(request):
-    return render(request, "controle/acesso_restrito.html")
+    return render(request, "controle/base/acesso_restrito.html")
 

@@ -4,7 +4,7 @@
 {% load sorting_tags %}
 
 {% block breadcumbs %}
-	Acesso Restrito | Peca Tecnica
+	Acesso Restrito | Servidor
 {% endblock %}
 
 {% block subtitulo %}
@@ -14,13 +14,12 @@
 {% endblock %}
 
 {% block consulta %}
-	<form action="." method="post">
+			<form action="." method="post">
 			{% csrf_token %}
-			<table id="table_servidor">
+			<table id="table_peca_tecnica">
 				   <tr> 
-				   		<td class="colunaTabela"> <label>Entrega:</label> </td><td> <input name="entrega" /> </td>
-				   		<td class="colunaTabela"> <label>CPF:</label> </td><td> <input name="cpf" /> </td>
-				   		<td class="colunaTabela"> <label>Requerente:</label> </td><td> <input name="requerente" /> </td>
+				   		<td class="colunaTabela"> <label>Servidor:</label> </td><td> <input name="servidor" /> </td>
+				   	
 				   </tr>
 			</table>
 			<div style="text-align: left;padding-bottom: 20px">
@@ -35,13 +34,9 @@
 		<table>
 			<thead style="background:#e5e5e5;color:black">
 				<tr>
-					<th class="colunaTabelaConsulta" style="width:8%">Detalhes</th>
-					<th class="colunaTabelaConsulta" style="width:12%">{% anchor tbcontrato Contrato %}</th>
-					<th class="colunaTabelaConsulta" style="width:14%">{% anchor tbgleba Gleba %}</th>
-					<th class="colunaTabelaConsulta" style="width:8%">{% anchor nrarea Area %}</th>
-					<th class="colunaTabelaConsulta" style="width:8%">{% anchor nrcpfrequerente CPF %}</th>
-					<th class="colunaTabelaConsulta" style="width:36%">{% anchor nmrequerente Nome %}</th>
-					<th class="colunaTabelaConsulta" style="width:14%">Caixa</th>
+					<th class="colunaTabelaConsulta" style="width:36%">{% anchor nmservidor Nome %}</th>
+					<!-- QUAND TIVER CHAVE th class="colunaTabelaConsulta" style="width:14%">{% anchor tbgleba Gleba %}</th-->
+					
 				</tr>
 			</thead>
 			<tbody>
@@ -51,12 +46,8 @@
 					{% for obj in lista %}
 						<tr>
 							<td class="colunaTabelaConsulta"> <a href="/sicop/restrito/peca_tecnica/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
-							<td class="colunaTabelaConsulta">{{ obj.tbcontrato.nrcontrato }}</td>
-							<td class="colunaTabelaConsulta">{{ obj.tbgleba }}</td>
-							<td class="colunaTabelaConsulta">{{ obj.nrarea }}</td>
-							<td class="colunaTabelaConsulta">{{ obj.nrcpfrequerente }}</td>
-							<td class="colunaTabelaConsulta">{{ obj.nmrequerente }}</td>
-							<td class="colunaTabelaConsulta">{{ obj.tbcaixa.nmlocalarquivo }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.nmservidor }}</td>
+							<!-- COMO TRATAR CHAVES td class="colunaTabelaConsulta">{{ obj.tbcaixa.nmlocalarquivo }}</td-->
 						</tr>
 					{% endfor %}
 					{% paginate %}
