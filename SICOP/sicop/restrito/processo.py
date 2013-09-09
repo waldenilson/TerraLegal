@@ -55,7 +55,7 @@ def cadastro(request):
     municipio = Tbmunicipio.objects.all()
     contrato = Tbcontrato.objects.all()
     situacaoprocesso = Tbsituacaoprocesso.objects.all()
-            
+           
     if request.method == "POST":
         escolha = request.POST['escolha']
         if escolha == "tbprocessorural":
@@ -74,11 +74,11 @@ def cadastro(request):
             else:
                 if escolha == "tbprocessoclausula":
                     div_processo = "clausula"
+                    form = FormProcessoClausula()
                     return render_to_response('sicop/restrito/processo/cadastro.html',
-                    {'tipoprocesso':tipoprocesso,'situacaoprocesso':situacaoprocesso,'gleba':gleba,'caixa':caixa,'municipio':municipio,'processo':escolha,
+                    {'form':form,'tipoprocesso':tipoprocesso,'situacaoprocesso':situacaoprocesso,'gleba':gleba,'caixa':caixa,'municipio':municipio,'processo':escolha,
                     'div_processo':div_processo},
                     context_instance = RequestContext(request));  
        
     return render_to_response('sicop/restrito/processo/cadastro.html',{'gleba':gleba,'caixa':caixa,'municipio':municipio,'situacaoprocesso':situacaoprocesso,
             'tipoprocesso':tipoprocesso,'processo':escolha,'div_processo':div_processo}, context_instance = RequestContext(request))
-

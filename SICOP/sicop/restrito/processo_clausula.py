@@ -26,6 +26,8 @@ def cadastro(request):
     div_processo = "clausula"
     escolha = "tbprocessoclausula"  
     
+    form = FormProcessoClausula()
+    
     if request.method == "POST":
         if validacao(request):
             # cadastrando o registro processo base            
@@ -55,7 +57,7 @@ def cadastro(request):
             return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
            
     return render_to_response('sicop/restrito/processo/cadastro.html',
-        {'tipoprocesso':tipoprocesso,'situacaoprocesso':situacaoprocesso,'processo':escolha, 'gleba':gleba,'caixa':caixa,'municipio':municipio,'div_processo':div_processo},
+        {'form':form,'tipoprocesso':tipoprocesso,'situacaoprocesso':situacaoprocesso,'processo':escolha, 'gleba':gleba,'caixa':caixa,'municipio':municipio,'div_processo':div_processo},
          context_instance = RequestContext(request))     
 
 @login_required
@@ -68,10 +70,10 @@ def validacao(request_form):
         messages.add_message(request_form,messages.WARNING,'Informe o numero do processo')
         warning = False
     if request_form.POST['nmrequerente'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe o nome do requerente')
+        messages.add_message(request_form,messages.WARNING,'Informe o nome do titulado')
         warning = False
     if request_form.POST['nrcpfrequerente'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe o CPF do requerente')
+        messages.add_message(request_form,messages.WARNING,'Informe o CPF do titulado')
         warning = False
     if request_form.POST['nminteressado'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe o nome do Interessado')
@@ -79,13 +81,19 @@ def validacao(request_form):
     if request_form.POST['nrcpfinteressado'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe o CPF do interessado')
         warning = False
+    if request_form.POST['tbcaixa'] == '':
+        messages.add_message(request_form,messages.WARNING,'Escolha uma caixa')
+        warning = False
     if request_form.POST['tbgleba'] == '':
         messages.add_message(request_form,messages.WARNING,'Escolha uma gleba')
         warning = False
     if request_form.POST['tbmunicipio'] == '':
         messages.add_message(request_form,messages.WARNING,'Escolha um municipio')
         warning = False
-    if request_form.POST['tbcaixa'] == '':
-        messages.add_message(request_form,messages.WARNING,'Escolha uma caixa')
+    if request_form.POST['nrarea'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe o numero da area')
+        warning = False
+    if request_form.POST['dttitulacao'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe a data de titulacao')
         warning = False
     return warning 
