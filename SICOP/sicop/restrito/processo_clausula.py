@@ -50,6 +50,8 @@ def cadastro(request):
                                        nrcpfinteressado = request.POST['nrcpfinteressado'],
                                        tbprocessobase = f_base,
                                        dtcadastrosistema = datetime.datetime.now(),
+                                       dttitulacao =  datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y"),
+                                       nrarea = request.POST['nrarea'],
                                        tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 )
                                        )
             f_rural.save()
