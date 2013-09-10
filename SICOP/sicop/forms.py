@@ -14,6 +14,13 @@ class FormPecasTecnicas(forms.ModelForm):
         fields = ('tbcaixa','tbcontrato','nrentrega','nrcpfrequerente','nmrequerente','tbgleba','stpecatecnica',
                   'stanexadoprocesso','stenviadobrasilia','nrarea','nrperimetro','dsobservacao')
 
+class FormServidor(forms.ModelForm):
+    class Meta:
+        model = Tbservidor
+        fields = ('nmservidor','nmunidade','nmlotacao','cdSIAPE','nrCPF',
+                  'dsportariacargo','dsportaria','nmcargo','nrtelefone1','nrtelefone2',
+                  'email','dsatividades')
+
 # ----PROCESSOS----------------------------------------------------------------------------------------------------------------------
 class FormProcessoBase(models.ModelForm):
     class Meta:
@@ -84,11 +91,5 @@ class FormSituacaoGeo(models.ModelForm):
     class Meta:
         model = Tbsituacaogeo
         
-class FormServidor(forms.ModelForm):
-    class Meta:
-        model = Tbservidor
-        fields = ('nmservidor','nmunidade','nmlotacao','cdSIAPE','nrCPF',
-                  'dsportariacargo','dsportaria','nmcargo','nrtelefone1','nrtelefone2',
-                  'email','dsatividades')
 
         

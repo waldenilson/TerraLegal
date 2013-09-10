@@ -137,7 +137,9 @@ urlpatterns = patterns('',
     # ACESSO SISTEMAS DE CONTROLE
     url(r'^controle/$', 'controle.views.inicio'),
     url(r'^controle/restrito/servidor/consulta/', 'servidor.restrito.servidor.consulta'),
-    
+    url(r'^controle/restrito/servidor/cadastro/', 'servidor.restrito.servidor.cadastro'),
+    url(r'^controle/restrito/servidor/edicao/(?P<id>\d+)/', 'servidor.restrito.servidor.edicao'),
+   
     
     #END------------------------------CONTROLE---------------------------------------------------------------------------------
     

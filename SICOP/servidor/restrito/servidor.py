@@ -4,6 +4,8 @@ from django.http import HttpResponseRedirect
 from django.template.context import RequestContext
 from django.contrib import messages
 from sicop.forms import FormPecasTecnicas
+from sicop.forms import FormServidor
+
 from sicop.models import Tbpecastecnicas, Tbgleba, Tbcaixa, Tbcontrato, Tbservidor
 
 #SERVIDORES -----------------------------------------------------------------------------------------------------------------------------
@@ -26,68 +28,50 @@ def consulta(request):
 
 @login_required
 def cadastro(request):
-    
-    contrato = Tbcontrato.objects.all()
-    caixa = Tbcaixa.objects.filter( tbtipocaixa = 2 )
-    gleba = Tbgleba.objects.all()
-    
+    #usar quando tives chaves 
+    #contrato = Tbcontrato.objects.all()
+    #caixa = Tbcaixa.objects.filter( tbtipocaixa = 2 )
+    #gleba = Tbgleba.objects.all()
     if request.method == "POST":
-        form = FormPecasTecnicas(request.POST)
+        form = FormServidor(request.POST)
         if validacao(request):
             if form.is_valid():
+                print 'passou save'
                 form.save()
-                return HttpResponseRedirect("/sicop/restrito/peca_tecnica/consulta/") 
+                return HttpResponseRedirect("/controle/restrito/servidor/consulta/") 
     else:
-        form = FormPecasTecnicas()
+        form = FormServidor() #gera registro novo
     
-    return render_to_response('sicop/restrito/peca_tecnica/cadastro.html',{"form":form,'caixa':caixa,'contrato':contrato,'gleba':gleba}, context_instance = RequestContext(request))
+    #return render_to_response('sicop/restrito/peca_tecnica/cadastro.html',{"form":form,'caixa':caixa,'contrato':contrato,'gleba':gleba}, context_instance = RequestContext(request))
+    return render_to_response('controle/servidor/cadastro.html',{"form":form}, context_instance = RequestContext(request))
 
 @login_required
 def edicao(request, id):
-    contrato = Tbcontrato.objects.all()
-    caixa = Tbcaixa.objects.filter( tbtipocaixa = 2 )
-    gleba = Tbgleba.objects.all()
+    #usar abaixo se tiver FK tem que recuperar todas antes de exibir
+    ##contrato = Tbcontrato.objects.all()
+    ##caixa = Tbcaixa.objects.filter( tbtipocaixa = 2 )
+    #gleba = Tbgleba.objects.all()
     
-    instance = get_object_or_404(Tbpecastecnicas, id=id)
+    instance = get_object_or_404(Tbservidor, id=id)
         
     if request.method == "POST":
-        form = FormPecasTecnicas(request.POST,request.FILES,instance=instance)
+        form = FormServidor(request.POST,request.FILES,instance=instance)
         
         if validacao(request):
             if form.is_valid():
                 form.save()
-                return HttpResponseRedirect("/sicop/restrito/peca_tecnica/consulta/")
+                return HttpResponseRedirect("/servidor/restrito/servidor/consulta/")
     else:
-        form = FormPecasTecnicas(instance=instance) 
+        form = FormServidor(instance=instance) 
 
-    return render_to_response('sicop/restrito/peca_tecnica/edicao.html',
-                              {"form":form,'caixa':caixa,'contrato':contrato,'gleba':gleba}, 
+    return render_to_response('controle/servidor/edicao.html',
+                              {"form":form}, 
                               context_instance = RequestContext(request))
 
 def validacao(request_form):
+    print 'passou validacao'
     warning = True
-    if request_form.POST['tbcontrato'] == '':
-        messages.add_message(request_form,messages.WARNING,'Selecione o Contrato')
-        warning = False
-    if request_form.POST['nrentrega'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe o numero da entrega')
-        warning = False
-    if request_form.POST['nrcpfrequerente'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe um CPF valido para o requerente')
-        warning = False
-    if request_form.POST['nmrequerente'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe o nome do requerente maior que 4 letras')
-        warning = False
-    if request_form.POST['tbcaixa'] == '':
-        messages.add_message(request_form,messages.WARNING,'Selecione uma Caixa') 
-        warning = False
-    if request_form.POST['nrarea'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe o numero da area')
-        warning = False
-    if request_form.POST['nrperimetro'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe o numero do perimetro')
-        warning = False
-    if request_form.POST['tbgleba'] == '':
-        messages.add_message(request_form,messages.WARNING,'Selecione uma Gleba') 
+    if request_form.POST['nmservidor'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe nome do servidor')
         warning = False
     return warning

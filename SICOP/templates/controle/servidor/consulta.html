@@ -19,12 +19,12 @@
 			<table id="table_peca_tecnica">
 				   <tr> 
 				   		<td class="colunaTabela"> <label>Servidor:</label> </td><td> <input name="servidor" /> </td>
-				   	
+				   		
 				   </tr>
 			</table>
 			<div style="text-align: left;padding-bottom: 20px">
 				<input class="button_yellow" type="submit" value="Consultar" />
-				<a class="button_green" href="/sicop/restrito/peca_tecnica/cadastro/"> Nova Peca Tecnica </a>
+				<a class="button_green" href="/controle/restrito/servidor/cadastro/"> Novo Servidor </a>
 			</div>
 		</form>
 {% endblock %}
@@ -34,9 +34,11 @@
 		<table>
 			<thead style="background:#e5e5e5;color:black">
 				<tr>
+					<th class="colunaTabelaConsulta" style="width:8%">Detalhes</th>
 					<th class="colunaTabelaConsulta" style="width:36%">{% anchor nmservidor Nome %}</th>
+					<th class="colunaTabelaConsulta" style="width:36%">{% anchor nnunidade  Unidade %}</th>
+					<th class="colunaTabelaConsulta" style="width:36%">{% anchor nmlotacao Lotacao %}</th>
 					<!-- QUAND TIVER CHAVE th class="colunaTabelaConsulta" style="width:14%">{% anchor tbgleba Gleba %}</th-->
-					
 				</tr>
 			</thead>
 			<tbody>
@@ -45,14 +47,17 @@
 					{% autopaginate lista 5 %}
 					{% for obj in lista %}
 						<tr>
-							<td class="colunaTabelaConsulta"> <a href="/sicop/restrito/peca_tecnica/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
+							<td class="colunaTabelaConsulta"> <a href="/servidor/restrito/servidor/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
 							<td class="colunaTabelaConsulta">{{ obj.nmservidor }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.nmunidade }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.nmlotacao }}</td>
+							
 							<!-- COMO TRATAR CHAVES td class="colunaTabelaConsulta">{{ obj.tbcaixa.nmlocalarquivo }}</td-->
 						</tr>
 					{% endfor %}
 					{% paginate %}
 				{% else %}
-					<tr> <td style="padding-top: 20px" colspan="6"> Nenhuma Peca Tecnica Encontrada </td> </tr>
+					<tr> <td style="padding-top: 20px" colspan="6"> Nenhum servidor cadastrado </td> </tr>
 				{% endif %}
 			</tbody>
 		</table>

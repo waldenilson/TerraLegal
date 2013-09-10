@@ -1,0 +1,33 @@
+{% extends "controle/base/cadastro_base.html" %} 
+{% load staticfiles %} 
+{% block breadcumbs %}
+	Acesso Restrito | Servidor | Edicao
+{% endblock %}
+
+{% block subtitulo %}
+	
+	EDITAR SERVIDOR
+	
+{% endblock %}
+
+{% block formulario %}
+		
+	<form method="post" action=".">
+		{% csrf_token %}
+		<div style="width:100%;font-size:12px;text-align:left">
+				<table>
+				   <tr> <td class="colunaTabela"> <label>Servidor:</label> </td><td> {{ form.nmservidor }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Unidade:</label> </td> <td>{{ form.nmunidade }}</td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Lotacao:</label> </td><td> {{ form.nmlotacao }}</td> </tr>
+				   <!-- tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input onkeypress="return SomenteNumero(event,this)"  size="15" value="{{ form.nrarea.value }}" name="nrarea" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Perimetro:</label> </td><td> <input id="perimetro"  size="15" value="{{ form.nrperimetro.value }}" name="nrperimetro" /> </td> </tr-->
+				 </table>
+		</div>
+		<br/><br/>
+		<div style="width:100%;font-size:12px;text-align:right">
+			<a href="/servidor/restrito/servidor/consulta/" class="button_red">VOLTAR</a>
+			<input type="submit" class="button_green" value="SALVAR" />
+		</div>	
+	</form>
+		
+{% endblock %}

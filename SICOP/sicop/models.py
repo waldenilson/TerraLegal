@@ -385,9 +385,9 @@ class Tbservidor(models.Model):
     nrtelefone1 = models.CharField(max_length=10, null=True, blank=True)
     nrtelefone2  = models.CharField(max_length=10, null=True, blank=True)
     email = models.EmailField (null=True, blank=True)
-    dsatividades  = models.CharField(max_length=80)
-    def __unicode__(self):
-        return self.nmservidor
+    dsatividades  = models.CharField(max_length=80, null=True)
+    #def __unicode__(self):
+    #    return self.nmservidor
     class Meta:
         db_table = 'tbservidor'
 
