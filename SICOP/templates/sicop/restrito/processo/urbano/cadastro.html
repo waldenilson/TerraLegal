@@ -1,4 +1,4 @@
-
+{% load staticfiles %} 
 {% block formulario %}
 
 		<form name="form_cadastro" method="post" action="/sicop/restrito/processo/urbano/cadastro/">
@@ -19,6 +19,9 @@
 								{% endfor %}
 							</select>
 						</td>
+					<td>
+						<a href="#" title="Novo Contrato"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+					</td>						
 				</tr>
 				<tr> <td class="colunaTabela"> <label>Numero de Habitantes:</label> </td>
 					<td> <input onkeypress="return SomenteNumeroOK(event, this);" name="nrhabitantes" /> </td> </tr>
@@ -35,6 +38,9 @@
 								{% endfor %}
 							</select>
 						</td>
+					<td>
+						<a href="#" title="Nova Gleba"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+					</td>
 				</tr>
 				<tr> <td class="colunaTabela"> <label>Municipio:</label> </td>
 				   		<td>
@@ -55,6 +61,9 @@
 								{% endfor %}
 							</select>
 						</td>
+					<td>
+						<a href="#" title="Nova Caixa"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+					</td>
 				</tr>
 				<tr> <td class="colunaTabela"> <label>Situacao:</label> </td>
 				   		<td>
@@ -65,6 +74,9 @@
 								{% endfor %}
 							</select>
 						</td>
+					<td>
+						<a href="#" title="Nova Situacao"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+					</td>
 				</tr>
 			</table>
 			<br/><br/>

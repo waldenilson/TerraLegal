@@ -17,18 +17,25 @@
 	
 	<form name="form" method="post" action=".">
 			{% csrf_token %}
+			
 			<table style="text-align: left">
-				   	<tr>
-				   		<td class="colunaTabela"><label> Pesquisar Por: </label></td>
-				   		<td>
-				   			<input checked="checked" type="radio" name="escolha" value="numero">N do Processo&nbsp;&nbsp;&nbsp;
-				   			<input type="radio" name="escolha" value="nome">Nome do Requerente&nbsp;&nbsp;&nbsp;
-				   			<input type="radio" name="escolha" value="cpf">CPF do Requerente&nbsp;&nbsp;&nbsp;
-				   			<input type="radio" name="escolha" value="cnpj">CNPJ
-				   		</td>
-				   	</tr>
-				   	<tr><td class="colunaTabela"> Informe os dados: </td> <td> <input name="pesquisa" /> </td> </tr>
+				<tr>
+					<td>Rural / Clausula</td>
+					<td>Regularizacao Urbana</td>
+				</tr>
+				<tr> 
+					<td class="colunaTabela" colspan="2"> <label>Processo:</label> <input name="numero" /> </td>
+				</tr>
+				<tr>
+					<td class="colunaTabela"> <label>CPF:</label> <input name="cpf" /> </td>
+					<td class="colunaTabela"> <label>CNPJ:</label> <input name="cnpj" /> </td>
+				</tr>
+				<tr>
+					<td class="colunaTabela"> <label>Requerente:</label> <input name="requerente" /> </td>
+					<td class="colunaTabela"> <label>Municipio:</label> <input name="municipio" /> </td>
+				</tr>
 			</table>
+			
 			<div style="text-align: left;padding-bottom: 20px; padding-top: 10px">
 				<input class="button_yellow" type="submit" value="Buscar" />
 				<a class="button_green" href="/sicop/restrito/processo/cadastro/"> Cadastrar Processo </a>

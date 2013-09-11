@@ -7,8 +7,12 @@
 	<form action="." method="post">
 			{% csrf_token %}
 			<table>
+				<tr>
+					<td>Rural / Clausula</td>
+					<td>Regularizacao Urbana</td>
+				</tr>
 				   <tr> 
-				   		<td class="colunaTabela"> <label>CPF do Requerente:</label> </td><td> <input name="nrcpfrequerente" /> </td>
+				   		<td class="colunaTabela" colspan="2"> <label>Processo:</label> </td><td> <input name="nrcpfrequerente" /> </td>
 				   </tr>
 			</table>
 			<div style="text-align: left;padding-bottom: 20px">

@@ -12,34 +12,44 @@ from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
 def consulta(request):
     lista = Tbprocessobase.objects.all()
     if request.method == "POST":
-        escolha = request.POST['escolha']
-        pesquisa = request.POST['pesquisa']
-        if escolha == "numero":
-            lista = Tbprocessobase.objects.all().filter( nrprocesso__contains = pesquisa )
-        else:
-            if escolha == "nome":
-                p_rural = Tbprocessorural.objects.all().filter( nmrequerente__contains = pesquisa )
-                p_clausula = Tbprocessoclausula.objects.all().filter( nmrequerente__contains = pesquisa )
-                lista = []
-                for obj in p_rural:
-                    lista.append( obj.tbprocessobase )
-                for obj in p_clausula:
-                    lista.append( obj.tbprocessobase )
-            else:
-                if escolha == "cpf":
-                    p_rural = Tbprocessorural.objects.all().filter( nrcpfrequerente__contains = pesquisa )
-                    p_clausula = Tbprocessoclausula.objects.all().filter( nrcpfrequerente__contains = pesquisa )
-                    lista = []
-                    for obj in p_rural:
-                        lista.append( obj.tbprocessobase )
-                    for obj in p_clausula:
-                        lista.append( obj.tbprocessobase )
-                else:
-                    if escolha == "cnpj":
-                        p_urbano = Tbprocessourbano.objects.all().filter( nrcnpj__contains = pesquisa ) 
-                        lista = []
-                        for obj in p_urbano:
-                            lista.append( obj.tbprocessobase )
+        numero = request.POST['numero']
+        cpf = request.POST['cpf']
+        requerente = request.POST['requerente']
+        cnpj = request.POST['cnpj']
+        municipio = request.POST['municipio']
+        
+        if len(numero) > 0 :
+            lista = Tbprocessobase.objects.all().filter( nrprocesso__contains = numero )
+        
+        if len(cpf) > 0 :
+            p_rural = Tbprocessorural.objects.all().filter( nrcpfrequerente__contains = cpf )
+            p_clausula = Tbprocessoclausula.objects.all().filter( nrcpfrequerente__contains = cpf )
+            lista = []
+            for obj in p_rural:
+                lista.append( obj.tbprocessobase )
+            for obj in p_clausula:
+                lista.append( obj.tbprocessobase )
+                
+        if len(requerente) > 0 :
+            p_rural = Tbprocessorural.objects.all().filter( nmrequerente__contains = requerente )
+            p_clausula = Tbprocessoclausula.objects.all().filter( nmrequerente__contains = requerente )
+            lista = []
+            for obj in p_rural:
+                lista.append( obj.tbprocessobase )
+            for obj in p_clausula:
+                lista.append( obj.tbprocessobase )
+                
+        if len(cnpj) > 0 :
+            p_urbano = Tbprocessourbano.objects.all().filter( nrcnpj__contains = cnpj ) 
+            lista = []
+            for obj in p_urbano:
+                lista.append( obj.tbprocessobase )
+
+        if len(municipio) > 0 :
+            p_urbano = Tbprocessourbano.objects.all().filter( nmpovoado__contains = municipio ) 
+            lista = []
+            for obj in p_urbano:
+                lista.append( obj.tbprocessobase )
         
     return render_to_response('sicop/restrito/processo/consulta.html',{'lista':lista}, context_instance = RequestContext(request))
    

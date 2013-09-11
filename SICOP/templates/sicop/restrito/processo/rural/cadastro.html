@@ -1,20 +1,26 @@
-
+{% load staticfiles %} 
 {% block formulario %}
 
 		<form name="form_cadastro" method="post" action="/sicop/restrito/processo/rural/cadastro/">
 			{% csrf_token %}
 			<table>
-				<tr> <td class="colunaTabela"> <label>N do Processo:</label> </td>
-					<td> <input name="nrprocesso" id="processo" /> </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Gleba:</label> </td>
-				   		<td>
-				   			<select name="tbgleba" style="width: 200px">
-				   				<option value="">-- Selecione uma Gleba --</option>
-								{% for obj in gleba %}
-									<option value="{{ obj.id }}">{{ obj.nmgleba }}</option>
-								{% endfor %}
-							</select>
-						</td>
+				<tr> 
+					<td class="colunaTabela"> <label>N do Processo:</label> </td>
+					<td> <input name="nrprocesso" id="processo" /> </td> 
+				</tr>
+				<tr> 
+					<td class="colunaTabela"> <label>Gleba:</label> </td>
+				   	<td>
+				   		<select name="tbgleba" style="width: 200px">
+				   			<option value="">-- Selecione uma Gleba --</option>
+							{% for obj in gleba %}
+								<option value="{{ obj.id }}">{{ obj.nmgleba }}</option>
+							{% endfor %}
+						</select>
+					</td>
+					<td>
+						<a href="#" title="Nova Gleba"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+					</td>
 				</tr>
 				<tr> <td class="colunaTabela"> <label>Municipio:</label> </td>
 				   		<td>
@@ -43,6 +49,9 @@
 								{% endfor %}
 							</select>
 						</td>
+						<td>
+							<a href="#" title="Nova Caixa"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+						</td>
 				</tr>
 				<tr> <td class="colunaTabela"> <label>Situacao:</label> </td>
 				   		<td>
@@ -52,6 +61,9 @@
 									<option value="{{ obj.id }}">{{ obj.nmsituacao }}</option>
 								{% endfor %}
 							</select>
+						</td>
+						<td>
+							<a href="#" title="Nova Situacao"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 						</td>
 				</tr>
 			</table>

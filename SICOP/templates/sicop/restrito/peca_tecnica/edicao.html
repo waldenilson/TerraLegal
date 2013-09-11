@@ -28,6 +28,9 @@
 								{% endfor %}
 							</select>
 						</td>
+					<td>
+						<a href="#" title="Novo Contrato"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+					</td>						
 				   </tr>
 				   <tr> <td class="colunaTabela"> <label>Entrega:</label> </td><td> {{ form.nrentrega }} </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>CPF do Requerente:</label> </td><td> <input  size="14" id="cpf" value="{{ form.nrcpfrequerente.value }}" name="nrcpfrequerente" /> </td> </tr>
@@ -45,6 +48,9 @@
 								{% endfor %}
 							</select>
 						</td>
+					<td>
+						<a href="#" title="Novo Caixa"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+					</td>						
 				   	</tr>
 				   <tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input onkeypress="return SomenteNumero(event,this)"  size="15" value="{{ form.nrarea.value }}" name="nrarea" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Perimetro:</label> </td><td> <input id="perimetro"  size="15" value="{{ form.nrperimetro.value }}" name="nrperimetro" /> </td> </tr>
@@ -60,6 +66,9 @@
 								{% endfor %}
 							</select>
 						</td>
+					<td>
+						<a href="#" title="Novo Gleba"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+					</td>						
 				   	</tr>
 				   <tr> <td class="colunaTabela"> <label>Anexado ao processo:</label> </td><td> {{ form.stanexadoprocesso }} </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Enviado Brasilia:</label> </td><td> {{ form.stenviadobrasilia }} </td> </tr>
