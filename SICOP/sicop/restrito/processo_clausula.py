@@ -26,8 +26,6 @@ def cadastro(request):
     div_processo = "clausula"
     escolha = "tbprocessoclausula"  
     
-    form = FormProcessoClausula()
-    
     if request.method == "POST":
         if validacao(request):
             # cadastrando o registro processo base            
@@ -43,7 +41,7 @@ def cadastro(request):
             f_base.save()
             
             # cadastrando o registro processo rural
-            f_rural = Tbprocessoclausula (
+            f_clausula = Tbprocessoclausula (
                                        nmrequerente = request.POST['nmrequerente'],
                                        nrcpfrequerente = request.POST['nrcpfrequerente'].replace('.','').replace('-',''),
                                        nminteressado = request.POST['nminteressado'],
@@ -54,12 +52,12 @@ def cadastro(request):
                                        nrarea = request.POST['nrarea'],
                                        tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 )
                                        )
-            f_rural.save()
+            f_clausula.save()
             
             return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
-           
+    
     return render_to_response('sicop/restrito/processo/cadastro.html',
-        {'form':form,'tipoprocesso':tipoprocesso,'situacaoprocesso':situacaoprocesso,'processo':escolha, 'gleba':gleba,'caixa':caixa,'municipio':municipio,'div_processo':div_processo},
+        {'tipoprocesso':tipoprocesso,'situacaoprocesso':situacaoprocesso,'processo':escolha, 'gleba':gleba,'caixa':caixa,'municipio':municipio,'div_processo':div_processo},
          context_instance = RequestContext(request))     
 
 @login_required

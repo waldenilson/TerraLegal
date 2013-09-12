@@ -31,8 +31,8 @@
 						<a href="/sicop/restrito/contrato/cadastro/" title="Novo Contrato"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>						
 					</tr>
-				   <tr> <td class="colunaTabela"> <label>Entrega:</label> </td><td>{{ form.nrentrega }} </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>CPF do Requerente:</label> </td><td> <input  size="14" id="cpf" name="nrcpfrequerente" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Entrega:</label> </td><td> <input name="nrentrega" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>CPF do Requerente:</label> </td><td> <input  size="13" id="cpf" name="nrcpfrequerente" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Nome do Requerente:</label> </td><td> <input size="35" name="nmrequerente" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
 				   		<td>
@@ -62,9 +62,9 @@
 						<a href="/sicop/restrito/gleba/cadastro/" title="Nova Gleba"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>						
 				   	</tr>
-				   <tr> <td class="colunaTabela"> <label>Anexado ao processo:</label> </td><td>{{ form.stanexadoprocesso }} </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Enviado Brasilia:</label> </td><td>{{ form.stenviadobrasilia }} </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Peca Tecnica Aprovada:</label> </td><td>{{ form.stpecatecnica }} </td> </tr>			   
+				   <tr> <td class="colunaTabela"> <label>Anexado ao processo:</label> </td><td> <input type="checkbox" name="stanexadoprocesso" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Enviado Brasilia:</label> </td><td> <input type="checkbox" name="stenviadobrasilia" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Peca Tecnica Aprovada:</label> </td><td> <input type="checkbox" name="stpecatecnica" /> </td> </tr>			   
 				   <tr> <td class="colunaTabela"> <label>Observacao:</label> </td><td> <textarea rows="4" cols="40" name="dsobservacao"></textarea></td> </tr>
 				</table>
 		</div>

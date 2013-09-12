@@ -32,8 +32,8 @@
 						<a href="/sicop/restrito/contrato/cadastro/" title="Novo Contrato"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>						
 				   </tr>
-				   <tr> <td class="colunaTabela"> <label>Entrega:</label> </td><td> {{ form.nrentrega }} </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>CPF do Requerente:</label> </td><td> <input  size="14" id="cpf" value="{{ form.nrcpfrequerente.value }}" name="nrcpfrequerente" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Entrega:</label> </td><td> <input value="{{ form.nrentrega.value }}" name="nrentrega" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>CPF do Requerente:</label> </td><td> <input  size="13" id="cpf" value="{{ form.nrcpfrequerente.value }}" name="nrcpfrequerente" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Nome do Requerente:</label> </td><td> <input size="35" value="{{ form.nmrequerente.value }}" name="nmrequerente" /> </td> </tr>
 					
 					<tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
