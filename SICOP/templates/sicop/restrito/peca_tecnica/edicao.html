@@ -29,7 +29,7 @@
 							</select>
 						</td>
 					<td>
-						<a href="#" title="Novo Contrato"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+						<a href="/sicop/restrito/contrato/cadastro/" title="Novo Contrato"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>						
 				   </tr>
 				   <tr> <td class="colunaTabela"> <label>Entrega:</label> </td><td> {{ form.nrentrega }} </td> </tr>
@@ -49,7 +49,7 @@
 							</select>
 						</td>
 					<td>
-						<a href="#" title="Novo Caixa"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+						<a href="/sicop/restrito/caixa/cadastro/" title="Novo Caixa"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>						
 				   	</tr>
 				   <tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input onkeypress="return SomenteNumero(event,this)"  size="15" value="{{ form.nrarea.value }}" name="nrarea" /> </td> </tr>
@@ -67,7 +67,7 @@
 							</select>
 						</td>
 					<td>
-						<a href="#" title="Novo Gleba"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+						<a href="/sicop/restrito/gleba/cadastro/" title="Novo Gleba"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>						
 				   	</tr>
 				   <tr> <td class="colunaTabela"> <label>Anexado ao processo:</label> </td><td> {{ form.stanexadoprocesso }} </td> </tr>
@@ -79,7 +79,7 @@
 		</div>
 		<br/><br/>
 		<div style="width:100%;font-size:12px;text-align:right">
-			<a href="/sicop/restrito/peca_tecnica/consulta/" class="button_red">VOLTAR</a>
+			<a onclick="history.back();" class="button_red">VOLTAR</a>
 			<input type="submit" class="button_green" value="SALVAR" />
 		</div>	
 	</form>
