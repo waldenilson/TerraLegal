@@ -31,7 +31,7 @@ def cadastro(request):
             
             # cadastrando o registro processo base            
             f_base = Tbprocessobase (
-                                    nrprocesso = request.POST['nrprocesso'],
+                                    nrprocesso = request.POST['nrprocesso'].replace('.','').replace('/','').replace('-',''),
                                     tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
                                     tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
                                     tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
@@ -44,7 +44,7 @@ def cadastro(request):
             # cadastrando o registro processo rural
             f_rural = Tbprocessorural (
                                        nmrequerente = request.POST['nmrequerente'],
-                                       nrcpfrequerente = request.POST['nrcpfrequerente'],
+                                       nrcpfrequerente = request.POST['nrcpfrequerente'].replace('.','').replace('-',''),
                                        tbprocessobase = f_base,
                                        dtcadastrosistema = datetime.datetime.now(),
                                        tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 )
