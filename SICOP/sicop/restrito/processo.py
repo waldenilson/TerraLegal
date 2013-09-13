@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required, permission_required
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from django.http.response import HttpResponseRedirect
 from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
@@ -52,7 +52,26 @@ def consulta(request):
                 lista.append( obj.tbprocessobase )
         
     return render_to_response('sicop/restrito/processo/consulta.html',{'lista':lista}, context_instance = RequestContext(request))
-   
+
+@login_required
+@permission_required('sicop.add tbprocesso', login_url='/sicop/acesso_restrito/', raise_exception=True)
+def edicao(request, id):
+    instance = get_object_or_404(Tbprocessobase, id=id)
+    tipo = instance.tbtipoprocesso.tabela
+    
+    if tipo == "tbprocessorural":
+        rural = Tbprocessorural.objects.get( tbprocessobase = id )
+        return render_to_response('sicop/restrito/processo/rural/edicao.html',{'rural':rural}, context_instance = RequestContext(request))
+    else:
+        if tipo == "tbprocessourbano":
+            urbano = Tbprocessourbano.objects.get( tbprocessobase = id )
+            return render_to_response('sicop/restrito/processo/urbano/edicao.html',{'urbano':urbano}, context_instance = RequestContext(request))
+        else:
+            if tipo == "tbprocessoclausula":
+                clausula = Tbprocessoclausula.objects.get( tbprocessobase = id )
+                return render_to_response('sicop/restrito/processo/clausula/edicao.html',{'clausula':clausula}, context_instance = RequestContext(request))
+        
+    return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
     
 @login_required
 @permission_required('sicop.add tbprocesso', login_url='/sicop/acesso_restrito/', raise_exception=True)

@@ -6,21 +6,25 @@
 
 {% block subtitulo %}
 	
-	EDITAR PROCESSO CLAUSULA RESOLUTIVA
+	EDITAR CLAUSULA RESOLUTIVA
 	
 {% endblock %}
 
 {% block formulario %}
-	
-	<div style="width:100%;font-size:12px;text-align:right">
-		<a href="/sicop/processos/" class="button_red">VOLTAR</a>
-		<a href="/sicop/processos/" class="button_green" onclick="alert('Processo Salvo com sucesso!');">SALVAR</a>
+<form method="post" action=".">
+	{% csrf_token %}
+	<div style="width: 100%; font-size: 12px; text-align: left">
+		<table>
+			<tr>
+				<td class="colunaTabela"><label>Requerente:</label></td>
+				<td class="colunaTabela"> <input name="nmrequerente" value="{{ clausula.nmrequerente }}" /> </td>
+			</tr>
+		</table>
 	</div>
 	<br/><br/>
-	<div style="width:100%;font-size:12px;text-align:center">
-
-		edicao processos		
-		
-	</div>
-	
+	<div style="width:100%;font-size:12px;text-align:right">
+		<a href="/sicop/restrito/processo/consulta/" class="button_yellow">CONSULTAR</a>
+		<input type="submit" class="button_green" value="SALVAR" />
+	</div>	
+</form>
 {% endblock %}

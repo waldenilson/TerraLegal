@@ -60,7 +60,7 @@ def cadastro(request):
          context_instance = RequestContext(request))     
 
 @login_required
-def edicao(request):
+def edicao(request, id):
     return render_to_response('sicop/restrito/processo/urbano/edicao.html',{}, context_instance = RequestContext(request))    
 
 def validacao(request_form):

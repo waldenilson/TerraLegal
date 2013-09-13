@@ -73,7 +73,7 @@
 					{% autopaginate lista 10 %}
 					{% for obj in lista %}
 						<tr style="background: {{ obj.tbtipoprocesso.coridentificacao }}">
-							<td class="colunaTabelaConsulta"> <a href="#"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
+							<td class="colunaTabelaConsulta"> <a href="/sicop/restrito/processo/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
 							<td class="colunaTabelaConsulta">{{ obj.nrprocesso }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.tbmunicipio.nome_mun }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.tbgleba.nmgleba }}</td>
