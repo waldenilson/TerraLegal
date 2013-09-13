@@ -11,6 +11,7 @@ TEMPLATE_DEBUG = DEBUG
 #if not ABSOLUTE_PROJECT_ROOT in sys.path:    
 #    sys.path.insert(0, ABSOLUTE_PROJECT_ROOT)
 
+
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )

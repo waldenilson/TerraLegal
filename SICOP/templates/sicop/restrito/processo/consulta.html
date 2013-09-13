@@ -18,28 +18,39 @@
 		<form name="form" method="post" action=".">
 			{% csrf_token %}
 			
-			<table style="text-align: left">
+			<table style="width:100%;text-align: left">
+				<tbody>
+					<tr> 
+						<td class="colunaTabela"> <label>Processo:</label> </td>
+						<td class="colunaTabela" colspan="3"> <input style="width:100%" name="numero" /> </td>
+					</tr>
+					<tr style="text-align: center;font-weight:bold">
+						<td class="colunaTabela" colspan="2">RURAL / CLAUSULA RESOLUTIVA</td>
+						<td class="colunaTabela" colspan="2">REGULARIZACAO URBANA</td>
+					</tr>
+					<tr>
+						<td class="colunaTabela"> <label>CPF:</label> </td>
+						<td class="colunaTabela"> <input style="width:100%" name="cpf" /> </td>
+						<td class="colunaTabela"> <label>CNPJ:</label> </td>
+						<td class="colunaTabela"> <input style="width:100%" name="cnpj" /> </td>
+					</tr>
+					<tr>
+						<td class="colunaTabela"> <label>Requerente:</label> </td>
+						<td class="colunaTabela"> <input style="width:100%" name="requerente" /> </td>
+						<td class="colunaTabela"> <label>Municipio:</label> </td>
+						<td class="colunaTabela"> <input style="width:100%" name="municipio" /> </td>
+					</tr>
+				</tbody>
+			</table>
+			<br />
+			<table style="width:100%">
 				<tr>
-					<td>Rural / Clausula</td>
-					<td>Regularizacao Urbana</td>
-				</tr>
-				<tr> 
-					<td class="colunaTabela" colspan="2"> <label>Processo:</label> <input name="numero" /> </td>
-				</tr>
-				<tr>
-					<td class="colunaTabela"> <label>CPF:</label> <input name="cpf" /> </td>
-					<td class="colunaTabela"> <label>CNPJ:</label> <input name="cnpj" /> </td>
-				</tr>
-				<tr>
-					<td class="colunaTabela"> <label>Requerente:</label> <input name="requerente" /> </td>
-					<td class="colunaTabela"> <label>Municipio:</label> <input name="municipio" /> </td>
+					<td class="colunaTabela" style="text-align:left"> 
+						<input class="button_yellow" style="margin-right: 10px" type="submit" value="PESQUISAR" />
+						<a href="/sicop/restrito/processo/cadastro/"> <input class="button_green" value="NOVO" type="button" /> </a>
+					</td>
 				</tr>
 			</table>
-			
-			<div style="text-align: left;padding-bottom: 20px; padding-top: 10px">
-				<input class="button_yellow" type="submit" value="Buscar" />
-				<a class="button_green" href="/sicop/restrito/processo/cadastro/"> Cadastrar Processo </a>
-			</div>
 		</form>
 	
 {% endblock %}
@@ -59,7 +70,7 @@
 			<tbody>
 				{% if lista %}
 					{% autosort lista %}
-					{% autopaginate lista 5 %}
+					{% autopaginate lista 10 %}
 					{% for obj in lista %}
 						<tr style="background: {{ obj.tbtipoprocesso.coridentificacao }}">
 							<td class="colunaTabelaConsulta"> <a href="#"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 

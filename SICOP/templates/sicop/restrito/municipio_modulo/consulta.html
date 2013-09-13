@@ -16,11 +16,12 @@
 {% block consulta %}
 	<form action="." method="post">
 			{% csrf_token %}
-			<table>
+			<table style="width:100%;text-align: left">
+				<tbody>
 				   <tr> 
 				   		<td class="colunaTabela"> <label>Municipio:</label> </td>
 				   		<td>
-				   			<select name="tbmunicipio">
+				   			<select style="width:100%" name="tbmunicipio">
 				   				<option value="0">TODOS</option>
 								{% for obj in municipio %}
 									<option value="{{ obj.id }}">{{ obj.nome_mun }}</option>
@@ -28,11 +29,17 @@
 							</select>
 						</td>
 				   </tr>
+				</tbody>
 			</table>
-			<div style="text-align: left;padding-bottom: 20px">
-				<button class="button_yellow" type="submit"> Consultar </button>
-				<a class="button_green" href="/sicop/restrito/municipio_modulo/cadastro/"> Novo Municipio Modulo </a>
-			</div>
+			<br />
+			<table style="width:100%">
+				<tr>
+					<td class="colunaTabela" style="text-align:left"> 
+						<input class="button_yellow" style="margin-right: 10px" type="submit" value="PESQUISAR" />
+						<a href="/sicop/restrito/municipio_modulo/cadastro/"> <input class="button_green" value="NOVO" type="button" /> </a>
+					</td>
+				</tr>
+			</table>
 		</form>
 {% endblock %}
 
