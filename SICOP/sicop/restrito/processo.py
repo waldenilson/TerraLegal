@@ -7,6 +7,7 @@ from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
     Tbcontrato, Tbsituacaoprocesso
 from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
+from sicop.restrito import processo_rural
 
 @login_required
 def consulta(request):
@@ -56,20 +57,39 @@ def consulta(request):
 @login_required
 @permission_required('sicop.add tbprocesso', login_url='/sicop/acesso_restrito/', raise_exception=True)
 def edicao(request, id):
+    
+    caixa = Tbcaixa.objects.all()
+    gleba = Tbgleba.objects.all()
+    municipio = Tbmunicipio.objects.all()
+    contrato = Tbcontrato.objects.all()
+    situacaoprocesso = Tbsituacaoprocesso.objects.all()
+    
     instance = get_object_or_404(Tbprocessobase, id=id)
     tipo = instance.tbtipoprocesso.tabela
     
     if tipo == "tbprocessorural":
-        rural = Tbprocessorural.objects.get( tbprocessobase = id )
-        return render_to_response('sicop/restrito/processo/rural/edicao.html',{'rural':rural}, context_instance = RequestContext(request))
+        if request.method == 'POST':
+            processo_rural.edicao(request)
+        else:
+            rural = Tbprocessorural.objects.get( tbprocessobase = id )
+            return render_to_response('sicop/restrito/processo/rural/edicao.html',
+                                  {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
+                                   'caixa':caixa,'municipio':municipio,
+                                   'base':instance,'rural':rural}, context_instance = RequestContext(request))
     else:
         if tipo == "tbprocessourbano":
             urbano = Tbprocessourbano.objects.get( tbprocessobase = id )
-            return render_to_response('sicop/restrito/processo/urbano/edicao.html',{'urbano':urbano}, context_instance = RequestContext(request))
+            return render_to_response('sicop/restrito/processo/urbano/edicao.html',
+                                      {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
+                                   'caixa':caixa,'municipio':municipio,'contrato':contrato,
+                                   'base':instance,'urbano':urbano}, context_instance = RequestContext(request))
         else:
             if tipo == "tbprocessoclausula":
                 clausula = Tbprocessoclausula.objects.get( tbprocessobase = id )
-                return render_to_response('sicop/restrito/processo/clausula/edicao.html',{'clausula':clausula}, context_instance = RequestContext(request))
+                return render_to_response('sicop/restrito/processo/clausula/edicao.html',
+                                          {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
+                                   'caixa':caixa,'municipio':municipio,
+                                   'base':instance,'clausula':clausula}, context_instance = RequestContext(request))
         
     return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
     

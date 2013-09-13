@@ -68,8 +68,10 @@ def cadastro(request):
         {'gleba':gleba,'situacaoprocesso':situacaoprocesso,'caixa':caixa,'municipio':municipio,'tipoprocesso':tipoprocesso, 'processo':escolha, 'div_processo':div_processo}, context_instance = RequestContext(request))    
   
 @login_required
-def edicao(request, id):
-    return render_to_response('sicop/restrito/processo/rural/edicao.html',{}, context_instance = RequestContext(request))   
+def edicao(request):
+    print request.POST['nrcpfrequerente']
+    return render_to_response('sicop/restrito/processo/rural/edicao.html',
+                              {}, context_instance = RequestContext(request))   
 
 def validacao(request_form):
     warning = True
