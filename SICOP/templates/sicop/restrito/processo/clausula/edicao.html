@@ -15,10 +15,85 @@
 	{% csrf_token %}
 	<div style="width: 100%; font-size: 12px; text-align: left">
 		<table>
-			<tr>
-				<td class="colunaTabela"><label>Requerente:</label></td>
-				<td class="colunaTabela"> <input name="nmrequerente" value="{{ clausula.nmrequerente }}" /> </td>
-			</tr>
+				<tr> <td class="colunaTabela"> <label>N do Processo:</label> </td>
+					<td> <input value="{{ base.nrprocesso }}" name="nrprocesso" id="processo" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Nome do Titulado:</label> </td>
+					<td> <input value="{{ clausula.nmrequerente }}" size="35" name="nmrequerente" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>CPF do Titulado:</label> </td>
+					<td> <input size="13" value="{{ clausula.nrcpfrequerente }}" id="cpf" name="nrcpfrequerente" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Nome do Interessado:</label> </td>
+					<td> <input size="35" value="{{ clausula.nminteressado }}" name="nminteressado" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>CPF do Interessado:</label> </td>
+					<td> <input size="13" id="cpf2" value="{{ clausula.nrcpfinteressado }}" name="nrcpfinteressado" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
+				   		<td>
+				   			<select name="tbcaixa" style="width: 200px">
+								<option value="">-- Selecione uma Caixa --</option>
+								{% for obj in caixa %}
+									{% if obj.id == base.tbcaixa.id %}
+										<option selected="selected" value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
+									{% else %}
+										<option value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						</td>
+					<td>
+						<a href="/sicop/restrito/caixa/cadastro/" title="Nova Caixa"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+					</td>
+				</tr>
+				<tr> <td class="colunaTabela"> <label>Gleba:</label> </td>
+				   		<td>
+				   			<select name="tbgleba" style="width: 200px">
+				   				<option value="">-- Selecione uma Gleba --</option>
+								{% for obj in gleba %}
+									{% if obj.id == base.tbgleba.id %}
+										<option selected="selected" value="{{ obj.id }}">{{ obj.nmgleba }}</option>
+									{% else %}
+										<option value="{{ obj.id }}">{{ obj.nmgleba }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						</td>
+					<td>
+						<a href="/sicop/restrito/gleba/cadastro/" title="Nova Gleba"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+					</td>
+				</tr>
+				<tr> <td class="colunaTabela"> <label>Municipio:</label> </td>
+				   		<td>
+				   			<select name="tbmunicipio" style="width: 200px">
+								<option value="">-- Selecione um Municipio --</option>
+								{% for obj in municipio %}
+									{% if obj.id == base.tbmunicipio.id %}
+										<option selected="selected" value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+									{% else %}
+										<option value="{{ obj.id }}">{{ obj.nome_num }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						</td>
+				</tr>
+				<tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input value="{{ clausula.nrarea }}" onkeypress="return SomenteNumero(event, this);" size="15" name="nrarea" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Por Procuracao:</label> </td><td>{{ form.stprocuracao }} </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Situacao:</label> </td>
+				   		<td>
+				   			<select name="tbsituacaoprocesso" style="width: 200px">
+								<option value="">-- Selecione uma Situacao --</option>
+								{% for obj in situacaoprocesso %}
+									{% if obj.id == base.tbsituacaoprocesso.id %}
+										<option selected="selected" value="{{ obj.id }}">{{ obj.nmsituacao }}</option>
+									{% else %}
+										<option value="{{ obj.id }}">{{ obj.nmsituacao }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						</td>
+					<td>
+						<a href="/sicop/restrito/situacao_processo/cadastro/" title="Nova Situacao"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+					</td>
+				</tr>
+				<tr> <td class="colunaTabela"> <label>Data Titulacao:</label> </td><td> <input value="{{ clausula.dttitulacao }}" size="9" id="date" name="dttitulacao" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Observacao:</label> </td><td> <textarea rows="4" cols="40" name="dsobs">{{ clausula.dsobservacao }}</textarea></td> </tr>
 		</table>
 	</div>
 	<br />
