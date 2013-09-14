@@ -66,6 +66,7 @@ def edicao(request, id):
     
     base = get_object_or_404(Tbprocessobase, id=id)
     tipo = base.tbtipoprocesso.tabela
+    print tipo
     if tipo == "tbprocessorural":
         rural = Tbprocessorural.objects.get( tbprocessobase = id )
         return render_to_response('sicop/restrito/processo/rural/edicao.html',

@@ -35,7 +35,7 @@ def cadastro(request):
                                     tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
                                     tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
                                     tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
-                                    tbtipoprocesso = Tbtipoprocesso.objects.get( pk = 1 ),
+                                    tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessorural' ),
                                     tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
                                     auth_user = AuthUser.objects.get( pk = request.user.id )
                                     )
@@ -86,7 +86,7 @@ def edicao(request, id):
                                     tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
                                     tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
                                     tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
-                                    tbtipoprocesso = Tbtipoprocesso.objects.get( pk = 1 ),
+                                    tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessorural' ),
                                     tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
                                     auth_user = AuthUser.objects.get( pk = request.user.id )
                                     )

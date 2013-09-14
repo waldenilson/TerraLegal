@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required, permission_required
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.models import Tbtipoprocesso, Tbmunicipio, Tbgleba, Tbcaixa,\
     Tbprocessobase, AuthUser, Tbprocessoclausula, Tbclassificacaoprocesso,\
@@ -34,7 +34,7 @@ def cadastro(request):
                                     tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
                                     tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
                                     tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
-                                    tbtipoprocesso = Tbtipoprocesso.objects.get( pk = 2 ),
+                                    tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessoclausula' ),
                                     tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
                                     auth_user = AuthUser.objects.get( pk = request.user.id )
                                     )
@@ -62,7 +62,49 @@ def cadastro(request):
 
 @login_required
 def edicao(request, id):
-    return render_to_response('sicop/restrito/processo/clausula/edicao.html',{}, context_instance = RequestContext(request))    
+    caixa = Tbcaixa.objects.all()
+    gleba = Tbgleba.objects.all()
+    municipio = Tbmunicipio.objects.all()
+    situacaoprocesso = Tbsituacaoprocesso.objects.all()
+    
+    clausula = get_object_or_404(Tbprocessoclausula, id=id)
+    base  = get_object_or_404(Tbprocessobase, id=clausula.tbprocessobase.id)
+    
+    if validacao(request):
+        # cadastrando o registro processo base            
+            f_base = Tbprocessobase (
+                                    id = base.id,
+                                    nrprocesso = request.POST['nrprocesso'].replace('.','').replace('/','').replace('-',''),
+                                    tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
+                                    tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
+                                    tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
+                                    tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessoclausula' ),
+                                    tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
+                                    auth_user = AuthUser.objects.get( pk = request.user.id )
+                                    )
+            f_base.save()
+            
+            # cadastrando o registro processo clausula
+            f_clausula = Tbprocessoclausula (
+                                       id = clausula.id,
+                                       nmrequerente = request.POST['nmrequerente'],
+                                       nrcpfrequerente = request.POST['nrcpfrequerente'].replace('.','').replace('-',''),
+                                       nminteressado = request.POST['nminteressado'],
+                                       nrcpfinteressado = request.POST['nrcpfinteressado'].replace('.','').replace('-',''),
+                                       tbprocessobase = f_base,
+                                       dtcadastrosistema = datetime.datetime.now(),
+                                       dttitulacao =  datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y"),
+                                       nrarea = request.POST['nrarea'],
+                                       tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 )
+                                       )
+            f_clausula.save()
+            
+            return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
+        
+    return render_to_response('sicop/restrito/processo/clausula/edicao.html',
+                                          {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
+                                   'caixa':caixa,'municipio':municipio,
+                                   'base':base,'clausula':clausula}, context_instance = RequestContext(request))    
 
 def validacao(request_form):
     warning = True
