@@ -9,7 +9,7 @@
 
 {% block formulario %}
 
-<form method="post" action=".">
+<form method="post" action="/sicop/restrito/processo/rural/edicao/{{ rural.id }}/">
 	{% csrf_token %}
 	<div style="width: 100%; font-size: 12px; text-align: left">
 		<table>
