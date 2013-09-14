@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required, permission_required
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.models import Tbtipoprocesso, Tbprocessobase, Tbgleba, Tbmunicipio,\
     Tbcaixa, AuthUser, Tbprocessourbano, Tbsituacaoprocesso, Tbcontrato
@@ -34,7 +34,51 @@ def cadastro(request):
                                     tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
                                     tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
                                     tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
-                                    tbtipoprocesso = Tbtipoprocesso.objects.get( pk = 3 ),
+                                    tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessourbano' ),
+                                    tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
+                                    auth_user = AuthUser.objects.get( pk = request.user.id )
+                                    )
+            f_base.save()
+            
+            # cadastrando o registro processo urbano
+            f_urbano = Tbprocessourbano (
+                                       nmpovoado = request.POST['nmpovoado'],
+                                       nrcnpj = request.POST['nrcnpj'].replace('.','').replace('/','').replace('-',''),
+                                       nrhabitantes = request.POST['nrhabitantes'],
+                                       nrdomicilios = request.POST['nrdomicilios'],
+                                       nrpregao = request.POST['nrpregao'],
+                                       tbcontrato = Tbcontrato.objects.get( pk = request.POST['tbcontrato'] ),
+                                       tbprocessobase = f_base,
+                                       dtaberturaprocesso = datetime.datetime.now()
+                                       )
+            f_urbano.save()
+            
+            return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
+           
+    return render_to_response('sicop/restrito/processo/cadastro.html',
+        {'tipoprocesso':tipoprocesso,'processo':escolha,'situacaoprocesso':situacaoprocesso, 'contrato':contrato,'gleba':gleba,'caixa':caixa,'municipio':municipio,'div_processo':div_processo},
+         context_instance = RequestContext(request))     
+
+@login_required
+def edicao(request, id):
+    caixa = Tbcaixa.objects.all()
+    gleba = Tbgleba.objects.all()
+    municipio = Tbmunicipio.objects.all()
+    situacaoprocesso = Tbsituacaoprocesso.objects.all()
+    contrato = Tbcontrato.objects.all()
+    
+    urbano = get_object_or_404(Tbprocessourbano, id=id)
+    base  = get_object_or_404(Tbprocessobase, id=urbano.tbprocessobase.id)
+    
+    if validacao(request):
+         # cadastrando o registro processo base            
+            f_base = Tbprocessobase (
+                                    id = base.id,
+                                    nrprocesso = request.POST['nrprocesso'].replace('.','').replace('/','').replace('-',''),
+                                    tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
+                                    tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
+                                    tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
+                                    tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessourbano' ),
                                     tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
                                     auth_user = AuthUser.objects.get( pk = request.user.id )
                                     )
@@ -42,6 +86,7 @@ def cadastro(request):
             
             # cadastrando o registro processo rural
             f_rural = Tbprocessourbano (
+                                       id = urbano.id,
                                        nmpovoado = request.POST['nmpovoado'],
                                        nrcnpj = request.POST['nrcnpj'].replace('.','').replace('/','').replace('-',''),
                                        nrhabitantes = request.POST['nrhabitantes'],
@@ -55,13 +100,11 @@ def cadastro(request):
             
             return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
            
-    return render_to_response('sicop/restrito/processo/cadastro.html',
-        {'tipoprocesso':tipoprocesso,'processo':escolha,'situacaoprocesso':situacaoprocesso, 'contrato':contrato,'gleba':gleba,'caixa':caixa,'municipio':municipio,'div_processo':div_processo},
-         context_instance = RequestContext(request))     
-
-@login_required
-def edicao(request, id):
-    return render_to_response('sicop/restrito/processo/urbano/edicao.html',{}, context_instance = RequestContext(request))    
+    
+    return render_to_response('sicop/restrito/processo/urbano/edicao.html',
+                                      {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
+                                   'caixa':caixa,'municipio':municipio,'contrato':contrato,
+                                   'base':base,'urbano':urbano}, context_instance = RequestContext(request))   
 
 def validacao(request_form):
     warning = True

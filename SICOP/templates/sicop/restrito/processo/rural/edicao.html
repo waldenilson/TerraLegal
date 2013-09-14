@@ -9,20 +9,94 @@
 
 {% block formulario %}
 
-<form method="post" action=".">
+<form method="post" action="/sicop/restrito/processo/rural/edicao/{{ rural.id }}/">
 	{% csrf_token %}
 	<div style="width: 100%; font-size: 12px; text-align: left">
 		<table>
-			<tr>
-				<td class="colunaTabela"><label>Requerente:</label></td>
-				<td class="colunaTabela"> <input name="nmrequerente" value="{{ rural.nmrequerente }}" /> </td>
+			<tr> 
+				<td class="colunaTabela"> <label>N do Processo:</label> </td>
+				<td class="colunaTabela"> <input name="nrprocesso" id="processo" value="{{ base.nrprocesso }}" /> </td> 
 			</tr>
+				<tr> 
+					<td class="colunaTabela"> <label>Gleba:</label> </td>
+				   	<td>
+				   		<select name="tbgleba" style="width: 200px">
+				   			{% for obj in gleba %}
+								{% if obj.id == base.tbgleba.id %}
+									<option selected="selected" value="{{ obj.id }}">{{ obj.nmgleba }}</option>
+								{% else %}
+									<option value="{{ obj.id }}">{{ obj.nmgleba }}</option>
+								{% endif %}
+							{% endfor %}
+						</select>
+					</td>
+					<td>
+						<a href="/sicop/restrito/gleba/cadastro/" title="Nova Gleba"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+					</td>
+				</tr>
+				<tr> <td class="colunaTabela"> <label>Municipio:</label> </td>
+				   		<td>
+				   			<select name="tbmunicipio" style="width: 200px">
+								{% for obj in municipio %}
+									{% if obj.id == base.tbmunicipio.id %}
+										<option selected="selected" value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+									{% else %}
+										<option value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						</td>
+				</tr>
+				<tr> <td class="colunaTabela"> <label>Nome do Requerente:</label> </td>
+					<td> <input size="35" value="{{ rural.nmrequerente }}" name="nmrequerente" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>CPF do Requerente:</label> </td>
+					<td> <input size="13" value="{{ rural.nrcpfrequerente }}" id="cpf" name="nrcpfrequerente" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Nome do Conjuge:</label> </td>
+					<td> <input size="35" value="{{ rural.nmconjuge }}" name="nmconjuge" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>CPF do Conjuge:</label> </td>
+					<td> <input size="13" value="{{ rural.nrcpfconjuge }}" id="cpf2" name="nrcpfconjuge" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
+				   		<td>
+				   			<select name="tbcaixa" style="width: 200px">
+								{% for obj in caixa %}
+									{% if obj.id == base.tbcaixa.id %}
+										<option selected="selected" value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
+									{% else %}
+										<option value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						</td>
+						<td>
+							<a href="/sicop/restrito/caixa/cadastro/" title="Nova Caixa"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+						</td>
+				</tr>
+				<tr> <td class="colunaTabela"> <label>Situacao:</label> </td>
+				   		<td>
+				   			<select name="tbsituacaoprocesso" style="width: 200px">
+								{% for obj in situacaoprocesso %}
+									{% if obj.id == base.tbsituacaoprocesso.id %}
+										<option selected="selected" value="{{ obj.id }}">{{ obj.nmsituacao }}</option>
+									{% else %}
+										<option value="{{ obj.id }}">{{ obj.nmsituacao }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						</td>
+						<td>
+							<a href="/sicop/restrito/situacao_processo/cadastro/" title="Nova Situacao"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+						</td>
+				</tr>
 		</table>
 	</div>
-	<br/><br/>
-	<div style="width:100%;font-size:12px;text-align:right">
-		<a href="/sicop/restrito/processo/consulta/" class="button_yellow">CONSULTAR</a>
-		<input type="submit" class="button_green" value="SALVAR" />
-	</div>	
+	<br />
+	<table style="width:100%">
+		<tr>
+			<td class="colunaTabela" style="text-align:left"> 
+				<a href="/sicop/restrito/processo/consulta/" style="margin-right: 10px"><input type="button" class="button_yellow" value="CONSULTAR" /></a>
+				<input type="submit" class="button_green" value="SALVAR" />
+			</td>
+		</tr>
+	</table>
 </form>
 {% endblock %}

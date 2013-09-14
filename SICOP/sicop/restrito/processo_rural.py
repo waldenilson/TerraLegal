@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required, permission_required
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.models import Tbtipoprocesso, Tbcaixa, Tbgleba, Tbmunicipio, AuthUser,\
     AuthGroup, Tbprocessobase, Tbprocessorural, Tbclassificacaoprocesso,\
@@ -35,7 +35,7 @@ def cadastro(request):
                                     tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
                                     tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
                                     tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
-                                    tbtipoprocesso = Tbtipoprocesso.objects.get( pk = 1 ),
+                                    tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessorural' ),
                                     tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
                                     auth_user = AuthUser.objects.get( pk = request.user.id )
                                     )
@@ -69,7 +69,57 @@ def cadastro(request):
   
 @login_required
 def edicao(request, id):
-    return render_to_response('sicop/restrito/processo/rural/edicao.html',{}, context_instance = RequestContext(request))   
+    
+    caixa = Tbcaixa.objects.all()
+    gleba = Tbgleba.objects.all()
+    municipio = Tbmunicipio.objects.all()
+    situacaoprocesso = Tbsituacaoprocesso.objects.all()
+    
+    rural = get_object_or_404(Tbprocessorural, id=id)
+    base  = get_object_or_404(Tbprocessobase, id=rural.tbprocessobase.id)
+    
+    if validacao(request):
+         # cadastrando o registro processo base            
+            f_base = Tbprocessobase (
+                                    id = base.id,
+                                    nrprocesso = request.POST['nrprocesso'].replace('.','').replace('/','').replace('-',''),
+                                    tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
+                                    tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
+                                    tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
+                                    tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessorural' ),
+                                    tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
+                                    auth_user = AuthUser.objects.get( pk = request.user.id )
+                                    )
+            f_base.save()
+            
+            # cadastrando o registro processo rural
+            f_rural = Tbprocessorural (
+                                       id = rural.id,
+                                       nmrequerente = request.POST['nmrequerente'],
+                                       nrcpfrequerente = request.POST['nrcpfrequerente'].replace('.','').replace('-',''),
+                                       tbprocessobase = f_base,
+                                       dtcadastrosistema = datetime.datetime.now(),
+                                       tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 )
+                                       )
+            f_rural.save()
+            
+            # cadastrando o conjuge do processo ( caso seja informado )
+            # se nome conjuge digitado e cpf digitado: validacao ok
+            # se cpf nao digitado: desconsiderar conjuge
+            if request.POST['nrcpfconjuge'] != '' and request.POST['nmconjuge'] != '':
+                f_conjuge = Tbconjuge (
+                                       tbprocessobase = f_base,
+                                       nrcpf = request.POST['nrcpfconjuge'],
+                                       nmconjuge = request.POST['nmconjuge']
+                                       )
+                f_conjuge.save()
+            
+            return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
+    
+    return render_to_response('sicop/restrito/processo/rural/edicao.html',
+                              {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
+                                   'caixa':caixa,'municipio':municipio,
+                                   'base':base,'rural':rural}, context_instance = RequestContext(request))   
 
 def validacao(request_form):
     warning = True
