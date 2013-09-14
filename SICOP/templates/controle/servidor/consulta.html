@@ -44,10 +44,10 @@
 			<tbody>
 				{% if lista %}
 					{% autosort lista %}
-					{% autopaginate lista 5 %}
+					{% autopaginate lista 10 %}
 					{% for obj in lista %}
 						<tr>
-							<td class="colunaTabelaConsulta"> <a href="/servidor/restrito/servidor/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
+							<td class="colunaTabelaConsulta"> <a href="/controle/restrito/servidor/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
 							<td class="colunaTabelaConsulta">{{ obj.nmservidor }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.nmunidade }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.nmlotacao }}</td>

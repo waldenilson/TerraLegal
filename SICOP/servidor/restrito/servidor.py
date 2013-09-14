@@ -35,8 +35,9 @@ def cadastro(request):
     if request.method == "POST":
         form = FormServidor(request.POST)
         if validacao(request):
-            if form.is_valid():
-                print 'passou save'
+            if form.is_valid(): # tem que preencher todos campos com os tipos que correspondem
+                f = form.save(commit=False)
+                f.nrCPF = request.POST['nrcpfrequerente'].replace('.','').replace('-','')
                 form.save()
                 return HttpResponseRedirect("/controle/restrito/servidor/consulta/") 
     else:
@@ -59,8 +60,12 @@ def edicao(request, id):
         
         if validacao(request):
             if form.is_valid():
+                print 'passou form is valid'
+                f = form.save(commit=False)
+                print f.nrCPF 
+                f.nrCPF = request.POST['nrcpfrequerente'].replace('.','').replace('-','')
                 form.save()
-                return HttpResponseRedirect("/servidor/restrito/servidor/consulta/")
+                return HttpResponseRedirect("/controle/restrito/servidor/consulta/")
     else:
         form = FormServidor(instance=instance) 
 
@@ -69,7 +74,6 @@ def edicao(request, id):
                               context_instance = RequestContext(request))
 
 def validacao(request_form):
-    print 'passou validacao'
     warning = True
     if request_form.POST['nmservidor'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe nome do servidor')

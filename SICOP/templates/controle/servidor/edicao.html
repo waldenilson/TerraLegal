@@ -16,16 +16,24 @@
 		{% csrf_token %}
 		<div style="width:100%;font-size:12px;text-align:left">
 				<table>
-				   <tr> <td class="colunaTabela"> <label>Servidor:</label> </td><td> {{ form.nmservidor }} </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Unidade:</label> </td> <td>{{ form.nmunidade }}</td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Lotacao:</label> </td><td> {{ form.nmlotacao }}</td> </tr>
-				   <!-- tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input onkeypress="return SomenteNumero(event,this)"  size="15" value="{{ form.nrarea.value }}" name="nrarea" /> </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Perimetro:</label> </td><td> <input id="perimetro"  size="15" value="{{ form.nrperimetro.value }}" name="nrperimetro" /> </td> </tr-->
-				 </table>
+				<tr> <td class="colunaTabela"> <label>Servidor:</label> </td><td> {{ form.nmservidor }} </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Unidade:</label> </td> <td>{{ form.nmunidade }}</td> </tr>
+				<tr> <td class="colunaTabela"> <label>Lotacao:</label> </td><td> {{ form.nmlotacao }}</td> </tr>
+				<tr> <td class="colunaTabela"> <label>SIAPE:</label> </td><td>{{ form.cdSIAPE }} </td> </tr>
+				<tr> <td class="colunaTabela"> <label>CPF:</label> </td> <td><input  size="13" id="cpf" value="{{ form.nrCPF.value }}" name="nrcpfrequerente" /><!-- td>{{ form.nrCPF }} </td--> </tr>
+				<tr> <td class="colunaTabela"> <label>Portaria Cargo:</label> </td><td>{{ form.dsportariacargo }} </td> </tr>
+			    <tr> <td class="colunaTabela"> <label>Portaria:</label> </td><td>{{ form.dsportaria }} </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Cargo:</label> </td><td>{{ form.nmcargo }} </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Telefone cel:</label> </td><td>{{ form.nrtelefone1 }} </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Telefone fixo:</label> </td><td>{{ form.nrtelefone2 }} </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Mail:</label> </td><td>{{ form.email }} </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Atividades:</label> </td><td>{{ form.dsatividades }} </td> </tr>
+			
+			</table>
 		</div>
 		<br/><br/>
 		<div style="width:100%;font-size:12px;text-align:right">
-			<a href="/servidor/restrito/servidor/consulta/" class="button_red">VOLTAR</a>
+			<a href="/controle/restrito/servidor/consulta/" class="button_red">VOLTAR</a>
 			<input type="submit" class="button_green" value="SALVAR" />
 		</div>	
 	</form>
