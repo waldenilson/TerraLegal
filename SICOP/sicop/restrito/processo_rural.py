@@ -42,12 +42,16 @@ def cadastro(request):
             f_base.save()
             
             # cadastrando o registro processo rural
+            tem_conjuge = False
+            if request.POST['nmconjuge'] != '' and request.POST['nrcpfconjuge'] != '':
+                tem_conjuge = True
             f_rural = Tbprocessorural (
                                        nmrequerente = request.POST['nmrequerente'],
                                        nrcpfrequerente = request.POST['nrcpfrequerente'].replace('.','').replace('-',''),
                                        nmconjuge = request.POST['nmconjuge'],
                                        nrcpfconjuge = request.POST['nrcpfconjuge'].replace('.','').replace('-',''),
                                        tbprocessobase = f_base,
+                                       blconjuge = tem_conjuge,
                                        tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 )
                                        )
             f_rural.save()
@@ -84,6 +88,9 @@ def edicao(request, id):
             f_base.save()
             
             # cadastrando o registro processo rural
+            tem_conjuge = False
+            if request.POST['nmconjuge'] != '' and request.POST['nrcpfconjuge'] != '':
+                tem_conjuge = True
             f_rural = Tbprocessorural (
                                        id = rural.id,
                                        nmrequerente = request.POST['nmrequerente'],
@@ -91,6 +98,7 @@ def edicao(request, id):
                                        nmconjuge = request.POST['nmconjuge'],
                                        nrcpfconjuge = request.POST['nrcpfconjuge'].replace('.','').replace('-',''),
                                        tbprocessobase = f_base,
+                                       blconjuge = tem_conjuge,
                                        tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 )
                                        )
             f_rural.save()
@@ -125,4 +133,13 @@ def validacao(request_form):
     if request_form.POST['tbsituacaoprocesso'] == '':
         messages.add_message(request_form,messages.WARNING,'Escolha a situacao do processo')
         warning = False
+    
+    # validacao dos dados de conjuge
+    if request_form.POST['nmconjuge'] != '' and request_form.POST['nrcpfconjuge'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe os dados do conjuge corretamente')
+        warning = False
+    else:
+        if request_form.POST['nmconjuge'] == '' and request_form.POST['nrcpfconjuge'] != '':
+            messages.add_message(request_form,messages.WARNING,'Informe os dados do conjuge corretamente')
+            warning = False
     return warning 
