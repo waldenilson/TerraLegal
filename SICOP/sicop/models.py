@@ -108,14 +108,6 @@ class Tbclassificacaoprocesso(models.Model):
     class Meta:
         db_table = 'tbclassificacaoprocesso'
 
-class Tbconjuge(models.Model):
-    id = models.AutoField(primary_key=True)
-    tbprocessobase = models.ForeignKey('Tbprocessobase')
-    nrcpf = models.CharField(max_length=14, blank=True)
-    nmconjuge = models.CharField(max_length=100, blank=True)
-    class Meta:
-        db_table = 'tbconjuge'
-
 class Tbcontrato(models.Model):
 #    id = models.IntegerField(primary_key=True)
     nrcontrato = models.CharField(max_length=10, blank=True)
@@ -222,7 +214,7 @@ class Tbpecastecnicas(models.Model):
     tbgleba = models.ForeignKey(Tbgleba)
     cdpeca = models.CharField(max_length=50, blank=True)
     nrentrega = models.CharField(max_length=10, blank=True)
-    nrcpfrequerente = models.CharField(max_length=14, blank=True)
+    nrcpfrequerente = models.CharField(max_length=11, blank=True)
     nmrequerente = models.CharField(max_length=80, blank=True)
     stenviadobrasilia = models.BooleanField(null=False, blank=True)
     stpecatecnica = models.BooleanField(null=False, blank=True)
@@ -250,9 +242,10 @@ class Tbprocessorural(models.Model):
     tbprocessobase = models.ForeignKey('Tbprocessobase')
     tbclassificacaoprocesso = models.ForeignKey(Tbclassificacaoprocesso)
     nmrequerente = models.CharField(max_length=100, blank=True)
-    nrcpfrequerente = models.CharField(max_length=14, blank=True)
+    nrcpfrequerente = models.CharField(max_length=11, blank=True)
+    nmconjuge = models.CharField(max_length=100, blank=True)
+    nrcpfconjuge = models.CharField(max_length=11, blank=True)
     blconjuge = models.BooleanField(null=False, blank=True)
-    dtcadastrosistema = models.DateTimeField(null=True, blank=True)
     cdstatus = models.IntegerField(null=True, blank=True)
     class Meta:
         db_table = 'tbprocessorural'
@@ -264,6 +257,7 @@ class Tbprocessobase(models.Model):
     tbsituacaoprocesso = models.ForeignKey('Tbsituacaoprocesso')
     auth_user = models.ForeignKey(AuthUser)
     tbmunicipio = models.ForeignKey('Tbmunicipio')
+    dtcadastrosistema = models.DateTimeField(null=True, blank=True)
     tbcaixa = models.ForeignKey('Tbcaixa')
     tbgleba = models.ForeignKey('Tbgleba')
     class Meta:
@@ -278,7 +272,6 @@ class Tbprocessoclausula(models.Model):
     nrcpfrequerente = models.CharField(max_length=11, blank=True)
     nrcpfinteressado = models.CharField(max_length=11, blank=True)
     nrarea = models.DecimalField(null=True, max_digits=10, decimal_places=4, blank=True)
-    dtcadastrosistema = models.DateTimeField(null=True, blank=True)
     dttitulacao = models.DateTimeField(null=True, blank=True)
     cdstatus = models.IntegerField(null=True, blank=True)
     dsobs = models.TextField(blank=True)

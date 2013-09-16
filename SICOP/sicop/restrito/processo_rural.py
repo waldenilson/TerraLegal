@@ -2,8 +2,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.models import Tbtipoprocesso, Tbcaixa, Tbgleba, Tbmunicipio, AuthUser,\
-    AuthGroup, Tbprocessobase, Tbprocessorural, Tbclassificacaoprocesso,\
-    Tbconjuge, Tbsituacaoprocesso
+    AuthGroup, Tbprocessobase, Tbprocessorural, Tbclassificacaoprocesso, Tbsituacaoprocesso
 from sicop.forms import FormProcessoRural, FormProcessoBase
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect
@@ -37,6 +36,7 @@ def cadastro(request):
                                     tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
                                     tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessorural' ),
                                     tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
+                                    dtcadastrosistema = datetime.datetime.now(),
                                     auth_user = AuthUser.objects.get( pk = request.user.id )
                                     )
             f_base.save()
@@ -45,21 +45,12 @@ def cadastro(request):
             f_rural = Tbprocessorural (
                                        nmrequerente = request.POST['nmrequerente'],
                                        nrcpfrequerente = request.POST['nrcpfrequerente'].replace('.','').replace('-',''),
+                                       nmconjuge = request.POST['nmconjuge'],
+                                       nrcpfconjuge = request.POST['nrcpfconjuge'].replace('.','').replace('-',''),
                                        tbprocessobase = f_base,
-                                       dtcadastrosistema = datetime.datetime.now(),
                                        tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 )
                                        )
             f_rural.save()
-            # cadastrando o conjuge do processo ( caso seja informado )
-            # se nome conjuge digitado e cpf digitado: validacao ok
-            # se cpf nao digitado: desconsiderar conjuge
-            if request.POST['nrcpfconjuge'] != '' and request.POST['nmconjuge'] != '':
-                f_conjuge = Tbconjuge (
-                                       tbprocessobase = f_base,
-                                       nrcpf = request.POST['nrcpfconjuge'],
-                                       nmconjuge = request.POST['nmconjuge']
-                                       )
-                f_conjuge.save()
             
             return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
         
@@ -87,6 +78,7 @@ def edicao(request, id):
                                     tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
                                     tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessorural' ),
                                     tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
+                                    dtcadastrosistema = base.dtcadastrosistema,
                                     auth_user = AuthUser.objects.get( pk = request.user.id )
                                     )
             f_base.save()
@@ -96,22 +88,12 @@ def edicao(request, id):
                                        id = rural.id,
                                        nmrequerente = request.POST['nmrequerente'],
                                        nrcpfrequerente = request.POST['nrcpfrequerente'].replace('.','').replace('-',''),
+                                       nmconjuge = request.POST['nmconjuge'],
+                                       nrcpfconjuge = request.POST['nrcpfconjuge'].replace('.','').replace('-',''),
                                        tbprocessobase = f_base,
-                                       dtcadastrosistema = rural.dtcadastrosistema,
                                        tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 )
                                        )
             f_rural.save()
-            
-            # cadastrando o conjuge do processo ( caso seja informado )
-            # se nome conjuge digitado e cpf digitado: validacao ok
-            # se cpf nao digitado: desconsiderar conjuge
-            if request.POST['nrcpfconjuge'] != '' and request.POST['nmconjuge'] != '':
-                f_conjuge = Tbconjuge (
-                                       tbprocessobase = f_base,
-                                       nrcpf = request.POST['nrcpfconjuge'],
-                                       nmconjuge = request.POST['nmconjuge']
-                                       )
-                f_conjuge.save()
             
             return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
     

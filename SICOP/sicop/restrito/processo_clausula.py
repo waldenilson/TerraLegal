@@ -39,6 +39,7 @@ def cadastro(request):
                                     tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
                                     tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
                                     tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessoclausula' ),
+                                    dtcadastrosistema = datetime.datetime.now(),
                                     tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
                                     auth_user = AuthUser.objects.get( pk = request.user.id )
                                     )
@@ -51,7 +52,6 @@ def cadastro(request):
                                        nminteressado = request.POST['nminteressado'],
                                        nrcpfinteressado = request.POST['nrcpfinteressado'].replace('.','').replace('-',''),
                                        tbprocessobase = f_base,
-                                       dtcadastrosistema = datetime.datetime.now(),
                                        dttitulacao =  datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y"),
                                        nrarea = request.POST['nrarea'],
                                        stprocuracao = procuracao,
@@ -89,6 +89,7 @@ def edicao(request, id):
                                     tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
                                     tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
                                     tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessoclausula' ),
+                                    dtcadastrosistema = base.dtcadastrosistema,
                                     tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
                                     auth_user = AuthUser.objects.get( pk = request.user.id )
                                     )
@@ -102,7 +103,6 @@ def edicao(request, id):
                                        nminteressado = request.POST['nminteressado'],
                                        nrcpfinteressado = request.POST['nrcpfinteressado'].replace('.','').replace('-',''),
                                        tbprocessobase = f_base,
-                                       dtcadastrosistema = clausula.dtcadastrosistema,
                                        dttitulacao =  datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y"),
                                        nrarea = request.POST['nrarea'],
                                        stprocuracao = procuracao,
