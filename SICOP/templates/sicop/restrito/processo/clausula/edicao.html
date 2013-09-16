@@ -74,7 +74,14 @@
 						</td>
 				</tr>
 				<tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input value="{{ clausula.nrarea }}" onkeypress="return SomenteNumero(event, this);" size="15" name="nrarea" /> </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Por Procuracao:</label> </td><td>{{ form.stprocuracao }} </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Por Procuracao:</label> </td>
+				<td>
+					{% if clausula.stprocuracao == True %} 
+						<input checked="checked" type="checkbox" name="stprocuracao" />
+					{% else %}
+						<input type="checkbox" name="stprocuracao" />
+					{% endif %} 
+				</td> </tr>
 				<tr> <td class="colunaTabela"> <label>Situacao:</label> </td>
 				   		<td>
 				   			<select name="tbsituacaoprocesso" style="width: 200px">
@@ -92,8 +99,8 @@
 						<a href="/sicop/restrito/situacao_processo/cadastro/" title="Nova Situacao"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>
 				</tr>
-				<tr> <td class="colunaTabela"> <label>Data Titulacao:</label> </td><td> <input value="{{ clausula.dttitulacao }}" size="9" id="date" name="dttitulacao" /> </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Observacao:</label> </td><td> <textarea rows="4" cols="40" name="dsobs">{{ clausula.dsobservacao }}</textarea></td> </tr>
+				<tr> <td class="colunaTabela"> <label>Data Titulacao:</label> </td><td> <input value="{{ dttitulacao }}" size="9" id="date" name="dttitulacao" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Observacao:</label> </td><td> <textarea rows="4" cols="40" name="dsobs">{{ clausula.dsobs }}</textarea></td> </tr>
 		</table>
 	</div>
 	<br />

@@ -23,6 +23,23 @@
 						<a href="/sicop/restrito/contrato/cadastro/" title="Novo Contrato"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>						
 				</tr>
+								<tr> <td class="colunaTabela"> <label>Situacao GEO:</label> </td>
+				   		<td>
+				   			<select name="tbsituacaogeo" style="width: 200px">
+				   				<option value="">-- Selecione a situacao GEO --</option>
+				   				{% for obj in situacaogeo %}
+									<option value="{{ obj.id }}">{{ obj.nmsituacaogeo }}</option>
+								{% endfor %}
+							</select>
+						</td>
+					<td>
+						<a href="/sicop/restrito/situacao_geo/cadastro/" title="Nova Situacao GEO"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+					</td>						
+				</tr>
+				<tr> <td class="colunaTabela"> <label>Area:</label> </td>
+					<td> <input onkeypress="return SomenteNumero(event, this);" name="nrarea" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Perimetro:</label> </td>
+					<td> <input onkeypress="return SomenteNumero(event, this);" name="nrperimetro" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Numero de Habitantes:</label> </td>
 					<td> <input onkeypress="return SomenteNumeroOK(event, this);" name="nrhabitantes" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Numero de Domicilios:</label> </td>
@@ -65,6 +82,8 @@
 						<a href="/sicop/restrito/caixa/cadastro/" title="Nova Caixa"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>
 				</tr>
+				<tr> <td class="colunaTabela"> <label>Data Abertura:</label> </td><td> <input size="9" id="date" name="dtaberturaprocesso" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Data Titulacao:</label> </td><td> <input size="9" id="date2" name="dttitulacao" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Situacao:</label> </td>
 				   		<td>
 				   			<select name="tbsituacaoprocesso" style="width: 200px">

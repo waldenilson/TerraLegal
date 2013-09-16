@@ -37,6 +37,26 @@
 						<a href="/sicop/restrito/contrato/cadastro/" title="Novo Contrato"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>						
 				</tr>
+				<tr> <td class="colunaTabela"> <label>Situacao GEO:</label> </td>
+				   		<td>
+				   			<select name="tbsituacaogeo" style="width: 200px">
+				   				{% for obj in situacaogeo %}
+									{% if obj.id == urbano.tbsituacaogeo.id %}
+										<option selected="selected" value="{{ obj.id }}">{{ obj.nmsituacaogeo }}</option>
+									{% else %}
+										<option value="{{ obj.id }}">{{ obj.nmsituacaogeo }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						</td>
+					<td>
+						<a href="/sicop/restrito/situacao_geo/cadastro/" title="Nova Situacao GEO"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+					</td>						
+				</tr>
+				<tr> <td class="colunaTabela"> <label>Area:</label> </td>
+					<td> <input onkeypress="return SomenteNumero(event, this);" value="{{ urbano.nrarea }}" name="nrarea" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Perimetro:</label> </td>
+					<td> <input onkeypress="return SomenteNumero(event, this);" value="{{ urbano.nrperimetro }}" name="nrperimetro" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Numero de Habitantes:</label> </td>
 					<td> <input value="{{ urbano.nrhabitantes }}" onkeypress="return SomenteNumeroOK(event, this);" name="nrhabitantes" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Numero de Domicilios:</label> </td>
@@ -66,7 +86,7 @@
 									{% if obj.id == base.tbmunicipio.id %}
 										<option selected="selected" value="{{ obj.id }}">{{ obj.nome_mun }}</option>
 									{% else %}
-										<option value="{{ obj.id }}">{{ obj.nome_num }}</option>
+										<option value="{{ obj.id }}">{{ obj.nome_mun }}</option>
 									{% endif %}
 								{% endfor %}
 							</select>
@@ -88,6 +108,8 @@
 						<a href="/sicop/restrito/caixa/cadastro/" title="Nova Caixa"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>
 				</tr>
+				<tr> <td class="colunaTabela"> <label>Data Abertura:</label> </td><td> <input size="9" value="{{ dtaberturaprocesso }}" id="date" name="dtaberturaprocesso" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Data Titulacao:</label> </td><td> <input size="9" value="{{ dttitulacao }}" id="date2" name="dttitulacao" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Situacao:</label> </td>
 				   		<td>
 				   			<select name="tbsituacaoprocesso" style="width: 200px">

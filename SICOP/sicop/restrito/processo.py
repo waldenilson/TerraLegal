@@ -4,7 +4,7 @@ from django.template.context import RequestContext
 from django.http.response import HttpResponseRedirect
 from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
     Tbprocessoclausula, Tbprocessobase, Tbcaixa, Tbgleba, Tbmunicipio,\
-    Tbcontrato, Tbsituacaoprocesso
+    Tbcontrato, Tbsituacaoprocesso, Tbsituacaogeo
 from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
 from sicop.restrito import processo_rural
@@ -62,6 +62,7 @@ def edicao(request, id):
     gleba = Tbgleba.objects.all()
     municipio = Tbmunicipio.objects.all()
     contrato = Tbcontrato.objects.all()
+    situacaogeo = Tbsituacaogeo.objects.all()
     situacaoprocesso = Tbsituacaoprocesso.objects.all()
     
     base = get_object_or_404(Tbprocessobase, id=id)
@@ -75,17 +76,23 @@ def edicao(request, id):
     else:
         if tipo == "tbprocessourbano":
             urbano = Tbprocessourbano.objects.get( tbprocessobase = id )
+     
+            dtaberturaprocesso = formatDataToText( urbano.dtaberturaprocesso )
+            dttitulacao = formatDataToText( urbano.dttitulacao )
+            
             return render_to_response('sicop/restrito/processo/urbano/edicao.html',
-                                      {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
+                                      {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'situacaogeo':situacaogeo,
                                    'caixa':caixa,'municipio':municipio,'contrato':contrato,
-                                   'base':base,'urbano':urbano}, context_instance = RequestContext(request))
+                                   'base':base,'urbano':urbano,
+                                   'dtaberturaprocesso':dtaberturaprocesso,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
         else:
             if tipo == "tbprocessoclausula":
                 clausula = Tbprocessoclausula.objects.get( tbprocessobase = id )
+                dttitulacao = formatDataToText( clausula.dttitulacao )
                 return render_to_response('sicop/restrito/processo/clausula/edicao.html',
                                           {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                    'caixa':caixa,'municipio':municipio,
-                                   'base':base,'clausula':clausula}, context_instance = RequestContext(request))
+                                   'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
         
     return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
     
@@ -99,6 +106,7 @@ def cadastro(request):
     gleba = Tbgleba.objects.all()
     municipio = Tbmunicipio.objects.all()
     contrato = Tbcontrato.objects.all()
+    situacaogeo = Tbsituacaogeo.objects.all()
     situacaoprocesso = Tbsituacaoprocesso.objects.all()
            
     if request.method == "POST":
@@ -114,7 +122,7 @@ def cadastro(request):
                 div_processo = "urbano"
                 return render_to_response('sicop/restrito/processo/cadastro.html',
                     {'tipoprocesso':tipoprocesso,'situacaoprocesso':situacaoprocesso,'gleba':gleba,'caixa':caixa,'municipio':municipio,'processo':escolha,
-                    'div_processo':div_processo,'contrato':contrato},
+                    'div_processo':div_processo,'contrato':contrato,'situacaogeo':situacaogeo},
                     context_instance = RequestContext(request));  
             else:
                 if escolha == "tbprocessoclausula":
@@ -127,3 +135,19 @@ def cadastro(request):
        
     return render_to_response('sicop/restrito/processo/cadastro.html',{'gleba':gleba,'caixa':caixa,'municipio':municipio,'situacaoprocesso':situacaoprocesso,
             'tipoprocesso':tipoprocesso,'processo':escolha,'div_processo':div_processo}, context_instance = RequestContext(request))
+    
+    
+def formatDataToText( formato_data ):
+    if len(str(formato_data.day)) < 2:
+        dtaberturaprocesso = '0'+str(formato_data.day)+"/"
+    else:
+        dtaberturaprocesso = str(formato_data.day)+"/"
+    if len(str(formato_data.month)) < 2:
+        dtaberturaprocesso += '0'+str(formato_data.month)+"/"
+    else:
+        dtaberturaprocesso += str(formato_data.month)+"/"
+    dtaberturaprocesso += str(formato_data.year)
+    return str( dtaberturaprocesso )
+                    
+    
+

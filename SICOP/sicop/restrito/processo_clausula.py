@@ -23,6 +23,10 @@ def cadastro(request):
     gleba = Tbgleba.objects.all()
     municipio = Tbmunicipio.objects.all()
     
+    procuracao = False
+    if request.POST.get('stprocuracao',False):
+        procuracao = True
+        
     div_processo = "clausula"
     escolha = "tbprocessoclausula"  
     
@@ -50,7 +54,9 @@ def cadastro(request):
                                        dtcadastrosistema = datetime.datetime.now(),
                                        dttitulacao =  datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y"),
                                        nrarea = request.POST['nrarea'],
-                                       tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 )
+                                       stprocuracao = procuracao,
+                                       tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 ),
+                                       dsobs = request.POST['dsobs']
                                        )
             f_clausula.save()
             
@@ -66,6 +72,10 @@ def edicao(request, id):
     gleba = Tbgleba.objects.all()
     municipio = Tbmunicipio.objects.all()
     situacaoprocesso = Tbsituacaoprocesso.objects.all()
+    
+    procuracao = False
+    if request.POST.get('stprocuracao',False):
+        procuracao = True
     
     clausula = get_object_or_404(Tbprocessoclausula, id=id)
     base  = get_object_or_404(Tbprocessobase, id=clausula.tbprocessobase.id)
@@ -92,10 +102,12 @@ def edicao(request, id):
                                        nminteressado = request.POST['nminteressado'],
                                        nrcpfinteressado = request.POST['nrcpfinteressado'].replace('.','').replace('-',''),
                                        tbprocessobase = f_base,
-                                       dtcadastrosistema = datetime.datetime.now(),
+                                       dtcadastrosistema = clausula.dtcadastrosistema,
                                        dttitulacao =  datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y"),
                                        nrarea = request.POST['nrarea'],
-                                       tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 )
+                                       stprocuracao = procuracao,
+                                       tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 ),
+                                       dsobs = request.POST['dsobs']
                                        )
             f_clausula.save()
             
@@ -138,4 +150,4 @@ def validacao(request_form):
     if request_form.POST['dttitulacao'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe a data de titulacao')
         warning = False
-    return warning 
+    return warning

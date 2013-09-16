@@ -50,7 +50,6 @@ def cadastro(request):
                                        tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 )
                                        )
             f_rural.save()
-            
             # cadastrando o conjuge do processo ( caso seja informado )
             # se nome conjuge digitado e cpf digitado: validacao ok
             # se cpf nao digitado: desconsiderar conjuge
@@ -98,7 +97,7 @@ def edicao(request, id):
                                        nmrequerente = request.POST['nmrequerente'],
                                        nrcpfrequerente = request.POST['nrcpfrequerente'].replace('.','').replace('-',''),
                                        tbprocessobase = f_base,
-                                       dtcadastrosistema = datetime.datetime.now(),
+                                       dtcadastrosistema = rural.dtcadastrosistema,
                                        tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 )
                                        )
             f_rural.save()
