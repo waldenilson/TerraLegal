@@ -98,5 +98,11 @@
 			</td>
 		</tr>
 	</table>
+	<br/>
+	{% if peca %}
+		Existe peca
+	{% else %}
+		Nenhuma Peca Tecnica ligada a este processo
+	{% endif %}
 </form>
 {% endblock %}

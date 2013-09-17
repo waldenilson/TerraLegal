@@ -24,19 +24,38 @@ def consulta(request):
 def cadastro(request):
     
     contrato = Tbcontrato.objects.all()
-    caixa = Tbcaixa.objects.filter( tbtipocaixa = 2 )
+    caixa = Tbcaixa.objects.all()
     gleba = Tbgleba.objects.all()
+    
+    enviadobrasilia = False
+    if request.POST.get('enviadobrasilia',False):
+        enviadobrasilia = True
+    pecatecnica = False
+    if request.POST.get('pecatecnica',False):
+        pecatecnica = True
+    anexadoprocesso = False
+    if request.POST.get('anexadoprocesso',False):
+        anexadoprocesso = True
     
     if request.method == "POST":
         form = FormPecasTecnicas(request.POST)
-        if validacao(request):
-            if form.is_valid():
-                f = form.save(commit=False)
-                f.nrcpfrequerente = request.POST['nrcpfrequerente'].replace('.','').replace('-','')
-                f.save()
-                return HttpResponseRedirect("/sicop/restrito/peca_tecnica/consulta/") 
-    else:
-        form = FormPecasTecnicas()
+        if validacao(request):            
+            peca = Tbpecastecnicas(
+                                   tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
+                                   tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
+                                   tbcontrato = Tbcontrato.objects.get( pk = request.POST['tbcontrato'] ),
+                                   nrarea = request.POST['nrarea'],
+                                   nrperimetro = request.POST['nrperimetro'],
+                                   dsobservacao = request.POST['dsobservacao'],
+                                   nrentrega = request.POST['nrentrega'],
+                                   nmrequerente = request.POST['nmrequerente'],
+                                   nrcpfrequerente = request.POST['nrcpfrequerente'].replace('.','').replace('-',''),
+                                   stanexadoprocesso = anexadoprocesso,
+                                   stpecatecnica = pecatecnica,
+                                   stenviadobrasilia = enviadobrasilia
+                                   )
+            peca.save()
+            return HttpResponseRedirect("/sicop/restrito/peca_tecnica/consulta/") 
     
     return render_to_response('sicop/restrito/peca_tecnica/cadastro.html',{"form":form,'caixa':caixa,'contrato':contrato,'gleba':gleba}, context_instance = RequestContext(request))
 
@@ -44,8 +63,18 @@ def cadastro(request):
 @login_required
 def edicao(request, id):
     contrato = Tbcontrato.objects.all()
-    caixa = Tbcaixa.objects.filter( tbtipocaixa = 2 )
+    caixa = Tbcaixa.objects.all()
     gleba = Tbgleba.objects.all()
+    
+    enviadobrasilia = False
+    if request.POST.get('enviadobrasilia',False):
+        enviadobrasilia = True
+    pecatecnica = False
+    if request.POST.get('pecatecnica',False):
+        pecatecnica = True
+    anexadoprocesso = False
+    if request.POST.get('anexadoprocesso',False):
+        anexadoprocesso = True
     
     instance = get_object_or_404(Tbpecastecnicas, id=id)
         
@@ -53,13 +82,22 @@ def edicao(request, id):
         form = FormPecasTecnicas(request.POST,request.FILES,instance=instance)
         
         if validacao(request):
-            if form.is_valid():
-                f = form.save(commit=False)
-                f.nrcpfrequerente = request.POST['nrcpfrequerente'].replace('.','').replace('-','')
-                f.save()
-                return HttpResponseRedirect("/sicop/restrito/peca_tecnica/consulta/")
-    else:
-        form = FormPecasTecnicas(instance=instance) 
+            peca = Tbpecastecnicas(
+                                   tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
+                                   tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
+                                   tbcontrato = Tbcontrato.objects.get( pk = request.POST['tbcontrato'] ),
+                                   nrarea = request.POST['nrarea'],
+                                   nrperimetro = request.POST['nrperimetro'],
+                                   dsobservacao = request.POST['dsobservacao'],
+                                   nrentrega = request.POST['nrentrega'],
+                                   nmrequerente = request.POST['nmrequerente'],
+                                   nrcpfrequerente = request.POST['nrcpfrequerente'].replace('.','').replace('-',''),
+                                   stanexadoprocesso = anexadoprocesso,
+                                   stpecatecnica = pecatecnica,
+                                   stenviadobrasilia = enviadobrasilia
+                                   )
+            peca.save()
+            return HttpResponseRedirect("/sicop/restrito/peca_tecnica/consulta/")
 
     return render_to_response('sicop/restrito/peca_tecnica/edicao.html',
                               {"form":form,'caixa':caixa,'contrato':contrato,'gleba':gleba}, 

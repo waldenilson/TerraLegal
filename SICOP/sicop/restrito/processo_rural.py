@@ -2,7 +2,8 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.models import Tbtipoprocesso, Tbcaixa, Tbgleba, Tbmunicipio, AuthUser,\
-    AuthGroup, Tbprocessobase, Tbprocessorural, Tbclassificacaoprocesso, Tbsituacaoprocesso
+    AuthGroup, Tbprocessobase, Tbprocessorural, Tbclassificacaoprocesso, Tbsituacaoprocesso,\
+    Tbpecastecnicas
 from sicop.forms import FormProcessoRural, FormProcessoBase
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect
@@ -108,7 +109,7 @@ def edicao(request, id):
     return render_to_response('sicop/restrito/processo/rural/edicao.html',
                               {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                    'caixa':caixa,'municipio':municipio,
-                                   'base':base,'rural':rural}, context_instance = RequestContext(request))   
+                                   'base':base,'rural':rural,'peca':pesquisarPecaTecnica( rural.nrcpfrequerente )}, context_instance = RequestContext(request))   
 
 def validacao(request_form):
     warning = True
@@ -155,4 +156,9 @@ def nrProcessoCadastrado( numero ):
         return True
     else:
         return False
+
+def pesquisarPecaTecnica( nrcpfrequerente ):
+    return Tbpecastecnicas.objects.all().filter( nrcpfrequerente = nrcpfrequerente )
+        
+
 
