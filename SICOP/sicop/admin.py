@@ -1,6 +1,6 @@
 from django.contrib import admin
 from sicop.models import Tbtipocaixa, Tbtipoprocesso, Tbstatuspendencia,\
-    Tbpecastecnicas, Tbclassificacaoprocesso, Tbsubarea, Tbconjuge, Tbcaixa,\
+    Tbpecastecnicas, Tbclassificacaoprocesso, Tbsubarea, Tbcaixa,\
     Tbgleba, Tbcontrato, Tbsituacaoprocesso, Tbtipopendencia
 
 # tbtipocaixa,
@@ -27,7 +27,6 @@ admin.site.register(Tbstatuspendencia)
 # TABELAS CONTROLE CRUD (MIGRACAO)
 # admin.site.register(Tbmunicipio)
 admin.site.register(Tbsubarea)
-admin.site.register(Tbconjuge)
 admin.site.register(Tbcontrato)
 admin.site.register(Tbgleba)
 admin.site.register(Tbcaixa)

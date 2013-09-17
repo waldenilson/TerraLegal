@@ -146,7 +146,7 @@ class Tbmovimentacao(models.Model):
         db_table = 'tbmovimentacao'
 
 class Tbmunicipio(models.Model):
-#    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     nome_mun_maiusculo = models.CharField(max_length=50, db_column='Nome_Mun_Maiusculo', blank=True) # Field name made lowercase.
     nome_mun = models.CharField(max_length=50, db_column='Nome_Mun', blank=True) # Field name made lowercase.
     codigo_mun = models.IntegerField(null=True, db_column='Codigo_Mun', blank=True) # Field name made lowercase.
@@ -155,41 +155,7 @@ class Tbmunicipio(models.Model):
     uf = models.CharField(max_length=2, db_column='UF', blank=True) # Field name made lowercase.
     sr = models.CharField(max_length=50, db_column='SR', blank=True) # Field name made lowercase.
     codigo_uf = models.IntegerField(null=True, db_column='Codigo_UF', blank=True) # Field name made lowercase.
-    area_1999 = models.CharField(max_length=50, db_column='Area_1999', blank=True) # Field name made lowercase.
-    area_calc_ha = models.CharField(max_length=50, db_column='Area_Calc_ha', blank=True) # Field name made lowercase.
-    acampamento = models.CharField(max_length=50, db_column='Acampamento', blank=True) # Field name made lowercase.
-    spu = models.CharField(max_length=50, db_column='SPU', blank=True) # Field name made lowercase.
-    area_spu = models.CharField(max_length=50, db_column='Area_SPU', blank=True) # Field name made lowercase.
     populacao = models.CharField(max_length=50, db_column='Populacao', blank=True) # Field name made lowercase.
-    nome_meso = models.CharField(max_length=50, db_column='Nome_Meso', blank=True) # Field name made lowercase.
-    cod_meso = models.IntegerField(null=True, db_column='Cod_Meso', blank=True) # Field name made lowercase.
-    nome_micro = models.CharField(max_length=50, db_column='Nome_Micro', blank=True) # Field name made lowercase.
-    cod_micro = models.IntegerField(null=True, db_column='Cod_Micro', blank=True) # Field name made lowercase.
-    sede = models.CharField(max_length=50, db_column='Sede', blank=True) # Field name made lowercase.
-    canal = models.CharField(max_length=50, db_column='Canal', blank=True) # Field name made lowercase.
-    proj_helder_camara = models.CharField(max_length=50, db_column='Proj_Helder_Camara', blank=True) # Field name made lowercase.
-    obs = models.TextField(db_column='OBS', blank=True) # Field name made lowercase.
-    longitudesede = models.CharField(max_length=80, db_column='LongitudeSede', blank=True) # Field name made lowercase.
-    latitudesede = models.CharField(max_length=80, db_column='LatitudeSede', blank=True) # Field name made lowercase.
-    prioridade = models.CharField(max_length=30, db_column='Prioridade', blank=True) # Field name made lowercase.
-    geometry1 = models.CharField(max_length=50, db_column='Geometry1', blank=True) # Field name made lowercase.
-    territorio_mda = models.CharField(max_length=50, db_column='Territorio_MDA', blank=True) # Field name made lowercase.
-    num_pra = models.IntegerField(null=True, db_column='Num_PRA', blank=True) # Field name made lowercase.
-    num_pa = models.IntegerField(null=True, db_column='Num_PA', blank=True) # Field name made lowercase.
-    num_pe = models.IntegerField(null=True, db_column='Num_PE', blank=True) # Field name made lowercase.
-    num_pca = models.IntegerField(null=True, db_column='Num_PCA', blank=True) # Field name made lowercase.
-    num_pct = models.IntegerField(null=True, db_column='Num_PCT', blank=True) # Field name made lowercase.
-    num_pam = models.IntegerField(null=True, db_column='Num_PAM', blank=True) # Field name made lowercase.
-    num_pic = models.IntegerField(null=True, db_column='Num_PIC', blank=True) # Field name made lowercase.
-    num_pea = models.IntegerField(null=True, db_column='Num_PEA', blank=True) # Field name made lowercase.
-    num_peq = models.IntegerField(null=True, db_column='Num_PEQ', blank=True) # Field name made lowercase.
-    id1 = models.IntegerField(null=True, db_column='ID1', blank=True) # Field name made lowercase.
-    geometry1_xlo = models.CharField(max_length=50, db_column='Geometry1_XLO', blank=True) # Field name made lowercase.
-    geometry1_ylo = models.CharField(max_length=50, db_column='Geometry1_YLO', blank=True) # Field name made lowercase.
-    geometry1_xhi = models.CharField(max_length=50, db_column='Geometry1_XHI', blank=True) # Field name made lowercase.
-    geometry1_yhi = models.CharField(max_length=50, db_column='Geometry1_YHI', blank=True) # Field name made lowercase.
-    num_ver = models.IntegerField(null=True, db_column='Num_Ver', blank=True) # Field name made lowercase.
-    pref = models.CharField(max_length=50, db_column='Pref', blank=True) # Field name made lowercase.
     def __unicode__(self):
         return self.nome_mun
     class Meta:
@@ -252,7 +218,7 @@ class Tbprocessorural(models.Model):
 
 class Tbprocessobase(models.Model):
     id = models.AutoField(primary_key=True)
-    nrprocesso = models.CharField(max_length=20, blank=True)
+    nrprocesso = models.CharField(max_length=17, blank=True)
     tbtipoprocesso = models.ForeignKey('Tbtipoprocesso')
     tbsituacaoprocesso = models.ForeignKey('Tbsituacaoprocesso')
     auth_user = models.ForeignKey(AuthUser)
@@ -280,7 +246,7 @@ class Tbprocessoclausula(models.Model):
         db_table = 'tbprocessoclausula'
 
 class Tbprocessosanexos(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     tbcaixa = models.ForeignKey(Tbcaixa)
     tbprocessobase = models.ForeignKey(Tbprocessobase,db_column='tbprocessobase_id',related_name='tbprocessobase_id')
     tbprocessobase_id_anexo = models.ForeignKey(Tbprocessobase, db_column='tbprocessobase_id_anexo',related_name='tbprocessobase_id_anexo')
@@ -294,7 +260,7 @@ class Tbprocessourbano(models.Model):
     tbprocessobase = models.ForeignKey(Tbprocessobase)
     tbcontrato = models.ForeignKey(Tbcontrato)
     nmpovoado = models.CharField(max_length=80, blank=True)
-    nrcnpj = models.CharField(max_length=18, blank=True)
+    nrcnpj = models.CharField(max_length=14, blank=True)
     dtaberturaprocesso = models.DateTimeField(null=True, blank=True)
     dttitulacao = models.DateTimeField(null=True, blank=True)
     tbsituacaogeo = models.ForeignKey('Tbsituacaogeo')
@@ -307,7 +273,7 @@ class Tbprocessourbano(models.Model):
         db_table = 'tbprocessourbano'
 
 class Tbsituacaoprocesso(models.Model):
-#    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     nmsituacao = models.CharField(max_length=80, blank=True)
     dssituacao = models.TextField(blank=True)
     class Meta:
@@ -321,7 +287,7 @@ class Tbsituacaogeo(models.Model):
         db_table = 'tbsituacaogeo'
 
 class Tbstatuspendencia(models.Model):
-#    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     stpendencia = models.IntegerField(null=True, blank=True)
     dspendencia = models.CharField(max_length=100, blank=True)
     def __unicode__(self):
@@ -348,7 +314,7 @@ class Tbtipocaixa(models.Model):
         db_table = 'tbtipocaixa'
 
 class Tbtipopendencia(models.Model):
-#    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     cdtipopend = models.IntegerField(null=True, blank=True)
     dspendencia = models.CharField(max_length=50, blank=True)
     cdgrupo = models.CharField(max_length=20, blank=True)
