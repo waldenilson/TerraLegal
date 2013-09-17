@@ -142,4 +142,17 @@ def validacao(request_form):
         if request_form.POST['nmconjuge'] == '' and request_form.POST['nrcpfconjuge'] != '':
             messages.add_message(request_form,messages.WARNING,'Informe os dados do conjuge corretamente')
             warning = False
+            
+    if nrProcessoCadastrado( request_form.POST['nrprocesso'].replace('.','').replace('/','').replace('-','') ):
+        messages.add_message(request_form,messages.WARNING,'Numero deste processo ja cadastrado')
+        warning = False
+    
     return warning 
+
+def nrProcessoCadastrado( numero ):
+    result = Tbprocessobase.objects.all().filter( nrprocesso = numero )
+    if result:
+        return True
+    else:
+        return False
+

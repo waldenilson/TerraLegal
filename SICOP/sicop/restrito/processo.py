@@ -148,6 +148,4 @@ def formatDataToText( formato_data ):
         dtaberturaprocesso += str(formato_data.month)+"/"
     dtaberturaprocesso += str(formato_data.year)
     return str( dtaberturaprocesso )
-                    
-    
 
