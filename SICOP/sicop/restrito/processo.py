@@ -12,7 +12,10 @@ from sicop.restrito import processo_rural
 @login_required
 def consulta(request):
     
-    lista = Tbprocessobase.objects.all()
+    #lista = Tbprocessobase.objects.all().filter( auth_user = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
+    
+    # carrega os processos da divisao do usuario logado
+    lista = Tbprocessobase.objects.all().filter( auth_user__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     if request.method == "POST":
         numero = request.POST['numero']
         cpf = request.POST['cpf']
@@ -69,33 +72,36 @@ def edicao(request, id):
     
     base = get_object_or_404(Tbprocessobase, id=id)
     tipo = base.tbtipoprocesso.tabela
-    if tipo == "tbprocessorural":
-        rural = Tbprocessorural.objects.get( tbprocessobase = id )
-        peca = Tbpecastecnicas.objects.all().filter( nrcpfrequerente = rural.nrcpfrequerente.replace('.','').replace('-','') )
-        return render_to_response('sicop/restrito/processo/rural/edicao.html',
-                                  {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
-                                   'caixa':caixa,'municipio':municipio,
-                                   'base':base,'rural':rural,'peca':peca}, context_instance = RequestContext(request))
-    else:
-        if tipo == "tbprocessourbano":
-            urbano = Tbprocessourbano.objects.get( tbprocessobase = id )
-     
-            dtaberturaprocesso = formatDataToText( urbano.dtaberturaprocesso )
-            dttitulacao = formatDataToText( urbano.dttitulacao )
-            
-            return render_to_response('sicop/restrito/processo/urbano/edicao.html',
-                                      {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'situacaogeo':situacaogeo,
-                                   'caixa':caixa,'municipio':municipio,'contrato':contrato,
-                                   'base':base,'urbano':urbano,
-                                   'dtaberturaprocesso':dtaberturaprocesso,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
+    
+    # se processobase pertencer a mesma divisao do usuario logado
+    if base.auth_user.tbdivisao.id == AuthUser.objects.get( pk = request.user.id ).tbdivisao.id:
+        if tipo == "tbprocessorural":
+            rural = Tbprocessorural.objects.get( tbprocessobase = id )
+            peca = Tbpecastecnicas.objects.all().filter( nrcpfrequerente = rural.nrcpfrequerente.replace('.','').replace('-','') )
+            return render_to_response('sicop/restrito/processo/rural/edicao.html',
+                                      {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
+                                       'caixa':caixa,'municipio':municipio,
+                                       'base':base,'rural':rural,'peca':peca}, context_instance = RequestContext(request))
         else:
-            if tipo == "tbprocessoclausula":
-                clausula = Tbprocessoclausula.objects.get( tbprocessobase = id )
-                dttitulacao = formatDataToText( clausula.dttitulacao )
-                return render_to_response('sicop/restrito/processo/clausula/edicao.html',
-                                          {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
-                                   'caixa':caixa,'municipio':municipio,
-                                   'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
+            if tipo == "tbprocessourbano":
+                urbano = Tbprocessourbano.objects.get( tbprocessobase = id )
+         
+                dtaberturaprocesso = formatDataToText( urbano.dtaberturaprocesso )
+                dttitulacao = formatDataToText( urbano.dttitulacao )
+                
+                return render_to_response('sicop/restrito/processo/urbano/edicao.html',
+                                          {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'situacaogeo':situacaogeo,
+                                       'caixa':caixa,'municipio':municipio,'contrato':contrato,
+                                       'base':base,'urbano':urbano,
+                                       'dtaberturaprocesso':dtaberturaprocesso,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
+            else:
+                if tipo == "tbprocessoclausula":
+                    clausula = Tbprocessoclausula.objects.get( tbprocessobase = id )
+                    dttitulacao = formatDataToText( clausula.dttitulacao )
+                    return render_to_response('sicop/restrito/processo/clausula/edicao.html',
+                                              {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
+                                       'caixa':caixa,'municipio':municipio,
+                                       'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
         
     return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
     

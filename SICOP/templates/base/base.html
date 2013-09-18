@@ -135,7 +135,7 @@ function SomenteNumeroOK(e, obj)
 					</p>
 					<p style="font-weight: bold;" class="creditos last-child">
 						{% if user.is_active %}
-							Usuario: 
+							Usuario:
 							{% filter force_escape %}{% firstof user.get_short_name user.get_username %}{% endfilter %} 
 							| <a href="/logout/">Sair do Sistema</a>
 						{% endif %}
