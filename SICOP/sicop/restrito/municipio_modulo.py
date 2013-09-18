@@ -2,13 +2,14 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.forms import FormMunicipioModulo
-from sicop.models import Tbmunicipiomodulo, Tbmunicipio
+from sicop.models import Tbmunicipiomodulo, Tbmunicipio, AuthUser
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect
 
 @login_required
 def consulta(request):
-    municipio = Tbmunicipio.objects.all()
+    # municipios da divisao do usuario logado
+    municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
     if request.method == "POST":
         mun = request.POST['tbmunicipio']
         lista = Tbmunicipiomodulo.objects.all()
@@ -21,7 +22,8 @@ def consulta(request):
 
 @login_required
 def cadastro(request):
-    municipio = Tbmunicipio.objects.all()
+    # municipios da divisao do usuario logado
+    municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
     if request.method == "POST":
         form = FormMunicipioModulo(request.POST)
         if validacao(request):
@@ -34,7 +36,8 @@ def cadastro(request):
 
 @login_required
 def edicao(request, id):
-    municipio = Tbmunicipio.objects.all()
+    # municipios da divisao do usuario logado
+    municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
     instance = get_object_or_404(Tbmunicipiomodulo, id=id)
     if request.method == "POST":
         form = FormMunicipioModulo(request.POST,request.FILES,instance=instance)

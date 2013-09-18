@@ -21,13 +21,14 @@ def cadastro(request):
     situacaoprocesso = Tbsituacaoprocesso.objects.all()
     caixa = Tbcaixa.objects.all()
     gleba = Tbgleba.objects.all()
-    municipio = Tbmunicipio.objects.all()
+    # municipios da divisao do usuario logado
+    municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
     
     div_processo = "rural"
     escolha = "tbprocessorural"
     
     if request.method == "POST":
-        if validacao(request):
+        if validacao(request, "cadastro"):
             
             # cadastrando o registro processo base            
             f_base = Tbprocessobase (
@@ -67,13 +68,14 @@ def edicao(request, id):
     
     caixa = Tbcaixa.objects.all()
     gleba = Tbgleba.objects.all()
-    municipio = Tbmunicipio.objects.all()
+    # municipios da divisao do usuario logado
+    municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
     situacaoprocesso = Tbsituacaoprocesso.objects.all()
     
     rural = get_object_or_404(Tbprocessorural, id=id)
     base  = get_object_or_404(Tbprocessobase, id=rural.tbprocessobase.id)
     
-    if validacao(request):
+    if validacao(request, "edicao"):
          # cadastrando o registro processo base            
             f_base = Tbprocessobase (
                                     id = base.id,
@@ -112,7 +114,7 @@ def edicao(request, id):
                                    'base':base,'rural':rural},
                                context_instance = RequestContext(request))   
 
-def validacao(request_form):
+def validacao(request_form, metodo):
     warning = True
     if request_form.POST['nrprocesso'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe o numero do processo')
@@ -144,10 +146,11 @@ def validacao(request_form):
         if request_form.POST['nmconjuge'] == '' and request_form.POST['nrcpfconjuge'] != '':
             messages.add_message(request_form,messages.WARNING,'Informe os dados do conjuge corretamente')
             warning = False
-            
-    if nrProcessoCadastrado( request_form.POST['nrprocesso'].replace('.','').replace('/','').replace('-','') ):
-        messages.add_message(request_form,messages.WARNING,'Numero deste processo ja cadastrado')
-        warning = False
+    
+    if metodo == "cadastro":        
+        if nrProcessoCadastrado( request_form.POST['nrprocesso'].replace('.','').replace('/','').replace('-','') ):
+            messages.add_message(request_form,messages.WARNING,'Numero deste processo ja cadastrado')
+            warning = False
     
     return warning 
 

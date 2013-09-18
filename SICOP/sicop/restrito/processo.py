@@ -4,13 +4,14 @@ from django.template.context import RequestContext
 from django.http.response import HttpResponseRedirect
 from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
     Tbprocessoclausula, Tbprocessobase, Tbcaixa, Tbgleba, Tbmunicipio,\
-    Tbcontrato, Tbsituacaoprocesso, Tbsituacaogeo, Tbpecastecnicas
+    Tbcontrato, Tbsituacaoprocesso, Tbsituacaogeo, Tbpecastecnicas, AuthUser
 from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
 from sicop.restrito import processo_rural
 
 @login_required
 def consulta(request):
+    
     lista = Tbprocessobase.objects.all()
     if request.method == "POST":
         numero = request.POST['numero']
@@ -59,8 +60,9 @@ def consulta(request):
 def edicao(request, id):
     
     caixa = Tbcaixa.objects.all()
-    gleba = Tbgleba.objects.all()
-    municipio = Tbmunicipio.objects.all()
+    gleba = Tbgleba.objects.all() 
+    # municipios da divisao do usuario logado
+    municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
     contrato = Tbcontrato.objects.all()
     situacaogeo = Tbsituacaogeo.objects.all()
     situacaoprocesso = Tbsituacaoprocesso.objects.all()
@@ -105,7 +107,8 @@ def cadastro(request):
     div_processo = "rural"
     caixa = Tbcaixa.objects.all()
     gleba = Tbgleba.objects.all()
-    municipio = Tbmunicipio.objects.all()
+    # municipios da divisao do usuario logado
+    municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
     contrato = Tbcontrato.objects.all()
     situacaogeo = Tbsituacaogeo.objects.all()
     situacaoprocesso = Tbsituacaoprocesso.objects.all()

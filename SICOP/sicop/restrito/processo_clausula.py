@@ -21,7 +21,8 @@ def cadastro(request):
     situacaoprocesso = Tbsituacaoprocesso.objects.all()
     caixa = Tbcaixa.objects.all()
     gleba = Tbgleba.objects.all()
-    municipio = Tbmunicipio.objects.all()
+    # municipios da divisao do usuario logado
+    municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
     
     procuracao = False
     if request.POST.get('stprocuracao',False):
@@ -31,7 +32,7 @@ def cadastro(request):
     escolha = "tbprocessoclausula"  
     
     if request.method == "POST":
-        if validacao(request):
+        if validacao(request, "cadastro"):
             # cadastrando o registro processo base            
             f_base = Tbprocessobase (
                                     nrprocesso = request.POST['nrprocesso'].replace('.','').replace('/','').replace('-',''),
@@ -70,7 +71,8 @@ def cadastro(request):
 def edicao(request, id):
     caixa = Tbcaixa.objects.all()
     gleba = Tbgleba.objects.all()
-    municipio = Tbmunicipio.objects.all()
+    # municipios da divisao do usuario logado
+    municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
     situacaoprocesso = Tbsituacaoprocesso.objects.all()
     
     procuracao = False
@@ -80,7 +82,7 @@ def edicao(request, id):
     clausula = get_object_or_404(Tbprocessoclausula, id=id)
     base  = get_object_or_404(Tbprocessobase, id=clausula.tbprocessobase.id)
     
-    if validacao(request):
+    if validacao(request, "edicao"):
         # cadastrando o registro processo base            
             f_base = Tbprocessobase (
                                     id = base.id,
@@ -118,7 +120,7 @@ def edicao(request, id):
                                    'caixa':caixa,'municipio':municipio,
                                    'base':base,'clausula':clausula}, context_instance = RequestContext(request))    
 
-def validacao(request_form):
+def validacao(request_form, metodo):
     warning = True
     if request_form.POST['nrprocesso'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe o numero do processo')
@@ -151,9 +153,10 @@ def validacao(request_form):
         messages.add_message(request_form,messages.WARNING,'Informe a data de titulacao')
         warning = False
         
-    if nrProcessoCadastrado( request_form.POST['nrprocesso'].replace('.','').replace('/','').replace('-','') ):
-        messages.add_message(request_form,messages.WARNING,'Numero deste processo ja cadastrado')
-        warning = False
+    if metodo == "cadastro":    
+        if nrProcessoCadastrado( request_form.POST['nrprocesso'].replace('.','').replace('/','').replace('-','') ):
+            messages.add_message(request_form,messages.WARNING,'Numero deste processo ja cadastrado')
+            warning = False
 
     return warning
 
