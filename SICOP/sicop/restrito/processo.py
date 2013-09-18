@@ -4,7 +4,7 @@ from django.template.context import RequestContext
 from django.http.response import HttpResponseRedirect
 from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
     Tbprocessoclausula, Tbprocessobase, Tbcaixa, Tbgleba, Tbmunicipio,\
-    Tbcontrato, Tbsituacaoprocesso, Tbsituacaogeo
+    Tbcontrato, Tbsituacaoprocesso, Tbsituacaogeo, Tbpecastecnicas
 from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
 from sicop.restrito import processo_rural
@@ -69,10 +69,11 @@ def edicao(request, id):
     tipo = base.tbtipoprocesso.tabela
     if tipo == "tbprocessorural":
         rural = Tbprocessorural.objects.get( tbprocessobase = id )
+        peca = Tbpecastecnicas.objects.all().filter( nrcpfrequerente = rural.nrcpfrequerente.replace('.','').replace('-','') )
         return render_to_response('sicop/restrito/processo/rural/edicao.html',
                                   {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                    'caixa':caixa,'municipio':municipio,
-                                   'base':base,'rural':rural}, context_instance = RequestContext(request))
+                                   'base':base,'rural':rural,'peca':peca}, context_instance = RequestContext(request))
     else:
         if tipo == "tbprocessourbano":
             urbano = Tbprocessourbano.objects.get( tbprocessobase = id )

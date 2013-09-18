@@ -104,5 +104,11 @@
 			<input type="submit" class="button_green" value="SALVAR" />
 		</div>	
 	</form>
+	<br/>
+	{% if processo %}
+		Existe processo
+	{% else %}
+		Nenhum Processo ligado a esta peca tecnica
+	{% endif %}
 		
 {% endblock %}

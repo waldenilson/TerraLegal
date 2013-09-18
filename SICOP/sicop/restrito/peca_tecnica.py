@@ -4,7 +4,8 @@ from django.http import HttpResponseRedirect
 from django.template.context import RequestContext
 from django.contrib import messages
 from sicop.forms import FormPecasTecnicas
-from sicop.models import Tbpecastecnicas, Tbgleba, Tbcaixa, Tbcontrato
+from sicop.models import Tbpecastecnicas, Tbgleba, Tbcaixa, Tbcontrato,\
+    Tbprocessobase, Tbprocessorural
 
 #PECAS TECNICAS -----------------------------------------------------------------------------------------------------------------------------
 
@@ -97,8 +98,9 @@ def edicao(request, id):
             peca.save()
             return HttpResponseRedirect("/sicop/restrito/peca_tecnica/consulta/")
 
+    processo = Tbprocessorural.objects.all().filter( nrcpfrequerente = peca_obj.nrcpfrequerente.replace('.','').replace('-','') )
     return render_to_response('sicop/restrito/peca_tecnica/edicao.html',
-                              {'peca':peca_obj,'caixa':caixa,'contrato':contrato,'gleba':gleba}, 
+                              {'peca':peca_obj,'processo':processo,'caixa':caixa,'contrato':contrato,'gleba':gleba}, 
                             context_instance = RequestContext(request))
 
 def validacao(request_form):
