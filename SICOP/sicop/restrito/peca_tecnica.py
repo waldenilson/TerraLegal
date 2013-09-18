@@ -28,17 +28,16 @@ def cadastro(request):
     gleba = Tbgleba.objects.all()
     
     enviadobrasilia = False
-    if request.POST.get('enviadobrasilia',False):
+    if request.POST.get('stenviadobrasilia',False):
         enviadobrasilia = True
     pecatecnica = False
-    if request.POST.get('pecatecnica',False):
+    if request.POST.get('stpecatecnica',False):
         pecatecnica = True
     anexadoprocesso = False
-    if request.POST.get('anexadoprocesso',False):
+    if request.POST.get('stanexadoprocesso',False):
         anexadoprocesso = True
     
     if request.method == "POST":
-        form = FormPecasTecnicas(request.POST)
         if validacao(request):            
             peca = Tbpecastecnicas(
                                    tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
@@ -57,7 +56,7 @@ def cadastro(request):
             peca.save()
             return HttpResponseRedirect("/sicop/restrito/peca_tecnica/consulta/") 
     
-    return render_to_response('sicop/restrito/peca_tecnica/cadastro.html',{"form":form,'caixa':caixa,'contrato':contrato,'gleba':gleba}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/peca_tecnica/cadastro.html',{'caixa':caixa,'contrato':contrato,'gleba':gleba}, context_instance = RequestContext(request))
 
 
 @login_required
@@ -67,22 +66,21 @@ def edicao(request, id):
     gleba = Tbgleba.objects.all()
     
     enviadobrasilia = False
-    if request.POST.get('enviadobrasilia',False):
+    if request.POST.get('stenviadobrasilia',False):
         enviadobrasilia = True
     pecatecnica = False
-    if request.POST.get('pecatecnica',False):
+    if request.POST.get('stpecatecnica',False):
         pecatecnica = True
     anexadoprocesso = False
-    if request.POST.get('anexadoprocesso',False):
+    if request.POST.get('stanexadoprocesso',False):
         anexadoprocesso = True
     
-    instance = get_object_or_404(Tbpecastecnicas, id=id)
+    peca_obj = get_object_or_404(Tbpecastecnicas, id=id)
         
-    if request.method == "POST":
-        form = FormPecasTecnicas(request.POST,request.FILES,instance=instance)
-        
+    if request.method == "POST":        
         if validacao(request):
             peca = Tbpecastecnicas(
+                                   id = peca_obj.id,
                                    tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
                                    tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
                                    tbcontrato = Tbcontrato.objects.get( pk = request.POST['tbcontrato'] ),
@@ -100,8 +98,8 @@ def edicao(request, id):
             return HttpResponseRedirect("/sicop/restrito/peca_tecnica/consulta/")
 
     return render_to_response('sicop/restrito/peca_tecnica/edicao.html',
-                              {"form":form,'caixa':caixa,'contrato':contrato,'gleba':gleba}, 
-                              context_instance = RequestContext(request))
+                              {'peca':peca_obj,'caixa':caixa,'contrato':contrato,'gleba':gleba}, 
+                            context_instance = RequestContext(request))
 
 def validacao(request_form):
     warning = True

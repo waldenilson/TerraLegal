@@ -20,7 +20,7 @@
 				   		<td>
 				   			<select id="id_tbcontrato" style="width: 200px" name="tbcontrato">
 								{% for obj in contrato %}
-									{% if obj.id == form.tbcontrato.value %}
+									{% if obj.id == peca.tbcontrato.id %}
 										<option selected="selected" value="{{ obj.id }}">{{ obj.nrcontrato }}</option>
 									{% else %}
 										<option value="{{ obj.id }}">{{ obj.nrcontrato }}</option>
@@ -32,15 +32,15 @@
 						<a href="/sicop/restrito/contrato/cadastro/" title="Novo Contrato"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>						
 				   </tr>
-				   <tr> <td class="colunaTabela"> <label>Entrega:</label> </td><td> <input value="{{ form.nrentrega.value }}" name="nrentrega" /> </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>CPF do Requerente:</label> </td><td> <input  size="13" id="cpf" value="{{ form.nrcpfrequerente.value }}" name="nrcpfrequerente" /> </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Nome do Requerente:</label> </td><td> <input size="35" value="{{ form.nmrequerente.value }}" name="nmrequerente" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Entrega:</label> </td><td> <input value="{{ peca.nrentrega }}" name="nrentrega" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>CPF do Requerente:</label> </td><td> <input  size="13" id="cpf" value="{{ peca.nrcpfrequerente }}" name="nrcpfrequerente" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Nome do Requerente:</label> </td><td> <input size="35" value="{{ peca.nmrequerente }}" name="nmrequerente" /> </td> </tr>
 					
 					<tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
 				   		<td>
 				   			<select id="id_tbcaixa" style="width: 200px" name="tbcaixa">
 				   				{% for obj in caixa %}
-									{% if obj.id == form.tbcaixa.value %}
+									{% if obj.id == peca.tbcaixa.id %}
 										<option selected="selected" value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
 									{% else %}
 										<option value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
@@ -52,13 +52,13 @@
 						<a href="/sicop/restrito/caixa/cadastro/" title="Novo Caixa"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>						
 				   	</tr>
-				   <tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input onkeypress="return SomenteNumero(event,this)"  size="15" value="{{ form.nrarea.value }}" name="nrarea" /> </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Perimetro:</label> </td><td> <input id="perimetro"  size="15" value="{{ form.nrperimetro.value }}" name="nrperimetro" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input onkeypress="return SomenteNumero(event,this)"  size="15" value="{{ peca.nrarea }}" name="nrarea" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Perimetro:</label> </td><td> <input id="perimetro"  size="15" value="{{ peca.nrperimetro }}" name="nrperimetro" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Gleba:</label> </td>
 				   		<td>
 				   			<select id="id_tbgleba" style="width: 200px" name="tbgleba">
 								{% for obj in gleba %}
-									{% if obj.id == form.tbgleba.value %}
+									{% if obj.id == peca.tbgleba.id %}
 										<option selected="selected" value="{{ obj.id }}">{{ obj.nmgleba }}</option>
 									{% else %}
 										<option value="{{ obj.id }}">{{ obj.nmgleba }}</option>
@@ -70,10 +70,31 @@
 						<a href="/sicop/restrito/gleba/cadastro/" title="Novo Gleba"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>						
 				   	</tr>
-				   <tr> <td class="colunaTabela"> <label>Anexado ao processo:</label> </td><td> {{ form.stanexadoprocesso }} </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Enviado Brasilia:</label> </td><td> {{ form.stenviadobrasilia }} </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Peca Tecnica Aprovada:</label> </td><td> {{ form.stpecatecnica }} </td> </tr>	   
-				   <tr> <td class="colunaTabela"> <label>Observacao:</label> </td><td> <textarea rows="4" cols="40" name="dsobservacao">{{ form.dsobservacao.value }}</textarea> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Anexado ao processo:</label> </td>
+				   <td>
+				   	{% if peca.stanexadoprocesso == True %} 
+						<input checked="checked" type="checkbox" name="stanexadoprocesso" />
+					{% else %}
+						<input type="checkbox" name="stanexadoprocesso" />
+					{% endif %} 
+				   </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Enviado Brasilia:</label> </td>
+				   <td>
+				    {% if peca.stenviadobrasilia == True %} 
+						<input checked="checked" type="checkbox" name="stenviadobrasilia" />
+					{% else %}
+						<input type="checkbox" name="stenviadobrasilia" />
+					{% endif %} 				   
+				   </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Peca Tecnica Aprovada:</label> </td>
+				   <td>
+				   	{% if peca.stpecatecnica == True %} 
+						<input checked="checked" type="checkbox" name="stpecatecnica" />
+					{% else %}
+						<input type="checkbox" name="stpecatecnica" />
+					{% endif %} 				   
+				   </td> </tr>	   
+				   <tr> <td class="colunaTabela"> <label>Observacao:</label> </td><td> <textarea rows="4" cols="40" name="dsobservacao">{{ peca.dsobservacao }}</textarea> </td> </tr>
 				
 				</table>
 		</div>
