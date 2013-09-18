@@ -122,6 +122,7 @@ class Tbdivisao(models.Model):
     id = models.AutoField(primary_key=True)
     nmdivisao = models.CharField(max_length=80, blank=True)
     dsdivisao = models.TextField(blank=True)
+    tbuf = models.ForeignKey('Tbuf', null=True, blank=True)
     class Meta:
         db_table = 'tbdivisao'
 
@@ -154,7 +155,7 @@ class Tbmunicipio(models.Model):
     nome_estado = models.CharField(max_length=50, db_column='Nome_Estado', blank=True) # Field name made lowercase.
     uf = models.CharField(max_length=2, db_column='UF', blank=True) # Field name made lowercase.
     sr = models.CharField(max_length=50, db_column='SR', blank=True) # Field name made lowercase.
-    codigo_uf = models.IntegerField(null=True, db_column='Codigo_UF', blank=True) # Field name made lowercase.
+    codigo_uf = models.ForeignKey('Tbuf', null=True, db_column='Codigo_UF', blank=True) # Field name made lowercase.
     populacao = models.CharField(max_length=50, db_column='Populacao', blank=True) # Field name made lowercase.
     def __unicode__(self):
         return self.nome_mun
@@ -350,4 +351,10 @@ class Tbservidor(models.Model):
     class Meta:
         db_table = 'tbservidor'
 
-        
+class Tbuf(models.Model):
+    id = models.AutoField(primary_key=True)
+    sigla = models.CharField(max_length=2, blank=True)
+    nmuf = models.CharField(max_length=50, blank=True)
+    class Meta:
+        db_table = 'tbuf'
+
