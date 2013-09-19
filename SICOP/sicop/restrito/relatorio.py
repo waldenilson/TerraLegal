@@ -11,28 +11,42 @@ import Canvas
 from reportlab.lib import styles
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
+from sicop.models import Tbprocessobase
+from sicop.relatorio_base import relatorio_base
 
 def processo_peca(request):
-    return render_to_response('sicop/restrito/relatorio/processo_peca.html',{},
-                              context_instance = RequestContext(request))
+    # criar objeto lista resultante da consulta
+    lista = Tbprocessobase.objects.all()
+    resp = relatorio_base(request, lista, 'Processo x Peca')
+    return resp
 
 def peca_gleba(request):
-    return render_to_response('sicop/restrito/relatorio/peca_gleba.html',{},
-                              context_instance = RequestContext(request))
+    # criar objeto lista resultante da consulta
+    lista = Tbprocessobase.objects.all()
+    resp = relatorio_base(request, lista, 'Peca x Gleba')
+    return resp
 
 def peca_nao_aprovada(request):
-    return render_to_response('sicop/restrito/relatorio/peca_nao_aprovada.html',{},
-                              context_instance = RequestContext(request))
+    # criar objeto lista resultante da consulta
+    lista = Tbprocessobase.objects.all()
+    resp = relatorio_base(request, lista, 'Pecas nao Aprovadas')
+    return resp
 
 def peca_rejeitada(request):
-    return render_to_response('sicop/restrito/relatorio/peca_rejeitada.html',{},
-                              context_instance = RequestContext(request))
+    # criar objeto lista resultante da consulta
+    lista = Tbprocessobase.objects.all()
+    resp = relatorio_base(request, lista, 'Pecas Rejeitadas')
+    return resp
 
 def peca_sem_processo(request):
-    return render_to_response('sicop/restrito/relatorio/peca_sem_processo.html',{},
-                              context_instance = RequestContext(request))
+    # criar objeto lista resultante da consulta
+    lista = Tbprocessobase.objects.all()
+    resp = relatorio_base(request, lista, 'Pecas sem Processos')
+    return resp
 
 def peca_validada(request):
-    return render_to_response('sicop/restrito/relatorio/peca_validada.html',{},
-                              context_instance = RequestContext(request))
+    # criar objeto lista resultante da consulta
+    lista = Tbprocessobase.objects.all()
+    resp = relatorio_base(request, lista, 'Pecas Validadas')
+    return resp
 

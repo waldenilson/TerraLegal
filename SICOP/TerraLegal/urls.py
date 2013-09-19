@@ -112,6 +112,11 @@ urlpatterns = patterns('',
     url(r'^sicop/restrito/status_pendencia/cadastro/', 'sicop.restrito.status_pendencia.cadastro'),
     url(r'^sicop/restrito/status_pendencia/edicao/(?P<id>\d+)/', 'sicop.restrito.status_pendencia.edicao'),
 
+   # ACESSO RESTRITO SICOP DIVISAO
+    url(r'^sicop/restrito/divisao/consulta/', 'sicop.restrito.divisao.consulta'),
+    url(r'^sicop/restrito/divisao/cadastro/', 'sicop.restrito.divisao.cadastro'),
+    url(r'^sicop/restrito/divisao/edicao/(?P<id>\d+)/', 'sicop.restrito.divisao.edicao'),
+
     # ACESSO RESTRITO SICOP MUNICIPIO
     url(r'^sicop/restrito/municipio/consulta/', 'sicop.restrito.municipio.consulta'),
     url(r'^sicop/restrito/municipio/cadastro/', 'sicop.restrito.municipio.cadastro'),
