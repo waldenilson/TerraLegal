@@ -7,22 +7,23 @@ from reportlab.lib.enums import TA_JUSTIFY
 from reportlab.platypus.paragraph import Paragraph
 from reportlab.platypus.flowables import Spacer
 
-def relatorio_base(request, lista):
+def relatorio_base(request, lista, titulo):
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="srfa02.pdf"'
+    response['Content-Disposition'] = 'attachment; filename="'+str(titulo).replace(' ', '_')+'.pdf"'
 
     p = canvas.Canvas(response)
     p.setLineWidth(.3)
     p.setFont('Helvetica', 12)
      
-    p.drawString(30,750,'Nome do Relatorio')
+    p.drawString(30,750,titulo)
     p.drawString(500,750,"28/08/2013")
-    p.drawString(30,730,'Usuario')
+    p.drawString(30,730,'Usuario: '+str(request.user))
     p.drawString(30,715,'SRFA-02')
-        
-    p.drawString(50,650,"Coluna 01")
-    p.drawString(200,650,"Coluna 02")
-    p.drawString(350,650,"Coluna 03")
+    
+    x = 0;
+    for obj in lista:
+        p.drawString(50,650 - x,"N.: "+obj.nrprocesso)
+        x += 50
     
     p.drawString(500,100,"total")
     p.save()
