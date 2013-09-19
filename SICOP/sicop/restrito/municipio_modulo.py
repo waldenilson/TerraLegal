@@ -18,6 +18,8 @@ def consulta(request):
     else:
         lista = Tbmunicipiomodulo.objects.all()
     lista = lista.order_by( 'id' )
+    #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
+    request.session['relatorio_municipio_modulo'] = lista
     return render_to_response('sicop/restrito/municipio_modulo/consulta.html' ,{'lista':lista,'municipio':municipio}, context_instance = RequestContext(request))
 
 @login_required

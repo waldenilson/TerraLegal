@@ -14,6 +14,8 @@ def consulta(request):
     else:
         lista = Tbsubarea.objects.all()
     lista = lista.order_by( 'id' )
+    #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
+    request.session['relatorio_sub_area'] = lista
     return render_to_response('sicop/restrito/sub_area/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
     

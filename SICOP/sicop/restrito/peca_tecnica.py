@@ -19,6 +19,8 @@ def consulta(request):
     else:
         lista = Tbpecastecnicas.objects.all()
     lista = lista.order_by( 'id' )
+    #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
+    request.session['relatorio_peca_tecnica'] = lista
     return render_to_response('sicop/restrito/peca_tecnica/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @login_required

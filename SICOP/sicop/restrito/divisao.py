@@ -14,6 +14,8 @@ def consulta(request):
     else:
         lista = Tbcaixa.objects.all()
     lista = lista.order_by( 'id' )
+    #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
+    request.session['relatorio_divisao'] = lista
     return render_to_response('sicop/restrito/divisao/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
     

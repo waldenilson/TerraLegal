@@ -15,6 +15,8 @@ def consulta(request):
     else:
         lista = Tbcontrato.objects.all()
     lista = lista.order_by( 'id' )
+    #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
+    request.session['relatorio_contrato'] = lista
     return render_to_response('sicop/restrito/contrato/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @login_required
