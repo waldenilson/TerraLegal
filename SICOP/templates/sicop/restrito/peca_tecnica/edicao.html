@@ -98,15 +98,19 @@
 				
 				</table>
 		</div>
-		<br/><br/>
-		<div style="width:100%;font-size:12px;text-align:right">
-			<a href="/sicop/restrito/peca_tecnica/consulta/" class="button_yellow">CONSULTAR</a>
-			<input type="submit" class="button_green" value="SALVAR" />
-		</div>	
+		<br />
+		<table style="width:100%">
+			<tr>
+				<td class="colunaTabela" style="text-align:left"> 
+					<a href="/sicop/restrito/peca_tecnica/consulta/" style="margin-right: 10px"><input type="button" class="button_yellow" value="CONSULTAR" /></a>
+					<input type="submit" class="button_green" value="SALVAR" />
+				</td>
+			</tr>
+		</table>
 	</form>
 	<br/>
 	{% if processo %}
-		Existe processo
+		Existe processo {{ processo.nrprocesso }}
 	{% else %}
 		Nenhum Processo ligado a esta peca tecnica
 	{% endif %}
