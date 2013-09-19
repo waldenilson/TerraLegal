@@ -1,10 +1,12 @@
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required, permission_required,\
+    user_passes_test
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from django.http.response import HttpResponseRedirect
 from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
     Tbprocessoclausula, Tbprocessobase, Tbcaixa, Tbgleba, Tbmunicipio,\
-    Tbcontrato, Tbsituacaoprocesso, Tbsituacaogeo, Tbpecastecnicas, AuthUser
+    Tbcontrato, Tbsituacaoprocesso, Tbsituacaogeo, Tbpecastecnicas, AuthUser,\
+    AuthUserGroups
 from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
 from sicop.restrito import processo_rural
@@ -106,7 +108,8 @@ def edicao(request, id):
     return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
     
 @login_required
-@permission_required('sicop.add tbprocesso', login_url='/sicop/acesso_restrito/', raise_exception=True)
+@user_passes_test( lambda u: verificar_permissao_grupo(u, 'Super'), login_url='/sicop/acesso_restrito/')
+#@permission_required('sicop.add tbprocesso', login_url='/sicop/acesso_restrito/', raise_exception=True)
 def cadastro(request):
     tipoprocesso = Tbtipoprocesso.objects.all()
     escolha = "tbprocessorural"
@@ -158,4 +161,16 @@ def formatDataToText( formato_data ):
         dtaberturaprocesso += str(formato_data.month)+"/"
     dtaberturaprocesso += str(formato_data.year)
     return str( dtaberturaprocesso )
+
+
+def verificar_permissao_grupo(usuario, grupo):
+    if usuario:
+        permissao = False
+        obj_usuarios = AuthUserGroups.objects.all().filter( user = usuario.id )
+        for obj in obj_usuarios:
+            if obj.user.id == usuario.id and obj.group.name == grupo:
+                permissao = True
+        return permissao
+    return False
+
 
