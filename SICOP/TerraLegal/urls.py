@@ -27,7 +27,7 @@ urlpatterns = patterns('',
     
     # ACESSO RESTRITO SICOP PROCESSO
     # ESCOLHA DO TIPO DE PROCESSO
-    url(r'^sicop/restrito/processo/consulta/', 'sicop.restrito.processo.consulta'),
+    url(r'^sicop/restrito/processo/consulta/', 'sicop.restrito.processo.consulta'),   
     url(r'^sicop/restrito/processo/cadastro/', 'sicop.restrito.processo.cadastro'),
     url(r'^sicop/restrito/processo/edicao/(?P<id>\d+)/', 'sicop.restrito.processo.edicao'),
     # PROCESSO RURAL
