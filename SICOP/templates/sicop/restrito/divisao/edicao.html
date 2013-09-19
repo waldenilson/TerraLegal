@@ -1,0 +1,49 @@
+{% extends "base/cadastro_base.html" %} 
+{% load staticfiles %} 
+{% block breadcumbs %}
+	Acesso Restrito | Divisao | Edicao
+{% endblock %}
+
+{% block subtitulo %}
+	
+	EDITAR DIVISAO
+	
+{% endblock %}
+
+{% block formulario %}
+		
+	<form method="post" action=".">
+		{% csrf_token %}
+		<div style="width:100%;font-size:12px;text-align:left">
+				<table>
+				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td>{{ form.nmlocalarquivo }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Tipo Caixa:</label> </td>
+				   	<td>
+				   		<select name="tbtipocaixa">
+							{% for obj in tipocaixa %}
+								{% if obj.id == form.tbtipocaixa.value %}
+									<option selected="selected" value="{{ obj.id }}">{{ obj.nmtipocaixa }}</option>
+								{% else %}
+									<option value="{{ obj.id }}">{{ obj.nmtipocaixa }}</option>
+								{% endif %}
+							{% endfor %}
+						</select>		
+				   	</td>
+					<td>
+						<a href="/sicop/restrito/tipo_caixa/cadastro/" title="Novo Tipo"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+					</td>						
+				   </tr>
+				</table>
+		</div>
+		<br />
+		<table style="width:100%">
+			<tr>
+				<td class="colunaTabela" style="text-align:left"> 
+					<a href="/sicop/restrito/divisao/consulta/" style="margin-right: 10px"><input type="button" class="button_yellow" value="CONSULTAR" /></a>
+					<input type="submit" class="button_green" value="SALVAR" />
+				</td>
+			</tr>
+		</table>
+	</form>
+
+{% endblock %}
