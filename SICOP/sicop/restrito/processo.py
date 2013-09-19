@@ -10,12 +10,12 @@ from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
 from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
 from sicop.restrito import processo_rural
+from sicop.relatorio_base import relatorio_base, relatorio_documento_base,\
+    relatorio_base_consulta
+from types import InstanceType
 
 @login_required
 def consulta(request):
-    
-    #lista = Tbprocessobase.objects.all().filter( auth_user = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
-    
     # carrega os processos da divisao do usuario logado
     lista = Tbprocessobase.objects.all().filter( auth_user__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     if request.method == "POST":
@@ -57,7 +57,10 @@ def consulta(request):
             lista = []
             for obj in p_urbano:
                 lista.append( obj.tbprocessobase )
-        
+    
+    #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
+    request.session['relatorio_processo'] = lista
+    
     return render_to_response('sicop/restrito/processo/consulta.html',{'lista':lista}, context_instance = RequestContext(request))
 
 @login_required
@@ -148,6 +151,15 @@ def cadastro(request):
        
     return render_to_response('sicop/restrito/processo/cadastro.html',{'gleba':gleba,'caixa':caixa,'municipio':municipio,'situacaoprocesso':situacaoprocesso,
             'tipoprocesso':tipoprocesso,'processo':escolha,'div_processo':div_processo}, context_instance = RequestContext(request))
+
+def relatorio(request):
+    # montar objeto lista com os campos a mostrar no relatorio/pdf
+    lista = request.session['relatorio_processo']
+    if lista:
+        resp = relatorio_base_consulta(request, lista, 'RELATORIO DE PROCESSOS')
+        return resp
+    else:
+        return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
     
     
 def formatDataToText( formato_data ):

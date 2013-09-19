@@ -22,12 +22,25 @@ def relatorio_base(request, lista, titulo):
     
     x = 0;
     for obj in lista:
-        p.drawString(50,650 - x,"N.: "+obj.nrprocesso)
+        p.drawString(50,650 - x,"N.: "+str(obj))
         x += 50
     
     p.drawString(500,100,"total")
     p.save()
      
+    return response
+
+
+def relatorio_base_consulta(request, lista, titulo):
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="'+str(titulo).replace(' ', '_')+'.pdf"'
+    doc = SimpleDocTemplate(response, rightMargin=72,leftMargin=72, topMargin=72,bottomMargin=18)
+    styles=getSampleStyleSheet()
+    styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY))
+    ptext = '<font size=14>%s</font>' % titulo
+    story = []
+    story.append(Paragraph(ptext, styles["Normal"]))
+    doc.build(story)
     return response
 
 
