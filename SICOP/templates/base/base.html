@@ -137,7 +137,8 @@ function SomenteNumeroOK(e, obj)
 						{% if user.is_active %}
 							Usuario:
 							{% filter force_escape %}{% firstof user.get_short_name user.get_username %}{% endfilter %} 
-							| <a href="/logout/">Sair do Sistema</a>
+							| 
+							Divisao: {{ request.session.divisao }} | <a href="/logout/">Sair do Sistema</a>
 						{% endif %}
 					</p>
 
@@ -251,7 +252,7 @@ function SomenteNumeroOK(e, obj)
 				<div class="baixoContraste first-child last-child">
 
 					<p class="first-child">
-						© 2013 SICOP: Sistema para controle de processos na SRFA 02 | São Luis - MA 
+						© 2013 Sistema de Controle de Processos do Terra Legal 
 					</p>
 					<p class="creditos last-child">
 						<a

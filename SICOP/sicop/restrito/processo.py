@@ -13,7 +13,7 @@ from sicop.restrito import processo_rural
 from sicop.relatorio_base import relatorio_base, relatorio_documento_base,\
     relatorio_base_consulta
 from types import InstanceType
-from sicop.admin import verificar_permissao_grupo
+from sicop.admin import verificar_permissao_grupo, divisaoDoUsuarioLogado
 
 @login_required
 def consulta(request):
@@ -59,8 +59,11 @@ def consulta(request):
             for obj in p_urbano:
                 lista.append( obj.tbprocessobase )
     
-    #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
+    # gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_processo'] = lista
+    
+    # criar na sessao a divisao do usuario logado
+    divisaoDoUsuarioLogado(request)
     
     return render_to_response('sicop/restrito/processo/consulta.html',{'lista':lista}, context_instance = RequestContext(request))
 
