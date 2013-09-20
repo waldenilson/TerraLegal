@@ -112,7 +112,7 @@ def edicao(request, id):
     return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
     
 @login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Visitante','Administrador'}), login_url='/excecoes/permissao_negada/')
+@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador','Operador'}), login_url='/excecoes/permissao_negada/')
 #@permission_required('sicop.add tbprocesso', login_url='/sicop/acesso_restrito/', raise_exception=True)
 def cadastro(request):
     tipoprocesso = Tbtipoprocesso.objects.all()

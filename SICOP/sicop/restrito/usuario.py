@@ -5,140 +5,112 @@ from django.template.context import RequestContext
 from django.contrib import messages
 from sicop.forms import FormPecasTecnicas
 from sicop.models import Tbpecastecnicas, Tbgleba, Tbcaixa, Tbcontrato,\
-    Tbprocessobase, Tbprocessorural
+    Tbprocessobase, Tbprocessorural, AuthUser, Tbdivisao
 from sicop.relatorio_base import relatorio_base_consulta
+import datetime
+from setuptools._backport.hashlib._sha256 import sha256
+from django.contrib.auth.hashers import SHA1PasswordHasher, make_password
 
 #PECAS TECNICAS -----------------------------------------------------------------------------------------------------------------------------
 
 @login_required
 def consulta(request):
     if request.method == "POST":
-        requerente = request.POST['requerente']
-        cpf = request.POST['cpf']
-        entrega = request.POST['entrega']
-        lista = Tbpecastecnicas.objects.all().filter( nmrequerente__contains=requerente, nrcpfrequerente__contains=cpf, nrentrega__contains=entrega )
+        first_name = request.POST['first_name']
+        email = request.POST['email']
+        lista = AuthUser.objects.all().filter( first_name__contains=first_name, email__contains=email )
     else:
-        lista = Tbpecastecnicas.objects.all()
+        lista = AuthUser.objects.all()
     lista = lista.order_by( 'id' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
-    request.session['relatorio_peca_tecnica'] = lista
-    return render_to_response('sicop/restrito/peca_tecnica/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
+    request.session['relatorio_usuario'] = lista
+    return render_to_response('sicop/restrito/usuario/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @login_required
 def cadastro(request):
     
-    contrato = Tbcontrato.objects.all()
-    caixa = Tbcaixa.objects.all()
-    gleba = Tbgleba.objects.all()
+    divisao = Tbdivisao.objects.all()
     
-    enviadobrasilia = False
-    if request.POST.get('stenviadobrasilia',False):
-        enviadobrasilia = True
-    pecatecnica = False
-    if request.POST.get('stpecatecnica',False):
-        pecatecnica = True
-    anexadoprocesso = False
-    if request.POST.get('stanexadoprocesso',False):
-        anexadoprocesso = True
+    ativo = False
+    if request.POST.get('is_active',False):
+        ativo = True
     
     if request.method == "POST":
         if validacao(request):            
-            peca = Tbpecastecnicas(
-                                   tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
-                                   tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
-                                   tbcontrato = Tbcontrato.objects.get( pk = request.POST['tbcontrato'] ),
-                                   nrarea = request.POST['nrarea'],
-                                   nrperimetro = request.POST['nrperimetro'],
-                                   dsobservacao = request.POST['dsobservacao'],
-                                   nrentrega = request.POST['nrentrega'],
-                                   nmrequerente = request.POST['nmrequerente'],
-                                   nrcpfrequerente = request.POST['nrcpfrequerente'].replace('.','').replace('-',''),
-                                   stanexadoprocesso = anexadoprocesso,
-                                   stpecatecnica = pecatecnica,
-                                   stenviadobrasilia = enviadobrasilia
+            usuario = AuthUser(
+                                   tbdivisao = Tbdivisao.objects.get( pk = request.POST['tbdivisao'] ),
+                                   password = make_password(request.POST['password']),
+                                   first_name = request.POST['first_name'],
+                                   last_name = request.POST['last_name'],
+                                   email = request.POST['email'],
+                                   username = request.POST['username'],
+                                   is_superuser = True,
+                                   is_staff = True,
+                                   is_active = ativo,
+                                   last_login = datetime.datetime.now(),
+                                   date_joined = datetime.datetime.now()
                                    )
-            peca.save()
-            return HttpResponseRedirect("/sicop/restrito/peca_tecnica/consulta/") 
+            usuario.save()
+            return HttpResponseRedirect("/sicop/restrito/usuario/consulta/") 
     
-    return render_to_response('sicop/restrito/peca_tecnica/cadastro.html',{'caixa':caixa,'contrato':contrato,'gleba':gleba}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/usuario/cadastro.html',{'divisao':divisao}, context_instance = RequestContext(request))
 
 
 @login_required
 def edicao(request, id):
-    contrato = Tbcontrato.objects.all()
-    caixa = Tbcaixa.objects.all()
-    gleba = Tbgleba.objects.all()
+    divisao = Tbdivisao.objects.all()
     
-    enviadobrasilia = False
-    if request.POST.get('stenviadobrasilia',False):
-        enviadobrasilia = True
-    pecatecnica = False
-    if request.POST.get('stpecatecnica',False):
-        pecatecnica = True
-    anexadoprocesso = False
-    if request.POST.get('stanexadoprocesso',False):
-        anexadoprocesso = True
-    
-    peca_obj = get_object_or_404(Tbpecastecnicas, id=id)
+    ativo = False
+    if request.POST.get('is_active',False):
+        ativo = True
+        
+    user_obj = get_object_or_404(AuthUser, id=id)
         
     if request.method == "POST":        
         if validacao(request):
-            peca = Tbpecastecnicas(
-                                   id = peca_obj.id,
-                                   tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
-                                   tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
-                                   tbcontrato = Tbcontrato.objects.get( pk = request.POST['tbcontrato'] ),
-                                   nrarea = request.POST['nrarea'],
-                                   nrperimetro = request.POST['nrperimetro'],
-                                   dsobservacao = request.POST['dsobservacao'],
-                                   nrentrega = request.POST['nrentrega'],
-                                   nmrequerente = request.POST['nmrequerente'],
-                                   nrcpfrequerente = request.POST['nrcpfrequerente'].replace('.','').replace('-',''),
-                                   stanexadoprocesso = anexadoprocesso,
-                                   stpecatecnica = pecatecnica,
-                                   stenviadobrasilia = enviadobrasilia
+            usuario = AuthUser(
+                                   id = user_obj.id,
+                                   tbdivisao = Tbdivisao.objects.get( pk = request.POST['tbdivisao'] ),
+                                   password = make_password(request.POST['password']),
+                                   first_name = request.POST['first_name'],
+                                   last_name = request.POST['last_name'],
+                                   email = request.POST['email'],
+                                   username = request.POST['username'],
+                                   is_superuser = True,
+                                   is_staff = True,
+                                   is_active = ativo,
+                                   last_login = user_obj.last_login,
+                                   date_joined = user_obj.date_joined
                                    )
-            peca.save()
-            return HttpResponseRedirect("/sicop/restrito/peca_tecnica/consulta/")
-
-    processo = Tbprocessorural.objects.all().filter( nrcpfrequerente = peca_obj.nrcpfrequerente.replace('.','').replace('-','') )
-    return render_to_response('sicop/restrito/peca_tecnica/edicao.html',
-                              {'peca':peca_obj,'processo':processo,'caixa':caixa,'contrato':contrato,'gleba':gleba}, 
-                            context_instance = RequestContext(request))
+            usuario.save()
+            return HttpResponseRedirect("/sicop/restrito/usuario/consulta/")
+    
+    return render_to_response('sicop/restrito/usuario/edicao.html', {'user_obj':user_obj,'divisao':divisao}, context_instance = RequestContext(request))
 
 def relatorio(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
-    lista = request.session['relatorio_peca_tecnica']
+    lista = request.session['relatorio_usuario']
     if lista:
-        resp = relatorio_base_consulta(request, lista, 'RELATORIO DAS PECAS TECNICAS')
+        resp = relatorio_base_consulta(request, lista, 'RELATORIO DOS USUARIOS')
         return resp
     else:
-        return HttpResponseRedirect("/sicop/restrito/peca_tecnica/consulta/")
+        return HttpResponseRedirect("/sicop/restrito/usuario/consulta/")
 
 def validacao(request_form):
     warning = True
-    if request_form.POST['tbcontrato'] == '':
-        messages.add_message(request_form,messages.WARNING,'Selecione o Contrato')
+    if request_form.POST['first_name'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe o Nome')
         warning = False
-    if request_form.POST['nrentrega'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe o numero da entrega')
+    if request_form.POST['last_name'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe o Sobrenome')
         warning = False
-    if request_form.POST['nrcpfrequerente'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe um CPF valido para o requerente')
+    if request_form.POST['username'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe o Login')
         warning = False
-    if request_form.POST['nmrequerente'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe o nome do requerente maior que 4 letras')
+    if request_form.POST['password'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe a Senha')
         warning = False
-    if request_form.POST['tbcaixa'] == '':
-        messages.add_message(request_form,messages.WARNING,'Selecione uma Caixa') 
-        warning = False
-    if request_form.POST['nrarea'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe o numero da area')
-        warning = False
-    if request_form.POST['nrperimetro'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe o numero do perimetro')
-        warning = False
-    if request_form.POST['tbgleba'] == '':
-        messages.add_message(request_form,messages.WARNING,'Selecione uma Gleba') 
+    if request_form.POST['tbdivisao'] == '':
+        messages.add_message(request_form,messages.WARNING,'Selecione a Divisao')
         warning = False
     return warning
