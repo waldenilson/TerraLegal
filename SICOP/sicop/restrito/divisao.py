@@ -5,6 +5,7 @@ from sicop.models import Tbcaixa, Tbtipocaixa
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from sicop.forms import FormCaixa
+from sicop.relatorio_base import relatorio_base_consulta
 
 @login_required
 def consulta(request):
@@ -46,6 +47,14 @@ def edicao(request, id):
         form = FormCaixa(instance=instance)
     return render_to_response('sicop/restrito/divisao/edicao.html', {"form":form,"tipocaixa":tipocaixa}, context_instance = RequestContext(request))
 
+def relatorio(request):
+    # montar objeto lista com os campos a mostrar no relatorio/pdf
+    lista = request.session['relatorio_divisao']
+    if lista:
+        resp = relatorio_base_consulta(request, lista, 'RELATORIO DAS DIVISOES')
+        return resp
+    else:
+        return HttpResponseRedirect("/sicop/restrito/divisao/consulta/")
 
 def validacao(request_form):
     warning = True

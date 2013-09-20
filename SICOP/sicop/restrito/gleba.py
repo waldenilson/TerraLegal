@@ -5,6 +5,7 @@ from sicop.forms import FormGleba
 from sicop.models import Tbgleba, Tbsubarea
 from django.http.response import HttpResponseRedirect
 from django.contrib import messages
+from sicop.relatorio_base import relatorio_base_consulta
 
 @login_required
 def consulta(request):
@@ -44,6 +45,15 @@ def edicao(request, id):
     else:
         form = FormGleba(instance=instance) 
     return render_to_response('sicop/restrito/gleba/edicao.html', {"form":form,'subarea':subarea}, context_instance = RequestContext(request))
+
+def relatorio(request):
+    # montar objeto lista com os campos a mostrar no relatorio/pdf
+    lista = request.session['relatorio_gleba']
+    if lista:
+        resp = relatorio_base_consulta(request, lista, 'RELATORIO DAS GLEBAS')
+        return resp
+    else:
+        return HttpResponseRedirect("/sicop/restrito/gleba/consulta/")
 
 def validacao(request_form):
     warning = True

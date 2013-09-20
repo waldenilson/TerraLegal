@@ -5,6 +5,7 @@ from sicop.forms import FormMunicipioModulo
 from sicop.models import Tbmunicipiomodulo, Tbmunicipio, AuthUser
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect
+from sicop.relatorio_base import relatorio_base_consulta
 
 @login_required
 def consulta(request):
@@ -50,6 +51,15 @@ def edicao(request, id):
     else:
         form = FormMunicipioModulo(instance=instance) 
     return render_to_response('sicop/restrito/municipio_modulo/edicao.html', {"form":form,'municipio':municipio}, context_instance = RequestContext(request))
+
+def relatorio(request):
+    # montar objeto lista com os campos a mostrar no relatorio/pdf
+    lista = request.session['relatorio_municipio_modulo']
+    if lista:
+        resp = relatorio_base_consulta(request, lista, 'RELATORIO DOS MODULOS DOS MUNICIPIOS')
+        return resp
+    else:
+        return HttpResponseRedirect("/sicop/restrito/municipio_modulo/consulta/")
 
 def validacao(request_form):
     warning = True

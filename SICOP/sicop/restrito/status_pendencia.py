@@ -5,6 +5,7 @@ from sicop.forms import FormStatusPendencia
 from sicop.models import Tbstatuspendencia
 from django.http.response import HttpResponseRedirect
 from django.contrib import messages
+from sicop.relatorio_base import relatorio_base_consulta
 
 @login_required
 def consulta(request):
@@ -42,6 +43,15 @@ def edicao(request, id):
     else:
         form = FormStatusPendencia(instance=instance) 
     return render_to_response('sicop/restrito/status_pendencia/edicao.html', {"form":form}, context_instance = RequestContext(request))
+
+def relatorio(request):
+    # montar objeto lista com os campos a mostrar no relatorio/pdf
+    lista = request.session['relatorio_status_pendencia']
+    if lista:
+        resp = relatorio_base_consulta(request, lista, 'RELATORIO DOS STATUS PENDENCIA')
+        return resp
+    else:
+        return HttpResponseRedirect("/sicop/restrito/status_pendencia/consulta/")
 
 def validacao(request_form):
     warning = True

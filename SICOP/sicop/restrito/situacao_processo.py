@@ -5,6 +5,7 @@ from sicop.forms import FormSituacaoProcesso
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect
 from sicop.models import Tbsituacaoprocesso
+from sicop.relatorio_base import relatorio_base_consulta
 
 @login_required
 def consulta(request):
@@ -42,6 +43,15 @@ def edicao(request, id):
     else:
         form = FormSituacaoProcesso(instance=instance) 
     return render_to_response('sicop/restrito/situacao_processo/edicao.html', {"form":form}, context_instance = RequestContext(request))
+
+def relatorio(request):
+    # montar objeto lista com os campos a mostrar no relatorio/pdf
+    lista = request.session['relatorio_situacao_processo']
+    if lista:
+        resp = relatorio_base_consulta(request, lista, 'RELATORIO DAS SITUACOES DOS PROCESSOS')
+        return resp
+    else:
+        return HttpResponseRedirect("/sicop/restrito/situacao_processo/consulta/")
 
 def validacao(request_form):
     warning = True

@@ -6,6 +6,7 @@ from django.contrib import messages
 from sicop.forms import FormPecasTecnicas
 from sicop.models import Tbpecastecnicas, Tbgleba, Tbcaixa, Tbcontrato,\
     Tbprocessobase, Tbprocessorural
+from sicop.relatorio_base import relatorio_base_consulta
 
 #PECAS TECNICAS -----------------------------------------------------------------------------------------------------------------------------
 
@@ -104,6 +105,15 @@ def edicao(request, id):
     return render_to_response('sicop/restrito/peca_tecnica/edicao.html',
                               {'peca':peca_obj,'processo':processo,'caixa':caixa,'contrato':contrato,'gleba':gleba}, 
                             context_instance = RequestContext(request))
+
+def relatorio(request):
+    # montar objeto lista com os campos a mostrar no relatorio/pdf
+    lista = request.session['relatorio_peca_tecnica']
+    if lista:
+        resp = relatorio_base_consulta(request, lista, 'RELATORIO DAS PECAS TECNICAS')
+        return resp
+    else:
+        return HttpResponseRedirect("/sicop/restrito/peca_tecnica/consulta/")
 
 def validacao(request_form):
     warning = True

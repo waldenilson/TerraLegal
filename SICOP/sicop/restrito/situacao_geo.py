@@ -5,6 +5,7 @@ from sicop.forms import FormSituacaoProcesso, FormSituacaoGeo
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect
 from sicop.models import Tbsituacaoprocesso, Tbsituacaogeo
+from sicop.relatorio_base import relatorio_base_consulta
 
 @login_required
 def consulta(request):
@@ -42,6 +43,15 @@ def edicao(request, id):
     else:
         form = FormSituacaoGeo(instance=instance) 
     return render_to_response('sicop/restrito/situacao_geo/edicao.html', {"form":form}, context_instance = RequestContext(request))
+
+def relatorio(request):
+    # montar objeto lista com os campos a mostrar no relatorio/pdf
+    lista = request.session['relatorio_situacao_geo']
+    if lista:
+        resp = relatorio_base_consulta(request, lista, 'RELATORIO DAS SITUACOES GEO')
+        return resp
+    else:
+        return HttpResponseRedirect("/sicop/restrito/situacao_geo/consulta/")
 
 def validacao(request_form):
     warning = True

@@ -5,6 +5,7 @@ from sicop.forms import FormSubArea
 from sicop.models import Tbsubarea
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from sicop.relatorio_base import relatorio_base_consulta
 
 @login_required
 def consulta(request):
@@ -44,6 +45,14 @@ def edicao(request, id):
         form = FormSubArea(instance=instance)
     return render_to_response('sicop/restrito/sub_area/edicao.html', {"form":form}, context_instance = RequestContext(request))
 
+def relatorio(request):
+    # montar objeto lista com os campos a mostrar no relatorio/pdf
+    lista = request.session['relatorio_sub_area']
+    if lista:
+        resp = relatorio_base_consulta(request, lista, 'RELATORIO DAS SUB AREAS')
+        return resp
+    else:
+        return HttpResponseRedirect("/sicop/restrito/sub_area/consulta/")
 
 def validacao(request_form):
     warning = True

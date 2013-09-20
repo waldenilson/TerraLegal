@@ -156,7 +156,7 @@ def relatorio(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session['relatorio_processo']
     if lista:
-        resp = relatorio_base_consulta(request, lista, 'RELATORIO DE PROCESSOS')
+        resp = relatorio_base_consulta(request, lista, 'RELATORIO DOS PROCESSOS')
         return resp
     else:
         return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
