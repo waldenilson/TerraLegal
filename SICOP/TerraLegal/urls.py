@@ -126,6 +126,18 @@ urlpatterns = patterns('',
     url(r'^sicop/restrito/divisao/cadastro/', 'sicop.restrito.divisao.cadastro'),
     url(r'^sicop/restrito/divisao/edicao/(?P<id>\d+)/', 'sicop.restrito.divisao.edicao'),
     url(r'^sicop/restrito/divisao/relatorio/', 'sicop.restrito.divisao.relatorio'),
+  
+  # ACESSO RESTRITO SICOP GRUPO
+    url(r'^sicop/restrito/grupo/consulta/', 'sicop.restrito.grupo.consulta'),
+    url(r'^sicop/restrito/grupo/cadastro/', 'sicop.restrito.grupo.cadastro'),
+    url(r'^sicop/restrito/grupo/edicao/(?P<id>\d+)/', 'sicop.restrito.grupo.edicao'),
+    url(r'^sicop/restrito/grupo/relatorio/', 'sicop.restrito.grupo.relatorio'),
+
+  # ACESSO RESTRITO SICOP USUARIO
+    url(r'^sicop/restrito/usuario/consulta/', 'sicop.restrito.usuario.consulta'),
+    url(r'^sicop/restrito/usuario/cadastro/', 'sicop.restrito.usuario.cadastro'),
+    url(r'^sicop/restrito/usuario/edicao/(?P<id>\d+)/', 'sicop.restrito.usuario.edicao'),
+    url(r'^sicop/restrito/usuario/relatorio/', 'sicop.restrito.usuario.relatorio'),
 
     # ACESSO RESTRITO SICOP MUNICIPIO
     url(r'^sicop/restrito/municipio/consulta/', 'sicop.restrito.municipio.consulta'),

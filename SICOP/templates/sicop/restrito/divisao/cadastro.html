@@ -17,19 +17,17 @@
 		{% csrf_token %}
 		<div style="width:100%;font-size:12px;text-align:left">
 				<table>
-				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td>{{ form.nmlocalarquivo }} </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Tipo Caixa:</label> </td>
+				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td>{{ form.nmdivisao }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>UF:</label> </td>
 				   	<td>
-				   		<select name="tbtipocaixa">
-							{% for obj in tipocaixa %}
-								<option value="{{ obj.id }}">{{ obj.nmtipocaixa }}</option>
+				   		<select name="tbuf">
+							{% for obj in uf %}
+								<option value="{{ obj.id }}">{{ obj.nmuf }}</option>
 							{% endfor %}
 						</select>		
 				   	</td>
-					<td>
-						<a href="/sicop/restrito/tipo_caixa/cadastro/" title="Novo Tipo"> <img src="{% static "img/add.png" %}" width="24" /> </a>
-					</td>						
 				   </tr>
+				   <tr> <td class="colunaTabela"> <label>Descricao:</label> </td><td> <textarea rows="4" cols="40" name="dsdivisao"></textarea></td> </tr>
 				</table>
 		</div>
 		<br />

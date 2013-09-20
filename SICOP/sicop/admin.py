@@ -15,7 +15,6 @@ def verificar_permissao_grupo(usuario, grupos):
         return permissao
     return False
 
-
 # tbtipocaixa,
 # tbcaixa,
 # tbmunicipio, 

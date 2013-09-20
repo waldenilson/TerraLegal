@@ -5,9 +5,7 @@ import time
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_JUSTIFY
 from reportlab.platypus.paragraph import Paragraph
-from reportlab.platypus.flowables import Spacer, Image, PageBreak
-from reportlab.lib.units import inch
-import os
+from reportlab.platypus.flowables import Spacer
 
 def relatorio_base(request, lista, titulo):
     response = HttpResponse(content_type='application/pdf')
@@ -41,12 +39,6 @@ def relatorio_base_consulta(request, lista, titulo):
     styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY))
     ptext = '<font size=14>%s</font>' % titulo
     story = []
-    fn = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../staticfiles/img/terralegal.jpg')
-    im = Image(fn,90, 53)
-    story.append(im)
-    story.append(Spacer(1, 12))
-    story.append(Paragraph(ptext, styles["Normal"]))
-    story.append(PageBreak())
     story.append(Paragraph(ptext, styles["Normal"]))
     doc.build(story)
     return response

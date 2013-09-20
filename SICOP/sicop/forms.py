@@ -5,7 +5,7 @@ from sicop.models import Tbpecastecnicas, Tbprocessobase, Tbtipopendencia,\
     Tbtipocaixa, Tbcaixa, Tbsubarea, Tbgleba, Tbcontrato, Tbstatuspendencia,\
     Tbclassificacaoprocesso, Tbmunicipiomodulo,\
     Tbtipoprocesso, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano,\
-    Tbsituacaoprocesso, Tbsituacaogeo , Tbservidor
+    Tbsituacaoprocesso, Tbsituacaogeo , Tbservidor, AuthGroup, Tbdivisao
 
 
 class FormPecasTecnicas(forms.ModelForm):
@@ -47,6 +47,10 @@ class FormTipoCaixa(models.ModelForm):
 class FormCaixa(models.ModelForm):
     class Meta:
         model = Tbcaixa
+
+class FormDivisao(models.ModelForm):
+    class Meta:
+        model = Tbdivisao
         
 class FormSubArea(models.ModelForm):
     class Meta:
@@ -91,5 +95,7 @@ class FormSituacaoGeo(models.ModelForm):
     class Meta:
         model = Tbsituacaogeo
         
-
+class FormAuthGroup(models.ModelForm):
+    class Meta:
+        model = AuthGroup
         

@@ -6,7 +6,7 @@ from django.db import models
 from django.templatetags.l10n import localize
 
 class AuthGroup(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=80, unique=True)
     class Meta:
         db_table = 'auth_group'
