@@ -1,7 +1,20 @@
 from django.contrib import admin
 from sicop.models import Tbtipocaixa, Tbtipoprocesso, Tbstatuspendencia,\
     Tbpecastecnicas, Tbclassificacaoprocesso, Tbsubarea, Tbcaixa,\
-    Tbgleba, Tbcontrato, Tbsituacaoprocesso, Tbtipopendencia, AuthUser
+    Tbgleba, Tbcontrato, Tbsituacaoprocesso, Tbtipopendencia, AuthUser,\
+    AuthUserGroups
+
+def verificar_permissao_grupo(usuario, grupos):
+    if usuario:
+        permissao = False
+        obj_usuarios = AuthUserGroups.objects.all().filter( user = usuario.id )
+        for obj in obj_usuarios:
+            for obj_g in grupos:
+                if obj.user.id == usuario.id and obj.group.name == str(obj_g):
+                    permissao = True
+        return permissao
+    return False
+
 
 # tbtipocaixa,
 # tbcaixa,

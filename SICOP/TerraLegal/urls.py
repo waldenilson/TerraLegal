@@ -25,6 +25,9 @@ urlpatterns = patterns('',
     
     #INIT------------------------------SICOP---------------------------------------------------------------------------------
     
+    # PERMISSAO NEGADA
+    url(r'^excecoes/permissao_negada/', 'web.views_excecoes.permissao_negada'),   
+    
     # ACESSO RESTRITO SICOP PROCESSO
     # ESCOLHA DO TIPO DE PROCESSO
     url(r'^sicop/restrito/processo/consulta/', 'sicop.restrito.processo.consulta'),   
@@ -128,7 +131,6 @@ urlpatterns = patterns('',
     url(r'^sicop/restrito/municipio/consulta/', 'sicop.restrito.municipio.consulta'),
     url(r'^sicop/restrito/municipio/cadastro/', 'sicop.restrito.municipio.cadastro'),
     url(r'^sicop/restrito/municipio/edicao/(?P<id>\d+)/', 'sicop.restrito.municipio.edicao'),
-    url(r'^sicop/restrito/municipio/relatorio/', 'sicop.restrito.municipio.relatorio'),
 
     # ACESSO RESTRITO SICOP MUNICIPIO MODULO
     url(r'^sicop/restrito/municipio_modulo/consulta/', 'sicop.restrito.municipio_modulo.consulta'),

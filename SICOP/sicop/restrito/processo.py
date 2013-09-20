@@ -13,6 +13,7 @@ from sicop.restrito import processo_rural
 from sicop.relatorio_base import relatorio_base, relatorio_documento_base,\
     relatorio_base_consulta
 from types import InstanceType
+from sicop.admin import verificar_permissao_grupo
 
 @login_required
 def consulta(request):
@@ -111,7 +112,7 @@ def edicao(request, id):
     return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
     
 @login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, 'Super'), login_url='/sicop/acesso_restrito/')
+@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Visitante','Administrador'}), login_url='/excecoes/permissao_negada/')
 #@permission_required('sicop.add tbprocesso', login_url='/sicop/acesso_restrito/', raise_exception=True)
 def cadastro(request):
     tipoprocesso = Tbtipoprocesso.objects.all()
@@ -173,16 +174,5 @@ def formatDataToText( formato_data ):
         dtaberturaprocesso += str(formato_data.month)+"/"
     dtaberturaprocesso += str(formato_data.year)
     return str( dtaberturaprocesso )
-
-
-def verificar_permissao_grupo(usuario, grupo):
-    if usuario:
-        permissao = False
-        obj_usuarios = AuthUserGroups.objects.all().filter( user = usuario.id )
-        for obj in obj_usuarios:
-            if obj.user.id == usuario.id and obj.group.name == grupo:
-                permissao = True
-        return permissao
-    return False
 
 
