@@ -8,8 +8,7 @@ from sicop.models import Tbpecastecnicas, Tbgleba, Tbcaixa, Tbcontrato,\
     Tbprocessobase, Tbprocessorural, AuthUser, Tbdivisao
 from sicop.relatorio_base import relatorio_base_consulta
 import datetime
-from setuptools._backport.hashlib._sha256 import sha256
-from django.contrib.auth.hashers import SHA1PasswordHasher, make_password
+from django.contrib.auth.hashers import make_password, load_hashers, get_hasher
 
 #PECAS TECNICAS -----------------------------------------------------------------------------------------------------------------------------
 
@@ -36,7 +35,7 @@ def cadastro(request):
         ativo = True
     
     if request.method == "POST":
-        if validacao(request):            
+        if validacao(request, 'cadastro'):            
             usuario = AuthUser(
                                    tbdivisao = Tbdivisao.objects.get( pk = request.POST['tbdivisao'] ),
                                    password = make_password(request.POST['password']),
@@ -65,13 +64,20 @@ def edicao(request, id):
         ativo = True
         
     user_obj = get_object_or_404(AuthUser, id=id)
-        
+
     if request.method == "POST":        
-        if validacao(request):
+        if validacao(request, 'edicao'):
+            
+            # tratar o campo senha
+            senha_digitada = request.POST['password']
+            senha_atual = user_obj.password
+            if len(senha_digitada) > 2:
+                senha_atual = make_password( senha_digitada )
+            
             usuario = AuthUser(
                                    id = user_obj.id,
                                    tbdivisao = Tbdivisao.objects.get( pk = request.POST['tbdivisao'] ),
-                                   password = make_password(request.POST['password']),
+                                   password = senha_atual,
                                    first_name = request.POST['first_name'],
                                    last_name = request.POST['last_name'],
                                    email = request.POST['email'],
@@ -96,7 +102,7 @@ def relatorio(request):
     else:
         return HttpResponseRedirect("/sicop/restrito/usuario/consulta/")
 
-def validacao(request_form):
+def validacao(request_form, acao):
     warning = True
     if request_form.POST['first_name'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe o Nome')
@@ -107,9 +113,10 @@ def validacao(request_form):
     if request_form.POST['username'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe o Login')
         warning = False
-    if request_form.POST['password'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe a Senha')
-        warning = False
+    if acao == 'cadastro':
+        if request_form.POST['password'] == '':
+            messages.add_message(request_form,messages.WARNING,'Informe a Senha')
+            warning = False
     if request_form.POST['tbdivisao'] == '':
         messages.add_message(request_form,messages.WARNING,'Selecione a Divisao')
         warning = False

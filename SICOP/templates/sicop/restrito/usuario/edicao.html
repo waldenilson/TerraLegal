@@ -20,7 +20,7 @@
 				   <tr> <td class="colunaTabela"> <label>Sobrenome:</label> </td><td> <input value="{{ user_obj.last_name }}" name="last_name" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Email:</label> </td><td> <input name="email" value="{{ user_obj.email }}" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Login:</label> </td><td> <input value="{{ user_obj.username }}" name="username" /> </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Senha:</label> </td><td> <input type="password" size="12" value="{{ user_obj.password }}" name="password" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Senha:</label> </td><td> <input type="password" size="12" name="password" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Ativo:</label> </td>
 				   <td>
 				   		{% if user_obj.is_active == True %} 
