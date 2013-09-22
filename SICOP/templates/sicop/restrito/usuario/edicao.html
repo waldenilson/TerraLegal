@@ -48,6 +48,29 @@
 				</table>
 		</div>
 		<br />
+		<table  style="width:100%">
+			<thead style="background:#e5e5e5;color:black">
+				<tr>
+					<th class="colunaTabelaConsulta" style="width:10%"> </th>
+					<th class="colunaTabelaConsulta" style="width:90%">Nome</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% if grupo %}
+					{% for obj in grupo %}
+						<tr>
+							<td class="colunaTabelaConsulta">
+								<input name="{{ obj.name }}" type="checkbox" />
+							</td>
+							<td class="colunaTabelaConsulta">{{ obj.name }}</td>
+						</tr>
+					{% endfor %}
+				{% else %}
+					<tr> <td style="padding-top: 20px" colspan="6"> Cadastre Grupos de Usuario </td> </tr>
+				{% endif %}
+			</tbody>
+		</table>
+		<br/>
 		<table style="width:100%">
 			<tr>
 				<td class="colunaTabela" style="text-align:left"> 

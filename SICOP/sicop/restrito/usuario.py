@@ -5,10 +5,12 @@ from django.template.context import RequestContext
 from django.contrib import messages
 from sicop.forms import FormPecasTecnicas
 from sicop.models import Tbpecastecnicas, Tbgleba, Tbcaixa, Tbcontrato,\
-    Tbprocessobase, Tbprocessorural, AuthUser, Tbdivisao
+    Tbprocessobase, Tbprocessorural, AuthUser, Tbdivisao, AuthGroup,\
+    AuthUserGroups
 from sicop.relatorio_base import relatorio_base_consulta
 import datetime
 from django.contrib.auth.hashers import make_password, load_hashers, get_hasher
+import json
 
 #PECAS TECNICAS -----------------------------------------------------------------------------------------------------------------------------
 
@@ -58,6 +60,9 @@ def cadastro(request):
 @login_required
 def edicao(request, id):
     divisao = Tbdivisao.objects.all()
+    grupo = AuthGroup.objects.all()
+    userGrupo = AuthUserGroups.objects.all().filter( user = id )
+    
     
     ativo = False
     if request.POST.get('is_active',False):
@@ -65,7 +70,28 @@ def edicao(request, id):
         
     user_obj = get_object_or_404(AuthUser, id=id)
 
-    if request.method == "POST":        
+    if request.method == "POST":
+        
+        # verificando os grupos do usuario
+        for obj in grupo:
+            if request.POST.get(obj.name, False):
+                #verificar se esse grupo ja esta ligado ao usuario
+                res = AuthUserGroups.objects.all().filter( user = id, group = obj.id )
+                if not res:
+                    # inserir ao authusergroups
+                    ug = AuthUserGroups( user = AuthUser.objects.get( pk = id ),
+                                          group = AuthGroup.objects.get( pk = obj.id ) )
+                    ug.save()
+                    #print obj.name + ' nao esta ligado a este usuario'
+            else:
+                #verificar se esse grupo foi desligado do usuario
+                res = AuthUserGroups.objects.all().filter( user = id, group = obj.id )
+                if res:
+                    # excluir do authusergroups
+                    for aug in res:
+                        aug.delete()
+                    #print obj.name + ' desmarcou deste usuario'
+                    
         if validacao(request, 'edicao'):
             
             # tratar o campo senha
@@ -91,8 +117,10 @@ def edicao(request, id):
             usuario.save()
             return HttpResponseRedirect("/sicop/restrito/usuario/consulta/")
     
-    return render_to_response('sicop/restrito/usuario/edicao.html', {'user_obj':user_obj,'divisao':divisao}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/usuario/edicao.html', 
+                              {'grupo':grupo,'usergrupo':userGrupo,'user_obj':user_obj,'divisao':divisao}, context_instance = RequestContext(request))
 
+    
 def relatorio(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session['relatorio_usuario']

@@ -43,7 +43,7 @@ class AuthUser(models.Model):
         db_table = 'auth_user'
 
 class AuthUserGroups(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(AuthUser)
     group = models.ForeignKey(AuthGroup)
     class Meta:
