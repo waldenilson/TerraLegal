@@ -26,7 +26,6 @@ def consulta(request):
 
 @login_required
 def cadastro(request):
-    
     contrato = Tbcontrato.objects.all()
     caixa = Tbcaixa.objects.all()
     gleba = Tbgleba.objects.all()

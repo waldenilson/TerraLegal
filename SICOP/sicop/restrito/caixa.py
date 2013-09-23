@@ -24,11 +24,15 @@ def consulta(request):
 def cadastro(request):
     tipocaixa = Tbtipocaixa.objects.all()
     if request.method == "POST":
+        next = request.GET.get('next', '/')
         form = FormCaixa(request.POST)
         if validacao(request):
             if form.is_valid():
                 form.save()
-                return HttpResponseRedirect("/sicop/restrito/caixa/consulta/") 
+                if request.method == "GET":
+                    return HttpResponseRedirect( next )
+                else:    
+                    return HttpResponseRedirect("/sicop/restrito/caixa/consulta/") 
     else:
         form = FormCaixa()
     return render_to_response('sicop/restrito/caixa/cadastro.html',{"form":form,"tipocaixa":tipocaixa}, context_instance = RequestContext(request))

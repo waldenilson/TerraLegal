@@ -11,11 +11,13 @@
 {% block mensagem %}
 	
 	{% if messages %}
-		<ul class="messages">
-		    {% for message in messages %}
-		    	<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-		    {% endfor %}
-		</ul>
+		<div id="dialog-modal" title="MENSAGENS">
+			<ul class="messages" style="color:red">
+			    {% for message in messages %}
+			    	<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+			    {% endfor %}
+			</ul>
+		</div>
 	{% endif %}
 
 {% endblock %}
