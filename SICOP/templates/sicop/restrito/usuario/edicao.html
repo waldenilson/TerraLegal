@@ -57,12 +57,16 @@
 			</thead>
 			<tbody>
 				{% if grupo %}
-					{% for obj in grupo %}
+					{% for k,v in result %}
 						<tr>
 							<td class="colunaTabelaConsulta">
-								<input name="{{ obj.name }}" type="checkbox" />
+								{% if v %}
+									<input checked="checked" name="{{ k }}" type="checkbox" />
+								{% else %}
+									<input name="{{ k }}" type="checkbox" />
+								{% endif %}
 							</td>
-							<td class="colunaTabelaConsulta">{{ obj.name }}</td>
+							<td class="colunaTabelaConsulta">{{ k }}</td>
 						</tr>
 					{% endfor %}
 				{% else %}

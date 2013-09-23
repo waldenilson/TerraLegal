@@ -11,6 +11,7 @@ from sicop.relatorio_base import relatorio_base_consulta
 import datetime
 from django.contrib.auth.hashers import make_password, load_hashers, get_hasher
 import json
+from collections import OrderedDict
 
 #PECAS TECNICAS -----------------------------------------------------------------------------------------------------------------------------
 
@@ -63,6 +64,17 @@ def edicao(request, id):
     grupo = AuthGroup.objects.all()
     userGrupo = AuthUserGroups.objects.all().filter( user = id )
     
+    result = {}
+    for obj in grupo:
+        achou = False
+        for obj2 in userGrupo:
+            if obj.id == obj2.group.id:
+                result.setdefault(obj.name,True)
+                achou = True
+                break
+        if not achou:
+            result.setdefault(obj.name, False)
+    result = sorted(result.items())
     
     ativo = False
     if request.POST.get('is_active',False):
@@ -118,7 +130,7 @@ def edicao(request, id):
             return HttpResponseRedirect("/sicop/restrito/usuario/consulta/")
     
     return render_to_response('sicop/restrito/usuario/edicao.html', 
-                              {'grupo':grupo,'usergrupo':userGrupo,'user_obj':user_obj,'divisao':divisao}, context_instance = RequestContext(request))
+                              {'result':result,'grupo':grupo,'usergrupo':userGrupo,'user_obj':user_obj,'divisao':divisao}, context_instance = RequestContext(request))
 
     
 def relatorio(request):
