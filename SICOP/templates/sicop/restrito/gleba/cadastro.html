@@ -13,7 +13,7 @@
 
 {% block formulario %}
 	
-	<form method="post" action=".">
+	<form method="post" action="">
 		{% csrf_token %}
 		<div style="width:100%;font-size:12px;text-align:left">
 				<table>
@@ -27,7 +27,7 @@
 							</select>
 						</td>
 					<td>
-						<a href="/sicop/restrito/sub_area/cadastro/" title="Nova SubArea"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+						<a href="/sicop/restrito/sub_area/cadastro/?next=/sicop/restrito/sub_area/cadastro/" title="Nova SubArea"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>						
 				   	</tr>
 				</table>

@@ -23,11 +23,15 @@ def consulta(request):
 def cadastro(request):
     subarea = Tbsubarea.objects.all()
     if request.method == "POST":
+        next = request.GET.get('next', '/')
         form = FormGleba(request.POST)
         if validacao(request):
             if form.is_valid():
                 form.save()
-                return HttpResponseRedirect("/sicop/restrito/gleba/consulta/") 
+                if next == "/":
+                    return HttpResponseRedirect("/sicop/restrito/gleba/consulta/")
+                else:    
+                    return HttpResponseRedirect( next ) 
     else:
         form = FormGleba()
     return render_to_response('sicop/restrito/gleba/cadastro.html',{"form":form,'subarea':subarea}, context_instance = RequestContext(request))

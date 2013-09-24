@@ -48,14 +48,8 @@ def relatorio_base_consulta(request, lista, titulo):
     story.append(Paragraph(ptext, styles["Normal"]))
     story.append(Spacer(1, 12))
     
-    # dados
-    dados = []
-    for obj in lista:
-        dados.append( Paragraph(str(obj), styles["Normal"]) )
-        dados.append(Spacer(1,12))
-    
     doc.build(story)
-    doc.build(dados)
+    doc.build(lista)
     return response
 
 

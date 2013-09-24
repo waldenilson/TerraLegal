@@ -22,11 +22,15 @@ def consulta(request):
 @login_required
 def cadastro(request):
     if request.method == "POST":
+        next = request.GET.get('next', '/')
         form = FormSituacaoProcesso(request.POST)
         if validacao(request):
             if form.is_valid():
                 form.save()
-                return HttpResponseRedirect("/sicop/restrito/situacao_processo/consulta/") 
+                if next == "/":
+                    return HttpResponseRedirect("/sicop/restrito/situacao_processo/consulta/")
+                else:    
+                    return HttpResponseRedirect( next ) 
     else:
         form = FormSituacaoProcesso()
     return render_to_response('sicop/restrito/situacao_processo/cadastro.html',{"form":form}, context_instance = RequestContext(request))
