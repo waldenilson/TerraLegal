@@ -6,6 +6,10 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from sicop.forms import FormCaixa
 from sicop.relatorio_base import relatorio_base_consulta
+from reportlab.platypus.paragraph import Paragraph
+from reportlab.platypus.flowables import Spacer
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.enums import TA_JUSTIFY
 
 @login_required
 def consulta(request):
@@ -29,10 +33,10 @@ def cadastro(request):
         if validacao(request):
             if form.is_valid():
                 form.save()
-                if request.method == "GET":
-                    return HttpResponseRedirect( next )
+                if next == "/":
+                    return HttpResponseRedirect("/sicop/restrito/caixa/consulta/")
                 else:    
-                    return HttpResponseRedirect("/sicop/restrito/caixa/consulta/") 
+                    return HttpResponseRedirect( next ) 
     else:
         form = FormCaixa()
     return render_to_response('sicop/restrito/caixa/cadastro.html',{"form":form,"tipocaixa":tipocaixa}, context_instance = RequestContext(request))
@@ -54,8 +58,18 @@ def edicao(request, id):
 def relatorio(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session['relatorio_caixa']
+
+    dados = []
+    styles=getSampleStyleSheet()
+    styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY))
+    for obj in lista:
+        dados.append( Paragraph( obj.nmlocalarquivo , styles["Normal"]) )
+        dados.append(Spacer(100,1))
+        dados.append( Paragraph( obj.tbtipocaixa.nmtipocaixa , styles["Normal"]) )
+        dados.append(Spacer(1,12))
+
     if lista:
-        resp = relatorio_base_consulta(request, lista, 'RELATORIO DAS CAIXAS')
+        resp = relatorio_base_consulta(request, dados, 'RELATORIO DAS CAIXAS')
         return resp
     else:
         return HttpResponseRedirect("/sicop/restrito/caixa/consulta/")

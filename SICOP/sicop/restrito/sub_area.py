@@ -23,11 +23,15 @@ def consulta(request):
 @login_required
 def cadastro(request):
     if request.method == "POST":
+        next = request.GET.get('next', '/')
         form = FormSubArea(request.POST)
         if validacao(request):
             if form.is_valid():
                 form.save()
-                return HttpResponseRedirect("/sicop/restrito/sub_area/consulta/") 
+                if next == "/":
+                    return HttpResponseRedirect("/sicop/restrito/sub_area/consulta/")
+                else:    
+                    return HttpResponseRedirect( next ) 
     else:
         form = FormSubArea()
     return render_to_response('sicop/restrito/sub_area/cadastro.html',{"form":form}, context_instance = RequestContext(request))

@@ -18,17 +18,20 @@ def consulta(request):
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_divisao'] = lista
     return render_to_response('sicop/restrito/divisao/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
-
     
 @login_required
 def cadastro(request):
     uf = Tbuf.objects.all()
     if request.method == "POST":
+        next = request.GET.get('next', '/')
         form = FormDivisao(request.POST)
         if validacao(request):
             if form.is_valid():
                 form.save()
-                return HttpResponseRedirect("/sicop/restrito/divisao/consulta/") 
+                if next == "/":
+                    return HttpResponseRedirect("/sicop/restrito/divisao/consulta/")
+                else:    
+                    return HttpResponseRedirect( next ) 
     else:
         form = FormDivisao()
     return render_to_response('sicop/restrito/divisao/cadastro.html',{"form":form,"uf":uf}, context_instance = RequestContext(request))

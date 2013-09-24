@@ -23,11 +23,15 @@ def consulta(request):
 @login_required
 def cadastro(request):
     if request.method == "POST":
+        next = request.GET.get('next', '/')
         form = FormTipoCaixa(request.POST)
         if validacao(request):
             if form.is_valid():
                 form.save()
-                return HttpResponseRedirect("/sicop/restrito/tipo_caixa/consulta/") 
+                if next == "/":
+                    return HttpResponseRedirect("/sicop/restrito/tipo_caixa/consulta/")
+                else:    
+                    return HttpResponseRedirect( next ) 
     else:
         form = FormTipoCaixa()
     return render_to_response('sicop/restrito/tipo_caixa/cadastro.html',{"form":form}, context_instance = RequestContext(request))
