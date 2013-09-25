@@ -157,6 +157,8 @@ class Tbmunicipio(models.Model):
     sr = models.CharField(max_length=50, db_column='SR', blank=True) # Field name made lowercase.
     codigo_uf = models.ForeignKey('Tbuf', null=True, db_column='Codigo_UF', blank=True) # Field name made lowercase.
     populacao = models.CharField(max_length=50, db_column='Populacao', blank=True) # Field name made lowercase.
+    nrmodulofiscal = models.IntegerField(null=True, blank=True)
+    nrfracaominima = models.IntegerField(null=True, blank=True)
     def __unicode__(self):
         return self.nome_mun
     class Meta:
