@@ -10,9 +10,14 @@ from reportlab.platypus.paragraph import Paragraph
 from reportlab.platypus.flowables import Spacer
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_JUSTIFY
+import urllib2
+import urllib
+from urllib import addinfourl
 
 @login_required
 def consulta(request):
+    
+    
     if request.method == "POST":
         nome = request.POST['nmlocalarquivo']
         lista = Tbcaixa.objects.all().filter( nmlocalarquivo__contains=nome )

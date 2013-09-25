@@ -93,9 +93,43 @@
 	<table style="width:100%">
 		<tr>
 			<td class="colunaTabela" style="text-align:left"> 
-				<a href="/sicop/restrito/processo/consulta/" style="margin-right: 10px"><input type="button" class="button_yellow" value="CONSULTAR" /></a>
-				<input type="submit" class="button_green" value="SALVAR" />
+				<a href="/sicop/restrito/processo/consulta/" style="margin-right: 10px"><input type="button" class="button_gree" value="Consultar" /></a>
+				<a href="#" style="margin-right: 10px"><input type="button" class="button_gree" value="Anexar" /></a>
+				<a href="#" style="margin-right: 10px"><input type="button" class="button_gree" value="Criar pendencia" /></a>
+				<input type="submit" class="button_gree" value="Salvar" />
 			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="colunaTabela" style="text-align:left">
+				TRAMITACOES<hr/>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="colunaTabela" style="text-align:left">
+				{% if movimentaocao %}
+					{% for mov in movimentacao %}
+						{{ mov }}
+					{% endfor %}
+				{% else %}
+					Nenhuma movimentacao
+				{% endif %}
+			</td>			
+		</tr>
+		<tr>
+			<td class="colunaTabela" style="text-align:left">
+				Local de Destino:
+			</td>		
+	   		<td class="colunaTabela" style="text-align:left">
+	   			<select name="tbcaixadestino" style="width: 200px">
+					{% for obj in caixadestino %}
+						<option value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
+					{% endfor %}
+				</select>
+			</td>
+			
+			<td class="colunaTabela" style="text-align:left">
+				<a href="#" style="margin-right: 10px"> <input type="button" class="button_gree" value="Tramitar" /></a>
+			</td>		
 		</tr>
 	</table>
 	<br/>

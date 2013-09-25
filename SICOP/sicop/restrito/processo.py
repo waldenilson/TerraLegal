@@ -6,7 +6,7 @@ from django.http.response import HttpResponseRedirect
 from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
     Tbprocessoclausula, Tbprocessobase, Tbcaixa, Tbgleba, Tbmunicipio,\
     Tbcontrato, Tbsituacaoprocesso, Tbsituacaogeo, Tbpecastecnicas, AuthUser,\
-    AuthUserGroups
+    AuthUserGroups, Tbmovimentacao
 from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
 from sicop.restrito import processo_rural
@@ -67,6 +67,13 @@ def consulta(request):
     
     return render_to_response('sicop/restrito/processo/consulta.html',{'lista':lista}, context_instance = RequestContext(request))
 
+def tramitar(request):
+    # so tramita processos pai
+    # quando tramitar.. todos os processos anexos tramitam tambem
+    #salvar registro em tbmovimentacao
+    pass
+
+
 @login_required
 @permission_required('sicop.add tbprocesso', login_url='/sicop/acesso_restrito/', raise_exception=True)
 def edicao(request, id):
@@ -82,13 +89,20 @@ def edicao(request, id):
     base = get_object_or_404(Tbprocessobase, id=id)
     tipo = base.tbtipoprocesso.tabela
     
+    
+    # movimentacoes deste processo
+    movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase = id ).order_by( "-dtmovimentacao" ) 
+    # caixa destino
+    caixadestino = Tbcaixa.objects.all()
+    
+    
     # se processobase pertencer a mesma divisao do usuario logado
     if base.auth_user.tbdivisao.id == AuthUser.objects.get( pk = request.user.id ).tbdivisao.id:
         if tipo == "tbprocessorural":
             rural = Tbprocessorural.objects.get( tbprocessobase = id )
             peca = Tbpecastecnicas.objects.all().filter( nrcpfrequerente = rural.nrcpfrequerente.replace('.','').replace('-','') )
             return render_to_response('sicop/restrito/processo/rural/edicao.html',
-                                      {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
+                                      {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'movimentacao':movimentacao,'caixadestino':caixadestino,
                                        'caixa':caixa,'municipio':municipio,
                                        'base':base,'rural':rural,'peca':peca}, context_instance = RequestContext(request))
         else:

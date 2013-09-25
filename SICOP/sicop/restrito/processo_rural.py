@@ -3,11 +3,14 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.models import Tbtipoprocesso, Tbcaixa, Tbgleba, Tbmunicipio, AuthUser,\
     AuthGroup, Tbprocessobase, Tbprocessorural, Tbclassificacaoprocesso, Tbsituacaoprocesso,\
-    Tbpecastecnicas
+    Tbpecastecnicas, Tbmovimentacao
 from sicop.forms import FormProcessoRural, FormProcessoBase
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect
 import datetime
+
+
+#10.12.0.60
 
 @login_required
 def consulta(request):
@@ -62,7 +65,7 @@ def cadastro(request):
         
     return render_to_response('sicop/restrito/processo/cadastro.html',
         {'gleba':gleba,'situacaoprocesso':situacaoprocesso,'caixa':caixa,'municipio':municipio,'tipoprocesso':tipoprocesso, 'processo':escolha, 'div_processo':div_processo}, context_instance = RequestContext(request))    
-  
+
 @login_required
 def edicao(request, id):
     
@@ -74,6 +77,13 @@ def edicao(request, id):
     
     rural = get_object_or_404(Tbprocessorural, id=id)
     base  = get_object_or_404(Tbprocessobase, id=rural.tbprocessobase.id)
+    
+    # movimentacoes deste processo
+    movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase = id ).order_by( "-dtmovimentacao" )
+    
+    # caixa destino
+    caixadestino = Tbcaixa.objects.all()
+    
     
     if validacao(request, "edicao"):
          # cadastrando o registro processo base            
@@ -111,7 +121,7 @@ def edicao(request, id):
     return render_to_response('sicop/restrito/processo/rural/edicao.html',
                               {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                    'caixa':caixa,'municipio':municipio,
-                                   'base':base,'rural':rural},
+                                   'base':base,'movimentacao':movimentacao,'caixadestino':caixadestino,'rural':rural},
                                context_instance = RequestContext(request))   
 
 def validacao(request_form, metodo):
