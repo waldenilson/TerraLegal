@@ -86,23 +86,31 @@
 				<input type="submit" class="button_gree" value="SALVAR" />
 			</td>
 		</tr>
+	</table>
+</form>
+
+<table style="width:100%">
+	<tr>
+		<td colspan="2" class="colunaTabela" style="text-align:left">
+			<br/>PECA TECNICA<hr/>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" class="colunaTabela" style="text-align:left">
+			{% if peca %}
+				Existe peca
+			{% else %}
+				Nenhuma Peca Tecnica ligada a este processo
+			{% endif %}
+		</td>			
+	</tr>
+</table>
+
+<form method="post" action="">
+	<table style="width:100%">
 		<tr>
 			<td colspan="2" class="colunaTabela" style="text-align:left">
-				PECA TECNICA<hr/>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2" class="colunaTabela" style="text-align:left">
-				{% if peca %}
-					Existe peca
-				{% else %}
-					Nenhuma Peca Tecnica ligada a este processo
-				{% endif %}
-			</td>			
-		</tr>
-		<tr>
-			<td colspan="2" class="colunaTabela" style="text-align:left">
-				PENDENCIAS<hr/>
+				<br/>PENDENCIAS<hr/>
 			</td>
 		</tr>
 		<tr>
@@ -116,9 +124,15 @@
 				{% endif %}
 			</td>			
 		</tr>
+	</table>
+</form>
+
+<form method="post" action="/sicop/restrito/processo/tramitacao/{{ base.id }}/">
+	{% csrf_token %}
+	<table style="width:100%">
 		<tr>
 			<td colspan="2" class="colunaTabela" style="text-align:left">
-				TRAMITACOES<hr/>
+				<br/>TRAMITACOES<hr/>
 			</td>
 		</tr>
 		<tr>
@@ -132,9 +146,24 @@
 				{% endif %}
 			</td>			
 		</tr>
+		<tr> 
+		   	<td>
+		   		<select name="tbcaixadestino" style="width: 200px">
+		   			{% for obj in caixadestino %}
+						<option value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
+					{% endfor %}
+				</select>
+				<input type="submit" value="TRAMITAR" />
+			</td>
+		</tr>
+	</table>
+</form>
+
+<form method="post" action="">
+	<table style="width:100%">
 		<tr>
 			<td colspan="2" class="colunaTabela" style="text-align:left">
-				PROCESSOS ANEXADOS<hr/>
+				<br/>PROCESSOS ANEXADOS<hr/>
 			</td>
 		</tr>
 		<tr>

@@ -84,7 +84,7 @@ def edicao(request, id):
     # caixa destino
     caixadestino = Tbcaixa.objects.all()
     
-    
+      
     if validacao(request, "edicao"):
          # cadastrando o registro processo base            
             f_base = Tbprocessobase (

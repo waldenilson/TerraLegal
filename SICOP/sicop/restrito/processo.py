@@ -18,7 +18,7 @@ from sicop.admin import verificar_permissao_grupo, divisaoDoUsuarioLogado
 @login_required
 def consulta(request):
     # carrega os processos da divisao do usuario logado
-    lista = Tbprocessobase.objects.all().filter( auth_user__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+    lista = Tbprocessobase.objects.all().filter( auth_user__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by( "id" )
     if request.method == "POST":
         numero = request.POST['numero']
         cpf = request.POST['cpf']
@@ -59,6 +59,7 @@ def consulta(request):
             for obj in p_urbano:
                 lista.append( obj.tbprocessobase )
     
+    
     # gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_processo'] = lista
     
@@ -67,11 +68,29 @@ def consulta(request):
     
     return render_to_response('sicop/restrito/processo/consulta.html',{'lista':lista}, context_instance = RequestContext(request))
 
-def tramitar(request):
-    # so tramita processos pai
-    # quando tramitar.. todos os processos anexos tramitam tambem
-    #salvar registro em tbmovimentacao
-    pass
+
+
+def tramitar(request, base):
+    if request.method == "POST":
+            # atualizar processobase com caixa tramitada
+            caixadestino = request.POST['tbcaixadestino']
+            base = get_object_or_404(Tbprocessobase, id=base )
+            f_base = Tbprocessobase (
+                                    id = base.id,
+                                    nrprocesso = base.nrprocesso,
+                                    tbgleba = base.tbgleba,
+                                    tbmunicipio = base.tbmunicipio,
+                                    tbcaixa = Tbcaixa.objects.get( pk = caixadestino),
+                                    tbtipoprocesso = base.tbtipoprocesso,
+                                    tbsituacaoprocesso = base.tbsituacaoprocesso,
+                                    dtcadastrosistema = base.dtcadastrosistema,
+                                    auth_user = base.auth_user
+                                    )
+            f_base.save()
+            
+            # criar registro da movimentacao
+    return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
+    
 
 
 @login_required
@@ -94,8 +113,7 @@ def edicao(request, id):
     movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase = id ).order_by( "-dtmovimentacao" ) 
     # caixa destino
     caixadestino = Tbcaixa.objects.all()
-    
-    
+        
     # se processobase pertencer a mesma divisao do usuario logado
     if base.auth_user.tbdivisao.id == AuthUser.objects.get( pk = request.user.id ).tbdivisao.id:
         if tipo == "tbprocessorural":
