@@ -209,7 +209,6 @@ class Tbpendencia(models.Model):
 class Tbprocessorural(models.Model):
     id = models.AutoField(primary_key=True)
     tbprocessobase = models.ForeignKey('Tbprocessobase')
-    tbclassificacaoprocesso = models.ForeignKey(Tbclassificacaoprocesso)
     nmrequerente = models.CharField(max_length=100, blank=True)
     nrcpfrequerente = models.CharField(max_length=11, blank=True)
     nmconjuge = models.CharField(max_length=100, blank=True)
@@ -229,13 +228,13 @@ class Tbprocessobase(models.Model):
     dtcadastrosistema = models.DateTimeField(null=True, blank=True)
     tbcaixa = models.ForeignKey('Tbcaixa')
     tbgleba = models.ForeignKey('Tbgleba')
+    tbclassificacaoprocesso = models.ForeignKey(Tbclassificacaoprocesso)
     class Meta:
         db_table = 'tbprocessobase'
 
 class Tbprocessoclausula(models.Model):
     id = models.AutoField(primary_key=True)
     tbprocessobase = models.ForeignKey(Tbprocessobase)
-    tbclassificacaoprocesso = models.ForeignKey(Tbclassificacaoprocesso)
     nmrequerente = models.CharField(max_length=100, blank=True)
     nminteressado = models.CharField(max_length=100, blank=True)
     nrcpfrequerente = models.CharField(max_length=11, blank=True)

@@ -42,7 +42,8 @@ def cadastro(request):
                                     tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessorural' ),
                                     tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
                                     dtcadastrosistema = datetime.datetime.now(),
-                                    auth_user = AuthUser.objects.get( pk = request.user.id )
+                                    auth_user = AuthUser.objects.get( pk = request.user.id ),
+                                    tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 )
                                     )
             f_base.save()
             
@@ -56,8 +57,7 @@ def cadastro(request):
                                        nmconjuge = request.POST['nmconjuge'],
                                        nrcpfconjuge = request.POST['nrcpfconjuge'].replace('.','').replace('-',''),
                                        tbprocessobase = f_base,
-                                       blconjuge = tem_conjuge,
-                                       tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 )
+                                       blconjuge = tem_conjuge
                                        )
             f_rural.save()
             
@@ -96,7 +96,8 @@ def edicao(request, id):
                                     tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessorural' ),
                                     tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
                                     dtcadastrosistema = base.dtcadastrosistema,
-                                    auth_user = AuthUser.objects.get( pk = request.user.id )
+                                    auth_user = AuthUser.objects.get( pk = request.user.id ),
+                                    tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 )
                                     )
             f_base.save()
             
@@ -111,8 +112,7 @@ def edicao(request, id):
                                        nmconjuge = request.POST['nmconjuge'],
                                        nrcpfconjuge = request.POST['nrcpfconjuge'].replace('.','').replace('-',''),
                                        tbprocessobase = f_base,
-                                       blconjuge = tem_conjuge,
-                                       tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 )
+                                       blconjuge = tem_conjuge
                                        )
             f_rural.save()
             

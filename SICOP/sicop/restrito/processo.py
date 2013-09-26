@@ -15,6 +15,7 @@ from sicop.relatorio_base import relatorio_base, relatorio_documento_base,\
 from types import InstanceType
 from sicop.admin import verificar_permissao_grupo, divisaoDoUsuarioLogado
 import datetime
+from django.contrib import messages
 
 @login_required
 def consulta(request):
@@ -58,8 +59,7 @@ def consulta(request):
             p_urbano = Tbprocessourbano.objects.all().filter( nmpovoado__contains = municipio ) 
             lista = []
             for obj in p_urbano:
-                lista.append( obj.tbprocessobase )
-    
+                lista.append( obj.tbprocessobase )    
     
     # gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_processo'] = lista
@@ -69,14 +69,16 @@ def consulta(request):
     
     return render_to_response('sicop/restrito/processo/consulta.html',{'lista':lista}, context_instance = RequestContext(request))
 
-
-
+@login_required
+@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
 def tramitar(request, base):
     if request.method == "POST":
+        
+        base = get_object_or_404(Tbprocessobase, id=base )
+        caixadestino = request.POST['tbcaixadestino']
+        caixaorigem  = base.tbcaixa
+        if validarTramitacao(request, base, caixaorigem, caixadestino):
             # atualizar processobase com caixa tramitada
-            caixadestino = request.POST['tbcaixadestino']
-            base = get_object_or_404(Tbprocessobase, id=base )
-            caixaorigem = base.tbcaixa
             f_base = Tbprocessobase (
                                     id = base.id,
                                     nrprocesso = base.nrprocesso,
@@ -86,7 +88,8 @@ def tramitar(request, base):
                                     tbtipoprocesso = base.tbtipoprocesso,
                                     tbsituacaoprocesso = base.tbsituacaoprocesso,
                                     dtcadastrosistema = base.dtcadastrosistema,
-                                    auth_user = base.auth_user
+                                    auth_user = base.auth_user,
+                                    tbclassificacaoprocesso = base.tbclassificacaoprocesso
                                     )
             f_base.save()
             # criar registro da movimentacao
@@ -99,12 +102,58 @@ def tramitar(request, base):
                                            )
             f_movimentacao.save()
             
-    return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
-    
+            #OBS ao tramitar o processo todos os processos anexados serao tramitados ( classificado como anexo )
+                    
+            return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
+        
+        caixa = Tbcaixa.objects.all()
+        gleba = Tbgleba.objects.all() 
+        municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
+        contrato = Tbcontrato.objects.all()
+        situacaogeo = Tbsituacaogeo.objects.all()
+        situacaoprocesso = Tbsituacaoprocesso.objects.all()
+        tipo = base.tbtipoprocesso.tabela
+        # movimentacoes deste processo
+        movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase = base.id ).order_by( "-dtmovimentacao" ) 
+        # caixa destino
+        caixadestino = Tbcaixa.objects.all()
 
+        
+        if tipo == "tbprocessorural":
+            rural = Tbprocessorural.objects.get( tbprocessobase = base.id )
+            peca = Tbpecastecnicas.objects.all().filter( nrcpfrequerente = rural.nrcpfrequerente.replace('.','').replace('-','') )
+            return render_to_response('sicop/restrito/processo/rural/edicao.html',
+                                      {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
+                                       'movimentacao':movimentacao,'caixadestino':caixadestino,
+                                       'caixa':caixa,'municipio':municipio,
+                                       'base':base,'rural':rural,'peca':peca}, context_instance = RequestContext(request))
+        else:
+            if tipo == "tbprocessourbano":
+                urbano = Tbprocessourbano.objects.get( tbprocessobase = base.id )
+         
+                dtaberturaprocesso = formatDataToText( urbano.dtaberturaprocesso )
+                dttitulacao = formatDataToText( urbano.dttitulacao )
+                
+                return render_to_response('sicop/restrito/processo/urbano/edicao.html',
+                                          {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'situacaogeo':situacaogeo,
+                                       'caixa':caixa,'municipio':municipio,'contrato':contrato,
+                                       'base':base,'urbano':urbano,
+                                       'movimentacao':movimentacao,'caixadestino':caixadestino,
+                                       'dtaberturaprocesso':dtaberturaprocesso,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
+            else:
+                if tipo == "tbprocessoclausula":
+                    clausula = Tbprocessoclausula.objects.get( tbprocessobase = base.id )
+                    dttitulacao = formatDataToText( clausula.dttitulacao )
+                    return render_to_response('sicop/restrito/processo/clausula/edicao.html',
+                                              {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
+                                       'caixa':caixa,'municipio':municipio,
+                                       'movimentacao':movimentacao,'caixadestino':caixadestino,
+                                       'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
+
+        
 
 @login_required
-@permission_required('sicop.add tbprocesso', login_url='/sicop/acesso_restrito/', raise_exception=True)
+@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
 def edicao(request, id):
     
     caixa = Tbcaixa.objects.all()
@@ -201,6 +250,7 @@ def cadastro(request):
     return render_to_response('sicop/restrito/processo/cadastro.html',{'gleba':gleba,'caixa':caixa,'municipio':municipio,'situacaoprocesso':situacaoprocesso,
             'tipoprocesso':tipoprocesso,'processo':escolha,'div_processo':div_processo}, context_instance = RequestContext(request))
 
+
 def relatorio(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session['relatorio_processo']
@@ -209,7 +259,17 @@ def relatorio(request):
         return resp
     else:
         return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
-    
+
+
+def validarTramitacao(request_form, base, origem, destino):
+    warning = True
+    if  base.tbclassificacaoprocesso.id == 2:
+        messages.add_message(request_form,messages.WARNING,'Processo Anexo nao pode ser tramitado.')
+        warning = False
+    if origem.id == Tbcaixa.objects.get( pk = destino).id:
+        messages.add_message(request_form,messages.WARNING,'Processo ja encontra-se no local de destino.')
+        warning = False    
+    return warning
     
 def formatDataToText( formato_data ):
     if len(str(formato_data.day)) < 2:
@@ -222,5 +282,6 @@ def formatDataToText( formato_data ):
         dtaberturaprocesso += str(formato_data.month)+"/"
     dtaberturaprocesso += str(formato_data.year)
     return str( dtaberturaprocesso )
+
 
 
