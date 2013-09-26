@@ -102,8 +102,8 @@
 	</table>
 </form>
 
-
-<form method="post" action="">
+<form method="post" action="/sicop/restrito/processo/pendencia/{{ base.id }}/">
+	{% csrf_token %}
 	<table style="width:100%">
 		<tr>
 			<td colspan="2" class="colunaTabela" style="text-align:left">
@@ -113,13 +113,46 @@
 		<tr>
 			<td colspan="2" class="colunaTabela" style="text-align:left">
 				{% if pendencia %}
-					{% for pen in pendencia %}
-						{{ pen }}
-					{% endfor %}
+					<table style="width:100%;text-align:center">
+						<thead>
+							<tr>
+								<th class="colunaTabelaConsulta" style="width:15%">Tipo</th>
+								<th class="colunaTabelaConsulta" style="width:30%">Status</th>
+								<th class="colunaTabelaConsulta" style="width:30%">Descricao</th>
+								<th class="colunaTabelaConsulta" style="width:25%">Usuario</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for pen in pendencia %}
+								<tr>
+									<td> {{ pen.tbtipopendencia.dspendencia }} </td>
+									<td> {{ pen.tbstatuspendencia.dspendencia }} </td>
+									<td> {{ pen.dsdescricao }} </td>
+									<td> {{ pen.auth_user.first_name }} </td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
 				{% else %}
 					Nenhuma pendencia
 				{% endif %}
 			</td>			
+		</tr>
+		<tr> 
+		   	<td>
+		   		<select name="tbtipopendencia" style="width: 200px">
+		   			{% for obj in tipopendencia %}
+						<option value="{{ obj.id }}">{{ obj.dspendencia }}</option>
+					{% endfor %}
+				</select>
+				<input name="dspendencia" />
+		   		<select name="tbstatuspendencia" style="width: 200px">
+		   			{% for obj in statuspendencia %}
+						<option value="{{ obj.id }}">{{ obj.dspendencia }}</option>
+					{% endfor %}
+				</select>
+				<input type="submit" value="CRIAR PENDENCIA" />
+			</td>
 		</tr>
 	</table>
 </form>
@@ -173,7 +206,8 @@
 	</table>
 </form>
 
-<form method="post" action="">
+<form method="post" action="/sicop/restrito/processo/anexo/{{ base.id }}/">
+	{% csrf_token %}
 	<table style="width:100%">
 		<tr>
 			<td colspan="2" class="colunaTabela" style="text-align:left">
@@ -182,14 +216,35 @@
 		</tr>
 		<tr>
 			<td colspan="2" class="colunaTabela" style="text-align:left">
-				{% if anexo %}
-					{% for ane in anexo %}
-						{{ ane }}
-					{% endfor %}
+				{% if anexado %}
+					<table style="width:100%;text-align:center">
+						<thead>
+							<tr>
+								<th class="colunaTabelaConsulta" style="width:15%">Data</th>
+								<th class="colunaTabelaConsulta" style="width:30%">Processo Anexado</th>
+								<th class="colunaTabelaConsulta" style="width:25%">Usuario</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for anexo in anexado %}
+								<tr>
+									<td> {{ anexo.dtanexado }} </td>
+									<td> {{ anexo.tbprocesso_base_id_anexo.nrprocesso }} </td>
+									<td> {{ mov.auth_user.first_name }} </td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
 				{% else %}
 					Nenhum processo anexado
 				{% endif %}
 			</td>			
+		</tr>
+		<tr> 
+		   	<td>
+				<input name="processoanexo" />
+				<input type="submit" value="ANEXAR" />
+			</td>
 		</tr>
 	</table>
 </form>
