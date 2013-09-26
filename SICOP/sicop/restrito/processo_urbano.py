@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.models import Tbtipoprocesso, Tbprocessobase, Tbgleba, Tbmunicipio,\
     Tbcaixa, AuthUser, Tbprocessourbano, Tbsituacaoprocesso, Tbcontrato,\
-    Tbsituacaogeo, Tbmovimentacao
+    Tbsituacaogeo, Tbmovimentacao, Tbclassificacaoprocesso
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect
 from sicop.forms import FormProcessoUrbano
@@ -40,7 +40,8 @@ def cadastro(request):
                                     tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessourbano' ),
                                     dtcadastrosistema = datetime.datetime.now(),
                                     tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
-                                    auth_user = AuthUser.objects.get( pk = request.user.id )
+                                    auth_user = AuthUser.objects.get( pk = request.user.id ),
+                                    tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 )
                                     )
             f_base.save()
             
@@ -99,7 +100,8 @@ def edicao(request, id):
                                     tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessourbano' ),
                                     dtcadastrosistema = base.dtcadastrosistema,
                                     tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
-                                    auth_user = AuthUser.objects.get( pk = request.user.id )
+                                    auth_user = AuthUser.objects.get( pk = request.user.id ),
+                                    tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 )
                                     )
             f_base.save()
             

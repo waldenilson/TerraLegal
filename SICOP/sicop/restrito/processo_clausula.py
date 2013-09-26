@@ -42,7 +42,8 @@ def cadastro(request):
                                     tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessoclausula' ),
                                     dtcadastrosistema = datetime.datetime.now(),
                                     tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
-                                    auth_user = AuthUser.objects.get( pk = request.user.id )
+                                    auth_user = AuthUser.objects.get( pk = request.user.id ),
+                                    tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 )
                                     )
             f_base.save()
             
@@ -56,7 +57,6 @@ def cadastro(request):
                                        dttitulacao =  datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y"),
                                        nrarea = request.POST['nrarea'],
                                        stprocuracao = procuracao,
-                                       tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 ),
                                        dsobs = request.POST['dsobs']
                                        )
             f_clausula.save()
@@ -99,7 +99,8 @@ def edicao(request, id):
                                     tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessoclausula' ),
                                     dtcadastrosistema = base.dtcadastrosistema,
                                     tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
-                                    auth_user = AuthUser.objects.get( pk = request.user.id )
+                                    auth_user = AuthUser.objects.get( pk = request.user.id ),
+                                    tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 )
                                     )
             f_base.save()
             
@@ -114,7 +115,6 @@ def edicao(request, id):
                                        dttitulacao =  datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y"),
                                        nrarea = request.POST['nrarea'],
                                        stprocuracao = procuracao,
-                                       tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 ),
                                        dsobs = request.POST['dsobs']
                                        )
             f_clausula.save()
