@@ -249,7 +249,6 @@ class Tbprocessoclausula(models.Model):
 
 class Tbprocessosanexos(models.Model):
     id = models.AutoField(primary_key=True)
-    tbcaixa = models.ForeignKey(Tbcaixa)
     tbprocessobase = models.ForeignKey(Tbprocessobase,db_column='tbprocessobase_id',related_name='tbprocessobase_id')
     tbprocessobase_id_anexo = models.ForeignKey(Tbprocessobase, db_column='tbprocessobase_id_anexo',related_name='tbprocessobase_id_anexo')
     auth_user = models.ForeignKey(AuthUser)

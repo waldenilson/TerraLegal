@@ -6,7 +6,7 @@ from django.http.response import HttpResponseRedirect
 from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
     Tbprocessoclausula, Tbprocessobase, Tbcaixa, Tbgleba, Tbmunicipio,\
     Tbcontrato, Tbsituacaoprocesso, Tbsituacaogeo, Tbpecastecnicas, AuthUser,\
-    AuthUserGroups, Tbmovimentacao
+    AuthUserGroups, Tbmovimentacao, Tbprocessosanexos, Tbpendencia
 from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
 from sicop.restrito import processo_rural
@@ -117,7 +117,10 @@ def tramitar(request, base):
         movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase = base.id ).order_by( "-dtmovimentacao" ) 
         # caixa destino
         caixadestino = Tbcaixa.objects.all()
-
+        # anexos deste processo
+        anexado = Tbprocessosanexos.objects.all().filter( tbprocessobase = base.id )
+        # pendencias deste processo
+        pendencia = Tbpendencia.objects.all().filter( tbprocessobase = base.id )
         
         if tipo == "tbprocessorural":
             rural = Tbprocessorural.objects.get( tbprocessobase = base.id )
@@ -125,7 +128,7 @@ def tramitar(request, base):
             return render_to_response('sicop/restrito/processo/rural/edicao.html',
                                       {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                        'movimentacao':movimentacao,'caixadestino':caixadestino,
-                                       'caixa':caixa,'municipio':municipio,
+                                       'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
                                        'base':base,'rural':rural,'peca':peca}, context_instance = RequestContext(request))
         else:
             if tipo == "tbprocessourbano":
@@ -137,7 +140,7 @@ def tramitar(request, base):
                 return render_to_response('sicop/restrito/processo/urbano/edicao.html',
                                           {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'situacaogeo':situacaogeo,
                                        'caixa':caixa,'municipio':municipio,'contrato':contrato,
-                                       'base':base,'urbano':urbano,
+                                       'base':base,'urbano':urbano,'anexado':anexado,'pendencia':pendencia,
                                        'movimentacao':movimentacao,'caixadestino':caixadestino,
                                        'dtaberturaprocesso':dtaberturaprocesso,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
             else:
@@ -146,7 +149,7 @@ def tramitar(request, base):
                     dttitulacao = formatDataToText( clausula.dttitulacao )
                     return render_to_response('sicop/restrito/processo/clausula/edicao.html',
                                               {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
-                                       'caixa':caixa,'municipio':municipio,
+                                       'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
                                        'movimentacao':movimentacao,'caixadestino':caixadestino,
                                        'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
 
@@ -172,6 +175,10 @@ def criar_pendencia(request, base):
         movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase = base.id ).order_by( "-dtmovimentacao" ) 
         # caixa destino
         caixadestino = Tbcaixa.objects.all()
+        # anexos deste processo
+        anexado = Tbprocessosanexos.objects.all().filter( tbprocessobase = base.id )
+        # pendencias deste processo
+        pendencia = Tbpendencia.objects.all().filter( tbprocessobase = base.id )
 
         
         if tipo == "tbprocessorural":
@@ -180,7 +187,7 @@ def criar_pendencia(request, base):
             return render_to_response('sicop/restrito/processo/rural/edicao.html',
                                       {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                        'movimentacao':movimentacao,'caixadestino':caixadestino,
-                                       'caixa':caixa,'municipio':municipio,
+                                       'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
                                        'base':base,'rural':rural,'peca':peca}, context_instance = RequestContext(request))
         else:
             if tipo == "tbprocessourbano":
@@ -192,7 +199,7 @@ def criar_pendencia(request, base):
                 return render_to_response('sicop/restrito/processo/urbano/edicao.html',
                                           {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'situacaogeo':situacaogeo,
                                        'caixa':caixa,'municipio':municipio,'contrato':contrato,
-                                       'base':base,'urbano':urbano,
+                                       'base':base,'urbano':urbano,'anexado':anexado,'pendencia':pendencia,
                                        'movimentacao':movimentacao,'caixadestino':caixadestino,
                                        'dtaberturaprocesso':dtaberturaprocesso,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
             else:
@@ -201,7 +208,7 @@ def criar_pendencia(request, base):
                     dttitulacao = formatDataToText( clausula.dttitulacao )
                     return render_to_response('sicop/restrito/processo/clausula/edicao.html',
                                               {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
-                                       'caixa':caixa,'municipio':municipio,
+                                       'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
                                        'movimentacao':movimentacao,'caixadestino':caixadestino,
                                        'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
 
@@ -226,6 +233,10 @@ def anexar(request, base):
         movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase = base.id ).order_by( "-dtmovimentacao" ) 
         # caixa destino
         caixadestino = Tbcaixa.objects.all()
+        # anexos deste processo
+        anexado = Tbprocessosanexos.objects.all().filter( tbprocessobase = base.id )
+        # pendencias deste processo
+        pendencia = Tbpendencia.objects.all().filter( tbprocessobase = base.id )
 
         
         if tipo == "tbprocessorural":
@@ -234,7 +245,7 @@ def anexar(request, base):
             return render_to_response('sicop/restrito/processo/rural/edicao.html',
                                       {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                        'movimentacao':movimentacao,'caixadestino':caixadestino,
-                                       'caixa':caixa,'municipio':municipio,
+                                       'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
                                        'base':base,'rural':rural,'peca':peca}, context_instance = RequestContext(request))
         else:
             if tipo == "tbprocessourbano":
@@ -246,7 +257,7 @@ def anexar(request, base):
                 return render_to_response('sicop/restrito/processo/urbano/edicao.html',
                                           {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'situacaogeo':situacaogeo,
                                        'caixa':caixa,'municipio':municipio,'contrato':contrato,
-                                       'base':base,'urbano':urbano,
+                                       'base':base,'urbano':urbano,'anexado':anexado,'pendencia':pendencia,
                                        'movimentacao':movimentacao,'caixadestino':caixadestino,
                                        'dtaberturaprocesso':dtaberturaprocesso,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
             else:
@@ -255,10 +266,9 @@ def anexar(request, base):
                     dttitulacao = formatDataToText( clausula.dttitulacao )
                     return render_to_response('sicop/restrito/processo/clausula/edicao.html',
                                               {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
-                                       'caixa':caixa,'municipio':municipio,
+                                       'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
                                        'movimentacao':movimentacao,'caixadestino':caixadestino,
-                                       'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
-        
+                                       'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))      
 
 @login_required
 @user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
