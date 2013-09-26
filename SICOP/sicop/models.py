@@ -137,7 +137,7 @@ class Tbgleba(models.Model):
         db_table = 'tbgleba'
 
 class Tbmovimentacao(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     tbprocessobase = models.ForeignKey('Tbprocessobase')
     tbcaixa_id = models.ForeignKey(Tbcaixa, db_column='tbcaixa_id',related_name='tbcaixa_id')
     tbcaixa_id_origem = models.ForeignKey(Tbcaixa, db_column='tbcaixa_id_origem',related_name='tbcaixa_id_origem')

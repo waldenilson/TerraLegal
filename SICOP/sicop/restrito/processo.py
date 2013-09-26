@@ -14,6 +14,7 @@ from sicop.relatorio_base import relatorio_base, relatorio_documento_base,\
     relatorio_base_consulta
 from types import InstanceType
 from sicop.admin import verificar_permissao_grupo, divisaoDoUsuarioLogado
+import datetime
 
 @login_required
 def consulta(request):
@@ -75,6 +76,7 @@ def tramitar(request, base):
             # atualizar processobase com caixa tramitada
             caixadestino = request.POST['tbcaixadestino']
             base = get_object_or_404(Tbprocessobase, id=base )
+            caixaorigem = base.tbcaixa
             f_base = Tbprocessobase (
                                     id = base.id,
                                     nrprocesso = base.nrprocesso,
@@ -87,8 +89,16 @@ def tramitar(request, base):
                                     auth_user = base.auth_user
                                     )
             f_base.save()
-            
             # criar registro da movimentacao
+            f_movimentacao = Tbmovimentacao(
+                                           tbprocessobase = base,
+                                           tbcaixa_id = Tbcaixa.objects.get( pk = caixadestino),
+                                           tbcaixa_id_origem = caixaorigem,
+                                           auth_user = AuthUser.objects.get( pk = request.user.id ),
+                                           dtmovimentacao = datetime.datetime.now()
+                                           )
+            f_movimentacao.save()
+            
     return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
     
 
@@ -120,7 +130,8 @@ def edicao(request, id):
             rural = Tbprocessorural.objects.get( tbprocessobase = id )
             peca = Tbpecastecnicas.objects.all().filter( nrcpfrequerente = rural.nrcpfrequerente.replace('.','').replace('-','') )
             return render_to_response('sicop/restrito/processo/rural/edicao.html',
-                                      {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'movimentacao':movimentacao,'caixadestino':caixadestino,
+                                      {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
+                                       'movimentacao':movimentacao,'caixadestino':caixadestino,
                                        'caixa':caixa,'municipio':municipio,
                                        'base':base,'rural':rural,'peca':peca}, context_instance = RequestContext(request))
         else:
@@ -134,6 +145,7 @@ def edicao(request, id):
                                           {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'situacaogeo':situacaogeo,
                                        'caixa':caixa,'municipio':municipio,'contrato':contrato,
                                        'base':base,'urbano':urbano,
+                                       'movimentacao':movimentacao,'caixadestino':caixadestino,
                                        'dtaberturaprocesso':dtaberturaprocesso,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
             else:
                 if tipo == "tbprocessoclausula":
@@ -142,6 +154,7 @@ def edicao(request, id):
                     return render_to_response('sicop/restrito/processo/clausula/edicao.html',
                                               {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                        'caixa':caixa,'municipio':municipio,
+                                       'movimentacao':movimentacao,'caixadestino':caixadestino,
                                        'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
         
     return HttpResponseRedirect("/sicop/restrito/processo/consulta/")

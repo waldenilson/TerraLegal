@@ -138,9 +138,26 @@
 		<tr>
 			<td colspan="2" class="colunaTabela" style="text-align:left">
 				{% if movimentacao %}
-					{% for mov in movimentacao %}
-						{{ mov }}
-					{% endfor %}
+					<table style="width:100%;text-align:center">
+						<thead>
+							<tr>
+								<th class="colunaTabelaConsulta" style="width:15%">Data</th>
+								<th class="colunaTabelaConsulta" style="width:30%">Origem</th>
+								<th class="colunaTabelaConsulta" style="width:30%">Destino</th>
+								<th class="colunaTabelaConsulta" style="width:25%">Usuario</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for mov in movimentacao %}
+								<tr>
+									<td> {{ mov.dtmovimentacao }} </td>
+									<td> {{ mov.tbcaixa_id_origem.nmlocalarquivo }} </td>
+									<td> {{ mov.tbcaixa_id.nmlocalarquivo }} </td>
+									<td> {{ mov.auth_user.first_name }} </td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
 				{% else %}
 					Nenhuma movimentacao
 				{% endif %}
