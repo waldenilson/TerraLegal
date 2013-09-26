@@ -27,20 +27,8 @@
 					<td> <input size="13" id="cpf2" value="{{ clausula.nrcpfinteressado }}" name="nrcpfinteressado" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
 				   		<td>
-				   			<select name="tbcaixa" style="width: 200px">
-								<option value="">-- Selecione uma Caixa --</option>
-								{% for obj in caixa %}
-									{% if obj.id == base.tbcaixa.id %}
-										<option selected="selected" value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
-									{% else %}
-										<option value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
-									{% endif %}
-								{% endfor %}
-							</select>
+				   			{{ base.tbcaixa.nmlocalarquivo }}
 						</td>
-					<td>
-						<a href="/sicop/restrito/caixa/cadastro/?next=/sicop/restrito/processo/clausula/cadastro/" title="Nova Caixa"> <img src="{% static "img/add.png" %}" width="24" /> </a>
-					</td>
 				</tr>
 				<tr> <td class="colunaTabela"> <label>Gleba:</label> </td>
 				   		<td>
@@ -108,11 +96,56 @@
 		<tr>
 			<td class="colunaTabela" style="text-align:left"> 
 				<a href="/sicop/restrito/processo/consulta/" style="margin-right: 10px"><input type="button" class="button_gree" value="Consultar" /></a>
-				<a href="#" style="margin-right: 10px"> <input type="button" class="button_gree" value="Tramitar" /></a>
-				<a href="#" style="margin-right: 10px"><input type="button" class="button_gree" value="Anexar" /></a>
-				<a href="#" style="margin-right: 10px"><input type="button" class="button_gree" value="Criar pendencia" /></a>
 				<input type="submit" class="button_gree" value="Salvar" />
 			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="colunaTabela" style="text-align:left">
+				PENDENCIAS<hr/>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="colunaTabela" style="text-align:left">
+				{% if pendencia %}
+					{% for pen in pendencia %}
+						{{ pen }}
+					{% endfor %}
+				{% else %}
+					Nenhuma pendencia
+				{% endif %}
+			</td>			
+		</tr>
+		<tr>
+			<td colspan="2" class="colunaTabela" style="text-align:left">
+				TRAMITACOES<hr/>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="colunaTabela" style="text-align:left">
+				{% if movimentacao %}
+					{% for mov in movimentacao %}
+						{{ mov }}
+					{% endfor %}
+				{% else %}
+					Nenhuma movimentacao
+				{% endif %}
+			</td>			
+		</tr>
+		<tr>
+			<td colspan="2" class="colunaTabela" style="text-align:left">
+				PROCESSOS ANEXADOS<hr/>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="colunaTabela" style="text-align:left">
+				{% if anexo %}
+					{% for ane in anexo %}
+						{{ ane }}
+					{% endfor %}
+				{% else %}
+					Nenhum processo anexado
+				{% endif %}
+			</td>			
 		</tr>
 	</table>
 </form>

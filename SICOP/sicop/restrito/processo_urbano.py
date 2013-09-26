@@ -88,7 +88,7 @@ def edicao(request, id):
                                     nrprocesso = request.POST['nrprocesso'].replace('.','').replace('/','').replace('-',''),
                                     tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
                                     tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
-                                    tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
+                                    tbcaixa = base.tbcaixa.id,
                                     tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessourbano' ),
                                     dtcadastrosistema = base.dtcadastrosistema,
                                     tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),

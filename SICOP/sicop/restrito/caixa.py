@@ -17,7 +17,6 @@ from urllib import addinfourl
 @login_required
 def consulta(request):
     
-    
     if request.method == "POST":
         nome = request.POST['nmlocalarquivo']
         lista = Tbcaixa.objects.all().filter( nmlocalarquivo__contains=nome )

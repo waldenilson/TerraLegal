@@ -92,7 +92,7 @@ def edicao(request, id):
                                     nrprocesso = request.POST['nrprocesso'].replace('.','').replace('/','').replace('-',''),
                                     tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
                                     tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
-                                    tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
+                                    tbcaixa = base.tbcaixa,
                                     tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessorural' ),
                                     tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
                                     dtcadastrosistema = base.dtcadastrosistema,
@@ -121,7 +121,8 @@ def edicao(request, id):
     return render_to_response('sicop/restrito/processo/rural/edicao.html',
                               {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                    'caixa':caixa,'municipio':municipio,
-                                   'base':base,'movimentacao':movimentacao,'caixadestino':caixadestino,'rural':rural},
+                                   'base':base,'movimentacao':movimentacao,
+                                   'caixadestino':caixadestino,'rural':rural},
                                context_instance = RequestContext(request))   
 
 def validacao(request_form, metodo):
@@ -141,9 +142,10 @@ def validacao(request_form, metodo):
     if request_form.POST['nrcpfrequerente'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe o CPF do requerente')
         warning = False
-    if request_form.POST['tbcaixa'] == '':
-        messages.add_message(request_form,messages.WARNING,'Escolha uma caixa')
-        warning = False
+    if metodo == "cadastro":        
+        if request_form.POST['tbcaixa'] == '':
+            messages.add_message(request_form,messages.WARNING,'Escolha uma caixa')
+            warning = False
     if request_form.POST['tbsituacaoprocesso'] == '':
         messages.add_message(request_form,messages.WARNING,'Escolha a situacao do processo')
         warning = False
