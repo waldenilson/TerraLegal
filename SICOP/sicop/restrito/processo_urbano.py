@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.models import Tbtipoprocesso, Tbprocessobase, Tbgleba, Tbmunicipio,\
     Tbcaixa, AuthUser, Tbprocessourbano, Tbsituacaoprocesso, Tbcontrato,\
-    Tbsituacaogeo
+    Tbsituacaogeo, Tbmovimentacao
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect
 from sicop.forms import FormProcessoUrbano
@@ -80,6 +80,13 @@ def edicao(request, id):
     
     urbano = get_object_or_404(Tbprocessourbano, id=id)
     base  = get_object_or_404(Tbprocessobase, id=urbano.tbprocessobase.id)
+
+    # movimentacoes deste processo
+    movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase = id ).order_by( "-dtmovimentacao" )
+    
+    # caixa destino
+    caixadestino = Tbcaixa.objects.all()
+    
     
     if validacao(request, "edicao"):
          # cadastrando o registro processo base            
@@ -120,7 +127,8 @@ def edicao(request, id):
     return render_to_response('sicop/restrito/processo/urbano/edicao.html',
                                       {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                    'caixa':caixa,'municipio':municipio,'contrato':contrato,'situacaogeo':situacaogeo,
-                                   'base':base,'urbano':urbano}, context_instance = RequestContext(request))   
+                                   'base':base,'movimentacao':movimentacao,
+                                   'caixadestino':caixadestino,'urbano':urbano}, context_instance = RequestContext(request))   
 
 def validacao(request_form, metodo):
     warning = True

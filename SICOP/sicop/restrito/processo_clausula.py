@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.models import Tbtipoprocesso, Tbmunicipio, Tbgleba, Tbcaixa,\
     Tbprocessobase, AuthUser, Tbprocessoclausula, Tbclassificacaoprocesso,\
-    Tbsituacaoprocesso
+    Tbsituacaoprocesso, Tbmovimentacao
 from sicop.forms import FormProcessoClausula
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect
@@ -82,6 +82,12 @@ def edicao(request, id):
     clausula = get_object_or_404(Tbprocessoclausula, id=id)
     base  = get_object_or_404(Tbprocessobase, id=clausula.tbprocessobase.id)
     
+        # movimentacoes deste processo
+    movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase = id ).order_by( "-dtmovimentacao" )
+    
+    # caixa destino
+    caixadestino = Tbcaixa.objects.all()
+
     if validacao(request, "edicao"):
         # cadastrando o registro processo base            
             f_base = Tbprocessobase (
@@ -117,7 +123,8 @@ def edicao(request, id):
         
     return render_to_response('sicop/restrito/processo/clausula/edicao.html',
                                           {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
-                                   'caixa':caixa,'municipio':municipio,
+                                   'caixa':caixa,'municipio':municipio,'movimentacao':movimentacao,
+                                   'caixadestino':caixadestino,
                                    'base':base,'clausula':clausula}, context_instance = RequestContext(request))    
 
 def validacao(request_form, metodo):
