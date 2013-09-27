@@ -6,7 +6,8 @@ from django.http.response import HttpResponseRedirect
 from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
     Tbprocessoclausula, Tbprocessobase, Tbcaixa, Tbgleba, Tbmunicipio,\
     Tbcontrato, Tbsituacaoprocesso, Tbsituacaogeo, Tbpecastecnicas, AuthUser,\
-    AuthUserGroups, Tbmovimentacao, Tbprocessosanexos, Tbpendencia
+    AuthUserGroups, Tbmovimentacao, Tbprocessosanexos, Tbpendencia,\
+    Tbclassificacaoprocesso
 from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
 from sicop.restrito import processo_rural
@@ -218,8 +219,34 @@ def anexar(request, base):
     if request.method == "POST":
         
         base = get_object_or_404(Tbprocessobase, id=base )
-        if validarAnexo(request, base):
+        processoanexo = request.POST['processoanexo'].replace('.','').replace('/','').replace('-','')
+        if validarAnexo(request, base, processoanexo):
   
+            #criar registro na tabela tbprocessosanexos
+            proc_anexo = Tbprocessobase.objects.get( nrprocesso = processoanexo )
+            f_anexos = Tbprocessosanexos(
+                                         tbprocessobase = base,
+                                         tbprocessobase_id_anexo = proc_anexo,
+                                         auth_user = AuthUser.objects.get( pk = request.user.id ),
+                                         dtanexado = datetime.datetime.now()
+                                        )
+            f_anexos.save()
+            #atualizar a classificacao do processo_anexo para anexo 
+            f_anexo = Tbprocessobase (
+                                    id = proc_anexo.id,
+                                    nrprocesso = proc_anexo.nrprocesso,
+                                    tbgleba = proc_anexo.tbgleba,
+                                    tbmunicipio = proc_anexo.tbmunicipio,
+                                    tbcaixa = proc_anexo.tbcaixa,
+                                    tbtipoprocesso = proc_anexo.tbtipoprocesso,
+                                    tbsituacaoprocesso = proc_anexo.tbsituacaoprocesso,
+                                    dtcadastrosistema = proc_anexo.dtcadastrosistema,
+                                    auth_user = proc_anexo.auth_user,
+                                    tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 2 )
+                                    )
+            f_anexo.save()
+  
+            
             return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
         
         caixa = Tbcaixa.objects.all()
@@ -238,7 +265,7 @@ def anexar(request, base):
         # pendencias deste processo
         pendencia = Tbpendencia.objects.all().filter( tbprocessobase = base.id )
 
-        
+
         if tipo == "tbprocessorural":
             rural = Tbprocessorural.objects.get( tbprocessobase = base.id )
             peca = Tbpecastecnicas.objects.all().filter( nrcpfrequerente = rural.nrcpfrequerente.replace('.','').replace('-','') )
@@ -285,12 +312,15 @@ def edicao(request, id):
     base = get_object_or_404(Tbprocessobase, id=id)
     tipo = base.tbtipoprocesso.tabela
     
-    
     # movimentacoes deste processo
     movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase = id ).order_by( "-dtmovimentacao" ) 
     # caixa destino
     caixadestino = Tbcaixa.objects.all()
-        
+    # anexos deste processo
+    anexado = Tbprocessosanexos.objects.all().filter( tbprocessobase = base.id )
+    # pendencias deste processo
+    pendencia = Tbpendencia.objects.all().filter( tbprocessobase = base.id )
+
     # se processobase pertencer a mesma divisao do usuario logado
     if base.auth_user.tbdivisao.id == AuthUser.objects.get( pk = request.user.id ).tbdivisao.id:
         if tipo == "tbprocessorural":
@@ -299,7 +329,7 @@ def edicao(request, id):
             return render_to_response('sicop/restrito/processo/rural/edicao.html',
                                       {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                        'movimentacao':movimentacao,'caixadestino':caixadestino,
-                                       'caixa':caixa,'municipio':municipio,
+                                       'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
                                        'base':base,'rural':rural,'peca':peca}, context_instance = RequestContext(request))
         else:
             if tipo == "tbprocessourbano":
@@ -311,7 +341,7 @@ def edicao(request, id):
                 return render_to_response('sicop/restrito/processo/urbano/edicao.html',
                                           {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'situacaogeo':situacaogeo,
                                        'caixa':caixa,'municipio':municipio,'contrato':contrato,
-                                       'base':base,'urbano':urbano,
+                                       'base':base,'urbano':urbano,'anexado':anexado,'pendencia':pendencia,
                                        'movimentacao':movimentacao,'caixadestino':caixadestino,
                                        'dtaberturaprocesso':dtaberturaprocesso,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
             else:
@@ -320,7 +350,7 @@ def edicao(request, id):
                     dttitulacao = formatDataToText( clausula.dttitulacao )
                     return render_to_response('sicop/restrito/processo/clausula/edicao.html',
                                               {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
-                                       'caixa':caixa,'municipio':municipio,
+                                       'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
                                        'movimentacao':movimentacao,'caixadestino':caixadestino,
                                        'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
         
@@ -393,8 +423,29 @@ def validarPendencia(request_form, base):
     warning = True
     return warning
 
-def validarAnexo(request_form, base):
+def validarAnexo(request_form, base, processoanexo):
     warning = True
+    #verificar se campo processo a anexar esta em branco
+    if processoanexo == '':
+        messages.add_message(request_form, messages.WARNING, 'Informe o numero do processo a anexar.')
+        warning = False
+    #verificar se processo a anexar existe e pertence a divisao do usuario
+    proc_anexo = Tbprocessobase.objects.all().filter( nrprocesso = processoanexo, auth_user__tbdivisao = AuthUser.objects.get( pk = request_form.user.id ).tbdivisao )
+    if not proc_anexo:
+        messages.add_message(request_form, messages.WARNING, 'O processo a anexar nao existe.')
+        warning = False        
+    #verifica se o processo base eh classificado como processo pai
+    if base.tbclassificacaoprocesso.id != 1:
+        messages.add_message(request_form, messages.WARNING, 'Nao permitido anexar processo a processos classificados como anexos.')
+        warning = False        
+    #verifica se o anexo esta anexado a outro processo
+    
+    #verificar se ja foi anexado ao processo em questao    
+    result = Tbprocessosanexos.objects.all().filter( tbprocessobase = base.id, tbprocessobase_id_anexo__nrprocesso = processoanexo )
+    if result:
+        messages.add_message(request_form, messages.WARNING, 'Processo '+processoanexo+' ja anexado.')
+        warning = False        
+    
     return warning
     
 def formatDataToText( formato_data ):

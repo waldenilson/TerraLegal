@@ -249,7 +249,7 @@ class Tbprocessoclausula(models.Model):
 
 class Tbprocessosanexos(models.Model):
     id = models.AutoField(primary_key=True)
-    tbprocessobase = models.ForeignKey(Tbprocessobase,db_column='tbprocessobase_id',related_name='tbprocessobase_id')
+    tbprocessobase = models.ForeignKey(Tbprocessobase)
     tbprocessobase_id_anexo = models.ForeignKey(Tbprocessobase, db_column='tbprocessobase_id_anexo',related_name='tbprocessobase_id_anexo')
     auth_user = models.ForeignKey(AuthUser)
     dtanexado = models.DateTimeField(null=True, blank=True)
