@@ -104,6 +104,22 @@ def tramitar(request, base):
             f_movimentacao.save()
             
             #OBS ao tramitar o processo todos os processos anexados serao tramitados ( classificado como anexo )
+            anexado = Tbprocessosanexos.objects.all().filter( tbprocessobase = base.id )
+            for nx in anexado:
+                proc_anexado = nx.tbprocessobase_id_anexo
+                f_base = Tbprocessobase (
+                                        id = proc_anexado.id,
+                                        nrprocesso = proc_anexado.nrprocesso,
+                                        tbgleba = proc_anexado.tbgleba,
+                                        tbmunicipio = proc_anexado.tbmunicipio,
+                                        tbcaixa = Tbcaixa.objects.get( pk = caixadestino),
+                                        tbtipoprocesso = proc_anexado.tbtipoprocesso,
+                                        tbsituacaoprocesso = proc_anexado.tbsituacaoprocesso,
+                                        dtcadastrosistema = proc_anexado.dtcadastrosistema,
+                                        auth_user = proc_anexado.auth_user,
+                                        tbclassificacaoprocesso = proc_anexado.tbclassificacaoprocesso
+                                        )
+                f_base.save()
                     
             return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
         
@@ -118,8 +134,6 @@ def tramitar(request, base):
         movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase = base.id ).order_by( "-dtmovimentacao" ) 
         # caixa destino
         caixadestino = Tbcaixa.objects.all()
-        # anexos deste processo
-        anexado = Tbprocessosanexos.objects.all().filter( tbprocessobase = base.id )
         # pendencias deste processo
         pendencia = Tbpendencia.objects.all().filter( tbprocessobase = base.id )
         
@@ -237,7 +251,7 @@ def anexar(request, base):
                                     nrprocesso = proc_anexo.nrprocesso,
                                     tbgleba = proc_anexo.tbgleba,
                                     tbmunicipio = proc_anexo.tbmunicipio,
-                                    tbcaixa = proc_anexo.tbcaixa,
+                                    tbcaixa = base.tbcaixa,
                                     tbtipoprocesso = proc_anexo.tbtipoprocesso,
                                     tbsituacaoprocesso = proc_anexo.tbsituacaoprocesso,
                                     dtcadastrosistema = proc_anexo.dtcadastrosistema,
@@ -428,6 +442,10 @@ def validarAnexo(request_form, base, processoanexo):
     #verificar se campo processo a anexar esta em branco
     if processoanexo == '':
         messages.add_message(request_form, messages.WARNING, 'Informe o numero do processo a anexar.')
+        warning = False
+    #verificar se processo a anexar eh o mesmo processo base
+    if processoanexo == base.nrprocesso:
+        messages.add_message(request_form, messages.WARNING, 'Nao permitido anexar o proprio processo.')
         warning = False
     #verificar se processo a anexar existe e pertence a divisao do usuario
     proc_anexo = Tbprocessobase.objects.all().filter( nrprocesso = processoanexo, auth_user__tbdivisao = AuthUser.objects.get( pk = request_form.user.id ).tbdivisao )
