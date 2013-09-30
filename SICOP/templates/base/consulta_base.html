@@ -5,17 +5,21 @@
 
 {% block breadcumbs %} {% endblock %}
 
-{% block subtitulo %} {% endblock %}
-
 {% block conteudo %}
 
 	<div style="color:black;width:100%;font-size:11px;text-align:center">
-					
-	<!-- 		FORMULARIOS DOS FILTROS / CONSULTAS -->
-	{% block consulta %} {% endblock %}
-
-	<!-- 		RESULTADO DOS FILTROS / CONSULTAS		 -->
-	{% block resultado %} {% endblock %}		
+		<div id="tabs">
+			<ul>
+				<li><a href="#tab"> {% block subtitulo %} {% endblock %} </a></li>
+			</ul>
+			<div id="tab">					
+				<!-- 		FORMULARIOS DOS FILTROS / CONSULTAS -->
+				{% block consulta %} {% endblock %}
+			
+				<!-- 		RESULTADO DOS FILTROS / CONSULTAS		 -->
+				{% block resultado %} {% endblock %}		
+			</div>
+		</div>
 	</div>
 	
 {% endblock %}

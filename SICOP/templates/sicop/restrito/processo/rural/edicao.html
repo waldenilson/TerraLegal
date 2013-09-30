@@ -93,7 +93,9 @@
 		</tr>
 	</table>
 </form>
-
+<div id="accordion">
+<h3>Peca Tecnica</h3>
+<div>
 <table style="width:100%">
 	<tr>
 		<td colspan="2" class="colunaTabela" style="text-align:left">
@@ -110,7 +112,10 @@
 		</td>			
 	</tr>
 </table>
+</div>
 
+<h3>Pendencias</h3>
+<div>
 <form method="post" action="/sicop/restrito/processo/pendencia/{{ base.id }}/">
 	{% csrf_token %}
 	<table style="width:100%">
@@ -125,15 +130,17 @@
 					<table style="width:100%;text-align:center">
 						<thead>
 							<tr>
+								<th class="colunaTabelaConsulta" style="width:8%">Detalhes</th>
 								<th class="colunaTabelaConsulta" style="width:15%">Tipo</th>
-								<th class="colunaTabelaConsulta" style="width:30%">Status</th>
-								<th class="colunaTabelaConsulta" style="width:30%">Descricao</th>
+								<th class="colunaTabelaConsulta" style="width:26%">Status</th>
+								<th class="colunaTabelaConsulta" style="width:26%">Descricao</th>
 								<th class="colunaTabelaConsulta" style="width:25%">Usuario</th>
 							</tr>
 						</thead>
 						<tbody>
 							{% for pen in pendencia %}
 								<tr>
+									<td class="colunaTabelaConsulta"> <a href="/sicop/restrito/processo/pendencia/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
 									<td> {{ pen.tbtipopendencia.dspendencia }} </td>
 									<td> {{ pen.tbstatuspendencia.dspendencia }} </td>
 									<td> {{ pen.dsdescricao }} </td>
@@ -165,8 +172,11 @@
 		</tr>
 	</table>
 </form>
+</div>
 
 {% if base.tbclassificacaoprocesso.id == 1 %}
+<h3>Tramitacoes</h3>
+<div>
 <form method="post" action="/sicop/restrito/processo/tramitacao/{{ base.id }}/">
 	{% csrf_token %}
 	<table style="width:100%">
@@ -182,8 +192,8 @@
 						<thead>
 							<tr>
 								<th class="colunaTabelaConsulta" style="width:15%">Data</th>
-								<th class="colunaTabelaConsulta" style="width:30%">Origem</th>
-								<th class="colunaTabelaConsulta" style="width:30%">Destino</th>
+								<th class="colunaTabelaConsulta" style="width:26%">Origem</th>
+								<th class="colunaTabelaConsulta" style="width:26%">Destino</th>
 								<th class="colunaTabelaConsulta" style="width:25%">Usuario</th>
 							</tr>
 						</thead>
@@ -215,9 +225,12 @@
 		</tr>
 	</table>
 </form>
+</div>
 {% endif %}
 
 {% if base.tbclassificacaoprocesso.id == 1 %}
+<h3>Anexos</h3>
+<div>
 <form method="post" action="/sicop/restrito/processo/anexo/{{ base.id }}/">
 	{% csrf_token %}
 	<table style="width:100%">
@@ -260,6 +273,8 @@
 		</tr>
 	</table>
 </form>
+</div>
 {% endif %}
 
+</div>
 {% endblock %}

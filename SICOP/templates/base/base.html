@@ -18,8 +18,29 @@
 <link rel="stylesheet" type="text/css" media="screen"
 	href="{% static "css/style.css" %}" />
 
-<script src="{% static "js/jquery.js" %}" type="text/javascript"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/south-street/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script>
+$(function() {
+$( "#tabs" ).tabs();
+});
+$(function() {
+	$( "#accordion" ).accordion();
+	});
+$(function() {
+	$( "#dialog-modal" ).dialog({
+	modal: true
+	});
+	});
+$(function() {
+	$( "#menu" ).menu();
+	});
 
+</script>
+ <style>
+.ui-menu { width: 180px; z-index: 1000; }
+</style>
 <script src="{% static "js/jquery_maskedinput.js" %}" type="text/javascript"></script>
 
 <script>
@@ -104,7 +125,6 @@ function SomenteNumeroOK(e, obj)
 <DIV id="portal-top">
 <DIV id="portal-header">
 
-
 <br/><br/>
 
 <div id="divCollophon" style=" background: url('{% static "img/bgHeader.gif" %}');" >
@@ -137,9 +157,7 @@ function SomenteNumeroOK(e, obj)
 				<div style="margin-bottom: 10px">
 					<img src="{% static "img/terralegal.jpg" %}" alt="Terra Amazônia Legal" />
 				</div>
-				<div id="cssmenu_v">
-				
-							<ul style="font-size:9px">
+							<ul id="menu" style="font-size:15px">
 								<li>
 									<a href="/" title="">
 										<span>Inicio</span>
@@ -166,9 +184,62 @@ function SomenteNumeroOK(e, obj)
 									</a>
 								</li>
 								<li>
-									<a href="/sicop/restrito/processo/consulta/" title="">
+									<a href="#" title="">
 										<span>SICOP</span>
 									</a>
+									<ul>
+										<li> <a href="/sicop/restrito/processo/consulta/">Processo</a> </li>
+										<li> <a href="/sicop/restrito/peca_tecnica/consulta/">Peca Tecnica</a> </li>
+										<li> <a href="#">Relatorio</a>
+											<ul style="width:250px">
+												<li><a href="/sicop/restrito/relatorio/processo_peca/">Processos e pecas tecnicas</a></li>
+												<li><a href="/sicop/restrito/relatorio/peca_nao_aprovada/">Pecas tecnicas nao aprovadas</a></li>
+												<li><a href="/sicop/restrito/relatorio/peca_rejeitada/">Pecas tecnicas rejeitadas</a></li>
+												<li><a href="/sicop/restrito/relatorio/peca_validada/">Pecas tecnicas validadas</a></li>
+												<li><a href="/sicop/restrito/relatorio/peca_gleba/">Pecas tecnicas e glebas</a></li>
+												<li><a href="/sicop/restrito/relatorio/peca_sem_processo/">Pecas tecnicas sem processo</a></li>											
+											</ul>
+										</li>
+										<li> <a href="#">Geral</a> 
+											<ul>
+												<li> <a href="#">Caixa</a> 
+													<ul>
+														<li><a href="/sicop/restrito/caixa/consulta/">Controle</a></li>
+														<li><a href="/sicop/restrito/tipo_caixa/consulta/">Tipo Caixa</a></li>
+													</ul>
+												</li>
+												<li> <a href="#">Gleba</a> 
+													<ul>
+														<li><a href="/sicop/restrito/gleba/consulta/">Controle</a></li>
+														<li><a href="/sicop/restrito/sub_area/consulta/">Sub Area</a></li>
+													</ul>
+												</li>
+												<li> <a href="#">Processo</a> 
+													<ul>
+														<li><a href="/sicop/restrito/contrato/consulta/">Contrato</a></li>
+														<li><a href="/sicop/restrito/tipo_processo/consulta/">Tipo Processo</a></li>
+														<li><a href="/sicop/restrito/classificacao_processo/consulta/">Classificacao Processo</a></li>
+														<li><a href="/sicop/restrito/situacao_processo/consulta/">Situacao Processo</a></li>
+														<li><a href="/sicop/restrito/situacao_geo/consulta/">Situacao Geo</a></li>
+													</ul>
+												</li>
+												<li> <a href="#">Pendencia</a> 
+													<ul>
+														<li><a href="/sicop/restrito/tipo_pendencia/consulta/">Tipo Pendencia</a></li>
+														<li><a href="/sicop/restrito/status_pendencia/consulta/">Status Pendencia</a></li>
+													</ul>
+												</li>
+												<li> <a href="#">Usuario</a> 
+													<ul>
+														<li><a href="/sicop/restrito/usuario/consulta/">Controle</a></li>
+														<li><a href="/sicop/restrito/grupo/consulta/">Grupo</a></li>
+														<li><a href="/sicop/restrito/divisao/consulta/">Divisao</a></li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+									</ul>
+									
 								</li>
 								<li>
 									<a href="/controle/restrito/servidor/consulta" title="">
@@ -176,7 +247,6 @@ function SomenteNumeroOK(e, obj)
 									</a>
 								</li>
 							</ul>
-				</div>
 
 			</div>
 			<!-- FIM - COLUNA ESQUERDA -->
