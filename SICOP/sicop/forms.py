@@ -5,7 +5,8 @@ from sicop.models import Tbpecastecnicas, Tbprocessobase, Tbtipopendencia,\
     Tbtipocaixa, Tbcaixa, Tbsubarea, Tbgleba, Tbcontrato, Tbstatuspendencia,\
     Tbclassificacaoprocesso, Tbmunicipiomodulo,\
     Tbtipoprocesso, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano,\
-    Tbsituacaoprocesso, Tbsituacaogeo , Tbservidor, AuthGroup, Tbdivisao
+    Tbsituacaoprocesso, Tbsituacaogeo , Tbservidor, AuthGroup, Tbdivisao,\
+    Tbpendencia
 
 
 class FormPecasTecnicas(forms.ModelForm):
@@ -65,6 +66,10 @@ class FormGleba(models.ModelForm):
 class FormContrato(models.ModelForm):        
     class Meta:
         model = Tbcontrato
+
+class FormPendencia(models.ModelForm):        
+    class Meta:
+        model = Tbpendencia
 
 class FormStatusPendencia(models.ModelForm):
     class Meta:

@@ -140,7 +140,7 @@
 						<tbody>
 							{% for pen in pendencia %}
 								<tr>
-									<td class="colunaTabelaConsulta"> <a href="/sicop/restrito/processo/pendencia/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
+									<td class="colunaTabelaConsulta"> <a href="/sicop/restrito/pendencia/edicao/{{ pen.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
 									<td> {{ pen.tbtipopendencia.dspendencia }} </td>
 									<td> {{ pen.tbstatuspendencia.dspendencia }} </td>
 									<td> {{ pen.dsdescricao }} </td>

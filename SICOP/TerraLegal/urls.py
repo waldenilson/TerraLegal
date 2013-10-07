@@ -37,6 +37,10 @@ urlpatterns = patterns('',
     url(r'^sicop/restrito/processo/anexo/(?P<base>\d+)/', 'sicop.restrito.processo.anexar'),
     url(r'^sicop/restrito/processo/pendencia/(?P<base>\d+)/', 'sicop.restrito.processo.criar_pendencia'),   
     url(r'^sicop/restrito/processo/relatorio/', 'sicop.restrito.processo.relatorio'),
+
+    # ACESSO RESTRITO SICOP PENDENCIA
+    url(r'^sicop/restrito/pendencia/edicao/(?P<pendencia>\d+)/', 'sicop.restrito.pendencia.edicao'),
+    
     # PROCESSO RURAL
     url(r'^sicop/restrito/processo/rural/consulta/', 'sicop.restrito.processo_rural.consulta'),
     url(r'^sicop/restrito/processo/rural/cadastro/', 'sicop.restrito.processo_rural.cadastro'),
