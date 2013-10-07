@@ -346,8 +346,7 @@ def edicao(request, id):
     
     # movimentacoes deste processo
     movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase = id ).order_by( "-dtmovimentacao" ) 
-    # caixa destino
-    caixadestino = Tbcaixa.objects.all()
+        
     # anexos deste processo
     anexado = Tbprocessosanexos.objects.all().filter( tbprocessobase = base.id )
     # pendencias deste processo
@@ -360,9 +359,15 @@ def edicao(request, id):
         if tipo == "tbprocessorural":
             rural = Tbprocessorural.objects.get( tbprocessobase = id )
             peca = Tbpecastecnicas.objects.all().filter( nrcpfrequerente = rural.nrcpfrequerente.replace('.','').replace('-','') )
+            # caixas que podem ser tramitadas
+            tram = []
+            for obj in Tbcaixa.objects.all():
+                if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'PAD':
+                    tram.append( obj )
+                
             return render_to_response('sicop/restrito/processo/rural/edicao.html',
                                       {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
-                                       'movimentacao':movimentacao,'caixadestino':caixadestino,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
+                                       'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
                                        'base':base,'rural':rural,'peca':peca}, context_instance = RequestContext(request))
         else:
@@ -371,21 +376,30 @@ def edicao(request, id):
          
                 dtaberturaprocesso = formatDataToText( urbano.dtaberturaprocesso )
                 dttitulacao = formatDataToText( urbano.dttitulacao )
-                
+                # caixas que podem ser tramitadas
+                tram = []
+                for obj in Tbcaixa.objects.all():
+                    if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'URB':
+                        tram.append( obj )
                 return render_to_response('sicop/restrito/processo/urbano/edicao.html',
                                           {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'situacaogeo':situacaogeo,
                                        'caixa':caixa,'municipio':municipio,'contrato':contrato,
                                        'base':base,'urbano':urbano,'anexado':anexado,'pendencia':pendencia,
-                                       'movimentacao':movimentacao,'caixadestino':caixadestino,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
+                                       'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'dtaberturaprocesso':dtaberturaprocesso,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
             else:
                 if tipo == "tbprocessoclausula":
                     clausula = Tbprocessoclausula.objects.get( tbprocessobase = id )
                     dttitulacao = formatDataToText( clausula.dttitulacao )
+                    # caixas que podem ser tramitadas
+                    tram = []
+                    for obj in Tbcaixa.objects.all():
+                        if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'RES':
+                            tram.append( obj )
                     return render_to_response('sicop/restrito/processo/clausula/edicao.html',
                                               {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
-                                       'movimentacao':movimentacao,'caixadestino':caixadestino,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
+                                       'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
         
     return HttpResponseRedirect("/sicop/restrito/processo/consulta/")

@@ -9,7 +9,6 @@ from django.contrib import messages
 from django.http.response import HttpResponseRedirect
 import datetime
 
-
 #10.12.0.60
 
 @login_required

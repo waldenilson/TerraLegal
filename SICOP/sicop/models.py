@@ -91,7 +91,7 @@ class DjangoSite(models.Model):
         db_table = 'django_site'
 
 class Tbcaixa(models.Model):
-#    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     nmlocalarquivo = models.CharField(max_length=80, blank=True)
     qtdprocessos = models.IntegerField(null=True, blank=True)
     tbtipocaixa = models.ForeignKey('Tbtipocaixa')
