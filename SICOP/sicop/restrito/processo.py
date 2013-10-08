@@ -406,7 +406,6 @@ def edicao(request, id):
     
 @login_required
 @user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador','Operador'}), login_url='/excecoes/permissao_negada/')
-#@permission_required('sicop.add tbprocesso', login_url='/sicop/acesso_restrito/', raise_exception=True)
 def cadastro(request):
     tipoprocesso = Tbtipoprocesso.objects.all()
     escolha = "tbprocessorural"
@@ -446,7 +445,6 @@ def cadastro(request):
     return render_to_response('sicop/restrito/processo/cadastro.html',{'gleba':gleba,'caixa':caixa,'municipio':municipio,'situacaoprocesso':situacaoprocesso,
             'tipoprocesso':tipoprocesso,'processo':escolha,'div_processo':div_processo}, context_instance = RequestContext(request))
 
-
 def relatorio(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session['relatorio_processo']
@@ -455,7 +453,6 @@ def relatorio(request):
         return resp
     else:
         return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
-
 
 def validarTramitacao(request_form, base, origem, destino):
     warning = True
@@ -514,6 +511,4 @@ def formatDataToText( formato_data ):
         dtaberturaprocesso += str(formato_data.month)+"/"
     dtaberturaprocesso += str(formato_data.year)
     return str( dtaberturaprocesso )
-
-
 

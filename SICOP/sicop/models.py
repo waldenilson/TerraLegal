@@ -100,7 +100,7 @@ class Tbcaixa(models.Model):
     qtdprocessos = models.IntegerField(null=True, blank=True)
     tptramitacao = models.CharField(max_length=10, blank=True)
     tbtipocaixa = models.ForeignKey('Tbtipocaixa')
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbcaixa'
 
@@ -131,7 +131,7 @@ class Tbgleba(models.Model):
     cdgleba = models.IntegerField(null=True, blank=True)
     nmgleba = models.CharField(max_length=80, blank=True)
     tbsubarea = models.ForeignKey('Tbsubarea')
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbgleba'
 
@@ -266,8 +266,8 @@ class Tbservidor(models.Model):
     nmservidor = models.CharField(max_length=100)
     nmunidade = models.CharField(max_length=100)
     nmlotacao = models.CharField(max_length=30)
-    cdsiape = models.CharField(max_length=7, db_column='cdSIAPE') # Field name made lowercase.
-    nrcpf = models.CharField(max_length=11, db_column='nrCPF') # Field name made lowercase.
+    cdsiape = models.CharField(max_length=7) # Field name made lowercase.
+    nrcpf = models.CharField(max_length=11) # Field name made lowercase.
     dsportariacargo = models.CharField(max_length=80)
     dsportaria = models.CharField(max_length=80)
     nmcargo = models.CharField(max_length=40)
@@ -297,7 +297,7 @@ class Tbsituacaoprocesso(models.Model):
 class Tbstatuspendencia(models.Model):
     stpendencia = models.IntegerField(null=True, blank=True)
     dspendencia = models.CharField(max_length=100, blank=True)
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True)
     class Meta:
         db_table = 'tbstatuspendencia'
@@ -305,7 +305,7 @@ class Tbstatuspendencia(models.Model):
 class Tbsubarea(models.Model):
     cdsubarea = models.CharField(max_length=10, blank=True)
     nmsubarea = models.CharField(max_length=80, blank=True)
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True)
     class Meta:
         db_table = 'tbsubarea'
@@ -313,7 +313,7 @@ class Tbsubarea(models.Model):
 class Tbtipocaixa(models.Model):
     nmtipocaixa = models.CharField(max_length=80, blank=True)
     desctipocaixa = models.TextField(blank=True)
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True)
     class Meta:
         db_table = 'tbtipocaixa'
@@ -322,7 +322,7 @@ class Tbtipopendencia(models.Model):
     cdtipopend = models.IntegerField(null=True, blank=True)
     dspendencia = models.CharField(max_length=50, blank=True)
     cdgrupo = models.CharField(max_length=20, blank=True)
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True)
     class Meta:
         db_table = 'tbtipopendencia'

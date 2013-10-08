@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
-from sicop.models import Tbcaixa, Tbtipocaixa
+from sicop.models import Tbcaixa, Tbtipocaixa, AuthUser
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from sicop.forms import FormCaixa
@@ -16,21 +16,19 @@ from urllib import addinfourl
 
 @login_required
 def consulta(request):
-    
     if request.method == "POST":
         nome = request.POST['nmlocalarquivo']
-        lista = Tbcaixa.objects.all().filter( nmlocalarquivo__contains=nome )
+        lista = Tbcaixa.objects.all().filter( nmlocalarquivo__contains=nome, tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     else:
-        lista = Tbcaixa.objects.all()
+        lista = Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     lista = lista.order_by( 'id' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_caixa'] = lista
     return render_to_response('sicop/restrito/caixa/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
-    
 @login_required
 def cadastro(request):
-    tipocaixa = Tbtipocaixa.objects.all()
+    tipocaixa = Tbtipocaixa.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     if request.method == "POST":
         next = request.GET.get('next', '/')
         form = FormCaixa(request.POST)
@@ -47,7 +45,7 @@ def cadastro(request):
 
 @login_required
 def edicao(request, id):
-    tipocaixa = Tbtipocaixa.objects.all()
+    tipocaixa = Tbtipocaixa.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     instance = get_object_or_404(Tbcaixa, id=id)
     if request.method == "POST":
         form = FormCaixa(request.POST,request.FILES,instance=instance)

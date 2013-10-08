@@ -12,11 +12,11 @@
 {% endblock %}
 
 {% block formulario %}
-	<form method="post" action="">
+	<form method="post" action=".">
 		{% csrf_token %}
 		<div style="width:100%;font-size:12px;text-align:left">
 				<table>
-				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td>{{ form.nmsubarea }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td> <input name="nmsubarea" /> </td> </tr>
 				</table>
 		</div>
 		<br />
