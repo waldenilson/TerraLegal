@@ -32,7 +32,7 @@ class AuthPermission(models.Model):
         db_table = 'auth_permission'
 
 class AuthUser(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     password = models.CharField(max_length=128)
     last_login = models.DateTimeField()
     is_superuser = models.BooleanField()
@@ -48,7 +48,7 @@ class AuthUser(models.Model):
         db_table = 'auth_user'
 
 class AuthUserGroups(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(AuthUser)
     group = models.ForeignKey(AuthGroup)
     class Meta:
@@ -142,7 +142,7 @@ class Tbmovimentacao(models.Model):
     tbcaixa = models.ForeignKey(Tbcaixa)
     auth_user = models.ForeignKey(AuthUser)
     nrdias = models.IntegerField(null=True, blank=True)
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbmovimentacao'
 

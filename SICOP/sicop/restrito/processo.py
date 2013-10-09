@@ -96,7 +96,7 @@ def tramitar(request, base):
             # criar registro da movimentacao
             f_movimentacao = Tbmovimentacao(
                                            tbprocessobase = base,
-                                           tbcaixa_id = Tbcaixa.objects.get( pk = caixadestino),
+                                           tbcaixa_id = Tbcaixa.objects.get( pk = caixadestino).id,
                                            tbcaixa_id_origem = caixaorigem,
                                            auth_user = AuthUser.objects.get( pk = request.user.id ),
                                            dtmovimentacao = datetime.datetime.now()
