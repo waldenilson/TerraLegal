@@ -4,7 +4,7 @@
 
 -- Dumped from database version 9.2.4
 -- Dumped by pg_dump version 9.2.4
--- Started on 2013-09-26 16:15:48
+-- Started on 2013-10-09 12:18:12
 
 SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
@@ -13,7 +13,7 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 
 --
--- TOC entry 235 (class 3079 OID 11727)
+-- TOC entry 233 (class 3079 OID 11727)
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
 --
 
@@ -21,8 +21,8 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- TOC entry 2365 (class 0 OID 0)
--- Dependencies: 235
+-- TOC entry 2374 (class 0 OID 0)
+-- Dependencies: 233
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
 
@@ -64,7 +64,7 @@ CREATE SEQUENCE auth_group_id_seq
 ALTER TABLE public.auth_group_id_seq OWNER TO admin;
 
 --
--- TOC entry 2366 (class 0 OID 0)
+-- TOC entry 2375 (class 0 OID 0)
 -- Dependencies: 169
 -- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -102,7 +102,7 @@ CREATE SEQUENCE auth_group_permissions_id_seq
 ALTER TABLE public.auth_group_permissions_id_seq OWNER TO admin;
 
 --
--- TOC entry 2367 (class 0 OID 0)
+-- TOC entry 2376 (class 0 OID 0)
 -- Dependencies: 171
 -- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -141,7 +141,7 @@ CREATE SEQUENCE auth_permission_id_seq
 ALTER TABLE public.auth_permission_id_seq OWNER TO admin;
 
 --
--- TOC entry 2368 (class 0 OID 0)
+-- TOC entry 2377 (class 0 OID 0)
 -- Dependencies: 173
 -- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -202,7 +202,7 @@ CREATE SEQUENCE auth_user_groups_id_seq
 ALTER TABLE public.auth_user_groups_id_seq OWNER TO admin;
 
 --
--- TOC entry 2369 (class 0 OID 0)
+-- TOC entry 2378 (class 0 OID 0)
 -- Dependencies: 176
 -- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -226,7 +226,7 @@ CREATE SEQUENCE auth_user_id_seq
 ALTER TABLE public.auth_user_id_seq OWNER TO admin;
 
 --
--- TOC entry 2370 (class 0 OID 0)
+-- TOC entry 2379 (class 0 OID 0)
 -- Dependencies: 177
 -- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -264,7 +264,7 @@ CREATE SEQUENCE auth_user_user_permissions_id_seq
 ALTER TABLE public.auth_user_user_permissions_id_seq OWNER TO admin;
 
 --
--- TOC entry 2371 (class 0 OID 0)
+-- TOC entry 2380 (class 0 OID 0)
 -- Dependencies: 179
 -- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -303,7 +303,7 @@ CREATE SEQUENCE divisao_id_seq
 ALTER TABLE public.divisao_id_seq OWNER TO admin;
 
 --
--- TOC entry 2372 (class 0 OID 0)
+-- TOC entry 2381 (class 0 OID 0)
 -- Dependencies: 181
 -- Name: divisao_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -347,7 +347,7 @@ CREATE SEQUENCE django_admin_log_id_seq
 ALTER TABLE public.django_admin_log_id_seq OWNER TO admin;
 
 --
--- TOC entry 2373 (class 0 OID 0)
+-- TOC entry 2382 (class 0 OID 0)
 -- Dependencies: 183
 -- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -386,7 +386,7 @@ CREATE SEQUENCE django_content_type_id_seq
 ALTER TABLE public.django_content_type_id_seq OWNER TO admin;
 
 --
--- TOC entry 2374 (class 0 OID 0)
+-- TOC entry 2383 (class 0 OID 0)
 -- Dependencies: 185
 -- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -438,7 +438,7 @@ CREATE SEQUENCE django_site_id_seq
 ALTER TABLE public.django_site_id_seq OWNER TO admin;
 
 --
--- TOC entry 2375 (class 0 OID 0)
+-- TOC entry 2384 (class 0 OID 0)
 -- Dependencies: 188
 -- Name: django_site_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -478,7 +478,7 @@ CREATE SEQUENCE tbcaixa_id_seq
 ALTER TABLE public.tbcaixa_id_seq OWNER TO admin;
 
 --
--- TOC entry 2376 (class 0 OID 0)
+-- TOC entry 2385 (class 0 OID 0)
 -- Dependencies: 190
 -- Name: tbcaixa_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -493,7 +493,8 @@ ALTER SEQUENCE tbcaixa_id_seq OWNED BY tbcaixa.id;
 
 CREATE TABLE tbclassificacaoprocesso (
     nmclassificacao character varying(80),
-    id integer NOT NULL
+    id integer NOT NULL,
+    tbdivisao_id integer
 );
 
 
@@ -515,7 +516,7 @@ CREATE SEQUENCE tbclassificacaoprocesso_id_seq
 ALTER TABLE public.tbclassificacaoprocesso_id_seq OWNER TO admin;
 
 --
--- TOC entry 2377 (class 0 OID 0)
+-- TOC entry 2386 (class 0 OID 0)
 -- Dependencies: 192
 -- Name: tbclassificacaoprocesso_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -531,7 +532,8 @@ ALTER SEQUENCE tbclassificacaoprocesso_id_seq OWNED BY tbclassificacaoprocesso.i
 CREATE TABLE tbcontrato (
     nrcontrato character varying(10),
     nmempresa character varying(100),
-    id integer NOT NULL
+    id integer NOT NULL,
+    tbdivisao_id integer
 );
 
 
@@ -553,7 +555,7 @@ CREATE SEQUENCE tbcontrato_id_seq
 ALTER TABLE public.tbcontrato_id_seq OWNER TO admin;
 
 --
--- TOC entry 2378 (class 0 OID 0)
+-- TOC entry 2387 (class 0 OID 0)
 -- Dependencies: 194
 -- Name: tbcontrato_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -592,7 +594,7 @@ CREATE SEQUENCE tbgleba_id_seq
 ALTER TABLE public.tbgleba_id_seq OWNER TO admin;
 
 --
--- TOC entry 2379 (class 0 OID 0)
+-- TOC entry 2388 (class 0 OID 0)
 -- Dependencies: 196
 -- Name: tbgleba_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -634,7 +636,7 @@ CREATE SEQUENCE tbmovimentacao_id_seq
 ALTER TABLE public.tbmovimentacao_id_seq OWNER TO admin;
 
 --
--- TOC entry 2380 (class 0 OID 0)
+-- TOC entry 2389 (class 0 OID 0)
 -- Dependencies: 198
 -- Name: tbmovimentacao_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -681,55 +683,12 @@ CREATE SEQUENCE tbmunicipio_id_seq
 ALTER TABLE public.tbmunicipio_id_seq OWNER TO admin;
 
 --
--- TOC entry 2381 (class 0 OID 0)
+-- TOC entry 2390 (class 0 OID 0)
 -- Dependencies: 200
 -- Name: tbmunicipio_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
 ALTER SEQUENCE tbmunicipio_id_seq OWNED BY tbmunicipio.id;
-
-
---
--- TOC entry 234 (class 1259 OID 39938)
--- Name: tbmunicipiomodulo; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
---
-
-CREATE TABLE tbmunicipiomodulo (
-    id integer NOT NULL,
-    tbmunicipio_id integer NOT NULL,
-    nrcodigo character varying(10) NOT NULL,
-    nrmodulorural integer,
-    cdibge character varying(7) NOT NULL,
-    cdpostal character varying(10) NOT NULL,
-    nrmodulofiscal integer,
-    nrfracaominima integer
-);
-
-
-ALTER TABLE public.tbmunicipiomodulo OWNER TO admin;
-
---
--- TOC entry 233 (class 1259 OID 39936)
--- Name: tbmunicipiomodulo_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
---
-
-CREATE SEQUENCE tbmunicipiomodulo_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.tbmunicipiomodulo_id_seq OWNER TO admin;
-
---
--- TOC entry 2382 (class 0 OID 0)
--- Dependencies: 233
--- Name: tbmunicipiomodulo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
---
-
-ALTER SEQUENCE tbmunicipiomodulo_id_seq OWNED BY tbmunicipiomodulo.id;
 
 
 --
@@ -751,7 +710,8 @@ CREATE TABLE tbpecastecnicas (
     nrarea numeric(10,4),
     nrperimetro numeric(18,4),
     tbgleba_id integer NOT NULL,
-    id integer NOT NULL
+    id integer NOT NULL,
+    tbdivisao_id integer
 );
 
 
@@ -773,7 +733,7 @@ CREATE SEQUENCE tbpecastecnicas_id_seq
 ALTER TABLE public.tbpecastecnicas_id_seq OWNER TO admin;
 
 --
--- TOC entry 2383 (class 0 OID 0)
+-- TOC entry 2391 (class 0 OID 0)
 -- Dependencies: 202
 -- Name: tbpecastecnicas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -816,7 +776,7 @@ CREATE SEQUENCE tbpendencia_id_seq
 ALTER TABLE public.tbpendencia_id_seq OWNER TO admin;
 
 --
--- TOC entry 2384 (class 0 OID 0)
+-- TOC entry 2392 (class 0 OID 0)
 -- Dependencies: 204
 -- Name: tbpendencia_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -859,7 +819,7 @@ CREATE SEQUENCE tbprocesso_id_seq
 ALTER TABLE public.tbprocesso_id_seq OWNER TO admin;
 
 --
--- TOC entry 2385 (class 0 OID 0)
+-- TOC entry 2393 (class 0 OID 0)
 -- Dependencies: 206
 -- Name: tbprocesso_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -882,7 +842,8 @@ CREATE TABLE tbprocessobase (
     id integer NOT NULL,
     tbsituacaoprocesso_id integer,
     dtcadastrosistema timestamp without time zone,
-    tbclassificacaoprocesso_id integer
+    tbclassificacaoprocesso_id integer,
+    tbdivisao_id integer
 );
 
 
@@ -904,7 +865,7 @@ CREATE SEQUENCE tbprocessobase_id_seq
 ALTER TABLE public.tbprocessobase_id_seq OWNER TO admin;
 
 --
--- TOC entry 2386 (class 0 OID 0)
+-- TOC entry 2394 (class 0 OID 0)
 -- Dependencies: 208
 -- Name: tbprocessobase_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -950,7 +911,7 @@ CREATE SEQUENCE tbprocessoclausula_id_seq
 ALTER TABLE public.tbprocessoclausula_id_seq OWNER TO admin;
 
 --
--- TOC entry 2387 (class 0 OID 0)
+-- TOC entry 2395 (class 0 OID 0)
 -- Dependencies: 210
 -- Name: tbprocessoclausula_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -990,7 +951,7 @@ CREATE SEQUENCE tbprocessosanexos_id_seq
 ALTER TABLE public.tbprocessosanexos_id_seq OWNER TO admin;
 
 --
--- TOC entry 2388 (class 0 OID 0)
+-- TOC entry 2396 (class 0 OID 0)
 -- Dependencies: 212
 -- Name: tbprocessosanexos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -1038,7 +999,7 @@ CREATE SEQUENCE tbprocessourbano_id_seq
 ALTER TABLE public.tbprocessourbano_id_seq OWNER TO admin;
 
 --
--- TOC entry 2389 (class 0 OID 0)
+-- TOC entry 2397 (class 0 OID 0)
 -- Dependencies: 214
 -- Name: tbprocessourbano_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -1057,8 +1018,8 @@ CREATE TABLE tbservidor (
     nmservidor character varying(100) NOT NULL,
     nmunidade character varying(100) NOT NULL,
     nmlotacao character varying(30) NOT NULL,
-    "cdSIAPE" character varying(7) NOT NULL,
-    "nrCPF" character varying(11) NOT NULL,
+    cdsiape character varying(7) NOT NULL,
+    nrcpf character varying(11) NOT NULL,
     dsportariacargo character varying(80) NOT NULL,
     dsportaria character varying(80) NOT NULL,
     nmcargo character varying(40) NOT NULL,
@@ -1087,7 +1048,7 @@ CREATE SEQUENCE tbservidor_id_seq
 ALTER TABLE public.tbservidor_id_seq OWNER TO admin;
 
 --
--- TOC entry 2390 (class 0 OID 0)
+-- TOC entry 2398 (class 0 OID 0)
 -- Dependencies: 216
 -- Name: tbservidor_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -1103,7 +1064,8 @@ ALTER SEQUENCE tbservidor_id_seq OWNED BY tbservidor.id;
 CREATE TABLE tbsituacaogeo (
     id integer NOT NULL,
     nmsituacaogeo character varying(80),
-    dssituacaogeo text
+    dssituacaogeo text,
+    tbdivisao_id integer
 );
 
 
@@ -1125,7 +1087,7 @@ CREATE SEQUENCE tbsituacaogeo_id_seq
 ALTER TABLE public.tbsituacaogeo_id_seq OWNER TO admin;
 
 --
--- TOC entry 2391 (class 0 OID 0)
+-- TOC entry 2399 (class 0 OID 0)
 -- Dependencies: 218
 -- Name: tbsituacaogeo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -1141,7 +1103,8 @@ ALTER SEQUENCE tbsituacaogeo_id_seq OWNED BY tbsituacaogeo.id;
 CREATE TABLE tbsituacaoprocesso (
     nmsituacao character varying(80),
     id integer NOT NULL,
-    dssituacao text
+    dssituacao text,
+    tbdivisao_id integer
 );
 
 
@@ -1163,7 +1126,7 @@ CREATE SEQUENCE tbsituacaoprocesso_id_seq
 ALTER TABLE public.tbsituacaoprocesso_id_seq OWNER TO admin;
 
 --
--- TOC entry 2392 (class 0 OID 0)
+-- TOC entry 2400 (class 0 OID 0)
 -- Dependencies: 220
 -- Name: tbsituacaoprocesso_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -1179,7 +1142,8 @@ ALTER SEQUENCE tbsituacaoprocesso_id_seq OWNED BY tbsituacaoprocesso.id;
 CREATE TABLE tbstatuspendencia (
     stpendencia integer,
     dspendencia character varying(100),
-    id integer NOT NULL
+    id integer NOT NULL,
+    tbdivisao_id integer
 );
 
 
@@ -1201,7 +1165,7 @@ CREATE SEQUENCE tbstatuspendencia_id_seq
 ALTER TABLE public.tbstatuspendencia_id_seq OWNER TO admin;
 
 --
--- TOC entry 2393 (class 0 OID 0)
+-- TOC entry 2401 (class 0 OID 0)
 -- Dependencies: 222
 -- Name: tbstatuspendencia_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -1217,7 +1181,8 @@ ALTER SEQUENCE tbstatuspendencia_id_seq OWNED BY tbstatuspendencia.id;
 CREATE TABLE tbsubarea (
     cdsubarea character varying(10),
     nmsubarea character varying(80),
-    id integer NOT NULL
+    id integer NOT NULL,
+    tbdivisao_id integer
 );
 
 
@@ -1239,7 +1204,7 @@ CREATE SEQUENCE tbsubarea_id_seq
 ALTER TABLE public.tbsubarea_id_seq OWNER TO admin;
 
 --
--- TOC entry 2394 (class 0 OID 0)
+-- TOC entry 2402 (class 0 OID 0)
 -- Dependencies: 224
 -- Name: tbsubarea_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -1255,7 +1220,8 @@ ALTER SEQUENCE tbsubarea_id_seq OWNED BY tbsubarea.id;
 CREATE TABLE tbtipocaixa (
     nmtipocaixa character varying(80),
     desctipocaixa text,
-    id integer NOT NULL
+    id integer NOT NULL,
+    tbdivisao_id integer
 );
 
 
@@ -1277,7 +1243,7 @@ CREATE SEQUENCE tbtipocaixa_id_seq
 ALTER TABLE public.tbtipocaixa_id_seq OWNER TO admin;
 
 --
--- TOC entry 2395 (class 0 OID 0)
+-- TOC entry 2403 (class 0 OID 0)
 -- Dependencies: 226
 -- Name: tbtipocaixa_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -1294,7 +1260,8 @@ CREATE TABLE tbtipopendencia (
     cdtipopend integer,
     dspendencia character varying(50),
     cdgrupo character varying(20),
-    id integer NOT NULL
+    id integer NOT NULL,
+    tbdivisao_id integer
 );
 
 
@@ -1316,7 +1283,7 @@ CREATE SEQUENCE tbtipopendencia_id_seq
 ALTER TABLE public.tbtipopendencia_id_seq OWNER TO admin;
 
 --
--- TOC entry 2396 (class 0 OID 0)
+-- TOC entry 2404 (class 0 OID 0)
 -- Dependencies: 228
 -- Name: tbtipopendencia_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -1333,7 +1300,8 @@ CREATE TABLE tbtipoprocesso (
     nome character varying(80),
     tabela character varying(50),
     id integer NOT NULL,
-    coridentificacao character varying(20)
+    coridentificacao character varying(20),
+    tbdivisao_id integer
 );
 
 
@@ -1355,7 +1323,7 @@ CREATE SEQUENCE tbtipoprocesso_id_seq
 ALTER TABLE public.tbtipoprocesso_id_seq OWNER TO admin;
 
 --
--- TOC entry 2397 (class 0 OID 0)
+-- TOC entry 2405 (class 0 OID 0)
 -- Dependencies: 230
 -- Name: tbtipoprocesso_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -1393,7 +1361,7 @@ CREATE SEQUENCE tbuf_id_seq
 ALTER TABLE public.tbuf_id_seq OWNER TO admin;
 
 --
--- TOC entry 2398 (class 0 OID 0)
+-- TOC entry 2406 (class 0 OID 0)
 -- Dependencies: 232
 -- Name: tbuf_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -1402,7 +1370,7 @@ ALTER SEQUENCE tbuf_id_seq OWNED BY tbuf.id;
 
 
 --
--- TOC entry 2122 (class 2604 OID 38425)
+-- TOC entry 2116 (class 2604 OID 38425)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1410,7 +1378,7 @@ ALTER TABLE ONLY auth_group ALTER COLUMN id SET DEFAULT nextval('auth_group_id_s
 
 
 --
--- TOC entry 2123 (class 2604 OID 38426)
+-- TOC entry 2117 (class 2604 OID 38426)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1418,7 +1386,7 @@ ALTER TABLE ONLY auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('aut
 
 
 --
--- TOC entry 2124 (class 2604 OID 38427)
+-- TOC entry 2118 (class 2604 OID 38427)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1426,7 +1394,7 @@ ALTER TABLE ONLY auth_permission ALTER COLUMN id SET DEFAULT nextval('auth_permi
 
 
 --
--- TOC entry 2125 (class 2604 OID 38428)
+-- TOC entry 2119 (class 2604 OID 38428)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1434,7 +1402,7 @@ ALTER TABLE ONLY auth_user ALTER COLUMN id SET DEFAULT nextval('auth_user_id_seq
 
 
 --
--- TOC entry 2126 (class 2604 OID 38429)
+-- TOC entry 2120 (class 2604 OID 38429)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1442,7 +1410,7 @@ ALTER TABLE ONLY auth_user_groups ALTER COLUMN id SET DEFAULT nextval('auth_user
 
 
 --
--- TOC entry 2127 (class 2604 OID 38430)
+-- TOC entry 2121 (class 2604 OID 38430)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1450,7 +1418,7 @@ ALTER TABLE ONLY auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
--- TOC entry 2129 (class 2604 OID 38431)
+-- TOC entry 2123 (class 2604 OID 38431)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1458,7 +1426,7 @@ ALTER TABLE ONLY django_admin_log ALTER COLUMN id SET DEFAULT nextval('django_ad
 
 
 --
--- TOC entry 2131 (class 2604 OID 38432)
+-- TOC entry 2125 (class 2604 OID 38432)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1466,7 +1434,7 @@ ALTER TABLE ONLY django_content_type ALTER COLUMN id SET DEFAULT nextval('django
 
 
 --
--- TOC entry 2132 (class 2604 OID 38433)
+-- TOC entry 2126 (class 2604 OID 38433)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1474,7 +1442,7 @@ ALTER TABLE ONLY django_site ALTER COLUMN id SET DEFAULT nextval('django_site_id
 
 
 --
--- TOC entry 2133 (class 2604 OID 38434)
+-- TOC entry 2127 (class 2604 OID 38434)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1482,7 +1450,7 @@ ALTER TABLE ONLY tbcaixa ALTER COLUMN id SET DEFAULT nextval('tbcaixa_id_seq'::r
 
 
 --
--- TOC entry 2134 (class 2604 OID 38435)
+-- TOC entry 2128 (class 2604 OID 38435)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1490,7 +1458,7 @@ ALTER TABLE ONLY tbclassificacaoprocesso ALTER COLUMN id SET DEFAULT nextval('tb
 
 
 --
--- TOC entry 2135 (class 2604 OID 38436)
+-- TOC entry 2129 (class 2604 OID 38436)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1498,7 +1466,7 @@ ALTER TABLE ONLY tbcontrato ALTER COLUMN id SET DEFAULT nextval('tbcontrato_id_s
 
 
 --
--- TOC entry 2128 (class 2604 OID 38437)
+-- TOC entry 2122 (class 2604 OID 38437)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1506,7 +1474,7 @@ ALTER TABLE ONLY tbdivisao ALTER COLUMN id SET DEFAULT nextval('divisao_id_seq':
 
 
 --
--- TOC entry 2136 (class 2604 OID 38438)
+-- TOC entry 2130 (class 2604 OID 38438)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1514,7 +1482,7 @@ ALTER TABLE ONLY tbgleba ALTER COLUMN id SET DEFAULT nextval('tbgleba_id_seq'::r
 
 
 --
--- TOC entry 2137 (class 2604 OID 38439)
+-- TOC entry 2131 (class 2604 OID 38439)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1522,7 +1490,7 @@ ALTER TABLE ONLY tbmovimentacao ALTER COLUMN id SET DEFAULT nextval('tbmovimenta
 
 
 --
--- TOC entry 2138 (class 2604 OID 38440)
+-- TOC entry 2132 (class 2604 OID 38440)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1530,15 +1498,7 @@ ALTER TABLE ONLY tbmunicipio ALTER COLUMN id SET DEFAULT nextval('tbmunicipio_id
 
 
 --
--- TOC entry 2158 (class 2604 OID 39941)
--- Name: id; Type: DEFAULT; Schema: public; Owner: admin
---
-
-ALTER TABLE ONLY tbmunicipiomodulo ALTER COLUMN id SET DEFAULT nextval('tbmunicipiomodulo_id_seq'::regclass);
-
-
---
--- TOC entry 2142 (class 2604 OID 38442)
+-- TOC entry 2136 (class 2604 OID 38442)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1546,7 +1506,7 @@ ALTER TABLE ONLY tbpecastecnicas ALTER COLUMN id SET DEFAULT nextval('tbpecastec
 
 
 --
--- TOC entry 2143 (class 2604 OID 38443)
+-- TOC entry 2137 (class 2604 OID 38443)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1554,7 +1514,7 @@ ALTER TABLE ONLY tbpendencia ALTER COLUMN id SET DEFAULT nextval('tbpendencia_id
 
 
 --
--- TOC entry 2145 (class 2604 OID 38444)
+-- TOC entry 2139 (class 2604 OID 38444)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1562,7 +1522,7 @@ ALTER TABLE ONLY tbprocessobase ALTER COLUMN id SET DEFAULT nextval('tbprocessob
 
 
 --
--- TOC entry 2146 (class 2604 OID 38445)
+-- TOC entry 2140 (class 2604 OID 38445)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1570,7 +1530,7 @@ ALTER TABLE ONLY tbprocessoclausula ALTER COLUMN id SET DEFAULT nextval('tbproce
 
 
 --
--- TOC entry 2144 (class 2604 OID 38446)
+-- TOC entry 2138 (class 2604 OID 38446)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1578,7 +1538,7 @@ ALTER TABLE ONLY tbprocessorural ALTER COLUMN id SET DEFAULT nextval('tbprocesso
 
 
 --
--- TOC entry 2147 (class 2604 OID 38447)
+-- TOC entry 2141 (class 2604 OID 38447)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1586,7 +1546,7 @@ ALTER TABLE ONLY tbprocessosanexos ALTER COLUMN id SET DEFAULT nextval('tbproces
 
 
 --
--- TOC entry 2148 (class 2604 OID 38448)
+-- TOC entry 2142 (class 2604 OID 38448)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1594,7 +1554,7 @@ ALTER TABLE ONLY tbprocessourbano ALTER COLUMN id SET DEFAULT nextval('tbprocess
 
 
 --
--- TOC entry 2149 (class 2604 OID 38449)
+-- TOC entry 2143 (class 2604 OID 38449)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1602,7 +1562,7 @@ ALTER TABLE ONLY tbservidor ALTER COLUMN id SET DEFAULT nextval('tbservidor_id_s
 
 
 --
--- TOC entry 2150 (class 2604 OID 38450)
+-- TOC entry 2144 (class 2604 OID 38450)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1610,7 +1570,7 @@ ALTER TABLE ONLY tbsituacaogeo ALTER COLUMN id SET DEFAULT nextval('tbsituacaoge
 
 
 --
--- TOC entry 2151 (class 2604 OID 38451)
+-- TOC entry 2145 (class 2604 OID 38451)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1618,7 +1578,7 @@ ALTER TABLE ONLY tbsituacaoprocesso ALTER COLUMN id SET DEFAULT nextval('tbsitua
 
 
 --
--- TOC entry 2152 (class 2604 OID 38452)
+-- TOC entry 2146 (class 2604 OID 38452)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1626,7 +1586,7 @@ ALTER TABLE ONLY tbstatuspendencia ALTER COLUMN id SET DEFAULT nextval('tbstatus
 
 
 --
--- TOC entry 2153 (class 2604 OID 38453)
+-- TOC entry 2147 (class 2604 OID 38453)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1634,7 +1594,7 @@ ALTER TABLE ONLY tbsubarea ALTER COLUMN id SET DEFAULT nextval('tbsubarea_id_seq
 
 
 --
--- TOC entry 2154 (class 2604 OID 38454)
+-- TOC entry 2148 (class 2604 OID 38454)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1642,7 +1602,7 @@ ALTER TABLE ONLY tbtipocaixa ALTER COLUMN id SET DEFAULT nextval('tbtipocaixa_id
 
 
 --
--- TOC entry 2155 (class 2604 OID 38455)
+-- TOC entry 2149 (class 2604 OID 38455)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1650,7 +1610,7 @@ ALTER TABLE ONLY tbtipopendencia ALTER COLUMN id SET DEFAULT nextval('tbtipopend
 
 
 --
--- TOC entry 2156 (class 2604 OID 38456)
+-- TOC entry 2150 (class 2604 OID 38456)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1658,7 +1618,7 @@ ALTER TABLE ONLY tbtipoprocesso ALTER COLUMN id SET DEFAULT nextval('tbtipoproce
 
 
 --
--- TOC entry 2157 (class 2604 OID 38457)
+-- TOC entry 2151 (class 2604 OID 38457)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1666,7 +1626,7 @@ ALTER TABLE ONLY tbuf ALTER COLUMN id SET DEFAULT nextval('tbuf_id_seq'::regclas
 
 
 --
--- TOC entry 2291 (class 0 OID 38223)
+-- TOC entry 2302 (class 0 OID 38223)
 -- Dependencies: 168
 -- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -1680,7 +1640,7 @@ INSERT INTO auth_group (id, name) VALUES (6, 'Outros');
 
 
 --
--- TOC entry 2399 (class 0 OID 0)
+-- TOC entry 2407 (class 0 OID 0)
 -- Dependencies: 169
 -- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1689,7 +1649,7 @@ SELECT pg_catalog.setval('auth_group_id_seq', 6, true);
 
 
 --
--- TOC entry 2293 (class 0 OID 38228)
+-- TOC entry 2304 (class 0 OID 38228)
 -- Dependencies: 170
 -- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -1987,7 +1947,7 @@ INSERT INTO auth_group_permissions (id, group_id, permission_id) VALUES (395, 2,
 
 
 --
--- TOC entry 2400 (class 0 OID 0)
+-- TOC entry 2408 (class 0 OID 0)
 -- Dependencies: 171
 -- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1996,7 +1956,7 @@ SELECT pg_catalog.setval('auth_group_permissions_id_seq', 395, true);
 
 
 --
--- TOC entry 2295 (class 0 OID 38233)
+-- TOC entry 2306 (class 0 OID 38233)
 -- Dependencies: 172
 -- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -2225,7 +2185,7 @@ INSERT INTO auth_permission (id, name, content_type_id, codename) VALUES (241, '
 
 
 --
--- TOC entry 2401 (class 0 OID 0)
+-- TOC entry 2409 (class 0 OID 0)
 -- Dependencies: 173
 -- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -2234,40 +2194,39 @@ SELECT pg_catalog.setval('auth_permission_id_seq', 241, true);
 
 
 --
--- TOC entry 2297 (class 0 OID 38238)
+-- TOC entry 2308 (class 0 OID 38238)
 -- Dependencies: 174
 -- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, tbdivisao_id) VALUES (4, 'pbkdf2_sha256$10000$eIwo6BZ6vcM3$9NGMv+jLapX2QQebVlQXXrvonvPW9uxHc7ftCTTs0JE=', '2013-09-18 11:40:31.216-03', true, 'walpara', 'waldenilson_para', 'para', 'walpara@gmail.com', true, true, '2013-09-18 00:00:00-03', 2);
-INSERT INTO auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, tbdivisao_id) VALUES (5, 'pbkdf2_sha256$10000$pdB0pOSHt5o8$8mA21CRXUbFYn/dlAhAaBKEGRGqoMDkncdm9+qPzfjI=', '2013-09-24 10:29:44.694-03', true, 'joaomaria', 'Joao', 'Maria', 'jm@gmail.com', true, true, '2013-09-20 11:22:12.192-03', 7);
-INSERT INTO auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, tbdivisao_id) VALUES (1, 'pbkdf2_sha256$10000$eIwo6BZ6vcM3$9NGMv+jLapX2QQebVlQXXrvonvPW9uxHc7ftCTTs0JE=', '2013-09-25 10:00:29.869-03', true, 'admin', 'administrador', 'Sistema', 'wal.denilson@hotmail.com', true, true, '2013-07-11 09:19:56-03', 1);
-INSERT INTO auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, tbdivisao_id) VALUES (2, 'pbkdf2_sha256$10000$ZAqi7VPChmLo$2TCGB8En3TznyZciU3oa1nZNEDnjOHSwm7FMSdK/qck=', '2013-09-20 12:12:33.562-03', true, 'waldenilson', 'Waldenilson', 'Novaes', 'waldenilsonnovaes@gmail.com', true, true, '2013-08-05 12:07:59-03', 1);
+INSERT INTO auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, tbdivisao_id) VALUES (4, 'pbkdf2_sha256$10000$uSUCLDY0J1GS$guvkKJqrtCqyamA5Afn3WfUZT9OAemmoZDVYOAzBhsY=', '2013-10-08 09:59:35.865-03', true, 'walpara', 'waldenilson_para', 'para', 'walpara@gmail.com', true, true, '2013-09-18 00:00:00-03', 2);
+INSERT INTO auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, tbdivisao_id) VALUES (2, 'pbkdf2_sha256$10000$ZAqi7VPChmLo$2TCGB8En3TznyZciU3oa1nZNEDnjOHSwm7FMSdK/qck=', '2013-10-09 10:39:55.656-03', true, 'waldenilson', 'Waldenilson', 'Novaes', 'waldenilsonnovaes@gmail.com', true, true, '2013-08-05 12:07:59-03', 1);
+INSERT INTO auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, tbdivisao_id) VALUES (5, 'pbkdf2_sha256$10000$pdB0pOSHt5o8$8mA21CRXUbFYn/dlAhAaBKEGRGqoMDkncdm9+qPzfjI=', '2013-10-09 11:22:33.011-03', true, 'joaomaria', 'Joao', 'Maria', 'jm@gmail.com', true, true, '2013-09-20 11:22:12.192-03', 7);
+INSERT INTO auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, tbdivisao_id) VALUES (1, 'pbkdf2_sha256$10000$eIwo6BZ6vcM3$9NGMv+jLapX2QQebVlQXXrvonvPW9uxHc7ftCTTs0JE=', '2013-10-09 11:36:16.793-03', true, 'admin', 'administrador', 'Sistema', 'wal.denilson@hotmail.com', true, true, '2013-07-11 09:19:56-03', 1);
 
 
 --
--- TOC entry 2298 (class 0 OID 38241)
+-- TOC entry 2309 (class 0 OID 38241)
 -- Dependencies: 175
 -- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO auth_user_groups (id, user_id, group_id) VALUES (1, 2, 2);
-INSERT INTO auth_user_groups (id, user_id, group_id) VALUES (4, 2, 1);
 INSERT INTO auth_user_groups (id, user_id, group_id) VALUES (7, 1, 1);
 INSERT INTO auth_user_groups (id, user_id, group_id) VALUES (9, 5, 2);
+INSERT INTO auth_user_groups (id, user_id, group_id) VALUES (10, 2, 1);
 
 
 --
--- TOC entry 2402 (class 0 OID 0)
+-- TOC entry 2410 (class 0 OID 0)
 -- Dependencies: 176
 -- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('auth_user_groups_id_seq', 9, true);
+SELECT pg_catalog.setval('auth_user_groups_id_seq', 10, true);
 
 
 --
--- TOC entry 2403 (class 0 OID 0)
+-- TOC entry 2411 (class 0 OID 0)
 -- Dependencies: 177
 -- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -2276,7 +2235,7 @@ SELECT pg_catalog.setval('auth_user_id_seq', 5, true);
 
 
 --
--- TOC entry 2301 (class 0 OID 38248)
+-- TOC entry 2312 (class 0 OID 38248)
 -- Dependencies: 178
 -- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -2284,7 +2243,7 @@ SELECT pg_catalog.setval('auth_user_id_seq', 5, true);
 
 
 --
--- TOC entry 2404 (class 0 OID 0)
+-- TOC entry 2412 (class 0 OID 0)
 -- Dependencies: 179
 -- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -2293,7 +2252,7 @@ SELECT pg_catalog.setval('auth_user_user_permissions_id_seq', 4, true);
 
 
 --
--- TOC entry 2405 (class 0 OID 0)
+-- TOC entry 2413 (class 0 OID 0)
 -- Dependencies: 181
 -- Name: divisao_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -2302,7 +2261,7 @@ SELECT pg_catalog.setval('divisao_id_seq', 7, true);
 
 
 --
--- TOC entry 2305 (class 0 OID 38261)
+-- TOC entry 2316 (class 0 OID 38261)
 -- Dependencies: 182
 -- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -2349,7 +2308,7 @@ INSERT INTO django_admin_log (id, action_time, user_id, content_type_id, object_
 
 
 --
--- TOC entry 2406 (class 0 OID 0)
+-- TOC entry 2414 (class 0 OID 0)
 -- Dependencies: 183
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -2358,7 +2317,7 @@ SELECT pg_catalog.setval('django_admin_log_id_seq', 39, true);
 
 
 --
--- TOC entry 2307 (class 0 OID 38270)
+-- TOC entry 2318 (class 0 OID 38270)
 -- Dependencies: 184
 -- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -2439,7 +2398,7 @@ INSERT INTO django_content_type (id, name, app_label, model) VALUES (113, 'tbuf'
 
 
 --
--- TOC entry 2407 (class 0 OID 0)
+-- TOC entry 2415 (class 0 OID 0)
 -- Dependencies: 185
 -- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -2448,7 +2407,7 @@ SELECT pg_catalog.setval('django_content_type_id_seq', 113, true);
 
 
 --
--- TOC entry 2309 (class 0 OID 38275)
+-- TOC entry 2320 (class 0 OID 38275)
 -- Dependencies: 186
 -- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -2461,12 +2420,13 @@ INSERT INTO django_session (session_key, session_data, expire_date) VALUES ('a5c
 INSERT INTO django_session (session_key, session_data, expire_date) VALUES ('ato8d3lkjj1ew86qp0xdg1xw48muv1up', 'ODkwM2I0YWFmNmM3NzcxYTRkYjQwODY0MTY3NjM3ZmFlMzQ1M2U1MDqAAn1xAShVEl9hdXRoX3VzZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHEDVQ1fYXV0aF91c2VyX2lkcQRLAXUu', '2013-09-16 11:46:55.66-03');
 INSERT INTO django_session (session_key, session_data, expire_date) VALUES ('n8zecvucuujk2f6oc930v05akzmp5z7c', 'ODkwM2I0YWFmNmM3NzcxYTRkYjQwODY0MTY3NjM3ZmFlMzQ1M2U1MDqAAn1xAShVEl9hdXRoX3VzZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHEDVQ1fYXV0aF91c2VyX2lkcQRLAXUu', '2013-10-02 05:48:16.390405-03');
 INSERT INTO django_session (session_key, session_data, expire_date) VALUES ('xj33j7a4ne4g5u8py20pk2bd826jm67g', 'ZTAzZTdhNTc3MDEwOGZmOGU0MzUyZmVjYTdlMGVjZjE1YTEzYWU0YjqAAn1xAShVEnJlbGF0b3Jpb19wcm9jZXNzb3ECY2RqYW5nby5kYi5tb2RlbHMucXVlcnkKUXVlcnlTZXQKcQMpgXEEfXEFKFUFX2l0ZXJxBk5VGV9wcmVmZXRjaF9yZWxhdGVkX2xvb2t1cHNxB11xCFUOX3N0aWNreV9maWx0ZXJxCYlVA19kYnEKTlUNX3Jlc3VsdF9jYWNoZXELXXEMY2NvcHlfcmVnCl9yZWNvbnN0cnVjdG9yCnENY3NpY29wLm1vZGVscwpUYnByb2Nlc3NvYmFzZQpxDmNfX2J1aWx0aW5fXwpvYmplY3QKcQ9Oh1JxEH1xEShVGV90YnNpdHVhY2FvcHJvY2Vzc29fY2FjaGVxEmgNY3NpY29wLm1vZGVscwpUYnNpdHVhY2FvcHJvY2Vzc28KcRNoD06HUnEUfXEVKFUKbm1zaXR1YWNhb3EWWBMAAABBZ3VhcmRhbmRvIHZpc3RvcmlhVQpkc3NpdHVhY2FvcRdYFAAAAGFndWFyZGFuZG8gdmlzdG9yaWEuVQZfc3RhdGVxGGNkamFuZ28uZGIubW9kZWxzLmJhc2UKTW9kZWxTdGF0ZQpxGSmBcRp9cRsoVQZhZGRpbmdxHIlVAmRicR1VB2RlZmF1bHRxHnViVQJpZHEfSwN1YlUMYXV0aF91c2VyX2lkcSBLAVUOX3RiY2FpeGFfY2FjaGVxIWgNY3NpY29wLm1vZGVscwpUYmNhaXhhCnEiaA9Oh1JxI31xJChVDnRidGlwb2NhaXhhX2lkcSVLAVUMcXRkcHJvY2Vzc29zcSZOVQ5ubWxvY2FsYXJxdWl2b3EnWAIAAAAwOGgYaBkpgXEofXEpKGgciWgdaB51YmgfSwR1YlURdGJ0aXBvcHJvY2Vzc29faWRxKksBVRJfdGJtdW5pY2lwaW9fY2FjaGVxK2gNY3NpY29wLm1vZGVscwpUYm11bmljaXBpbwpxLGgPTodScS19cS4oVQZyZWdpYW9xL05VCXBvcHVsYWNhb3EwTlUCc3JxMU5oGGgZKYFxMn1xMyhoHIloHWgedWJVCG5vbWVfbXVucTRYDQAAAEFsZGVpYXMgQWx0YXNVEm5vbWVfbXVuX21haXVzY3Vsb3E1WA0AAABBTERFSUFTIEFMVEFTVQtub21lX2VzdGFkb3E2TlUKY29kaWdvX211bnE3Sm40AwBVAnVmcThYAgAAAE1BaB9NNClVDGNvZGlnb191Zl9pZHE5Swp1YlUKdGJnbGViYV9pZHE6SwJoGGgZKYFxO31xPChoHIloHWgedWJVDl90YmdsZWJhX2NhY2hlcT1oDWNzaWNvcC5tb2RlbHMKVGJnbGViYQpxPmgPTodScT99cUAoVQx0YnN1YmFyZWFfaWRxQUsBVQdubWdsZWJhcUJYCQAAAENvbG9uZSAwMmgYaBkpgXFDfXFEKGgciWgdaB51YmgfSwJVB2NkZ2xlYmFxRU51YlUKbnJwcm9jZXNzb3FGWBEAAAAzOTQzODQ5Mzg5Mzg0OTM4NFUVdGJzaXR1YWNhb3Byb2Nlc3NvX2lkcUdLA1UKdGJjYWl4YV9pZHFISwRVDnRibXVuaWNpcGlvX2lkcUlNNClVEWR0Y2FkYXN0cm9zaXN0ZW1hcUpjZGF0ZXRpbWUKZGF0ZXRpbWUKcUtVCgfdCRIJOBsEjBCFUnFMaB9LQFUVX3RidGlwb3Byb2Nlc3NvX2NhY2hlcU1oDWNzaWNvcC5tb2RlbHMKVGJ0aXBvcHJvY2Vzc28KcU5oD06HUnFPfXFQKFUGdGFiZWxhcVFYDwAAAHRicHJvY2Vzc29ydXJhbFUQY29yaWRlbnRpZmljYWNhb3FSWAcAAAAjYjJmN2IyaBhoGSmBcVN9cVQoaByJaB1oHnViaB9LAVUEbm9tZXFVWA4AAABQUk9DRVNTTyBSVVJBTHVidWJhVQ5fcHJlZmV0Y2hfZG9uZXFWiVUKX2Zvcl93cml0ZXFXiVUFcXVlcnlxWGNkamFuZ28uZGIubW9kZWxzLnNxbC5xdWVyeQpRdWVyeQpxWSmBcVp9cVsoVRVhZ2dyZWdhdGVfc2VsZWN0X21hc2txXE5VF19hZ2dyZWdhdGVfc2VsZWN0X2NhY2hlcV1OVQVleHRyYXFeY2RqYW5nby51dGlscy5kYXRhc3RydWN0dXJlcwpTb3J0ZWREaWN0CnFfKYFxYH1xYVUIa2V5T3JkZXJxYl1zYlUIam9pbl9tYXBxY31xZCgoWA4AAAB0YnByb2Nlc3NvYmFzZXFlWAkAAABhdXRoX3VzZXJxZmggaB90aGaFKE5oZU5OdGhlhShoZlgJAAAAdGJkaXZpc2FvcWdVDHRiZGl2aXNhb19pZHFoaB90aGeFdVUVcmVsYXRlZF9zZWxlY3RfZmllbGRzcWldVQxleHRyYV90YWJsZXNxailVBnNlbGVjdHFrXXFsVQZ0YWJsZXNxbV1xbihoZWhmaGdlVQx1c2VkX2FsaWFzZXNxb2NfX2J1aWx0aW5fXwpzZXQKcXBdcXEoaGVoZmWFUnFyVQhvcmRlcl9ieXFzXXF0VQhkaXN0aW5jdHF1iVUOZHVwZV9hdm9pZGFuY2Vxdn1xd1UQZGVmYXVsdF9vcmRlcmluZ3F4iFUIZ3JvdXBfYnlxeU5VEXNlbGVjdF9mb3JfdXBkYXRlcXqJVQ5zZWxlY3RfcmVsYXRlZHF7iVUQZGVmZXJyZWRfbG9hZGluZ3F8aHBdhVJxfYiGcX5VDXNlbGVjdF9maWVsZHNxf11VCWFsaWFzX21hcHGAfXGBKGhlY2RqYW5nby5kYi5tb2RlbHMuc3FsLmNvbnN0YW50cwpKb2luSW5mbwpxgihoZWhlTk5OTol0gXGDaGdogihoZ2hnVQpJTk5FUiBKT0lOcYRoZmhoaB+JdIFxhWhmaIIoaGZoZmiEaGVoIGgfiXSBcYZ1VQltYXhfZGVwdGhxh0sFVRFzdGFuZGFyZF9vcmRlcmluZ3GIiFUOZXh0cmFfb3JkZXJfYnlxiSlVD2Rpc3RpbmN0X2ZpZWxkc3GKXXGLVQphZ2dyZWdhdGVzcYxoXymBcY19cY5oYl1zYlUZX2xvYWRlZF9maWVsZF9uYW1lc19jYWNoZXGPfXGQVRFleHRyYV9zZWxlY3RfbWFza3GRTlUYc2VsZWN0X2Zvcl91cGRhdGVfbm93YWl0cZKJVRNfZXh0cmFfc2VsZWN0X2NhY2hlcZNOVQhsb3dfbWFya3GUSwBVDmFsaWFzX3JlZmNvdW50cZV9cZYoaGVLAWhnSwBoZksBdVUTcmVsYXRlZF9zZWxlY3RfY29sc3GXXVUMZGVmYXVsdF9jb2xzcZiIVRBvcmRlcmluZ19hbGlhc2VzcZldcZpVCWhpZ2hfbWFya3GbTlUZaW5jbHVkZWRfaW5oZXJpdGVkX21vZGVsc3GcfXGdTmhlc1UJdGFibGVfbWFwcZ59cZ8oaGVdcaBoZWFoZ11xoWhnYWhmXXGiaGZhdVULd2hlcmVfY2xhc3Nxo2NkamFuZ28uZGIubW9kZWxzLnNxbC53aGVyZQpXaGVyZU5vZGUKcaRVBW1vZGVscaVoDlUFd2hlcmVxpmikKYFxp31xqChVCWNvbm5lY3RvcnGpVQNBTkRxqlUHbmVnYXRlZHGriVUIY2hpbGRyZW5xrF1xrWikKYFxrn1xryhoqWiqaKuJaKxdcbAoY2RqYW5nby5kYi5tb2RlbHMuc3FsLndoZXJlCkNvbnN0cmFpbnQKcbEpgXGyfXGzKFUFYWxpYXNxtGhmaKVjc2ljb3AubW9kZWxzClRiZGl2aXNhbwpxtVUKZmllbGRfbmFtZXG2aB9VA2NvbHG3aGh1YlUFZXhhY3RxuIhLAXRxuWFVD3N1YnRyZWVfcGFyZW50c3G6XXViYWi6XXViVQZoYXZpbmdxu2ikKYFxvH1xvShoqWiqaKuJaKxdaLpddWJVEGZpbHRlcl9pc19zdGlja3lxvol1YmilaA5VFl9rbm93bl9yZWxhdGVkX29iamVjdHNxv31xwHViVQdkaXZpc2FvccFYEwAAAFNSRkEgMDIgLSBNYXJhbmjDo29VDV9hdXRoX3VzZXJfaWRLAVUSX2F1dGhfdXNlcl9iYWNrZW5kVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHUu', '2013-10-04 12:14:27.326-03');
+INSERT INTO django_session (session_key, session_data, expire_date) VALUES ('ho0w65oytza7va68ub4j9x4ll593ld2g', 'MzBlMGZmZjNhOTc3Mjc2N2Q1NTMzZmFmMGVhODYyNDZmYjRjNWIzNzqAAn1xAShVDV9hdXRoX3VzZXJfaWRLAVUYcmVsYXRvcmlvX3RpcG9fcGVuZGVuY2lhY2RqYW5nby5kYi5tb2RlbHMucXVlcnkKUXVlcnlTZXQKcQIpgXEDfXEEKFUFX2l0ZXJxBU5VFl9rbm93bl9yZWxhdGVkX29iamVjdHNxBn1xB1UOX3N0aWNreV9maWx0ZXJxCIlVA19kYnEJTlUNX3Jlc3VsdF9jYWNoZXEKXXELY2NvcHlfcmVnCl9yZWNvbnN0cnVjdG9yCnEMY3NpY29wLm1vZGVscwpUYnRpcG9wZW5kZW5jaWEKcQ1jX19idWlsdGluX18Kb2JqZWN0CnEOTodScQ99cRAoVQx0YmRpdmlzYW9faWRxEUsBVQdjZGdydXBvcRJYAAAAAFUKY2R0aXBvcGVuZHETTlUGX3N0YXRlcRRjZGphbmdvLmRiLm1vZGVscy5iYXNlCk1vZGVsU3RhdGUKcRUpgXEWfXEXKFUGYWRkaW5ncRiJVQJkYnEZVQdkZWZhdWx0dWJVC2RzcGVuZGVuY2lhcRpYCAAAAFBFTkRFTlRFVQJpZHEbSwF1YmFVDl9wcmVmZXRjaF9kb25lcRyJVQpfZm9yX3dyaXRlcR2JVQVxdWVyeXEeY2RqYW5nby5kYi5tb2RlbHMuc3FsLnF1ZXJ5ClF1ZXJ5CnEfKYFxIH1xIShVFWFnZ3JlZ2F0ZV9zZWxlY3RfbWFza3EiTlUXX2FnZ3JlZ2F0ZV9zZWxlY3RfY2FjaGVxI05VBWV4dHJhcSRjZGphbmdvLnV0aWxzLmRhdGFzdHJ1Y3R1cmVzClNvcnRlZERpY3QKcSUpgXEmfXEnVQhrZXlPcmRlcnEoXXNiVQhqb2luX21hcHEpfXEqKChOWA8AAAB0YnRpcG9wZW5kZW5jaWFxK05OdGgrhShoK1gJAAAAdGJkaXZpc2FvcSxVDHRiZGl2aXNhb19pZHEtVQJpZHEudGgshXVVFXJlbGF0ZWRfc2VsZWN0X2ZpZWxkc3EvXVUMZXh0cmFfdGFibGVzcTApVQlhbGlhc19tYXBxMX1xMihoLGNkamFuZ28uZGIubW9kZWxzLnNxbC5jb25zdGFudHMKSm9pbkluZm8KcTMoaCxoLFUKSU5ORVIgSk9JTnE0aCtoLWguiHSBcTVoK2gzKGgraCtOTk5OiXSBcTZ1VQZ0YWJsZXNxN11xOChoK2gsZVUMdXNlZF9hbGlhc2VzcTljX19idWlsdGluX18Kc2V0CnE6XYVScTtVCG9yZGVyX2J5cTxdcT1oLmFVCGRpc3RpbmN0cT6JVQ5kdXBlX2F2b2lkYW5jZXE/fXFAVQl0YWJsZV9tYXBxQX1xQihoLF1xQ2gsYWgrXXFEaCthdVUIZ3JvdXBfYnlxRU5VEXNlbGVjdF9mb3JfdXBkYXRlcUaJVQ5zZWxlY3RfcmVsYXRlZHFHiVUQZGVmZXJyZWRfbG9hZGluZ3FIaDpdhVJxSYiGcUpVDXNlbGVjdF9maWVsZHNxS11VE19leHRyYV9zZWxlY3RfY2FjaGVxTE5VCW1heF9kZXB0aHFNSwVVBnNlbGVjdHFOXXFPVQ5leHRyYV9vcmRlcl9ieXFQKVUPZGlzdGluY3RfZmllbGRzcVFdcVJVCmFnZ3JlZ2F0ZXNxU2glKYFxVH1xVWgoXXNiVRlfbG9hZGVkX2ZpZWxkX25hbWVzX2NhY2hlcVZ9cVdVEWV4dHJhX3NlbGVjdF9tYXNrcVhOVRhzZWxlY3RfZm9yX3VwZGF0ZV9ub3dhaXRxWYlVCGxvd19tYXJrcVpLAFUOYWxpYXNfcmVmY291bnRxW31xXChoLEsAaCtLAnVVE3JlbGF0ZWRfc2VsZWN0X2NvbHNxXV1VDGRlZmF1bHRfY29sc3FeiFUQb3JkZXJpbmdfYWxpYXNlc3FfXXFgVQZoYXZpbmdxYWNkamFuZ28uZGIubW9kZWxzLnNxbC53aGVyZQpXaGVyZU5vZGUKcWIpgXFjfXFkKFUJY29ubmVjdG9ycWVVA0FORHFmVQduZWdhdGVkcWeJVQhjaGlsZHJlbnFoXVUPc3VidHJlZV9wYXJlbnRzcWlddWJVGWluY2x1ZGVkX2luaGVyaXRlZF9tb2RlbHNxan1xa05oK3NVEGRlZmF1bHRfb3JkZXJpbmdxbIhVC3doZXJlX2NsYXNzcW1oYlUFbW9kZWxxbmgNVRFzdGFuZGFyZF9vcmRlcmluZ3FviFUFd2hlcmVxcGhiKYFxcX1xcihoZVgDAAAAQU5EcXNoZ4loaF1xdChoYimBcXV9cXYoaGVoZmhniWhoXXF3KGNkamFuZ28uZGIubW9kZWxzLnNxbC53aGVyZQpDb25zdHJhaW50CnF4KYFxeX1xeihVBWFsaWFzcXtoK1UFbW9kZWxxfGNzaWNvcC5tb2RlbHMKVGJkaXZpc2FvCnF9VQpmaWVsZF9uYW1lcX5oG1UDY29scX9oLXViVQVleGFjdIhLAXRxgGFoaV11YmhiKYFxgX1xgihoZWhzaGeJaGhdcYMoaHgpgXGEfXGFKGh7aCtofGgNaH5oGmh/VQtkc3BlbmRlbmNpYXGGdWJVCGNvbnRhaW5ziVgAAAAAdHGHYWhpXXViZWhpXXViVQloaWdoX21hcmtxiE5VEGZpbHRlcl9pc19zdGlja3lxiYl1Ymh8aA1VGV9wcmVmZXRjaF9yZWxhdGVkX2xvb2t1cHNxil1xi3ViVRJfYXV0aF91c2VyX2JhY2tlbmRVKWRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kVRJyZWxhdG9yaW9fcHJvY2Vzc29oAimBcYx9cY0oaAVOaAZ9cY5oCIloCU5oCl1xjyhoDGNzaWNvcC5tb2RlbHMKVGJwcm9jZXNzb2Jhc2UKcZBoDk6HUnGRfXGSKFUZX3Ric2l0dWFjYW9wcm9jZXNzb19jYWNoZXGTaAxjc2ljb3AubW9kZWxzClRic2l0dWFjYW9wcm9jZXNzbwpxlGgOTodScZV9cZYoVQpubXNpdHVhY2FvcZdYEwAAAEFndWFyZGFuZG8gdmlzdG9yaWFVCmRzc2l0dWFjYW9xmFgUAAAAYWd1YXJkYW5kbyB2aXN0b3JpYS5oFGgVKYFxmX1xmihoGIloGVUHZGVmYXVsdHGbdWJoG0sDaBFOdWJVGnRiY2xhc3NpZmljYWNhb3Byb2Nlc3NvX2lkcZxLAVUMYXV0aF91c2VyX2lkcZ1LAVUOX3RiY2FpeGFfY2FjaGVxnmgMY3NpY29wLm1vZGVscwpUYmNhaXhhCnGfaA5Oh1JxoH1xoShVDHRwdHJhbWl0YWNhb3GiTlUMcXRkcHJvY2Vzc29zcaNOaBRoFSmBcaR9caUoaBiJaBlom3ViVQ50YnRpcG9jYWl4YV9pZHGmSwFVDm5tbG9jYWxhcnF1aXZvcadYCAAAAENhaXhhIDAyaBtLEHViVQp0YmdsZWJhX2lkcahLAlUSX3RibXVuaWNpcGlvX2NhY2hlcaloDGNzaWNvcC5tb2RlbHMKVGJtdW5pY2lwaW8KcapoDk6HUnGrfXGsKFUGcmVnaWFvca1OVQ5ucm1vZHVsb2Zpc2NhbHGuTlUJcG9wdWxhY2Fvca9OVQJzcnGwTmgUaBUpgXGxfXGyKGgYiWgZaJt1YlUObnJmcmFjYW9taW5pbWFxs05VCG5vbWVfbXVucbRYEQAAAEFtYXBhIERvIE1hcmFuaGFvaBtNOSlVC25vbWVfZXN0YWRvcbVOVQpjb2RpZ29fbXVucbZKhzQDAFUCdWZxt1gCAAAATUFVEm5vbWVfbXVuX21haXVzY3Vsb3G4WBEAAABBTUFQQSBETyBNQVJBTkhBT1UMY29kaWdvX3VmX2lkcblLCnViVRF0YnRpcG9wcm9jZXNzb19pZHG6SwFoFGgVKYFxu31xvChoGIloGWibdWJVDl90YmdsZWJhX2NhY2hlcb1oDGNzaWNvcC5tb2RlbHMKVGJnbGViYQpxvmgOTodScb99ccAoVQx0YnN1YmFyZWFfaWRxwUsBVQdjZGdsZWJhccJOaBRoFSmBccN9ccQoaBiJaBlom3ViaBtLAlUHbm1nbGViYXHFWAkAAABDb2xvbmUgMDJ1YlUKbnJwcm9jZXNzb3HGWBEAAAAzOTQzODQ5Mzg5Mzg0OTM4NFUVdGJzaXR1YWNhb3Byb2Nlc3NvX2lkccdLA1UKdGJjYWl4YV9pZHHISxBVDnRibXVuaWNpcGlvX2lkcclNOSlVEWR0Y2FkYXN0cm9zaXN0ZW1hccpjZGF0ZXRpbWUKZGF0ZXRpbWUKcctVCgfdCRIJOBsEjBCFUnHMaBtLQFUVX3RidGlwb3Byb2Nlc3NvX2NhY2hlcc1oDGNzaWNvcC5tb2RlbHMKVGJ0aXBvcHJvY2Vzc28Kcc5oDk6HUnHPfXHQKFUGdGFiZWxhcdFYDwAAAHRicHJvY2Vzc29ydXJhbGgRTlUQY29yaWRlbnRpZmljYWNhb3HSWAcAAAAjYjJmN2IyaBRoFSmBcdN9cdQoaBiJaBlom3ViVQRub21lcdVYDgAAAFBST0NFU1NPIFJVUkFMaBtLAXVidWJoDGiQaA5Oh1Jx1n1x1yhok2gMaJRoDk6HUnHYfXHZKGiXWBMAAABBZ3VhcmRhbmRvIHZpc3RvcmlhaJhYFAAAAGFndWFyZGFu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EXNlbGVjdF9mb3JfdXBkYXRlci4BAACJVQ5zZWxlY3RfcmVsYXRlZHIvAQAAiVUQZGVmZXJyZWRfbG9hZGluZ3IwAQAAaDpdhVJyMQEAAIiGcjIBAABVDXNlbGVjdF9maWVsZHNyMwEAAF1VE19leHRyYV9zZWxlY3RfY2FjaGVyNAEAAE5VCW1heF9kZXB0aHI1AQAASwVVBnNlbGVjdHI2AQAAXXI3AQAAVQ5leHRyYV9vcmRlcl9ieXI4AQAAKVUPZGlzdGluY3RfZmllbGRzcjkBAABdcjoBAABVCmFnZ3JlZ2F0ZXNyOwEAAGglKYFyPAEAAH1yPQEAAGgoXXNiVRlfbG9hZGVkX2ZpZWxkX25hbWVzX2NhY2hlcj4BAAB9cj8BAABVEWV4dHJhX3NlbGVjdF9tYXNrckABAABOVRhzZWxlY3RfZm9yX3VwZGF0ZV9ub3dhaXRyQQEAAIlVCGxvd19tYXJrckIBAABLAFUOYWxpYXNfcmVmY291bnRyQwEAAH1yRAEAAChqEQEAAEsBahUBAABLAGoSAQAASwF1VRNyZWxhdGVkX3NlbGVjdF9jb2xzckUBAABdVQxkZWZhdWx0X2NvbHNyRgEAAIhVEG9yZGVyaW5nX2FsaWFzZXNyRwEAAF1ySAEAAFUGaGF2aW5nckkBAABoYimBckoBAAB9cksBAAAoaGVVA0FORHJMAQAAaGeJaGhdaGlddWJVGWluY2x1ZGVkX2luaGVyaXRlZF9tb2RlbHNyTQEAAH1yTgEAAE5qEQEAAHNVEGRlZmF1bHRfb3JkZXJpbmdyTwEAAIhVC3doZXJlX2NsYXNzclABAABoYlUFbW9kZWxyUQEAAGiQVRFzdGFuZGFyZF9vcmRlcmluZ3JSAQAAiFUFd2hlcmVyUwEAAGhiKYFyVAEAAH1yVQEAAChoZWpMAQAAaGeJaGhdclYBAABoYimBclcBAAB9clgBAAAoaGVqTAEAAGhniWhoXXJZAQAAKGh4KYFyWgEAAH1yWwEAAChVBWFsaWFzclwBAABqEgEAAGh8aH1ofmgbVQNjb2xyXQEAAGoWAQAAdWJVBWV4YWN0iEsBdHJeAQAAYWhpXXViYWhpXXViVQloaWdoX21hcmtyXwEAAE5VEGZpbHRlcl9pc19zdGlja3lyYAEAAIl1Ymh8aJBoil1yYQEAAHViVQdkaXZpc2FvWBMAAABTUkZBIDAyIC0gTWFyYW5ow6NvVRpyZWxhdG9yaW9fc3RhdHVzX3BlbmRlbmNpYXJiAQAAaAIpgXJjAQAAfXJkAQAAKGgFTmiKXXJlAQAAaAiJaAlOaApdcmYBAAAoaAxjc2ljb3AubW9kZWxzClRic3RhdHVzcGVuZGVuY2lhCnJnAQAAaA5Oh1JyaAEAAH1yaQEAAChoG0sBaBFLAWgUaBUpgXJqAQAAfXJrAQAAKGgYiWgZVQdkZWZhdWx0cmwBAAB1YmgaWAYAAABTYW5hZG9VC3N0cGVuZGVuY2lhcm0BAABOdWJoDGpnAQAAaA5Oh1JybgEAAH1ybwEAAChoG0sCaBFLAWgUaBUpgXJwAQAAfXJxAQAAKGgYiWgZamwBAAB1YmgaWAgAAABQZW5kZW50ZWptAQAASwJ1YmVoHIloHYloHmgfKYFycgEAAH1ycwEAAChVFWFnZ3JlZ2F0ZV9zZWxlY3RfbWFza3J0AQAATlUXX2FnZ3JlZ2F0ZV9zZWxlY3RfY2FjaGVydQEAAE5VBWV4dHJhcnYBAABoJSmBcncBAAB9cngBAABoKF1zYlUIam9pbl9tYXByeQEAAH1yegEAACgoTlgRAAAAdGJzdGF0dXNwZW5kZW5jaWFyewEAAE5OdGp7AQAAhShqewEAAFgJAAAAdGJkaXZpc2FvcnwBAABVDHRiZGl2aXNhb19pZHJ9AQAAaBt0anwBAACFdVUVcmVsYXRlZF9zZWxlY3RfZmllbGRzcn4BAABdVQxleHRyYV90YWJsZXNyfwEAAClVBnNlbGVjdHKAAQAAXXKBAQAAVQZ0YWJsZXNyggEAAF1ygwEAAChqewEAAGp8AQAAZVUMdXNlZF9hbGlhc2VzcoQBAABoOl2FUnKFAQAAVQhvcmRlcl9ieXKGAQAAXXKHAQAAaBthVQhkaXN0aW5jdHKIAQAAiVUOZHVwZV9hdm9pZGFuY2VyiQEAAH1yigEAAFUQZGVmYXVsdF9vcmRlcmluZ3KLAQAAiFUIZ3JvdXBfYnlyjAEAAE5VEXNlbGVjdF9mb3JfdXBkYXRlco0BAACJVQ5zZWxlY3RfcmVsYXRlZHKOAQAAiVUQZGVmZXJyZWRfbG9hZGluZ3KPAQAAaDpdhVJykAEAAIiGcpEBAABVDXNlbGVjdF9maWVsZHNykgEAAF1VCWFsaWFzX21hcHKTAQAAfXKUAQAAKGp7AQAAaDMoansBAABqewEAAE5OTk6JdIFylQEAAGp8AQAAaDMoanwBAABqfAEAAFUKSU5ORVIgSk9JTnKWAQAAansBAABqfQEAAGgbiHSBcpcBAAB1VQltYXhfZGVwdGhymAEAAEsFVRFzdGFuZGFyZF9vcmRlcmluZ3KZAQAAiFUOZXh0cmFfb3JkZXJfYnlymgEAAClVD2Rpc3RpbmN0X2ZpZWxkc3KbAQAAXXKcAQAAVQphZ2dyZWdhdGVzcp0BAABoJSmBcp4BAAB9cp8BAABoKF1zYlUZX2xvYWRlZF9maWVsZF9uYW1lc19jYWNoZXKgAQAAfXKhAQAAVRFleHRyYV9zZWxlY3RfbWFza3KiAQAATlUYc2VsZWN0X2Zvcl91cGRhdGVfbm93YWl0cqMBAACJVRNfZXh0cmFfc2VsZWN0X2NhY2hlcqQBAABOVQhsb3dfbWFya3KlAQAASwBVDmFsaWFzX3JlZmNvdW50cqYBAAB9cqcBAAAoansBAABLAWp8AQAASwB1VRNyZWxhdGVkX3NlbGVjdF9jb2xzcqgBAABdVQxkZWZhdWx0X2NvbHNyqQEAAIhVEG9yZGVyaW5nX2FsaWFzZXNyqgEAAF1yqwEAAFUJaGlnaF9tYXJrcqwBAABOVRlpbmNsdWRlZF9pbmhlcml0ZWRfbW9kZWxzcq0BAAB9cq4BAABOansBAABzVQl0YWJsZV9tYXByrwEAAH1ysAEAAChqewEAAF1ysQEAAGp7AQAAYWp8AQAAXXKyAQAAanwBAABhdVULd2hlcmVfY2xhc3NyswEAAGhiaHxqZwEAAFUFd2hlcmVytAEAAGhiKYFytQEAAH1ytgEAAChoZVUDQU5EcrcBAABoZ4loaF1yuAEAAGhiKYFyuQEAAH1yugEAAChoZWq3AQAAaGeJaGhdcrsBAAAoaHgpgXK8AQAAfXK9AQAAKFUFYWxpYXNyvgEAAGp7AQAAaHxofWh+aBtVA2NvbHK/AQAAan0BAAB1YlUFZXhhY3RywAEAAIhLAXRywQEAAGFoaV11YmFoaV11YlUGaGF2aW5ncsIBAABoYimBcsMBAAB9csQBAAAoaGVqtwEAAGhniWhoXWhpXXViVRBmaWx0ZXJfaXNfc3RpY2t5csUBAACJdWJofGpnAQAAaAZ9csYBAAB1YnUu', '2013-10-22 12:57:49.431-02');
 INSERT INTO django_session (session_key, session_data, expire_date) VALUES ('d77wi92b5e6cfux26owy8g9so0xz02xq', 'NWE5NmE2NTc3MWFkYTI5ODgyOGQ3OWE0ZjgxMzQwZmYzMTg0YmJhNDqAAn1xAS4=', '2013-10-07 10:49:40.673-03');
-INSERT INTO django_session (session_key, session_data, expire_date) VALUES ('0ofyvmn7rx0p028if3jlh0lv6a3m7fac', 'OWY0ZjE3ODI1M2JiNjJlN2E0YmY4ZGJlNjdhMTEzNzliMzYyMzM2YjqAAn1xAShVDV9hdXRoX3VzZXJfaWRLAVUSX2F1dGhfdXNlcl9iYWNrZW5kVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZFUPcmVsYXRvcmlvX2NhaXhhY2RqYW5nby5kYi5tb2RlbHMucXVlcnkKUXVlcnlTZXQKcQIpgXEDfXEEKFUFX2l0ZXJxBU5VFl9rbm93bl9yZWxhdGVkX29iamVjdHNxBn1xB1UOX3N0aWNreV9maWx0ZXJxCIlVA19kYnEJTlUNX3Jlc3VsdF9jYWNoZXEKXXELKGNjb3B5X3JlZwpfcmVjb25zdHJ1Y3RvcgpxDGNzaWNvcC5tb2RlbHMKVGJjYWl4YQpxDWNfX2J1aWx0aW5fXwpvYmplY3QKcQ5Oh1JxD31xEChVBl9zdGF0ZXERY2RqYW5nby5kYi5tb2RlbHMuYmFzZQpNb2RlbFN0YXRlCnESKYFxE31xFChVBmFkZGluZ3EViVUCZGJxFlUHZGVmYXVsdHEXdWJVDHF0ZHByb2Nlc3Nvc3EYTlUSX3RidGlwb2NhaXhhX2NhY2hlcRloDGNzaWNvcC5tb2RlbHMKVGJ0aXBvY2FpeGEKcRpoDk6HUnEbfXEcKFULbm10aXBvY2FpeGFxHVgDAAAAUEFEaBFoEimBcR59cR8oaBWJaBZoF3ViVQJpZHEgSwJVDWRlc2N0aXBvY2FpeGFxIVgGAAAAcGFkcmFvdWJVDnRidGlwb2NhaXhhX2lkcSJLAlUObm1sb2NhbGFycXVpdm9xI1gCAAAAMDFoIEsBdWJoDGgNaA5Oh1JxJH1xJShoEWgSKYFxJn1xJyhoFYloFmgXdWJoGE5oGWgMaBpoDk6HUnEofXEpKGgdWAMAAABSRVNoEWgSKYFxKn1xKyhoFYloFmgXdWJoIEsBaCFYEwAAAGNsYXVzdWxhIHJlc29sdXRpdmF1YmgiSwFoI1gCAAAAMDhoIEsEdWJoDGgNaA5Oh1JxLH1xLShoEWgSKYFxLn1xLyhoFYloFmgXdWJoGE5oGWgMaBpoDk6HUnEwfXExKGgdWAMAAABSRVNoEWgSKYFxMn1xMyhoFYloFmgXdWJoIEsBaCFYEwAAAGNsYXVzdWxhIHJlc29sdXRpdmF1YmgiSwFoI1gIAAAAQ2FpeGEgMDJoIEsQdWJoDGgNaA5Oh1JxNH1xNShoEWgSKYFxNn1xNyhoFYloFmgXdWJoGE5oGWgMaBpoDk6HUnE4fXE5KGgdWAMAAABSRVNoEWgSKYFxOn1xOyhoFYloFmgXdWJoIEsBaCFYEwAAAGNsYXVzdWxhIHJlc29sdXRpdmF1YmgiSwFoI1gIAAAAQ2FpeGEgMDNoIEsRdWJlVQ5fcHJlZmV0Y2hfZG9uZXE8iVUKX2Zvcl93cml0ZXE9iVUFcXVlcnlxPmNkamFuZ28uZGIubW9kZWxzLnNxbC5xdWVyeQpRdWVyeQpxPymBcUB9cUEoVRVhZ2dyZWdhdGVfc2VsZWN0X21hc2txQk5VF19hZ2dyZWdhdGVfc2VsZWN0X2NhY2hlcUNOVQVleHRyYXFEY2RqYW5nby51dGlscy5kYXRhc3RydWN0dXJlcwpTb3J0ZWREaWN0CnFFKYFxRn1xR1UIa2V5T3JkZXJxSF1zYlUIam9pbl9tYXBxSX1xSihOWAcAAAB0YmNhaXhhcUtOTnRoS4VzVRVyZWxhdGVkX3NlbGVjdF9maWVsZHNxTF1VDGV4dHJhX3RhYmxlc3FNKVUJYWxpYXNfbWFwcU59cU9oS2NkamFuZ28uZGIubW9kZWxzLnNxbC5jb25zdGFudHMKSm9pbkluZm8KcVAoaEtoS05OTk6JdIFxUXNVBnRhYmxlc3FSXXFTaEthVQx1c2VkX2FsaWFzZXNxVGNfX2J1aWx0aW5fXwpzZXQKcVVdhVJxVlUIb3JkZXJfYnlxV11xWFUCaWRxWWFVCGRpc3RpbmN0cVqJVQ5kdXBlX2F2b2lkYW5jZXFbfXFcVQl0YWJsZV9tYXBxXX1xXmhLXXFfaEthc1UIZ3JvdXBfYnlxYE5VEXNlbGVjdF9mb3JfdXBkYXRlcWGJVQ5zZWxlY3RfcmVsYXRlZHFiiVUQZGVmZXJyZWRfbG9hZGluZ3FjaFVdhVJxZIiGcWVVDXNlbGVjdF9maWVsZHNxZl1VE19leHRyYV9zZWxlY3RfY2FjaGVxZ05VCW1heF9kZXB0aHFoSwVVBnNlbGVjdHFpXXFqVQ5leHRyYV9vcmRlcl9ieXFrKVUPZGlzdGluY3RfZmllbGRzcWxdcW1VCmFnZ3JlZ2F0ZXNxbmhFKYFxb31xcGhIXXNiVRlfbG9hZGVkX2ZpZWxkX25hbWVzX2NhY2hlcXF9cXJVEWV4dHJhX3NlbGVjdF9tYXNrcXNOVRhzZWxlY3RfZm9yX3VwZGF0ZV9ub3dhaXRxdIlVCGxvd19tYXJrcXVLAFUOYWxpYXNfcmVmY291bnRxdn1xd2hLSwFzVRNyZWxhdGVkX3NlbGVjdF9jb2xzcXhdVQxkZWZhdWx0X2NvbHNxeYhVEG9yZGVyaW5nX2FsaWFzZXNxel1xe1UGaGF2aW5ncXxjZGphbmdvLmRiLm1vZGVscy5zcWwud2hlcmUKV2hlcmVOb2RlCnF9KYFxfn1xfyhVCWNvbm5lY3RvcnGAVQNBTkRxgVUHbmVnYXRlZHGCiVUIY2hpbGRyZW5xg11VD3N1YnRyZWVfcGFyZW50c3GEXXViVRlpbmNsdWRlZF9pbmhlcml0ZWRfbW9kZWxzcYV9cYZOaEtzVRBkZWZhdWx0X29yZGVyaW5ncYeIVQt3aGVyZV9jbGFzc3GIaH1VBW1vZGVscYloDVURc3RhbmRhcmRfb3JkZXJpbmdxiohVBXdoZXJlcYtofSmBcYx9cY0oaIBogWiCiWiDXWiEXXViVQloaWdoX21hcmtxjk5VEGZpbHRlcl9pc19zdGlja3lxj4l1YlUFbW9kZWxxkGgNVRlfcHJlZmV0Y2hfcmVsYXRlZF9sb29rdXBzcZFdcZJ1YlUScmVsYXRvcmlvX3Byb2Nlc3NvaAIpgXGTfXGUKGgFTmiRXXGVaAiJaAlOaApdcZYoaAxjc2ljb3AubW9kZWxzClRicHJvY2Vzc29iYXNlCnGXaA5Oh1JxmH1xmShVGV90YnNpdHVhY2FvcHJvY2Vzc29fY2FjaGVxmmgMY3NpY29wLm1vZGVscwpUYnNpdHVhY2FvcHJvY2Vzc28KcZtoDk6HUnGcfXGdKFUKbm1zaXR1YWNhb3GeWBMAAABBZ3VhcmRhbmRvIHZpc3RvcmlhVQpkc3NpdHVhY2FvcZ9YFAAAAGFndWFyZGFuZG8gdmlzdG9yaWEuaBFoEimBcaB9caEoaBWJaBZVB2RlZmF1bHRxonViaCBLA3ViVRp0YmNsYXNzaWZpY2FjYW9wcm9jZXNzb19pZHGjSwFVDGF1dGhfdXNlcl9pZHGkSwFVDl90YmNhaXhhX2NhY2hlcaVoDGgNaA5Oh1Jxpn1xpyhoIksBaBhOaCNYAgAAADA4aBFoEimBcah9cakoaBWJaBZoonViaCBLBHViVRF0YnRpcG9wcm9jZXNzb19pZHGqSwFVEl90Ym11bmljaXBpb19jYWNoZXGraAxjc2ljb3AubW9kZWxzClRibXVuaWNpcGlvCnGsaA5Oh1JxrX1xrihVBnJlZ2lhb3GvTlUObnJtb2R1bG9maXNjYWxxsE5VCXBvcHVsYWNhb3GxTlUCc3Jxsk5oEWgSKYFxs31xtChoFYloFmiidWJVDm5yZnJhY2FvbWluaW1hcbVOVQhub21lX211bnG2WBEAAABBbWFwYSBEbyBNYXJhbmhhb1USbm9tZV9tdW5fbWFpdXNjdWxvcbdYEQAAAEFNQVBBIERPIE1BUkFOSEFPVQtub21lX2VzdGFkb3G4TlUKY29kaWdvX211bnG5Soc0AwBVAnVmcbpYAgAAAE1BaCBNOSlVDGNvZGlnb191Zl9pZHG7Swp1YlUKdGJnbGViYV9pZHG8SwJoEWgSKYFxvX1xvihoFYloFmiidWJVDl90YmdsZWJhX2NhY2hlcb9oDGNzaWNvcC5tb2RlbHMKVGJnbGViYQpxwGgOTodSccF9ccIoVQx0YnN1YmFyZWFfaWRxw0sBVQdubWdsZWJhccRYCQAAAENvbG9uZSAwMmgRaBIpgXHFfXHGKGgViWgWaKJ1YmggSwJVB2NkZ2xlYmFxx051YlUKbnJwcm9jZXNzb3HIWBEAAAAzOTQzODQ5Mzg5Mzg0OTM4NFUVdGJzaXR1YWNhb3Byb2Nlc3NvX2lkcclLA1UKdGJjYWl4YV9pZHHKSwRVDnRibXVuaWNpcGlvX2lkcctNOSlVEWR0Y2FkYXN0cm9zaXN0ZW1hccxjZGF0ZXRpbWUKZGF0ZXRpbWUKcc1VCgfdCRIJOBsEjBCFUnHOaCBLQFUVX3RidGlwb3Byb2Nlc3NvX2NhY2hlcc9oDGNzaWNvcC5tb2RlbHMKVGJ0aXBvcHJvY2Vzc28KcdBoDk6HUnHRfXHSKFUGdGFiZWxhcdNYDwAAAHRicHJvY2Vzc29ydXJhbFUQY29yaWRlbnRpZmljYWNhb3HUWAcAAAAjYjJmN2IyaBFoEimBcdV9cdYoaBWJaBZoonViaCBLAVUEbm9tZXHXWA4AAABQUk9DRVNTTyBS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Ymxlc3KNAQAAXXKOAQAAaocBAABhVQx1c2VkX2FsaWFzZXNyjwEAAGhVXYVScpABAABVCG9yZGVyX2J5cpEBAABdcpIBAABVAmlkcpMBAABhVQhkaXN0aW5jdHKUAQAAiVUOZHVwZV9hdm9pZGFuY2VylQEAAH1ylgEAAFUJdGFibGVfbWFwcpcBAAB9cpgBAABqhwEAAF1ymQEAAGqHAQAAYXNVCGdyb3VwX2J5cpoBAABOVRFzZWxlY3RfZm9yX3VwZGF0ZXKbAQAAiVUOc2VsZWN0X3JlbGF0ZWRynAEAAIlVEGRlZmVycmVkX2xvYWRpbmdynQEAAGhVXYVScp4BAACIhnKfAQAAVQ1zZWxlY3RfZmllbGRzcqABAABdVRNfZXh0cmFfc2VsZWN0X2NhY2hlcqEBAABOVQltYXhfZGVwdGhyogEAAEsFVQZzZWxlY3RyowEAAF1ypAEAAFUOZXh0cmFfb3JkZXJfYnlypQEAAClVD2Rpc3RpbmN0X2ZpZWxkc3KmAQAAXXKnAQAAVQphZ2dyZWdhdGVzcqgBAABoRSmBcqkBAAB9cqoBAABoSF1zYlUZX2xvYWRlZF9maWVsZF9uYW1lc19jYWNoZXKrAQAAfXKsAQAAVRFleHRyYV9zZWxlY3RfbWFza3KtAQAATlUYc2VsZWN0X2Zvcl91cGRhdGVfbm93YWl0cq4BAACJVQhsb3dfbWFya3KvAQAASwBVDmFsaWFzX3JlZmNvdW50crABAAB9crEBAABqhwEAAEsBc1UTcmVsYXRlZF9zZWxlY3RfY29sc3KyAQAAXVUMZGVmYXVsdF9jb2xzcrMBAACIVRBvcmRlcmluZ19hbGlhc2VzcrQBAABdcrUBAABVBmhhdmluZ3K2AQAAaH0pgXK3AQAAfXK4AQAAKGiAVQNBTkRyuQEAAGiCiWiDXWiEXXViVRlpbmNsdWRlZF9pbmhlcml0ZWRfbW9kZWxzcroBAAB9crsBAABOaocBAABzVRBkZWZhdWx0X29yZGVyaW5ncrwBAACIVQt3aGVyZV9jbGFzc3K9AQAAaH1VBW1vZGVscr4BAABoGlURc3RhbmRhcmRfb3JkZXJpbmdyvwEAAIhVBXdoZXJlcsABAABofSmBcsEBAAB9csIBAAAoaIBquQEAAGiCiWiDXWiEXXViVQloaWdoX21hcmtywwEAAE5VEGZpbHRlcl9pc19zdGlja3lyxAEAAIl1YmiQaBpokV1yxQEAAHVidS4=', '2013-10-10 16:12:52.029-03');
+INSERT INTO django_session (session_key, session_data, expire_date) VALUES ('4gxw373d2wrd6t2ro4xdhf7rfyvlzlqb', 'MDhhMGQyZjMzZTZiNmFmYmZjZjM3MDQ1YmM1Zjg3OWVhNjcxOGUyYjqAAn1xAShVEnJlbGF0b3Jpb19wcm9jZXNzb2NkamFuZ28uZGIubW9kZWxzLnF1ZXJ5ClF1ZXJ5U2V0CnECKYFxA31xBChVBV9pdGVycQVOVRlfcHJlZmV0Y2hfcmVsYXRlZF9sb29rdXBzcQZdcQdVDl9zdGlja3lfZmlsdGVycQiJVQNfZGJxCU5VDV9yZXN1bHRfY2FjaGVxCl1xCyhjY29weV9yZWcKX3JlY29uc3RydWN0b3IKcQxjc2ljb3AubW9kZWxzClRicHJvY2Vzc29iYXNlCnENY19fYnVpbHRpbl9fCm9iamVjdApxDk6HUnEPfXEQKFUZX3Ric2l0dWFjYW9wcm9jZXNzb19jYWNoZXERaAxjc2ljb3AubW9kZWxzClRic2l0dWFjYW9wcm9jZXNzbwpxEmgOTodScRN9cRQoVQpubXNpdHVhY2FvcRVYEwAAAEFndWFyZGFuZG8gdmlzdG9yaWFVCmRzc2l0dWFjYW9xFlgUAAAAYWd1YXJkYW5kbyB2aXN0b3JpYS5VBl9zdGF0ZXEXY2RqYW5nby5kYi5tb2RlbHMuYmFzZQpNb2RlbFN0YXRlCnEYKYFxGX1xGihVBmFkZGluZ3EbiVUCZGJxHFUHZGVmYXVsdHEddWJVAmlkcR5LA1UMdGJkaXZpc2FvX2lkcR9OdWJVGnRiY2xhc3NpZmljYWNhb3Byb2Nlc3NvX2lkcSBLAVUMYXV0aF91c2VyX2lkcSFLAVUOX3RiY2FpeGFfY2FjaGVxImgMY3NpY29wLm1vZGVscwpUYmNhaXhhCnEjaA5Oh1JxJH1xJShVDHRwdHJhbWl0YWNhb3EmWAAAAABVDHF0ZHByb2Nlc3Nvc3EnTmgXaBgpgXEofXEpKGgbiWgcaB11YlUOdGJ0aXBvY2FpeGFfaWRxKksCVQ5ubWxvY2FsYXJxdWl2b3ErWAgAAABMaXRpZ2lvc2geSxR1YlUKdGJnbGViYV9pZHEsSwJVEl90Ym11bmljaXBpb19jYWNoZXEtaAxjc2ljb3AubW9kZWxzClRibXVuaWNpcGlvCnEuaA5Oh1JxL31xMChVBnJlZ2lhb3ExTlUObnJtb2R1bG9maXNjYWxxMk5VCXBvcHVsYWNhb3EzTlUCc3JxNE5oF2gYKYFxNX1xNihoG4loHGgddWJVDm5yZnJhY2FvbWluaW1hcTdOVQhub21lX211bnE4WBEAAABBbWFwYSBEbyBNYXJhbmhhb2geTTkpVQtub21lX2VzdGFkb3E5TlUKY29kaWdvX211bnE6Soc0AwBVAnVmcTtYAgAAAE1BVRJub21lX211bl9tYWl1c2N1bG9xPFgRAAAAQU1BUEEgRE8gTUFSQU5IQU9VDGNvZGlnb191Zl9pZHE9Swp1YlURdGJ0aXBvcHJvY2Vzc29faWRxPksBaBdoGCmBcT99cUAoaBuJaBxoHXViVQ5fdGJnbGViYV9jYWNoZXFBaAxjc2ljb3AubW9kZWxzClRiZ2xlYmEKcUJoDk6HUnFDfXFEKGgeSwJVDHRic3ViYXJlYV9pZHFFSwFoF2gYKYFxRn1xRyhoG4loHGgddWJVB2NkZ2xlYmFxSE5VB25tZ2xlYmFxSVgJAAAAQ29sb25lIDAydWJVCm5ycHJvY2Vzc29xSlgRAAAAMzk0Mzg0OTM4OTM4NDkzODRVFXRic2l0dWFjYW9wcm9jZXNzb19pZHFLSwNVCnRiY2FpeGFfaWRxTEsUaB9OVQ50Ym11bmljaXBpb19pZHFNTTkpVRFkdGNhZGFzdHJvc2lzdGVtYXFOY2RhdGV0aW1lCmRhdGV0aW1lCnFPVQoH3QkSCTgbBIwQhVJxUGgeS0BVFV90YnRpcG9wcm9jZXNzb19jYWNoZXFRaAxjc2ljb3AubW9kZWxzClRidGlwb3Byb2Nlc3NvCnFSaA5Oh1JxU31xVChVBnRhYmVsYXFVWA8AAAB0YnByb2Nlc3NvcnVyYWxoH05VEGNvcmlkZW50aWZpY2FjYW9xVlgHAAAAI2IyZjdiMmgXaBgpgXFXfXFYKGgbiWgcaB11YlUEbm9tZXFZWA4AAABQUk9DRVNTTyBSVVJBTGgeSwF1YnViaAxoDWgOTodScVp9cVsoaBFoDGgSaA5Oh1JxXH1xXShoFVgTAAAAQWd1YXJkYW5kbyB2aXN0b3JpYWgWWBQAAABhZ3VhcmRhbmRvIHZpc3RvcmlhLmgXaBgpgXFefXFfKGgbiWgcaB11YmgeSwNoH051YmggSwJoIUsBaCJoDGgjaA5Oh1JxYH1xYShoJlgAAAAAaCdOaBdoGCmBcWJ9cWMoaBuJaBxoHXViaCpLAmgrWAgAAABMaXRpZ2lvc2geSxR1YmgsSwFoLWgMaC5oDk6HUnFkfXFlKGgxTmgyTmgzTmg0TmgXaBgpgXFmfXFnKGgbiWgcaB11Ymg3Tmg4WAgAAABBcmFndWFuYWgeTT4paDlOaDpKpzQDAGg7WAIAAABNQWg8WAgAAABBUkFHVUFOQWg9Swp1Ymg+SwNoF2gYKYFxaH1xaShoG4loHGgddWJoQWgMaEJoDk6HUnFqfXFrKGgeSwFoRUsBaBdoGCmBcWx9cW0oaBuJaBxoHXViaEhOaElYCQAAAENvbG9uZSAwMXViaEpYEQAAADIyMjIyMjIyMjIyMjIyMjIyaEtLA2hMSxRoH05oTU0+KWhOaE9VCgfdCRkKJisCGxCFUnFuaB5LQmhRaAxoUmgOTodScW99cXAoaFVYEAAAAHRicHJvY2Vzc291cmJhbm9oH05oVlgHAAAAI0VFRUVFRWgXaBgpgXFxfXFyKGgbiWgcaB11YmhZWBQAAABSRUdVTEFSSVpBQ0FPIFVSQkFOQWgeSwN1YnViaAxoDWgOTodScXN9cXQoaBFoDGgSaA5Oh1JxdX1xdihoFVgIAAAAVGl0dWxhZG9oFlgIAAAAdGl0dWxhZG9oF2gYKYFxd31xeChoG4loHGgddWJoHksCaB9OdWJoIEsBaCFLAWgiaAxoI2gOTodScXl9cXooaCZYAAAAAGgnTmgXaBgpgXF7fXF8KGgbiWgcaB11YmgqSwZoK1gCAAAAMDFoHksBdWJoLEsBaC1oDGguaA5Oh1JxfX1xfihoMU5oMk5oM05oNE5oF2gYKYFxf31xgChoG4loHGgddWJoN05oOFgIAAAAQXJhZ3VhbmFoHk0+KWg5Tmg6Sqc0AwBoO1gCAAAATUFoPFgIAAAAQVJBR1VBTkFoPUsKdWJoPksCaBdoGCmBcYF9cYIoaBuJaBxoHXViaEFoDGhCaA5Oh1Jxg31xhChoHksBaEVLAWgXaBgpgXGFfXGGKGgbiWgcaB11YmhITmhJWAkAAABDb2xvbmUgMDF1YmhKWBEAAAAyMDM5MjAzOTAyMzkwMjkyMGhLSwJoTEsBaB9OaE1NPiloTmhPVQoH3QkaDis6DXFohVJxh2geS0NoUWgMaFJoDk6HUnGIfXGJKGhVWBIAAAB0YnByb2Nlc3NvY2xhdXN1bGFoH05oVlgHAAAAI2YxZjhiN2gXaBgpgXGKfXGLKGgbiWgcaB11YmhZWBUAAABDTEFVU1VMQVMgUkVTT0xVVElWQVNoHksCdWJ1YmgMaA1oDk6HUnGMfXGNKGgRaAxoEmgOTodScY59cY8oaBVYBgAAAEFiZXJ0b2gWWBgAAABjYWRhc3RyYWRvIHJlY2VudGVtZW50ZS5oF2gYKYFxkH1xkShoG4loHGgddWJoHksBaB9OdWJoIEsBaCFLAWgiaAxoI2gOTodScZJ9cZMoaCZOaCdOaBdoGCmBcZR9cZUoaBuJaBxoHXViaCpLA2grWAIAAAAwOGgeSwR1YmgsSwRoLWgMaC5oDk6HUnGWfXGXKGgxTmgyTmgzTmg0TmgXaBgpgXGYfXGZKGgbiWgcaB11Ymg3Tmg4WAoAAABBY2FpbGFuZGlhaB5NMCloOU5oOkpVNAMAaDtYAgAAAE1BaDxYCgAAAEFDQUlMQU5ESUFoPUsKdWJoPksBaBdoGCmBcZp9cZsoaBuJaBxoHXViaEFoDGhCaA5Oh1JxnH1xnShoHksEaEVLAWgXaBgpgXGefXGfKGgbiWgcaB11YmhITmhJWAYAAABHdXJ1cGl1YmhKWBEAAAAxMTExMTExMTExMTExMTExMWhLSwFoTEsEaB9LAWhNTTApaE5oT1UKB90KCQwQEwt9aIVScaBoHktEaFFoDGhSaA5Oh1JxoX1xoihoVVgPAAAAdGJwcm9jZXNzb3J1cmFsaB9OaFZYBwAAACNiMmY3YjJoF2gYKYFxo31xpChoG4loHGgddWJoWVgOAAAAUFJPQ0VTU08gUlVSQUxoHksBdWJ1YmVVDl9wcmVmZXRjaF9kb25lcaWJVQpfZm9yX3dyaXRlcaaJVQVxdWVyeXGnY2RqYW5nby5kYi5tb2RlbHMuc3FsLnF1ZXJ5ClF1ZXJ5CnGoKYFxqX1xqihVFWFnZ3JlZ2F0ZV9zZWxlY3RfbWFza3GrTlUXX2FnZ3JlZ2F0ZV9zZWxlY3RfY2FjaGVxrE5VBWV4dHJhca1jZGphbmdvLnV0aWxzLmRhdGFzdHJ1Y3R1cmVzClNvcnRlZERpY3QKca4pgXGvfXGwVQhrZXlPcmRlcnGxXXNiVQhqb2luX21hcHGyfXGzKChYDgAAAHRicHJvY2Vzc29iYXNlcbRYCQAAAGF1dGhfdXNlcnG1VQxhdXRoX3VzZXJfaWRxtmgedGi1hShOaLROTnRotIUoaLVYCQAAAHRiZGl2aXNhb3G3VQx0YmRpdmlzYW9faWRxuGgedGi3hXVVFXJlbGF0ZWRfc2VsZWN0X2ZpZWxkc3G5XVUMZXh0cmFfdGFibGVzcbopVQZzZWxlY3Rxu11xvFUGdGFibGVzcb1dcb4oaLRotWi3ZVUMdXNlZF9hbGlhc2Vzcb9jX19idWlsdGluX18Kc2V0CnHAXYVSccFVCG9yZGVyX2J5ccJdccNoHmFVCGRpc3RpbmN0ccSJVQ5kdXBlX2F2b2lkYW5jZXHFfXHGVRBkZWZhdWx0X29yZGVyaW5ncceIVQhncm91cF9ieXHITlURc2VsZWN0X2Zvcl91cGRhdGVxyYlVDnNlbGVjdF9yZWxhdGVkccqJVRBkZWZlcnJlZF9sb2FkaW5ncctowF2FUnHMiIZxzVUNc2VsZWN0X2ZpZWxkc3HOXVUJYWxpYXNfbWFwcc99cdAoaLRjZGphbmdvLmRiLm1vZGVscy5zcWwuY29uc3RhbnRzCkpvaW5JbmZvCnHRKGi0aLROTk5OiXSBcdJot2jRKGi3aLdVCklOTkVSIEpPSU5x02i1aLhoHol0gXHUaLVo0ShotWi1aNNotGi2aB6JdIFx1XVVCW1heF9kZXB0aHHWSwVVEXN0YW5kYXJkX29yZGVyaW5ncdeIVQ5leHRyYV9vcmRlcl9ieXHYKVUPZGlzdGluY3RfZmllbGRzcdldcdpVCmFnZ3JlZ2F0ZXNx22iuKYFx3H1x3WixXXNiVRlfbG9hZGVkX2ZpZWxkX25hbWVzX2NhY2hlcd59cd9VEWV4dHJhX3NlbGVjdF9tYXNrceBOVRhzZWxlY3RfZm9yX3VwZGF0ZV9ub3dhaXRx4YlVE19leHRyYV9zZWxlY3RfY2FjaGVx4k5VCGxvd19tYXJrceNLAFUOYWxpYXNfcmVmY291bnRx5H1x5ShotEsBaLdLAGi1SwF1VRNyZWxhdGVkX3NlbGVjdF9jb2xzceZdVQxkZWZhdWx0X2NvbHNx54hVEG9yZGVyaW5nX2FsaWFzZXNx6F1x6VUJaGlnaF9tYXJrcepOVRlpbmNsdWRlZF9pbmhlcml0ZWRfbW9kZWxzcet9cexOaLRzVQl0YWJsZV9tYXBx7X1x7ihotF1x72i0YWi3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X3JlbGF0ZWRyVgEAAIlVEGRlZmVycmVkX2xvYWRpbmdyVwEAAGjAXYVSclgBAACIhnJZAQAAVQ1zZWxlY3RfZmllbGRzcloBAABdVRNfZXh0cmFfc2VsZWN0X2NhY2hlclsBAABOVQltYXhfZGVwdGhyXAEAAEsFVQZzZWxlY3RyXQEAAF1yXgEAAFUOZXh0cmFfb3JkZXJfYnlyXwEAAClVD2Rpc3RpbmN0X2ZpZWxkc3JgAQAAXXJhAQAAVQphZ2dyZWdhdGVzcmIBAABorimBcmMBAAB9cmQBAABosV1zYlUZX2xvYWRlZF9maWVsZF9uYW1lc19jYWNoZXJlAQAAfXJmAQAAVRFleHRyYV9zZWxlY3RfbWFza3JnAQAATlUYc2VsZWN0X2Zvcl91cGRhdGVfbm93YWl0cmgBAACJVQhsb3dfbWFya3JpAQAASwBVDmFsaWFzX3JlZmNvdW50cmoBAAB9cmsBAABqQQEAAEsBc1UTcmVsYXRlZF9zZWxlY3RfY29sc3JsAQAAXVUMZGVmYXVsdF9jb2xzcm0BAACIVRBvcmRlcmluZ19hbGlhc2Vzcm4BAABdcm8BAABVBmhhdmluZ3JwAQAAaPMpgXJxAQAAfXJyAQAAKGj4VQNBTkRycwEAAGj6iWj7XWoJAQAAXXViVRlpbmNsdWRlZF9pbmhlcml0ZWRfbW9kZWxzcnQBAAB9cnUBAABOakEBAABzVRBkZWZhdWx0X29yZGVyaW5ncnYBAACIVQt3aGVyZV9jbGFzc3J3AQAAaPNVBW1vZGVscngBAABqFAEAAFURc3RhbmRhcmRfb3JkZXJpbmdyeQEAAIhVBXdoZXJlcnoBAABo8ymBcnsBAAB9cnwBAAAoaPhqcwEAAGj6iWj7XWoJAQAAXXViVQloaWdoX21hcmtyfQEAAE5VEGZpbHRlcl9pc19zdGlja3lyfgEAAIl1Ymj0ahQBAABoBl1yfwEAAHViVQdkaXZpc2FvWBMAAABTUkZBIDAyIC0gTWFyYW5ow6NvVQ1fYXV0aF91c2VyX2lkSwFVEl9hdXRoX3VzZXJfYmFja2VuZFUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmR1Lg==', '2013-10-23 13:16:45.131-02');
 
 
 --
--- TOC entry 2310 (class 0 OID 38281)
+-- TOC entry 2321 (class 0 OID 38281)
 -- Dependencies: 187
 -- Data for Name: django_site; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -2475,7 +2435,7 @@ INSERT INTO django_site (id, domain, name) VALUES (1, 'example.com', 'example.co
 
 
 --
--- TOC entry 2408 (class 0 OID 0)
+-- TOC entry 2416 (class 0 OID 0)
 -- Dependencies: 188
 -- Name: django_site_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -2484,66 +2444,71 @@ SELECT pg_catalog.setval('django_site_id_seq', 1, false);
 
 
 --
--- TOC entry 2312 (class 0 OID 38286)
+-- TOC entry 2323 (class 0 OID 38286)
 -- Dependencies: 189
 -- Data for Name: tbcaixa; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO tbcaixa (nmlocalarquivo, qtdprocessos, tptramitacao, tbtipocaixa_id, id) VALUES ('08', NULL, NULL, 1, 4);
 INSERT INTO tbcaixa (nmlocalarquivo, qtdprocessos, tptramitacao, tbtipocaixa_id, id) VALUES ('Caixa 02', NULL, NULL, 1, 16);
 INSERT INTO tbcaixa (nmlocalarquivo, qtdprocessos, tptramitacao, tbtipocaixa_id, id) VALUES ('Caixa 03', NULL, NULL, 1, 17);
-INSERT INTO tbcaixa (nmlocalarquivo, qtdprocessos, tptramitacao, tbtipocaixa_id, id) VALUES ('01', NULL, NULL, 2, 1);
+INSERT INTO tbcaixa (nmlocalarquivo, qtdprocessos, tptramitacao, tbtipocaixa_id, id) VALUES ('08', NULL, NULL, 3, 4);
+INSERT INTO tbcaixa (nmlocalarquivo, qtdprocessos, tptramitacao, tbtipocaixa_id, id) VALUES ('CX. SRFA 01', NULL, '', 5, 18);
+INSERT INTO tbcaixa (nmlocalarquivo, qtdprocessos, tptramitacao, tbtipocaixa_id, id) VALUES ('PEC2', NULL, '', 5, 19);
+INSERT INTO tbcaixa (nmlocalarquivo, qtdprocessos, tptramitacao, tbtipocaixa_id, id) VALUES ('01', NULL, '', 6, 1);
+INSERT INTO tbcaixa (nmlocalarquivo, qtdprocessos, tptramitacao, tbtipocaixa_id, id) VALUES ('Litigios', NULL, '', 2, 20);
 
 
 --
--- TOC entry 2409 (class 0 OID 0)
+-- TOC entry 2417 (class 0 OID 0)
 -- Dependencies: 190
 -- Name: tbcaixa_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('tbcaixa_id_seq', 17, true);
+SELECT pg_catalog.setval('tbcaixa_id_seq', 20, true);
 
 
 --
--- TOC entry 2314 (class 0 OID 38291)
+-- TOC entry 2325 (class 0 OID 38291)
 -- Dependencies: 191
 -- Data for Name: tbclassificacaoprocesso; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO tbclassificacaoprocesso (nmclassificacao, id) VALUES ('Anexo', 2);
-INSERT INTO tbclassificacaoprocesso (nmclassificacao, id) VALUES ('Pai', 1);
+INSERT INTO tbclassificacaoprocesso (nmclassificacao, id, tbdivisao_id) VALUES ('Anexo', 2, NULL);
+INSERT INTO tbclassificacaoprocesso (nmclassificacao, id, tbdivisao_id) VALUES ('Pai', 1, NULL);
+INSERT INTO tbclassificacaoprocesso (nmclassificacao, id, tbdivisao_id) VALUES ('HEAD', 3, 1);
 
 
 --
--- TOC entry 2410 (class 0 OID 0)
+-- TOC entry 2418 (class 0 OID 0)
 -- Dependencies: 192
 -- Name: tbclassificacaoprocesso_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('tbclassificacaoprocesso_id_seq', 2, true);
+SELECT pg_catalog.setval('tbclassificacaoprocesso_id_seq', 3, true);
 
 
 --
--- TOC entry 2316 (class 0 OID 38296)
+-- TOC entry 2327 (class 0 OID 38296)
 -- Dependencies: 193
 -- Data for Name: tbcontrato; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO tbcontrato (nrcontrato, nmempresa, id) VALUES ('443', 'MA-INFO', 3);
-INSERT INTO tbcontrato (nrcontrato, nmempresa, id) VALUES ('4445', '5qp', 16);
+INSERT INTO tbcontrato (nrcontrato, nmempresa, id, tbdivisao_id) VALUES ('443', 'MA-INFO', 3, NULL);
+INSERT INTO tbcontrato (nrcontrato, nmempresa, id, tbdivisao_id) VALUES ('4445', '5qp', 16, NULL);
+INSERT INTO tbcontrato (nrcontrato, nmempresa, id, tbdivisao_id) VALUES ('001', 'NGEO', 17, 1);
 
 
 --
--- TOC entry 2411 (class 0 OID 0)
+-- TOC entry 2419 (class 0 OID 0)
 -- Dependencies: 194
 -- Name: tbcontrato_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('tbcontrato_id_seq', 16, true);
+SELECT pg_catalog.setval('tbcontrato_id_seq', 17, true);
 
 
 --
--- TOC entry 2303 (class 0 OID 38253)
+-- TOC entry 2314 (class 0 OID 38253)
 -- Dependencies: 180
 -- Data for Name: tbdivisao; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -2556,52 +2521,47 @@ INSERT INTO tbdivisao (id, nmdivisao, dsdivisao, tbuf_id) VALUES (7, 'SRFA 04', 
 
 
 --
--- TOC entry 2318 (class 0 OID 38301)
+-- TOC entry 2329 (class 0 OID 38301)
 -- Dependencies: 195
 -- Data for Name: tbgleba; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO tbgleba (cdgleba, nmgleba, tbsubarea_id, id) VALUES (NULL, 'Colone 01', 1, 1);
 INSERT INTO tbgleba (cdgleba, nmgleba, tbsubarea_id, id) VALUES (NULL, 'Colone 02', 1, 2);
-INSERT INTO tbgleba (cdgleba, nmgleba, tbsubarea_id, id) VALUES (NULL, 'gleba 1', 1, 3);
+INSERT INTO tbgleba (cdgleba, nmgleba, tbsubarea_id, id) VALUES (NULL, 'Colone 01', 1, 1);
+INSERT INTO tbgleba (cdgleba, nmgleba, tbsubarea_id, id) VALUES (NULL, 'NOVA', 2, 3);
+INSERT INTO tbgleba (cdgleba, nmgleba, tbsubarea_id, id) VALUES (NULL, 'Gurupi', 1, 4);
 
 
 --
--- TOC entry 2412 (class 0 OID 0)
+-- TOC entry 2420 (class 0 OID 0)
 -- Dependencies: 196
 -- Name: tbgleba_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('tbgleba_id_seq', 3, true);
+SELECT pg_catalog.setval('tbgleba_id_seq', 4, true);
 
 
 --
--- TOC entry 2320 (class 0 OID 38306)
+-- TOC entry 2331 (class 0 OID 38306)
 -- Dependencies: 197
 -- Data for Name: tbmovimentacao; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO tbmovimentacao (tbprocessobase_id, dtmovimentacao, tbcaixa_id_origem, tbcaixa_id, auth_user_id, nrdias, id) VALUES (64, '2013-09-26 14:37:50.096', 4, 16, 1, NULL, 1);
-INSERT INTO tbmovimentacao (tbprocessobase_id, dtmovimentacao, tbcaixa_id_origem, tbcaixa_id, auth_user_id, nrdias, id) VALUES (64, '2013-09-26 14:38:00.586', 16, 4, 1, NULL, 2);
-INSERT INTO tbmovimentacao (tbprocessobase_id, dtmovimentacao, tbcaixa_id_origem, tbcaixa_id, auth_user_id, nrdias, id) VALUES (66, '2013-09-26 14:38:45.996', 16, 4, 1, NULL, 3);
-INSERT INTO tbmovimentacao (tbprocessobase_id, dtmovimentacao, tbcaixa_id_origem, tbcaixa_id, auth_user_id, nrdias, id) VALUES (67, '2013-09-26 14:44:10.547', 16, 1, 1, NULL, 4);
-INSERT INTO tbmovimentacao (tbprocessobase_id, dtmovimentacao, tbcaixa_id_origem, tbcaixa_id, auth_user_id, nrdias, id) VALUES (64, '2013-09-26 15:54:50.809', 4, 4, 1, NULL, 5);
-INSERT INTO tbmovimentacao (tbprocessobase_id, dtmovimentacao, tbcaixa_id_origem, tbcaixa_id, auth_user_id, nrdias, id) VALUES (64, '2013-09-26 16:03:58.311', 4, 4, 1, NULL, 6);
-INSERT INTO tbmovimentacao (tbprocessobase_id, dtmovimentacao, tbcaixa_id_origem, tbcaixa_id, auth_user_id, nrdias, id) VALUES (64, '2013-09-26 16:08:48.769', 4, 4, 1, NULL, 7);
-INSERT INTO tbmovimentacao (tbprocessobase_id, dtmovimentacao, tbcaixa_id_origem, tbcaixa_id, auth_user_id, nrdias, id) VALUES (64, '2013-09-26 16:09:46.168', 4, 4, 1, NULL, 8);
+INSERT INTO tbmovimentacao (tbprocessobase_id, dtmovimentacao, tbcaixa_id_origem, tbcaixa_id, auth_user_id, nrdias, id) VALUES (64, '2013-10-09 11:46:54.831', 16, 4, 1, NULL, 14);
+INSERT INTO tbmovimentacao (tbprocessobase_id, dtmovimentacao, tbcaixa_id_origem, tbcaixa_id, auth_user_id, nrdias, id) VALUES (64, '2013-10-09 11:47:51.316', 4, 20, 1, NULL, 15);
 
 
 --
--- TOC entry 2413 (class 0 OID 0)
+-- TOC entry 2421 (class 0 OID 0)
 -- Dependencies: 198
 -- Name: tbmovimentacao_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('tbmovimentacao_id_seq', 8, true);
+SELECT pg_catalog.setval('tbmovimentacao_id_seq', 15, true);
 
 
 --
--- TOC entry 2322 (class 0 OID 38311)
+-- TOC entry 2333 (class 0 OID 38311)
 -- Dependencies: 199
 -- Data for Name: tbmunicipio; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -8206,7 +8166,7 @@ INSERT INTO tbmunicipio ("Nome_Mun_Maiusculo", "Nome_Mun", "Codigo_Mun", "Regiao
 
 
 --
--- TOC entry 2414 (class 0 OID 0)
+-- TOC entry 2422 (class 0 OID 0)
 -- Dependencies: 200
 -- Name: tbmunicipio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -8215,33 +8175,16 @@ SELECT pg_catalog.setval('tbmunicipio_id_seq', 15691, true);
 
 
 --
--- TOC entry 2357 (class 0 OID 39938)
--- Dependencies: 234
--- Data for Name: tbmunicipiomodulo; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-
-
---
--- TOC entry 2415 (class 0 OID 0)
--- Dependencies: 233
--- Name: tbmunicipiomodulo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('tbmunicipiomodulo_id_seq', 1, false);
-
-
---
--- TOC entry 2324 (class 0 OID 38321)
+-- TOC entry 2335 (class 0 OID 38321)
 -- Dependencies: 201
 -- Data for Name: tbpecastecnicas; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO tbpecastecnicas (cdpeca, tbcontrato_id, nrentrega, nrcpfrequerente, nmrequerente, stenviadobrasilia, stpecatecnica, stanexadoprocesso, dsobservacao, tbcaixa_id, nrarea, nrperimetro, tbgleba_id, id) VALUES ('', 3, '1102', '99999999999', 'Waldenilson C', false, true, true, '', 4, 212.0000, 321.0000, 2, 30);
+INSERT INTO tbpecastecnicas (cdpeca, tbcontrato_id, nrentrega, nrcpfrequerente, nmrequerente, stenviadobrasilia, stpecatecnica, stanexadoprocesso, dsobservacao, tbcaixa_id, nrarea, nrperimetro, tbgleba_id, id, tbdivisao_id) VALUES ('', 3, '1102', '99999999999', 'Waldenilson C', false, true, true, '', 4, 212.0000, 321.0000, 2, 30, NULL);
 
 
 --
--- TOC entry 2416 (class 0 OID 0)
+-- TOC entry 2423 (class 0 OID 0)
 -- Dependencies: 202
 -- Name: tbpecastecnicas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -8250,54 +8193,56 @@ SELECT pg_catalog.setval('tbpecastecnicas_id_seq', 30, true);
 
 
 --
--- TOC entry 2326 (class 0 OID 38332)
+-- TOC entry 2337 (class 0 OID 38332)
 -- Dependencies: 203
 -- Data for Name: tbpendencia; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
+INSERT INTO tbpendencia (nrcodigo, tbprocessobase_id, tbtipopendencia_id, dsdescricao, dtpendencia, auth_user_id, tbstatuspendencia_id, id) VALUES ('', 64, 2, 'Testando', '2013-09-27 12:13:53.656', 1, 1, 1);
 
 
 --
--- TOC entry 2417 (class 0 OID 0)
+-- TOC entry 2424 (class 0 OID 0)
 -- Dependencies: 204
 -- Name: tbpendencia_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('tbpendencia_id_seq', 1, false);
+SELECT pg_catalog.setval('tbpendencia_id_seq', 1, true);
 
 
 --
--- TOC entry 2418 (class 0 OID 0)
+-- TOC entry 2425 (class 0 OID 0)
 -- Dependencies: 206
 -- Name: tbprocesso_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('tbprocesso_id_seq', 15, true);
+SELECT pg_catalog.setval('tbprocesso_id_seq', 16, true);
 
 
 --
--- TOC entry 2330 (class 0 OID 38345)
+-- TOC entry 2341 (class 0 OID 38345)
 -- Dependencies: 207
 -- Data for Name: tbprocessobase; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO tbprocessobase (nrprocesso, tbgleba_id, tbcaixa_id, tbmunicipio_id, auth_user_id, tbtipoprocesso_id, id, tbsituacaoprocesso_id, dtcadastrosistema, tbclassificacaoprocesso_id) VALUES ('33333333333333333', 2, 1, 10250, 4, 1, 65, 1, '2013-09-18 11:39:32.452', 1);
-INSERT INTO tbprocessobase (nrprocesso, tbgleba_id, tbcaixa_id, tbmunicipio_id, auth_user_id, tbtipoprocesso_id, id, tbsituacaoprocesso_id, dtcadastrosistema, tbclassificacaoprocesso_id) VALUES ('22222222222222222', 1, 4, 10558, 1, 3, 66, 3, '2013-09-25 10:38:43.138', 1);
-INSERT INTO tbprocessobase (nrprocesso, tbgleba_id, tbcaixa_id, tbmunicipio_id, auth_user_id, tbtipoprocesso_id, id, tbsituacaoprocesso_id, dtcadastrosistema, tbclassificacaoprocesso_id) VALUES ('20392039023902920', 1, 1, 10558, 1, 2, 67, 2, '2013-09-26 14:43:58.881', 1);
-INSERT INTO tbprocessobase (nrprocesso, tbgleba_id, tbcaixa_id, tbmunicipio_id, auth_user_id, tbtipoprocesso_id, id, tbsituacaoprocesso_id, dtcadastrosistema, tbclassificacaoprocesso_id) VALUES ('39438493893849384', 2, 4, 10553, 1, 1, 64, 3, '2013-09-18 09:56:27.298', 1);
+INSERT INTO tbprocessobase (nrprocesso, tbgleba_id, tbcaixa_id, tbmunicipio_id, auth_user_id, tbtipoprocesso_id, id, tbsituacaoprocesso_id, dtcadastrosistema, tbclassificacaoprocesso_id, tbdivisao_id) VALUES ('11111111111111111', 4, 4, 10544, 1, 1, 68, 1, '2013-10-09 12:16:19.753', 1, 1);
+INSERT INTO tbprocessobase (nrprocesso, tbgleba_id, tbcaixa_id, tbmunicipio_id, auth_user_id, tbtipoprocesso_id, id, tbsituacaoprocesso_id, dtcadastrosistema, tbclassificacaoprocesso_id, tbdivisao_id) VALUES ('33333333333333333', 2, 1, 10250, 4, 1, 65, 1, '2013-09-18 11:39:32.452', 1, NULL);
+INSERT INTO tbprocessobase (nrprocesso, tbgleba_id, tbcaixa_id, tbmunicipio_id, auth_user_id, tbtipoprocesso_id, id, tbsituacaoprocesso_id, dtcadastrosistema, tbclassificacaoprocesso_id, tbdivisao_id) VALUES ('20392039023902920', 1, 1, 10558, 1, 2, 67, 2, '2013-09-26 14:43:58.881', 1, NULL);
+INSERT INTO tbprocessobase (nrprocesso, tbgleba_id, tbcaixa_id, tbmunicipio_id, auth_user_id, tbtipoprocesso_id, id, tbsituacaoprocesso_id, dtcadastrosistema, tbclassificacaoprocesso_id, tbdivisao_id) VALUES ('39438493893849384', 2, 20, 10553, 1, 1, 64, 3, '2013-09-18 09:56:27.298', 1, NULL);
+INSERT INTO tbprocessobase (nrprocesso, tbgleba_id, tbcaixa_id, tbmunicipio_id, auth_user_id, tbtipoprocesso_id, id, tbsituacaoprocesso_id, dtcadastrosistema, tbclassificacaoprocesso_id, tbdivisao_id) VALUES ('22222222222222222', 1, 20, 10558, 1, 3, 66, 3, '2013-09-25 10:38:43.138', 2, NULL);
 
 
 --
--- TOC entry 2419 (class 0 OID 0)
+-- TOC entry 2426 (class 0 OID 0)
 -- Dependencies: 208
 -- Name: tbprocessobase_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('tbprocessobase_id_seq', 67, true);
+SELECT pg_catalog.setval('tbprocessobase_id_seq', 68, true);
 
 
 --
--- TOC entry 2332 (class 0 OID 38350)
+-- TOC entry 2343 (class 0 OID 38350)
 -- Dependencies: 209
 -- Data for Name: tbprocessoclausula; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -8306,7 +8251,7 @@ INSERT INTO tbprocessoclausula (tbprocessobase_id, nmrequerente, nminteressado, 
 
 
 --
--- TOC entry 2420 (class 0 OID 0)
+-- TOC entry 2427 (class 0 OID 0)
 -- Dependencies: 210
 -- Name: tbprocessoclausula_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -8315,34 +8260,36 @@ SELECT pg_catalog.setval('tbprocessoclausula_id_seq', 12, true);
 
 
 --
--- TOC entry 2328 (class 0 OID 38340)
+-- TOC entry 2339 (class 0 OID 38340)
 -- Dependencies: 205
 -- Data for Name: tbprocessorural; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 INSERT INTO tbprocessorural (tbprocessobase_id, nmrequerente, nrcpfrequerente, blconjuge, cdstatus, id, nrcpfconjuge, nmconjuge) VALUES (65, 'Hu A A', '44444444444', false, NULL, 15, '', '');
 INSERT INTO tbprocessorural (tbprocessobase_id, nmrequerente, nrcpfrequerente, blconjuge, cdstatus, id, nrcpfconjuge, nmconjuge) VALUES (64, 'Waldenilson C', '99999999999', false, NULL, 14, '', '');
+INSERT INTO tbprocessorural (tbprocessobase_id, nmrequerente, nrcpfrequerente, blconjuge, cdstatus, id, nrcpfconjuge, nmconjuge) VALUES (68, 'Joao', '11111111111', false, NULL, 16, '', '');
 
 
 --
--- TOC entry 2334 (class 0 OID 38358)
+-- TOC entry 2345 (class 0 OID 38358)
 -- Dependencies: 211
 -- Data for Name: tbprocessosanexos; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
+INSERT INTO tbprocessosanexos (tbprocessobase_id, tbprocessobase_id_anexo, dtanexado, auth_user_id, id) VALUES (64, 66, '2013-09-27 11:31:55.371', 1, 6);
 
 
 --
--- TOC entry 2421 (class 0 OID 0)
+-- TOC entry 2428 (class 0 OID 0)
 -- Dependencies: 212
 -- Name: tbprocessosanexos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('tbprocessosanexos_id_seq', 1, false);
+SELECT pg_catalog.setval('tbprocessosanexos_id_seq', 6, true);
 
 
 --
--- TOC entry 2336 (class 0 OID 38363)
+-- TOC entry 2347 (class 0 OID 38363)
 -- Dependencies: 213
 -- Data for Name: tbprocessourbano; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -8351,7 +8298,7 @@ INSERT INTO tbprocessourbano (tbprocessobase_id, nmpovoado, nrcnpj, dtaberturapr
 
 
 --
--- TOC entry 2422 (class 0 OID 0)
+-- TOC entry 2429 (class 0 OID 0)
 -- Dependencies: 214
 -- Name: tbprocessourbano_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -8360,7 +8307,7 @@ SELECT pg_catalog.setval('tbprocessourbano_id_seq', 7, true);
 
 
 --
--- TOC entry 2338 (class 0 OID 38368)
+-- TOC entry 2349 (class 0 OID 38368)
 -- Dependencies: 215
 -- Data for Name: tbservidor; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -8368,7 +8315,7 @@ SELECT pg_catalog.setval('tbprocessourbano_id_seq', 7, true);
 
 
 --
--- TOC entry 2423 (class 0 OID 0)
+-- TOC entry 2430 (class 0 OID 0)
 -- Dependencies: 216
 -- Name: tbservidor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -8377,145 +8324,155 @@ SELECT pg_catalog.setval('tbservidor_id_seq', 1, false);
 
 
 --
--- TOC entry 2340 (class 0 OID 38376)
+-- TOC entry 2351 (class 0 OID 38376)
 -- Dependencies: 217
 -- Data for Name: tbsituacaogeo; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO tbsituacaogeo (id, nmsituacaogeo, dssituacaogeo) VALUES (3, 'Executado', '');
-INSERT INTO tbsituacaogeo (id, nmsituacaogeo, dssituacaogeo) VALUES (2, 'Em Execucao', '');
-INSERT INTO tbsituacaogeo (id, nmsituacaogeo, dssituacaogeo) VALUES (1, 'A Contratar', '');
+INSERT INTO tbsituacaogeo (id, nmsituacaogeo, dssituacaogeo, tbdivisao_id) VALUES (3, 'Executado', '', NULL);
+INSERT INTO tbsituacaogeo (id, nmsituacaogeo, dssituacaogeo, tbdivisao_id) VALUES (2, 'Em Execucao', '', NULL);
+INSERT INTO tbsituacaogeo (id, nmsituacaogeo, dssituacaogeo, tbdivisao_id) VALUES (1, 'A Contratar', '', NULL);
+INSERT INTO tbsituacaogeo (id, nmsituacaogeo, dssituacaogeo, tbdivisao_id) VALUES (4, 'Finalizado', 'Geo finalizado', 1);
 
 
 --
--- TOC entry 2424 (class 0 OID 0)
+-- TOC entry 2431 (class 0 OID 0)
 -- Dependencies: 218
 -- Name: tbsituacaogeo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('tbsituacaogeo_id_seq', 3, true);
+SELECT pg_catalog.setval('tbsituacaogeo_id_seq', 4, true);
 
 
 --
--- TOC entry 2342 (class 0 OID 38384)
+-- TOC entry 2353 (class 0 OID 38384)
 -- Dependencies: 219
 -- Data for Name: tbsituacaoprocesso; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO tbsituacaoprocesso (nmsituacao, id, dssituacao) VALUES ('Aberto', 1, 'cadastrado recentemente.');
-INSERT INTO tbsituacaoprocesso (nmsituacao, id, dssituacao) VALUES ('Aguardando vistoria', 3, 'aguardando vistoria.');
-INSERT INTO tbsituacaoprocesso (nmsituacao, id, dssituacao) VALUES ('Titulado', 2, 'titulado');
-INSERT INTO tbsituacaoprocesso (nmsituacao, id, dssituacao) VALUES ('Outros', 4, '');
+INSERT INTO tbsituacaoprocesso (nmsituacao, id, dssituacao, tbdivisao_id) VALUES ('Aberto', 1, 'cadastrado recentemente.', NULL);
+INSERT INTO tbsituacaoprocesso (nmsituacao, id, dssituacao, tbdivisao_id) VALUES ('Aguardando vistoria', 3, 'aguardando vistoria.', NULL);
+INSERT INTO tbsituacaoprocesso (nmsituacao, id, dssituacao, tbdivisao_id) VALUES ('Titulado', 2, 'titulado', NULL);
+INSERT INTO tbsituacaoprocesso (nmsituacao, id, dssituacao, tbdivisao_id) VALUES ('Outros', 4, '', NULL);
+INSERT INTO tbsituacaoprocesso (nmsituacao, id, dssituacao, tbdivisao_id) VALUES ('ABERTO', 5, 'iniciado.', 1);
 
 
 --
--- TOC entry 2425 (class 0 OID 0)
+-- TOC entry 2432 (class 0 OID 0)
 -- Dependencies: 220
 -- Name: tbsituacaoprocesso_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('tbsituacaoprocesso_id_seq', 4, true);
+SELECT pg_catalog.setval('tbsituacaoprocesso_id_seq', 5, true);
 
 
 --
--- TOC entry 2344 (class 0 OID 38392)
+-- TOC entry 2355 (class 0 OID 38392)
 -- Dependencies: 221
 -- Data for Name: tbstatuspendencia; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO tbstatuspendencia (stpendencia, dspendencia, id) VALUES (2, 'Pendente', 2);
-INSERT INTO tbstatuspendencia (stpendencia, dspendencia, id) VALUES (NULL, 'Sanado', 1);
+INSERT INTO tbstatuspendencia (stpendencia, dspendencia, id, tbdivisao_id) VALUES (NULL, 'Testando', 3, 7);
+INSERT INTO tbstatuspendencia (stpendencia, dspendencia, id, tbdivisao_id) VALUES (NULL, 'Testando 02', 4, 7);
+INSERT INTO tbstatuspendencia (stpendencia, dspendencia, id, tbdivisao_id) VALUES (NULL, 'Sanado', 1, 1);
+INSERT INTO tbstatuspendencia (stpendencia, dspendencia, id, tbdivisao_id) VALUES (2, 'Pendente', 2, 1);
 
 
 --
--- TOC entry 2426 (class 0 OID 0)
+-- TOC entry 2433 (class 0 OID 0)
 -- Dependencies: 222
 -- Name: tbstatuspendencia_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('tbstatuspendencia_id_seq', 2, true);
+SELECT pg_catalog.setval('tbstatuspendencia_id_seq', 4, true);
 
 
 --
--- TOC entry 2346 (class 0 OID 38397)
+-- TOC entry 2357 (class 0 OID 38397)
 -- Dependencies: 223
 -- Data for Name: tbsubarea; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO tbsubarea (cdsubarea, nmsubarea, id) VALUES ('11', 'subarea 01', 1);
+INSERT INTO tbsubarea (cdsubarea, nmsubarea, id, tbdivisao_id) VALUES ('', 'SUB 01', 1, 1);
+INSERT INTO tbsubarea (cdsubarea, nmsubarea, id, tbdivisao_id) VALUES ('', 'SUB 002', 2, 1);
+INSERT INTO tbsubarea (cdsubarea, nmsubarea, id, tbdivisao_id) VALUES ('', 'SUB 0104', 3, 7);
 
 
 --
--- TOC entry 2427 (class 0 OID 0)
+-- TOC entry 2434 (class 0 OID 0)
 -- Dependencies: 224
 -- Name: tbsubarea_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('tbsubarea_id_seq', 1, true);
+SELECT pg_catalog.setval('tbsubarea_id_seq', 3, true);
 
 
 --
--- TOC entry 2348 (class 0 OID 38402)
+-- TOC entry 2359 (class 0 OID 38402)
 -- Dependencies: 225
 -- Data for Name: tbtipocaixa; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO tbtipocaixa (nmtipocaixa, desctipocaixa, id) VALUES ('RES', 'clausula resolutiva', 1);
-INSERT INTO tbtipocaixa (nmtipocaixa, desctipocaixa, id) VALUES ('PAD', 'padrao', 2);
-INSERT INTO tbtipocaixa (nmtipocaixa, desctipocaixa, id) VALUES ('SER', 'servidor', 3);
-INSERT INTO tbtipocaixa (nmtipocaixa, desctipocaixa, id) VALUES ('URB', 'urbano', 4);
-INSERT INTO tbtipocaixa (nmtipocaixa, desctipocaixa, id) VALUES ('PEC', 'pecas', 5);
+INSERT INTO tbtipocaixa (nmtipocaixa, desctipocaixa, id, tbdivisao_id) VALUES ('RES', 'clausula resolutiva', 1, 1);
+INSERT INTO tbtipocaixa (nmtipocaixa, desctipocaixa, id, tbdivisao_id) VALUES ('PAD', 'padrao', 2, 1);
+INSERT INTO tbtipocaixa (nmtipocaixa, desctipocaixa, id, tbdivisao_id) VALUES ('SER', 'servidor', 3, 1);
+INSERT INTO tbtipocaixa (nmtipocaixa, desctipocaixa, id, tbdivisao_id) VALUES ('FT', 'forca tarefa', 6, 1);
+INSERT INTO tbtipocaixa (nmtipocaixa, desctipocaixa, id, tbdivisao_id) VALUES ('PEC', 'pecas', 5, 2);
+INSERT INTO tbtipocaixa (nmtipocaixa, desctipocaixa, id, tbdivisao_id) VALUES ('URB', 'urbano', 4, 2);
+INSERT INTO tbtipocaixa (nmtipocaixa, desctipocaixa, id, tbdivisao_id) VALUES ('TXT', 'texto 02', 7, 2);
 
 
 --
--- TOC entry 2428 (class 0 OID 0)
+-- TOC entry 2435 (class 0 OID 0)
 -- Dependencies: 226
 -- Name: tbtipocaixa_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('tbtipocaixa_id_seq', 5, true);
+SELECT pg_catalog.setval('tbtipocaixa_id_seq', 7, true);
 
 
 --
--- TOC entry 2350 (class 0 OID 38410)
+-- TOC entry 2361 (class 0 OID 38410)
 -- Dependencies: 227
 -- Data for Name: tbtipopendencia; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO tbtipopendencia (cdtipopend, dspendencia, cdgrupo, id) VALUES (NULL, 'PENDENTE', '', 1);
+INSERT INTO tbtipopendencia (cdtipopend, dspendencia, cdgrupo, id, tbdivisao_id) VALUES (NULL, 'Nao Tramitado', '', 2, 7);
+INSERT INTO tbtipopendencia (cdtipopend, dspendencia, cdgrupo, id, tbdivisao_id) VALUES (NULL, 'PENDENTE', '', 1, 1);
 
 
 --
--- TOC entry 2429 (class 0 OID 0)
+-- TOC entry 2436 (class 0 OID 0)
 -- Dependencies: 228
 -- Name: tbtipopendencia_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('tbtipopendencia_id_seq', 1, true);
+SELECT pg_catalog.setval('tbtipopendencia_id_seq', 2, true);
 
 
 --
--- TOC entry 2352 (class 0 OID 38415)
+-- TOC entry 2363 (class 0 OID 38415)
 -- Dependencies: 229
 -- Data for Name: tbtipoprocesso; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO tbtipoprocesso (nome, tabela, id, coridentificacao) VALUES ('PROCESSO RURAL', 'tbprocessorural', 1, '#b2f7b2');
-INSERT INTO tbtipoprocesso (nome, tabela, id, coridentificacao) VALUES ('REGULARIZACAO URBANA', 'tbprocessourbano', 3, '#EEEEEE');
-INSERT INTO tbtipoprocesso (nome, tabela, id, coridentificacao) VALUES ('CLAUSULAS RESOLUTIVAS', 'tbprocessoclausula', 2, '#f1f8b7');
+INSERT INTO tbtipoprocesso (nome, tabela, id, coridentificacao, tbdivisao_id) VALUES ('PROCESSO RURAL', 'tbprocessorural', 1, '#b2f7b2', NULL);
+INSERT INTO tbtipoprocesso (nome, tabela, id, coridentificacao, tbdivisao_id) VALUES ('REGULARIZACAO URBANA', 'tbprocessourbano', 3, '#EEEEEE', NULL);
+INSERT INTO tbtipoprocesso (nome, tabela, id, coridentificacao, tbdivisao_id) VALUES ('CLAUSULAS RESOLUTIVAS', 'tbprocessoclausula', 2, '#f1f8b7', NULL);
+INSERT INTO tbtipoprocesso (nome, tabela, id, coridentificacao, tbdivisao_id) VALUES ('EXCECAO', 'tbexcecao', 4, '#ff0099', 1);
 
 
 --
--- TOC entry 2430 (class 0 OID 0)
+-- TOC entry 2437 (class 0 OID 0)
 -- Dependencies: 230
 -- Name: tbtipoprocesso_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('tbtipoprocesso_id_seq', 3, true);
+SELECT pg_catalog.setval('tbtipoprocesso_id_seq', 4, true);
 
 
 --
--- TOC entry 2354 (class 0 OID 38420)
+-- TOC entry 2365 (class 0 OID 38420)
 -- Dependencies: 231
 -- Data for Name: tbuf; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -8550,7 +8507,7 @@ INSERT INTO tbuf (id, sigla, nmuf) VALUES (27, 'TO', 'Tocantins');
 
 
 --
--- TOC entry 2431 (class 0 OID 0)
+-- TOC entry 2438 (class 0 OID 0)
 -- Dependencies: 232
 -- Name: tbuf_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -8559,7 +8516,7 @@ SELECT pg_catalog.setval('tbuf_id_seq', 1, false);
 
 
 --
--- TOC entry 2160 (class 2606 OID 38459)
+-- TOC entry 2153 (class 2606 OID 38459)
 -- Name: auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8568,7 +8525,7 @@ ALTER TABLE ONLY auth_group
 
 
 --
--- TOC entry 2164 (class 2606 OID 38461)
+-- TOC entry 2157 (class 2606 OID 38461)
 -- Name: auth_group_permissions_group_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8577,7 +8534,7 @@ ALTER TABLE ONLY auth_group_permissions
 
 
 --
--- TOC entry 2166 (class 2606 OID 38463)
+-- TOC entry 2159 (class 2606 OID 38463)
 -- Name: auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8586,7 +8543,7 @@ ALTER TABLE ONLY auth_group_permissions
 
 
 --
--- TOC entry 2162 (class 2606 OID 38465)
+-- TOC entry 2155 (class 2606 OID 38465)
 -- Name: auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8595,7 +8552,7 @@ ALTER TABLE ONLY auth_group
 
 
 --
--- TOC entry 2168 (class 2606 OID 38467)
+-- TOC entry 2161 (class 2606 OID 38467)
 -- Name: auth_permission_content_type_id_codename_key; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8604,7 +8561,7 @@ ALTER TABLE ONLY auth_permission
 
 
 --
--- TOC entry 2170 (class 2606 OID 38469)
+-- TOC entry 2163 (class 2606 OID 38469)
 -- Name: auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8613,7 +8570,7 @@ ALTER TABLE ONLY auth_permission
 
 
 --
--- TOC entry 2177 (class 2606 OID 38471)
+-- TOC entry 2170 (class 2606 OID 38471)
 -- Name: auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8622,7 +8579,7 @@ ALTER TABLE ONLY auth_user_groups
 
 
 --
--- TOC entry 2179 (class 2606 OID 38473)
+-- TOC entry 2172 (class 2606 OID 38473)
 -- Name: auth_user_groups_user_id_group_id_key; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8631,7 +8588,7 @@ ALTER TABLE ONLY auth_user_groups
 
 
 --
--- TOC entry 2172 (class 2606 OID 38475)
+-- TOC entry 2165 (class 2606 OID 38475)
 -- Name: auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8640,7 +8597,7 @@ ALTER TABLE ONLY auth_user
 
 
 --
--- TOC entry 2181 (class 2606 OID 38477)
+-- TOC entry 2174 (class 2606 OID 38477)
 -- Name: auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8649,7 +8606,7 @@ ALTER TABLE ONLY auth_user_user_permissions
 
 
 --
--- TOC entry 2183 (class 2606 OID 38479)
+-- TOC entry 2176 (class 2606 OID 38479)
 -- Name: auth_user_user_permissions_user_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8658,7 +8615,7 @@ ALTER TABLE ONLY auth_user_user_permissions
 
 
 --
--- TOC entry 2174 (class 2606 OID 38481)
+-- TOC entry 2167 (class 2606 OID 38481)
 -- Name: auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8667,7 +8624,7 @@ ALTER TABLE ONLY auth_user
 
 
 --
--- TOC entry 2188 (class 2606 OID 38483)
+-- TOC entry 2181 (class 2606 OID 38483)
 -- Name: django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8676,7 +8633,7 @@ ALTER TABLE ONLY django_admin_log
 
 
 --
--- TOC entry 2190 (class 2606 OID 38485)
+-- TOC entry 2183 (class 2606 OID 38485)
 -- Name: django_content_type_app_label_model_key; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8685,7 +8642,7 @@ ALTER TABLE ONLY django_content_type
 
 
 --
--- TOC entry 2192 (class 2606 OID 38487)
+-- TOC entry 2185 (class 2606 OID 38487)
 -- Name: django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8694,7 +8651,7 @@ ALTER TABLE ONLY django_content_type
 
 
 --
--- TOC entry 2194 (class 2606 OID 38489)
+-- TOC entry 2187 (class 2606 OID 38489)
 -- Name: django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8703,7 +8660,7 @@ ALTER TABLE ONLY django_session
 
 
 --
--- TOC entry 2196 (class 2606 OID 38491)
+-- TOC entry 2189 (class 2606 OID 38491)
 -- Name: django_site_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8712,7 +8669,7 @@ ALTER TABLE ONLY django_site
 
 
 --
--- TOC entry 2186 (class 2606 OID 38493)
+-- TOC entry 2179 (class 2606 OID 38493)
 -- Name: pk_divisao; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8721,7 +8678,7 @@ ALTER TABLE ONLY tbdivisao
 
 
 --
--- TOC entry 2209 (class 2606 OID 38495)
+-- TOC entry 2204 (class 2606 OID 38495)
 -- Name: pk_tbmunicipio; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8730,7 +8687,7 @@ ALTER TABLE ONLY tbmunicipio
 
 
 --
--- TOC entry 2231 (class 2606 OID 38497)
+-- TOC entry 2229 (class 2606 OID 38497)
 -- Name: pk_tbsituacaogeo; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8739,7 +8696,7 @@ ALTER TABLE ONLY tbsituacaogeo
 
 
 --
--- TOC entry 2245 (class 2606 OID 38499)
+-- TOC entry 2249 (class 2606 OID 38499)
 -- Name: pk_tbuf; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8748,7 +8705,7 @@ ALTER TABLE ONLY tbuf
 
 
 --
--- TOC entry 2198 (class 2606 OID 38501)
+-- TOC entry 2191 (class 2606 OID 38501)
 -- Name: tbcaixa_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8757,7 +8714,7 @@ ALTER TABLE ONLY tbcaixa
 
 
 --
--- TOC entry 2200 (class 2606 OID 38503)
+-- TOC entry 2194 (class 2606 OID 38503)
 -- Name: tbclassificacaoprocesso_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8766,7 +8723,7 @@ ALTER TABLE ONLY tbclassificacaoprocesso
 
 
 --
--- TOC entry 2202 (class 2606 OID 38505)
+-- TOC entry 2197 (class 2606 OID 38505)
 -- Name: tbcontrato_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8775,7 +8732,7 @@ ALTER TABLE ONLY tbcontrato
 
 
 --
--- TOC entry 2204 (class 2606 OID 38507)
+-- TOC entry 2199 (class 2606 OID 38507)
 -- Name: tbgleba_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8784,7 +8741,7 @@ ALTER TABLE ONLY tbgleba
 
 
 --
--- TOC entry 2206 (class 2606 OID 38509)
+-- TOC entry 2201 (class 2606 OID 38509)
 -- Name: tbmovimentacao_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8793,16 +8750,7 @@ ALTER TABLE ONLY tbmovimentacao
 
 
 --
--- TOC entry 2247 (class 2606 OID 39943)
--- Name: tbmunicipiomodulo_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
---
-
-ALTER TABLE ONLY tbmunicipiomodulo
-    ADD CONSTRAINT tbmunicipiomodulo_pkey PRIMARY KEY (id);
-
-
---
--- TOC entry 2211 (class 2606 OID 38513)
+-- TOC entry 2207 (class 2606 OID 38513)
 -- Name: tbpecastecnicas_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8811,7 +8759,7 @@ ALTER TABLE ONLY tbpecastecnicas
 
 
 --
--- TOC entry 2213 (class 2606 OID 38515)
+-- TOC entry 2209 (class 2606 OID 38515)
 -- Name: tbpendencia_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8820,7 +8768,7 @@ ALTER TABLE ONLY tbpendencia
 
 
 --
--- TOC entry 2215 (class 2606 OID 38517)
+-- TOC entry 2211 (class 2606 OID 38517)
 -- Name: tbprocesso_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8829,7 +8777,7 @@ ALTER TABLE ONLY tbprocessorural
 
 
 --
--- TOC entry 2219 (class 2606 OID 38519)
+-- TOC entry 2216 (class 2606 OID 38519)
 -- Name: tbprocessobase_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8838,7 +8786,7 @@ ALTER TABLE ONLY tbprocessobase
 
 
 --
--- TOC entry 2221 (class 2606 OID 38521)
+-- TOC entry 2218 (class 2606 OID 38521)
 -- Name: tbprocessoclausula_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8847,7 +8795,7 @@ ALTER TABLE ONLY tbprocessoclausula
 
 
 --
--- TOC entry 2223 (class 2606 OID 38523)
+-- TOC entry 2220 (class 2606 OID 38523)
 -- Name: tbprocessosanexos_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8856,7 +8804,7 @@ ALTER TABLE ONLY tbprocessosanexos
 
 
 --
--- TOC entry 2226 (class 2606 OID 38525)
+-- TOC entry 2223 (class 2606 OID 38525)
 -- Name: tbprocessourbano_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8865,7 +8813,7 @@ ALTER TABLE ONLY tbprocessourbano
 
 
 --
--- TOC entry 2229 (class 2606 OID 38527)
+-- TOC entry 2226 (class 2606 OID 38527)
 -- Name: tbservidor_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8874,7 +8822,7 @@ ALTER TABLE ONLY tbservidor
 
 
 --
--- TOC entry 2233 (class 2606 OID 38529)
+-- TOC entry 2232 (class 2606 OID 38529)
 -- Name: tbsituacaoprocesso_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8892,7 +8840,7 @@ ALTER TABLE ONLY tbstatuspendencia
 
 
 --
--- TOC entry 2237 (class 2606 OID 38533)
+-- TOC entry 2238 (class 2606 OID 38533)
 -- Name: tbsubarea_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8901,7 +8849,7 @@ ALTER TABLE ONLY tbsubarea
 
 
 --
--- TOC entry 2239 (class 2606 OID 38535)
+-- TOC entry 2241 (class 2606 OID 38535)
 -- Name: tbtipocaixa_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8910,7 +8858,7 @@ ALTER TABLE ONLY tbtipocaixa
 
 
 --
--- TOC entry 2241 (class 2606 OID 38537)
+-- TOC entry 2244 (class 2606 OID 38537)
 -- Name: tbtipopendencia_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8919,7 +8867,7 @@ ALTER TABLE ONLY tbtipopendencia
 
 
 --
--- TOC entry 2243 (class 2606 OID 38539)
+-- TOC entry 2247 (class 2606 OID 38539)
 -- Name: tbtipoprocesso_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8928,7 +8876,7 @@ ALTER TABLE ONLY tbtipoprocesso
 
 
 --
--- TOC entry 2175 (class 1259 OID 38540)
+-- TOC entry 2168 (class 1259 OID 38540)
 -- Name: fki_auth_user_tbdivisao; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8936,7 +8884,7 @@ CREATE INDEX fki_auth_user_tbdivisao ON auth_user USING btree (tbdivisao_id);
 
 
 --
--- TOC entry 2216 (class 1259 OID 39935)
+-- TOC entry 2212 (class 1259 OID 39935)
 -- Name: fki_tbclassificacaoprocesso; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8944,7 +8892,39 @@ CREATE INDEX fki_tbclassificacaoprocesso ON tbprocessobase USING btree (tbclassi
 
 
 --
--- TOC entry 2184 (class 1259 OID 38541)
+-- TOC entry 2192 (class 1259 OID 40477)
+-- Name: fki_tbclassificacaoprocesso_tbdivisao; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
+--
+
+CREATE INDEX fki_tbclassificacaoprocesso_tbdivisao ON tbclassificacaoprocesso USING btree (tbdivisao_id);
+
+
+--
+-- TOC entry 2205 (class 1259 OID 40451)
+-- Name: fki_tbdivisao; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
+--
+
+CREATE INDEX fki_tbdivisao ON tbpecastecnicas USING btree (tbdivisao_id);
+
+
+--
+-- TOC entry 2195 (class 1259 OID 40471)
+-- Name: fki_tbdivisao_tbcontrato; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
+--
+
+CREATE INDEX fki_tbdivisao_tbcontrato ON tbcontrato USING btree (tbdivisao_id);
+
+
+--
+-- TOC entry 2236 (class 1259 OID 40465)
+-- Name: fki_tbdivisao_tbsubarea; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
+--
+
+CREATE INDEX fki_tbdivisao_tbsubarea ON tbsubarea USING btree (tbdivisao_id);
+
+
+--
+-- TOC entry 2177 (class 1259 OID 38541)
 -- Name: fki_tbdivisao_tbuf; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8952,7 +8932,15 @@ CREATE INDEX fki_tbdivisao_tbuf ON tbdivisao USING btree (tbuf_id);
 
 
 --
--- TOC entry 2207 (class 1259 OID 38542)
+-- TOC entry 2239 (class 1259 OID 40457)
+-- Name: fki_tbdivisao_tipocaixa; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
+--
+
+CREATE INDEX fki_tbdivisao_tipocaixa ON tbtipocaixa USING btree (tbdivisao_id);
+
+
+--
+-- TOC entry 2202 (class 1259 OID 38542)
 -- Name: fki_tbmunicipio_tbuf; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8960,7 +8948,15 @@ CREATE INDEX fki_tbmunicipio_tbuf ON tbmunicipio USING btree ("Codigo_UF");
 
 
 --
--- TOC entry 2217 (class 1259 OID 38543)
+-- TOC entry 2213 (class 1259 OID 40930)
+-- Name: fki_tbprocessobase_tbdivisao; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
+--
+
+CREATE INDEX fki_tbprocessobase_tbdivisao ON tbprocessobase USING btree (tbdivisao_id);
+
+
+--
+-- TOC entry 2214 (class 1259 OID 38543)
 -- Name: fki_tbprocessobase_tbsituacaoprocesso; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8968,7 +8964,7 @@ CREATE INDEX fki_tbprocessobase_tbsituacaoprocesso ON tbprocessobase USING btree
 
 
 --
--- TOC entry 2224 (class 1259 OID 38544)
+-- TOC entry 2221 (class 1259 OID 38544)
 -- Name: fki_tbprocessourbano_tbsituacaogeo; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8976,15 +8972,47 @@ CREATE INDEX fki_tbprocessourbano_tbsituacaogeo ON tbprocessourbano USING btree 
 
 
 --
--- TOC entry 2248 (class 1259 OID 39949)
--- Name: tbmunicipiomodulo_tbmunicipio_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
+-- TOC entry 2227 (class 1259 OID 40483)
+-- Name: fki_tbsituacaogeo_tbdivisao; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
-CREATE INDEX tbmunicipiomodulo_tbmunicipio_id ON tbmunicipiomodulo USING btree (tbmunicipio_id);
+CREATE INDEX fki_tbsituacaogeo_tbdivisao ON tbsituacaogeo USING btree (tbdivisao_id);
 
 
 --
--- TOC entry 2227 (class 1259 OID 38545)
+-- TOC entry 2230 (class 1259 OID 40489)
+-- Name: fki_tbsituacaoprocesso_tbdivisao; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
+--
+
+CREATE INDEX fki_tbsituacaoprocesso_tbdivisao ON tbsituacaoprocesso USING btree (tbdivisao_id);
+
+
+--
+-- TOC entry 2233 (class 1259 OID 40495)
+-- Name: fki_tbstatuspendencia_tbdivisao; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
+--
+
+CREATE INDEX fki_tbstatuspendencia_tbdivisao ON tbstatuspendencia USING btree (tbdivisao_id);
+
+
+--
+-- TOC entry 2242 (class 1259 OID 40506)
+-- Name: fki_tbtipopendencia_tbdivisao; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
+--
+
+CREATE INDEX fki_tbtipopendencia_tbdivisao ON tbtipopendencia USING btree (tbdivisao_id);
+
+
+--
+-- TOC entry 2245 (class 1259 OID 40512)
+-- Name: fki_tbtipoprocesso_tbdivisao; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
+--
+
+CREATE INDEX fki_tbtipoprocesso_tbdivisao ON tbtipoprocesso USING btree (tbdivisao_id);
+
+
+--
+-- TOC entry 2224 (class 1259 OID 38545)
 -- Name: tbservidor_idUser_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -8992,7 +9020,7 @@ CREATE INDEX "tbservidor_idUser_id" ON tbservidor USING btree ("idUser_id");
 
 
 --
--- TOC entry 2249 (class 2606 OID 38546)
+-- TOC entry 2250 (class 2606 OID 38546)
 -- Name: auth_group_permissions_permission_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9001,7 +9029,7 @@ ALTER TABLE ONLY auth_group_permissions
 
 
 --
--- TOC entry 2253 (class 2606 OID 38551)
+-- TOC entry 2254 (class 2606 OID 38551)
 -- Name: auth_user_groups_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9010,7 +9038,7 @@ ALTER TABLE ONLY auth_user_groups
 
 
 --
--- TOC entry 2255 (class 2606 OID 38556)
+-- TOC entry 2256 (class 2606 OID 38556)
 -- Name: auth_user_user_permissions_permission_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9019,7 +9047,7 @@ ALTER TABLE ONLY auth_user_user_permissions
 
 
 --
--- TOC entry 2251 (class 2606 OID 38561)
+-- TOC entry 2252 (class 2606 OID 38561)
 -- Name: content_type_id_refs_id_d043b34a; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9028,7 +9056,7 @@ ALTER TABLE ONLY auth_permission
 
 
 --
--- TOC entry 2258 (class 2606 OID 38566)
+-- TOC entry 2259 (class 2606 OID 38566)
 -- Name: django_admin_log_content_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9037,7 +9065,7 @@ ALTER TABLE ONLY django_admin_log
 
 
 --
--- TOC entry 2259 (class 2606 OID 38571)
+-- TOC entry 2260 (class 2606 OID 38571)
 -- Name: django_admin_log_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9046,7 +9074,7 @@ ALTER TABLE ONLY django_admin_log
 
 
 --
--- TOC entry 2252 (class 2606 OID 38576)
+-- TOC entry 2253 (class 2606 OID 38576)
 -- Name: fk_auth_user_tbdivisao; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9055,7 +9083,7 @@ ALTER TABLE ONLY auth_user
 
 
 --
--- TOC entry 2281 (class 2606 OID 39930)
+-- TOC entry 2285 (class 2606 OID 39930)
 -- Name: fk_tbclassificacaoprocesso; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9064,7 +9092,43 @@ ALTER TABLE ONLY tbprocessobase
 
 
 --
--- TOC entry 2257 (class 2606 OID 38581)
+-- TOC entry 2262 (class 2606 OID 40472)
+-- Name: fk_tbclassificacaoprocesso_tbdivisao; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY tbclassificacaoprocesso
+    ADD CONSTRAINT fk_tbclassificacaoprocesso_tbdivisao FOREIGN KEY (tbdivisao_id) REFERENCES tbdivisao(id);
+
+
+--
+-- TOC entry 2273 (class 2606 OID 40446)
+-- Name: fk_tbdivisao; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY tbpecastecnicas
+    ADD CONSTRAINT fk_tbdivisao FOREIGN KEY (tbdivisao_id) REFERENCES tbdivisao(id);
+
+
+--
+-- TOC entry 2263 (class 2606 OID 40466)
+-- Name: fk_tbdivisao_tbcontrato; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY tbcontrato
+    ADD CONSTRAINT fk_tbdivisao_tbcontrato FOREIGN KEY (tbdivisao_id) REFERENCES tbdivisao(id);
+
+
+--
+-- TOC entry 2298 (class 2606 OID 40460)
+-- Name: fk_tbdivisao_tbsubarea; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY tbsubarea
+    ADD CONSTRAINT fk_tbdivisao_tbsubarea FOREIGN KEY (tbdivisao_id) REFERENCES tbdivisao(id);
+
+
+--
+-- TOC entry 2258 (class 2606 OID 38581)
 -- Name: fk_tbdivisao_tbuf; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9073,7 +9137,16 @@ ALTER TABLE ONLY tbdivisao
 
 
 --
--- TOC entry 2266 (class 2606 OID 38586)
+-- TOC entry 2299 (class 2606 OID 40452)
+-- Name: fk_tbdivisao_tipocaixa; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY tbtipocaixa
+    ADD CONSTRAINT fk_tbdivisao_tipocaixa FOREIGN KEY (tbdivisao_id) REFERENCES tbdivisao(id);
+
+
+--
+-- TOC entry 2269 (class 2606 OID 38586)
 -- Name: fk_tbmunicipio_tbuf; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9082,7 +9155,16 @@ ALTER TABLE ONLY tbmunicipio
 
 
 --
--- TOC entry 2275 (class 2606 OID 38591)
+-- TOC entry 2286 (class 2606 OID 40925)
+-- Name: fk_tbprocessobase_tbdivisao; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY tbprocessobase
+    ADD CONSTRAINT fk_tbprocessobase_tbdivisao FOREIGN KEY (tbdivisao_id) REFERENCES tbdivisao(id);
+
+
+--
+-- TOC entry 2279 (class 2606 OID 38591)
 -- Name: fk_tbprocessobase_tbsituacaoprocesso; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9091,7 +9173,7 @@ ALTER TABLE ONLY tbprocessobase
 
 
 --
--- TOC entry 2286 (class 2606 OID 38596)
+-- TOC entry 2291 (class 2606 OID 38596)
 -- Name: fk_tbprocessourbano_tbsituacaogeo; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9100,7 +9182,52 @@ ALTER TABLE ONLY tbprocessourbano
 
 
 --
--- TOC entry 2250 (class 2606 OID 38601)
+-- TOC entry 2295 (class 2606 OID 40478)
+-- Name: fk_tbsituacaogeo_tbdivisao; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY tbsituacaogeo
+    ADD CONSTRAINT fk_tbsituacaogeo_tbdivisao FOREIGN KEY (tbdivisao_id) REFERENCES tbdivisao(id);
+
+
+--
+-- TOC entry 2296 (class 2606 OID 40484)
+-- Name: fk_tbsituacaoprocesso_tbdivisao; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY tbsituacaoprocesso
+    ADD CONSTRAINT fk_tbsituacaoprocesso_tbdivisao FOREIGN KEY (tbdivisao_id) REFERENCES tbdivisao(id);
+
+
+--
+-- TOC entry 2297 (class 2606 OID 40490)
+-- Name: fk_tbstatuspendencia_tbdivisao; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY tbstatuspendencia
+    ADD CONSTRAINT fk_tbstatuspendencia_tbdivisao FOREIGN KEY (tbdivisao_id) REFERENCES tbdivisao(id);
+
+
+--
+-- TOC entry 2300 (class 2606 OID 40501)
+-- Name: fk_tbtipopendencia_tbdivisao; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY tbtipopendencia
+    ADD CONSTRAINT fk_tbtipopendencia_tbdivisao FOREIGN KEY (tbdivisao_id) REFERENCES tbdivisao(id);
+
+
+--
+-- TOC entry 2301 (class 2606 OID 40507)
+-- Name: fk_tbtipoprocesso_tbdivisao; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY tbtipoprocesso
+    ADD CONSTRAINT fk_tbtipoprocesso_tbdivisao FOREIGN KEY (tbdivisao_id) REFERENCES tbdivisao(id);
+
+
+--
+-- TOC entry 2251 (class 2606 OID 38601)
 -- Name: group_id_refs_id_f4b32aac; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9109,7 +9236,7 @@ ALTER TABLE ONLY auth_group_permissions
 
 
 --
--- TOC entry 2260 (class 2606 OID 38606)
+-- TOC entry 2261 (class 2606 OID 38606)
 -- Name: tbcaixa_tbtipocaixa_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9118,7 +9245,7 @@ ALTER TABLE ONLY tbcaixa
 
 
 --
--- TOC entry 2261 (class 2606 OID 38611)
+-- TOC entry 2264 (class 2606 OID 38611)
 -- Name: tbgleba_tbsubarea_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9127,7 +9254,7 @@ ALTER TABLE ONLY tbgleba
 
 
 --
--- TOC entry 2262 (class 2606 OID 38616)
+-- TOC entry 2265 (class 2606 OID 38616)
 -- Name: tbmovimentacao_auth_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9136,7 +9263,7 @@ ALTER TABLE ONLY tbmovimentacao
 
 
 --
--- TOC entry 2263 (class 2606 OID 38621)
+-- TOC entry 2266 (class 2606 OID 38621)
 -- Name: tbmovimentacao_tbcaixa_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9145,7 +9272,7 @@ ALTER TABLE ONLY tbmovimentacao
 
 
 --
--- TOC entry 2264 (class 2606 OID 38626)
+-- TOC entry 2267 (class 2606 OID 38626)
 -- Name: tbmovimentacao_tbcaixa_id_origem_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9154,7 +9281,7 @@ ALTER TABLE ONLY tbmovimentacao
 
 
 --
--- TOC entry 2265 (class 2606 OID 38631)
+-- TOC entry 2268 (class 2606 OID 38631)
 -- Name: tbmovimentacao_tbprocessobase_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9163,16 +9290,7 @@ ALTER TABLE ONLY tbmovimentacao
 
 
 --
--- TOC entry 2290 (class 2606 OID 39944)
--- Name: tbmunicipiomodulo_tbmunicipio_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
---
-
-ALTER TABLE ONLY tbmunicipiomodulo
-    ADD CONSTRAINT tbmunicipiomodulo_tbmunicipio_id_fkey FOREIGN KEY (tbmunicipio_id) REFERENCES tbmunicipio(id) DEFERRABLE INITIALLY DEFERRED;
-
-
---
--- TOC entry 2267 (class 2606 OID 38641)
+-- TOC entry 2270 (class 2606 OID 38641)
 -- Name: tbpecastecnicas_tbcaixa_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9181,7 +9299,7 @@ ALTER TABLE ONLY tbpecastecnicas
 
 
 --
--- TOC entry 2268 (class 2606 OID 38646)
+-- TOC entry 2271 (class 2606 OID 38646)
 -- Name: tbpecastecnicas_tbcontrato_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9190,7 +9308,7 @@ ALTER TABLE ONLY tbpecastecnicas
 
 
 --
--- TOC entry 2269 (class 2606 OID 38651)
+-- TOC entry 2272 (class 2606 OID 38651)
 -- Name: tbpecastecnicas_tbgleba_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9199,7 +9317,7 @@ ALTER TABLE ONLY tbpecastecnicas
 
 
 --
--- TOC entry 2270 (class 2606 OID 38656)
+-- TOC entry 2274 (class 2606 OID 38656)
 -- Name: tbpendencia_auth_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9208,7 +9326,7 @@ ALTER TABLE ONLY tbpendencia
 
 
 --
--- TOC entry 2271 (class 2606 OID 38661)
+-- TOC entry 2275 (class 2606 OID 38661)
 -- Name: tbpendencia_tbprocessobase_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9217,7 +9335,7 @@ ALTER TABLE ONLY tbpendencia
 
 
 --
--- TOC entry 2272 (class 2606 OID 38666)
+-- TOC entry 2276 (class 2606 OID 38666)
 -- Name: tbpendencia_tbstatuspendencia_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9226,7 +9344,7 @@ ALTER TABLE ONLY tbpendencia
 
 
 --
--- TOC entry 2273 (class 2606 OID 38671)
+-- TOC entry 2277 (class 2606 OID 38671)
 -- Name: tbpendencia_tbtipopendencia_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9235,7 +9353,7 @@ ALTER TABLE ONLY tbpendencia
 
 
 --
--- TOC entry 2274 (class 2606 OID 38681)
+-- TOC entry 2278 (class 2606 OID 38681)
 -- Name: tbprocesso_tbprocessobase_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9244,7 +9362,7 @@ ALTER TABLE ONLY tbprocessorural
 
 
 --
--- TOC entry 2276 (class 2606 OID 38686)
+-- TOC entry 2280 (class 2606 OID 38686)
 -- Name: tbprocessobase_auth_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9253,7 +9371,7 @@ ALTER TABLE ONLY tbprocessobase
 
 
 --
--- TOC entry 2277 (class 2606 OID 38691)
+-- TOC entry 2281 (class 2606 OID 38691)
 -- Name: tbprocessobase_tbcaixa_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9262,7 +9380,7 @@ ALTER TABLE ONLY tbprocessobase
 
 
 --
--- TOC entry 2278 (class 2606 OID 38696)
+-- TOC entry 2282 (class 2606 OID 38696)
 -- Name: tbprocessobase_tbgleba_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9271,7 +9389,7 @@ ALTER TABLE ONLY tbprocessobase
 
 
 --
--- TOC entry 2279 (class 2606 OID 38701)
+-- TOC entry 2283 (class 2606 OID 38701)
 -- Name: tbprocessobase_tbmunicipio_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9280,7 +9398,7 @@ ALTER TABLE ONLY tbprocessobase
 
 
 --
--- TOC entry 2280 (class 2606 OID 38706)
+-- TOC entry 2284 (class 2606 OID 38706)
 -- Name: tbprocessobase_tbtipoprocesso_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9289,7 +9407,7 @@ ALTER TABLE ONLY tbprocessobase
 
 
 --
--- TOC entry 2282 (class 2606 OID 38716)
+-- TOC entry 2287 (class 2606 OID 38716)
 -- Name: tbprocessoclausula_tbprocessobase_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9298,7 +9416,7 @@ ALTER TABLE ONLY tbprocessoclausula
 
 
 --
--- TOC entry 2283 (class 2606 OID 38721)
+-- TOC entry 2288 (class 2606 OID 38721)
 -- Name: tbprocessosanexos_auth_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9307,7 +9425,7 @@ ALTER TABLE ONLY tbprocessosanexos
 
 
 --
--- TOC entry 2284 (class 2606 OID 38726)
+-- TOC entry 2289 (class 2606 OID 38726)
 -- Name: tbprocessosanexos_tbprocessobase_id_anexo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9316,7 +9434,7 @@ ALTER TABLE ONLY tbprocessosanexos
 
 
 --
--- TOC entry 2285 (class 2606 OID 38731)
+-- TOC entry 2290 (class 2606 OID 38731)
 -- Name: tbprocessosanexos_tbprocessobase_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9325,7 +9443,7 @@ ALTER TABLE ONLY tbprocessosanexos
 
 
 --
--- TOC entry 2287 (class 2606 OID 38736)
+-- TOC entry 2292 (class 2606 OID 38736)
 -- Name: tbprocessourbano_tbcontrato_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9334,7 +9452,7 @@ ALTER TABLE ONLY tbprocessourbano
 
 
 --
--- TOC entry 2288 (class 2606 OID 38741)
+-- TOC entry 2293 (class 2606 OID 38741)
 -- Name: tbprocessourbano_tbprocessobase_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9343,7 +9461,7 @@ ALTER TABLE ONLY tbprocessourbano
 
 
 --
--- TOC entry 2289 (class 2606 OID 38746)
+-- TOC entry 2294 (class 2606 OID 38746)
 -- Name: tbservidor_idUser_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9352,7 +9470,7 @@ ALTER TABLE ONLY tbservidor
 
 
 --
--- TOC entry 2254 (class 2606 OID 38751)
+-- TOC entry 2255 (class 2606 OID 38751)
 -- Name: user_id_refs_id_40c41112; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9361,7 +9479,7 @@ ALTER TABLE ONLY auth_user_groups
 
 
 --
--- TOC entry 2256 (class 2606 OID 38756)
+-- TOC entry 2257 (class 2606 OID 38756)
 -- Name: user_id_refs_id_4dc23c39; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -9370,7 +9488,7 @@ ALTER TABLE ONLY auth_user_user_permissions
 
 
 --
--- TOC entry 2364 (class 0 OID 0)
+-- TOC entry 2373 (class 0 OID 0)
 -- Dependencies: 6
 -- Name: public; Type: ACL; Schema: -; Owner: postgres
 --
@@ -9381,7 +9499,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2013-09-26 16:15:50
+-- Completed on 2013-10-09 12:18:14
 
 --
 -- PostgreSQL database dump complete

@@ -200,10 +200,11 @@ class Tbprocessobase(models.Model):
     tbmunicipio = models.ForeignKey(Tbmunicipio)
     auth_user = models.ForeignKey(AuthUser)
     tbtipoprocesso = models.ForeignKey('Tbtipoprocesso')
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     tbsituacaoprocesso = models.ForeignKey('Tbsituacaoprocesso', null=True, blank=True)
     dtcadastrosistema = models.DateTimeField(null=True, blank=True)
     tbclassificacaoprocesso = models.ForeignKey(Tbclassificacaoprocesso, null=True, blank=True)
+    tbdivisao = models.ForeignKey('Tbdivisao')
     class Meta:
         db_table = 'tbprocessobase'
 
@@ -217,7 +218,7 @@ class Tbprocessoclausula(models.Model):
     cdstatus = models.IntegerField(null=True, blank=True)
     dsobs = models.TextField(blank=True)
     stprocuracao = models.BooleanField( blank=True)
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     dttitulacao = models.DateTimeField(null=True, blank=True)
     class Meta:
         db_table = 'tbprocessoclausula'
@@ -228,7 +229,7 @@ class Tbprocessorural(models.Model):
     nrcpfrequerente = models.CharField(max_length=11, blank=True)
     blconjuge = models.BooleanField( blank=True)
     cdstatus = models.IntegerField(null=True, blank=True)
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     nrcpfconjuge = models.CharField(max_length=11, blank=True)
     nmconjuge = models.CharField(max_length=50, blank=True)
     class Meta:
@@ -239,7 +240,7 @@ class Tbprocessosanexos(models.Model):
     tbprocessobase_id_anexo = models.ForeignKey(Tbprocessobase, db_column='tbprocessobase_id_anexo', related_name='tbprocessobase_id_anexo')
     dtanexado = models.DateTimeField(null=True, blank=True)
     auth_user = models.ForeignKey(AuthUser)
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbprocessosanexos'
 

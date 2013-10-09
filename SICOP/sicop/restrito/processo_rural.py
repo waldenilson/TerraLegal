@@ -42,7 +42,8 @@ def cadastro(request):
                                     tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
                                     dtcadastrosistema = datetime.datetime.now(),
                                     auth_user = AuthUser.objects.get( pk = request.user.id ),
-                                    tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 )
+                                    tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 ),
+                                    tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                     )
             f_base.save()
             
@@ -96,7 +97,8 @@ def edicao(request, id):
                                     tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
                                     dtcadastrosistema = base.dtcadastrosistema,
                                     auth_user = AuthUser.objects.get( pk = request.user.id ),
-                                    tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 )
+                                    tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 ),
+                                    tbdivisao = base.tbdivisao
                                     )
             f_base.save()
             
