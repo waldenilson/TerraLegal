@@ -106,7 +106,7 @@ class Tbcaixa(models.Model):
 
 class Tbclassificacaoprocesso(models.Model):
     nmclassificacao = models.CharField(max_length=80, blank=True)
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     tbdivisao = models.ForeignKey('Tbdivisao', null=True, blank=True)
     class Meta:
         db_table = 'tbclassificacaoprocesso'
@@ -114,13 +114,13 @@ class Tbclassificacaoprocesso(models.Model):
 class Tbcontrato(models.Model):
     nrcontrato = models.CharField(max_length=10, blank=True)
     nmempresa = models.CharField(max_length=100, blank=True)
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     tbdivisao = models.ForeignKey('Tbdivisao', null=True, blank=True)
     class Meta:
         db_table = 'tbcontrato'
 
 class Tbdivisao(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     nmdivisao = models.CharField(max_length=80, blank=True)
     dsdivisao = models.TextField(blank=True)
     tbuf = models.ForeignKey('Tbuf', null=True, blank=True)
@@ -279,7 +279,7 @@ class Tbservidor(models.Model):
         db_table = 'tbservidor'
 
 class Tbsituacaogeo(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     nmsituacaogeo = models.CharField(max_length=80, blank=True)
     dssituacaogeo = models.TextField(blank=True)
     tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True)
@@ -288,7 +288,7 @@ class Tbsituacaogeo(models.Model):
 
 class Tbsituacaoprocesso(models.Model):
     nmsituacao = models.CharField(max_length=80, blank=True)
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     dssituacao = models.TextField(blank=True)
     tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True)
     class Meta:
@@ -330,7 +330,7 @@ class Tbtipopendencia(models.Model):
 class Tbtipoprocesso(models.Model):
     nome = models.CharField(max_length=80, blank=True)
     tabela = models.CharField(max_length=50, blank=True)
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     coridentificacao = models.CharField(max_length=20, blank=True)
     tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True)
     class Meta:

@@ -15,7 +15,7 @@
 		{% csrf_token %}
 		<div style="width:100%;font-size:12px;text-align:left">
 				<table>
-				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td>{{ form.nmclassificacao }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td> <input name="nmclassificacao" value="{{ classificacao.nmclassificacao }}" /> </td> </tr>
 				</table>
 		</div>
 		<br />
