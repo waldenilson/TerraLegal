@@ -21,7 +21,7 @@ from django.contrib import messages
 @login_required
 def consulta(request):
     # carrega os processos da divisao do usuario logado
-    lista = Tbprocessobase.objects.all().filter( auth_user__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by( "id" )
+    lista = Tbprocessobase.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by( "id" )
     if request.method == "POST":
         numero = request.POST['numero']
         cpf = request.POST['cpf']
