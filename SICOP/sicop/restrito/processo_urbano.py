@@ -18,14 +18,8 @@ def consulta(request):
 def cadastro(request):
     tipoprocesso = Tbtipoprocesso.objects.all()
     
-    situacaoprocesso = Tbsituacaoprocesso.objects.all()
-    caixa = Tbcaixa.objects.all()
-    gleba = Tbgleba.objects.all()
-    # municipios da divisao do usuario logado
-    municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
-    contrato = Tbcontrato.objects.all()
-    situacaogeo = Tbsituacaogeo.objects.all()
-    
+    carregarTbAuxProcesso(request)
+      
     div_processo = "urbano"
     escolha = "tbprocessourbano"  
     
@@ -72,13 +66,7 @@ def cadastro(request):
 
 @login_required
 def edicao(request, id):
-    caixa = Tbcaixa.objects.all()
-    gleba = Tbgleba.objects.all()
-    # municipios da divisao do usuario logado
-    municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
-    situacaoprocesso = Tbsituacaoprocesso.objects.all()
-    contrato = Tbcontrato.objects.all()
-    situacaogeo = Tbsituacaogeo.objects.all()
+    carregarTbAuxProcesso(request)
     
     urbano = get_object_or_404(Tbprocessourbano, id=id)
     base  = get_object_or_404(Tbprocessobase, id=urbano.tbprocessobase.id)
@@ -87,7 +75,10 @@ def edicao(request, id):
     movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase = id ).order_by( "-dtmovimentacao" )
     
     # caixa destino
-    caixadestino = Tbcaixa.objects.all()
+    caixadestino = []
+    for obj in Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ):
+        if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'URB':
+            caixadestino.append( obj )    
     
     
     if validacao(request, "edicao"):
@@ -194,4 +185,16 @@ def nrProcessoCadastrado( numero ):
         return True
     else:
         return False
+
+def carregarTbAuxProcesso(request):
+    global caixa, gleba, situacaoprocesso, municipio, contrato, situacaogeo
+    caixa = []
+    for obj in Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ):
+        if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'URB':
+            caixa.append( obj )
+    gleba = Tbgleba.objects.all().filter( tbsubarea__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+    situacaoprocesso = Tbsituacaoprocesso.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+    municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
+    contrato = Tbcontrato.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+    situacaogeo = Tbsituacaogeo.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
 

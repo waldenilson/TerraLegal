@@ -16,13 +16,10 @@ def consulta(request):
 @login_required
 @permission_required('sicop.add tbprocesso', login_url='/sicop/acesso_restrito/', raise_exception=True)
 def cadastro(request):
+    
     tipoprocesso = Tbtipoprocesso.objects.all()
     
-    situacaoprocesso = Tbsituacaoprocesso.objects.all()
-    caixa = Tbcaixa.objects.all()
-    gleba = Tbgleba.objects.all()
-    # municipios da divisao do usuario logado
-    municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
+    carregarTbAuxProcesso(request)
     
     procuracao = False
     if request.POST.get('stprocuracao',False):
@@ -70,11 +67,8 @@ def cadastro(request):
 
 @login_required
 def edicao(request, id):
-    caixa = Tbcaixa.objects.all()
-    gleba = Tbgleba.objects.all()
-    # municipios da divisao do usuario logado
-    municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
-    situacaoprocesso = Tbsituacaoprocesso.objects.all()
+    
+    carregarTbAuxProcesso(request)
     
     procuracao = False
     if request.POST.get('stprocuracao',False):
@@ -87,7 +81,10 @@ def edicao(request, id):
     movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase = id ).order_by( "-dtmovimentacao" )
     
     # caixa destino
-    caixadestino = Tbcaixa.objects.all()
+    caixadestino = []
+    for obj in Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ):
+        if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'RES':
+            caixadestino.append( obj )    
 
     if validacao(request, "edicao"):
         # cadastrando o registro processo base            
@@ -175,4 +172,14 @@ def nrProcessoCadastrado( numero ):
         return True
     else:
         return False
+
+def carregarTbAuxProcesso(request):
+    global caixa, gleba, situacaoprocesso, municipio
+    caixa = []
+    for obj in Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ):
+        if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'RES':
+            caixa.append( obj )
+    gleba = Tbgleba.objects.all().filter( tbsubarea__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+    situacaoprocesso = Tbsituacaoprocesso.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+    municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
 

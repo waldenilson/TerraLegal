@@ -15,10 +15,6 @@ def verificar_permissao_grupo(usuario, grupos):
         return permissao
     return False
 
-def divisaoDoUsuarioLogado(request):
-    tipo_divisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
-    request.session['divisao'] = tipo_divisao.nmdivisao+" - "+tipo_divisao.tbuf.nmuf
-
 # tbtipocaixa,
 # tbcaixa,
 # tbmunicipio, 
