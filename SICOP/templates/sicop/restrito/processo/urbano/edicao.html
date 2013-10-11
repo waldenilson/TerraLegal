@@ -7,13 +7,15 @@
 	Acesso Restrito | Processo Urbano | Edicao
 {% endblock %}
 
-{% block subtitulo %}
+
+{% block formulario %}
+<div id="accordion" style="color:black;width:100%;font-size:11px">
+<h3>{% block subtitulo %}
 	
 	EDITAR REGULARIZACAO URBANA
 	
 {% endblock %}
-
-{% block formulario %}
+</h3>
 <form method="post" action="/sicop/restrito/processo/urbano/edicao/{{ urbano.id }}/">
 	{% csrf_token %}
 	<div style="width: 100%; font-size: 12px; text-align: left">
@@ -135,8 +137,7 @@
 		</tr>
 	</table>	
 </form>
-
-<div id="accordion">
+</div>
 {% if base.tbclassificacaoprocesso.id == 1 %}
 <h3>TRAMITACOES</h3>
 <div>

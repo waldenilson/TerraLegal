@@ -18,17 +18,5 @@
 	{% endif %}
 
 {% endblock %}
-
-	<div style="color:black;width:100%;font-size:11px">
-		<div id="tabs">
-			<ul>
-				<li><a href="#tab"> {% block subtitulo %} {% endblock %} </a></li>
-			</ul>
-			<div id="tab">					
-
-				{% block formulario %} {% endblock %}
-			</div>
-		</div>
-	</div>
-	
+		{% block formulario %} {% endblock %}
 {% endblock %}

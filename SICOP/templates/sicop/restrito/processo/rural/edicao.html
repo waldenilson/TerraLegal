@@ -6,11 +6,13 @@
 {% block breadcumbs %}
  Acesso Restrito | Processo Rural | Edicao 
 {% endblock %}
-
-{% block subtitulo %} EDITAR PROCESSO RURAL {% endblock %} 
+ 
 
 {% block formulario %}
 
+<div id="accordion" style="color:black;width:100%;font-size:11px">
+<h3>{% block subtitulo %} EDITAR PROCESSO RURAL {% endblock %}</h3>
+<div>
 <form method="post" action="/sicop/restrito/processo/rural/edicao/{{ rural.id }}/">
 	{% csrf_token %}
 	<div style="width: 100%; font-size: 12px; text-align: left">
@@ -89,14 +91,13 @@
 	<table style="width:100%">
 		<tr>
 			<td class="colunaTabela" style="text-align:left"> 
-				<a href="/sicop/restrito/processo/consulta/" style="margin-right: 10px"><input type="button" class="button_gree" value="CONSULTAR" /></a>
-				<input type="submit" class="button_gree" value="SALVAR" />
+				<a href="/sicop/restrito/processo/consulta/" style="margin-right: 10px"><input type="button" class="button_yellow" value="CONSULTAR" /></a>
+				<input type="submit" class="button_green" value="SALVAR" />
 			</td>
 		</tr>
 	</table>
 </form>
-
-<div id="accordion">
+</div>
 
 {% if base.tbclassificacaoprocesso.id == 1 %}
 <h3>TRAMITACOES</h3>

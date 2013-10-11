@@ -176,7 +176,7 @@ class Tbpecastecnicas(models.Model):
     nrarea = models.DecimalField(null=True, max_digits=10, decimal_places=4, blank=True)
     nrperimetro = models.DecimalField(null=True, max_digits=18, decimal_places=4, blank=True)
     tbgleba = models.ForeignKey(Tbgleba)
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True)
     class Meta:
         db_table = 'tbpecastecnicas'
@@ -189,7 +189,7 @@ class Tbpendencia(models.Model):
     dtpendencia = models.DateTimeField(null=True, blank=True)
     auth_user = models.ForeignKey(AuthUser)
     tbstatuspendencia = models.ForeignKey('Tbstatuspendencia')
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbpendencia'
 
@@ -256,13 +256,13 @@ class Tbprocessourbano(models.Model):
     nrhabitantes = models.IntegerField(null=True, blank=True)
     nrpregao = models.CharField(max_length=30, blank=True)
     tbcontrato = models.ForeignKey(Tbcontrato)
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     tbsituacaogeo = models.ForeignKey('Tbsituacaogeo', null=True, blank=True)
     class Meta:
         db_table = 'tbprocessourbano'
 
 class Tbservidor(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     iduser = models.ForeignKey(AuthUser, db_column='idUser_id') # Field name made lowercase.
     nmservidor = models.CharField(max_length=100)
     nmunidade = models.CharField(max_length=100)
