@@ -4,13 +4,15 @@
 	Acesso Restrito | Divisao | Edicao
 {% endblock %}
 
-{% block subtitulo %}
+{% block formulario %}
+<div id="accordion" style="color:black;width:100%;font-size:11px">
+<h3>{% block subtitulo %}
 	
 	EDITAR DIVISAO
 	
 {% endblock %}
-
-{% block formulario %}
+</h3>
+<div>		
 		
 	<form method="post" action="">
 		{% csrf_token %}
@@ -43,5 +45,6 @@
 			</tr>
 		</table>
 	</form>
-
+</div>
+</div>
 {% endblock %}

@@ -4,13 +4,16 @@
 	Acesso Restrito | Sub Area | Edicao
 {% endblock %}
 
-{% block subtitulo %}
+{% block formulario %}
+<div id="accordion" style="color:black;width:100%;font-size:11px">
+<h3>{% block subtitulo %}
 	
 	EDITAR SUB AREA
 	
 {% endblock %}
+</h3>
+<div>		
 
-{% block formulario %}
 	<form method="post" action=".">
 		{% csrf_token %}
 		<div style="width:100%;font-size:12px;text-align:left">
@@ -28,4 +31,6 @@
 			</tr>
 		</table>
 	</form>
+</div>
+</div>
 {% endblock %}

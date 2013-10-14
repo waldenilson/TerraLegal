@@ -269,6 +269,7 @@ def anexar(request, base):
                                     tbsituacaoprocesso = proc_anexo.tbsituacaoprocesso,
                                     dtcadastrosistema = proc_anexo.dtcadastrosistema,
                                     auth_user = proc_anexo.auth_user,
+                                    tbdivisao = base.tbdivisao,
                                     tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 2 )
                                     )
             f_anexo.save()

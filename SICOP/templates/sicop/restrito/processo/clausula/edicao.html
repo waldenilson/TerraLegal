@@ -15,6 +15,7 @@
 	
 {% endblock %}
 </h3>
+<div>
 <form method="post" action="/sicop/restrito/processo/clausula/edicao/{{ clausula.id }}/">
 	{% csrf_token %}
 	<div style="width: 100%; font-size: 12px; text-align: left">
@@ -104,8 +105,8 @@
 	<table style="width:100%">
 		<tr>
 			<td class="colunaTabela" style="text-align:left"> 
-				<a href="/sicop/restrito/processo/consulta/" style="margin-right: 10px"><input type="button" class="button_gree" value="Consultar" /></a>
-				<input type="submit" class="button_gree" value="Salvar" />
+				<a href="/sicop/restrito/processo/consulta/" style="margin-right: 10px"><input type="button" class="button_yellow" value="CONSULTAR" /></a>
+				<input type="submit" class="button_green" value="SALVAR" />
 			</td>
 		</tr>
 	</table>
