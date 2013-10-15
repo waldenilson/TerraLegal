@@ -64,6 +64,8 @@ def consulta(request):
     
     # gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_processo'] = lista
+    # gravando na sessao a divisao do usuario logado
+    request.session['divisao'] = AuthUser.objects.get( pk = request.user.id ).tbdivisao.nmdivisao +" - "+AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.nmuf
         
     return render_to_response('sicop/restrito/processo/consulta.html',{'lista':lista}, context_instance = RequestContext(request))
 
