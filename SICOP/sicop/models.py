@@ -98,7 +98,6 @@ class DjangoSite(models.Model):
 class Tbcaixa(models.Model):
     nmlocalarquivo = models.CharField(max_length=80, blank=True)
     qtdprocessos = models.IntegerField(null=True, blank=True)
-    tptramitacao = models.CharField(max_length=10, blank=True)
     tbtipocaixa = models.ForeignKey('Tbtipocaixa')
     id = models.AutoField(primary_key=True)
     class Meta:
