@@ -49,7 +49,7 @@ def relatorio_base_consulta(request, lista, titulo):
     story.append(Spacer(1, 12))
     
     doc.build(story)
-    doc.build(lista)
+    #doc.build(lista)
     return response
 
 
