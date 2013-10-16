@@ -32,7 +32,6 @@ class AuthPermission(models.Model):
         db_table = 'auth_permission'
 
 class AuthUser(models.Model):
-    id = models.AutoField(primary_key=True)
     password = models.CharField(max_length=128)
     last_login = models.DateTimeField()
     is_superuser = models.BooleanField()
@@ -44,6 +43,7 @@ class AuthUser(models.Model):
     is_active = models.BooleanField()
     date_joined = models.DateTimeField()
     tbdivisao = models.ForeignKey('Tbdivisao')
+    id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'auth_user'
 
@@ -105,24 +105,24 @@ class Tbcaixa(models.Model):
 
 class Tbclassificacaoprocesso(models.Model):
     nmclassificacao = models.CharField(max_length=80, blank=True)
-    id = models.AutoField(primary_key=True)
     tbdivisao = models.ForeignKey('Tbdivisao', null=True, blank=True)
+    id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbclassificacaoprocesso'
 
 class Tbcontrato(models.Model):
     nrcontrato = models.CharField(max_length=10, blank=True)
     nmempresa = models.CharField(max_length=100, blank=True)
-    id = models.AutoField(primary_key=True)
     tbdivisao = models.ForeignKey('Tbdivisao', null=True, blank=True)
+    id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbcontrato'
 
 class Tbdivisao(models.Model):
-    id = models.AutoField(primary_key=True)
     nmdivisao = models.CharField(max_length=80, blank=True)
     dsdivisao = models.TextField(blank=True)
     tbuf = models.ForeignKey('Tbuf', null=True, blank=True)
+    id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbdivisao'
 
@@ -149,15 +149,15 @@ class Tbmunicipio(models.Model):
     nome_mun_maiusculo = models.CharField(max_length=50, db_column='Nome_Mun_Maiusculo', blank=True) # Field name made lowercase.
     nome_mun = models.CharField(max_length=50, db_column='Nome_Mun', blank=True) # Field name made lowercase.
     codigo_mun = models.IntegerField(null=True, db_column='Codigo_Mun', blank=True) # Field name made lowercase.
-    regiao = models.CharField(max_length=50, db_column='Regiao', blank=True) # Field name made lowercase.
-    nome_estado = models.CharField(max_length=50, db_column='Nome_Estado', blank=True) # Field name made lowercase.
+    regiao = models.CharField(null=True, max_length=50, db_column='Regiao', blank=True) # Field name made lowercase.
+    nome_estado = models.CharField(null=True, max_length=50, db_column='Nome_Estado', blank=True) # Field name made lowercase.
     uf = models.CharField(max_length=2, db_column='UF', blank=True) # Field name made lowercase.
-    sr = models.CharField(max_length=50, db_column='SR', blank=True) # Field name made lowercase.
+    sr = models.CharField(null=True, max_length=50, db_column='SR', blank=True) # Field name made lowercase.
     codigo_uf = models.ForeignKey('Tbuf', null=True, db_column='Codigo_UF', blank=True) # Field name made lowercase.
-    populacao = models.CharField(max_length=50, db_column='Populacao', blank=True) # Field name made lowercase.
-    id = models.IntegerField(primary_key=True)
+    populacao = models.CharField(null=True, max_length=50, db_column='Populacao', blank=True) # Field name made lowercase.
     nrmodulofiscal = models.IntegerField(null=True, blank=True)
     nrfracaominima = models.IntegerField(null=True, blank=True)
+    id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbmunicipio'
 
@@ -175,8 +175,8 @@ class Tbpecastecnicas(models.Model):
     nrarea = models.DecimalField(null=True, max_digits=10, decimal_places=4, blank=True)
     nrperimetro = models.DecimalField(null=True, max_digits=18, decimal_places=4, blank=True)
     tbgleba = models.ForeignKey(Tbgleba)
-    id = models.AutoField(primary_key=True)
     tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True)
+    id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbpecastecnicas'
 
@@ -199,11 +199,11 @@ class Tbprocessobase(models.Model):
     tbmunicipio = models.ForeignKey(Tbmunicipio)
     auth_user = models.ForeignKey(AuthUser)
     tbtipoprocesso = models.ForeignKey('Tbtipoprocesso')
-    id = models.AutoField(primary_key=True)
     tbsituacaoprocesso = models.ForeignKey('Tbsituacaoprocesso', null=True, blank=True)
     dtcadastrosistema = models.DateTimeField(null=True, blank=True)
     tbclassificacaoprocesso = models.ForeignKey(Tbclassificacaoprocesso, null=True, blank=True)
     tbdivisao = models.ForeignKey('Tbdivisao')
+    id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbprocessobase'
 
@@ -217,8 +217,8 @@ class Tbprocessoclausula(models.Model):
     cdstatus = models.IntegerField(null=True, blank=True)
     dsobs = models.TextField(blank=True)
     stprocuracao = models.BooleanField( blank=True)
-    id = models.AutoField(primary_key=True)
     dttitulacao = models.DateTimeField(null=True, blank=True)
+    id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbprocessoclausula'
 
@@ -228,9 +228,9 @@ class Tbprocessorural(models.Model):
     nrcpfrequerente = models.CharField(max_length=11, blank=True)
     blconjuge = models.BooleanField( blank=True)
     cdstatus = models.IntegerField(null=True, blank=True)
-    id = models.AutoField(primary_key=True)
     nrcpfconjuge = models.CharField(max_length=11, blank=True)
     nmconjuge = models.CharField(max_length=50, blank=True)
+    id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbprocessorural'
 
@@ -255,13 +255,12 @@ class Tbprocessourbano(models.Model):
     nrhabitantes = models.IntegerField(null=True, blank=True)
     nrpregao = models.CharField(max_length=30, blank=True)
     tbcontrato = models.ForeignKey(Tbcontrato)
-    id = models.AutoField(primary_key=True)
     tbsituacaogeo = models.ForeignKey('Tbsituacaogeo', null=True, blank=True)
+    id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbprocessourbano'
 
 class Tbservidor(models.Model):
-    id = models.AutoField(primary_key=True)
     iduser = models.ForeignKey(AuthUser, db_column='idUser_id') # Field name made lowercase.
     nmservidor = models.CharField(max_length=100)
     nmunidade = models.CharField(max_length=100)
@@ -275,46 +274,47 @@ class Tbservidor(models.Model):
     nrtelefone2 = models.CharField(max_length=10)
     email = models.CharField(max_length=75)
     dsatividades = models.CharField(max_length=80)
+    id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbservidor'
 
 class Tbsituacaogeo(models.Model):
-    id = models.AutoField(primary_key=True)
     nmsituacaogeo = models.CharField(max_length=80, blank=True)
     dssituacaogeo = models.TextField(blank=True)
     tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True)
+    id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbsituacaogeo'
 
 class Tbsituacaoprocesso(models.Model):
     nmsituacao = models.CharField(max_length=80, blank=True)
-    id = models.AutoField(primary_key=True)
     dssituacao = models.TextField(blank=True)
     tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True)
+    id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbsituacaoprocesso'
 
 class Tbstatuspendencia(models.Model):
     stpendencia = models.IntegerField(null=True, blank=True)
     dspendencia = models.CharField(max_length=100, blank=True)
-    id = models.AutoField(primary_key=True)
     tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True)
+    id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbstatuspendencia'
 
 class Tbsubarea(models.Model):
     cdsubarea = models.CharField(max_length=10, blank=True)
     nmsubarea = models.CharField(max_length=80, blank=True)
-    id = models.AutoField(primary_key=True)
     tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True)
+    id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbsubarea'
 
 class Tbtipocaixa(models.Model):
     nmtipocaixa = models.CharField(max_length=80, blank=True)
     desctipocaixa = models.TextField(blank=True)
-    id = models.AutoField(primary_key=True)
     tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True)
+    id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbtipocaixa'
 
@@ -322,23 +322,23 @@ class Tbtipopendencia(models.Model):
     cdtipopend = models.IntegerField(null=True, blank=True)
     dspendencia = models.CharField(max_length=50, blank=True)
     cdgrupo = models.CharField(max_length=20, blank=True)
-    id = models.AutoField(primary_key=True)
     tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True)
+    id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbtipopendencia'
 
 class Tbtipoprocesso(models.Model):
     nome = models.CharField(max_length=80, blank=True)
     tabela = models.CharField(max_length=50, blank=True)
-    id = models.AutoField(primary_key=True)
     coridentificacao = models.CharField(max_length=20, blank=True)
     tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True)
+    id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbtipoprocesso'
 
 class Tbuf(models.Model):
-    id = models.IntegerField(primary_key=True)
     sigla = models.CharField(max_length=2, blank=True)
     nmuf = models.CharField(max_length=50, blank=True)
+    id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbuf'
