@@ -1,0 +1,21 @@
+INSERT INTO tbsituacaoprocesso values( 'Titulado ok','',1 );
+INSERT INTO tbsituacaoprocesso values( 'Titulado','',1 );
+INSERT INTO tbsituacaoprocesso values( 'Sobrestado','',1 );
+INSERT INTO tbsituacaoprocesso values( 'Pendencia ok','',1 );
+INSERT INTO tbsituacaoprocesso values( 'Sobrestado ok','',1 );
+INSERT INTO tbsituacaoprocesso values( 'Titulado - JUNTADO A OUTRO PROCESSO','',1 );
+INSERT INTO tbsituacaoprocesso values( 'Faltando Vistoria para elaborar Rel de Carct. urbana','',1 );
+INSERT INTO tbsituacaoprocesso values( 'Relatorio de Caracterização Urbana em processamento','',1 );
+INSERT INTO tbsituacaoprocesso values( 'Rel. Carac Urbana em proces e redimensionamento da area','',1 );
+INSERT INTO tbsituacaoprocesso values( 'Enviado SRFAR-1','',1 );
+INSERT INTO tbsituacaoprocesso values( 'Relatorio d e Caracterização Urbana em processamento','',1 );
+INSERT INTO tbsituacaoprocesso values( 'Enviado SRFAR1','',1 );
+INSERT INTO tbsituacaoprocesso values( 'Relatório de caracterização urbana','',1 );
+INSERT INTO tbsituacaoprocesso values( 'Relatorio de  Caracterização Urbana em processamento','',1 );
+INSERT INTO tbsituacaoprocesso values( 'Aguardando  final  pesquisas Livro Fundiario e Cartorio','',1 );
+INSERT INTO tbsituacaoprocesso values( 'Pendencia de Campo','',1 );
+INSERT INTO tbsituacaoprocesso values( 'Aguardando resp. as consultas M Cidades','',1 );
+INSERT INTO tbsituacaoprocesso values( 'Doado para Prefeitura (Colone)','',1 );
+INSERT INTO tbsituacaoprocesso values( 'Indefinição do limite do municipio','',1 );
+INSERT INTO tbsituacaoprocesso values( 'Aguardando final  pesquisas Livro Fundiario e Cartorio','',1 );
+
