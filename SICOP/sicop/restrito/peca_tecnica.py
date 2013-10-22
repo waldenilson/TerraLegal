@@ -55,7 +55,8 @@ def cadastro(request):
                                    nrcpfrequerente = request.POST['nrcpfrequerente'].replace('.','').replace('-',''),
                                    stanexadoprocesso = anexadoprocesso,
                                    stpecatecnica = pecatecnica,
-                                   stenviadobrasilia = enviadobrasilia
+                                   stenviadobrasilia = enviadobrasilia,
+                                   tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao                                   
                                    )
             peca.save()
             return HttpResponseRedirect("/sicop/restrito/peca_tecnica/consulta/") 
@@ -96,7 +97,8 @@ def edicao(request, id):
                                    nrcpfrequerente = request.POST['nrcpfrequerente'].replace('.','').replace('-',''),
                                    stanexadoprocesso = anexadoprocesso,
                                    stpecatecnica = pecatecnica,
-                                   stenviadobrasilia = enviadobrasilia
+                                   stenviadobrasilia = enviadobrasilia,
+                                   tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                    )
             peca.save()
             return HttpResponseRedirect("/sicop/restrito/peca_tecnica/consulta/")
