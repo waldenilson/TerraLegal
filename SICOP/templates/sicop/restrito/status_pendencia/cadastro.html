@@ -5,19 +5,21 @@
 	Acesso Restrito | Status Pendencia | Cadastro
 {% endblock %}
 
-{% block subtitulo %}
+{% block formulario %}
+<div id="accordion" style="color:black;width:100%;font-size:11px">
+<h3>{% block subtitulo %}
 	
 	CADASTRAR STATUS PENDENCIA
 	
 {% endblock %}
-
-{% block formulario %}
+</h3>
+<div>		
 
 	<form method="post" action=".">
 		{% csrf_token %}
 		<div style="width:100%;font-size:12px;text-align:left">
 				<table>
-				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td>{{ form.dspendencia }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td> <input name="dspendencia" /> </td> </tr>
 				</table>
 		</div>
 		<br />
@@ -30,5 +32,7 @@
 			</tr>
 		</table>
 	</form>
+</div>
+</div>
 	
 {% endblock %}

@@ -4,20 +4,22 @@
 	Acesso Restrito | Tipo Processo | Edicao
 {% endblock %}
 
-{% block subtitulo %}
+{% block formulario %}
+<div id="accordion" style="color:black;width:100%;font-size:11px">
+<h3>{% block subtitulo %}
 	
-	EDITAR TIPO PROCESSO
+	CADASTRAR TIPO PROCESSO
 	
 {% endblock %}
-
-{% block formulario %}
+</h3>
+<div>		
 	<form method="post" action=".">
 		{% csrf_token %}
 		<div style="width:100%;font-size:12px;text-align:left">
 				<table>
-				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td>{{ form.nome }} </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Tabela:</label> </td><td>{{ form.tabela }} </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Cor para Identificacao:</label> </td><td>{{ form.coridentificacao }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td> <input name="nome" value="{{ tipoprocesso.nome }}" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Tabela:</label> </td><td> <input name="tabela" value="{{ tipoprocesso.tabela }}" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Cor para Identificacao:</label> </td><td> <input name="coridentificacao" value="{{ tipoprocesso.coridentificacao }}" /> </td> </tr>
 				</table>
 		</div>
 		<br />
@@ -30,5 +32,6 @@
 			</tr>
 		</table>
 	</form>
-	
+</div>
+</div>
 {% endblock %}

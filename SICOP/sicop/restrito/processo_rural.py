@@ -9,7 +9,6 @@ from django.contrib import messages
 from django.http.response import HttpResponseRedirect
 import datetime
 
-
 #10.12.0.60
 
 @login_required
@@ -21,12 +20,7 @@ def consulta(request):
 def cadastro(request):
     tipoprocesso = Tbtipoprocesso.objects.all()
     
-    situacaoprocesso = Tbsituacaoprocesso.objects.all()
-    caixa = Tbcaixa.objects.all()
-    gleba = Tbgleba.objects.all()
-    # municipios da divisao do usuario logado
-    municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
-    
+    carregarTbAuxProcesso(request)    
     div_processo = "rural"
     escolha = "tbprocessorural"
     
@@ -42,7 +36,9 @@ def cadastro(request):
                                     tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessorural' ),
                                     tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
                                     dtcadastrosistema = datetime.datetime.now(),
-                                    auth_user = AuthUser.objects.get( pk = request.user.id )
+                                    auth_user = AuthUser.objects.get( pk = request.user.id ),
+                                    tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 ),
+                                    tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                     )
             f_base.save()
             
@@ -56,8 +52,7 @@ def cadastro(request):
                                        nmconjuge = request.POST['nmconjuge'],
                                        nrcpfconjuge = request.POST['nrcpfconjuge'].replace('.','').replace('-',''),
                                        tbprocessobase = f_base,
-                                       blconjuge = tem_conjuge,
-                                       tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 )
+                                       blconjuge = tem_conjuge
                                        )
             f_rural.save()
             
@@ -69,21 +64,17 @@ def cadastro(request):
 @login_required
 def edicao(request, id):
     
-    caixa = Tbcaixa.objects.all()
-    gleba = Tbgleba.objects.all()
-    # municipios da divisao do usuario logado
-    municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
-    situacaoprocesso = Tbsituacaoprocesso.objects.all()
-    
+    carregarTbAuxProcesso(request)    
     rural = get_object_or_404(Tbprocessorural, id=id)
     base  = get_object_or_404(Tbprocessobase, id=rural.tbprocessobase.id)
     
     # movimentacoes deste processo
     movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase = id ).order_by( "-dtmovimentacao" )
-    
     # caixa destino
-    caixadestino = Tbcaixa.objects.all()
-    
+    caixadestino = []
+    for obj in Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ):
+        if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'PAD':
+            caixadestino.append( obj )    
       
     if validacao(request, "edicao"):
          # cadastrando o registro processo base            
@@ -96,7 +87,9 @@ def edicao(request, id):
                                     tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessorural' ),
                                     tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
                                     dtcadastrosistema = base.dtcadastrosistema,
-                                    auth_user = AuthUser.objects.get( pk = request.user.id )
+                                    auth_user = AuthUser.objects.get( pk = request.user.id ),
+                                    tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 ),
+                                    tbdivisao = base.tbdivisao
                                     )
             f_base.save()
             
@@ -111,8 +104,7 @@ def edicao(request, id):
                                        nmconjuge = request.POST['nmconjuge'],
                                        nrcpfconjuge = request.POST['nrcpfconjuge'].replace('.','').replace('-',''),
                                        tbprocessobase = f_base,
-                                       blconjuge = tem_conjuge,
-                                       tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 )
+                                       blconjuge = tem_conjuge
                                        )
             f_rural.save()
             
@@ -172,3 +164,14 @@ def nrProcessoCadastrado( numero ):
         return True
     else:
         return False
+    
+def carregarTbAuxProcesso(request):
+    global caixa, gleba, situacaoprocesso, municipio
+    caixa = []
+    for obj in Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ):
+        if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'PAD':
+            caixa.append( obj )
+    gleba = Tbgleba.objects.all().filter( tbsubarea__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+    situacaoprocesso = Tbsituacaoprocesso.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+    municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
+

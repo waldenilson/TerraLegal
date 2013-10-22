@@ -4,16 +4,16 @@ from django.template.context import RequestContext
 from sicop.forms import FormSituacaoProcesso
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect
-from sicop.models import Tbsituacaoprocesso
+from sicop.models import Tbsituacaoprocesso, AuthUser
 from sicop.relatorio_base import relatorio_base_consulta
 
 @login_required
 def consulta(request):
     if request.method == "POST":
         nome = request.POST['nmsituacao']
-        lista = Tbsituacaoprocesso.objects.all().filter( nmsituacao__contains=nome )
+        lista = Tbsituacaoprocesso.objects.all().filter( nmsituacao__contains=nome, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     else:
-        lista = Tbsituacaoprocesso.objects.all()
+        lista = Tbsituacaoprocesso.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     lista = lista.order_by( 'id' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_situacao_processo'] = lista
@@ -23,30 +23,33 @@ def consulta(request):
 def cadastro(request):
     if request.method == "POST":
         next = request.GET.get('next', '/')
-        form = FormSituacaoProcesso(request.POST)
         if validacao(request):
-            if form.is_valid():
-                form.save()
-                if next == "/":
-                    return HttpResponseRedirect("/sicop/restrito/situacao_processo/consulta/")
-                else:    
-                    return HttpResponseRedirect( next ) 
-    else:
-        form = FormSituacaoProcesso()
-    return render_to_response('sicop/restrito/situacao_processo/cadastro.html',{"form":form}, context_instance = RequestContext(request))
+            f_situacaogeo = Tbsituacaoprocesso(
+                                                nmsituacao = request.POST['nmsituacao'],
+                                                dssituacao = request.POST['dssituacao'],
+                                                tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
+                                            )
+            f_situacaogeo.save()
+            if next == "/":
+                return HttpResponseRedirect("/sicop/restrito/situacao_processo/consulta/")
+            else:    
+                return HttpResponseRedirect( next ) 
+    return render_to_response('sicop/restrito/situacao_processo/cadastro.html', context_instance = RequestContext(request))
 
 @login_required
 def edicao(request, id):
     instance = get_object_or_404(Tbsituacaoprocesso, id=id)
     if request.method == "POST":
-        form = FormSituacaoProcesso(request.POST,request.FILES,instance=instance)
         if validacao(request):
-            if form.is_valid():
-                form.save()
-                return HttpResponseRedirect("/sicop/restrito/situacao_processo/consulta/")
-    else:
-        form = FormSituacaoProcesso(instance=instance) 
-    return render_to_response('sicop/restrito/situacao_processo/edicao.html', {"form":form}, context_instance = RequestContext(request))
+           f_situacaogeo = Tbsituacaoprocesso(
+                                                id = instance.id,
+                                                nmsituacao = request.POST['nmsituacao'],
+                                                dssituacao = request.POST['dssituacao'],
+                                                tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
+                                            )
+           f_situacaogeo.save()
+           return HttpResponseRedirect("/sicop/restrito/situacao_processo/consulta/")
+    return render_to_response('sicop/restrito/situacao_processo/edicao.html', {"situacaoprocesso":instance}, context_instance = RequestContext(request))
 
 def relatorio(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf

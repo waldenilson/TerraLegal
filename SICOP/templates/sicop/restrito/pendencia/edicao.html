@@ -1,0 +1,68 @@
+{% extends "base/cadastro_base.html" %} 
+{% load staticfiles %} 
+{% block breadcumbs %}
+	Acesso Restrito | Gleba | Edicao
+{% endblock %}
+
+{% block formulario %}
+<div id="accordion" style="color:black;width:100%;font-size:11px">
+<h3>{% block subtitulo %}
+	
+	EDITAR PENDENCIA
+	
+{% endblock %}
+</h3>
+<div>		
+	
+	<form method="post" action="">
+		{% csrf_token %}
+		<div style="width:100%;font-size:12px;text-align:left">
+				<table>
+				   <tr> <td class="colunaTabela"> <label>Descricao:</label> </td><td> <input name="dsdescricao" value="{{ pendencia.dsdescricao }}" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Tipo:</label> </td>
+				   		<td>
+					   		<select name="tbtipopendencia" style="width: 200px">
+					   			{% for obj in tipopendencia %}
+									{% if obj.id == form.tbsubarea.value %}
+										<option selected="selected" value="{{ obj.id }}">{{ obj.dspendencia }}</option>
+									{% else %}
+										<option value="{{ obj.id }}">{{ obj.dspendencia }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						</td>
+					<td>
+						<a href="/sicop/restrito/pendencia/edicao/{{ form.id }}/?next=/sicop/restrito/tipo_pendencia/cadastro/" title="Novo Tipo Pendencia"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+					</td>						
+				   	</tr>
+				   <tr> <td class="colunaTabela"> <label>Status:</label> </td>
+				   		<td>
+					   		<select name="tbstatuspendencia" style="width: 200px">
+					   			{% for obj in statuspendencia %}
+									{% if obj.id == form.statuspendencia.value %}
+										<option selected="selected" value="{{ obj.id }}">{{ obj.dspendencia }}</option>
+									{% else %}
+										<option value="{{ obj.id }}">{{ obj.dspendencia }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						</td>
+					<td>
+						<a href="/sicop/restrito/pendencia/edicao/{{ form.id }}/?next=/sicop/restrito/status_pendencia/cadastro/" title="Novo Status Pendencia"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+					</td>						
+				   	</tr>
+				</table>
+		</div>
+		<br />
+		<table style="width:100%">
+			<tr>
+				<td class="colunaTabela" style="text-align:left"> 
+					<a href="/sicop/restrito/processo/consulta/" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
+					<input type="submit" class="button_green" value="SALVAR" />
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+</div>
+{% endblock %}

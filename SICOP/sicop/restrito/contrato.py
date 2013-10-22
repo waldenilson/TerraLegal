@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.forms import FormContrato
 from django.contrib import messages
-from sicop.models import Tbcontrato
+from sicop.models import Tbcontrato, AuthUser
 from django.http.response import HttpResponseRedirect
 from sicop.relatorio_base import relatorio_base_consulta
 
@@ -12,9 +12,9 @@ def consulta(request):
     if request.method == "POST":
         num = request.POST['nrcontrato']
         nome = request.POST['nmempresa']
-        lista = Tbcontrato.objects.all().filter( nrcontrato__contains=num, nmempresa__contains=nome )
+        lista = Tbcontrato.objects.all().filter( nrcontrato__contains=num, nmempresa__contains=nome, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     else:
-        lista = Tbcontrato.objects.all()
+        lista = Tbcontrato.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     lista = lista.order_by( 'id' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_contrato'] = lista
@@ -24,31 +24,34 @@ def consulta(request):
 def cadastro(request):
     if request.method == "POST":
         next = request.GET.get('next', '/')
-        form = FormContrato(request.POST)
         if validacao(request):
-            if form.is_valid():
-                form.save()
-                if next == "/":
-                    return HttpResponseRedirect("/sicop/restrito/contrato/consulta/")
-                else:    
-                    return HttpResponseRedirect( next ) 
-    else:
-        form = FormContrato()
-    return render_to_response('sicop/restrito/contrato/cadastro.html',{"form":form},
+            f_contrato = Tbcontrato(
+                                        nrcontrato = request.POST['nrcontrato'],
+                                        nmempresa = request.POST['nmempresa'],
+                                        tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
+                                    )
+            f_contrato.save()
+            if next == "/":
+                return HttpResponseRedirect("/sicop/restrito/contrato/consulta/")
+            else:    
+                return HttpResponseRedirect( next ) 
+    return render_to_response('sicop/restrito/contrato/cadastro.html',
                                context_instance = RequestContext(request))
 
 @login_required
 def edicao(request, id):
     instance = get_object_or_404(Tbcontrato, id=id)
     if request.method == "POST":
-        form = FormContrato(request.POST,request.FILES,instance=instance)
         if validacao(request):
-            if form.is_valid():
-                form.save()
-                return HttpResponseRedirect("/sicop/restrito/contrato/consulta/")
-    else:
-        form = FormContrato(instance=instance) 
-    return render_to_response('sicop/restrito/contrato/edicao.html', {"form":form}, context_instance = RequestContext(request))
+            f_contrato = Tbcontrato(
+                                        id = instance.id,
+                                        nrcontrato = request.POST['nrcontrato'],
+                                        nmempresa = request.POST['nmempresa'],
+                                        tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
+                                    )
+            f_contrato.save()
+            return HttpResponseRedirect("/sicop/restrito/contrato/consulta/")
+    return render_to_response('sicop/restrito/contrato/edicao.html', {"contrato":instance}, context_instance = RequestContext(request))
 
 def relatorio(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf

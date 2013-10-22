@@ -5,19 +5,21 @@
 	Acesso Restrito | Situacao Geo | Cadastro
 {% endblock %}
 
-{% block subtitulo %}
+{% block formulario %}
+<div id="accordion" style="color:black;width:100%;font-size:11px">
+<h3>{% block subtitulo %}
 	
 	CADASTRAR SITUACAO GEO
 	
 {% endblock %}
-
-{% block formulario %}
+</h3>
+<div>		
 
 	<form method="post" action="">
 		{% csrf_token %}
 		<div style="width:100%;font-size:12px;text-align:left">
 				<table>
-				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td>{{ form.nmsituacaogeo }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td> <input name="nmsituacaogeo" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Descricao:</label> </td><td> <textarea rows="4" cols="40" name="dssituacaogeo"></textarea></td> </tr>
 				</table>
 		</div>
@@ -31,5 +33,6 @@
 			</tr>
 		</table>
 	</form>
-	
+</div>
+</div>
 {% endblock %}

@@ -5,7 +5,7 @@ from django.template.context import RequestContext
 from django.contrib import messages
 from sicop.forms import FormPecasTecnicas
 from sicop.models import Tbpecastecnicas, Tbgleba, Tbcaixa, Tbcontrato,\
-    Tbprocessobase, Tbprocessorural
+    Tbprocessobase, Tbprocessorural, AuthUser
 from sicop.relatorio_base import relatorio_base_consulta
 
 #PECAS TECNICAS -----------------------------------------------------------------------------------------------------------------------------
@@ -16,9 +16,10 @@ def consulta(request):
         requerente = request.POST['requerente']
         cpf = request.POST['cpf']
         entrega = request.POST['entrega']
-        lista = Tbpecastecnicas.objects.all().filter( nmrequerente__contains=requerente, nrcpfrequerente__contains=cpf, nrentrega__contains=entrega )
+        lista = Tbpecastecnicas.objects.all().filter( nmrequerente__contains=requerente, nrcpfrequerente__contains=cpf, nrentrega__contains=entrega, 
+                                                      tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     else:
-        lista = Tbpecastecnicas.objects.all()
+        lista = Tbpecastecnicas.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     lista = lista.order_by( 'id' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_peca_tecnica'] = lista

@@ -4,19 +4,21 @@
 	Acesso Restrito | Situacao Processo | Edicao
 {% endblock %}
 
-{% block subtitulo %}
+{% block formulario %}
+<div id="accordion" style="color:black;width:100%;font-size:11px">
+<h3>{% block subtitulo %}
 	
 	EDITAR SITUACAO PROCESSO
 	
 {% endblock %}
-
-{% block formulario %}
+</h3>
+<div>		
 	<form method="post" action=".">
 		{% csrf_token %}
 		<div style="width:100%;font-size:12px;text-align:left">
 				<table>
-				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td>{{ form.nmsituacao }} </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Descricao:</label> </td><td> <textarea rows="4" cols="40" name="dssituacao">{{ form.dssituacao.value }}</textarea></td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td> <input name="nmsituacao" value="{{ situacaoprocesso.nmsituacao }}" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Descricao:</label> </td><td> <textarea rows="4" cols="40" name="dssituacao">{{ situacaoprocesso.dssituacao }}</textarea></td> </tr>
 				</table>
 		</div>
 		<br />
@@ -29,5 +31,6 @@
 			</tr>
 		</table>
 	</form>
-	
+</div>
+</div>	
 {% endblock %}

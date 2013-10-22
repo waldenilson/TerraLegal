@@ -12,17 +12,30 @@ import datetime
 from django.contrib.auth.hashers import make_password, load_hashers, get_hasher
 import json
 from collections import OrderedDict
+from sicop.admin import verificar_permissao_grupo
 
 #PECAS TECNICAS -----------------------------------------------------------------------------------------------------------------------------
 
 @login_required
 def consulta(request):
+    
     if request.method == "POST":
         first_name = request.POST['first_name']
         email = request.POST['email']
-        lista = AuthUser.objects.all().filter( first_name__contains=first_name, email__contains=email )
+        print 'User: '+AuthUser.objects.get( pk = request.user.id ).tbdivisao.nmdivisao
+        # se usuario for do grupo Super; mostra todos senao mostra somente os usuarios da divisao
+        if verificar_permissao_grupo( AuthUser.objects.get( pk = request.user.id ), {'Super'} ):
+            lista = AuthUser.objects.all().filter( first_name__contains=first_name, email__contains=email )
+        else:
+            lista = AuthUser.objects.all().filter( first_name__contains=first_name, email__contains=email, 
+                                                   tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     else:
-        lista = AuthUser.objects.all()
+        # se usuario for do grupo Super; mostra todos senao mostra somente os usuarios da divisao
+        if verificar_permissao_grupo( AuthUser.objects.get( pk = request.user.id ), {'Super'} ):
+            lista = AuthUser.objects.all()
+        else:
+            lista = AuthUser.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+
     lista = lista.order_by( 'id' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_usuario'] = lista

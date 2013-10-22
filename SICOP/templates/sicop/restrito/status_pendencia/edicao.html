@@ -4,19 +4,21 @@
 	Acesso Restrito | Status Pendencia | Edicao
 {% endblock %}
 
-{% block subtitulo %}
+{% block formulario %}
+<div id="accordion" style="color:black;width:100%;font-size:11px">
+<h3>{% block subtitulo %}
 	
-	EDITAR Status Pendencia
+	EDITAR STATUS PENDENCIA
 	
 {% endblock %}
+</h3>
+<div>		
 
-{% block formulario %}
-	
 	<form method="post" action=".">
 		{% csrf_token %}
 		<div style="width:100%;font-size:12px;text-align:left">
 				<table>
-				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td>{{ form.dspendencia }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td> <input name="dspendencia" value="{{ statuspendencia.dspendencia }}" /> </td> </tr>
 				</table>
 		</div>
 		<br />
@@ -29,4 +31,6 @@
 			</tr>
 		</table>
 	</form>
+</div>
+</div>
 {% endblock %}

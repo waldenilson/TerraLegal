@@ -4,19 +4,22 @@
 	Acesso Restrito | Situacao Geo | Edicao
 {% endblock %}
 
-{% block subtitulo %}
+{% block formulario %}
+<div id="accordion" style="color:black;width:100%;font-size:11px">
+<h3>{% block subtitulo %}
 	
 	EDITAR SITUACAO GEO
 	
 {% endblock %}
+</h3>
+<div>		
 
-{% block formulario %}
 	<form method="post" action=".">
 		{% csrf_token %}
 		<div style="width:100%;font-size:12px;text-align:left">
 				<table>
-				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td>{{ form.nmsituacaogeo }} </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Descricao:</label> </td><td> <textarea rows="4" cols="40" name="dssituacaogeo">{{ form.dssituacaogeo.value }}</textarea></td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td><input name="nmsituacaogeo" value="{{ situacaogeo.nmsituacaogeo }}" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Descricao:</label> </td><td> <textarea rows="4" cols="40" name="dssituacaogeo">{{ situacaogeo.dssituacaogeo }}</textarea></td> </tr>
 				</table>
 		</div>
 		<br />
@@ -29,5 +32,6 @@
 			</tr>
 		</table>
 	</form>
-	
+</div>
+</div>
 {% endblock %}

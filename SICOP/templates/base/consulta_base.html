@@ -5,17 +5,17 @@
 
 {% block breadcumbs %} {% endblock %}
 
-{% block subtitulo %} {% endblock %}
-
 {% block conteudo %}
 
-	<div style="color:black;width:100%;font-size:11px;text-align:center">
-					
-	<!-- 		FORMULARIOS DOS FILTROS / CONSULTAS -->
-	{% block consulta %} {% endblock %}
-
-	<!-- 		RESULTADO DOS FILTROS / CONSULTAS		 -->
-	{% block resultado %} {% endblock %}		
-	</div>
+	<div id="accordion" style="color:black;width:100%;font-size:11px">
+		<h3>{% block subtitulo %} {% endblock %}</h3>
+		<div style="text-align:center">
+				<!-- 		FORMULARIOS DOS FILTROS / CONSULTAS -->
+				{% block consulta %} {% endblock %}
+			
+				<!-- 		RESULTADO DOS FILTROS / CONSULTAS		 -->
+				{% block resultado %} {% endblock %}		
+		</div>
+	</div>	
 	
 {% endblock %}

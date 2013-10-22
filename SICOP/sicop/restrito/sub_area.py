@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.forms import FormSubArea
-from sicop.models import Tbsubarea
+from sicop.models import Tbsubarea, AuthUser
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from sicop.relatorio_base import relatorio_base_consulta
@@ -11,9 +11,9 @@ from sicop.relatorio_base import relatorio_base_consulta
 def consulta(request):
     if request.method == "POST":
         num = request.POST['nmsubarea']
-        lista = Tbsubarea.objects.all().filter( nmsubarea__contains=num )
+        lista = Tbsubarea.objects.all().filter( nmsubarea__contains=num, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     else:
-        lista = Tbsubarea.objects.all()
+        lista = Tbsubarea.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     lista = lista.order_by( 'id' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_sub_area'] = lista
@@ -24,30 +24,31 @@ def consulta(request):
 def cadastro(request):
     if request.method == "POST":
         next = request.GET.get('next', '/')
-        form = FormSubArea(request.POST)
         if validacao(request):
-            if form.is_valid():
-                form.save()
-                if next == "/":
-                    return HttpResponseRedirect("/sicop/restrito/sub_area/consulta/")
-                else:    
-                    return HttpResponseRedirect( next ) 
-    else:
-        form = FormSubArea()
-    return render_to_response('sicop/restrito/sub_area/cadastro.html',{"form":form}, context_instance = RequestContext(request))
+            f_subarea = Tbsubarea(
+                                        nmsubarea = request.POST['nmsubarea'],
+                                        tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
+                                      )
+            f_subarea.save()
+            if next == "/":
+                return HttpResponseRedirect("/sicop/restrito/sub_area/consulta/")
+            else:    
+                return HttpResponseRedirect( next ) 
+    return render_to_response('sicop/restrito/sub_area/cadastro.html',{}, context_instance = RequestContext(request))
 
 @login_required
 def edicao(request, id):
     instance = get_object_or_404(Tbsubarea, id=id)
     if request.method == "POST":
-        form = FormSubArea(request.POST,request.FILES,instance=instance)
         if validacao(request):
-            if form.is_valid():
-                form.save()
-                return HttpResponseRedirect("/sicop/restrito/sub_area/consulta/")
-    else:
-        form = FormSubArea(instance=instance)
-    return render_to_response('sicop/restrito/sub_area/edicao.html', {"form":form}, context_instance = RequestContext(request))
+            f_subarea = Tbsubarea(
+                                        id = instance.id,
+                                        nmsubarea = request.POST['nmsubarea'],
+                                        tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
+                                      )
+            f_subarea.save()
+            return HttpResponseRedirect("/sicop/restrito/sub_area/consulta/")
+    return render_to_response('sicop/restrito/sub_area/edicao.html', {"subarea":instance}, context_instance = RequestContext(request))
 
 def relatorio(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf

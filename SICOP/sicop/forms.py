@@ -3,9 +3,10 @@ from django.forms import models
 from django import forms
 from sicop.models import Tbpecastecnicas, Tbprocessobase, Tbtipopendencia,\
     Tbtipocaixa, Tbcaixa, Tbsubarea, Tbgleba, Tbcontrato, Tbstatuspendencia,\
-    Tbclassificacaoprocesso, Tbmunicipiomodulo,\
+    Tbclassificacaoprocesso,\
     Tbtipoprocesso, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano,\
-    Tbsituacaoprocesso, Tbsituacaogeo , Tbservidor, AuthGroup, Tbdivisao
+    Tbsituacaoprocesso, Tbsituacaogeo , Tbservidor, AuthGroup, Tbdivisao,\
+    Tbpendencia
 
 
 class FormPecasTecnicas(forms.ModelForm):
@@ -17,7 +18,7 @@ class FormPecasTecnicas(forms.ModelForm):
 class FormServidor(forms.ModelForm):
     class Meta:
         model = Tbservidor
-        fields = ('nmservidor','nmunidade','nmlotacao','cdSIAPE','nrCPF',
+        fields = ('nmservidor','nmunidade','nmlotacao','cdsiape','nrcpf',
                   'dsportariacargo','dsportaria','nmcargo','nrtelefone1','nrtelefone2',
                   'email','dsatividades')
 
@@ -66,6 +67,10 @@ class FormContrato(models.ModelForm):
     class Meta:
         model = Tbcontrato
 
+class FormPendencia(models.ModelForm):        
+    class Meta:
+        model = Tbpendencia
+
 class FormStatusPendencia(models.ModelForm):
     class Meta:
         model = Tbstatuspendencia
@@ -78,10 +83,6 @@ class FormTipoProcesso(models.ModelForm):
     class Meta:
         model = Tbtipoprocesso
         
-class FormMunicipioModulo(models.ModelForm):        
-    class Meta:
-        model = Tbmunicipiomodulo
-
 class FormClassificacaoProcesso(models.ModelForm):
     class Meta:
         model = Tbclassificacaoprocesso

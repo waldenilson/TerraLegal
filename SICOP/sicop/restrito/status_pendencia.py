@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.forms import FormStatusPendencia
-from sicop.models import Tbstatuspendencia
+from sicop.models import Tbstatuspendencia, AuthUser
 from django.http.response import HttpResponseRedirect
 from django.contrib import messages
 from sicop.relatorio_base import relatorio_base_consulta
@@ -11,9 +11,9 @@ from sicop.relatorio_base import relatorio_base_consulta
 def consulta(request):
     if request.method == "POST":
         nome = request.POST['dspendencia']
-        lista = Tbstatuspendencia.objects.all().filter( dspendencia__contains=nome )
+        lista = Tbstatuspendencia.objects.all().filter( dspendencia__contains=nome, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     else:
-        lista = Tbstatuspendencia.objects.all()
+        lista = Tbstatuspendencia.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     lista = lista.order_by( 'id' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_status_pendencia'] = lista
@@ -22,27 +22,28 @@ def consulta(request):
 @login_required
 def cadastro(request):
     if request.method == "POST":
-        form = FormStatusPendencia(request.POST)
         if validacao(request):
-            if form.is_valid():
-                form.save()
-                return HttpResponseRedirect("/sicop/restrito/status_pendencia/consulta/") 
-    else:
-        form = FormStatusPendencia()
-    return render_to_response('sicop/restrito/status_pendencia/cadastro.html',{"form":form}, context_instance = RequestContext(request))
+            f_statuspendencia = Tbstatuspendencia(
+                                        dspendencia = request.POST['dspendencia'],
+                                        tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
+                                      )
+            f_statuspendencia.save()
+            return HttpResponseRedirect("/sicop/restrito/status_pendencia/consulta/") 
+    return render_to_response('sicop/restrito/status_pendencia/cadastro.html',{}, context_instance = RequestContext(request))
 
 @login_required
 def edicao(request, id):
     instance = get_object_or_404(Tbstatuspendencia, id=id)
     if request.method == "POST":
-        form = FormStatusPendencia(request.POST,request.FILES,instance=instance)
         if validacao(request):
-            if form.is_valid():
-                form.save()
-                return HttpResponseRedirect("/sicop/restrito/status_pendencia/consulta/")
-    else:
-        form = FormStatusPendencia(instance=instance) 
-    return render_to_response('sicop/restrito/status_pendencia/edicao.html', {"form":form}, context_instance = RequestContext(request))
+            f_statuspendencia = Tbstatuspendencia(
+                                        id = instance.id,
+                                        dspendencia = request.POST['dspendencia'],
+                                        tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
+                                      )
+            f_statuspendencia.save()
+            return HttpResponseRedirect("/sicop/restrito/status_pendencia/consulta/")
+    return render_to_response('sicop/restrito/status_pendencia/edicao.html', {"statuspendencia":instance}, context_instance = RequestContext(request))
 
 def relatorio(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
