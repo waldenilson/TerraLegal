@@ -1,39 +1,9 @@
-# Django settings for SICOP project.
+# Django settings for SICOP project. Uso em HOMOLOGACAO
 from os.path import abspath, join, dirname
 
-DEBUG = True
+DEBUG = False
 
-TEMPLATE_DEBUG = DEBUG
-
-import socket
-print socket.gethostname()
-
-if socket.gethostname() == 'mslsbrgf00r.sls.incra.gov.br':
-    DEBUG = TEMPLATE_DEBUG = True
-    DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', 
-        'NAME': 'dbSicop_homologa',                      
-        'USER': 'admin',
-        'PASSWORD': '123456',
-        'HOST': 'localhost',                      
-        'PORT': '5432'                      
-        },
-    }
-else: #local / desenvolvimento
-    DEBUG = TEMPLATE_DEBUG = True
-    DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', 
-        'NAME': 'newsicop',                      
-        'USER': 'admin',
-        'PASSWORD': '123456',
-        'HOST': 'localhost',                      
-        'PORT': '5432'                      
-        },
-        }
-
-
+TEMPLATE_DEBUG = False
 
 # Absolute paths for where the project and templates are stored.
 #ABSOLUTE_PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
@@ -42,6 +12,14 @@ else: #local / desenvolvimento
 #if not ABSOLUTE_PROJECT_ROOT in sys.path:    
 #    sys.path.insert(0, ABSOLUTE_PROJECT_ROOT)
 
+import socket
+print socket.gethostname()
+
+if socket.gethostname() == 'my-laptop':
+    DEBUG = TEMPLATE_DEBUG = True
+else:
+    DEBUG = TEMPLATE_DEBUG = False
+
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -49,6 +27,18 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+DATABASES = {
+             
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'dbSicop_homologa',                      # Or path to database file if using sqlite3.
+        # The following settings are not used with sqlite3:
+        'USER': 'admin',
+        'PASSWORD': '123456',
+        'HOST': 'localhost',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': '5432'                      # Set to empty string for default.
+    },
+}
 
 
 #DATABASE_ROUTERS = ['servidor.router.GeneRouter']
