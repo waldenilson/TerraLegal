@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -14,34 +15,34 @@ import java.util.Map;
 
 public class MigracaoAuxiliar {
 
-	private String diretorio = "C:\\DEVELOPER/SICOP/Migracao/auxiliar";
-	private String nomeArqMigracao = "scriptTbexemplo.sql";
-	private String nomeArqMunicipio = "municipio.sql";
-	private String nomeArqGleba = "gleba.sql";
-	private String nomeArqCaixa = "caixa.sql";
-	private String nomeArqSubarea = "subarea.sql";
-	private String nomeArqContrato = "contrato.sql";
-	private String nomeArqSituacaogeo = "situacaogeo.sql";
+	private static String diretorio = "C:\\DEVELOPER/SICOP/Migracao/auxiliar";
+	private static String nomeArqMigracao = "scriptTbexemplo.sql";
+	private static String nomeArqMunicipio = "municipio.sql";
+	private static String nomeArqGleba = "gleba.sql";
+	private static String nomeArqCaixa = "caixa.sql";
+	private static String nomeArqSubarea = "subarea.sql";
+	private static String nomeArqContrato = "contrato.sql";
+	private static String nomeArqSituacaogeo = "situacaogeo.sql";
 	
 	
 	
-	public Map mapMunicipio() {	return ler(diretorio, nomeArqMunicipio,11,0); }
-	public Map mapGleba() {	return ler(diretorio, nomeArqGleba,3,1); }
-	public Map mapCaixa() {	return ler(diretorio, nomeArqCaixa,3,0); }
-	public Map mapSubarea() {	return ler(diretorio, nomeArqSubarea,3,1); }
-	public Map mapContrato() {	return ler(diretorio, nomeArqContrato,3,0); }
-	public Map mapSituacaogeo() {	return ler(diretorio, nomeArqSituacaogeo,3,0); }
+	public static Map mapMunicipio() {	return ler(diretorio, nomeArqMunicipio,11,0, false); }
+	public static Map mapGleba() {	return ler(diretorio, nomeArqGleba,3,1, true); }
+	public static Map mapCaixa() {	return ler(diretorio, nomeArqCaixa,3,0, false); }
+	public static Map mapSubarea() {	return ler(diretorio, nomeArqSubarea,3,1, false); }
+	public static Map mapContrato() {	return ler(diretorio, nomeArqContrato,3,0, false); }
+	public static Map mapSituacaogeo() {	return ler(diretorio, nomeArqSituacaogeo,3,0, false); }
 	
 	public MigracaoAuxiliar()
 	{		
 		File dir = new File( diretorio );
 		
-		System.out.println(mapMunicipio().size());
-		System.out.println(mapGleba().size());
-		System.out.println(mapCaixa().size());
-		System.out.println(mapSubarea().size());
-		System.out.println(mapContrato().size());
-		System.out.println(mapSituacaogeo().size());
+//		System.out.println(mapMunicipio().size());
+//		System.out.println(mapGleba().size());
+//		System.out.println(mapCaixa().size());
+//		System.out.println(mapSubarea().size());
+//		System.out.println(mapContrato().size());
+//		System.out.println(mapSituacaogeo().size());
 			
 //		escreve(todosScripts, new File(dir, nomeArqMigracao) );
 	}
@@ -52,7 +53,7 @@ public class MigracaoAuxiliar {
 	}
 	
 	
-	public Map ler(String diretorio, String nomeArq, int k, int v)
+	public static Map ler(String diretorio, String nomeArq, int k, int v, boolean caixaalta)
 	{
 		
 			File dir = new File( diretorio );
@@ -77,7 +78,10 @@ public class MigracaoAuxiliar {
 		        {
 		        	String cont = linha;
 		        	String[] s = cont.split("\t");
-		        	mMunicipio.put(s[k], s[v]);		        	
+		        	if(caixaalta)
+		        		mMunicipio.put( s[v].toUpperCase(), s[k] );
+		        	else
+		        		mMunicipio.put( s[v], s[k] );
 		        }
 		        
 		        fileReader.close();
@@ -103,5 +107,16 @@ public class MigracaoAuxiliar {
             e.printStackTrace();  
         }  
     }  
+    
+    public static String normalizarString(String txt)
+	   {
+			if(txt==null)
+				return "";
+			
+			txt = Normalizer.normalize(txt,Normalizer.Form.NFD);
+		    
+			txt = txt.replaceAll("[^\\p{ASCII}]", "");
+			return txt;
+		}
 		
 }
