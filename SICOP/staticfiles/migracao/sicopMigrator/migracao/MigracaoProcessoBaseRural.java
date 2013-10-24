@@ -13,7 +13,7 @@ import java.util.Map;
 public class MigracaoProcessoBaseRural {
 
 	private String diretorio = "C:\\DEVELOPER/SICOP/Migracao";
-	private String nomeArqMigracao = "scriptTbprocessobase.sql";
+	private String nomeArqMigracao = "scriptTbprocessobaserural.sql";
 	private String nomeArqLegado = "dump_tbprocesso.txt";
 	
 	public MigracaoProcessoBaseRural()
@@ -118,7 +118,10 @@ public class MigracaoProcessoBaseRural {
 
 		        		if(y==10) // usuario
 		        		{
-		        			usuario.add("1");
+		        			aux = (String) MigracaoAuxiliar.mapAuthUser().get( a );
+		        			if (aux == null)
+		        				aux = "1";
+		        			usuario.add(aux);
 		        		}
 		        		
 		        		if(y==1) // gleba
@@ -173,7 +176,7 @@ public class MigracaoProcessoBaseRural {
 		        			aux = (String) MigracaoAuxiliar.mapCaixa().get( a );
 		        			if (aux == null)
 		        				erroscaixa.add("erro-caixa");
-		        				caixa.add(aux);
+		        			caixa.add(aux);
 		        		}
 		        		if(y==7) // municipio
 		        		{
@@ -197,22 +200,30 @@ public class MigracaoProcessoBaseRural {
 		        		contaux += aux+"\t";
 		        		
 		        	}
-		        	cont = contaux.substring(0,contaux.length()-1);
-		        	
-	//        		cont = cont.replaceAll("\t\t", "\t");
-	        		cont = cont.replaceAll("\t", ",");
-	        		cont = cont.replaceAll(",,", ",null,");
-	        		cont = cont.replaceAll(",,", ",null,");
-	        		cont = cont.replaceAll("''", "null");
+//		        	cont = contaux.substring(0,contaux.length()-1);
+		        			        	
 		        	
 //		        	System.out.println( cont );
 	//	        	System.exit(0);
 	//	        	cont = cont.replaceAll("\t", ",");
 		        	
-		        	conteudo += "INSERT INTO "+tabela+" values( "+cont+" );\n";
-		        	leitura += x+"\t"+"INSERT INTO "+tabela+" values( "+cont+" );\n";
 		        	x++;
 	//	            System.out.println(conteudo);
+		        }
+		        for( int a=0; a<numero.size();a++)
+	        	{
+	        		int id = a+1;
+	        		String cont = numero.get(a)+", "+gleba.get(a)+", "+caixa.get(a)+", "+
+	        				municipio.get(a)+", "+usuario.get(a)+", "+"1, 22, "+data.get(a)+", "+classificacao.get(a)+", 1, "+id;
+		        	
+	 //        		cont = cont.replaceAll("\t\t", "\t");
+	        		cont = cont.replaceAll("\t", ",");
+	        		cont = cont.replaceAll(",,", ",null,");
+	        		cont = cont.replaceAll(",,", ",null,");
+	        		cont = cont.replaceAll("''", "null");
+	        		tabela = "tbprocessobase";
+	        		conteudo += "INSERT INTO "+tabela+" values( "+cont+" );\n";
+		        	leitura += x+"\t"+"INSERT INTO "+tabela+" values( "+cont+" );\n";
 		        }
 		        System.out.println("conteudo: "+leitura);
 		        
@@ -236,7 +247,7 @@ public class MigracaoProcessoBaseRural {
 		        		"\ncaixa: "+caixa.size()+
 		        		"\ngleba: "+gleba.size()+
 		        		"\ndata: "+data.size()+
-		        		"\nusuario: "+data.size()+
+		        		"\nusuario: "+usuario.size()+
 		        		"\nclassificacao: "+classificacao.size()+
 		        		"\nmunicipio: "+municipio.size()+"\n\n\n");
 
