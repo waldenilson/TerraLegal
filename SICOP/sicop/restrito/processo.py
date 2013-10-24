@@ -31,7 +31,7 @@ def consulta(request):
         
         if len(numero) > 0 :
             lista = Tbprocessobase.objects.all().filter( nrprocesso__contains = numero )
-        
+    
         if len(cpf) > 0 :
             p_rural = Tbprocessorural.objects.all().filter( nrcpfrequerente__contains = cpf )
             p_clausula = Tbprocessoclausula.objects.all().filter( nrcpfrequerente__contains = cpf )
@@ -89,6 +89,7 @@ def tramitar(request, base):
                                     tbsituacaoprocesso = base.tbsituacaoprocesso,
                                     dtcadastrosistema = base.dtcadastrosistema,
                                     auth_user = base.auth_user,
+                                    tbdivisao = base.tbdivisao,
                                     tbclassificacaoprocesso = base.tbclassificacaoprocesso
                                     )
             f_base.save()
@@ -116,6 +117,7 @@ def tramitar(request, base):
                                         tbsituacaoprocesso = proc_anexado.tbsituacaoprocesso,
                                         dtcadastrosistema = proc_anexado.dtcadastrosistema,
                                         auth_user = proc_anexado.auth_user,
+                                        tbdivisao = proc_anexado.tbdivisao,
                                         tbclassificacaoprocesso = proc_anexado.tbclassificacaoprocesso
                                         )
                 f_base.save()
