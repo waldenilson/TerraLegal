@@ -22,16 +22,19 @@ public class MigracaoAuxiliar {
 	private static String nomeArqCaixa = "caixa.sql";
 	private static String nomeArqSubarea = "subarea.sql";
 	private static String nomeArqContrato = "contrato.sql";
+	private static String nomeArqAuthUser = "auth_user.sql";
 	private static String nomeArqSituacaogeo = "situacaogeo.sql";
+	private static String nomeArqProcessoBase = "processobase.sql";
 	
 	
-	
-	public static Map mapMunicipio() {	return ler(diretorio, nomeArqMunicipio,11,0, false); }
+	public static Map mapMunicipio() {	return ler(diretorio, nomeArqMunicipio,11,0, true); }
 	public static Map mapGleba() {	return ler(diretorio, nomeArqGleba,3,1, true); }
 	public static Map mapCaixa() {	return ler(diretorio, nomeArqCaixa,3,0, false); }
 	public static Map mapSubarea() {	return ler(diretorio, nomeArqSubarea,3,1, false); }
 	public static Map mapContrato() {	return ler(diretorio, nomeArqContrato,3,0, false); }
+	public static Map mapAuthUser() {	return ler(diretorio, nomeArqAuthUser,11,3, false); }
 	public static Map mapSituacaogeo() {	return ler(diretorio, nomeArqSituacaogeo,3,0, false); }
+	public static Map mapProcessoBase() { return ler(diretorio, nomeArqProcessoBase,10,0, false); }
 	
 	public MigracaoAuxiliar()
 	{		
