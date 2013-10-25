@@ -261,19 +261,18 @@ class Tbprocessourbano(models.Model):
         db_table = 'tbprocessourbano'
 
 class Tbservidor(models.Model):
-    iduser = models.ForeignKey(AuthUser, db_column='idUser_id') # Field name made lowercase.
     nmservidor = models.CharField(max_length=100)
     nmunidade = models.CharField(max_length=100)
     nmlotacao = models.CharField(max_length=30)
-    cdsiape = models.CharField(max_length=7) # Field name made lowercase.
-    nrcpf = models.CharField(max_length=11) # Field name made lowercase.
-    dsportariacargo = models.CharField(max_length=80)
-    dsportaria = models.CharField(max_length=80)
-    nmcargo = models.CharField(max_length=40)
+    cdsiape = models.CharField(max_length=7)
+    nrcpf = models.CharField(max_length=11)
+    dsportariacargo = models.TextField()
+    dsportaria = models.TextField()
+    nmcargo = models.CharField(max_length=80)
     nrtelefone1 = models.CharField(max_length=10)
     nrtelefone2 = models.CharField(max_length=10)
     email = models.CharField(max_length=75)
-    dsatividades = models.CharField(max_length=80)
+    dsatividades = models.TextField()
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbservidor'
