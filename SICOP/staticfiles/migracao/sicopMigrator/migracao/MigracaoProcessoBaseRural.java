@@ -1,6 +1,5 @@
 package br.gov.incra.migracao;
 
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -29,15 +28,13 @@ public class MigracaoProcessoBaseRural {
 	{
 		new MigracaoProcessoBaseRural();
 	}
-	
-	
+		
 	public String ler(String diretorio, String nomeArq)
 	{
 		
 			File dir = new File( diretorio );
 			File arq = new File(dir, nomeArq );
-		 	
-			
+		 				
 			try {
 		        //Indicamos o arquivo que será lido
 		        FileReader fileReader = new FileReader(arq);
@@ -214,7 +211,7 @@ public class MigracaoProcessoBaseRural {
 	        	{
 	        		int id = a+1;
 	        		String cont = numero.get(a)+", "+gleba.get(a)+", "+caixa.get(a)+", "+
-	        				municipio.get(a)+", "+usuario.get(a)+", "+"1, 22, "+data.get(a)+", "+classificacao.get(a)+", 1, "+id;
+	        				municipio.get(a)+", "+usuario.get(a)+", "+"1, 22, "+data.get(a)+", "+classificacao.get(a)+", 1";
 		        	
 	 //        		cont = cont.replaceAll("\t\t", "\t");
 	        		cont = cont.replaceAll("\t", ",");

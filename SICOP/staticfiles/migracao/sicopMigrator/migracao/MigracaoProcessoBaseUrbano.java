@@ -171,6 +171,8 @@ public class MigracaoProcessoBaseUrbano {
 		        		{
 		        			if(a.equals("SIPRADO 1"))
 		        				a = "SIPRADO 01";
+		        			if(a.isEmpty())
+		        				a = "DADOS MIGRADOS URBANO";
 		        			aux = (String) MigracaoAuxiliar.mapCaixa().get( a );
 		        			if (aux == null)
 		        			{
@@ -191,12 +193,12 @@ public class MigracaoProcessoBaseUrbano {
 		        		if(y==12) // classificacaoprocesso
 		        		{
 		        			
-		        			if(a.equals("pai"))
+//		        			if(a.equals("pai"))
 		        				aux = "1";
-		        			else if(a.equals("anexo"))
-		        				aux = "2";
-		        			else
-		        				errosclassificacao.add("erro-classificacao");
+//		        			else if(a.equals("anexo"))
+//		        				aux = "2";
+//		        			else
+//		        				errosclassificacao.add("erro-classificacao");
 		        			classificacao.add(aux);
 		        		}
 		        					        		
@@ -217,7 +219,7 @@ public class MigracaoProcessoBaseUrbano {
 	        	{
 	        		int id = a+1;
 	        		String cont = numero.get(a)+", "+gleba.get(a)+", "+caixa.get(a)+", "+
-	        				municipio.get(a)+", "+usuario.get(a)+", "+"3, 22, "+data.get(a)+", "+classificacao.get(a)+", 1, "+id;
+	        				municipio.get(a)+", "+usuario.get(a)+", "+"3, 22, "+data.get(a)+", "+classificacao.get(a)+", 1";
 		        	
 	 //        		cont = cont.replaceAll("\t\t", "\t");
 	        		cont = cont.replaceAll("\t", ",");
@@ -254,7 +256,7 @@ public class MigracaoProcessoBaseUrbano {
 		        		"\nclassificacao: "+classificacao.size()+
 		        		"\nmunicipio: "+municipio.size()+"\n\n\n");
 
-		        System.out.println("Municipio: "+municipio);
+		        System.out.println("Caixa: "+caixa);
 
 		        
 		        return conteudo;

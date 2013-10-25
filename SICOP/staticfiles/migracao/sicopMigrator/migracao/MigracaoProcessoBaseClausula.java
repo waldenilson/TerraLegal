@@ -180,9 +180,14 @@ public class MigracaoProcessoBaseClausula {
 		        		}
 		        		if(y==7) // municipio
 		        		{
-		        			aux = (String) MigracaoAuxiliar.mapMunicipio().get(  MigracaoAuxiliar.normalizarString(a) );
+		        			if(a.isEmpty())
+		        			a = "IMPERATRIZ";
+		        			aux = (String) MigracaoAuxiliar.mapMunicipio().get(  MigracaoAuxiliar.normalizarString(a.toUpperCase()) );
 		        			if (aux == null)
+		        			{
 		        				errosmunicipios.add("erro-municipio");
+		        				municipio.add(aux+" - '"+a+"' | "+x);
+		        			}
 		        			municipio.add(aux);
 		        		}
 		        		if(y==12) // classificacaoprocesso
@@ -214,7 +219,7 @@ public class MigracaoProcessoBaseClausula {
 	        	{
 	        		int id = a+1;
 	        		String cont = numero.get(a)+", "+gleba.get(a)+", "+caixa.get(a)+", "+
-	        				municipio.get(a)+", "+usuario.get(a)+", "+"1, 22, "+data.get(a)+", "+classificacao.get(a)+", 1, "+id;
+	        				municipio.get(a)+", "+usuario.get(a)+", "+"2, 22, "+data.get(a)+", "+classificacao.get(a)+", 1 ";
 		        	
 	 //        		cont = cont.replaceAll("\t\t", "\t");
 	        		cont = cont.replaceAll("\t", ",");
@@ -251,6 +256,7 @@ public class MigracaoProcessoBaseClausula {
 		        		"\nclassificacao: "+classificacao.size()+
 		        		"\nmunicipio: "+municipio.size()+"\n\n\n");
 
+		        System.out.println("Municipio: "+municipio);
 
 		        
 		        return conteudo;
