@@ -489,16 +489,21 @@ def validarAnexo(request_form, base, processoanexo):
     return warning
     
 def formatDataToText( formato_data ):
-    if len(str(formato_data.day)) < 2:
-        dtaberturaprocesso = '0'+str(formato_data.day)+"/"
+    
+    if formato_data:
+    
+        if len(str(formato_data.day)) < 2:
+            dtaberturaprocesso = '0'+str(formato_data.day)+"/"
+        else:
+            dtaberturaprocesso = str(formato_data.day)+"/"
+        if len(str(formato_data.month)) < 2:
+            dtaberturaprocesso += '0'+str(formato_data.month)+"/"
+        else:
+            dtaberturaprocesso += str(formato_data.month)+"/"
+        dtaberturaprocesso += str(formato_data.year)
+        return str( dtaberturaprocesso )
     else:
-        dtaberturaprocesso = str(formato_data.day)+"/"
-    if len(str(formato_data.month)) < 2:
-        dtaberturaprocesso += '0'+str(formato_data.month)+"/"
-    else:
-        dtaberturaprocesso += str(formato_data.month)+"/"
-    dtaberturaprocesso += str(formato_data.year)
-    return str( dtaberturaprocesso )
+        return ''
 
 def carregarTbAuxProcesso(request, tipo):
     global caixa, contrato, gleba, situacaoprocesso, situacaogeo
