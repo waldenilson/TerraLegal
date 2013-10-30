@@ -21,7 +21,8 @@ from django.contrib import messages
 @login_required
 def consulta(request):
     # carrega os processos da divisao do usuario logado
-    lista = Tbprocessobase.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by( "id" )
+    lista = []
+    #lista = Tbprocessobase.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by( "id" )
     if request.method == "POST":
         numero = request.POST['numero']
         cpf = request.POST['cpf']
@@ -122,7 +123,7 @@ def tramitar(request, base):
                                         )
                 f_base.save()
                     
-            return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
+            return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(base.id)+"/")
         
         carregarTbAuxProcesso(request, base.tbcaixa.tbtipocaixa.nmtipocaixa)
         carregarTbAuxFuncoesProcesso(request, base)
@@ -198,7 +199,7 @@ def criar_pendencia(request, base):
                                       )
             f_pendencia.save()
                     
-            return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
+            return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(base.id)+"/")
         
         carregarTbAuxProcesso(request, base.tbcaixa.tbtipocaixa.nmtipocaixa)
         carregarTbAuxFuncoesProcesso(request, base)
@@ -279,7 +280,7 @@ def anexar(request, base):
             f_anexo.save()
   
             
-            return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
+            return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(base.id)+"/")
         
         carregarTbAuxProcesso(request, base.tbcaixa.tbtipocaixa.nmtipocaixa)
         carregarTbAuxFuncoesProcesso(request, base)
@@ -489,21 +490,16 @@ def validarAnexo(request_form, base, processoanexo):
     return warning
     
 def formatDataToText( formato_data ):
-    
-    if formato_data:
-    
-        if len(str(formato_data.day)) < 2:
-            dtaberturaprocesso = '0'+str(formato_data.day)+"/"
-        else:
-            dtaberturaprocesso = str(formato_data.day)+"/"
-        if len(str(formato_data.month)) < 2:
-            dtaberturaprocesso += '0'+str(formato_data.month)+"/"
-        else:
-            dtaberturaprocesso += str(formato_data.month)+"/"
-        dtaberturaprocesso += str(formato_data.year)
-        return str( dtaberturaprocesso )
+    if len(str(formato_data.day)) < 2:
+        dtaberturaprocesso = '0'+str(formato_data.day)+"/"
     else:
-        return ''
+        dtaberturaprocesso = str(formato_data.day)+"/"
+    if len(str(formato_data.month)) < 2:
+        dtaberturaprocesso += '0'+str(formato_data.month)+"/"
+    else:
+        dtaberturaprocesso += str(formato_data.month)+"/"
+    dtaberturaprocesso += str(formato_data.year)
+    return str( dtaberturaprocesso )
 
 def carregarTbAuxProcesso(request, tipo):
     global caixa, contrato, gleba, situacaoprocesso, situacaogeo

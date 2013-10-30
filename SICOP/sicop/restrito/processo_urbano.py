@@ -116,7 +116,7 @@ def edicao(request, id):
                                        )
             f_rural.save()
             
-            return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
+            return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(base.id)+"/")
            
     
     return render_to_response('sicop/restrito/processo/urbano/edicao.html',
