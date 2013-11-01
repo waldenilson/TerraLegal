@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class MigracaoProcessoClausula {
 
-	private String diretorio = "/opt/DEVELOPER/SICOP/Migracao";
+	private String diretorio = "C://DEVELOPER/SICOP/Migracao";
 	private String nomeArqMigracao = "scriptTbprocessoclausula.sql";
 	private String nomeArqLegado = "dump_tbprocessoclausula.txt";
 	

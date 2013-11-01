@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class MigracaoProcessoRural {
 
-	private String diretorio = "/opt/DEVELOPER/SICOP/Migracao";
+	private String diretorio = "C://DEVELOPER/SICOP/Migracao";
 	private String nomeArqMigracao = "scriptTbprocessorural.sql";
 	private String nomeArqLegado = "dump_tbprocesso.txt";
 	
@@ -61,7 +61,7 @@ public class MigracaoProcessoRural {
 		        List<String> errosnumero = new ArrayList<String>();
 		        List<String> erroscaixa = new ArrayList<String>();
 		        List<String> errosgleba = new ArrayList<String>();
-		        List<String> errosclassificacao = new ArrayList<String>();
+		        List<String> errosconjuge = new ArrayList<String>();
 		        List<String> perfeita = new ArrayList<String>();
 
 		        
@@ -74,8 +74,9 @@ public class MigracaoProcessoRural {
 		        List<String> conjuge = new ArrayList<String>();
 		        List<String> classificacao = new ArrayList<String>();
 
-		        
-		        
+//		        System.out.println( "Proc: "+MigracaoAuxiliar.mapNomeConjuge() );
+//    			System.exit(0);
+//		        
 		        while ( ( linha = bufferedReader.readLine() ) != null) {
 		            
 		        	//Aqui imprimimos a linha
@@ -109,6 +110,20 @@ public class MigracaoProcessoRural {
 		        			if (aux == null)
 		        				errosnumero.add("erro");
 		        			numero.add(aux);
+		        			String conj = (String) MigracaoAuxiliar.mapNomeConjuge().get( "'"+a.trim()+"'" );
+		        			String cpfconj = (String) MigracaoAuxiliar.mapCPFConjuge().get( "'"+a.trim()+"'" );
+		        			
+		        			if(conj != null || cpfconj != null)
+		        			{
+		        				conjuge.add("'"+conj.replaceAll("'", "").trim()+"'");
+		        				cpfconjuge.add("'"+cpfconj.replaceAll("'", "").trim()+"'");
+		        			}
+		        			else
+		        			{
+		        				conjuge.add("''");
+		        				cpfconjuge.add("''");
+		        			}		    
+		        			
 		        		}
 		        		if(y==2) // requerente
 		        		{
@@ -119,7 +134,7 @@ public class MigracaoProcessoRural {
 		        		{
 		        			cpfrequerente.add(aux);
 		        		}
-		        				        					        		
+		        		
 		        		contaux += aux+"\t";
 		        		
 		        	}
@@ -136,7 +151,7 @@ public class MigracaoProcessoRural {
 		        for( int a=0; a<numero.size();a++)
 	        	{
 	        		int id = a+1;
-	        		String cont = numero.get(a)+", "+requerente.get(a)+", "+cpfrequerente.get(a)+",false,null,'',''";
+	        		String cont = numero.get(a)+", "+requerente.get(a)+", "+cpfrequerente.get(a)+",false,null, "+cpfconjuge.get(a)+", "+conjuge.get(a);
 		        	
 	 //        		cont = cont.replaceAll("\t\t", "\t");
 	        		cont = cont.replaceAll("\t", ",");
@@ -159,18 +174,15 @@ public class MigracaoProcessoRural {
 		        System.out.println("ERROS NUMERO: "+errosnumero.size()+
 		        		"\nERROS REQUERENTE: "+erroscaixa.size()+
 		        		"\nERROS CPFREQUERENTE: "+errosgleba.size()+
-		        		"\nERROS CLASSIFICACAO: "+errosclassificacao.size()+
+		        		"\nERROS CONJUGE: "+errosconjuge.size()+
 		        		"\nREGISTROS: "+x+
 		        		"\nLIXOS: "+lixo+
 		        		"\nREGISTROS PERFEITOS: "+perfeita.size()+"\n\n\n");
-
 
 		        System.out.println("numero: "+numero.size()+
 		        		"\nREQUERENTE: "+requerente.size()+
 		        		"\nCPFREQUERENTE: "+cpfrequerente.size()+
 		        		"\n\n\n");
-
-
 		        
 		        return conteudo;
 		    } catch (IOException e) {

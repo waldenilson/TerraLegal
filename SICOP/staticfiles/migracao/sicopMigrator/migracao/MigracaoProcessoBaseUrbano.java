@@ -13,7 +13,7 @@ import java.util.Map;
 public class MigracaoProcessoBaseUrbano {
 
 	private String diretorio = "C:\\DEVELOPER/SICOP/Migracao";
-	private String nomeArqMigracao = "scriptTbprocessobaseurbano.sql";
+	private String nomeArqMigracao = "scriptTbprocessobase.sql";
 	private String nomeArqLegado = "dump_tbprocessourbano.txt";
 	
 	public MigracaoProcessoBaseUrbano()
@@ -192,18 +192,15 @@ public class MigracaoProcessoBaseUrbano {
 		        		
 		        		if(y==12) // classificacaoprocesso
 		        		{
-		        			
 //		        			if(a.equals("pai"))
-		        				aux = "1";
+		        			aux = "1";
 //		        			else if(a.equals("anexo"))
 //		        				aux = "2";
 //		        			else
 //		        				errosclassificacao.add("erro-classificacao");
 		        			classificacao.add(aux);
 		        		}
-		        					        		
 		        		contaux += aux+"\t";
-		        		
 		        	}
 //		        	cont = contaux.substring(0,contaux.length()-1);
 		        			        	
@@ -217,6 +214,15 @@ public class MigracaoProcessoBaseUrbano {
 		        }
 		        for( int a=0; a<numero.size();a++)
 	        	{
+	        		// verificar se o processo eh anexo
+        			String res = (String) MigracaoAuxiliar.mapProcessosAnexos().get( numero.get(a) );
+        			if (res == null)
+        			{
+        				classificacao.set(a, "1");
+        			}
+        			else
+        				classificacao.set(a, "2");
+
 	        		int id = a+1;
 	        		String cont = numero.get(a)+", "+gleba.get(a)+", "+caixa.get(a)+", "+
 	        				municipio.get(a)+", "+usuario.get(a)+", "+"3, 22, "+data.get(a)+", "+classificacao.get(a)+", 1";

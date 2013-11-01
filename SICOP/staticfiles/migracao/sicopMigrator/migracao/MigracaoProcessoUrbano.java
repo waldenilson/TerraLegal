@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class MigracaoProcessoUrbano {
 
-	private String diretorio = "/opt/DEVELOPER/SICOP/Migracao";
+	private String diretorio = "C://DEVELOPER/SICOP/Migracao";
 	private String nomeArqMigracao = "scriptTbprocessourbano.sql";
 	private String nomeArqLegado = "dump_tbprocessourbano.txt";
 	

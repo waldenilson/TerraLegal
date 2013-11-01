@@ -25,7 +25,8 @@ public class MigracaoAuxiliar {
 	private static String nomeArqAuthUser = "auth_user.sql";
 	private static String nomeArqSituacaogeo = "situacaogeo.sql";
 	private static String nomeArqProcessoBase = "processobase.sql";
-	
+	private static String nomeArqConjuge = "conjuge.txt";
+	private static String nomeArqProcessosAnexos = "processosanexos.txt";
 	
 	public static Map mapMunicipio() {	return ler(diretorio, nomeArqMunicipio,11,0, true); }
 	public static Map mapGleba() {	return ler(diretorio, nomeArqGleba,3,1, true); }
@@ -36,6 +37,11 @@ public class MigracaoAuxiliar {
 	public static Map mapSituacaogeo() {	return ler(diretorio, nomeArqSituacaogeo,3,0, false); }
 	public static Map mapProcessoBase() { return ler(diretorio, nomeArqProcessoBase,10,0, false); }
 	
+	public static Map mapNomeConjuge() { return ler(diretorio, nomeArqConjuge,2,0, false); }
+	public static Map mapCPFConjuge() { return ler(diretorio, nomeArqConjuge,1,0, false); }
+
+	public static Map mapProcessosAnexos() { return ler(diretorio, nomeArqProcessosAnexos, 1, 1, false); }
+		
 	public MigracaoAuxiliar()
 	{		
 		File dir = new File( diretorio );
@@ -76,19 +82,20 @@ public class MigracaoAuxiliar {
 		        String linha = "";
      	        
 		        Map<String, String> mMunicipio = new HashMap<>();
-	
 		        while ( ( linha = bufferedReader.readLine() ) != null) 
 		        {
 		        	String cont = linha;
+		        	
 		        	String[] s = cont.split("\t");
+		        			        	
 		        	if(caixaalta)
 		        		mMunicipio.put( s[v].toUpperCase(), s[k] );
 		        	else
 		        		mMunicipio.put( s[v], s[k] );
 		        }
-		        
 		        fileReader.close();
 		        bufferedReader.close();
+	        	
 		        return mMunicipio;
 		    } catch (IOException e) {
 		        e.printStackTrace();

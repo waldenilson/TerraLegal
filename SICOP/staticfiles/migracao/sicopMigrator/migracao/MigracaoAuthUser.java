@@ -29,8 +29,7 @@ public class MigracaoAuthUser {
 	public static void main(String a[])
 	{
 		new MigracaoAuthUser();
-	}
-	
+	}	
 	
 	/**
 	 * @param diretorio
@@ -58,7 +57,6 @@ public class MigracaoAuthUser {
 		        String conteudo = "";
 		        String tabela = nomeArq.substring(5, nomeArq.length()-4);
 	//	        System.out.println("table: "+tabela);
-		        
 		        
 		        
 		        //Fazemos um loop linha a linha no arquivo,
@@ -115,21 +113,22 @@ public class MigracaoAuthUser {
 	        	ArrayList<String> lbd = new ArrayList<String>();
 	        	for(String a : l1)
 	        	{
-	        		String cont = 
-	        				"'pbkdf2_sha256$10000$5pv8FNjRGYu4$8Qi6IjYpXRMoVWk63XMNmZHWG3FgQKnkocwm2BKJQfc=', '"+ // password (123456)
-	        				new Date()+"' , "+ // ultimo login
-	        				"FALSE, "+ // superuser
-	        				a+", "+ // username
-	        				a+", "+ // first name
-	        				"'sobrenome', "+ // last name
-	        				"'user@email', "+ // email
-	        				"TRUE, "+ // is staff
-	        				"TRUE, '"+ // is active
-	        				new Date()+"', "+ // date joined
-	        				"1"; // divisao
-			        tabela = "auth_user";
-		        	lbd.add("INSERT INTO "+tabela+" values( "+cont+" );");
-//		        	System.out.println("INSERT INTO "+tabela+" values( "+cont+" );");
+		        		String cont = 
+		        				"'pbkdf2_sha256$10000$5pv8FNjRGYu4$8Qi6IjYpXRMoVWk63XMNmZHWG3FgQKnkocwm2BKJQfc=', '"+ // password (123456)
+		        				new Date()+"' , "+ // ultimo login
+		        				"FALSE, "+ // superuser
+		        				a+", "+ // username
+		        				a+", "+ // first name
+		        				"'sobrenome', "+ // last name
+		        				"'user@email', "+ // email
+		        				"TRUE, "+ // is staff
+		        				"TRUE, '"+ // is active
+		        				new Date()+"', "+ // date joined
+		        				"1"; // divisao
+				        tabela = "auth_user";
+			        	lbd.add("INSERT INTO "+tabela+" values( "+cont+" );");
+	//		        	System.out.println("INSERT INTO "+tabela+" values( "+cont+" );");
+	        		
 	        	}
 	        	
 //	        	APLICANDO O DISTINCT NOS REGISTROS
@@ -165,7 +164,6 @@ public class MigracaoAuthUser {
 	
 	// método para escrever no TXT  
     public void escreve (String conteudo, File arq){  
-          
         try {  
             FileWriter escreve = new FileWriter(arq, true);  
             conteudo += System.getProperty("line.separator"); // pular linha  
