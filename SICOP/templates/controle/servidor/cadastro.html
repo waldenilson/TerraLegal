@@ -1,20 +1,20 @@
-{% extends "controle/base/cadastro_base.html" %} 
+{% extends "base/cadastro_base.html" %} 
 {% load staticfiles %} 
 
 {% block breadcumbs %}
 	Acesso Restrito | Servidor | Cadastro
 {% endblock %}
 
-{% block subtitulo %}
+{% block formulario %}
+<div id="accordion" style="color:black;width:100%;font-size:11px">
+<h3>{% block subtitulo %}
 	
 	CADASTRAR SERVIDOR
 	
 {% endblock %}
-
-
-{% block formulario %}
-		
-	<form method="post" action=".">
+</h3>
+<div>		
+	<form method="post" action="">
 		{% csrf_token %}
 		<div style="width:100%;font-size:12px;text-align:left">
 			<table>
@@ -33,12 +33,16 @@
 			 
 			</table>
 		</div>
-		<br/><br/>
-		
-		<div style="width:100%;font-size:12px;text-align:right">
-			<a href="/controle/restrito/servidor/consulta/" class="button_red">VOLTAR</a>
-			<button type="submit" class="button_green" >SALVAR</button>
-		</div>	
+		<br />
+		<table style="width:100%">
+			<tr>
+				<td class="colunaTabela" style="text-align:left"> 
+					<a href="/controle/restrito/servidor/consulta/" style="margin-right: 10px"><input type="button" class="button_yellow" value="CONSULTAR" /></a>
+					<input type="submit" class="button_green" value="SALVAR" />
+				</td>
+			</tr>
+		</table>
 	</form>
-	
+</div>
+</div>
 {% endblock %}
