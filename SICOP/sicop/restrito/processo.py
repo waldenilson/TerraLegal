@@ -22,7 +22,7 @@ from django.contrib import messages
 def consulta(request):
     # carrega os processos da divisao do usuario logado
     lista = []
-    #lista = Tbprocessobase.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by( "id" )
+    lista = Tbprocessobase.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by( "id" )
     if request.method == "POST":
         numero = request.POST['numero']
         cpf = request.POST['cpf']
@@ -58,11 +58,8 @@ def consulta(request):
                 lista.append( obj.tbprocessobase )
 
         if len(municipio) > 0 :
-            p_urbano = Tbprocessourbano.objects.all().filter( nmpovoado__contains = municipio ) 
-            lista = []
-            for obj in p_urbano:
-                lista.append( obj.tbprocessobase )    
-    
+            lista = Tbprocessobase.objects.all().filter( tbmunicipio__nome_mun__icontains = municipio ) 
+            
     # gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_processo'] = lista
     # gravando na sessao a divisao do usuario logado

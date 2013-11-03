@@ -23,6 +23,8 @@ def consulta(request):
     else:
         lista = Tbservidor.objects.all()
     lista = lista.order_by( 'id' )
+    #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
+    request.session['relatorio_servidor'] = lista
     #return render_to_response('sicop/restrito/peca_tecnica/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
     return render_to_response('controle/servidor/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 

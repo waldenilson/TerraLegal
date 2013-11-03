@@ -34,6 +34,11 @@
 						<a href="/sicop/restrito/situacao_processo/relatorio/"> <img width="36" src="{% static "img/pdf.png" %}" /> </a>
 					</td>
 				</tr>
+				<tr>
+					<td class="colunaTabela" colspan="2" style="text-align:right"> 
+						<div>Total de registros: {{ request.session.relatorio_situacao_processo|length }}</div>
+					</td>
+				</tr>
 			</table>
 		</form>
 {% endblock %}
