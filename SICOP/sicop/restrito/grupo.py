@@ -11,7 +11,7 @@ from sicop.relatorio_base import relatorio_base_consulta
 def consulta(request):
     if request.method == "POST":
         nome = request.POST['name']
-        lista = AuthGroup.objects.all().filter( name__contains=nome )
+        lista = AuthGroup.objects.all().filter( name__icontains=nome )
     else:
         lista = AuthGroup.objects.all()
     lista = lista.order_by( 'id' )

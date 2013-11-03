@@ -25,9 +25,9 @@ def consulta(request):
         print 'User: '+AuthUser.objects.get( pk = request.user.id ).tbdivisao.nmdivisao
         # se usuario for do grupo Super; mostra todos senao mostra somente os usuarios da divisao
         if verificar_permissao_grupo( AuthUser.objects.get( pk = request.user.id ), {'Super'} ):
-            lista = AuthUser.objects.all().filter( first_name__contains=first_name, email__contains=email )
+            lista = AuthUser.objects.all().filter( first_name__icontains=first_name, email__icontains=email )
         else:
-            lista = AuthUser.objects.all().filter( first_name__contains=first_name, email__contains=email, 
+            lista = AuthUser.objects.all().filter( first_name__icontains=first_name, email__icontains=email, 
                                                    tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     else:
         # se usuario for do grupo Super; mostra todos senao mostra somente os usuarios da divisao

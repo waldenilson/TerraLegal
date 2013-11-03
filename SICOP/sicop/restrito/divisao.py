@@ -11,7 +11,7 @@ from sicop.relatorio_base import relatorio_base_consulta
 def consulta(request):
     if request.method == "POST":
         nome = request.POST['nmdivisao']
-        lista = Tbdivisao.objects.all().filter( nmdivisao__contains=nome )
+        lista = Tbdivisao.objects.all().filter( nmdivisao__icontains=nome )
     else:
         lista = Tbdivisao.objects.all()
     lista = lista.order_by( 'id' )

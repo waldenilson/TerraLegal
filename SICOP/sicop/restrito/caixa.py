@@ -18,7 +18,7 @@ from urllib import addinfourl
 def consulta(request):
     if request.method == "POST":
         nome = request.POST['nmlocalarquivo']
-        lista = Tbcaixa.objects.all().filter( nmlocalarquivo__contains=nome, tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        lista = Tbcaixa.objects.all().filter( nmlocalarquivo__icontains=nome, tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     else:
         lista = Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     lista = lista.order_by( 'id' )

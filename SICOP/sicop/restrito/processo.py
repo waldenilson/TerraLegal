@@ -43,8 +43,8 @@ def consulta(request):
                 lista.append( obj.tbprocessobase )
                 
         if len(requerente) > 0 :
-            p_rural = Tbprocessorural.objects.all().filter( nmrequerente__contains = requerente )
-            p_clausula = Tbprocessoclausula.objects.all().filter( nmrequerente__contains = requerente )
+            p_rural = Tbprocessorural.objects.all().filter( nmrequerente__icontains = requerente )
+            p_clausula = Tbprocessoclausula.objects.all().filter( nmrequerente__icontains = requerente )
             lista = []
             for obj in p_rural:
                 lista.append( obj.tbprocessobase )
@@ -490,17 +490,20 @@ def validarAnexo(request_form, base, processoanexo):
     return warning
     
 def formatDataToText( formato_data ):
-    if len(str(formato_data.day)) < 2:
-        dtaberturaprocesso = '0'+str(formato_data.day)+"/"
+    if formato_data:
+        if len(str(formato_data.day)) < 2:
+            dtaberturaprocesso = '0'+str(formato_data.day)+"/"
+        else:
+            dtaberturaprocesso = str(formato_data.day)+"/"
+        if len(str(formato_data.month)) < 2:
+            dtaberturaprocesso += '0'+str(formato_data.month)+"/"
+        else:
+            dtaberturaprocesso += str(formato_data.month)+"/"
+        dtaberturaprocesso += str(formato_data.year)
+        return str( dtaberturaprocesso )
     else:
-        dtaberturaprocesso = str(formato_data.day)+"/"
-    if len(str(formato_data.month)) < 2:
-        dtaberturaprocesso += '0'+str(formato_data.month)+"/"
-    else:
-        dtaberturaprocesso += str(formato_data.month)+"/"
-    dtaberturaprocesso += str(formato_data.year)
-    return str( dtaberturaprocesso )
-
+        return "";
+    
 def carregarTbAuxProcesso(request, tipo):
     global caixa, contrato, gleba, situacaoprocesso, situacaogeo
     caixa = []

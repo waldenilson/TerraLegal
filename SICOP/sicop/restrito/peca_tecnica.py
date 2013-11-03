@@ -16,7 +16,7 @@ def consulta(request):
         requerente = request.POST['requerente']
         cpf = request.POST['cpf']
         entrega = request.POST['entrega']
-        lista = Tbpecastecnicas.objects.all().filter( nmrequerente__contains=requerente, nrcpfrequerente__contains=cpf, nrentrega__contains=entrega, 
+        lista = Tbpecastecnicas.objects.all().filter( nmrequerente__icontains=requerente, nrcpfrequerente__contains=cpf, nrentrega__contains=entrega, 
                                                       tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     else:
         lista = Tbpecastecnicas.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
