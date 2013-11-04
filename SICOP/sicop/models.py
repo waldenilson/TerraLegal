@@ -253,7 +253,7 @@ class Tbprocessourbano(models.Model):
     nrperimetro = models.DecimalField(null=True, max_digits=18, decimal_places=4, blank=True)
     nrdomicilios = models.IntegerField(null=True, blank=True)
     nrhabitantes = models.IntegerField(null=True, blank=True)
-    nrpregao = models.CharField(max_length=30, blank=True)
+    tbpregao = models.ForeignKey('Tbpregao')
     tbcontrato = models.ForeignKey(Tbcontrato)
     tbsituacaogeo = models.ForeignKey('Tbsituacaogeo', null=True, blank=True)
     dsprojetoassentamento = models.CharField(max_length=80, blank=True)
@@ -343,3 +343,10 @@ class Tbuf(models.Model):
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbuf'
+
+class Tbpregao(models.Model):
+    nrpregao = models.CharField(max_length=30, blank=True)
+    dspregao = models.TextField(blank=True)
+    id = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = 'tbpregao'
