@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.models import Tbtipoprocesso, Tbprocessobase, Tbgleba, Tbmunicipio,\
     Tbcaixa, AuthUser, Tbprocessourbano, Tbsituacaoprocesso, Tbcontrato,\
-    Tbsituacaogeo, Tbmovimentacao, Tbclassificacaoprocesso
+    Tbsituacaogeo, Tbmovimentacao, Tbclassificacaoprocesso, Tbpregao
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect
 from sicop.forms import FormProcessoUrbano
@@ -17,6 +17,7 @@ def consulta(request):
 @permission_required('sicop.add tbprocesso', login_url='/sicop/acesso_restrito/', raise_exception=True)
 def cadastro(request):
     tipoprocesso = Tbtipoprocesso.objects.all()
+    pregao = Tbpregao.objects.all()
     
     carregarTbAuxProcesso(request)
       
@@ -46,7 +47,7 @@ def cadastro(request):
                                        nrcnpj = request.POST['nrcnpj'].replace('.','').replace('/','').replace('-',''),
                                        nrhabitantes = request.POST['nrhabitantes'],
                                        nrdomicilios = request.POST['nrdomicilios'],
-                                       nrpregao = request.POST['nrpregao'],
+                                       tbpregao = Tbpregao.objects.get( pk = request.POST['tbpregao'] ),
                                        nrarea = request.POST['nrarea'],
                                        nrperimetro = request.POST['nrperimetro'],
                                        tbsituacaogeo = Tbsituacaogeo.objects.get( pk = request.POST['tbsituacaogeo'] ),
@@ -61,12 +62,13 @@ def cadastro(request):
            
     return render_to_response('sicop/restrito/processo/cadastro.html',
         {'tipoprocesso':tipoprocesso,'processo':escolha,'situacaoprocesso':situacaoprocesso, 
-         'situacaogeo':situacaogeo,'contrato':contrato,'gleba':gleba,'caixa':caixa,'municipio':municipio,'div_processo':div_processo},
+         'situacaogeo':situacaogeo,'pregao':pregao,'contrato':contrato,'gleba':gleba,'caixa':caixa,'municipio':municipio,'div_processo':div_processo},
          context_instance = RequestContext(request))     
 
 @login_required
 def edicao(request, id):
     carregarTbAuxProcesso(request)
+    pregao = Tbpregao.objects.all()
     
     urbano = get_object_or_404(Tbprocessourbano, id=id)
     base  = get_object_or_404(Tbprocessobase, id=urbano.tbprocessobase.id)
@@ -108,7 +110,7 @@ def edicao(request, id):
                                        nrarea = request.POST['nrarea'],
                                        nrperimetro = request.POST['nrperimetro'],
                                        tbsituacaogeo = Tbsituacaogeo.objects.get( pk = request.POST['tbsituacaogeo'] ),
-                                       nrpregao = request.POST['nrpregao'],
+                                       tbpregao = Tbpregao.objects.get( pk = request.POST['tbpregao'] ),
                                        tbcontrato = Tbcontrato.objects.get( pk = request.POST['tbcontrato'] ),
                                        tbprocessobase = f_base,
                                        dtaberturaprocesso = datetime.datetime.strptime( request.POST['dtaberturaprocesso'], "%d/%m/%Y"),
@@ -122,7 +124,7 @@ def edicao(request, id):
     return render_to_response('sicop/restrito/processo/urbano/edicao.html',
                                       {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                    'caixa':caixa,'municipio':municipio,'contrato':contrato,'situacaogeo':situacaogeo,
-                                   'base':base,'movimentacao':movimentacao,
+                                   'base':base,'movimentacao':movimentacao,'pregao':pregao,
                                    'caixadestino':caixadestino,'urbano':urbano}, context_instance = RequestContext(request))   
 
 def validacao(request_form, metodo):
@@ -151,8 +153,8 @@ def validacao(request_form, metodo):
     if request_form.POST['nrdomicilios'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe o Numero de Domicilios')
         warning = False
-    if request_form.POST['nrpregao'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe o Numero do Pregao')
+    if request_form.POST['tbpregao'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe o Pregao')
         warning = False
     if request_form.POST['tbsituacaogeo'] == '':
         messages.add_message(request_form,messages.WARNING,'Escolha uma situacao GEO')
