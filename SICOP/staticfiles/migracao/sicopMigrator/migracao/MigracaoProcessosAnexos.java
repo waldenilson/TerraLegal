@@ -148,7 +148,7 @@ public class MigracaoProcessosAnexos {
 	        		cont = cont.replaceAll(",,", ",null,");
 	        		cont = cont.replaceAll("''", "null");
 	        		tabela = "tbprocessosanexos";
-	        		if(anexo.get(a).equals("null"))
+	        		if(anexo.get(a) != null)
 		        	{
 	        			conteudo += "INSERT INTO "+tabela+" values( "+cont+" );\n";
 		        		leitura += x+"\t"+"INSERT INTO "+tabela+" values( "+cont+" );\n";

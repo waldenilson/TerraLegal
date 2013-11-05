@@ -132,22 +132,22 @@ public class MigracaoPecaTecnica {
 		        		
 		        		else if(y==12) // gleba
 		        		{
-		        			aux = (String) MigracaoAuxiliar.mapGleba().get( a );
+		        			aux = (String) MigracaoAuxiliar.mapGleba().get( a.toUpperCase() );
 		        			if (aux == null)
-		        				errosgleba.add("erro-gleba");
+		        				errosgleba.add("erro | "+a);
 		        		}
 		        		
 		        		// verificar sem cpf
 		        		else if(y==3) 
 		        		{
 		        			if (a.isEmpty())
-		        				aux = "nonecpf";
+		        				aux = "'nonecpf'";
 		        		}
 		        		// verificar sem rquerente
 		        		else if(y==4) 
 		        		{
 		        			if (a.isEmpty())
-		        				aux = "nonerequerente";
+		        				aux = "'nonerequerente'";
 		        		}
 		        		
 		        		// verificar observacoes
@@ -174,7 +174,7 @@ public class MigracaoPecaTecnica {
 	//	        	System.exit(0);
 	//	        	cont = cont.replaceAll("\t", ",");
 	        		
-	        		if(cont.contains("nonecpf") && cont.contains("nonerequerente"))
+	        		if(cont.contains("'nonecpf'") && cont.contains("'nonerequerente'"))
 	        		{
 	        			// lixo
 	        			lixo++;
@@ -200,7 +200,7 @@ public class MigracaoPecaTecnica {
 		        
 		        System.out.println("ERROS CONTRATO: "+erroscontrato.size()+
 		        		"\nERROS CAIXA: "+erroscaixa.size()+
-		        		"\nERROS GLEBA: "+errosgleba.size()+
+		        		"\nERROS GLEBA: "+errosgleba+
 		        		"\nREGISTROS: "+x+
 		        		"\nLIXOS: "+lixo+
 		        		"\nREGISTROS PERFEITOS: "+perfeita.size());

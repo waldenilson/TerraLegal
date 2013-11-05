@@ -517,6 +517,6 @@ def carregarTbAuxFuncoesProcesso(request, base):
     global pendencia, tipopendencia, statuspendencia
     pendencia = Tbpendencia.objects.all().filter( tbprocessobase = base.id )
     tipopendencia = Tbtipopendencia.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-    statuspendencia = Tbstatuspendencia.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by("id")
+    statuspendencia = Tbstatuspendencia.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by("dspendencia")
 
 

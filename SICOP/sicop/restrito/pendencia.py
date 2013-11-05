@@ -10,7 +10,7 @@ from sicop.relatorio_base import relatorio_base_consulta
 
 @login_required
 def edicao(request, pendencia):
-    tipopendencia = Tbtipopendencia.objects.all()
+    tipopendencia = Tbtipopendencia.objects.all().order_by("dspendencia")
     statuspendencia = Tbstatuspendencia.objects.all()
     instance = get_object_or_404(Tbpendencia, id=pendencia)
     

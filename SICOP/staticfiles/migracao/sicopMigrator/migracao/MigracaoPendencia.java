@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class MigracaoPendencia {
 
-	private String diretorio = "/opt/DEVELOPER/SICOP/Migracao";
+	private String diretorio = "C:\\DEVELOPER/SICOP/Migracao";
 	private String nomeArqMigracao = "scriptTbpendencia.sql";
 	private String nomeArqLegado = "dump_tbpendencia.txt";
 	
@@ -104,6 +104,9 @@ public class MigracaoPendencia {
 
 		        		if(y==1) // numero
 		        		{
+		        			if(a.equals("5641800036620988"))
+		        				a = "56418000366200988";
+		        			
 		        			aux = (String) MigracaoAuxiliar.mapProcessoBase().get( a );
 		        			if (aux == null)
 		        				errosnumero.add("erros | "+a);
@@ -112,10 +115,11 @@ public class MigracaoPendencia {
 
 		        		if(y==2) // tipo
 		        		{
-		        			aux = (String) MigracaoAuxiliar.mapTipoPendencia().get( a );
-		        			if (aux == null)
-		        				errosnumero.add("erros | "+a);
-		        			numero.add(aux);
+//		        			aux = (String) MigracaoAuxiliar.mapTipoPendencia().get( a );
+//		        			if (aux == null)
+//		        				errostipo.add("erros | "+a);
+		        			aux = aux.replace("'", "");
+		        			tipo.add(aux);
 		        		}
 
 		        		if(y==3) // descricao
@@ -142,7 +146,7 @@ public class MigracaoPendencia {
 		        				aux = "1";
 		        			else if(a.toUpperCase().equals("PENDENTE"))
 		        				aux = "2";
-		        			
+		        			aux = aux.replaceAll("'", "");
 		        			status.add(aux);
 		        		}
 		        				        					        		
@@ -161,25 +165,17 @@ public class MigracaoPendencia {
 		        }
 		        for( int a=0; a<numero.size();a++)
 	        	{
-	        		// verificar se o processo eh anexo
-        			String res = (String) MigracaoAuxiliar.mapProcessosAnexos().get( numero.get(a) );
-        			if (res == null)
-        			{
-        				classificacao.set(a, "1");
-        			}
-        			else
-        				classificacao.set(a, "2");
 
 	        		int id = a+1;
-	        		String cont = numero.get(a)+", "+gleba.get(a)+", "+caixa.get(a)+", "+
-	        				municipio.get(a)+", "+usuario.get(a)+", "+"1, 22, "+data.get(a)+", "+classificacao.get(a)+", 1";
+	        		String cont = "0, "+numero.get(a)+", "+tipo.get(a)+", "+descricao.get(a)+", "+
+	        				data.get(a)+", "+usuario.get(a)+", "+status.get(a);
 		        	        		
 	 //        		cont = cont.replaceAll("\t\t", "\t");
 	        		cont = cont.replaceAll("\t", ",");
 	        		cont = cont.replaceAll(",,", ",null,");
 	        		cont = cont.replaceAll(",,", ",null,");
-	        		cont = cont.replaceAll("''", "null");
-	        		tabela = "tbprocessobase";
+//	        		cont = cont.replaceAll("''", "null");
+	        		tabela = "tbpendencia";
 	        		conteudo += "INSERT INTO "+tabela+" values( "+cont+" );\n";
 		        	leitura += x+"\t"+"INSERT INTO "+tabela+" values( "+cont+" );\n";
 		        }
@@ -192,22 +188,19 @@ public class MigracaoPendencia {
 		        fileReader.close();
 		        bufferedReader.close();
 
-		        System.out.println("ERROS MUNICIPIOS: "+errosmunicipios.size()+
-		        		"\nERROS CAIXA: "+erroscaixa.size()+
-		        		"\nERROS GLEBA: "+errosgleba.size()+
-		        		"\nERROS CLASSIFICACAO: "+errosclassificacao.size()+
+		        System.out.println("ERROS NUMERO: "+errosnumero+
+		        		"\nERROS TIPO: "+errostipo.size()+
+		        		"\nERROS USUARIO: "+errosusuario.size()+
 		        		"\nREGISTROS: "+x+
 		        		"\nLIXOS: "+lixo+
 		        		"\nREGISTROS PERFEITOS: "+perfeita.size()+"\n\n\n");
 
 
 		        System.out.println("numero: "+numero.size()+
-		        		"\ncaixa: "+caixa.size()+
-		        		"\ngleba: "+gleba.size()+
+		        		"\ntipo: "+tipo.size()+
 		        		"\ndata: "+data.size()+
 		        		"\nusuario: "+usuario.size()+
-		        		"\nclassificacao: "+classificacao.size()+
-		        		"\nmunicipio: "+municipio.size()+"\n\n\n");
+		        		"\nstatus: "+status.size()+"\n\n\n");
 
 
 		        

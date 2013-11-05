@@ -111,17 +111,43 @@ public class MigracaoMovimentacao {
 
 		        		if(y==2) // caixa origem
 		        		{
+		        			if(a.equals("TITULADOS ENTREGUES  3"))
+		        				a = "TITULADOS ENTREGUES 03";
+		        			if(a.equals("SIPRADO 1"))
+		        				a = "SIPRADO 01";
+		        			if(a.equals("DESPACHO CONJUR"))
+		        				a = "DESPACHO PARA CONJUR";
+		        			if(a.contains("AGUARDANDO PEÇAS"))
+		        				a = "AGUARDANDO PEÇAS - 003";
+		        			
 		        			aux = (String) MigracaoAuxiliar.mapCaixa().get( a );
 		        			if (aux == null)
-		        				errosorigem.add("erro");
+		        			{
+		        				aux = (String) MigracaoAuxiliar.mapCaixa().get( MigracaoAuxiliar.normalizarString(a) );
+		        				if (aux == null )
+		        					errosorigem.add("erro | "+a);
+			        		}
 		        			origem.add(aux);
 		        		}
 		        		if(y==3) // caixa destino
 		        		{
+		        			if(a.contains("AGUARDANDO PEÇAS"))
+		        				a = "AGUARDANDO PEÇAS - 003";
+		        			if(a.equals("SIPRADO 1"))
+		        				a = "SIPRADO 01";
+		        			if(a.equals("TITULADOS ENTREGUES  3"))
+		        				a = "TITULADOS ENTREGUES 03";
+		        			if(a.equals("DESPACHO CONJUR"))
+		        				a = "DESPACHO PARA CONJUR";
+		        			
 		        			aux = (String) MigracaoAuxiliar.mapCaixa().get( a );
 		        			if (aux == null)
-		        				errosdestino.add("erro");
-		        			destino.add(aux);
+		        			{
+		        				aux = (String) MigracaoAuxiliar.mapCaixa().get( MigracaoAuxiliar.normalizarString(a) );
+			        			if (aux == null )
+		        					errosdestino.add("erro | "+a);
+		        			}
+			        		destino.add(aux);
 		        		}
 
 		        		if(y==4) // usuario
@@ -172,6 +198,8 @@ public class MigracaoMovimentacao {
 		        System.out.println("ERROS NUMERO: "+errosnumero.size()+
 		        		"\nERROS ORIGEM: "+errosorigem.size()+
 		        		"\nERROS DESTINO: "+errosdestino.size()+
+		        		"\nERROS ORIGEM: "+errosorigem+
+		        		"\nERROS DESTINO: "+errosdestino+
 		        		"\nREGISTROS: "+x+
 		        		"\nLIXOS: "+lixo+
 		        		"\nREGISTROS PERFEITOS: "+perfeita.size()+"\n\n\n");

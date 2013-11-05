@@ -51,8 +51,6 @@ public class MigracaoProcessoUrbano {
 	//	        System.out.println("table: "+tabela);
 		        String leitura = "";
 		        
-		        
-		        
 		        //Fazemos um loop linha a linha no arquivo,
 		        // enquanto ele seja diferente de null.
 		        //O método readLine() devolve a linha na
@@ -60,10 +58,10 @@ public class MigracaoProcessoUrbano {
 		        int x = 1; int lixo = 0;
 		        List<String> errosnumero = new ArrayList<String>();
 		        List<String> erroscontrato = new ArrayList<String>();
+		        List<String> errospregao = new ArrayList<String>();
 		        List<String> errossituacaogeo = new ArrayList<String>();
 		        List<String> erroscnpj = new ArrayList<String>();
 		        List<String> perfeita = new ArrayList<String>();
-
 		        
 //				LISTAS DAS COLUNAS
 		        List<String> numero = new ArrayList<String>();
@@ -141,9 +139,9 @@ public class MigracaoProcessoUrbano {
 
 		        		if(y==8) // situacaogeo
 		        		{
-		        			aux = (String) MigracaoAuxiliar.mapSituacaogeo().get( a );
+		        			aux = (String) MigracaoAuxiliar.mapSituacaogeo().get( a.toUpperCase() );
 		        			if (aux == null)
-		        				errossituacaogeo.add("erro");
+		        				errossituacaogeo.add("erro | "+a);
 		        			situacaogeo.add(aux);
 		        		}
 
@@ -177,6 +175,9 @@ public class MigracaoProcessoUrbano {
 		        		
 		        		if(y==13) // pregao
 		        		{
+		        			aux = (String) MigracaoAuxiliar.mapPregao().get( a );
+		        			if (aux == null)
+		        				errospregao.add("erro | "+a);
 		        			pregao.add(aux);
 		        		}
 		        				        					        		
@@ -223,6 +224,7 @@ public class MigracaoProcessoUrbano {
 		        		"\nERROS CONTRATO: "+erroscontrato.size()+
 		        		"\nERROS SITUACAOGEO: "+errossituacaogeo.size()+
 		        		"\nERROS CNPJ: "+erroscnpj.size()+
+		        		"\nERROS PREGAO: "+errospregao+
 		        		"\nREGISTROS: "+x+
 		        		"\nLIXOS: "+lixo+
 		        		"\nREGISTROS PERFEITOS: "+perfeita.size()+"\n\n\n");

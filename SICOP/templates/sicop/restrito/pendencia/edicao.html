@@ -23,7 +23,7 @@
 				   		<td>
 					   		<select name="tbtipopendencia" style="width: 200px">
 					   			{% for obj in tipopendencia %}
-									{% if obj.id == form.tbsubarea.value %}
+									{% if obj.id == pendencia.tbtipopendencia.id %}
 										<option selected="selected" value="{{ obj.id }}">{{ obj.dspendencia }}</option>
 									{% else %}
 										<option value="{{ obj.id }}">{{ obj.dspendencia }}</option>
@@ -32,14 +32,14 @@
 							</select>
 						</td>
 					<td>
-						<a href="/sicop/restrito/pendencia/edicao/{{ form.id }}/?next=/sicop/restrito/tipo_pendencia/cadastro/" title="Novo Tipo Pendencia"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+						<a href="/sicop/restrito/tipo_pendencia/cadastro/?next=/sicop/restrito/pendencia/edicao/{{ pendencia.id }}/" title="Novo Tipo Pendencia"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>						
 				   	</tr>
 				   <tr> <td class="colunaTabela"> <label>Status:</label> </td>
 				   		<td>
 					   		<select name="tbstatuspendencia" style="width: 200px">
 					   			{% for obj in statuspendencia %}
-									{% if obj.id == form.statuspendencia.value %}
+									{% if obj.id == pendencia.tbstatuspendencia.id %}
 										<option selected="selected" value="{{ obj.id }}">{{ obj.dspendencia }}</option>
 									{% else %}
 										<option value="{{ obj.id }}">{{ obj.dspendencia }}</option>
@@ -48,7 +48,7 @@
 							</select>
 						</td>
 					<td>
-						<a href="/sicop/restrito/pendencia/edicao/{{ form.id }}/?next=/sicop/restrito/status_pendencia/cadastro/" title="Novo Status Pendencia"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+						<a href="/sicop/restrito/status_pendencia/cadastro/?next=/sicop/restrito/pendencia/edicao/{{ pendencia.id }}/" title="Novo Status Pendencia"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>						
 				   	</tr>
 				</table>

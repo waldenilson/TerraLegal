@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class MigracaoAuxiliar {
 
-	private static String diretorio = "/opt/DEVELOPER/SICOP/Migracao/auxiliar";
+	private static String diretorio = "C:\\DEVELOPER/SICOP/Migracao/auxiliar";
 	private static String nomeArqMigracao = "scriptTbexemplo.sql";
 	private static String nomeArqMunicipio = "municipio.sql";
 	private static String nomeArqGleba = "gleba.sql";
@@ -26,6 +26,7 @@ public class MigracaoAuxiliar {
 	private static String nomeArqSituacaogeo = "situacaogeo.sql";
 	private static String nomeArqProcessoBase = "processobase.sql";
 	private static String nomeArqTipoPendencia = "tipopendencia.sql";
+	private static String nomeArqPregao = "pregao.sql";
 	
 	private static String nomeArqConjuge = "conjuge.txt";
 	private static String nomeArqProcessosAnexos = "processosanexos.txt";
@@ -36,10 +37,11 @@ public class MigracaoAuxiliar {
 	public static Map mapSubarea() {	return ler(diretorio, nomeArqSubarea,3,1, false); }
 	public static Map mapContrato() {	return ler(diretorio, nomeArqContrato,3,0, false); }
 	public static Map mapAuthUser() {	return ler(diretorio, nomeArqAuthUser,11,3, false); }
-	public static Map mapSituacaogeo() {	return ler(diretorio, nomeArqSituacaogeo,3,0, false); }
+	public static Map mapSituacaogeo() {	return ler(diretorio, nomeArqSituacaogeo,2,0, true); }
 	public static Map mapProcessoBase() { return ler(diretorio, nomeArqProcessoBase,10,0, false); }
 	public static Map mapTipoPendencia() { return ler(diretorio, nomeArqTipoPendencia,0,1, false); }
-	
+	public static Map mapPregao() { return ler(diretorio, nomeArqPregao,2,0, false); }
+		
 	public static Map mapNomeConjuge() { return ler(diretorio, nomeArqConjuge,2,0, false); }
 	public static Map mapCPFConjuge() { return ler(diretorio, nomeArqConjuge,1,0, false); }
 
