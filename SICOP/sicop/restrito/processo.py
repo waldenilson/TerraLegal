@@ -7,7 +7,7 @@ from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
     Tbprocessoclausula, Tbprocessobase, Tbcaixa, Tbgleba, Tbmunicipio,\
     Tbcontrato, Tbsituacaoprocesso, Tbsituacaogeo, Tbpecastecnicas, AuthUser,\
     AuthUserGroups, Tbmovimentacao, Tbprocessosanexos, Tbpendencia,\
-    Tbclassificacaoprocesso, Tbtipopendencia, Tbstatuspendencia
+    Tbclassificacaoprocesso, Tbtipopendencia, Tbstatuspendencia, Tbpregao
 from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
 from sicop.restrito import processo_rural
@@ -358,7 +358,7 @@ def edicao(request, id):
         else:
             if tipo == "tbprocessourbano":
                 urbano = Tbprocessourbano.objects.get( tbprocessobase = id )
-         
+                pregao = Tbpregao.objects.all()
                 dtaberturaprocesso = formatDataToText( urbano.dtaberturaprocesso )
                 dttitulacao = formatDataToText( urbano.dttitulacao )
                 # caixas que podem ser tramitadas
@@ -368,7 +368,7 @@ def edicao(request, id):
                         tram.append( obj )
                 return render_to_response('sicop/restrito/processo/urbano/edicao.html',
                                           {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'situacaogeo':situacaogeo,
-                                       'caixa':caixa,'municipio':municipio,'contrato':contrato,
+                                       'caixa':caixa,'municipio':municipio,'contrato':contrato,'pregao':pregao,
                                        'base':base,'urbano':urbano,'anexado':anexado,'pendencia':pendencia,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'dtaberturaprocesso':dtaberturaprocesso,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
@@ -412,8 +412,10 @@ def cadastro(request):
             if escolha == "tbprocessourbano":
                 div_processo = "urbano"
                 carregarTbAuxProcesso(request, 'URB')
+                pregao = Tbpregao.objects.all()
                 return render_to_response('sicop/restrito/processo/cadastro.html',
-                    {'tipoprocesso':tipoprocesso,'situacaoprocesso':situacaoprocesso,'gleba':gleba,'caixa':caixa,'municipio':municipio,'processo':escolha,
+                    {'tipoprocesso':tipoprocesso,'situacaoprocesso':situacaoprocesso,'gleba':gleba,
+                     'caixa':caixa,'municipio':municipio,'processo':escolha,'pregao':pregao,
                     'div_processo':div_processo,'contrato':contrato,'situacaogeo':situacaogeo},
                     context_instance = RequestContext(request));  
             else:

@@ -50,6 +50,7 @@ def cadastro(request):
                                        tbpregao = Tbpregao.objects.get( pk = request.POST['tbpregao'] ),
                                        nrarea = request.POST['nrarea'],
                                        nrperimetro = request.POST['nrperimetro'],
+                                       dsprojetoassentamento = request.POST['dsprojetoassentamento'],
                                        tbsituacaogeo = Tbsituacaogeo.objects.get( pk = request.POST['tbsituacaogeo'] ),
                                        tbcontrato = Tbcontrato.objects.get( pk = request.POST['tbcontrato'] ),
                                        tbprocessobase = f_base,
@@ -109,6 +110,7 @@ def edicao(request, id):
                                        nrdomicilios = request.POST['nrdomicilios'],
                                        nrarea = request.POST['nrarea'],
                                        nrperimetro = request.POST['nrperimetro'],
+                                       dsprojetoassentamento = request.POST['dsprojetoassentamento'],
                                        tbsituacaogeo = Tbsituacaogeo.objects.get( pk = request.POST['tbsituacaogeo'] ),
                                        tbpregao = Tbpregao.objects.get( pk = request.POST['tbpregao'] ),
                                        tbcontrato = Tbcontrato.objects.get( pk = request.POST['tbcontrato'] ),
@@ -170,9 +172,6 @@ def validacao(request_form, metodo):
         warning = False
     if request_form.POST['dtaberturaprocesso'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe a Data da abertura do processo')
-        warning = False
-    if request_form.POST['dttitulacao'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe a Data da titulacao do processo')
         warning = False
     if metodo == "cadastro":
         if nrProcessoCadastrado( request_form.POST['nrprocesso'].replace('.','').replace('/','').replace('-','') ):
