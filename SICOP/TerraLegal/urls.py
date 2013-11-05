@@ -66,6 +66,12 @@ urlpatterns = patterns('',
     url(r'^sicop/restrito/contrato/cadastro/', 'sicop.restrito.contrato.cadastro'),
     url(r'^sicop/restrito/contrato/edicao/(?P<id>\d+)/', 'sicop.restrito.contrato.edicao'),
     url(r'^sicop/restrito/contrato/relatorio/', 'sicop.restrito.contrato.relatorio'),    
+  
+   # ACESSO RESTRITO SICOP PREGAO 
+    url(r'^sicop/restrito/pregao/consulta/', 'sicop.restrito.pregao.consulta'),
+    url(r'^sicop/restrito/pregao/cadastro/', 'sicop.restrito.pregao.cadastro'),
+    url(r'^sicop/restrito/pregao/edicao/(?P<id>\d+)/', 'sicop.restrito.pregao.edicao'),
+    url(r'^sicop/restrito/pregao/relatorio/', 'sicop.restrito.pregao.relatorio'),    
 
     # ACESSO RESTRITO SICOP GLEBA
     url(r'^sicop/restrito/gleba/consulta/', 'sicop.restrito.gleba.consulta'),
@@ -167,6 +173,7 @@ urlpatterns = patterns('',
     url(r'^controle/restrito/servidor/consulta/', 'servidor.restrito.servidor.consulta'),
     url(r'^controle/restrito/servidor/cadastro/', 'servidor.restrito.servidor.cadastro'),
     url(r'^controle/restrito/servidor/edicao/(?P<id>\d+)/', 'servidor.restrito.servidor.edicao'),
+    url(r'^controle/restrito/servidor/relatorio/', 'servidor.restrito.servidor.relatorio'),
    
     
     #END------------------------------CONTROLE---------------------------------------------------------------------------------
