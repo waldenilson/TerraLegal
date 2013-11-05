@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class MigracaoPendencia {
 
-	private String diretorio = "C:\\DEVELOPER/SICOP/Migracao";
+	private String diretorio = "/opt/DEVELOPER/SICOP/Migracao";
 	private String nomeArqMigracao = "scriptTbpendencia.sql";
 	private String nomeArqLegado = "dump_tbpendencia.txt";
 	
@@ -112,7 +112,7 @@ public class MigracaoPendencia {
 
 		        		if(y==2) // tipo
 		        		{
-		        			aux = (String) MigracaoAuxiliar.maptipo.get( a );
+		        			aux = (String) MigracaoAuxiliar.mapTipoPendencia().get( a );
 		        			if (aux == null)
 		        				errosnumero.add("erros | "+a);
 		        			numero.add(aux);
