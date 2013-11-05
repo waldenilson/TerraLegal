@@ -123,11 +123,13 @@
 				</tr>
 				<tr> <td class="colunaTabela"> <label>Data Abertura:</label> </td><td> <input size="9" value="{{ dtaberturaprocesso }}" id="date" name="dtaberturaprocesso" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Data Titulacao:</label> </td><td> <input size="9" value="{{ dttitulacao }}" id="date2" name="dttitulacao" /> </td> </tr>
+			{% if base.tbclassificacaoprocesso.id == 2 %}
 				<tr> <td class="colunaTabela"> <label>Classificacao:</label> </td>
 				   		<td>
 				   			{{ base.tbclassificacaoprocesso.nmclassificacao }}
 						</td>
 				</tr>
+			{% endif %}
 				<tr> <td class="colunaTabela"> <label>Situacao:</label> </td>
 				   		<td>
 				   			<select name="tbsituacaoprocesso" style="width: 200px">
