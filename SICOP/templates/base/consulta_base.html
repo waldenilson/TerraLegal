@@ -7,9 +7,13 @@
 
 {% block conteudo %}
 
-	<div id="accordion" style="color:black;width:100%;font-size:11px">
-		<h3>{% block subtitulo %} {% endblock %}</h3>
-		<div style="text-align:center">
+	<div id="tabs" style="color:black;width:100%;font-size:11px">
+		
+		 <ul>
+			<li><a href="#tabs-1">{% block subtitulo %} {% endblock %}</a></li>
+		</ul>
+		
+		<div id="tabs-1" style="text-align:center">
 				<!-- 		FORMULARIOS DOS FILTROS / CONSULTAS -->
 				{% block consulta %} {% endblock %}
 			

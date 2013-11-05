@@ -7,6 +7,7 @@ from sicop.forms import FormPecasTecnicas
 from sicop.forms import FormServidor
 
 from sicop.models import Tbpecastecnicas, Tbgleba, Tbcaixa, Tbcontrato, Tbservidor
+from sicop.relatorio_base import relatorio_base_consulta
 
 #SERVIDORES -----------------------------------------------------------------------------------------------------------------------------
 
@@ -18,7 +19,7 @@ def consulta(request):
         #entrega = request.POST['entrega']
         servidor = request.POST['servidor']
         #lista = Tbpecastecnicas.objects.all().filter( nmrequerente__contains=requerente, nrcpfrequerente__contains=cpf, nrentrega__contains=entrega )
-        lista = Tbservidor.objects.all().filter( nmservidor__contains=servidor)
+        lista = Tbservidor.objects.all().filter( nmservidor__icontains=servidor)
     
     else:
         lista = Tbservidor.objects.all()
@@ -74,6 +75,15 @@ def edicao(request, id):
     return render_to_response('controle/servidor/edicao.html',
                               {"form":form}, 
                               context_instance = RequestContext(request))
+
+def relatorio(request):
+    # montar objeto lista com os campos a mostrar no relatorio/pdf
+    lista = request.session['relatorio_servidor']
+    if lista:
+        resp = relatorio_base_consulta(request, lista, 'RELATORIO DOS SERVIDORES')
+        return resp
+    else:
+        return HttpResponseRedirect("/controle/restrito/servidor/consulta/")
 
 def validacao(request_form):
     warning = True

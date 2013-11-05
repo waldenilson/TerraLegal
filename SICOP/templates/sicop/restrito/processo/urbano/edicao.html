@@ -9,14 +9,17 @@
 
 
 {% block formulario %}
-<div id="accordion" style="color:black;width:100%;font-size:11px">
-<h3>{% block subtitulo %}
-	
-	EDITAR REGULARIZACAO URBANA
-	
-{% endblock %}
-</h3>
-<div>
+<div id="tabs" style="color:black;width:100%;font-size:11px">
+
+ <ul>
+	<li><a href="#tabs-1">EDICAO PROCESSO URBANO</a></li>
+	<li><a href="#tabs-2">TRAMITACOES</a></li>
+	<li><a href="#tabs-3">PENDENCIAS</a></li>
+	<li><a href="#tabs-4">ANEXOS</a></li>
+</ul>
+
+
+<div id="tabs-1">
 <form method="post" action="/sicop/restrito/processo/urbano/edicao/{{ urbano.id }}/">
 	{% csrf_token %}
 	<div style="width: 100%; font-size: 12px; text-align: left">
@@ -155,8 +158,7 @@
 </form>
 </div>
 {% if base.tbclassificacaoprocesso.id == 1 %}
-<h3>TRAMITACOES</h3>
-<div>
+<div id="tabs-2">
 <form method="post" action="/sicop/restrito/processo/tramitacao/{{ base.id }}/">
 	{% csrf_token %}
 	<table style="width:100%">
@@ -202,8 +204,7 @@
 	</div>
 {% endif %}
 
-<h3>PENDENCIAS</h3>
-<div>
+<div id="tabs-3">
 <form method="post" action="/sicop/restrito/processo/pendencia/{{ base.id }}/">
 	{% csrf_token %}
 	<table style="width:100%">
@@ -265,8 +266,7 @@
 	</div>
 
 {% if base.tbclassificacaoprocesso.id == 1 %}
-<h3>PROCESSOS ANEXADOS</h3>
-<div>
+<div id="tabs-4">
 <form method="post" action="/sicop/restrito/processo/anexo/{{ base.id }}/">
 	{% csrf_token %}
 	<table style="width:100%">

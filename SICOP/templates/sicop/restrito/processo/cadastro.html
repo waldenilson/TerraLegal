@@ -7,14 +7,11 @@
 
 
 {% block formulario %}
-<div id="accordion" style="color:black;width:100%;font-size:11px">
-<h3>{% block subtitulo %}
-
-	CADASTRAR PROCESSO
-	
-{% endblock %}
-</h3>
-<div>
+<div id="tabs" style="color:black;width:100%;font-size:11px">
+ <ul>
+	<li><a href="#tabs-1">CADASTRAR PROCESSO</a></li>
+</ul>
+<div id="tabs-1">
 		<form name="form" method="post" action="/sicop/restrito/processo/cadastro/">
 			{% csrf_token %}
 			<table>
@@ -41,5 +38,6 @@
 			{% if div_processo == 'rural' %} {% include "sicop/restrito/processo/rural/cadastro.html" %} {% endif %}
 			{% if div_processo == 'urbano' %} {% include "sicop/restrito/processo/urbano/cadastro.html" %} {% endif %}
 			{% if div_processo == 'clausula' %} {% include "sicop/restrito/processo/clausula/cadastro.html" %} {% endif %}
-</div>				
+</div>	
+</div>			
 {% endblock %}
