@@ -1,4 +1,6 @@
 {% load staticfiles %} 
+{% load dajaxice_templatetags %}
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html style="font-size: 16px;" xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-br" lang="pt-br">
 <head>
@@ -36,12 +38,15 @@ $(function() {
 $(function() {
 	$( "#menu" ).menu();
 	});
-
+function my_callback(data){
+    alert(data.message);
+}
 </script>
  <style>
 .ui-menu { width: 180px; z-index: 1000; }
 </style>
 <script src="{% static "js/jquery_maskedinput.js" %}" type="text/javascript"></script>
+<script src="{% static "js/dajaxice.core.js" %}" type="text/javascript"></script>
 
 <script>
 jQuery(function($){   
@@ -89,7 +94,6 @@ function SomenteNumeroOK(e, obj)
 	if((tecla>47 && tecla<58)) return true;
 	else
 	{
-
 		if (tecla==8 || tecla==0 ) return true;
 		else
 			return false;
@@ -97,6 +101,7 @@ function SomenteNumeroOK(e, obj)
 }
 
 </script>
+
 
 </head>
 
@@ -179,15 +184,6 @@ function SomenteNumeroOK(e, obj)
 									<ul>
 										<li><a href="/sicop/restrito/caixa/consulta/">Controle</a></li>
 										<li><a href="/sicop/restrito/tipo_caixa/consulta/">Tipo	Caixa</a></li>
-									</ul></li>
-								<li><a href="#">Relatorio</a>
-									<ul style="width: 250px">
-										<li><a href="/sicop/restrito/relatorio/processo_peca/">Processos e pecas tecnicas</a></li>
-										<li><a href="/sicop/restrito/relatorio/peca_nao_aprovada/">Pecas tecnicas nao aprovadas</a></li>
-										<li><a href="/sicop/restrito/relatorio/peca_rejeitada/">Pecas tecnicas rejeitadas</a></li>
-										<li><a href="/sicop/restrito/relatorio/peca_validada/">Pecas tecnicas validadas</a></li>
-										<li><a href="/sicop/restrito/relatorio/peca_gleba/">Pecas tecnicas e glebas</a></li>
-										<li><a href="/sicop/restrito/relatorio/peca_sem_processo/">Pecas tecnicas sem processo</a></li>
 									</ul><hr/></li>
 								<li><a href="#">Gleba</a>
 									<ul>
@@ -196,16 +192,26 @@ function SomenteNumeroOK(e, obj)
 									</ul></li>
 								<li><a href="/sicop/restrito/contrato/consulta/">Contrato</a></li>
 								<li><a href="/sicop/restrito/pregao/consulta/">Pregao</a></li>
-								<li><a href="#">Pendencia</a>
-									<ul>
-										<li><a href="/sicop/restrito/tipo_pendencia/consulta/">Tipo	Pendencia</a></li>
-										<li><a href="/sicop/restrito/status_pendencia/consulta/">Status	Pendencia</a></li>
-									</ul></li>
 								<li><a href="/controle/restrito/servidor/consulta/">Servidor</a><hr/></li>
-								<li><a href="/sicop/restrito/tipo_processo/consulta/">Tipo Processo</a></li>
-								<li><a href="/sicop/restrito/classificacao_processo/consulta/">Classificacao Processo</a></li>
-								<li><a href="/sicop/restrito/situacao_processo/consulta/">Situacao Processo</a></li>
-								<li><a href="/sicop/restrito/situacao_geo/consulta/">Situacao Geo</a></li>
+								<li><a href="#">Relatorio</a>
+									<ul style="width: 250px">
+										<li><a href="/sicop/restrito/relatorio/processo_peca/">Processos e pecas tecnicas</a></li>
+										<li><a href="/sicop/restrito/relatorio/peca_nao_aprovada/">Pecas tecnicas nao aprovadas</a></li>
+										<li><a href="/sicop/restrito/relatorio/peca_rejeitada/">Pecas tecnicas rejeitadas</a></li>
+										<li><a href="/sicop/restrito/relatorio/peca_validada/">Pecas tecnicas validadas</a></li>
+										<li><a href="/sicop/restrito/relatorio/peca_gleba/">Pecas tecnicas e glebas</a></li>
+										<li><a href="/sicop/restrito/relatorio/peca_sem_processo/">Pecas tecnicas sem processo</a></li>
+									</ul></li>
+								<li><a href="#">Configuracoes</a>
+								<ul>
+									<li><a href="/sicop/restrito/tipo_processo/consulta/">Tipo Processo</a></li>
+									<li><a href="/sicop/restrito/classificacao_processo/consulta/">Classificacao Processo</a></li>
+									<li><a href="/sicop/restrito/situacao_processo/consulta/">Situacao Processo</a></li>
+									<li><a href="/sicop/restrito/situacao_geo/consulta/">Situacao Geo</a></li>
+									<li><a href="/sicop/restrito/tipo_pendencia/consulta/">Tipo	Pendencia</a></li>
+									<li><a href="/sicop/restrito/status_pendencia/consulta/">Status	Pendencia</a></li>
+								</ul>
+								</li>
 								<li><a href="#">Usuario</a>
 									<ul>
 										<li><a href="/sicop/restrito/usuario/consulta/">Controle</a></li>

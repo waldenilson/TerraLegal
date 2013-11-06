@@ -17,6 +17,7 @@ from types import InstanceType
 from sicop.admin import verificar_permissao_grupo
 import datetime
 from django.contrib import messages
+from django.utils import simplejson
 
 @login_required
 def consulta(request):
