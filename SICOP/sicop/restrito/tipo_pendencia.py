@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.forms import FormTipoPendencia
-from sicop.models import Tbtipopendencia, AuthUser
+from sicop.models import Tbtipopendencia, AuthUser, Tbtipoprocesso
 from django.http.response import HttpResponseRedirect
 from django.contrib import messages
 from sicop.relatorio_base import relatorio_base_consulta
@@ -21,6 +21,7 @@ def consulta(request):
 
 @login_required
 def cadastro(request):
+    tipoprocesso = Tbtipoprocesso.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     if request.method == "POST":
         if validacao(request):
             f_tipopendencia = Tbtipopendencia(
@@ -29,11 +30,12 @@ def cadastro(request):
                                       )
             f_tipopendencia.save()
             return HttpResponseRedirect("/sicop/restrito/tipo_pendencia/consulta/") 
-    return render_to_response('sicop/restrito/tipo_pendencia/cadastro.html',{}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/tipo_pendencia/cadastro.html',{'tipoprocesso':tipoprocesso}, context_instance = RequestContext(request))
 
 @login_required
 def edicao(request, id):
     instance = get_object_or_404(Tbtipopendencia, id=id)
+    tipoprocesso = Tbtipoprocesso.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     if request.method == "POST":
             f_tipopendencia = Tbtipopendencia(
                                         id = instance.id,
@@ -42,7 +44,7 @@ def edicao(request, id):
                                       )
             f_tipopendencia.save()
             return HttpResponseRedirect("/sicop/restrito/tipo_pendencia/consulta/")
-    return render_to_response('sicop/restrito/tipo_pendencia/edicao.html', {"tipopendencia":instance}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/tipo_pendencia/edicao.html', {"tipopendencia":instance,'tipoprocesso':tipoprocesso}, context_instance = RequestContext(request))
 
 def relatorio(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
