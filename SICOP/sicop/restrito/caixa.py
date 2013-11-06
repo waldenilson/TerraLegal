@@ -1,7 +1,8 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
-from sicop.models import Tbcaixa, Tbtipocaixa, AuthUser
+from sicop.models import Tbcaixa, Tbtipocaixa, AuthUser, Tbprocessobase,\
+    Tbpecastecnicas
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from sicop.forms import FormCaixa
@@ -22,6 +23,7 @@ def consulta(request):
     else:
         lista = Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     lista = lista.order_by( 'id' )
+    
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_caixa'] = lista
     return render_to_response('sicop/restrito/caixa/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
@@ -55,7 +57,23 @@ def edicao(request, id):
                 return HttpResponseRedirect("/sicop/restrito/caixa/consulta/")
     else:
         form = FormCaixa(instance=instance)
-    return render_to_response('sicop/restrito/caixa/edicao.html', {"form":form,"tipocaixa":tipocaixa}, context_instance = RequestContext(request))
+        
+        
+    # retornar o conteudo da caixa de acordo com o tipocaixa
+    
+    processos = Tbprocessobase.objects.all().filter( tbcaixa__id = id )   
+    pecas = Tbpecastecnicas.objects.all().filter( tbcaixa__id = id )    
+    conteudo = ""
+    if processos.count() > 0:
+        conteudo = str(processos.count())+" Processo(s)"
+    if pecas.count() > 0:
+        conteudo += str(pecas.count())+" Peca(s) Tecnica(s)"
+        
+    if processos.count() <= 0 and pecas.count() <= 0:
+        conteudo = "Caixa Vazia"
+    
+    
+    return render_to_response('sicop/restrito/caixa/edicao.html', {"form":form,'conteudo':conteudo,"tipocaixa":tipocaixa}, context_instance = RequestContext(request))
 
 def relatorio(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
