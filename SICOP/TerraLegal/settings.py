@@ -161,18 +161,19 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     # 'C:/DEVELOPER/django/',
     # os.path.abspath(os.path.join(ABSOLUTE_PROJECT_ROOT, 'staticfiles/')),
+    'C:\wamp\www\SICOP\templates',
     abspath(join(dirname(__file__), '../templates')),
     # ABSOLUTE_TEMPLATES_PATH,
 )
 
 INSTALLED_APPS = (
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
+#    'django.contrib.auth',
+#    'django.contrib.contenttypes',
+#    'django.contrib.sessions',
+#    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.admin',
+#    'django.contrib.admin',
     'web',
     'sicop',
     'servidor',
