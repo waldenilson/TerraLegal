@@ -347,6 +347,7 @@ class Tbuf(models.Model):
 class Tbpregao(models.Model):
     nrpregao = models.CharField(max_length=30, blank=True)
     dspregao = models.TextField(blank=True)
+    tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True)
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbpregao'
