@@ -87,7 +87,7 @@ MEDIA_ROOT = ''#os.path.abspath(os.path.join(ABSOLUTE_PROJECT_ROOT, 'staticfiles
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
-STATIC_URL = '/static/'
+STATIC_URL = 'C:\wamp\www\SICOP\templates/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -161,7 +161,6 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     # 'C:/DEVELOPER/django/',
     # os.path.abspath(os.path.join(ABSOLUTE_PROJECT_ROOT, 'staticfiles/')),
-    'C:\wamp\www\SICOP\templates',
     abspath(join(dirname(__file__), '../templates')),
     # ABSOLUTE_TEMPLATES_PATH,
 )
