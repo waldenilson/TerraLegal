@@ -1,7 +1,7 @@
 # Django settings for SICOP project.
 from os.path import abspath, join, dirname
 
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = DEBUG
 
