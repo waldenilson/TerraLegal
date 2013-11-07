@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.conf.urls import patterns, url, include
 from dajaxice.core import dajaxice_config
 from dajaxice.core.Dajaxice import dajaxice_autodiscover
+from TerraLegal import settings
 admin.autodiscover()
 
 handler404 = 'web.views_excecoes.pagina_nao_encontrada'
@@ -183,5 +184,6 @@ urlpatterns = patterns('',
     url(r'^login/', 'django.contrib.auth.views.login', {"template_name":"base/login.html"}),
     url(r'^logout/', 'django.contrib.auth.views.logout_then_login', {"login_url":"/login/"}),
     url(r'^sicop/admin/', include(admin.site.urls)),
+    url(r'^static/', "django.views.static.serve", {'document_root':settings.STATIC_URL}),
     
 )
