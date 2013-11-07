@@ -2,28 +2,9 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.2.4
--- Dumped by pg_dump version 9.2.4
--- Started on 2013-11-07 12:14:45
-
-SET statement_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-
-DROP DATABASE newsicop;
---
--- TOC entry 2382 (class 1262 OID 71995)
--- Name: newsicop; Type: DATABASE; Schema: -; Owner: admin
---
-
-CREATE DATABASE newsicop WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'Portuguese_Brazil.1252' LC_CTYPE = 'Portuguese_Brazil.1252';
-
-
-ALTER DATABASE newsicop OWNER TO admin;
-
-\connect newsicop
+-- Dumped from database version 9.1.6
+-- Dumped by pg_dump version 9.1.6
+-- Started on 2013-11-07 15:52:11 BRT
 
 SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
@@ -32,26 +13,7 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 
 --
--- TOC entry 5 (class 2615 OID 2200)
--- Name: public; Type: SCHEMA; Schema: -; Owner: postgres
---
-
-CREATE SCHEMA public;
-
-
-ALTER SCHEMA public OWNER TO postgres;
-
---
--- TOC entry 2383 (class 0 OID 0)
--- Dependencies: 5
--- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: postgres
---
-
-COMMENT ON SCHEMA public IS 'standard public schema';
-
-
---
--- TOC entry 228 (class 3079 OID 11727)
+-- TOC entry 221 (class 3079 OID 11684)
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
 --
 
@@ -59,8 +21,8 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- TOC entry 2385 (class 0 OID 0)
--- Dependencies: 228
+-- TOC entry 2301 (class 0 OID 0)
+-- Dependencies: 221
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
 
@@ -74,7 +36,8 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- TOC entry 168 (class 1259 OID 72139)
+-- TOC entry 161 (class 1259 OID 5839469)
+-- Dependencies: 5
 -- Name: auth_group; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -87,7 +50,8 @@ CREATE TABLE auth_group (
 ALTER TABLE public.auth_group OWNER TO admin;
 
 --
--- TOC entry 169 (class 1259 OID 72146)
+-- TOC entry 162 (class 1259 OID 5839476)
+-- Dependencies: 5
 -- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -101,7 +65,8 @@ CREATE TABLE auth_group_permissions (
 ALTER TABLE public.auth_group_permissions OWNER TO admin;
 
 --
--- TOC entry 170 (class 1259 OID 72156)
+-- TOC entry 163 (class 1259 OID 5839486)
+-- Dependencies: 5
 -- Name: auth_permission; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -116,7 +81,8 @@ CREATE TABLE auth_permission (
 ALTER TABLE public.auth_permission OWNER TO admin;
 
 --
--- TOC entry 172 (class 1259 OID 72168)
+-- TOC entry 165 (class 1259 OID 5839498)
+-- Dependencies: 5
 -- Name: auth_user; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -139,7 +105,8 @@ CREATE TABLE auth_user (
 ALTER TABLE public.auth_user OWNER TO admin;
 
 --
--- TOC entry 174 (class 1259 OID 72178)
+-- TOC entry 167 (class 1259 OID 5839508)
+-- Dependencies: 5
 -- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -153,7 +120,8 @@ CREATE TABLE auth_user_groups (
 ALTER TABLE public.auth_user_groups OWNER TO admin;
 
 --
--- TOC entry 173 (class 1259 OID 72176)
+-- TOC entry 166 (class 1259 OID 5839506)
+-- Dependencies: 5 167
 -- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -168,8 +136,8 @@ CREATE SEQUENCE auth_user_groups_id_seq
 ALTER TABLE public.auth_user_groups_id_seq OWNER TO admin;
 
 --
--- TOC entry 2386 (class 0 OID 0)
--- Dependencies: 173
+-- TOC entry 2302 (class 0 OID 0)
+-- Dependencies: 166
 -- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -177,7 +145,8 @@ ALTER SEQUENCE auth_user_groups_id_seq OWNED BY auth_user_groups.id;
 
 
 --
--- TOC entry 171 (class 1259 OID 72166)
+-- TOC entry 164 (class 1259 OID 5839496)
+-- Dependencies: 165 5
 -- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -192,8 +161,8 @@ CREATE SEQUENCE auth_user_id_seq
 ALTER TABLE public.auth_user_id_seq OWNER TO admin;
 
 --
--- TOC entry 2387 (class 0 OID 0)
--- Dependencies: 171
+-- TOC entry 2303 (class 0 OID 0)
+-- Dependencies: 164
 -- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -201,7 +170,8 @@ ALTER SEQUENCE auth_user_id_seq OWNED BY auth_user.id;
 
 
 --
--- TOC entry 175 (class 1259 OID 72194)
+-- TOC entry 168 (class 1259 OID 5839524)
+-- Dependencies: 5
 -- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -215,7 +185,8 @@ CREATE TABLE auth_user_user_permissions (
 ALTER TABLE public.auth_user_user_permissions OWNER TO admin;
 
 --
--- TOC entry 176 (class 1259 OID 72209)
+-- TOC entry 169 (class 1259 OID 5839539)
+-- Dependencies: 5
 -- Name: django_admin_log; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -234,7 +205,8 @@ CREATE TABLE django_admin_log (
 ALTER TABLE public.django_admin_log OWNER TO admin;
 
 --
--- TOC entry 177 (class 1259 OID 72222)
+-- TOC entry 170 (class 1259 OID 5839552)
+-- Dependencies: 5
 -- Name: django_content_type; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -249,7 +221,8 @@ CREATE TABLE django_content_type (
 ALTER TABLE public.django_content_type OWNER TO admin;
 
 --
--- TOC entry 178 (class 1259 OID 72237)
+-- TOC entry 171 (class 1259 OID 5839567)
+-- Dependencies: 5
 -- Name: django_session; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -263,7 +236,8 @@ CREATE TABLE django_session (
 ALTER TABLE public.django_session OWNER TO admin;
 
 --
--- TOC entry 179 (class 1259 OID 72245)
+-- TOC entry 172 (class 1259 OID 5839575)
+-- Dependencies: 5
 -- Name: django_site; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -277,7 +251,8 @@ CREATE TABLE django_site (
 ALTER TABLE public.django_site OWNER TO admin;
 
 --
--- TOC entry 181 (class 1259 OID 72252)
+-- TOC entry 174 (class 1259 OID 5839582)
+-- Dependencies: 5
 -- Name: tbcaixa; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -291,7 +266,8 @@ CREATE TABLE tbcaixa (
 ALTER TABLE public.tbcaixa OWNER TO admin;
 
 --
--- TOC entry 180 (class 1259 OID 72250)
+-- TOC entry 173 (class 1259 OID 5839580)
+-- Dependencies: 174 5
 -- Name: tbcaixa_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -306,8 +282,8 @@ CREATE SEQUENCE tbcaixa_id_seq
 ALTER TABLE public.tbcaixa_id_seq OWNER TO admin;
 
 --
--- TOC entry 2388 (class 0 OID 0)
--- Dependencies: 180
+-- TOC entry 2304 (class 0 OID 0)
+-- Dependencies: 173
 -- Name: tbcaixa_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -315,7 +291,8 @@ ALTER SEQUENCE tbcaixa_id_seq OWNED BY tbcaixa.id;
 
 
 --
--- TOC entry 183 (class 1259 OID 72260)
+-- TOC entry 176 (class 1259 OID 5839590)
+-- Dependencies: 5
 -- Name: tbclassificacaoprocesso; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -329,7 +306,8 @@ CREATE TABLE tbclassificacaoprocesso (
 ALTER TABLE public.tbclassificacaoprocesso OWNER TO admin;
 
 --
--- TOC entry 182 (class 1259 OID 72258)
+-- TOC entry 175 (class 1259 OID 5839588)
+-- Dependencies: 176 5
 -- Name: tbclassificacaoprocesso_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -344,8 +322,8 @@ CREATE SEQUENCE tbclassificacaoprocesso_id_seq
 ALTER TABLE public.tbclassificacaoprocesso_id_seq OWNER TO admin;
 
 --
--- TOC entry 2389 (class 0 OID 0)
--- Dependencies: 182
+-- TOC entry 2305 (class 0 OID 0)
+-- Dependencies: 175
 -- Name: tbclassificacaoprocesso_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -353,7 +331,8 @@ ALTER SEQUENCE tbclassificacaoprocesso_id_seq OWNED BY tbclassificacaoprocesso.i
 
 
 --
--- TOC entry 185 (class 1259 OID 72268)
+-- TOC entry 178 (class 1259 OID 5839598)
+-- Dependencies: 5
 -- Name: tbcontrato; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -368,7 +347,8 @@ CREATE TABLE tbcontrato (
 ALTER TABLE public.tbcontrato OWNER TO admin;
 
 --
--- TOC entry 184 (class 1259 OID 72266)
+-- TOC entry 177 (class 1259 OID 5839596)
+-- Dependencies: 5 178
 -- Name: tbcontrato_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -383,8 +363,8 @@ CREATE SEQUENCE tbcontrato_id_seq
 ALTER TABLE public.tbcontrato_id_seq OWNER TO admin;
 
 --
--- TOC entry 2390 (class 0 OID 0)
--- Dependencies: 184
+-- TOC entry 2306 (class 0 OID 0)
+-- Dependencies: 177
 -- Name: tbcontrato_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -392,7 +372,8 @@ ALTER SEQUENCE tbcontrato_id_seq OWNED BY tbcontrato.id;
 
 
 --
--- TOC entry 187 (class 1259 OID 72276)
+-- TOC entry 180 (class 1259 OID 5839606)
+-- Dependencies: 5
 -- Name: tbdivisao; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -407,7 +388,8 @@ CREATE TABLE tbdivisao (
 ALTER TABLE public.tbdivisao OWNER TO admin;
 
 --
--- TOC entry 186 (class 1259 OID 72274)
+-- TOC entry 179 (class 1259 OID 5839604)
+-- Dependencies: 180 5
 -- Name: tbdivisao_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -422,8 +404,8 @@ CREATE SEQUENCE tbdivisao_id_seq
 ALTER TABLE public.tbdivisao_id_seq OWNER TO admin;
 
 --
--- TOC entry 2391 (class 0 OID 0)
--- Dependencies: 186
+-- TOC entry 2307 (class 0 OID 0)
+-- Dependencies: 179
 -- Name: tbdivisao_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -431,7 +413,8 @@ ALTER SEQUENCE tbdivisao_id_seq OWNED BY tbdivisao.id;
 
 
 --
--- TOC entry 189 (class 1259 OID 72302)
+-- TOC entry 182 (class 1259 OID 5839632)
+-- Dependencies: 5
 -- Name: tbgleba; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -446,7 +429,8 @@ CREATE TABLE tbgleba (
 ALTER TABLE public.tbgleba OWNER TO admin;
 
 --
--- TOC entry 188 (class 1259 OID 72300)
+-- TOC entry 181 (class 1259 OID 5839630)
+-- Dependencies: 182 5
 -- Name: tbgleba_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -461,8 +445,8 @@ CREATE SEQUENCE tbgleba_id_seq
 ALTER TABLE public.tbgleba_id_seq OWNER TO admin;
 
 --
--- TOC entry 2392 (class 0 OID 0)
--- Dependencies: 188
+-- TOC entry 2308 (class 0 OID 0)
+-- Dependencies: 181
 -- Name: tbgleba_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -470,7 +454,8 @@ ALTER SEQUENCE tbgleba_id_seq OWNED BY tbgleba.id;
 
 
 --
--- TOC entry 191 (class 1259 OID 72310)
+-- TOC entry 184 (class 1259 OID 5839640)
+-- Dependencies: 5
 -- Name: tbmovimentacao; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -488,7 +473,8 @@ CREATE TABLE tbmovimentacao (
 ALTER TABLE public.tbmovimentacao OWNER TO admin;
 
 --
--- TOC entry 190 (class 1259 OID 72308)
+-- TOC entry 183 (class 1259 OID 5839638)
+-- Dependencies: 5 184
 -- Name: tbmovimentacao_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -503,8 +489,8 @@ CREATE SEQUENCE tbmovimentacao_id_seq
 ALTER TABLE public.tbmovimentacao_id_seq OWNER TO admin;
 
 --
--- TOC entry 2393 (class 0 OID 0)
--- Dependencies: 190
+-- TOC entry 2309 (class 0 OID 0)
+-- Dependencies: 183
 -- Name: tbmovimentacao_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -512,7 +498,8 @@ ALTER SEQUENCE tbmovimentacao_id_seq OWNED BY tbmovimentacao.id;
 
 
 --
--- TOC entry 193 (class 1259 OID 72333)
+-- TOC entry 186 (class 1259 OID 5839663)
+-- Dependencies: 5
 -- Name: tbmunicipio; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -535,7 +522,8 @@ CREATE TABLE tbmunicipio (
 ALTER TABLE public.tbmunicipio OWNER TO admin;
 
 --
--- TOC entry 192 (class 1259 OID 72331)
+-- TOC entry 185 (class 1259 OID 5839661)
+-- Dependencies: 5 186
 -- Name: tbmunicipio_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -550,8 +538,8 @@ CREATE SEQUENCE tbmunicipio_id_seq
 ALTER TABLE public.tbmunicipio_id_seq OWNER TO admin;
 
 --
--- TOC entry 2394 (class 0 OID 0)
--- Dependencies: 192
+-- TOC entry 2310 (class 0 OID 0)
+-- Dependencies: 185
 -- Name: tbmunicipio_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -559,7 +547,8 @@ ALTER SEQUENCE tbmunicipio_id_seq OWNED BY tbmunicipio.id;
 
 
 --
--- TOC entry 195 (class 1259 OID 72341)
+-- TOC entry 188 (class 1259 OID 5839671)
+-- Dependencies: 5
 -- Name: tbpecastecnicas; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -585,7 +574,8 @@ CREATE TABLE tbpecastecnicas (
 ALTER TABLE public.tbpecastecnicas OWNER TO admin;
 
 --
--- TOC entry 194 (class 1259 OID 72339)
+-- TOC entry 187 (class 1259 OID 5839669)
+-- Dependencies: 188 5
 -- Name: tbpecastecnicas_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -600,8 +590,8 @@ CREATE SEQUENCE tbpecastecnicas_id_seq
 ALTER TABLE public.tbpecastecnicas_id_seq OWNER TO admin;
 
 --
--- TOC entry 2395 (class 0 OID 0)
--- Dependencies: 194
+-- TOC entry 2311 (class 0 OID 0)
+-- Dependencies: 187
 -- Name: tbpecastecnicas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -609,7 +599,8 @@ ALTER SEQUENCE tbpecastecnicas_id_seq OWNED BY tbpecastecnicas.id;
 
 
 --
--- TOC entry 197 (class 1259 OID 72372)
+-- TOC entry 190 (class 1259 OID 5839702)
+-- Dependencies: 5
 -- Name: tbpendencia; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -628,7 +619,8 @@ CREATE TABLE tbpendencia (
 ALTER TABLE public.tbpendencia OWNER TO admin;
 
 --
--- TOC entry 196 (class 1259 OID 72370)
+-- TOC entry 189 (class 1259 OID 5839700)
+-- Dependencies: 190 5
 -- Name: tbpendencia_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -643,8 +635,8 @@ CREATE SEQUENCE tbpendencia_id_seq
 ALTER TABLE public.tbpendencia_id_seq OWNER TO admin;
 
 --
--- TOC entry 2396 (class 0 OID 0)
--- Dependencies: 196
+-- TOC entry 2312 (class 0 OID 0)
+-- Dependencies: 189
 -- Name: tbpendencia_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -652,7 +644,8 @@ ALTER SEQUENCE tbpendencia_id_seq OWNED BY tbpendencia.id;
 
 
 --
--- TOC entry 227 (class 1259 OID 72675)
+-- TOC entry 220 (class 1259 OID 5840005)
+-- Dependencies: 5
 -- Name: tbpregao; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -667,7 +660,8 @@ CREATE TABLE tbpregao (
 ALTER TABLE public.tbpregao OWNER TO admin;
 
 --
--- TOC entry 226 (class 1259 OID 72673)
+-- TOC entry 219 (class 1259 OID 5840003)
+-- Dependencies: 5 220
 -- Name: tbpregao_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -682,8 +676,8 @@ CREATE SEQUENCE tbpregao_id_seq
 ALTER TABLE public.tbpregao_id_seq OWNER TO admin;
 
 --
--- TOC entry 2397 (class 0 OID 0)
--- Dependencies: 226
+-- TOC entry 2313 (class 0 OID 0)
+-- Dependencies: 219
 -- Name: tbpregao_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -691,7 +685,8 @@ ALTER SEQUENCE tbpregao_id_seq OWNED BY tbpregao.id;
 
 
 --
--- TOC entry 199 (class 1259 OID 72388)
+-- TOC entry 192 (class 1259 OID 5839718)
+-- Dependencies: 5
 -- Name: tbprocessobase; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -713,7 +708,8 @@ CREATE TABLE tbprocessobase (
 ALTER TABLE public.tbprocessobase OWNER TO admin;
 
 --
--- TOC entry 198 (class 1259 OID 72386)
+-- TOC entry 191 (class 1259 OID 5839716)
+-- Dependencies: 192 5
 -- Name: tbprocessobase_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -728,8 +724,8 @@ CREATE SEQUENCE tbprocessobase_id_seq
 ALTER TABLE public.tbprocessobase_id_seq OWNER TO admin;
 
 --
--- TOC entry 2398 (class 0 OID 0)
--- Dependencies: 198
+-- TOC entry 2314 (class 0 OID 0)
+-- Dependencies: 191
 -- Name: tbprocessobase_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -737,7 +733,8 @@ ALTER SEQUENCE tbprocessobase_id_seq OWNED BY tbprocessobase.id;
 
 
 --
--- TOC entry 201 (class 1259 OID 72436)
+-- TOC entry 194 (class 1259 OID 5839766)
+-- Dependencies: 5
 -- Name: tbprocessoclausula; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -759,7 +756,8 @@ CREATE TABLE tbprocessoclausula (
 ALTER TABLE public.tbprocessoclausula OWNER TO admin;
 
 --
--- TOC entry 200 (class 1259 OID 72434)
+-- TOC entry 193 (class 1259 OID 5839764)
+-- Dependencies: 5 194
 -- Name: tbprocessoclausula_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -774,8 +772,8 @@ CREATE SEQUENCE tbprocessoclausula_id_seq
 ALTER TABLE public.tbprocessoclausula_id_seq OWNER TO admin;
 
 --
--- TOC entry 2399 (class 0 OID 0)
--- Dependencies: 200
+-- TOC entry 2315 (class 0 OID 0)
+-- Dependencies: 193
 -- Name: tbprocessoclausula_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -783,7 +781,8 @@ ALTER SEQUENCE tbprocessoclausula_id_seq OWNED BY tbprocessoclausula.id;
 
 
 --
--- TOC entry 203 (class 1259 OID 72452)
+-- TOC entry 196 (class 1259 OID 5839782)
+-- Dependencies: 5
 -- Name: tbprocessorural; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -802,7 +801,8 @@ CREATE TABLE tbprocessorural (
 ALTER TABLE public.tbprocessorural OWNER TO admin;
 
 --
--- TOC entry 202 (class 1259 OID 72450)
+-- TOC entry 195 (class 1259 OID 5839780)
+-- Dependencies: 196 5
 -- Name: tbprocessorural_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -817,8 +817,8 @@ CREATE SEQUENCE tbprocessorural_id_seq
 ALTER TABLE public.tbprocessorural_id_seq OWNER TO admin;
 
 --
--- TOC entry 2400 (class 0 OID 0)
--- Dependencies: 202
+-- TOC entry 2316 (class 0 OID 0)
+-- Dependencies: 195
 -- Name: tbprocessorural_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -826,7 +826,8 @@ ALTER SEQUENCE tbprocessorural_id_seq OWNED BY tbprocessorural.id;
 
 
 --
--- TOC entry 205 (class 1259 OID 72465)
+-- TOC entry 198 (class 1259 OID 5839795)
+-- Dependencies: 5
 -- Name: tbprocessosanexos; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -842,7 +843,8 @@ CREATE TABLE tbprocessosanexos (
 ALTER TABLE public.tbprocessosanexos OWNER TO admin;
 
 --
--- TOC entry 204 (class 1259 OID 72463)
+-- TOC entry 197 (class 1259 OID 5839793)
+-- Dependencies: 198 5
 -- Name: tbprocessosanexos_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -857,8 +859,8 @@ CREATE SEQUENCE tbprocessosanexos_id_seq
 ALTER TABLE public.tbprocessosanexos_id_seq OWNER TO admin;
 
 --
--- TOC entry 2401 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 2317 (class 0 OID 0)
+-- Dependencies: 197
 -- Name: tbprocessosanexos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -866,7 +868,8 @@ ALTER SEQUENCE tbprocessosanexos_id_seq OWNED BY tbprocessosanexos.id;
 
 
 --
--- TOC entry 207 (class 1259 OID 72488)
+-- TOC entry 200 (class 1259 OID 5839818)
+-- Dependencies: 5
 -- Name: tbprocessourbano; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -891,7 +894,8 @@ CREATE TABLE tbprocessourbano (
 ALTER TABLE public.tbprocessourbano OWNER TO admin;
 
 --
--- TOC entry 206 (class 1259 OID 72486)
+-- TOC entry 199 (class 1259 OID 5839816)
+-- Dependencies: 5 200
 -- Name: tbprocessourbano_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -906,8 +910,8 @@ CREATE SEQUENCE tbprocessourbano_id_seq
 ALTER TABLE public.tbprocessourbano_id_seq OWNER TO admin;
 
 --
--- TOC entry 2402 (class 0 OID 0)
--- Dependencies: 206
+-- TOC entry 2318 (class 0 OID 0)
+-- Dependencies: 199
 -- Name: tbprocessourbano_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -915,7 +919,8 @@ ALTER SEQUENCE tbprocessourbano_id_seq OWNED BY tbprocessourbano.id;
 
 
 --
--- TOC entry 209 (class 1259 OID 72506)
+-- TOC entry 202 (class 1259 OID 5839836)
+-- Dependencies: 5
 -- Name: tbservidor; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -939,7 +944,8 @@ CREATE TABLE tbservidor (
 ALTER TABLE public.tbservidor OWNER TO admin;
 
 --
--- TOC entry 208 (class 1259 OID 72504)
+-- TOC entry 201 (class 1259 OID 5839834)
+-- Dependencies: 5 202
 -- Name: tbservidor_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -954,8 +960,8 @@ CREATE SEQUENCE tbservidor_id_seq
 ALTER TABLE public.tbservidor_id_seq OWNER TO admin;
 
 --
--- TOC entry 2403 (class 0 OID 0)
--- Dependencies: 208
+-- TOC entry 2319 (class 0 OID 0)
+-- Dependencies: 201
 -- Name: tbservidor_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -963,7 +969,8 @@ ALTER SEQUENCE tbservidor_id_seq OWNED BY tbservidor.id;
 
 
 --
--- TOC entry 211 (class 1259 OID 72517)
+-- TOC entry 204 (class 1259 OID 5839847)
+-- Dependencies: 5
 -- Name: tbsituacaogeo; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -978,7 +985,8 @@ CREATE TABLE tbsituacaogeo (
 ALTER TABLE public.tbsituacaogeo OWNER TO admin;
 
 --
--- TOC entry 210 (class 1259 OID 72515)
+-- TOC entry 203 (class 1259 OID 5839845)
+-- Dependencies: 5 204
 -- Name: tbsituacaogeo_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -993,8 +1001,8 @@ CREATE SEQUENCE tbsituacaogeo_id_seq
 ALTER TABLE public.tbsituacaogeo_id_seq OWNER TO admin;
 
 --
--- TOC entry 2404 (class 0 OID 0)
--- Dependencies: 210
+-- TOC entry 2320 (class 0 OID 0)
+-- Dependencies: 203
 -- Name: tbsituacaogeo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -1002,7 +1010,8 @@ ALTER SEQUENCE tbsituacaogeo_id_seq OWNED BY tbsituacaogeo.id;
 
 
 --
--- TOC entry 213 (class 1259 OID 72538)
+-- TOC entry 206 (class 1259 OID 5839868)
+-- Dependencies: 5
 -- Name: tbsituacaoprocesso; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -1017,7 +1026,8 @@ CREATE TABLE tbsituacaoprocesso (
 ALTER TABLE public.tbsituacaoprocesso OWNER TO admin;
 
 --
--- TOC entry 212 (class 1259 OID 72536)
+-- TOC entry 205 (class 1259 OID 5839866)
+-- Dependencies: 206 5
 -- Name: tbsituacaoprocesso_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -1032,8 +1042,8 @@ CREATE SEQUENCE tbsituacaoprocesso_id_seq
 ALTER TABLE public.tbsituacaoprocesso_id_seq OWNER TO admin;
 
 --
--- TOC entry 2405 (class 0 OID 0)
--- Dependencies: 212
+-- TOC entry 2321 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: tbsituacaoprocesso_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -1041,7 +1051,8 @@ ALTER SEQUENCE tbsituacaoprocesso_id_seq OWNED BY tbsituacaoprocesso.id;
 
 
 --
--- TOC entry 215 (class 1259 OID 72559)
+-- TOC entry 208 (class 1259 OID 5839889)
+-- Dependencies: 5
 -- Name: tbstatuspendencia; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -1056,7 +1067,8 @@ CREATE TABLE tbstatuspendencia (
 ALTER TABLE public.tbstatuspendencia OWNER TO admin;
 
 --
--- TOC entry 214 (class 1259 OID 72557)
+-- TOC entry 207 (class 1259 OID 5839887)
+-- Dependencies: 5 208
 -- Name: tbstatuspendencia_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -1071,8 +1083,8 @@ CREATE SEQUENCE tbstatuspendencia_id_seq
 ALTER TABLE public.tbstatuspendencia_id_seq OWNER TO admin;
 
 --
--- TOC entry 2406 (class 0 OID 0)
--- Dependencies: 214
+-- TOC entry 2322 (class 0 OID 0)
+-- Dependencies: 207
 -- Name: tbstatuspendencia_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -1080,7 +1092,8 @@ ALTER SEQUENCE tbstatuspendencia_id_seq OWNED BY tbstatuspendencia.id;
 
 
 --
--- TOC entry 217 (class 1259 OID 72577)
+-- TOC entry 210 (class 1259 OID 5839907)
+-- Dependencies: 5
 -- Name: tbsubarea; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -1095,7 +1108,8 @@ CREATE TABLE tbsubarea (
 ALTER TABLE public.tbsubarea OWNER TO admin;
 
 --
--- TOC entry 216 (class 1259 OID 72575)
+-- TOC entry 209 (class 1259 OID 5839905)
+-- Dependencies: 210 5
 -- Name: tbsubarea_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -1110,8 +1124,8 @@ CREATE SEQUENCE tbsubarea_id_seq
 ALTER TABLE public.tbsubarea_id_seq OWNER TO admin;
 
 --
--- TOC entry 2407 (class 0 OID 0)
--- Dependencies: 216
+-- TOC entry 2323 (class 0 OID 0)
+-- Dependencies: 209
 -- Name: tbsubarea_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -1119,7 +1133,8 @@ ALTER SEQUENCE tbsubarea_id_seq OWNED BY tbsubarea.id;
 
 
 --
--- TOC entry 219 (class 1259 OID 72595)
+-- TOC entry 212 (class 1259 OID 5839925)
+-- Dependencies: 5
 -- Name: tbtipocaixa; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -1134,7 +1149,8 @@ CREATE TABLE tbtipocaixa (
 ALTER TABLE public.tbtipocaixa OWNER TO admin;
 
 --
--- TOC entry 218 (class 1259 OID 72593)
+-- TOC entry 211 (class 1259 OID 5839923)
+-- Dependencies: 5 212
 -- Name: tbtipocaixa_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -1149,8 +1165,8 @@ CREATE SEQUENCE tbtipocaixa_id_seq
 ALTER TABLE public.tbtipocaixa_id_seq OWNER TO admin;
 
 --
--- TOC entry 2408 (class 0 OID 0)
--- Dependencies: 218
+-- TOC entry 2324 (class 0 OID 0)
+-- Dependencies: 211
 -- Name: tbtipocaixa_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -1158,7 +1174,8 @@ ALTER SEQUENCE tbtipocaixa_id_seq OWNED BY tbtipocaixa.id;
 
 
 --
--- TOC entry 221 (class 1259 OID 72616)
+-- TOC entry 214 (class 1259 OID 5839946)
+-- Dependencies: 5
 -- Name: tbtipopendencia; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -1175,7 +1192,8 @@ CREATE TABLE tbtipopendencia (
 ALTER TABLE public.tbtipopendencia OWNER TO admin;
 
 --
--- TOC entry 220 (class 1259 OID 72614)
+-- TOC entry 213 (class 1259 OID 5839944)
+-- Dependencies: 214 5
 -- Name: tbtipopendencia_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -1190,8 +1208,8 @@ CREATE SEQUENCE tbtipopendencia_id_seq
 ALTER TABLE public.tbtipopendencia_id_seq OWNER TO admin;
 
 --
--- TOC entry 2409 (class 0 OID 0)
--- Dependencies: 220
+-- TOC entry 2325 (class 0 OID 0)
+-- Dependencies: 213
 -- Name: tbtipopendencia_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -1199,7 +1217,8 @@ ALTER SEQUENCE tbtipopendencia_id_seq OWNED BY tbtipopendencia.id;
 
 
 --
--- TOC entry 223 (class 1259 OID 72634)
+-- TOC entry 216 (class 1259 OID 5839964)
+-- Dependencies: 5
 -- Name: tbtipoprocesso; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -1215,7 +1234,8 @@ CREATE TABLE tbtipoprocesso (
 ALTER TABLE public.tbtipoprocesso OWNER TO admin;
 
 --
--- TOC entry 222 (class 1259 OID 72632)
+-- TOC entry 215 (class 1259 OID 5839962)
+-- Dependencies: 216 5
 -- Name: tbtipoprocesso_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -1230,8 +1250,8 @@ CREATE SEQUENCE tbtipoprocesso_id_seq
 ALTER TABLE public.tbtipoprocesso_id_seq OWNER TO admin;
 
 --
--- TOC entry 2410 (class 0 OID 0)
--- Dependencies: 222
+-- TOC entry 2326 (class 0 OID 0)
+-- Dependencies: 215
 -- Name: tbtipoprocesso_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -1239,7 +1259,8 @@ ALTER SEQUENCE tbtipoprocesso_id_seq OWNED BY tbtipoprocesso.id;
 
 
 --
--- TOC entry 225 (class 1259 OID 72657)
+-- TOC entry 218 (class 1259 OID 5839987)
+-- Dependencies: 5
 -- Name: tbuf; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -1253,7 +1274,8 @@ CREATE TABLE tbuf (
 ALTER TABLE public.tbuf OWNER TO admin;
 
 --
--- TOC entry 224 (class 1259 OID 72655)
+-- TOC entry 217 (class 1259 OID 5839985)
+-- Dependencies: 218 5
 -- Name: tbuf_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -1268,8 +1290,8 @@ CREATE SEQUENCE tbuf_id_seq
 ALTER TABLE public.tbuf_id_seq OWNER TO admin;
 
 --
--- TOC entry 2411 (class 0 OID 0)
--- Dependencies: 224
+-- TOC entry 2327 (class 0 OID 0)
+-- Dependencies: 217
 -- Name: tbuf_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -1277,7 +1299,8 @@ ALTER SEQUENCE tbuf_id_seq OWNED BY tbuf.id;
 
 
 --
--- TOC entry 2109 (class 2604 OID 72171)
+-- TOC entry 2085 (class 2604 OID 5839501)
+-- Dependencies: 164 165 165
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1285,7 +1308,8 @@ ALTER TABLE ONLY auth_user ALTER COLUMN id SET DEFAULT nextval('auth_user_id_seq
 
 
 --
--- TOC entry 2110 (class 2604 OID 72181)
+-- TOC entry 2086 (class 2604 OID 5839511)
+-- Dependencies: 167 166 167
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1293,7 +1317,8 @@ ALTER TABLE ONLY auth_user_groups ALTER COLUMN id SET DEFAULT nextval('auth_user
 
 
 --
--- TOC entry 2111 (class 2604 OID 72255)
+-- TOC entry 2087 (class 2604 OID 5839585)
+-- Dependencies: 173 174 174
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1301,7 +1326,8 @@ ALTER TABLE ONLY tbcaixa ALTER COLUMN id SET DEFAULT nextval('tbcaixa_id_seq'::r
 
 
 --
--- TOC entry 2112 (class 2604 OID 72263)
+-- TOC entry 2088 (class 2604 OID 5839593)
+-- Dependencies: 176 175 176
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1309,7 +1335,8 @@ ALTER TABLE ONLY tbclassificacaoprocesso ALTER COLUMN id SET DEFAULT nextval('tb
 
 
 --
--- TOC entry 2113 (class 2604 OID 72271)
+-- TOC entry 2089 (class 2604 OID 5839601)
+-- Dependencies: 177 178 178
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1317,7 +1344,8 @@ ALTER TABLE ONLY tbcontrato ALTER COLUMN id SET DEFAULT nextval('tbcontrato_id_s
 
 
 --
--- TOC entry 2114 (class 2604 OID 72279)
+-- TOC entry 2090 (class 2604 OID 5839609)
+-- Dependencies: 180 179 180
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1325,7 +1353,8 @@ ALTER TABLE ONLY tbdivisao ALTER COLUMN id SET DEFAULT nextval('tbdivisao_id_seq
 
 
 --
--- TOC entry 2115 (class 2604 OID 72305)
+-- TOC entry 2091 (class 2604 OID 5839635)
+-- Dependencies: 182 181 182
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1333,7 +1362,8 @@ ALTER TABLE ONLY tbgleba ALTER COLUMN id SET DEFAULT nextval('tbgleba_id_seq'::r
 
 
 --
--- TOC entry 2116 (class 2604 OID 72313)
+-- TOC entry 2092 (class 2604 OID 5839643)
+-- Dependencies: 184 183 184
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1341,7 +1371,8 @@ ALTER TABLE ONLY tbmovimentacao ALTER COLUMN id SET DEFAULT nextval('tbmovimenta
 
 
 --
--- TOC entry 2117 (class 2604 OID 72336)
+-- TOC entry 2093 (class 2604 OID 5839666)
+-- Dependencies: 186 185 186
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1349,7 +1380,8 @@ ALTER TABLE ONLY tbmunicipio ALTER COLUMN id SET DEFAULT nextval('tbmunicipio_id
 
 
 --
--- TOC entry 2118 (class 2604 OID 72344)
+-- TOC entry 2094 (class 2604 OID 5839674)
+-- Dependencies: 187 188 188
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1357,7 +1389,8 @@ ALTER TABLE ONLY tbpecastecnicas ALTER COLUMN id SET DEFAULT nextval('tbpecastec
 
 
 --
--- TOC entry 2119 (class 2604 OID 72375)
+-- TOC entry 2095 (class 2604 OID 5839705)
+-- Dependencies: 189 190 190
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1365,7 +1398,8 @@ ALTER TABLE ONLY tbpendencia ALTER COLUMN id SET DEFAULT nextval('tbpendencia_id
 
 
 --
--- TOC entry 2134 (class 2604 OID 72678)
+-- TOC entry 2110 (class 2604 OID 5840008)
+-- Dependencies: 220 219 220
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1373,7 +1407,8 @@ ALTER TABLE ONLY tbpregao ALTER COLUMN id SET DEFAULT nextval('tbpregao_id_seq':
 
 
 --
--- TOC entry 2120 (class 2604 OID 72391)
+-- TOC entry 2096 (class 2604 OID 5839721)
+-- Dependencies: 192 191 192
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1381,7 +1416,8 @@ ALTER TABLE ONLY tbprocessobase ALTER COLUMN id SET DEFAULT nextval('tbprocessob
 
 
 --
--- TOC entry 2121 (class 2604 OID 72439)
+-- TOC entry 2097 (class 2604 OID 5839769)
+-- Dependencies: 194 193 194
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1389,7 +1425,8 @@ ALTER TABLE ONLY tbprocessoclausula ALTER COLUMN id SET DEFAULT nextval('tbproce
 
 
 --
--- TOC entry 2122 (class 2604 OID 72455)
+-- TOC entry 2098 (class 2604 OID 5839785)
+-- Dependencies: 195 196 196
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1397,7 +1434,8 @@ ALTER TABLE ONLY tbprocessorural ALTER COLUMN id SET DEFAULT nextval('tbprocesso
 
 
 --
--- TOC entry 2123 (class 2604 OID 72468)
+-- TOC entry 2099 (class 2604 OID 5839798)
+-- Dependencies: 197 198 198
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1405,7 +1443,8 @@ ALTER TABLE ONLY tbprocessosanexos ALTER COLUMN id SET DEFAULT nextval('tbproces
 
 
 --
--- TOC entry 2124 (class 2604 OID 72491)
+-- TOC entry 2100 (class 2604 OID 5839821)
+-- Dependencies: 200 199 200
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1413,7 +1452,8 @@ ALTER TABLE ONLY tbprocessourbano ALTER COLUMN id SET DEFAULT nextval('tbprocess
 
 
 --
--- TOC entry 2125 (class 2604 OID 72509)
+-- TOC entry 2101 (class 2604 OID 5839839)
+-- Dependencies: 201 202 202
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1421,7 +1461,8 @@ ALTER TABLE ONLY tbservidor ALTER COLUMN id SET DEFAULT nextval('tbservidor_id_s
 
 
 --
--- TOC entry 2126 (class 2604 OID 72520)
+-- TOC entry 2102 (class 2604 OID 5839850)
+-- Dependencies: 204 203 204
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1429,7 +1470,8 @@ ALTER TABLE ONLY tbsituacaogeo ALTER COLUMN id SET DEFAULT nextval('tbsituacaoge
 
 
 --
--- TOC entry 2127 (class 2604 OID 72541)
+-- TOC entry 2103 (class 2604 OID 5839871)
+-- Dependencies: 205 206 206
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1437,7 +1479,8 @@ ALTER TABLE ONLY tbsituacaoprocesso ALTER COLUMN id SET DEFAULT nextval('tbsitua
 
 
 --
--- TOC entry 2128 (class 2604 OID 72562)
+-- TOC entry 2104 (class 2604 OID 5839892)
+-- Dependencies: 208 207 208
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1445,7 +1488,8 @@ ALTER TABLE ONLY tbstatuspendencia ALTER COLUMN id SET DEFAULT nextval('tbstatus
 
 
 --
--- TOC entry 2129 (class 2604 OID 72580)
+-- TOC entry 2105 (class 2604 OID 5839910)
+-- Dependencies: 209 210 210
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1453,7 +1497,8 @@ ALTER TABLE ONLY tbsubarea ALTER COLUMN id SET DEFAULT nextval('tbsubarea_id_seq
 
 
 --
--- TOC entry 2130 (class 2604 OID 72598)
+-- TOC entry 2106 (class 2604 OID 5839928)
+-- Dependencies: 212 211 212
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1461,7 +1506,8 @@ ALTER TABLE ONLY tbtipocaixa ALTER COLUMN id SET DEFAULT nextval('tbtipocaixa_id
 
 
 --
--- TOC entry 2131 (class 2604 OID 72619)
+-- TOC entry 2107 (class 2604 OID 5839949)
+-- Dependencies: 213 214 214
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1469,7 +1515,8 @@ ALTER TABLE ONLY tbtipopendencia ALTER COLUMN id SET DEFAULT nextval('tbtipopend
 
 
 --
--- TOC entry 2132 (class 2604 OID 72637)
+-- TOC entry 2108 (class 2604 OID 5839967)
+-- Dependencies: 216 215 216
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1477,7 +1524,8 @@ ALTER TABLE ONLY tbtipoprocesso ALTER COLUMN id SET DEFAULT nextval('tbtipoproce
 
 
 --
--- TOC entry 2133 (class 2604 OID 72660)
+-- TOC entry 2109 (class 2604 OID 5839990)
+-- Dependencies: 217 218 218
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1485,582 +1533,8 @@ ALTER TABLE ONLY tbuf ALTER COLUMN id SET DEFAULT nextval('tbuf_id_seq'::regclas
 
 
 --
--- TOC entry 2318 (class 0 OID 72139)
--- Dependencies: 168
--- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY auth_group (id, name) FROM stdin;
-\.
-
-
---
--- TOC entry 2319 (class 0 OID 72146)
--- Dependencies: 169
--- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY auth_group_permissions (id, group_id, permission_id) FROM stdin;
-\.
-
-
---
--- TOC entry 2320 (class 0 OID 72156)
--- Dependencies: 170
--- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
-\.
-
-
---
--- TOC entry 2322 (class 0 OID 72168)
--- Dependencies: 172
--- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY auth_user (password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, tbdivisao_id, id) FROM stdin;
-\.
-
-
---
--- TOC entry 2324 (class 0 OID 72178)
--- Dependencies: 174
--- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY auth_user_groups (id, user_id, group_id) FROM stdin;
-\.
-
-
---
--- TOC entry 2412 (class 0 OID 0)
--- Dependencies: 173
--- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('auth_user_groups_id_seq', 1, false);
-
-
---
--- TOC entry 2413 (class 0 OID 0)
--- Dependencies: 171
--- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('auth_user_id_seq', 1, false);
-
-
---
--- TOC entry 2325 (class 0 OID 72194)
--- Dependencies: 175
--- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
-\.
-
-
---
--- TOC entry 2326 (class 0 OID 72209)
--- Dependencies: 176
--- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY django_admin_log (id, action_time, user_id, content_type_id, object_id, object_repr, action_flag, change_message) FROM stdin;
-\.
-
-
---
--- TOC entry 2327 (class 0 OID 72222)
--- Dependencies: 177
--- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY django_content_type (id, name, app_label, model) FROM stdin;
-\.
-
-
---
--- TOC entry 2328 (class 0 OID 72237)
--- Dependencies: 178
--- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY django_session (session_key, session_data, expire_date) FROM stdin;
-mue4jzlj4463s8xp8qno3euahooryvdw	NWE5NmE2NTc3MWFkYTI5ODgyOGQ3OWE0ZjgxMzQwZmYzMTg0YmJhNDqAAn1xAS4=	2013-11-21 11:04:53.914-02
-\.
-
-
---
--- TOC entry 2329 (class 0 OID 72245)
--- Dependencies: 179
--- Data for Name: django_site; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY django_site (id, domain, name) FROM stdin;
-\.
-
-
---
--- TOC entry 2331 (class 0 OID 72252)
--- Dependencies: 181
--- Data for Name: tbcaixa; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY tbcaixa (nmlocalarquivo, tbtipocaixa_id, id) FROM stdin;
-\.
-
-
---
--- TOC entry 2414 (class 0 OID 0)
--- Dependencies: 180
--- Name: tbcaixa_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('tbcaixa_id_seq', 1, false);
-
-
---
--- TOC entry 2333 (class 0 OID 72260)
--- Dependencies: 183
--- Data for Name: tbclassificacaoprocesso; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY tbclassificacaoprocesso (nmclassificacao, tbdivisao_id, id) FROM stdin;
-\.
-
-
---
--- TOC entry 2415 (class 0 OID 0)
--- Dependencies: 182
--- Name: tbclassificacaoprocesso_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('tbclassificacaoprocesso_id_seq', 1, false);
-
-
---
--- TOC entry 2335 (class 0 OID 72268)
--- Dependencies: 185
--- Data for Name: tbcontrato; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY tbcontrato (nrcontrato, nmempresa, tbdivisao_id, id) FROM stdin;
-\.
-
-
---
--- TOC entry 2416 (class 0 OID 0)
--- Dependencies: 184
--- Name: tbcontrato_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('tbcontrato_id_seq', 1, false);
-
-
---
--- TOC entry 2337 (class 0 OID 72276)
--- Dependencies: 187
--- Data for Name: tbdivisao; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY tbdivisao (nmdivisao, dsdivisao, tbuf_id, id) FROM stdin;
-\.
-
-
---
--- TOC entry 2417 (class 0 OID 0)
--- Dependencies: 186
--- Name: tbdivisao_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('tbdivisao_id_seq', 1, false);
-
-
---
--- TOC entry 2339 (class 0 OID 72302)
--- Dependencies: 189
--- Data for Name: tbgleba; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY tbgleba (cdgleba, nmgleba, tbsubarea_id, id) FROM stdin;
-\.
-
-
---
--- TOC entry 2418 (class 0 OID 0)
--- Dependencies: 188
--- Name: tbgleba_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('tbgleba_id_seq', 1, false);
-
-
---
--- TOC entry 2341 (class 0 OID 72310)
--- Dependencies: 191
--- Data for Name: tbmovimentacao; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY tbmovimentacao (tbprocessobase_id, dtmovimentacao, tbcaixa_id_origem, tbcaixa_id, auth_user_id, nrdias, id) FROM stdin;
-\.
-
-
---
--- TOC entry 2419 (class 0 OID 0)
--- Dependencies: 190
--- Name: tbmovimentacao_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('tbmovimentacao_id_seq', 1, false);
-
-
---
--- TOC entry 2343 (class 0 OID 72333)
--- Dependencies: 193
--- Data for Name: tbmunicipio; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY tbmunicipio ("Nome_Mun_Maiusculo", "Nome_Mun", "Codigo_Mun", "Regiao", "Nome_Estado", "UF", "SR", "Codigo_UF", "Populacao", nrmodulofiscal, nrfracaominima, id) FROM stdin;
-\.
-
-
---
--- TOC entry 2420 (class 0 OID 0)
--- Dependencies: 192
--- Name: tbmunicipio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('tbmunicipio_id_seq', 1, false);
-
-
---
--- TOC entry 2345 (class 0 OID 72341)
--- Dependencies: 195
--- Data for Name: tbpecastecnicas; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY tbpecastecnicas (cdpeca, tbcontrato_id, nrentrega, nrcpfrequerente, nmrequerente, stenviadobrasilia, stpecatecnica, stanexadoprocesso, dsobservacao, tbcaixa_id, nrarea, nrperimetro, tbgleba_id, tbdivisao_id, id) FROM stdin;
-\.
-
-
---
--- TOC entry 2421 (class 0 OID 0)
--- Dependencies: 194
--- Name: tbpecastecnicas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('tbpecastecnicas_id_seq', 1, false);
-
-
---
--- TOC entry 2347 (class 0 OID 72372)
--- Dependencies: 197
--- Data for Name: tbpendencia; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY tbpendencia (nrcodigo, tbprocessobase_id, tbtipopendencia_id, dsdescricao, dtpendencia, auth_user_id, tbstatuspendencia_id, id) FROM stdin;
-\.
-
-
---
--- TOC entry 2422 (class 0 OID 0)
--- Dependencies: 196
--- Name: tbpendencia_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('tbpendencia_id_seq', 1, false);
-
-
---
--- TOC entry 2377 (class 0 OID 72675)
--- Dependencies: 227
--- Data for Name: tbpregao; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY tbpregao (nrpregao, dspregao, tbdivisao_id, id) FROM stdin;
-\.
-
-
---
--- TOC entry 2423 (class 0 OID 0)
--- Dependencies: 226
--- Name: tbpregao_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('tbpregao_id_seq', 1, false);
-
-
---
--- TOC entry 2349 (class 0 OID 72388)
--- Dependencies: 199
--- Data for Name: tbprocessobase; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY tbprocessobase (nrprocesso, tbgleba_id, tbcaixa_id, tbmunicipio_id, auth_user_id, tbtipoprocesso_id, tbsituacaoprocesso_id, dtcadastrosistema, tbclassificacaoprocesso_id, tbdivisao_id, id) FROM stdin;
-\.
-
-
---
--- TOC entry 2424 (class 0 OID 0)
--- Dependencies: 198
--- Name: tbprocessobase_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('tbprocessobase_id_seq', 1, false);
-
-
---
--- TOC entry 2351 (class 0 OID 72436)
--- Dependencies: 201
--- Data for Name: tbprocessoclausula; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY tbprocessoclausula (tbprocessobase_id, nmrequerente, nminteressado, nrcpfrequerente, nrcpfinteressado, nrarea, cdstatus, dsobs, stprocuracao, dttitulacao, id) FROM stdin;
-\.
-
-
---
--- TOC entry 2425 (class 0 OID 0)
--- Dependencies: 200
--- Name: tbprocessoclausula_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('tbprocessoclausula_id_seq', 1, false);
-
-
---
--- TOC entry 2353 (class 0 OID 72452)
--- Dependencies: 203
--- Data for Name: tbprocessorural; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY tbprocessorural (tbprocessobase_id, nmrequerente, nrcpfrequerente, blconjuge, cdstatus, nrcpfconjuge, nmconjuge, id) FROM stdin;
-\.
-
-
---
--- TOC entry 2426 (class 0 OID 0)
--- Dependencies: 202
--- Name: tbprocessorural_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('tbprocessorural_id_seq', 1, false);
-
-
---
--- TOC entry 2355 (class 0 OID 72465)
--- Dependencies: 205
--- Data for Name: tbprocessosanexos; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY tbprocessosanexos (tbprocessobase_id, tbprocessobase_id_anexo, dtanexado, auth_user_id, id) FROM stdin;
-\.
-
-
---
--- TOC entry 2427 (class 0 OID 0)
--- Dependencies: 204
--- Name: tbprocessosanexos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('tbprocessosanexos_id_seq', 1, false);
-
-
---
--- TOC entry 2357 (class 0 OID 72488)
--- Dependencies: 207
--- Data for Name: tbprocessourbano; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY tbprocessourbano (tbprocessobase_id, nmpovoado, nrcnpj, dtaberturaprocesso, dttitulacao, nrarea, nrperimetro, nrdomicilios, nrhabitantes, tbpregao_id, tbcontrato_id, tbsituacaogeo_id, dsprojetoassentamento, id) FROM stdin;
-\.
-
-
---
--- TOC entry 2428 (class 0 OID 0)
--- Dependencies: 206
--- Name: tbprocessourbano_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('tbprocessourbano_id_seq', 1, false);
-
-
---
--- TOC entry 2359 (class 0 OID 72506)
--- Dependencies: 209
--- Data for Name: tbservidor; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY tbservidor (nmservidor, nmunidade, nmlotacao, cdsiape, nrcpf, dsportariacargo, dsportaria, nmcargo, nrtelefone1, nrtelefone2, email, dsatividades, id) FROM stdin;
-\.
-
-
---
--- TOC entry 2429 (class 0 OID 0)
--- Dependencies: 208
--- Name: tbservidor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('tbservidor_id_seq', 1, false);
-
-
---
--- TOC entry 2361 (class 0 OID 72517)
--- Dependencies: 211
--- Data for Name: tbsituacaogeo; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY tbsituacaogeo (nmsituacaogeo, dssituacaogeo, tbdivisao_id, id) FROM stdin;
-\.
-
-
---
--- TOC entry 2430 (class 0 OID 0)
--- Dependencies: 210
--- Name: tbsituacaogeo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('tbsituacaogeo_id_seq', 1, false);
-
-
---
--- TOC entry 2363 (class 0 OID 72538)
--- Dependencies: 213
--- Data for Name: tbsituacaoprocesso; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY tbsituacaoprocesso (nmsituacao, dssituacao, tbdivisao_id, id) FROM stdin;
-\.
-
-
---
--- TOC entry 2431 (class 0 OID 0)
--- Dependencies: 212
--- Name: tbsituacaoprocesso_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('tbsituacaoprocesso_id_seq', 1, false);
-
-
---
--- TOC entry 2365 (class 0 OID 72559)
--- Dependencies: 215
--- Data for Name: tbstatuspendencia; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY tbstatuspendencia (stpendencia, dspendencia, tbdivisao_id, id) FROM stdin;
-\.
-
-
---
--- TOC entry 2432 (class 0 OID 0)
--- Dependencies: 214
--- Name: tbstatuspendencia_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('tbstatuspendencia_id_seq', 1, false);
-
-
---
--- TOC entry 2367 (class 0 OID 72577)
--- Dependencies: 217
--- Data for Name: tbsubarea; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY tbsubarea (cdsubarea, nmsubarea, tbdivisao_id, id) FROM stdin;
-\.
-
-
---
--- TOC entry 2433 (class 0 OID 0)
--- Dependencies: 216
--- Name: tbsubarea_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('tbsubarea_id_seq', 1, false);
-
-
---
--- TOC entry 2369 (class 0 OID 72595)
--- Dependencies: 219
--- Data for Name: tbtipocaixa; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY tbtipocaixa (nmtipocaixa, desctipocaixa, tbdivisao_id, id) FROM stdin;
-\.
-
-
---
--- TOC entry 2434 (class 0 OID 0)
--- Dependencies: 218
--- Name: tbtipocaixa_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('tbtipocaixa_id_seq', 1, false);
-
-
---
--- TOC entry 2371 (class 0 OID 72616)
--- Dependencies: 221
--- Data for Name: tbtipopendencia; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY tbtipopendencia (cdtipopend, dspendencia, cdgrupo, tbdivisao_id, tbtipoprocesso_id, id) FROM stdin;
-\.
-
-
---
--- TOC entry 2435 (class 0 OID 0)
--- Dependencies: 220
--- Name: tbtipopendencia_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('tbtipopendencia_id_seq', 1, false);
-
-
---
--- TOC entry 2373 (class 0 OID 72634)
--- Dependencies: 223
--- Data for Name: tbtipoprocesso; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY tbtipoprocesso (nome, tabela, coridentificacao, tbdivisao_id, id) FROM stdin;
-\.
-
-
---
--- TOC entry 2436 (class 0 OID 0)
--- Dependencies: 222
--- Name: tbtipoprocesso_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('tbtipoprocesso_id_seq', 1, false);
-
-
---
--- TOC entry 2375 (class 0 OID 72657)
--- Dependencies: 225
--- Data for Name: tbuf; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY tbuf (sigla, nmuf, id) FROM stdin;
-\.
-
-
---
--- TOC entry 2437 (class 0 OID 0)
--- Dependencies: 224
--- Name: tbuf_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('tbuf_id_seq', 1, false);
-
-
---
--- TOC entry 2136 (class 2606 OID 72145)
+-- TOC entry 2112 (class 2606 OID 5839475)
+-- Dependencies: 161 161 2295
 -- Name: auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2069,7 +1543,8 @@ ALTER TABLE ONLY auth_group
 
 
 --
--- TOC entry 2143 (class 2606 OID 72150)
+-- TOC entry 2119 (class 2606 OID 5839480)
+-- Dependencies: 162 162 2295
 -- Name: auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2078,7 +1553,8 @@ ALTER TABLE ONLY auth_group_permissions
 
 
 --
--- TOC entry 2139 (class 2606 OID 72143)
+-- TOC entry 2115 (class 2606 OID 5839473)
+-- Dependencies: 161 161 2295
 -- Name: auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2087,7 +1563,8 @@ ALTER TABLE ONLY auth_group
 
 
 --
--- TOC entry 2146 (class 2606 OID 72160)
+-- TOC entry 2122 (class 2606 OID 5839490)
+-- Dependencies: 163 163 2295
 -- Name: auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2096,7 +1573,8 @@ ALTER TABLE ONLY auth_permission
 
 
 --
--- TOC entry 2155 (class 2606 OID 72183)
+-- TOC entry 2131 (class 2606 OID 5839513)
+-- Dependencies: 167 167 2295
 -- Name: auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2105,7 +1583,8 @@ ALTER TABLE ONLY auth_user_groups
 
 
 --
--- TOC entry 2148 (class 2606 OID 72173)
+-- TOC entry 2124 (class 2606 OID 5839503)
+-- Dependencies: 165 165 2295
 -- Name: auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2114,7 +1593,8 @@ ALTER TABLE ONLY auth_user
 
 
 --
--- TOC entry 2159 (class 2606 OID 72198)
+-- TOC entry 2135 (class 2606 OID 5839528)
+-- Dependencies: 168 168 2295
 -- Name: auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2123,7 +1603,8 @@ ALTER TABLE ONLY auth_user_user_permissions
 
 
 --
--- TOC entry 2151 (class 2606 OID 72175)
+-- TOC entry 2127 (class 2606 OID 5839505)
+-- Dependencies: 165 165 2295
 -- Name: auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2132,7 +1613,8 @@ ALTER TABLE ONLY auth_user
 
 
 --
--- TOC entry 2163 (class 2606 OID 72216)
+-- TOC entry 2139 (class 2606 OID 5839546)
+-- Dependencies: 169 169 2295
 -- Name: django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2141,7 +1623,8 @@ ALTER TABLE ONLY django_admin_log
 
 
 --
--- TOC entry 2166 (class 2606 OID 72226)
+-- TOC entry 2142 (class 2606 OID 5839556)
+-- Dependencies: 170 170 2295
 -- Name: django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2150,7 +1633,8 @@ ALTER TABLE ONLY django_content_type
 
 
 --
--- TOC entry 2168 (class 2606 OID 72244)
+-- TOC entry 2144 (class 2606 OID 5839574)
+-- Dependencies: 171 171 2295
 -- Name: django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2159,7 +1643,8 @@ ALTER TABLE ONLY django_session
 
 
 --
--- TOC entry 2171 (class 2606 OID 72249)
+-- TOC entry 2147 (class 2606 OID 5839579)
+-- Dependencies: 172 172 2295
 -- Name: django_site_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2168,7 +1653,8 @@ ALTER TABLE ONLY django_site
 
 
 --
--- TOC entry 2173 (class 2606 OID 72257)
+-- TOC entry 2149 (class 2606 OID 5839587)
+-- Dependencies: 174 174 2295
 -- Name: tbcaixa_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2177,7 +1663,8 @@ ALTER TABLE ONLY tbcaixa
 
 
 --
--- TOC entry 2176 (class 2606 OID 72265)
+-- TOC entry 2152 (class 2606 OID 5839595)
+-- Dependencies: 176 176 2295
 -- Name: tbclassificacaoprocesso_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2186,7 +1673,8 @@ ALTER TABLE ONLY tbclassificacaoprocesso
 
 
 --
--- TOC entry 2179 (class 2606 OID 72273)
+-- TOC entry 2155 (class 2606 OID 5839603)
+-- Dependencies: 178 178 2295
 -- Name: tbcontrato_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2195,7 +1683,8 @@ ALTER TABLE ONLY tbcontrato
 
 
 --
--- TOC entry 2182 (class 2606 OID 72284)
+-- TOC entry 2158 (class 2606 OID 5839614)
+-- Dependencies: 180 180 2295
 -- Name: tbdivisao_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2204,7 +1693,8 @@ ALTER TABLE ONLY tbdivisao
 
 
 --
--- TOC entry 2185 (class 2606 OID 72307)
+-- TOC entry 2161 (class 2606 OID 5839637)
+-- Dependencies: 182 182 2295
 -- Name: tbgleba_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2213,7 +1703,8 @@ ALTER TABLE ONLY tbgleba
 
 
 --
--- TOC entry 2189 (class 2606 OID 72315)
+-- TOC entry 2165 (class 2606 OID 5839645)
+-- Dependencies: 184 184 2295
 -- Name: tbmovimentacao_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2222,7 +1713,8 @@ ALTER TABLE ONLY tbmovimentacao
 
 
 --
--- TOC entry 2195 (class 2606 OID 72338)
+-- TOC entry 2171 (class 2606 OID 5839668)
+-- Dependencies: 186 186 2295
 -- Name: tbmunicipio_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2231,7 +1723,8 @@ ALTER TABLE ONLY tbmunicipio
 
 
 --
--- TOC entry 2197 (class 2606 OID 72349)
+-- TOC entry 2173 (class 2606 OID 5839679)
+-- Dependencies: 188 188 2295
 -- Name: tbpecastecnicas_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2240,7 +1733,8 @@ ALTER TABLE ONLY tbpecastecnicas
 
 
 --
--- TOC entry 2204 (class 2606 OID 72380)
+-- TOC entry 2180 (class 2606 OID 5839710)
+-- Dependencies: 190 190 2295
 -- Name: tbpendencia_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2249,7 +1743,8 @@ ALTER TABLE ONLY tbpendencia
 
 
 --
--- TOC entry 2262 (class 2606 OID 72683)
+-- TOC entry 2238 (class 2606 OID 5840013)
+-- Dependencies: 220 220 2295
 -- Name: tbpregao_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2258,7 +1753,8 @@ ALTER TABLE ONLY tbpregao
 
 
 --
--- TOC entry 2210 (class 2606 OID 72393)
+-- TOC entry 2186 (class 2606 OID 5839723)
+-- Dependencies: 192 192 2295
 -- Name: tbprocessobase_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2267,7 +1763,8 @@ ALTER TABLE ONLY tbprocessobase
 
 
 --
--- TOC entry 2219 (class 2606 OID 72444)
+-- TOC entry 2195 (class 2606 OID 5839774)
+-- Dependencies: 194 194 2295
 -- Name: tbprocessoclausula_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2276,7 +1773,8 @@ ALTER TABLE ONLY tbprocessoclausula
 
 
 --
--- TOC entry 2222 (class 2606 OID 72457)
+-- TOC entry 2198 (class 2606 OID 5839787)
+-- Dependencies: 196 196 2295
 -- Name: tbprocessorural_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2285,7 +1783,8 @@ ALTER TABLE ONLY tbprocessorural
 
 
 --
--- TOC entry 2226 (class 2606 OID 72470)
+-- TOC entry 2202 (class 2606 OID 5839800)
+-- Dependencies: 198 198 2295
 -- Name: tbprocessosanexos_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2294,7 +1793,8 @@ ALTER TABLE ONLY tbprocessosanexos
 
 
 --
--- TOC entry 2230 (class 2606 OID 72493)
+-- TOC entry 2206 (class 2606 OID 5839823)
+-- Dependencies: 200 200 2295
 -- Name: tbprocessourbano_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2303,7 +1803,8 @@ ALTER TABLE ONLY tbprocessourbano
 
 
 --
--- TOC entry 2236 (class 2606 OID 72514)
+-- TOC entry 2212 (class 2606 OID 5839844)
+-- Dependencies: 202 202 2295
 -- Name: tbservidor_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2312,7 +1813,8 @@ ALTER TABLE ONLY tbservidor
 
 
 --
--- TOC entry 2238 (class 2606 OID 72525)
+-- TOC entry 2214 (class 2606 OID 5839855)
+-- Dependencies: 204 204 2295
 -- Name: tbsituacaogeo_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2321,7 +1823,8 @@ ALTER TABLE ONLY tbsituacaogeo
 
 
 --
--- TOC entry 2241 (class 2606 OID 72546)
+-- TOC entry 2217 (class 2606 OID 5839876)
+-- Dependencies: 206 206 2295
 -- Name: tbsituacaoprocesso_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2330,7 +1833,8 @@ ALTER TABLE ONLY tbsituacaoprocesso
 
 
 --
--- TOC entry 2244 (class 2606 OID 72564)
+-- TOC entry 2220 (class 2606 OID 5839894)
+-- Dependencies: 208 208 2295
 -- Name: tbstatuspendencia_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2339,7 +1843,8 @@ ALTER TABLE ONLY tbstatuspendencia
 
 
 --
--- TOC entry 2247 (class 2606 OID 72582)
+-- TOC entry 2223 (class 2606 OID 5839912)
+-- Dependencies: 210 210 2295
 -- Name: tbsubarea_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2348,7 +1853,8 @@ ALTER TABLE ONLY tbsubarea
 
 
 --
--- TOC entry 2250 (class 2606 OID 72603)
+-- TOC entry 2226 (class 2606 OID 5839933)
+-- Dependencies: 212 212 2295
 -- Name: tbtipocaixa_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2357,7 +1863,8 @@ ALTER TABLE ONLY tbtipocaixa
 
 
 --
--- TOC entry 2253 (class 2606 OID 72621)
+-- TOC entry 2229 (class 2606 OID 5839951)
+-- Dependencies: 214 214 2295
 -- Name: tbtipopendencia_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2366,7 +1873,8 @@ ALTER TABLE ONLY tbtipopendencia
 
 
 --
--- TOC entry 2257 (class 2606 OID 72639)
+-- TOC entry 2233 (class 2606 OID 5839969)
+-- Dependencies: 216 216 2295
 -- Name: tbtipoprocesso_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2375,7 +1883,8 @@ ALTER TABLE ONLY tbtipoprocesso
 
 
 --
--- TOC entry 2260 (class 2606 OID 72662)
+-- TOC entry 2236 (class 2606 OID 5839992)
+-- Dependencies: 218 218 2295
 -- Name: tbuf_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2384,7 +1893,8 @@ ALTER TABLE ONLY tbuf
 
 
 --
--- TOC entry 2137 (class 1259 OID 72694)
+-- TOC entry 2113 (class 1259 OID 5840024)
+-- Dependencies: 161 2295
 -- Name: auth_group_name_like; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2392,7 +1902,8 @@ CREATE INDEX auth_group_name_like ON auth_group USING btree (name varchar_patter
 
 
 --
--- TOC entry 2140 (class 1259 OID 72695)
+-- TOC entry 2116 (class 1259 OID 5840025)
+-- Dependencies: 162 2295
 -- Name: auth_group_permissions_group_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2400,7 +1911,8 @@ CREATE INDEX auth_group_permissions_group_id ON auth_group_permissions USING btr
 
 
 --
--- TOC entry 2141 (class 1259 OID 72696)
+-- TOC entry 2117 (class 1259 OID 5840026)
+-- Dependencies: 162 2295
 -- Name: auth_group_permissions_permission_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2408,7 +1920,8 @@ CREATE INDEX auth_group_permissions_permission_id ON auth_group_permissions USIN
 
 
 --
--- TOC entry 2144 (class 1259 OID 72697)
+-- TOC entry 2120 (class 1259 OID 5840027)
+-- Dependencies: 163 2295
 -- Name: auth_permission_content_type_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2416,7 +1929,8 @@ CREATE INDEX auth_permission_content_type_id ON auth_permission USING btree (con
 
 
 --
--- TOC entry 2153 (class 1259 OID 72701)
+-- TOC entry 2129 (class 1259 OID 5840031)
+-- Dependencies: 167 2295
 -- Name: auth_user_groups_group_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2424,7 +1938,8 @@ CREATE INDEX auth_user_groups_group_id ON auth_user_groups USING btree (group_id
 
 
 --
--- TOC entry 2156 (class 1259 OID 72700)
+-- TOC entry 2132 (class 1259 OID 5840030)
+-- Dependencies: 167 2295
 -- Name: auth_user_groups_user_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2432,7 +1947,8 @@ CREATE INDEX auth_user_groups_user_id ON auth_user_groups USING btree (user_id);
 
 
 --
--- TOC entry 2149 (class 1259 OID 72699)
+-- TOC entry 2125 (class 1259 OID 5840029)
+-- Dependencies: 165 2295
 -- Name: auth_user_tbdivisao_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2440,7 +1956,8 @@ CREATE INDEX auth_user_tbdivisao_id ON auth_user USING btree (tbdivisao_id);
 
 
 --
--- TOC entry 2157 (class 1259 OID 72703)
+-- TOC entry 2133 (class 1259 OID 5840033)
+-- Dependencies: 168 2295
 -- Name: auth_user_user_permissions_permission_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2448,7 +1965,8 @@ CREATE INDEX auth_user_user_permissions_permission_id ON auth_user_user_permissi
 
 
 --
--- TOC entry 2160 (class 1259 OID 72702)
+-- TOC entry 2136 (class 1259 OID 5840032)
+-- Dependencies: 168 2295
 -- Name: auth_user_user_permissions_user_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2456,7 +1974,8 @@ CREATE INDEX auth_user_user_permissions_user_id ON auth_user_user_permissions US
 
 
 --
--- TOC entry 2152 (class 1259 OID 72698)
+-- TOC entry 2128 (class 1259 OID 5840028)
+-- Dependencies: 165 2295
 -- Name: auth_user_username_like; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2464,7 +1983,8 @@ CREATE INDEX auth_user_username_like ON auth_user USING btree (username varchar_
 
 
 --
--- TOC entry 2161 (class 1259 OID 72705)
+-- TOC entry 2137 (class 1259 OID 5840035)
+-- Dependencies: 169 2295
 -- Name: django_admin_log_content_type_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2472,7 +1992,8 @@ CREATE INDEX django_admin_log_content_type_id ON django_admin_log USING btree (c
 
 
 --
--- TOC entry 2164 (class 1259 OID 72704)
+-- TOC entry 2140 (class 1259 OID 5840034)
+-- Dependencies: 169 2295
 -- Name: django_admin_log_user_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2480,7 +2001,8 @@ CREATE INDEX django_admin_log_user_id ON django_admin_log USING btree (user_id);
 
 
 --
--- TOC entry 2169 (class 1259 OID 72706)
+-- TOC entry 2145 (class 1259 OID 5840036)
+-- Dependencies: 171 2295
 -- Name: django_session_session_key_like; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2488,7 +2010,8 @@ CREATE INDEX django_session_session_key_like ON django_session USING btree (sess
 
 
 --
--- TOC entry 2174 (class 1259 OID 72707)
+-- TOC entry 2150 (class 1259 OID 5840037)
+-- Dependencies: 174 2295
 -- Name: tbcaixa_tbtipocaixa_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2496,7 +2019,8 @@ CREATE INDEX tbcaixa_tbtipocaixa_id ON tbcaixa USING btree (tbtipocaixa_id);
 
 
 --
--- TOC entry 2177 (class 1259 OID 72708)
+-- TOC entry 2153 (class 1259 OID 5840038)
+-- Dependencies: 176 2295
 -- Name: tbclassificacaoprocesso_tbdivisao_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2504,7 +2028,8 @@ CREATE INDEX tbclassificacaoprocesso_tbdivisao_id ON tbclassificacaoprocesso USI
 
 
 --
--- TOC entry 2180 (class 1259 OID 72709)
+-- TOC entry 2156 (class 1259 OID 5840039)
+-- Dependencies: 178 2295
 -- Name: tbcontrato_tbdivisao_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2512,7 +2037,8 @@ CREATE INDEX tbcontrato_tbdivisao_id ON tbcontrato USING btree (tbdivisao_id);
 
 
 --
--- TOC entry 2183 (class 1259 OID 72710)
+-- TOC entry 2159 (class 1259 OID 5840040)
+-- Dependencies: 180 2295
 -- Name: tbdivisao_tbuf_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2520,7 +2046,8 @@ CREATE INDEX tbdivisao_tbuf_id ON tbdivisao USING btree (tbuf_id);
 
 
 --
--- TOC entry 2186 (class 1259 OID 72711)
+-- TOC entry 2162 (class 1259 OID 5840041)
+-- Dependencies: 182 2295
 -- Name: tbgleba_tbsubarea_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2528,7 +2055,8 @@ CREATE INDEX tbgleba_tbsubarea_id ON tbgleba USING btree (tbsubarea_id);
 
 
 --
--- TOC entry 2187 (class 1259 OID 72715)
+-- TOC entry 2163 (class 1259 OID 5840045)
+-- Dependencies: 184 2295
 -- Name: tbmovimentacao_auth_user_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2536,7 +2064,8 @@ CREATE INDEX tbmovimentacao_auth_user_id ON tbmovimentacao USING btree (auth_use
 
 
 --
--- TOC entry 2190 (class 1259 OID 72714)
+-- TOC entry 2166 (class 1259 OID 5840044)
+-- Dependencies: 184 2295
 -- Name: tbmovimentacao_tbcaixa_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2544,7 +2073,8 @@ CREATE INDEX tbmovimentacao_tbcaixa_id ON tbmovimentacao USING btree (tbcaixa_id
 
 
 --
--- TOC entry 2191 (class 1259 OID 72713)
+-- TOC entry 2167 (class 1259 OID 5840043)
+-- Dependencies: 184 2295
 -- Name: tbmovimentacao_tbcaixa_id_origem; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2552,7 +2082,8 @@ CREATE INDEX tbmovimentacao_tbcaixa_id_origem ON tbmovimentacao USING btree (tbc
 
 
 --
--- TOC entry 2192 (class 1259 OID 72712)
+-- TOC entry 2168 (class 1259 OID 5840042)
+-- Dependencies: 184 2295
 -- Name: tbmovimentacao_tbprocessobase_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2560,7 +2091,8 @@ CREATE INDEX tbmovimentacao_tbprocessobase_id ON tbmovimentacao USING btree (tbp
 
 
 --
--- TOC entry 2193 (class 1259 OID 72716)
+-- TOC entry 2169 (class 1259 OID 5840046)
+-- Dependencies: 186 2295
 -- Name: tbmunicipio_Codigo_UF; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2568,7 +2100,8 @@ CREATE INDEX "tbmunicipio_Codigo_UF" ON tbmunicipio USING btree ("Codigo_UF");
 
 
 --
--- TOC entry 2198 (class 1259 OID 72718)
+-- TOC entry 2174 (class 1259 OID 5840048)
+-- Dependencies: 188 2295
 -- Name: tbpecastecnicas_tbcaixa_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2576,7 +2109,8 @@ CREATE INDEX tbpecastecnicas_tbcaixa_id ON tbpecastecnicas USING btree (tbcaixa_
 
 
 --
--- TOC entry 2199 (class 1259 OID 72717)
+-- TOC entry 2175 (class 1259 OID 5840047)
+-- Dependencies: 188 2295
 -- Name: tbpecastecnicas_tbcontrato_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2584,7 +2118,8 @@ CREATE INDEX tbpecastecnicas_tbcontrato_id ON tbpecastecnicas USING btree (tbcon
 
 
 --
--- TOC entry 2200 (class 1259 OID 72720)
+-- TOC entry 2176 (class 1259 OID 5840050)
+-- Dependencies: 188 2295
 -- Name: tbpecastecnicas_tbdivisao_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2592,7 +2127,8 @@ CREATE INDEX tbpecastecnicas_tbdivisao_id ON tbpecastecnicas USING btree (tbdivi
 
 
 --
--- TOC entry 2201 (class 1259 OID 72719)
+-- TOC entry 2177 (class 1259 OID 5840049)
+-- Dependencies: 188 2295
 -- Name: tbpecastecnicas_tbgleba_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2600,7 +2136,8 @@ CREATE INDEX tbpecastecnicas_tbgleba_id ON tbpecastecnicas USING btree (tbgleba_
 
 
 --
--- TOC entry 2202 (class 1259 OID 72723)
+-- TOC entry 2178 (class 1259 OID 5840053)
+-- Dependencies: 190 2295
 -- Name: tbpendencia_auth_user_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2608,7 +2145,8 @@ CREATE INDEX tbpendencia_auth_user_id ON tbpendencia USING btree (auth_user_id);
 
 
 --
--- TOC entry 2205 (class 1259 OID 72721)
+-- TOC entry 2181 (class 1259 OID 5840051)
+-- Dependencies: 190 2295
 -- Name: tbpendencia_tbprocessobase_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2616,7 +2154,8 @@ CREATE INDEX tbpendencia_tbprocessobase_id ON tbpendencia USING btree (tbprocess
 
 
 --
--- TOC entry 2206 (class 1259 OID 72724)
+-- TOC entry 2182 (class 1259 OID 5840054)
+-- Dependencies: 190 2295
 -- Name: tbpendencia_tbstatuspendencia_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2624,7 +2163,8 @@ CREATE INDEX tbpendencia_tbstatuspendencia_id ON tbpendencia USING btree (tbstat
 
 
 --
--- TOC entry 2207 (class 1259 OID 72722)
+-- TOC entry 2183 (class 1259 OID 5840052)
+-- Dependencies: 190 2295
 -- Name: tbpendencia_tbtipopendencia_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2632,7 +2172,8 @@ CREATE INDEX tbpendencia_tbtipopendencia_id ON tbpendencia USING btree (tbtipope
 
 
 --
--- TOC entry 2263 (class 1259 OID 72750)
+-- TOC entry 2239 (class 1259 OID 5840080)
+-- Dependencies: 220 2295
 -- Name: tbpregao_tbdivisao_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2640,7 +2181,8 @@ CREATE INDEX tbpregao_tbdivisao_id ON tbpregao USING btree (tbdivisao_id);
 
 
 --
--- TOC entry 2208 (class 1259 OID 72728)
+-- TOC entry 2184 (class 1259 OID 5840058)
+-- Dependencies: 192 2295
 -- Name: tbprocessobase_auth_user_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2648,7 +2190,8 @@ CREATE INDEX tbprocessobase_auth_user_id ON tbprocessobase USING btree (auth_use
 
 
 --
--- TOC entry 2211 (class 1259 OID 72726)
+-- TOC entry 2187 (class 1259 OID 5840056)
+-- Dependencies: 192 2295
 -- Name: tbprocessobase_tbcaixa_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2656,7 +2199,8 @@ CREATE INDEX tbprocessobase_tbcaixa_id ON tbprocessobase USING btree (tbcaixa_id
 
 
 --
--- TOC entry 2212 (class 1259 OID 72731)
+-- TOC entry 2188 (class 1259 OID 5840061)
+-- Dependencies: 192 2295
 -- Name: tbprocessobase_tbclassificacaoprocesso_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2664,7 +2208,8 @@ CREATE INDEX tbprocessobase_tbclassificacaoprocesso_id ON tbprocessobase USING b
 
 
 --
--- TOC entry 2213 (class 1259 OID 72732)
+-- TOC entry 2189 (class 1259 OID 5840062)
+-- Dependencies: 192 2295
 -- Name: tbprocessobase_tbdivisao_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2672,7 +2217,8 @@ CREATE INDEX tbprocessobase_tbdivisao_id ON tbprocessobase USING btree (tbdivisa
 
 
 --
--- TOC entry 2214 (class 1259 OID 72725)
+-- TOC entry 2190 (class 1259 OID 5840055)
+-- Dependencies: 192 2295
 -- Name: tbprocessobase_tbgleba_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2680,7 +2226,8 @@ CREATE INDEX tbprocessobase_tbgleba_id ON tbprocessobase USING btree (tbgleba_id
 
 
 --
--- TOC entry 2215 (class 1259 OID 72727)
+-- TOC entry 2191 (class 1259 OID 5840057)
+-- Dependencies: 192 2295
 -- Name: tbprocessobase_tbmunicipio_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2688,7 +2235,8 @@ CREATE INDEX tbprocessobase_tbmunicipio_id ON tbprocessobase USING btree (tbmuni
 
 
 --
--- TOC entry 2216 (class 1259 OID 72730)
+-- TOC entry 2192 (class 1259 OID 5840060)
+-- Dependencies: 192 2295
 -- Name: tbprocessobase_tbsituacaoprocesso_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2696,7 +2244,8 @@ CREATE INDEX tbprocessobase_tbsituacaoprocesso_id ON tbprocessobase USING btree 
 
 
 --
--- TOC entry 2217 (class 1259 OID 72729)
+-- TOC entry 2193 (class 1259 OID 5840059)
+-- Dependencies: 192 2295
 -- Name: tbprocessobase_tbtipoprocesso_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2704,7 +2253,8 @@ CREATE INDEX tbprocessobase_tbtipoprocesso_id ON tbprocessobase USING btree (tbt
 
 
 --
--- TOC entry 2220 (class 1259 OID 72733)
+-- TOC entry 2196 (class 1259 OID 5840063)
+-- Dependencies: 194 2295
 -- Name: tbprocessoclausula_tbprocessobase_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2712,7 +2262,8 @@ CREATE INDEX tbprocessoclausula_tbprocessobase_id ON tbprocessoclausula USING bt
 
 
 --
--- TOC entry 2223 (class 1259 OID 72734)
+-- TOC entry 2199 (class 1259 OID 5840064)
+-- Dependencies: 196 2295
 -- Name: tbprocessorural_tbprocessobase_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2720,7 +2271,8 @@ CREATE INDEX tbprocessorural_tbprocessobase_id ON tbprocessorural USING btree (t
 
 
 --
--- TOC entry 2224 (class 1259 OID 72737)
+-- TOC entry 2200 (class 1259 OID 5840067)
+-- Dependencies: 198 2295
 -- Name: tbprocessosanexos_auth_user_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2728,7 +2280,8 @@ CREATE INDEX tbprocessosanexos_auth_user_id ON tbprocessosanexos USING btree (au
 
 
 --
--- TOC entry 2227 (class 1259 OID 72735)
+-- TOC entry 2203 (class 1259 OID 5840065)
+-- Dependencies: 198 2295
 -- Name: tbprocessosanexos_tbprocessobase_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2736,7 +2289,8 @@ CREATE INDEX tbprocessosanexos_tbprocessobase_id ON tbprocessosanexos USING btre
 
 
 --
--- TOC entry 2228 (class 1259 OID 72736)
+-- TOC entry 2204 (class 1259 OID 5840066)
+-- Dependencies: 198 2295
 -- Name: tbprocessosanexos_tbprocessobase_id_anexo; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2744,7 +2298,8 @@ CREATE INDEX tbprocessosanexos_tbprocessobase_id_anexo ON tbprocessosanexos USIN
 
 
 --
--- TOC entry 2231 (class 1259 OID 72740)
+-- TOC entry 2207 (class 1259 OID 5840070)
+-- Dependencies: 200 2295
 -- Name: tbprocessourbano_tbcontrato_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2752,7 +2307,8 @@ CREATE INDEX tbprocessourbano_tbcontrato_id ON tbprocessourbano USING btree (tbc
 
 
 --
--- TOC entry 2232 (class 1259 OID 72739)
+-- TOC entry 2208 (class 1259 OID 5840069)
+-- Dependencies: 200 2295
 -- Name: tbprocessourbano_tbpregao_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2760,7 +2316,8 @@ CREATE INDEX tbprocessourbano_tbpregao_id ON tbprocessourbano USING btree (tbpre
 
 
 --
--- TOC entry 2233 (class 1259 OID 72738)
+-- TOC entry 2209 (class 1259 OID 5840068)
+-- Dependencies: 200 2295
 -- Name: tbprocessourbano_tbprocessobase_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2768,7 +2325,8 @@ CREATE INDEX tbprocessourbano_tbprocessobase_id ON tbprocessourbano USING btree 
 
 
 --
--- TOC entry 2234 (class 1259 OID 72741)
+-- TOC entry 2210 (class 1259 OID 5840071)
+-- Dependencies: 200 2295
 -- Name: tbprocessourbano_tbsituacaogeo_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2776,7 +2334,8 @@ CREATE INDEX tbprocessourbano_tbsituacaogeo_id ON tbprocessourbano USING btree (
 
 
 --
--- TOC entry 2239 (class 1259 OID 72742)
+-- TOC entry 2215 (class 1259 OID 5840072)
+-- Dependencies: 204 2295
 -- Name: tbsituacaogeo_tbdivisao_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2784,7 +2343,8 @@ CREATE INDEX tbsituacaogeo_tbdivisao_id ON tbsituacaogeo USING btree (tbdivisao_
 
 
 --
--- TOC entry 2242 (class 1259 OID 72743)
+-- TOC entry 2218 (class 1259 OID 5840073)
+-- Dependencies: 206 2295
 -- Name: tbsituacaoprocesso_tbdivisao_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2792,7 +2352,8 @@ CREATE INDEX tbsituacaoprocesso_tbdivisao_id ON tbsituacaoprocesso USING btree (
 
 
 --
--- TOC entry 2245 (class 1259 OID 72744)
+-- TOC entry 2221 (class 1259 OID 5840074)
+-- Dependencies: 208 2295
 -- Name: tbstatuspendencia_tbdivisao_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2800,7 +2361,8 @@ CREATE INDEX tbstatuspendencia_tbdivisao_id ON tbstatuspendencia USING btree (tb
 
 
 --
--- TOC entry 2248 (class 1259 OID 72745)
+-- TOC entry 2224 (class 1259 OID 5840075)
+-- Dependencies: 210 2295
 -- Name: tbsubarea_tbdivisao_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2808,7 +2370,8 @@ CREATE INDEX tbsubarea_tbdivisao_id ON tbsubarea USING btree (tbdivisao_id);
 
 
 --
--- TOC entry 2251 (class 1259 OID 72746)
+-- TOC entry 2227 (class 1259 OID 5840076)
+-- Dependencies: 212 2295
 -- Name: tbtipocaixa_tbdivisao_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2816,7 +2379,8 @@ CREATE INDEX tbtipocaixa_tbdivisao_id ON tbtipocaixa USING btree (tbdivisao_id);
 
 
 --
--- TOC entry 2254 (class 1259 OID 72747)
+-- TOC entry 2230 (class 1259 OID 5840077)
+-- Dependencies: 214 2295
 -- Name: tbtipopendencia_tbdivisao_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2824,7 +2388,8 @@ CREATE INDEX tbtipopendencia_tbdivisao_id ON tbtipopendencia USING btree (tbdivi
 
 
 --
--- TOC entry 2255 (class 1259 OID 72748)
+-- TOC entry 2231 (class 1259 OID 5840078)
+-- Dependencies: 214 2295
 -- Name: tbtipopendencia_tbtipoprocesso_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2832,7 +2397,8 @@ CREATE INDEX tbtipopendencia_tbtipoprocesso_id ON tbtipopendencia USING btree (t
 
 
 --
--- TOC entry 2258 (class 1259 OID 72749)
+-- TOC entry 2234 (class 1259 OID 5840079)
+-- Dependencies: 216 2295
 -- Name: tbtipoprocesso_tbdivisao_id; Type: INDEX; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2840,7 +2406,8 @@ CREATE INDEX tbtipoprocesso_tbdivisao_id ON tbtipoprocesso USING btree (tbdivisa
 
 
 --
--- TOC entry 2283 (class 2606 OID 72668)
+-- TOC entry 2259 (class 2606 OID 5839998)
+-- Dependencies: 2235 186 218 2295
 -- Name: Codigo_UF_refs_id_29984a75; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -2849,7 +2416,8 @@ ALTER TABLE ONLY tbmunicipio
 
 
 --
--- TOC entry 2264 (class 2606 OID 72151)
+-- TOC entry 2240 (class 2606 OID 5839481)
+-- Dependencies: 2114 162 161 2295
 -- Name: auth_group_permissions_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -2858,7 +2426,8 @@ ALTER TABLE ONLY auth_group_permissions
 
 
 --
--- TOC entry 2269 (class 2606 OID 72189)
+-- TOC entry 2245 (class 2606 OID 5839519)
+-- Dependencies: 167 161 2114 2295
 -- Name: auth_user_groups_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -2867,7 +2436,8 @@ ALTER TABLE ONLY auth_user_groups
 
 
 --
--- TOC entry 2268 (class 2606 OID 72184)
+-- TOC entry 2244 (class 2606 OID 5839514)
+-- Dependencies: 165 167 2123 2295
 -- Name: auth_user_groups_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -2876,7 +2446,8 @@ ALTER TABLE ONLY auth_user_groups
 
 
 --
--- TOC entry 2271 (class 2606 OID 72204)
+-- TOC entry 2247 (class 2606 OID 5839534)
+-- Dependencies: 168 163 2121 2295
 -- Name: auth_user_user_permissions_permission_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -2885,7 +2456,8 @@ ALTER TABLE ONLY auth_user_user_permissions
 
 
 --
--- TOC entry 2270 (class 2606 OID 72199)
+-- TOC entry 2246 (class 2606 OID 5839529)
+-- Dependencies: 168 2123 165 2295
 -- Name: auth_user_user_permissions_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -2894,7 +2466,8 @@ ALTER TABLE ONLY auth_user_user_permissions
 
 
 --
--- TOC entry 2273 (class 2606 OID 72232)
+-- TOC entry 2249 (class 2606 OID 5839562)
+-- Dependencies: 169 2141 170 2295
 -- Name: content_type_id_refs_id_93d2d1f8; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -2903,7 +2476,8 @@ ALTER TABLE ONLY django_admin_log
 
 
 --
--- TOC entry 2266 (class 2606 OID 72227)
+-- TOC entry 2242 (class 2606 OID 5839557)
+-- Dependencies: 2141 163 170 2295
 -- Name: content_type_id_refs_id_d043b34a; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -2912,7 +2486,8 @@ ALTER TABLE ONLY auth_permission
 
 
 --
--- TOC entry 2272 (class 2606 OID 72217)
+-- TOC entry 2248 (class 2606 OID 5839547)
+-- Dependencies: 169 2123 165 2295
 -- Name: django_admin_log_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -2921,7 +2496,8 @@ ALTER TABLE ONLY django_admin_log
 
 
 --
--- TOC entry 2265 (class 2606 OID 72161)
+-- TOC entry 2241 (class 2606 OID 5839491)
+-- Dependencies: 2121 162 163 2295
 -- Name: permission_id_refs_id_6ba0f519; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -2930,7 +2506,8 @@ ALTER TABLE ONLY auth_group_permissions
 
 
 --
--- TOC entry 2275 (class 2606 OID 72290)
+-- TOC entry 2251 (class 2606 OID 5839620)
+-- Dependencies: 2157 180 176 2295
 -- Name: tbdivisao_id_refs_id_00d25a11; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -2939,7 +2516,8 @@ ALTER TABLE ONLY tbclassificacaoprocesso
 
 
 --
--- TOC entry 2267 (class 2606 OID 72285)
+-- TOC entry 2243 (class 2606 OID 5839615)
+-- Dependencies: 180 165 2157 2295
 -- Name: tbdivisao_id_refs_id_209f7cf0; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -2948,7 +2526,8 @@ ALTER TABLE ONLY auth_user
 
 
 --
--- TOC entry 2276 (class 2606 OID 72295)
+-- TOC entry 2252 (class 2606 OID 5839625)
+-- Dependencies: 2157 180 178 2295
 -- Name: tbdivisao_id_refs_id_c808e225; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -2957,7 +2536,8 @@ ALTER TABLE ONLY tbcontrato
 
 
 --
--- TOC entry 2281 (class 2606 OID 72326)
+-- TOC entry 2257 (class 2606 OID 5839656)
+-- Dependencies: 165 184 2123 2295
 -- Name: tbmovimentacao_auth_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -2966,7 +2546,8 @@ ALTER TABLE ONLY tbmovimentacao
 
 
 --
--- TOC entry 2280 (class 2606 OID 72321)
+-- TOC entry 2256 (class 2606 OID 5839651)
+-- Dependencies: 174 2148 184 2295
 -- Name: tbmovimentacao_tbcaixa_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -2975,7 +2556,8 @@ ALTER TABLE ONLY tbmovimentacao
 
 
 --
--- TOC entry 2279 (class 2606 OID 72316)
+-- TOC entry 2255 (class 2606 OID 5839646)
+-- Dependencies: 184 174 2148 2295
 -- Name: tbmovimentacao_tbcaixa_id_origem_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -2984,7 +2566,8 @@ ALTER TABLE ONLY tbmovimentacao
 
 
 --
--- TOC entry 2285 (class 2606 OID 72355)
+-- TOC entry 2261 (class 2606 OID 5839685)
+-- Dependencies: 174 188 2148 2295
 -- Name: tbpecastecnicas_tbcaixa_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -2993,7 +2576,8 @@ ALTER TABLE ONLY tbpecastecnicas
 
 
 --
--- TOC entry 2284 (class 2606 OID 72350)
+-- TOC entry 2260 (class 2606 OID 5839680)
+-- Dependencies: 188 2154 178 2295
 -- Name: tbpecastecnicas_tbcontrato_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3002,7 +2586,8 @@ ALTER TABLE ONLY tbpecastecnicas
 
 
 --
--- TOC entry 2287 (class 2606 OID 72365)
+-- TOC entry 2263 (class 2606 OID 5839695)
+-- Dependencies: 2157 180 188 2295
 -- Name: tbpecastecnicas_tbdivisao_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3011,7 +2596,8 @@ ALTER TABLE ONLY tbpecastecnicas
 
 
 --
--- TOC entry 2286 (class 2606 OID 72360)
+-- TOC entry 2262 (class 2606 OID 5839690)
+-- Dependencies: 182 2160 188 2295
 -- Name: tbpecastecnicas_tbgleba_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3020,7 +2606,8 @@ ALTER TABLE ONLY tbpecastecnicas
 
 
 --
--- TOC entry 2288 (class 2606 OID 72381)
+-- TOC entry 2264 (class 2606 OID 5839711)
+-- Dependencies: 165 2123 190 2295
 -- Name: tbpendencia_auth_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3029,7 +2616,8 @@ ALTER TABLE ONLY tbpendencia
 
 
 --
--- TOC entry 2308 (class 2606 OID 72689)
+-- TOC entry 2284 (class 2606 OID 5840019)
+-- Dependencies: 2237 220 200 2295
 -- Name: tbpregao_id_refs_id_f323926f; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3038,7 +2626,8 @@ ALTER TABLE ONLY tbprocessourbano
 
 
 --
--- TOC entry 2317 (class 2606 OID 72684)
+-- TOC entry 2293 (class 2606 OID 5840014)
+-- Dependencies: 180 2157 220 2295
 -- Name: tbpregao_tbdivisao_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3047,7 +2636,8 @@ ALTER TABLE ONLY tbpregao
 
 
 --
--- TOC entry 2295 (class 2606 OID 72409)
+-- TOC entry 2271 (class 2606 OID 5839739)
+-- Dependencies: 192 2123 165 2295
 -- Name: tbprocessobase_auth_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3056,7 +2646,8 @@ ALTER TABLE ONLY tbprocessobase
 
 
 --
--- TOC entry 2282 (class 2606 OID 72424)
+-- TOC entry 2258 (class 2606 OID 5839754)
+-- Dependencies: 184 192 2185 2295
 -- Name: tbprocessobase_id_refs_id_5aebc46a; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3065,7 +2656,8 @@ ALTER TABLE ONLY tbmovimentacao
 
 
 --
--- TOC entry 2289 (class 2606 OID 72429)
+-- TOC entry 2265 (class 2606 OID 5839759)
+-- Dependencies: 2185 192 190 2295
 -- Name: tbprocessobase_id_refs_id_86d3804c; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3074,7 +2666,8 @@ ALTER TABLE ONLY tbpendencia
 
 
 --
--- TOC entry 2293 (class 2606 OID 72399)
+-- TOC entry 2269 (class 2606 OID 5839729)
+-- Dependencies: 192 174 2148 2295
 -- Name: tbprocessobase_tbcaixa_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3083,7 +2676,8 @@ ALTER TABLE ONLY tbprocessobase
 
 
 --
--- TOC entry 2296 (class 2606 OID 72414)
+-- TOC entry 2272 (class 2606 OID 5839744)
+-- Dependencies: 2151 192 176 2295
 -- Name: tbprocessobase_tbclassificacaoprocesso_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3092,7 +2686,8 @@ ALTER TABLE ONLY tbprocessobase
 
 
 --
--- TOC entry 2297 (class 2606 OID 72419)
+-- TOC entry 2273 (class 2606 OID 5839749)
+-- Dependencies: 180 192 2157 2295
 -- Name: tbprocessobase_tbdivisao_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3101,7 +2696,8 @@ ALTER TABLE ONLY tbprocessobase
 
 
 --
--- TOC entry 2292 (class 2606 OID 72394)
+-- TOC entry 2268 (class 2606 OID 5839724)
+-- Dependencies: 2160 192 182 2295
 -- Name: tbprocessobase_tbgleba_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3110,7 +2706,8 @@ ALTER TABLE ONLY tbprocessobase
 
 
 --
--- TOC entry 2294 (class 2606 OID 72404)
+-- TOC entry 2270 (class 2606 OID 5839734)
+-- Dependencies: 186 192 2170 2295
 -- Name: tbprocessobase_tbmunicipio_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3119,7 +2716,8 @@ ALTER TABLE ONLY tbprocessobase
 
 
 --
--- TOC entry 2300 (class 2606 OID 72445)
+-- TOC entry 2276 (class 2606 OID 5839775)
+-- Dependencies: 2185 194 192 2295
 -- Name: tbprocessoclausula_tbprocessobase_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3128,7 +2726,8 @@ ALTER TABLE ONLY tbprocessoclausula
 
 
 --
--- TOC entry 2301 (class 2606 OID 72458)
+-- TOC entry 2277 (class 2606 OID 5839788)
+-- Dependencies: 192 2185 196 2295
 -- Name: tbprocessorural_tbprocessobase_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3137,7 +2736,8 @@ ALTER TABLE ONLY tbprocessorural
 
 
 --
--- TOC entry 2304 (class 2606 OID 72481)
+-- TOC entry 2280 (class 2606 OID 5839811)
+-- Dependencies: 198 165 2123 2295
 -- Name: tbprocessosanexos_auth_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3146,7 +2746,8 @@ ALTER TABLE ONLY tbprocessosanexos
 
 
 --
--- TOC entry 2303 (class 2606 OID 72476)
+-- TOC entry 2279 (class 2606 OID 5839806)
+-- Dependencies: 198 2185 192 2295
 -- Name: tbprocessosanexos_tbprocessobase_id_anexo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3155,7 +2756,8 @@ ALTER TABLE ONLY tbprocessosanexos
 
 
 --
--- TOC entry 2302 (class 2606 OID 72471)
+-- TOC entry 2278 (class 2606 OID 5839801)
+-- Dependencies: 198 192 2185 2295
 -- Name: tbprocessosanexos_tbprocessobase_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3164,7 +2766,8 @@ ALTER TABLE ONLY tbprocessosanexos
 
 
 --
--- TOC entry 2306 (class 2606 OID 72499)
+-- TOC entry 2282 (class 2606 OID 5839829)
+-- Dependencies: 2154 200 178 2295
 -- Name: tbprocessourbano_tbcontrato_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3173,7 +2776,8 @@ ALTER TABLE ONLY tbprocessourbano
 
 
 --
--- TOC entry 2305 (class 2606 OID 72494)
+-- TOC entry 2281 (class 2606 OID 5839824)
+-- Dependencies: 192 200 2185 2295
 -- Name: tbprocessourbano_tbprocessobase_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3182,7 +2786,8 @@ ALTER TABLE ONLY tbprocessourbano
 
 
 --
--- TOC entry 2307 (class 2606 OID 72531)
+-- TOC entry 2283 (class 2606 OID 5839861)
+-- Dependencies: 2213 200 204 2295
 -- Name: tbsituacaogeo_id_refs_id_f9087efb; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3191,7 +2796,8 @@ ALTER TABLE ONLY tbprocessourbano
 
 
 --
--- TOC entry 2309 (class 2606 OID 72526)
+-- TOC entry 2285 (class 2606 OID 5839856)
+-- Dependencies: 204 2157 180 2295
 -- Name: tbsituacaogeo_tbdivisao_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3200,7 +2806,8 @@ ALTER TABLE ONLY tbsituacaogeo
 
 
 --
--- TOC entry 2298 (class 2606 OID 72552)
+-- TOC entry 2274 (class 2606 OID 5839882)
+-- Dependencies: 192 2216 206 2295
 -- Name: tbsituacaoprocesso_id_refs_id_bfef2fda; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3209,7 +2816,8 @@ ALTER TABLE ONLY tbprocessobase
 
 
 --
--- TOC entry 2310 (class 2606 OID 72547)
+-- TOC entry 2286 (class 2606 OID 5839877)
+-- Dependencies: 2157 180 206 2295
 -- Name: tbsituacaoprocesso_tbdivisao_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3218,7 +2826,8 @@ ALTER TABLE ONLY tbsituacaoprocesso
 
 
 --
--- TOC entry 2290 (class 2606 OID 72570)
+-- TOC entry 2266 (class 2606 OID 5839900)
+-- Dependencies: 208 2219 190 2295
 -- Name: tbstatuspendencia_id_refs_id_615418ce; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3227,7 +2836,8 @@ ALTER TABLE ONLY tbpendencia
 
 
 --
--- TOC entry 2311 (class 2606 OID 72565)
+-- TOC entry 2287 (class 2606 OID 5839895)
+-- Dependencies: 208 180 2157 2295
 -- Name: tbstatuspendencia_tbdivisao_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3236,7 +2846,8 @@ ALTER TABLE ONLY tbstatuspendencia
 
 
 --
--- TOC entry 2278 (class 2606 OID 72588)
+-- TOC entry 2254 (class 2606 OID 5839918)
+-- Dependencies: 210 2222 182 2295
 -- Name: tbsubarea_id_refs_id_c3c14a3b; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3245,7 +2856,8 @@ ALTER TABLE ONLY tbgleba
 
 
 --
--- TOC entry 2312 (class 2606 OID 72583)
+-- TOC entry 2288 (class 2606 OID 5839913)
+-- Dependencies: 210 2157 180 2295
 -- Name: tbsubarea_tbdivisao_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3254,7 +2866,8 @@ ALTER TABLE ONLY tbsubarea
 
 
 --
--- TOC entry 2274 (class 2606 OID 72609)
+-- TOC entry 2250 (class 2606 OID 5839939)
+-- Dependencies: 212 2225 174 2295
 -- Name: tbtipocaixa_id_refs_id_1f3d944c; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3263,7 +2876,8 @@ ALTER TABLE ONLY tbcaixa
 
 
 --
--- TOC entry 2313 (class 2606 OID 72604)
+-- TOC entry 2289 (class 2606 OID 5839934)
+-- Dependencies: 212 180 2157 2295
 -- Name: tbtipocaixa_tbdivisao_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3272,7 +2886,8 @@ ALTER TABLE ONLY tbtipocaixa
 
 
 --
--- TOC entry 2291 (class 2606 OID 72627)
+-- TOC entry 2267 (class 2606 OID 5839957)
+-- Dependencies: 214 2228 190 2295
 -- Name: tbtipopendencia_id_refs_id_4f9053c1; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3281,7 +2896,8 @@ ALTER TABLE ONLY tbpendencia
 
 
 --
--- TOC entry 2314 (class 2606 OID 72622)
+-- TOC entry 2290 (class 2606 OID 5839952)
+-- Dependencies: 214 2157 180 2295
 -- Name: tbtipopendencia_tbdivisao_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3290,7 +2906,8 @@ ALTER TABLE ONLY tbtipopendencia
 
 
 --
--- TOC entry 2315 (class 2606 OID 72650)
+-- TOC entry 2291 (class 2606 OID 5839980)
+-- Dependencies: 216 214 2232 2295
 -- Name: tbtipoprocesso_id_refs_id_14dae0cf; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3299,7 +2916,8 @@ ALTER TABLE ONLY tbtipopendencia
 
 
 --
--- TOC entry 2299 (class 2606 OID 72645)
+-- TOC entry 2275 (class 2606 OID 5839975)
+-- Dependencies: 216 2232 192 2295
 -- Name: tbtipoprocesso_id_refs_id_64d671a3; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3308,7 +2926,8 @@ ALTER TABLE ONLY tbprocessobase
 
 
 --
--- TOC entry 2316 (class 2606 OID 72640)
+-- TOC entry 2292 (class 2606 OID 5839970)
+-- Dependencies: 216 180 2157 2295
 -- Name: tbtipoprocesso_tbdivisao_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3317,7 +2936,8 @@ ALTER TABLE ONLY tbtipoprocesso
 
 
 --
--- TOC entry 2277 (class 2606 OID 72663)
+-- TOC entry 2253 (class 2606 OID 5839993)
+-- Dependencies: 2235 218 180 2295
 -- Name: tbuf_id_refs_id_c8d633fb; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -3326,7 +2946,7 @@ ALTER TABLE ONLY tbdivisao
 
 
 --
--- TOC entry 2384 (class 0 OID 0)
+-- TOC entry 2300 (class 0 OID 0)
 -- Dependencies: 5
 -- Name: public; Type: ACL; Schema: -; Owner: postgres
 --
@@ -3337,7 +2957,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2013-11-07 12:14:46
+-- Completed on 2013-11-07 15:52:12 BRT
 
 --
 -- PostgreSQL database dump complete
