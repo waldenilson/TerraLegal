@@ -106,7 +106,7 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     #os.path.abspath(os.path.join(ABSOLUTE_PROJECT_ROOT, 'staticfiles/')),
-    abspath(join(dirname(__file__), '../staticfiles')),
+    'C:\wamp\www\SICOP\staticfiles',
 )
 
 # List of finder classes that know how to find static files in
@@ -161,7 +161,7 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     # 'C:/DEVELOPER/django/',
     # os.path.abspath(os.path.join(ABSOLUTE_PROJECT_ROOT, 'staticfiles/')),
-    'C:\wamp\www\SICOP\templates',
+    abspath(join(dirname(__file__), '../templates')),
     # ABSOLUTE_TEMPLATES_PATH,
 )
 
