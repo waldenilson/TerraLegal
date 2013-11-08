@@ -1387,11 +1387,9 @@ SELECT pg_catalog.setval('tbtipocaixa_id_seq', 1, false);
 --
 
 CREATE TABLE tbtipopendencia (
-    cdtipopend integer,
     dspendencia character varying(50) NOT NULL,
-    cdgrupo character varying(20) NOT NULL,
-    tbdivisao_id integer,
     tbtipoprocesso_id integer NOT NULL,
+    tbdivisao_id integer,
     id integer NOT NULL
 );
 

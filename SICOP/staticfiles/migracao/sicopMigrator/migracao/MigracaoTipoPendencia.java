@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class MigracaoTipoPendencia {
 
-	private String diretorio = "C:\\DEVELOPER/SICOP/Migracao";
+	private String diretorio = "/opt/DEVELOPER/SICOP/Migracao";
 	private String nomeArqMigracao = "scriptTbtipopendencia.sql";
 	private String nomeArqLegado = "dump_tbtipopendencia.txt";
 	
@@ -65,13 +65,13 @@ public class MigracaoTipoPendencia {
 	//	        	String cont = linha.replaceAll("\t", ",");
 		        	String cont = linha;
 		        	String contaux = "";
-		        	String[] s = cont.split("\t");
+		        	String[] s = cont.split(";");
 		        	for(int y=0; y < s.length ; y++)
 		        	{
 		        		String aux = "";
 		        		String a = s[y];
 		        		
-		        		a = a.replaceAll("'", "");
+		        		a = a.replaceAll("\"", "");
 		        		a = a.trim();
 		        		
 		        		if (a.startsWith("20") && a.contains("-") && a.contains(":"))
@@ -96,8 +96,8 @@ public class MigracaoTipoPendencia {
 //	        					aux = "4";
 //		        			else if(aux.equals("'FT'"))
 //	        					aux = "5";
-		        					        		
-		        		contaux += aux+"\t";
+		        		if(y!=0)			        		
+		        			contaux += aux+"\t";
 		        		
 		        	}
 		        	cont = contaux.substring(0,contaux.length()-1);
