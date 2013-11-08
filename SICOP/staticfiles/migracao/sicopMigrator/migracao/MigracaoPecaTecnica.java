@@ -10,9 +10,9 @@ import java.util.List;
 
 public class MigracaoPecaTecnica {
 
-	private String diretorio = "C:\\DEVELOPER/SICOP/Migracao";
+	private String diretorio = "/opt/DEVELOPER/SICOP/Migracao";
 	private String nomeArqMigracao = "scriptTbpecastecnica.sql";
-	private String nomeArqLegado = "dump_tbpecastecnica.txt";
+	private String nomeArqLegado = "dump_tbpecastecnicas.txt";
 	
 	public MigracaoPecaTecnica()
 	{		
@@ -71,7 +71,7 @@ public class MigracaoPecaTecnica {
 	//	        	String cont = linha.replaceAll("\t", ",");
 		        	String cont = linha;
 		        	String contaux = "";
-		        	String[] s = cont.split("\t");
+		        	String[] s = cont.split(";");
 		        	
 		        	if(s.length == 13)
 		        		perfeita.add("ok");
@@ -81,7 +81,7 @@ public class MigracaoPecaTecnica {
 		        		String aux = "";
 		        		String a = s[y];
 		        		
-		        		a = a.replaceAll("'", "");
+		        		a = a.replaceAll("\"", "");
 		        		a = a.trim();
 		        		
 		        		if (a.startsWith("20") && a.contains("-") && a.contains(":"))
