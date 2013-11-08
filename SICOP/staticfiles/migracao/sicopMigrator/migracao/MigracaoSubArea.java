@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class MigracaoSubArea {
 
-	private String diretorio = "C:\\DEVELOPER/SICOP/Migracao";
+	private String diretorio = "/opt/DEVELOPER/SICOP/Migracao";
 	private String nomeArqMigracao = "scriptTbsubarea.sql";
 	private String nomeArqLegado = "dump_tbsubarea.txt";
 	
