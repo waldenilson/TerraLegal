@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class MigracaoAuxiliar {
 
-	private static String diretorio = "C:\\DEVELOPER/SICOP/Migracao/auxiliar";
+	private static String diretorio = "/opt/DEVELOPER/SICOP/Migracao/auxiliar";
 	private static String nomeArqMigracao = "scriptTbexemplo.sql";
 	private static String nomeArqMunicipio = "municipio.sql";
 	private static String nomeArqGleba = "gleba.sql";
@@ -31,21 +31,21 @@ public class MigracaoAuxiliar {
 	private static String nomeArqConjuge = "conjuge.txt";
 	private static String nomeArqProcessosAnexos = "processosanexos.txt";
 	
-	public static Map mapMunicipio() {	return ler(diretorio, nomeArqMunicipio,11,0, true); }
-	public static Map mapGleba() {	return ler(diretorio, nomeArqGleba,3,1, true); }
-	public static Map mapCaixa() {	return ler(diretorio, nomeArqCaixa,3,0, false); }
-	public static Map mapSubarea() {	return ler(diretorio, nomeArqSubarea,3,1, false); }
-	public static Map mapContrato() {	return ler(diretorio, nomeArqContrato,3,0, false); }
-	public static Map mapAuthUser() {	return ler(diretorio, nomeArqAuthUser,11,3, false); }
-	public static Map mapSituacaogeo() {	return ler(diretorio, nomeArqSituacaogeo,2,0, true); }
-	public static Map mapProcessoBase() { return ler(diretorio, nomeArqProcessoBase,10,0, false); }
-	public static Map mapTipoPendencia() { return ler(diretorio, nomeArqTipoPendencia,0,1, false); }
-	public static Map mapPregao() { return ler(diretorio, nomeArqPregao,2,0, false); }
+	public static Map mapMunicipio() {	return ler(diretorio, nomeArqMunicipio,"\t",11,0, true); }
+	public static Map mapGleba() {	return ler(diretorio, nomeArqGleba,"\t",3,1, true); }
+	public static Map mapCaixa() {	return ler(diretorio, nomeArqCaixa,"\t",2,0, false); }
+	public static Map mapSubarea() {	return ler(diretorio, nomeArqSubarea,"\t",3,1, false); }
+	public static Map mapContrato() {	return ler(diretorio, nomeArqContrato,"\t",3,0, false); }
+	public static Map mapAuthUser() {	return ler(diretorio, nomeArqAuthUser,"\t",11,3, false); }
+	public static Map mapSituacaogeo() {	return ler(diretorio, nomeArqSituacaogeo,"\t",2,0, true); }
+	public static Map mapProcessoBase() { return ler(diretorio, nomeArqProcessoBase,"\t",10,0, false); }
+	public static Map mapTipoPendencia() { return ler(diretorio, nomeArqTipoPendencia,"\t",0,1, false); }
+	public static Map mapPregao() { return ler(diretorio, nomeArqPregao,"\t",2,0, false); }
 		
-	public static Map mapNomeConjuge() { return ler(diretorio, nomeArqConjuge,2,0, false); }
-	public static Map mapCPFConjuge() { return ler(diretorio, nomeArqConjuge,1,0, false); }
+	public static Map mapNomeConjuge() { return ler(diretorio, nomeArqConjuge,"\t",2,0, false); }
+	public static Map mapCPFConjuge() { return ler(diretorio, nomeArqConjuge,"\t",1,0, false); }
 
-	public static Map mapProcessosAnexos() { return ler(diretorio, nomeArqProcessosAnexos, 1, 1, false); }
+	public static Map mapProcessosAnexos() { return ler(diretorio, nomeArqProcessosAnexos,";", 1, 1, false); }
 		
 	public MigracaoAuxiliar()
 	{		
@@ -67,7 +67,7 @@ public class MigracaoAuxiliar {
 	}
 	
 	
-	public static Map ler(String diretorio, String nomeArq, int k, int v, boolean caixaalta)
+	public static Map ler(String diretorio, String nomeArq,String separador, int k, int v, boolean caixaalta)
 	{
 		
 			File dir = new File( diretorio );
@@ -91,7 +91,7 @@ public class MigracaoAuxiliar {
 		        {
 		        	String cont = linha;
 		        	
-		        	String[] s = cont.split("\t");
+		        	String[] s = cont.split(separador);
 		        			        	
 		        	if(caixaalta)
 		        		mMunicipio.put( s[v].toUpperCase(), s[k] );

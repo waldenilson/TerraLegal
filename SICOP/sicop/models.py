@@ -318,11 +318,9 @@ class Tbtipocaixa(models.Model):
         db_table = 'tbtipocaixa'
 
 class Tbtipopendencia(models.Model):
-    cdtipopend = models.IntegerField(null=True, blank=True)
     dspendencia = models.CharField(max_length=50, blank=True)
-    cdgrupo = models.CharField(max_length=20, blank=True)
-    tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True)
     tbtipoprocesso = models.ForeignKey('Tbtipoprocesso')
+    tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True)
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbtipopendencia'

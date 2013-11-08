@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class MigracaoServidor {
 
-	private String diretorio = "C:\\DEVELOPER/SICOP/Migracao";
+	private String diretorio = "/opt/DEVELOPER/SICOP/Migracao";
 	private String nomeArqMigracao = "scriptTbservidor.sql";
 	private String nomeArqLegado = "tbservidor.txt";
 	
@@ -109,7 +109,7 @@ public class MigracaoServidor {
 	        		cont = cont.replaceAll("\t", ",");
 	        		cont = cont.replaceAll(",,", ",null,");
 	        		cont = cont.replaceAll(",,", ",null,");
-	        		cont = cont.replaceAll("''", "null");
+	        		cont = cont.replaceAll("\"", "'");
 		        	
 //		        	System.out.println( cont );
 	//	        	System.exit(0);

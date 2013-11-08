@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class MigracaoProcessoBaseClausula {
 
-	private String diretorio = "C:\\DEVELOPER/SICOP/Migracao";
+	private String diretorio = "/opt/DEVELOPER/SICOP/Migracao";
 	private String nomeArqMigracao = "scriptTbprocessobase.sql";
 	private String nomeArqLegado = "dump_tbprocessoclausula.txt";
 	
@@ -87,13 +87,13 @@ public class MigracaoProcessoBaseClausula {
 	//	        	String cont = linha.replaceAll("\t", ",");
 		        	String cont = linha;
 		        	String contaux = "";
-		        	String[] s = cont.split("\t");
+		        	String[] s = cont.split(";");
 		        	for(int y=0; y < s.length ; y++)
 		        	{
 		        		String aux = "";
 		        		String a = s[y];
 		        		
-		        		a = a.replaceAll("'", "");
+		        		a = a.replaceAll("\"", "");
 		        		a = a.trim();
 		        		
 		        		if (a.startsWith("20") && a.contains("-") && a.contains(":"))
@@ -126,14 +126,14 @@ public class MigracaoProcessoBaseClausula {
 		        		
 		        		if(y==6) // gleba
 		        		{
-	        				if(a.equals("FAZ. VITÓRIA"))
+	        				if(a.equals("FAZ. VITï¿½RIA"))
 	        					a = "Fazenda Vitoria";
 	        				
-	        				if(a.equals("JOÁ JURITI"))
-	        					a = "Jaó";
+	        				if(a.equals("JOï¿½ JURITI"))
+	        					a = "Jaï¿½";
 	        					
-	        				if(a.toUpperCase().equals("Área Urbana e de Expansão".toUpperCase()))
-	        					a = "Área urbana e expansão";
+	        				if(a.toUpperCase().equals("ï¿½rea Urbana e de Expansï¿½o".toUpperCase()))
+	        					a = "ï¿½rea urbana e expansï¿½o";
 
 	        				if(a.equals("14"))
 	        					a = "Area Urbana de Expansao 14";
@@ -141,8 +141,8 @@ public class MigracaoProcessoBaseClausula {
 	        				if(a.equals("DATA MATINHA"))
 	        					a = "Matinha";
 //	        				
-	        				if(a.equals("Novo Corrego Poranguetê"))
-	        					a = "Novo Córrego Poranguetê";
+	        				if(a.equals("Novo Corrego Poranguetï¿½"))
+	        					a = "Novo Cï¿½rrego Poranguetï¿½";
 	        				
 	        				if(a.equals("ALEGRIA"))
 	        					a = "Alegria Agua Viva";
@@ -153,7 +153,7 @@ public class MigracaoProcessoBaseClausula {
 	        				if(a.equals("GLEBA  GURGEL"))
 	        					a = "Gurgel";
 	        				
-	        				if(a.equals("Piquia / brejão"))
+	        				if(a.equals("Piquia / brejï¿½o"))
 	        					a = "piquia brejao";
 	        			
 	        				if(a.equals("GLEBA JURITI") || a.equals("GL. JURITI") || a.equals("GLEBA   JURITI") || a.equals("GL.   JURITI"))
