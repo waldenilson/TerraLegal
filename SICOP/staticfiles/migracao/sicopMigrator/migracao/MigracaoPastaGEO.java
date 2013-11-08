@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class MigracaoPastaGEO {
 
-	private String diretorio = "C:\\DEVELOPER/SICOP/Migracao";
+	private String diretorio = "/opt/DEVELOPER/SICOP/Migracao";
 	private String nomeArqMigracao = "scriptTbcaixa_geo.sql";
 	private String nomeArqLegado = "dump_tbpastageo.txt";
 	
@@ -66,13 +66,13 @@ public class MigracaoPastaGEO {
 	//	        	String cont = linha.replaceAll("\t", ",");
 		        	String cont = linha;
 		        	String contaux = "";
-		        	String[] s = cont.split("\t");
+		        	String[] s = cont.split(";");
 		        	for(int y=0; y < s.length ; y++)
 		        	{
 		        		String aux = "";
 		        		String a = s[y];
 		        		
-		        		a = a.replaceAll("'", "");
+		        		a = a.replaceAll("\"", "");
 		        		a = a.trim();
 		        		
 		        		if (a.startsWith("20") && a.contains("-") && a.contains(":"))
@@ -85,9 +85,8 @@ public class MigracaoPastaGEO {
 		        		
 		        			aux = "'"+a+"'";
 		        		
-
-		        					        		
-		        		contaux += aux+"\t";
+		        		if(y==0)		        					        		
+		        			contaux += aux+"\t";
 		        		
 		        	}
 		        	cont = contaux.substring(0,contaux.length()-1);
