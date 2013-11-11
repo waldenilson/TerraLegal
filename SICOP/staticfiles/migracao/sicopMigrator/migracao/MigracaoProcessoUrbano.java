@@ -175,6 +175,8 @@ public class MigracaoProcessoUrbano {
 		        		
 		        		if(y==13) // pregao
 		        		{
+		        			if(a.equals(""))
+		        				a = "-";
 		        			aux = (String) MigracaoAuxiliar.mapPregao().get( a );
 		        			if (aux == null)
 		        				errospregao.add("erro | "+a);

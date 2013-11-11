@@ -230,7 +230,7 @@ public class MigracaoProcessoBaseRural {
 
 	        		int id = a+1;
 	        		String cont = numero.get(a)+", "+gleba.get(a)+", "+caixa.get(a)+", "+
-	        				municipio.get(a)+", "+usuario.get(a)+", "+"1, 1, "+data.get(a)+", "+classificacao.get(a)+", 1";
+	        				municipio.get(a)+", "+usuario.get(a)+", "+"1, 23, "+data.get(a)+", "+classificacao.get(a)+", 1";
 		        	        		
 	 //        		cont = cont.replaceAll("\t\t", "\t");
 	        		cont = cont.replaceAll("\t", ",");

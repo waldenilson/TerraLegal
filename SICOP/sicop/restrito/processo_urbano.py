@@ -83,7 +83,6 @@ def edicao(request, id):
         if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'URB':
             caixadestino.append( obj )    
     
-    
     if validacao(request, "edicao"):
          # cadastrando o registro processo base            
             f_base = Tbprocessobase (
@@ -91,7 +90,7 @@ def edicao(request, id):
                                     nrprocesso = request.POST['nrprocesso'].replace('.','').replace('/','').replace('-',''),
                                     tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
                                     tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
-                                    tbcaixa = base.tbcaixa.id,
+                                    tbcaixa = base.tbcaixa,
                                     tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessourbano' ),
                                     dtcadastrosistema = base.dtcadastrosistema,
                                     tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
@@ -167,9 +166,10 @@ def validacao(request_form, metodo):
     if request_form.POST['tbmunicipio'] == '':
         messages.add_message(request_form,messages.WARNING,'Escolha um municipio')
         warning = False
-    if request_form.POST['tbcaixa'] == '':
-        messages.add_message(request_form,messages.WARNING,'Escolha uma caixa')
-        warning = False
+    if metodo == "cadastro":
+        if request_form.POST['tbcaixa'] == '':
+            messages.add_message(request_form,messages.WARNING,'Escolha uma caixa')
+            warning = False
     if request_form.POST['dtaberturaprocesso'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe a Data da abertura do processo')
         warning = False

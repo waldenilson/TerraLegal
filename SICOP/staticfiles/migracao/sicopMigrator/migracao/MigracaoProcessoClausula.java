@@ -171,8 +171,11 @@ public class MigracaoProcessoClausula {
 	        	{
 	        		int id = a+1;
 	        		String areax = "";
-	        		if(area.get(a)==null || area.get(a).isEmpty())
+	        		if(area.get(a).equals("''"))
+	        		{
+	        			System.out.println("AQUIIIII: |"+area.get(a)+"|");
 	        			areax = "null";
+	        		}
 	        		else
 	        			areax = area.get(a);
 	        		String cont = numero.get(a)+", "+requerente.get(a)+", "+interessado.get(a)+", "+cpfrequerente.get(a)+
