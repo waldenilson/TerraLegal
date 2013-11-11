@@ -10,7 +10,7 @@ import java.util.List;
 
 public class MigracaoPecaTecnica {
 
-	private String diretorio = "/opt/DEVELOPER/SICOP/Migracao";
+	private String diretorio = "c:\\DEVELOPER/SICOP/Migracao";
 	private String nomeArqMigracao = "scriptTbpecastecnica.sql";
 	private String nomeArqLegado = "dump_tbpecastecnicas.txt";
 	
@@ -101,7 +101,7 @@ public class MigracaoPecaTecnica {
 		        		{
 		        			aux = (String) MigracaoAuxiliar.mapContrato().get( a );
 		        			if (aux == null)
-		        				erroscontrato.add("erro-contrato");
+		        				erroscontrato.add("erro-contrato | "+a);
 		        		}
 		        		else if(y==5 || y==6 || y==7) // booleanos
 		        		{
@@ -120,7 +120,7 @@ public class MigracaoPecaTecnica {
 		        		{
 		        			aux = (String) MigracaoAuxiliar.mapCaixa().get( a );
 		        			if (aux == null)
-		        				erroscaixa.add("erro-caixa");
+		        				erroscaixa.add("erro-caixa | "+a);
 		        		}
 		        		
 		        		// verificar area e perimetro
@@ -132,9 +132,14 @@ public class MigracaoPecaTecnica {
 		        		
 		        		else if(y==12) // gleba
 		        		{
+		        			if(a.isEmpty() || a.equals("-"))
+		        				a = "DADOS MIGRADOS GLEBA";
 		        			aux = (String) MigracaoAuxiliar.mapGleba().get( a.toUpperCase() );
 		        			if (aux == null)
-		        				errosgleba.add("erro | "+a);
+		        			{
+		        				aux = (String) MigracaoAuxiliar.mapGleba().get( "DADOS MIGRADOS GLEBA".toUpperCase() );
+			        			errosgleba.add("erro | "+a);
+		        			}
 		        		}
 		        		
 		        		// verificar sem cpf
@@ -198,8 +203,8 @@ public class MigracaoPecaTecnica {
 		        fileReader.close();
 		        bufferedReader.close();
 		        
-		        System.out.println("ERROS CONTRATO: "+erroscontrato.size()+
-		        		"\nERROS CAIXA: "+erroscaixa.size()+
+		        System.out.println("ERROS CONTRATO: "+erroscontrato+
+		        		"\nERROS CAIXA: "+erroscaixa+
 		        		"\nERROS GLEBA: "+errosgleba+
 		        		"\nREGISTROS: "+x+
 		        		"\nLIXOS: "+lixo+

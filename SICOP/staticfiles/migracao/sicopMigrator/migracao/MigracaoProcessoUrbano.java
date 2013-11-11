@@ -87,13 +87,13 @@ public class MigracaoProcessoUrbano {
 	//	        	String cont = linha.replaceAll("\t", ",");
 		        	String cont = linha;
 		        	String contaux = "";
-		        	String[] s = cont.split("\t");
+		        	String[] s = cont.split(";");
 		        	for(int y=0; y < s.length ; y++)
 		        	{
 		        		String aux = "";
 		        		String a = s[y];
 		        		
-		        		a = a.replaceAll("'", "");
+		        		a = a.replaceAll("\"", "");
 		        		a = a.trim();
 		        		
 		        		if (a.startsWith("20") && a.contains("-") && a.contains(":"))
@@ -202,14 +202,15 @@ public class MigracaoProcessoUrbano {
 	        				", "+domicilio.get(a)+", "+habitante.get(a)+", "+pregao.get(a)+
 	        				", "+contrato.get(a)+", "+situacaogeo.get(a);
 		        	
-	 //        		cont = cont.replaceAll("\t\t", "\t");
+	         		cont = cont.replaceAll("'0'", "''");
+	         		cont = cont.replaceAll("'0//'", "''");
 	        		cont = cont.replaceAll("\t", ",");
 	        		cont = cont.replaceAll(",,", ",null,");
 	        		cont = cont.replaceAll(",,", ",null,");
 	        		cont = cont.replaceAll("''", "null");
 	        		tabela = "tbprocessourbano";
-	        		conteudo += "INSERT INTO "+tabela+" values( "+cont+" );\n";
-		        	leitura += x+"\t"+"INSERT INTO "+tabela+" values( "+cont+" );\n";
+	        		conteudo += "INSERT INTO "+tabela+" values( "+cont+", '' );\n";
+		        	leitura += x+"\t"+"INSERT INTO "+tabela+" values( "+cont+", '' );\n";
 		        }
 		        System.out.println("conteudo: "+leitura);
 		        

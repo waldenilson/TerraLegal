@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class MigracaoTipoPendencia {
 
-	private String diretorio = "/opt/DEVELOPER/SICOP/Migracao";
+	private String diretorio = "c:\\DEVELOPER/SICOP/Migracao";
 	private String nomeArqMigracao = "scriptTbtipopendencia.sql";
 	private String nomeArqLegado = "dump_tbtipopendencia.txt";
 	
@@ -29,8 +29,7 @@ public class MigracaoTipoPendencia {
 	
 	
 	public String ler(String diretorio, String nomeArq)
-	{
-		
+	{		
 			File dir = new File( diretorio );
 			File arq = new File(dir, nomeArq );
 		 				

@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class MigracaoAuxiliarProcessoUrbano {
 
-	private String diretorio = "/opt/DEVELOPER/SICOP/Migracao";
+	private String diretorio = "c:\\DEVELOPER/SICOP/Migracao";
 	private String nomeArqMigracao = "scriptTbAuxProcessoUrbano.sql";
 	private String nomeArqLegado = "dump_tbprocessourbano.txt";
 	

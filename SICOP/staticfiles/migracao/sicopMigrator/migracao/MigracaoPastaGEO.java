@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class MigracaoPastaGEO {
 
-	private String diretorio = "/opt/DEVELOPER/SICOP/Migracao";
+	private String diretorio = "C:\\DEVELOPER/SICOP/Migracao";
 	private String nomeArqMigracao = "scriptTbcaixa_geo.sql";
 	private String nomeArqLegado = "dump_tbpastageo.txt";
 	

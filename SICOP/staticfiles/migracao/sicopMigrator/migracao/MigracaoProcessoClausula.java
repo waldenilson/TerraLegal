@@ -85,13 +85,13 @@ public class MigracaoProcessoClausula {
 	//	        	String cont = linha.replaceAll("\t", ",");
 		        	String cont = linha;
 		        	String contaux = "";
-		        	String[] s = cont.split("\t");
+		        	String[] s = cont.split(";");
 		        	for(int y=0; y < s.length ; y++)
 		        	{
 		        		String aux = "";
 		        		String a = s[y];
 		        		
-		        		a = a.replaceAll("'", "");
+		        		a = a.replaceAll("\"", "");
 		        		a = a.trim();
 		        		
 		        		if (a.startsWith("20") && a.contains("-") && a.contains(":"))
@@ -142,9 +142,9 @@ public class MigracaoProcessoClausula {
 
 		        		if(y==15) // procuracao
 		        		{
-		        			if(aux.equals("'nao'") || aux.isEmpty() || aux.equals("''"))
+		        			if(aux.toUpperCase().equals("'nao'".toUpperCase()) || aux.isEmpty() || aux.equals("''"))
 		        				aux = "false";
-		        			else if(aux.equals("'sim'"))
+		        			else if(aux.toUpperCase().equals("'sim'".toUpperCase()))
 		        				aux = "true";
 		        			procuracao.add(aux);
 		        		}
@@ -170,8 +170,13 @@ public class MigracaoProcessoClausula {
 		        for( int a=0; a<numero.size();a++)
 	        	{
 	        		int id = a+1;
+	        		String areax = "";
+	        		if(area.get(a)==null || area.get(a).isEmpty())
+	        			areax = "null";
+	        		else
+	        			areax = area.get(a);
 	        		String cont = numero.get(a)+", "+requerente.get(a)+", "+interessado.get(a)+", "+cpfrequerente.get(a)+
-	        				", "+cpfinteressado.get(a)+", "+area.get(a)+", null, "+obs.get(a)+
+	        				", "+cpfinteressado.get(a)+", "+areax+", null, "+obs.get(a)+
 	        				", "+procuracao.get(a)+", null";
 		        	
 	 //        		cont = cont.replaceAll("\t\t", "\t");

@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class MigracaoGleba {
 
-	private String diretorio = "/opt/DEVELOPER/SICOP/Migracao";
+	private String diretorio = "c:\\DEVELOPER/SICOP/Migracao";
 	private String nomeArqMigracao = "scriptTbgleba.sql";
 	private String nomeArqLegado = "dump_tbgleba.txt";
 	

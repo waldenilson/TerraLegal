@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class MigracaoProcessoBaseRural {
 
-	private String diretorio = "/opt/DEVELOPER/SICOP/Migracao";
+	private String diretorio = "c:\\DEVELOPER/SICOP/Migracao";
 	private String nomeArqMigracao = "scriptTbprocessobase.sql";
 	private String nomeArqLegado = "dump_tbprocesso.txt";
 	
@@ -123,14 +123,17 @@ public class MigracaoProcessoBaseRural {
 		        		
 		        		if(y==1) // gleba
 		        		{
-	        				if(a.equals("FAZ. VITï¿½RIA"))
+		        			if(a.isEmpty() || a.equals("-"))
+		        				a = "DADOS MIGRADOS GLEBA";
+
+	        				if(a.equals("FAZ. VITÓRIA"))
 	        					a = "Fazenda Vitoria";
 	        				
-	        				if(a.equals("JOï¿½ JURITI"))
-	        					a = "Jaï¿½";
+	        				if(a.equals("JOÁ JURITI"))
+	        					a = "Jaó";
 	        					
-	        				if(a.toUpperCase().equals("ï¿½rea Urbana e de Expansï¿½o".toUpperCase()))
-	        					a = "ï¿½rea urbana e expansï¿½o";
+	        				if(a.toUpperCase().equals("Área Urbana e de Expansão".toUpperCase()))
+	        					a = "área urbana e expansão";
 
 	        				if(a.equals("14"))
 	        					a = "Area Urbana de Expansao 14";
@@ -138,8 +141,8 @@ public class MigracaoProcessoBaseRural {
 	        				if(a.equals("DATA MATINHA"))
 	        					a = "Matinha";
 //	        				
-	        				if(a.equals("Novo Corrego Poranguetï¿½"))
-	        					a = "Novo Cï¿½rrego Poranguetï¿½";
+	        				if(a.equals("Novo Corrego Poranguetê"))
+	        					a = "Novo Córrego Poranguetê";
 	        				
 	        				if(a.equals("ALEGRIA"))
 	        					a = "Alegria Agua Viva";
@@ -150,7 +153,7 @@ public class MigracaoProcessoBaseRural {
 	        				if(a.equals("GLEBA  GURGEL"))
 	        					a = "Gurgel";
 	        				
-	        				if(a.equals("Piquia / brejï¿½o"))
+	        				if(a.equals("Piquia / brejão"))
 	        					a = "piquia brejao";
 	        			
 	        				if(a.equals("GLEBA JURITI") || a.equals("GL. JURITI") || a.equals("GLEBA   JURITI") || a.equals("GL.   JURITI"))
@@ -160,7 +163,7 @@ public class MigracaoProcessoBaseRural {
 		        			aux = (String) MigracaoAuxiliar.mapGleba().get( a.toUpperCase() );
 		        			if (aux == null)
 		        			{
-		        				errosgleba.add("erro-gleba");
+		        				errosgleba.add("erro-gleba | "+a);
 		        				gleba.add(aux+" - "+a+" | "+x);
 		        			}
 		        			else
@@ -170,13 +173,20 @@ public class MigracaoProcessoBaseRural {
 		        		{
 		        			if(a.equals("SIPRADO 1"))
 		        				a = "SIPRADO 01";
+		        			if(a.equals("URBANO COM PENDENCIAS DE DOCUMENTOS 01"))
+		        				a = "URBANO COM PENDÊNCIA DE DOCUMENTO 01";
+		        			if(a.isEmpty() || a.equals("-"))
+		        				a = "DADOS MIGRADOS RURAL";
 		        			aux = (String) MigracaoAuxiliar.mapCaixa().get( a );
 		        			if (aux == null)
-		        				erroscaixa.add("erro-caixa");
+		        				erroscaixa.add("erro-caixa | "+a);
 		        			caixa.add(aux);
 		        		}
 		        		if(y==7) // municipio
 		        		{
+		        			if(a.isEmpty())
+		        				a = "IMPERATRIZ";
+		        			
 		        			aux = (String) MigracaoAuxiliar.mapMunicipio().get(  MigracaoAuxiliar.normalizarString(a) );
 		        			if (aux == null)
 		        				errosmunicipios.add("erro | "+a);
@@ -220,7 +230,7 @@ public class MigracaoProcessoBaseRural {
 
 	        		int id = a+1;
 	        		String cont = numero.get(a)+", "+gleba.get(a)+", "+caixa.get(a)+", "+
-	        				municipio.get(a)+", "+usuario.get(a)+", "+"1, 22, "+data.get(a)+", "+classificacao.get(a)+", 1";
+	        				municipio.get(a)+", "+usuario.get(a)+", "+"1, 1, "+data.get(a)+", "+classificacao.get(a)+", 1";
 		        	        		
 	 //        		cont = cont.replaceAll("\t\t", "\t");
 	        		cont = cont.replaceAll("\t", ",");
@@ -240,7 +250,7 @@ public class MigracaoProcessoBaseRural {
 		        fileReader.close();
 		        bufferedReader.close();
 
-		        System.out.println("ERROS MUNICIPIOS: "+errosmunicipios+
+		        System.out.println("ERROS MUNICIPIOS: "+errosmunicipios.size()+
 		        		"\nERROS CAIXA: "+erroscaixa.size()+
 		        		"\nERROS GLEBA: "+errosgleba.size()+
 		        		"\nERROS CLASSIFICACAO: "+errosclassificacao.size()+
@@ -250,12 +260,12 @@ public class MigracaoProcessoBaseRural {
 
 
 		        System.out.println("numero: "+numero.size()+
-		        		"\ncaixa: "+caixa.size()+
-		        		"\ngleba: "+gleba.size()+
+		        		"\ncaixa: "+erroscaixa+
+		        		"\ngleba: "+errosgleba+
 		        		"\ndata: "+data.size()+
 		        		"\nusuario: "+usuario.size()+
 		        		"\nclassificacao: "+classificacao.size()+
-		        		"\nmunicipio: "+municipio.size()+"\n\n\n");
+		        		"\nmunicipio: "+errosmunicipios+"\n\n\n");
 
 
 		        

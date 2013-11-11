@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class MigracaoAuxiliar {
 
-	private static String diretorio = "/opt/DEVELOPER/SICOP/Migracao/auxiliar";
+	private static String diretorio = "c:\\DEVELOPER/SICOP/Migracao/auxiliar";
 	private static String nomeArqMigracao = "scriptTbexemplo.sql";
 	private static String nomeArqMunicipio = "municipio.sql";
 	private static String nomeArqGleba = "gleba.sql";
@@ -42,8 +42,8 @@ public class MigracaoAuxiliar {
 	public static Map mapTipoPendencia() { return ler(diretorio, nomeArqTipoPendencia,"\t",0,1, false); }
 	public static Map mapPregao() { return ler(diretorio, nomeArqPregao,"\t",2,0, false); }
 		
-	public static Map mapNomeConjuge() { return ler(diretorio, nomeArqConjuge,"\t",2,0, false); }
-	public static Map mapCPFConjuge() { return ler(diretorio, nomeArqConjuge,"\t",1,0, false); }
+	public static Map mapNomeConjuge() { return ler(diretorio, nomeArqConjuge,";",2,0, false); }
+	public static Map mapCPFConjuge() { return ler(diretorio, nomeArqConjuge,";",1,0, false); }
 
 	public static Map mapProcessosAnexos() { return ler(diretorio, nomeArqProcessosAnexos,";", 1, 1, false); }
 		
