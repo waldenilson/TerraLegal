@@ -68,7 +68,7 @@
 							</select>
 						</td>
 				</tr>
-				<tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input value="{{ clausula.nrarea }}" onkeypress="return SomenteNumero(event, this);" size="15" name="nrarea" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input value="{{ clausula.nrarea|default:'' }}" onkeypress="return SomenteNumero(event, this);" size="15" name="nrarea" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Por Procuracao:</label> </td>
 				<td>
 					{% if clausula.stprocuracao == True %} 

@@ -30,7 +30,7 @@
 						<a href="/sicop/restrito/contrato/cadastro/?next=/sicop/restrito/peca_tecnica/edicao/{{ peca.id }}/" title="Novo Contrato"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>						
 				   </tr>
-				   <tr> <td class="colunaTabela"> <label>Entrega:</label> </td><td> <input value="{{ peca.nrentrega }}" name="nrentrega" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Entrega:</label> </td><td> <input value="{{ peca.nrentrega|default:'' }}" name="nrentrega" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>CPF do Requerente:</label> </td><td> <input  size="13" id="cpf" value="{{ peca.nrcpfrequerente }}" name="nrcpfrequerente" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Nome do Requerente:</label> </td><td> <input size="35" value="{{ peca.nmrequerente }}" name="nmrequerente" /> </td> </tr>
 					
@@ -50,8 +50,8 @@
 						<a href="/sicop/restrito/caixa/cadastro/?next=/sicop/restrito/peca_tecnica/edicao/{{ peca.id }}/" title="Novo Caixa"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>						
 				   	</tr>
-				   <tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input onkeypress="return SomenteNumero(event,this)"  size="15" value="{{ peca.nrarea }}" name="nrarea" /> </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Perimetro:</label> </td><td> <input id="perimetro"  size="15" value="{{ peca.nrperimetro }}" name="nrperimetro" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input onkeypress="return SomenteNumero(event,this)"  size="15" value="{{ peca.nrarea|default:'' }}" name="nrarea" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Perimetro:</label> </td><td> <input id="perimetro"  size="15" value="{{ peca.nrperimetro|default:'' }}" name="nrperimetro" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Gleba:</label> </td>
 				   		<td>
 				   			<select id="id_tbgleba" style="width: 200px" name="tbgleba">
