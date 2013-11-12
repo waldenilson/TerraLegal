@@ -253,7 +253,7 @@ class Tbprocessourbano(models.Model):
     nrdomicilios = models.IntegerField(null=True, blank=True)
     nrhabitantes = models.IntegerField(null=True, blank=True)
     tbpregao = models.ForeignKey('Tbpregao')
-    tbcontrato = models.ForeignKey(Tbcontrato)
+    tbcontrato = models.ForeignKey('Tbcontrato')
     tbsituacaogeo = models.ForeignKey('Tbsituacaogeo', null=True, blank=True)
     dsprojetoassentamento = models.CharField(max_length=80, blank=True)
     id = models.AutoField(primary_key=True)

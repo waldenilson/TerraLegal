@@ -115,7 +115,7 @@ def edicao(request, id):
                 dataaberturaprocesso = datetime.datetime.strptime( request.POST['dtaberturaprocesso'], "%d/%m/%Y")
             
             # cadastrando o registro processo rural
-            f_rural = Tbprocessourbano (
+            f_urbano = Tbprocessourbano (
                                        id = urbano.id,
                                        nmpovoado = request.POST['nmpovoado'],
                                        nrcnpj = request.POST['nrcnpj'].replace('.','').replace('/','').replace('-',''),
@@ -131,7 +131,7 @@ def edicao(request, id):
                                        dtaberturaprocesso = dataaberturaprocesso,
                                        dttitulacao = datatitulacao,
                                        )
-            f_rural.save()
+            f_urbano.save()
             
             return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(base.id)+"/")
            

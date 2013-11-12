@@ -34,7 +34,7 @@
 				   		<td>
 				   			<select name="tbcontrato" style="width: 200px">
 				   				{% for obj in contrato %}
-									{% if obj.id == base.tbcontrato.id %}
+									{% if obj.id == urbano.tbcontrato.id %}
 										<option selected="selected" value="{{ obj.id }}">{{ obj.nrcontrato }}</option>
 									{% else %}
 										<option value="{{ obj.id }}">{{ obj.nrcontrato }}</option>
