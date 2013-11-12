@@ -45,6 +45,10 @@ def cadastro(request):
                                     )
             f_base.save()
             
+            datatitulacao = None
+            if request.POST['dttitulacao']:
+                datatitulacao = datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y")
+
             # cadastrando o registro processo rural
             f_clausula = Tbprocessoclausula (
                                        nmrequerente = request.POST['nmrequerente'],
@@ -52,8 +56,8 @@ def cadastro(request):
                                        nminteressado = request.POST['nminteressado'],
                                        nrcpfinteressado = request.POST['nrcpfinteressado'].replace('.','').replace('-',''),
                                        tbprocessobase = f_base,
-                                       dttitulacao =  datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y"),
-                                       nrarea = request.POST['nrarea'],
+                                       dttitulacao =  datatitulacao,
+                                       nrarea = request.POST['nrarea'].replace(',','.'),
                                        stprocuracao = procuracao,
                                        dsobs = request.POST['dsobs']
                                        )
@@ -102,6 +106,10 @@ def edicao(request, id):
                                     tbdivisao = base.tbdivisao
                                     )
             f_base.save()
+
+            datatitulacao = None
+            if request.POST['dttitulacao']:
+                datatitulacao = datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y")
             
             # cadastrando o registro processo clausula
             f_clausula = Tbprocessoclausula (
@@ -111,8 +119,8 @@ def edicao(request, id):
                                        nminteressado = request.POST['nminteressado'],
                                        nrcpfinteressado = request.POST['nrcpfinteressado'].replace('.','').replace('-',''),
                                        tbprocessobase = f_base,
-                                       dttitulacao =  datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y"),
-                                       nrarea = request.POST['nrarea'],
+                                       dttitulacao =  datatitulacao,
+                                       nrarea = request.POST['nrarea'].replace(',','.'),
                                        stprocuracao = procuracao,
                                        dsobs = request.POST['dsobs']
                                        )

@@ -40,6 +40,13 @@ def cadastro(request):
                                     tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                     )
             f_base.save()
+     
+            datatitulacao = None
+            dataaberturaprocesso = None
+            if request.POST['dttitulacao']:
+                datatitulacao = datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y")
+            if request.POST['dtaberturaprocesso']:
+                dataaberturaprocesso = datetime.datetime.strptime( request.POST['dtaberturaprocesso'], "%d/%m/%Y")
             
             # cadastrando o registro processo urbano
             f_urbano = Tbprocessourbano (
@@ -48,14 +55,14 @@ def cadastro(request):
                                        nrhabitantes = request.POST['nrhabitantes'],
                                        nrdomicilios = request.POST['nrdomicilios'],
                                        tbpregao = Tbpregao.objects.get( pk = request.POST['tbpregao'] ),
-                                       nrarea = request.POST['nrarea'],
-                                       nrperimetro = request.POST['nrperimetro'],
+                                       nrarea = request.POST['nrarea'].replace(',','.'),
+                                       nrperimetro = request.POST['nrperimetro'].replace(',','.'),
                                        dsprojetoassentamento = request.POST['dsprojetoassentamento'],
                                        tbsituacaogeo = Tbsituacaogeo.objects.get( pk = request.POST['tbsituacaogeo'] ),
                                        tbcontrato = Tbcontrato.objects.get( pk = request.POST['tbcontrato'] ),
                                        tbprocessobase = f_base,
-                                       dtaberturaprocesso = datetime.datetime.strptime( request.POST['dtaberturaprocesso'], "%d/%m/%Y"),
-                                       dttitulacao = datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y"),
+                                       dtaberturaprocesso = dataaberturaprocesso,
+                                       dttitulacao = datatitulacao,
                                        )
             f_urbano.save()
             
@@ -99,6 +106,13 @@ def edicao(request, id):
                                     tbdivisao = base.tbdivisao
                                     )
             f_base.save()
+       
+            datatitulacao = None
+            dataaberturaprocesso = None
+            if request.POST['dttitulacao']:
+                datatitulacao = datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y")
+            if request.POST['dtaberturaprocesso']:
+                dataaberturaprocesso = datetime.datetime.strptime( request.POST['dtaberturaprocesso'], "%d/%m/%Y")
             
             # cadastrando o registro processo rural
             f_rural = Tbprocessourbano (
@@ -107,15 +121,15 @@ def edicao(request, id):
                                        nrcnpj = request.POST['nrcnpj'].replace('.','').replace('/','').replace('-',''),
                                        nrhabitantes = request.POST['nrhabitantes'],
                                        nrdomicilios = request.POST['nrdomicilios'],
-                                       nrarea = request.POST['nrarea'],
-                                       nrperimetro = request.POST['nrperimetro'],
+                                       nrarea = request.POST['nrarea'].replace(',','.'),
+                                       nrperimetro = request.POST['nrperimetro'].replace(',','.'),
                                        dsprojetoassentamento = request.POST['dsprojetoassentamento'],
                                        tbsituacaogeo = Tbsituacaogeo.objects.get( pk = request.POST['tbsituacaogeo'] ),
                                        tbpregao = Tbpregao.objects.get( pk = request.POST['tbpregao'] ),
                                        tbcontrato = Tbcontrato.objects.get( pk = request.POST['tbcontrato'] ),
                                        tbprocessobase = f_base,
-                                       dtaberturaprocesso = datetime.datetime.strptime( request.POST['dtaberturaprocesso'], "%d/%m/%Y"),
-                                       dttitulacao = datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y"),
+                                       dtaberturaprocesso = dataaberturaprocesso,
+                                       dttitulacao = datatitulacao,
                                        )
             f_rural.save()
             
@@ -123,7 +137,7 @@ def edicao(request, id):
            
     
     return render_to_response('sicop/restrito/processo/urbano/edicao.html',
-                                      {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
+                                   {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                    'caixa':caixa,'municipio':municipio,'contrato':contrato,'situacaogeo':situacaogeo,
                                    'base':base,'movimentacao':movimentacao,'pregao':pregao,
                                    'caixadestino':caixadestino,'urbano':urbano}, context_instance = RequestContext(request))   
