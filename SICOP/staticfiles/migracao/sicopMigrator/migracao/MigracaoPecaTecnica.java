@@ -73,7 +73,7 @@ public class MigracaoPecaTecnica {
 		        	String contaux = "";
 		        	String[] s = cont.split(";");
 		        	
-		        	if(s.length == 13)
+		        	if(s.length != 13)
 		        		perfeita.add("ok");
 		        	
 		        	for(int y=0; y < s.length ; y++)

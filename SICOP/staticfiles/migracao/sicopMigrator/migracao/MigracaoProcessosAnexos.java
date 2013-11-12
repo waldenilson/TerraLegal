@@ -76,13 +76,13 @@ public class MigracaoProcessosAnexos {
 	//	        	String cont = linha.replaceAll("\t", ",");
 		        	String cont = linha;
 		        	String contaux = "";
-		        	String[] s = cont.split("\t");
+		        	String[] s = cont.split(";");
 		        	for(int y=0; y < s.length ; y++)
 		        	{
 		        		String aux = "";
 		        		String a = s[y];
 		        		
-		        		a = a.replaceAll("'", "");
+		        		a = a.replaceAll("\"", "");
 		        		a = a.trim();
 		        		
 		        		if (a.startsWith("20") && a.contains("-") && a.contains(":"))
@@ -136,7 +136,8 @@ public class MigracaoProcessosAnexos {
 		        	x++;
 	//	            System.out.println(conteudo);
 		        }
-		        for( int a=0; a<numero.size();a++)
+		        int anexados = 0;
+        		for( int a=0; a<numero.size();a++)
 	        	{
 	        		int id = a+1;
 	        		String cont = numero.get(a)+", "+anexo.get(a)+", "+
@@ -150,6 +151,7 @@ public class MigracaoProcessosAnexos {
 	        		tabela = "tbprocessosanexos";
 	        		if(anexo.get(a) != null)
 		        	{
+	        			anexados++;
 	        			conteudo += "INSERT INTO "+tabela+" values( "+cont+" );\n";
 		        		leitura += x+"\t"+"INSERT INTO "+tabela+" values( "+cont+" );\n";
 		        	}
@@ -172,7 +174,7 @@ public class MigracaoProcessosAnexos {
 
 		        System.out.println("numero: "+numero.size()+
 		        		"Anexo: "+errosanexo+
-		        		"\n\n\n");
+		        		"\nAnexados: "+anexados+"\n\n");
 		        
 		        return conteudo;
 		    } catch (IOException e) {

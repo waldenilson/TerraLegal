@@ -76,7 +76,8 @@ public class MigracaoPendencia {
 		        
 		        
 		        while ( ( linha = bufferedReader.readLine() ) != null) {
-		            
+		         
+
 		        	//Aqui imprimimos a linha
 	//	        	tabela = "tbconjuge";
 		        	
@@ -84,6 +85,10 @@ public class MigracaoPendencia {
 		        	String cont = linha;
 		        	String contaux = "";
 		        	String[] s = cont.split(";");
+
+		        	if(s.length != 7)
+		        		perfeita.add("ok");
+
 		        	for(int y=0; y < s.length ; y++)
 		        	{
 		        		String aux = "";

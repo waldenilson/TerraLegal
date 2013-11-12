@@ -176,7 +176,7 @@ public class MigracaoProcessoBaseRural {
 		        			if(a.equals("URBANO COM PENDENCIAS DE DOCUMENTOS 01"))
 		        				a = "URBANO COM PENDÊNCIA DE DOCUMENTO 01";
 		        			if(a.isEmpty() || a.equals("-"))
-		        				a = "DADOS MIGRADOS RURAL";
+		        				a = "-";
 		        			aux = (String) MigracaoAuxiliar.mapCaixa().get( a );
 		        			if (aux == null)
 		        				erroscaixa.add("erro-caixa | "+a);
