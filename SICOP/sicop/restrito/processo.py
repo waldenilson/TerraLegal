@@ -59,7 +59,10 @@ def consulta(request):
                 lista.append( obj.tbprocessobase )
 
         if len(municipio) > 0 :
-            lista = Tbprocessobase.objects.all().filter( tbmunicipio__nome_mun__icontains = municipio ) 
+            p_urbano = Tbprocessourbano.objects.all().filter( tbprocessobase__tbmunicipio__nome_mun__icontains = municipio ) 
+            lista = []
+            for obj in p_urbano:
+                lista.append( obj.tbprocessobase ) 
             
     # gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_processo'] = lista

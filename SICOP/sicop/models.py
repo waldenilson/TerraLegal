@@ -243,7 +243,7 @@ class Tbprocessosanexos(models.Model):
         db_table = 'tbprocessosanexos'
 
 class Tbprocessourbano(models.Model):
-    tbprocessobase = models.ForeignKey(Tbprocessobase)
+    tbprocessobase = models.ForeignKey('Tbprocessobase')
     nmpovoado = models.CharField(max_length=80, blank=True)
     nrcnpj = models.CharField(max_length=14, blank=True)
     dtaberturaprocesso = models.DateTimeField(null=True, blank=True)
