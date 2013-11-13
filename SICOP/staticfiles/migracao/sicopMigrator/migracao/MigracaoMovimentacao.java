@@ -186,20 +186,26 @@ public class MigracaoMovimentacao {
 		        	x++;
 	//	            System.out.println(conteudo);
 		        }
+		        int registrosp = 0;
 		        for( int a=0; a<numero.size();a++)
 	        	{
-	        		int id = a+1;
-	        		String cont = numero.get(a)+", "+data.get(a)+", "+origem.get(a)+", "+
-	        				destino.get(a)+", "+usuario.get(a)+", 0";
 		        	
-	 //        		cont = cont.replaceAll("\t\t", "\t");
-	        		cont = cont.replaceAll("\t", ",");
-	        		cont = cont.replaceAll(",,", ",null,");
-	        		cont = cont.replaceAll(",,", ",null,");
-	        		cont = cont.replaceAll("''", "null");
-	        		tabela = "tbmovimentacao";
-	        		conteudo += "INSERT INTO "+tabela+" values( "+cont+" );\n";
-		        	leitura += x+"\t"+"INSERT INTO "+tabela+" values( "+cont+" );\n";
+		        	if( numero.get(a)!=null && origem.get(a)!=null && destino.get(a)!=null)
+		        	{	
+		        		registrosp++;
+		        		int id = a+1;
+		        		String cont = numero.get(a)+", "+data.get(a)+", "+origem.get(a)+", "+
+		        				destino.get(a)+", "+usuario.get(a)+", 0";
+			        	
+		 //        		cont = cont.replaceAll("\t\t", "\t");
+		        		cont = cont.replaceAll("\t", ",");
+		        		cont = cont.replaceAll(",,", ",null,");
+		        		cont = cont.replaceAll(",,", ",null,");
+		        		cont = cont.replaceAll("''", "null");
+		        		tabela = "tbmovimentacao";
+		        		conteudo += "INSERT INTO "+tabela+" values( "+cont+" );\n";
+			        	leitura += x+"\t"+"INSERT INTO "+tabela+" values( "+cont+" );\n";
+		        	}
 		        }
 		        System.out.println("conteudo: "+leitura);
 		        
@@ -218,7 +224,7 @@ public class MigracaoMovimentacao {
 		        		"\nERROS DESTINO: "+errosdestino+
 		        		"\nREGISTROS: "+x+
 		        		"\nLIXOS: "+lixo+
-		        		"\nREGISTROS PERFEITOS: "+perfeita.size()+"\n\n\n");
+		        		"\nREGISTROS PERFEITOS: "+registrosp+"\n\n\n");
 
 
 		        System.out.println("numero: "+numero.size()+

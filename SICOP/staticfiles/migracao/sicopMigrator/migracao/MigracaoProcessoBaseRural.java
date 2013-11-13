@@ -194,7 +194,6 @@ public class MigracaoProcessoBaseRural {
 		        		}
 		        		if(y==11) // classificacaoprocesso
 		        		{
-		      
 		        			if(a.equals("pai"))
 		        				aux = "1";
 		        			else if(a.equals("anexo"))
@@ -202,7 +201,9 @@ public class MigracaoProcessoBaseRural {
 		        			else
 		        				errosclassificacao.add("erro-classificacao");
 		        			classificacao.add(aux);
-		        		}
+		           			
+		        			System.out.println("Classificacao: |"+aux+"|");
+		           		 }
 		        					        		
 		        		contaux += aux+"\t";
 		        		
@@ -220,13 +221,13 @@ public class MigracaoProcessoBaseRural {
 		        for( int a=0; a<numero.size();a++)
 	        	{
 	        		// verificar se o processo eh anexo
-        			String res = (String) MigracaoAuxiliar.mapProcessosAnexos().get( numero.get(a) );
-        			if (res == null)
-        			{
-        				classificacao.set(a, "1");
-        			}
-        			else
-        				classificacao.set(a, "2");
+//        			String res = (String) MigracaoAuxiliar.mapProcessosAnexos().get( numero.get(a) );
+//        			if (res == null)
+//        			{
+//        				classificacao.set(a, "1");
+//        			}
+//        			else
+//        				classificacao.set(a, "2");
 
 	        		int id = a+1;
 	        		String cont = numero.get(a)+", "+gleba.get(a)+", "+caixa.get(a)+", "+
@@ -264,17 +265,15 @@ public class MigracaoProcessoBaseRural {
 		        		"\ngleba: "+errosgleba+
 		        		"\ndata: "+data.size()+
 		        		"\nusuario: "+usuario.size()+
-		        		"\nclassificacao: "+classificacao.size()+
+		        		"\nclassificacao: "+classificacao+
 		        		"\nmunicipio: "+errosmunicipios+"\n\n\n");
 
-
-		        
 		        return conteudo;
 		    } catch (IOException e) {
 		        e.printStackTrace();
 		        return null;
 		    }
-
+			
 	}
 	
 	// método para escrever no TXT  

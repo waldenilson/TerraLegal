@@ -84,7 +84,7 @@ public class MigracaoPendencia {
 	//	        	String cont = linha.replaceAll("\t", ",");
 		        	String cont = linha;
 		        	String contaux = "";
-		        	String[] s = cont.split(";");
+		        	String[] s = cont.split("|");
 
 		        	if(s.length != 7)
 		        		perfeita.add("ok");
