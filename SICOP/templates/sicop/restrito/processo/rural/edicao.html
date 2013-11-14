@@ -136,7 +136,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				{% if movimentacao %} {% autosort movimentacao %} {% autopaginate movimentacao 5 %} {% for mov in movimentacao %}
+				{% if movimentacao %} {% autosort movimentacao %} {% autopaginate movimentacao 100 %} {% for mov in movimentacao %}
 				<tr>
 					<td class="colunaTabelaConsulta">{{ mov.dtmovimentacao.day }}/{{ mov.dtmovimentacao.month }}/{{ mov.dtmovimentacao.year }}</td>
 					<td class="colunaTabelaConsulta">{{	mov.tbcaixa_id_origem.nmlocalarquivo }}</td>
@@ -190,7 +190,7 @@
 			<tbody>
 				{% if pendencia %}
 					{% autosort pendencia %}
-				  	{% autopaginate pendencia 5 %}
+				  	{% autopaginate pendencia 100 %}
 				   		{% for pen in pendencia %}
 							<tr>
 								<td class="colunaTabelaConsulta">
@@ -238,7 +238,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				{% if anexado %} {% autosort anexado %} {% autopaginate anexado 5 %} {% for anexo in anexado %}
+				{% if anexado %} {% autosort anexado %} {% autopaginate anexado 100 %} {% for anexo in anexado %}
 				<tr>
 					<td class="colunaTabelaConsulta">{{ anexo.dtanexado.day }}/{{ anexo.dtanexado.month }}/{{ anexo.dtanexado.year }}</td>
 					<td class="colunaTabelaConsulta">{{ anexo.tbprocessobase_id_anexo.nrprocesso }}</td>
