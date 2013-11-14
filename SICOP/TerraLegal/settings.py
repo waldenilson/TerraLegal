@@ -6,7 +6,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 import socket
-print socket.gethostname()
+#print socket.gethostname()
 
 if socket.gethostname() == 'mslsbrgf00r.sls.incra.gov.br':
     DEBUG = TEMPLATE_DEBUG = True
@@ -21,6 +21,7 @@ if socket.gethostname() == 'mslsbrgf00r.sls.incra.gov.br':
         },
     }
 else: #local / desenvolvimento
+    print socket.gethostname
     DEBUG = TEMPLATE_DEBUG = True
     DATABASES = {
     'default': {
