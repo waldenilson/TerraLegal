@@ -11,7 +11,7 @@ import java.util.List;
 
 public class MigracaoGlebaSubarea {
 
-	private String diretorio = "C:\\DEVELOPER/SICOP/Migracao";
+	private String diretorio = "/opt/DEVELOPER/SICOP/Migracao";
 	private String nomeArqMigracao = "scriptTbGlebaSubarea.sql";
 	private String nomeArqLegado = "dump_tbprocesso.txt";
 	

@@ -1,7 +1,7 @@
 # Django settings for SICOP project.
 from os.path import abspath, join, dirname
 
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = DEBUG
 
@@ -26,7 +26,7 @@ else: #local / desenvolvimento
     DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', 
-        'NAME': 'newsicop',                      
+        'NAME': 'sicop_new',                      
         'USER': 'admin',
         'PASSWORD': '123456',
         'HOST': 'localhost',                      
@@ -180,8 +180,6 @@ INSTALLED_APPS = (
     'controle',
     'pagination',
     'django_sorting',
-    #'dajaxice',
-    #'dajax',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )

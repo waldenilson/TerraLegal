@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class MigracaoCaixa {
 
-	private String diretorio = "C:\\DEVELOPER/SICOP/Migracao";
+	private String diretorio = "c:\\DEVELOPER/SICOP/Migracao";
 	private String nomeArqMigracao = "scriptTbcaixa.sql";
 	private String nomeArqLegado = "dump_tbcaixa.txt";
 	
@@ -66,13 +66,13 @@ public class MigracaoCaixa {
 	//	        	String cont = linha.replaceAll("\t", ",");
 		        	String cont = linha;
 		        	String contaux = "";
-		        	String[] s = cont.split("\t");
+		        	String[] s = cont.split(";");
 		        	for(int y=0; y < s.length ; y++)
 		        	{
 		        		String aux = "";
 		        		String a = s[y];
 		        		
-		        		a = a.replaceAll("'", "");
+		        		a = a.replaceAll("\"", "");
 		        		a = a.trim();
 		        		
 		        		if (a.startsWith("20") && a.contains("-") && a.contains(":"))
@@ -97,8 +97,8 @@ public class MigracaoCaixa {
 	        					aux = "4";
 		        			else if(aux.equals("'FT'"))
 	        					aux = "5";
-		        					        		
-		        		contaux += aux+"\t";
+		        		if(y!=1)			        		
+		        			contaux += aux+"\t";
 		        		
 		        	}
 		        	cont = contaux.substring(0,contaux.length()-1);

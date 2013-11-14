@@ -69,7 +69,7 @@ public class MigracaoSituacaoProcesso {
 	//	        	String cont = linha.replaceAll("\t", ",");
 		        	String cont = linha;
 		        	String contaux = "";
-		        	String[] s = cont.split("\t");
+		        	String[] s = cont.split(";");
 		        		        	
 		        	
 		        	for(int y=0; y < s.length ; y++)
@@ -77,7 +77,7 @@ public class MigracaoSituacaoProcesso {
 		        		String aux = "";
 		        		String a = s[y];
 		        		
-		        		a = a.replaceAll("'", "");
+		        		a = a.replaceAll("\"", "");
 		        		a = a.trim();
 		        		
 		        		if (a.startsWith("20") && a.contains("-") && a.contains(":"))
@@ -108,6 +108,7 @@ public class MigracaoSituacaoProcesso {
 
 //	        	MONTANDO A LISTA COM TODOS OS REGISTROS
 	        	ArrayList<String> lbd = new ArrayList<String>();
+	        	System.out.println("total: "+l1);
 	        	for(String a : l1)
 	        	{
 	        		String cont = a+",'',1";

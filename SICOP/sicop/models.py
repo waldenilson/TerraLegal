@@ -97,7 +97,6 @@ class DjangoSite(models.Model):
 
 class Tbcaixa(models.Model):
     nmlocalarquivo = models.CharField(max_length=80, blank=True)
-    qtdprocessos = models.IntegerField(null=True, blank=True)
     tbtipocaixa = models.ForeignKey('Tbtipocaixa')
     id = models.AutoField(primary_key=True)
     class Meta:
@@ -244,7 +243,7 @@ class Tbprocessosanexos(models.Model):
         db_table = 'tbprocessosanexos'
 
 class Tbprocessourbano(models.Model):
-    tbprocessobase = models.ForeignKey(Tbprocessobase)
+    tbprocessobase = models.ForeignKey('Tbprocessobase')
     nmpovoado = models.CharField(max_length=80, blank=True)
     nrcnpj = models.CharField(max_length=14, blank=True)
     dtaberturaprocesso = models.DateTimeField(null=True, blank=True)
@@ -254,7 +253,7 @@ class Tbprocessourbano(models.Model):
     nrdomicilios = models.IntegerField(null=True, blank=True)
     nrhabitantes = models.IntegerField(null=True, blank=True)
     tbpregao = models.ForeignKey('Tbpregao')
-    tbcontrato = models.ForeignKey(Tbcontrato)
+    tbcontrato = models.ForeignKey('Tbcontrato')
     tbsituacaogeo = models.ForeignKey('Tbsituacaogeo', null=True, blank=True)
     dsprojetoassentamento = models.CharField(max_length=80, blank=True)
     id = models.AutoField(primary_key=True)
@@ -319,11 +318,9 @@ class Tbtipocaixa(models.Model):
         db_table = 'tbtipocaixa'
 
 class Tbtipopendencia(models.Model):
-    cdtipopend = models.IntegerField(null=True, blank=True)
     dspendencia = models.CharField(max_length=50, blank=True)
-    cdgrupo = models.CharField(max_length=20, blank=True)
-    tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True)
     tbtipoprocesso = models.ForeignKey('Tbtipoprocesso')
+    tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True)
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbtipopendencia'
@@ -347,6 +344,7 @@ class Tbuf(models.Model):
 class Tbpregao(models.Model):
     nrpregao = models.CharField(max_length=30, blank=True)
     dspregao = models.TextField(blank=True)
+    tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True)
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbpregao'

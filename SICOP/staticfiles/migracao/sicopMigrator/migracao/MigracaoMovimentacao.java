@@ -78,13 +78,13 @@ public class MigracaoMovimentacao {
 	//	        	String cont = linha.replaceAll("\t", ",");
 		        	String cont = linha;
 		        	String contaux = "";
-		        	String[] s = cont.split("\t");
+		        	String[] s = cont.split(";");
 		        	for(int y=0; y < s.length ; y++)
 		        	{
 		        		String aux = "";
 		        		String a = s[y];
 		        		
-		        		a = a.replaceAll("'", "");
+		        		a = a.replaceAll("\"", "");
 		        		a = a.trim();
 		        		
 		        		if (a.startsWith("20") && a.contains("-") && a.contains(":"))
@@ -98,9 +98,12 @@ public class MigracaoMovimentacao {
 
 		        		if(y==0) // numero
 		        		{
+		        			if(a.equals("5641800070620971"))
+		        				a = "56418000706200971";
+		        			
 		        			aux = (String) MigracaoAuxiliar.mapProcessoBase().get( a );
 		        			if (aux == null)
-		        				errosnumero.add("erro");
+		        				errosnumero.add("erro | "+a);
 		        			numero.add(aux);
 		        		}
 		        		
@@ -113,12 +116,18 @@ public class MigracaoMovimentacao {
 		        		{
 		        			if(a.equals("TITULADOS ENTREGUES  3"))
 		        				a = "TITULADOS ENTREGUES 03";
+		        			if(a.equals("APROVAÇÃO"))
+		        				a = "APROVAÇÃO REGIONAL";
 		        			if(a.equals("SIPRADO 1"))
 		        				a = "SIPRADO 01";
 		        			if(a.equals("DESPACHO CONJUR"))
 		        				a = "DESPACHO PARA CONJUR";
 		        			if(a.contains("AGUARDANDO PEÇAS"))
 		        				a = "AGUARDANDO PEÇAS - 003";
+		        			if(a.isEmpty() || a.equals("-"))
+		        				a = "-";
+		        			if(a.equals("URBANO COM PENDENCIAS DE DOCUMENTOS 01"))
+		        				a = "URBANO COM PENDÊNCIA DE DOCUMENTO 01";
 		        			
 		        			aux = (String) MigracaoAuxiliar.mapCaixa().get( a );
 		        			if (aux == null)
@@ -131,14 +140,20 @@ public class MigracaoMovimentacao {
 		        		}
 		        		if(y==3) // caixa destino
 		        		{
+		        			if(a.isEmpty() || a.equals("-"))
+		        				a = "-";
 		        			if(a.contains("AGUARDANDO PEÇAS"))
 		        				a = "AGUARDANDO PEÇAS - 003";
 		        			if(a.equals("SIPRADO 1"))
 		        				a = "SIPRADO 01";
+		        			if(a.equals("APROVAÇÃO"))
+		        				a = "APROVAÇÃO REGIONAL";
 		        			if(a.equals("TITULADOS ENTREGUES  3"))
 		        				a = "TITULADOS ENTREGUES 03";
 		        			if(a.equals("DESPACHO CONJUR"))
 		        				a = "DESPACHO PARA CONJUR";
+		        			if(a.equals("URBANO COM PENDENCIAS DE DOCUMENTOS 01"))
+		        				a = "URBANO COM PENDÊNCIA DE DOCUMENTO 01";
 		        			
 		        			aux = (String) MigracaoAuxiliar.mapCaixa().get( a );
 		        			if (aux == null)
@@ -171,20 +186,26 @@ public class MigracaoMovimentacao {
 		        	x++;
 	//	            System.out.println(conteudo);
 		        }
+		        int registrosp = 0;
 		        for( int a=0; a<numero.size();a++)
 	        	{
-	        		int id = a+1;
-	        		String cont = numero.get(a)+", "+data.get(a)+", "+origem.get(a)+", "+
-	        				destino.get(a)+", "+usuario.get(a)+", 0";
 		        	
-	 //        		cont = cont.replaceAll("\t\t", "\t");
-	        		cont = cont.replaceAll("\t", ",");
-	        		cont = cont.replaceAll(",,", ",null,");
-	        		cont = cont.replaceAll(",,", ",null,");
-	        		cont = cont.replaceAll("''", "null");
-	        		tabela = "tbmovimentacao";
-	        		conteudo += "INSERT INTO "+tabela+" values( "+cont+" );\n";
-		        	leitura += x+"\t"+"INSERT INTO "+tabela+" values( "+cont+" );\n";
+		        	if( numero.get(a)!=null && origem.get(a)!=null && destino.get(a)!=null)
+		        	{	
+		        		registrosp++;
+		        		int id = a+1;
+		        		String cont = numero.get(a)+", "+data.get(a)+", "+origem.get(a)+", "+
+		        				destino.get(a)+", "+usuario.get(a)+", 0";
+			        	
+		 //        		cont = cont.replaceAll("\t\t", "\t");
+		        		cont = cont.replaceAll("\t", ",");
+		        		cont = cont.replaceAll(",,", ",null,");
+		        		cont = cont.replaceAll(",,", ",null,");
+		        		cont = cont.replaceAll("''", "null");
+		        		tabela = "tbmovimentacao";
+		        		conteudo += "INSERT INTO "+tabela+" values( "+cont+" );\n";
+			        	leitura += x+"\t"+"INSERT INTO "+tabela+" values( "+cont+" );\n";
+		        	}
 		        }
 		        System.out.println("conteudo: "+leitura);
 		        
@@ -198,11 +219,12 @@ public class MigracaoMovimentacao {
 		        System.out.println("ERROS NUMERO: "+errosnumero.size()+
 		        		"\nERROS ORIGEM: "+errosorigem.size()+
 		        		"\nERROS DESTINO: "+errosdestino.size()+
+		        		"\nERROS NUMERO: "+errosnumero+
 		        		"\nERROS ORIGEM: "+errosorigem+
 		        		"\nERROS DESTINO: "+errosdestino+
 		        		"\nREGISTROS: "+x+
 		        		"\nLIXOS: "+lixo+
-		        		"\nREGISTROS PERFEITOS: "+perfeita.size()+"\n\n\n");
+		        		"\nREGISTROS PERFEITOS: "+registrosp+"\n\n\n");
 
 
 		        System.out.println("numero: "+numero.size()+

@@ -47,8 +47,8 @@ def cadastro(request):
                                    tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
                                    tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
                                    tbcontrato = Tbcontrato.objects.get( pk = request.POST['tbcontrato'] ),
-                                   nrarea = request.POST['nrarea'],
-                                   nrperimetro = request.POST['nrperimetro'],
+                                   nrarea = request.POST['nrarea'].replace(',','.'),
+                                   nrperimetro = request.POST['nrperimetro'].replace(',','.'),
                                    dsobservacao = request.POST['dsobservacao'],
                                    nrentrega = request.POST['nrentrega'],
                                    nmrequerente = request.POST['nmrequerente'],
@@ -82,15 +82,16 @@ def edicao(request, id):
     
     peca_obj = get_object_or_404(Tbpecastecnicas, id=id)
         
-    if request.method == "POST":        
+    if request.method == "POST":       
+                 
         if validacao(request):
             peca = Tbpecastecnicas(
                                    id = peca_obj.id,
                                    tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
                                    tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
                                    tbcontrato = Tbcontrato.objects.get( pk = request.POST['tbcontrato'] ),
-                                   nrarea = request.POST['nrarea'],
-                                   nrperimetro = request.POST['nrperimetro'],
+                                   nrarea = request.POST['nrarea'].replace(',','.'),
+                                   nrperimetro = request.POST['nrperimetro'].replace(',','.'),
                                    dsobservacao = request.POST['dsobservacao'],
                                    nrentrega = request.POST['nrentrega'],
                                    nmrequerente = request.POST['nmrequerente'],

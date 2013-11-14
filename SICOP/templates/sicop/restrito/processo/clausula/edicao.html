@@ -23,15 +23,15 @@
 	<div style="width: 100%; font-size: 12px; text-align: left">
 		<table>
 				<tr> <td class="colunaTabela"> <label>N do Processo:</label> </td>
-					<td> <input value="{{ base.nrprocesso }}" name="nrprocesso" id="processo" /> </td> </tr>
+					<td> <input size="21" value="{{ base.nrprocesso }}" name="nrprocesso" id="processo" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Nome do Titulado:</label> </td>
 					<td> <input value="{{ clausula.nmrequerente }}" size="35" name="nmrequerente" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>CPF do Titulado:</label> </td>
-					<td> <input size="13" value="{{ clausula.nrcpfrequerente }}" id="cpf" name="nrcpfrequerente" /> </td> </tr>
+					<td> <input size="15" value="{{ clausula.nrcpfrequerente }}" id="cpf" name="nrcpfrequerente" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Nome do Interessado:</label> </td>
 					<td> <input size="35" value="{{ clausula.nminteressado }}" name="nminteressado" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>CPF do Interessado:</label> </td>
-					<td> <input size="13" id="cpf2" value="{{ clausula.nrcpfinteressado }}" name="nrcpfinteressado" /> </td> </tr>
+					<td> <input size="15" id="cpf2" value="{{ clausula.nrcpfinteressado }}" name="nrcpfinteressado" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
 				   		<td>
 				   			{{ base.tbcaixa.nmlocalarquivo }}
@@ -68,7 +68,7 @@
 							</select>
 						</td>
 				</tr>
-				<tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input value="{{ clausula.nrarea }}" onkeypress="return SomenteNumero(event, this);" size="15" name="nrarea" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input value="{{ clausula.nrarea|default:'' }}" onkeypress="return SomenteNumero(event, this);" size="15" name="nrarea" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Por Procuracao:</label> </td>
 				<td>
 					{% if clausula.stprocuracao == True %} 
@@ -144,7 +144,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				{% if movimentacao %} {% autosort movimentacao %} {% autopaginate movimentacao 5 %} {% for mov in movimentacao %}
+				{% if movimentacao %} {% autosort movimentacao %} {% autopaginate movimentacao 100 %} {% for mov in movimentacao %}
 				<tr>
 					<td class="colunaTabelaConsulta">{{ mov.dtmovimentacao.day }}/{{ mov.dtmovimentacao.month }}/{{ mov.dtmovimentacao.year }}</td>
 					<td class="colunaTabelaConsulta">{{	mov.tbcaixa_id_origem.nmlocalarquivo }}</td>
@@ -198,7 +198,7 @@
 			<tbody>
 				{% if pendencia %}
 					{% autosort pendencia %}
-				  	{% autopaginate pendencia 5 %}
+				  	{% autopaginate pendencia 100 %}
 				   		{% for pen in pendencia %}
 							<tr>
 								<td class="colunaTabelaConsulta">
@@ -246,7 +246,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				{% if anexado %} {% autosort anexado %} {% autopaginate anexado 5 %} {% for anexo in anexado %}
+				{% if anexado %} {% autosort anexado %} {% autopaginate anexado 100 %} {% for anexo in anexado %}
 				<tr>
 					<td class="colunaTabelaConsulta">{{ anexo.dtanexado.day }}/{{ anexo.dtanexado.month }}/{{ anexo.dtanexado.year }}</td>
 					<td class="colunaTabelaConsulta">{{ anexo.tbprocessobase_id_anexo.nrprocesso }}</td>

@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.conf.urls import patterns, url, include
 from dajaxice.core import dajaxice_config
 from dajaxice.core.Dajaxice import dajaxice_autodiscover
+from TerraLegal import settings
 admin.autodiscover()
 
 handler404 = 'web.views_excecoes.pagina_nao_encontrada'

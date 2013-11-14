@@ -25,16 +25,16 @@
 	<div style="width: 100%; font-size: 12px; text-align: left">
 		<table>
 				<tr> <td class="colunaTabela"> <label>N do Processo:</label> </td>
-					<td> <input name="nrprocesso" value="{{ base.nrprocesso }}" id="processo" /> </td> </tr>
+					<td> <input size="21" name="nrprocesso" value="{{ base.nrprocesso }}" id="processo" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>CNPJ:</label> </td>
-					<td> <input size="17" value="{{ urbano.nrcnpj }}" id="cnpj" name="nrcnpj" /> </td> </tr>
+					<td> <input size="18" value="{{ urbano.nrcnpj }}" id="cnpj" name="nrcnpj" /> </td> </tr>
 				<tr> <td class="colunaTabela" title="Bairro / Distrito / Povoado / Vila"> <label>Bairro/Dist./Pov./Vila:</label> </td>
 					<td> <input value="{{ urbano.nmpovoado }}" name="nmpovoado" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Contrato:</label> </td>
 				   		<td>
 				   			<select name="tbcontrato" style="width: 200px">
 				   				{% for obj in contrato %}
-									{% if obj.id == base.tbcontrato.id %}
+									{% if obj.id == urbano.tbcontrato.id %}
 										<option selected="selected" value="{{ obj.id }}">{{ obj.nrcontrato }}</option>
 									{% else %}
 										<option value="{{ obj.id }}">{{ obj.nrcontrato }}</option>
@@ -63,13 +63,13 @@
 					</td>						
 				</tr>
 				<tr> <td class="colunaTabela"> <label>Area:</label> </td>
-					<td> <input onkeypress="return SomenteNumero(event, this);" value="{{ urbano.nrarea }}" name="nrarea" /> </td> </tr>
+					<td> <input onkeypress="return SomenteNumero(event, this);" value="{{ urbano.nrarea|default:'' }}" name="nrarea" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Perimetro:</label> </td>
-					<td> <input onkeypress="return SomenteNumero(event, this);" value="{{ urbano.nrperimetro }}" name="nrperimetro" /> </td> </tr>
+					<td> <input onkeypress="return SomenteNumero(event, this);" value="{{ urbano.nrperimetro|default:'' }}" name="nrperimetro" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Numero de Habitantes:</label> </td>
-					<td> <input value="{{ urbano.nrhabitantes }}" onkeypress="return SomenteNumeroOK(event, this);" name="nrhabitantes" /> </td> </tr>
+					<td> <input value="{{ urbano.nrhabitantes|default:'' }}" onkeypress="return SomenteNumeroOK(event, this);" name="nrhabitantes" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Numero de Domicilios:</label> </td>
-					<td> <input value="{{ urbano.nrdomicilios }}" onkeypress="return SomenteNumeroOK(event, this);" name="nrdomicilios" /> </td> </tr>
+					<td> <input value="{{ urbano.nrdomicilios|default:'' }}" onkeypress="return SomenteNumeroOK(event, this);" name="nrdomicilios" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Pregao:</label> </td>
 				   		<td>
 				   			<select name="tbpregao" style="width: 200px">
@@ -116,6 +116,8 @@
 							</select>
 						</td>
 				</tr>
+				<tr> <td class="colunaTabela"> <label>Projeto Assentamento:</label> </td>
+					<td> <input name="dsprojetoassentamento" value="{{ urbano.dsprojetoassentamento }}" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
 				   		<td>
 				   			{{ base.tbcaixa.nmlocalarquivo }}
@@ -187,7 +189,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				{% if movimentacao %} {% autosort movimentacao %} {% autopaginate movimentacao 5 %} {% for mov in movimentacao %}
+				{% if movimentacao %} {% autosort movimentacao %} {% autopaginate movimentacao 100 %} {% for mov in movimentacao %}
 				<tr>
 					<td class="colunaTabelaConsulta">{{ mov.dtmovimentacao.day }}/{{ mov.dtmovimentacao.month }}/{{ mov.dtmovimentacao.year }}</td>
 					<td class="colunaTabelaConsulta">{{	mov.tbcaixa_id_origem.nmlocalarquivo }}</td>
@@ -241,7 +243,7 @@
 			<tbody>
 				{% if pendencia %}
 					{% autosort pendencia %}
-				  	{% autopaginate pendencia 5 %}
+				  	{% autopaginate pendencia 100 %}
 				   		{% for pen in pendencia %}
 							<tr>
 								<td class="colunaTabelaConsulta">
@@ -289,7 +291,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				{% if anexado %} {% autosort anexado %} {% autopaginate anexado 5 %} {% for anexo in anexado %}
+				{% if anexado %} {% autosort anexado %} {% autopaginate anexado 100 %} {% for anexo in anexado %}
 				<tr>
 					<td class="colunaTabelaConsulta">{{ anexo.dtanexado.day }}/{{ anexo.dtanexado.month }}/{{ anexo.dtanexado.year }}</td>
 					<td class="colunaTabelaConsulta">{{ anexo.tbprocessobase_id_anexo.nrprocesso }}</td>

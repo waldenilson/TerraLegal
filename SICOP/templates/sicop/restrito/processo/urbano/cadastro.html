@@ -5,9 +5,9 @@
 			{% csrf_token %}
 			<table>
 				<tr> <td class="colunaTabela"> <label>N do Processo:</label> </td>
-					<td> <input name="nrprocesso" id="processo" /> </td> </tr>
+					<td> <input size="21" name="nrprocesso" id="processo" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>CNPJ:</label> </td>
-					<td> <input size="17" id="cnpj" name="nrcnpj" /> </td> </tr>
+					<td> <input size="18" id="cnpj" name="nrcnpj" /> </td> </tr>
 				<tr> <td class="colunaTabela" title="Bairro / Distrito / Povoado / Vila"> <label>Bairro/Dist./Pov./Vila:</label> </td>
 					<td> <input name="nmpovoado" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Contrato:</label> </td>
@@ -80,6 +80,8 @@
 							</select>
 						</td>
 				</tr>
+				<tr> <td class="colunaTabela"> <label>Projeto Assentamento:</label> </td>
+					<td> <input name="dsprojetoassentamento" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
 				   		<td>
 				   			<select name="tbcaixa" style="width: 200px">

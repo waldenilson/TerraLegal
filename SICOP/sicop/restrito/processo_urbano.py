@@ -40,6 +40,13 @@ def cadastro(request):
                                     tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                     )
             f_base.save()
+     
+            datatitulacao = None
+            dataaberturaprocesso = None
+            if request.POST['dttitulacao']:
+                datatitulacao = datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y")
+            if request.POST['dtaberturaprocesso']:
+                dataaberturaprocesso = datetime.datetime.strptime( request.POST['dtaberturaprocesso'], "%d/%m/%Y")
             
             # cadastrando o registro processo urbano
             f_urbano = Tbprocessourbano (
@@ -48,13 +55,14 @@ def cadastro(request):
                                        nrhabitantes = request.POST['nrhabitantes'],
                                        nrdomicilios = request.POST['nrdomicilios'],
                                        tbpregao = Tbpregao.objects.get( pk = request.POST['tbpregao'] ),
-                                       nrarea = request.POST['nrarea'],
-                                       nrperimetro = request.POST['nrperimetro'],
+                                       nrarea = request.POST['nrarea'].replace(',','.'),
+                                       nrperimetro = request.POST['nrperimetro'].replace(',','.'),
+                                       dsprojetoassentamento = request.POST['dsprojetoassentamento'],
                                        tbsituacaogeo = Tbsituacaogeo.objects.get( pk = request.POST['tbsituacaogeo'] ),
                                        tbcontrato = Tbcontrato.objects.get( pk = request.POST['tbcontrato'] ),
                                        tbprocessobase = f_base,
-                                       dtaberturaprocesso = datetime.datetime.strptime( request.POST['dtaberturaprocesso'], "%d/%m/%Y"),
-                                       dttitulacao = datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y"),
+                                       dtaberturaprocesso = dataaberturaprocesso,
+                                       dttitulacao = datatitulacao,
                                        )
             f_urbano.save()
             
@@ -82,7 +90,6 @@ def edicao(request, id):
         if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'URB':
             caixadestino.append( obj )    
     
-    
     if validacao(request, "edicao"):
          # cadastrando o registro processo base            
             f_base = Tbprocessobase (
@@ -90,7 +97,7 @@ def edicao(request, id):
                                     nrprocesso = request.POST['nrprocesso'].replace('.','').replace('/','').replace('-',''),
                                     tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
                                     tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
-                                    tbcaixa = base.tbcaixa.id,
+                                    tbcaixa = base.tbcaixa,
                                     tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessourbano' ),
                                     dtcadastrosistema = base.dtcadastrosistema,
                                     tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
@@ -99,30 +106,38 @@ def edicao(request, id):
                                     tbdivisao = base.tbdivisao
                                     )
             f_base.save()
+       
+            datatitulacao = None
+            dataaberturaprocesso = None
+            if request.POST['dttitulacao']:
+                datatitulacao = datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y")
+            if request.POST['dtaberturaprocesso']:
+                dataaberturaprocesso = datetime.datetime.strptime( request.POST['dtaberturaprocesso'], "%d/%m/%Y")
             
             # cadastrando o registro processo rural
-            f_rural = Tbprocessourbano (
+            f_urbano = Tbprocessourbano (
                                        id = urbano.id,
                                        nmpovoado = request.POST['nmpovoado'],
                                        nrcnpj = request.POST['nrcnpj'].replace('.','').replace('/','').replace('-',''),
                                        nrhabitantes = request.POST['nrhabitantes'],
                                        nrdomicilios = request.POST['nrdomicilios'],
-                                       nrarea = request.POST['nrarea'],
-                                       nrperimetro = request.POST['nrperimetro'],
+                                       nrarea = request.POST['nrarea'].replace(',','.'),
+                                       nrperimetro = request.POST['nrperimetro'].replace(',','.'),
+                                       dsprojetoassentamento = request.POST['dsprojetoassentamento'],
                                        tbsituacaogeo = Tbsituacaogeo.objects.get( pk = request.POST['tbsituacaogeo'] ),
                                        tbpregao = Tbpregao.objects.get( pk = request.POST['tbpregao'] ),
                                        tbcontrato = Tbcontrato.objects.get( pk = request.POST['tbcontrato'] ),
                                        tbprocessobase = f_base,
-                                       dtaberturaprocesso = datetime.datetime.strptime( request.POST['dtaberturaprocesso'], "%d/%m/%Y"),
-                                       dttitulacao = datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y"),
+                                       dtaberturaprocesso = dataaberturaprocesso,
+                                       dttitulacao = datatitulacao,
                                        )
-            f_rural.save()
+            f_urbano.save()
             
             return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(base.id)+"/")
            
     
     return render_to_response('sicop/restrito/processo/urbano/edicao.html',
-                                      {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
+                                   {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                    'caixa':caixa,'municipio':municipio,'contrato':contrato,'situacaogeo':situacaogeo,
                                    'base':base,'movimentacao':movimentacao,'pregao':pregao,
                                    'caixadestino':caixadestino,'urbano':urbano}, context_instance = RequestContext(request))   
@@ -165,14 +180,12 @@ def validacao(request_form, metodo):
     if request_form.POST['tbmunicipio'] == '':
         messages.add_message(request_form,messages.WARNING,'Escolha um municipio')
         warning = False
-    if request_form.POST['tbcaixa'] == '':
-        messages.add_message(request_form,messages.WARNING,'Escolha uma caixa')
-        warning = False
+    if metodo == "cadastro":
+        if request_form.POST['tbcaixa'] == '':
+            messages.add_message(request_form,messages.WARNING,'Escolha uma caixa')
+            warning = False
     if request_form.POST['dtaberturaprocesso'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe a Data da abertura do processo')
-        warning = False
-    if request_form.POST['dttitulacao'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe a Data da titulacao do processo')
         warning = False
     if metodo == "cadastro":
         if nrProcessoCadastrado( request_form.POST['nrprocesso'].replace('.','').replace('/','').replace('-','') ):

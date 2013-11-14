@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class MigracaoGleba {
 
-	private String diretorio = "C:\\DEVELOPER/SICOP/Migracao";
+	private String diretorio = "c:\\DEVELOPER/SICOP/Migracao";
 	private String nomeArqMigracao = "scriptTbgleba.sql";
 	private String nomeArqLegado = "dump_tbgleba.txt";
 	
@@ -65,13 +65,13 @@ public class MigracaoGleba {
 	//	        	String cont = linha.replaceAll("\t", ",");
 		        	String cont = linha;
 		        	String contaux = "";
-		        	String[] s = cont.split("\t");
+		        	String[] s = cont.split(";");
 		        	for(int y=0; y < s.length ; y++)
 		        	{
 		        		String aux = "";
 		        		String a = s[y];
 		        		
-		        		a = a.replaceAll("'", "");
+		        		a = a.replaceAll("\"", "");
 		        		a = a.trim();
 		        		
 		        		if (a.startsWith("20") && a.contains("-") && a.contains(":"))
@@ -111,7 +111,7 @@ public class MigracaoGleba {
 //		        	System.out.println( cont );
 	//	        	System.exit(0);
 	//	        	cont = cont.replaceAll("\t", ",");
-		        	cont += ",8";
+		        	cont += ",4";
 		        	conteudo += "INSERT INTO "+tabela+" values( "+cont+" );\n";
 		        	leitura += x+"\t"+"INSERT INTO "+tabela+" values( "+cont+" );\n";
 		        	x++;
