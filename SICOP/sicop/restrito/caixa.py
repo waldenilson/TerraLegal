@@ -1,4 +1,5 @@
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required, permission_required,\
+    user_passes_test
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.models import Tbcaixa, Tbtipocaixa, AuthUser, Tbprocessobase,\
@@ -14,6 +15,7 @@ from reportlab.lib.enums import TA_JUSTIFY
 import urllib2
 import urllib
 from urllib import addinfourl
+from sicop.admin import verificar_permissao_grupo
 
 @login_required
 def consulta(request):
@@ -29,6 +31,7 @@ def consulta(request):
     return render_to_response('sicop/restrito/caixa/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @login_required
+@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
 def cadastro(request):
     tipocaixa = Tbtipocaixa.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     if request.method == "POST":
@@ -46,6 +49,7 @@ def cadastro(request):
     return render_to_response('sicop/restrito/caixa/cadastro.html',{"form":form,"tipocaixa":tipocaixa}, context_instance = RequestContext(request))
 
 @login_required
+@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
 def edicao(request, id):
     tipocaixa = Tbtipocaixa.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     instance = get_object_or_404(Tbcaixa, id=id)

@@ -23,7 +23,7 @@ from django.utils import simplejson
 def consulta(request):
     # carrega os processos da divisao do usuario logado
     lista = []
-    lista = Tbprocessobase.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by( "id" )
+    #lista = Tbprocessobase.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by( "dtcadastrosistema" )
     if request.method == "POST":
         numero = request.POST['numero']
         cpf = request.POST['cpf']
@@ -31,10 +31,13 @@ def consulta(request):
         cnpj = request.POST['cnpj']
         municipio = request.POST['municipio']
         
-        if len(numero) > 0 :
+        if len(numero) >= 3:
             lista = Tbprocessobase.objects.all().filter( nrprocesso__contains = numero )
-    
-        if len(cpf) > 0 :
+        else:
+            if len(numero) > 0 and len(numero) < 3:
+                messages.add_message(request,messages.WARNING,'Informe no minimo 3 caracteres no campo Processo.')
+        
+        if len(cpf) >= 3 :
             p_rural = Tbprocessorural.objects.all().filter( nrcpfrequerente__contains = cpf )
             p_clausula = Tbprocessoclausula.objects.all().filter( nrcpfrequerente__contains = cpf )
             lista = []
@@ -42,8 +45,11 @@ def consulta(request):
                 lista.append( obj.tbprocessobase )
             for obj in p_clausula:
                 lista.append( obj.tbprocessobase )
+        else:
+            if len(cpf) > 0 and len(cpf) < 3 :
+                messages.add_message(request,messages.WARNING,'Informe no minimo 3 caracteres no campo CPF.')
                 
-        if len(requerente) > 0 :
+        if len(requerente) >= 3 :
             p_rural = Tbprocessorural.objects.all().filter( nmrequerente__icontains = requerente )
             p_clausula = Tbprocessoclausula.objects.all().filter( nmrequerente__icontains = requerente )
             lista = []
@@ -51,19 +57,25 @@ def consulta(request):
                 lista.append( obj.tbprocessobase )
             for obj in p_clausula:
                 lista.append( obj.tbprocessobase )
-                
-        if len(cnpj) > 0 :
+        else:
+            if len(requerente) > 0 and len(requerente) < 3:
+                messages.add_message(request,messages.WARNING,'Informe no minimo 3 caracteres no campo Requerente.')
+                        
+        if len(cnpj) >= 3 :
             p_urbano = Tbprocessourbano.objects.all().filter( nrcnpj__contains = cnpj ) 
             lista = []
             for obj in p_urbano:
                 lista.append( obj.tbprocessobase )
 
-        if len(municipio) > 0 :
+        if len(municipio) >= 3 :
             p_urbano = Tbprocessourbano.objects.all().filter( tbprocessobase__tbmunicipio__nome_mun__icontains = municipio ) 
             lista = []
             for obj in p_urbano:
                 lista.append( obj.tbprocessobase ) 
-            
+        else:
+            if len(municipio) > 0 and len(municipio) < 3:
+                messages.add_message(request,messages.WARNING,'Informe no minimo 3 caracteres no campo Municipio.')
+        
     # gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_processo'] = lista
     # gravando na sessao a divisao do usuario logado
@@ -72,7 +84,7 @@ def consulta(request):
     return render_to_response('sicop/restrito/processo/consulta.html',{'lista':lista}, context_instance = RequestContext(request))
 
 @login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
+@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador','Cadastro'}), login_url='/excecoes/permissao_negada/')
 def tramitar(request, base):
     if request.method == "POST":
         
@@ -182,7 +194,7 @@ def tramitar(request, base):
                                        'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))      
 
 @login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
+@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador','Cadastro'}), login_url='/excecoes/permissao_negada/')
 def criar_pendencia(request, base):
     if request.method == "POST":
         
@@ -247,7 +259,7 @@ def criar_pendencia(request, base):
                                        'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))      
 
 @login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
+@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador','Cadastro'}), login_url='/excecoes/permissao_negada/')
 def anexar(request, base):
     if request.method == "POST":
         
@@ -328,7 +340,7 @@ def anexar(request, base):
                                        'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))      
 
 @login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
+@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador','Cadastro'}), login_url='/excecoes/permissao_negada/')
 def edicao(request, id):
     base = get_object_or_404(Tbprocessobase, id=id)
     
@@ -394,7 +406,7 @@ def edicao(request, id):
     return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
     
 @login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador','Operador'}), login_url='/excecoes/permissao_negada/')
+@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador','Cadastro'}), login_url='/excecoes/permissao_negada/')
 def cadastro(request):
     tipoprocesso = Tbtipoprocesso.objects.all()
     escolha = "tbprocessorural"

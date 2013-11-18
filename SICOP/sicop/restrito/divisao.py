@@ -1,4 +1,5 @@
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required, permission_required,\
+    user_passes_test
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.models import Tbcaixa, Tbtipocaixa, Tbdivisao, Tbuf
@@ -6,8 +7,10 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from sicop.forms import FormCaixa, FormDivisao
 from sicop.relatorio_base import relatorio_base_consulta
+from sicop.admin import verificar_permissao_grupo
 
 @login_required
+@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
 def consulta(request):
     if request.method == "POST":
         nome = request.POST['nmdivisao']
@@ -20,6 +23,7 @@ def consulta(request):
     return render_to_response('sicop/restrito/divisao/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
     
 @login_required
+@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super'}), login_url='/excecoes/permissao_negada/')
 def cadastro(request):
     uf = Tbuf.objects.all()
     if request.method == "POST":
@@ -37,6 +41,7 @@ def cadastro(request):
     return render_to_response('sicop/restrito/divisao/cadastro.html',{"form":form,"uf":uf}, context_instance = RequestContext(request))
 
 @login_required
+@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super'}), login_url='/excecoes/permissao_negada/')
 def edicao(request, id):
     uf = Tbuf.objects.all()
     instance = get_object_or_404(Tbdivisao, id=id)

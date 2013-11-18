@@ -1,4 +1,5 @@
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required, permission_required,\
+    user_passes_test
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.forms import FormGleba
@@ -6,6 +7,7 @@ from sicop.models import Tbgleba, Tbsubarea, AuthUser
 from django.http.response import HttpResponseRedirect
 from django.contrib import messages
 from sicop.relatorio_base import relatorio_base_consulta
+from sicop.admin import verificar_permissao_grupo
 
 @login_required
 def consulta(request):
@@ -20,6 +22,7 @@ def consulta(request):
     return render_to_response('sicop/restrito/gleba/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @login_required
+@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
 def cadastro(request):
     subarea = Tbsubarea.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     if request.method == "POST":
@@ -37,6 +40,7 @@ def cadastro(request):
     return render_to_response('sicop/restrito/gleba/cadastro.html',{"form":form,'subarea':subarea}, context_instance = RequestContext(request))
 
 @login_required
+@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
 def edicao(request, id):
     subarea = Tbsubarea.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     instance = get_object_or_404(Tbgleba, id=id)

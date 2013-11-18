@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.template.context import RequestContext
@@ -17,6 +17,7 @@ from sicop.admin import verificar_permissao_grupo
 #PECAS TECNICAS -----------------------------------------------------------------------------------------------------------------------------
 
 @login_required
+@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
 def consulta(request):
     
     if request.method == "POST":
@@ -42,6 +43,7 @@ def consulta(request):
     return render_to_response('sicop/restrito/usuario/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @login_required
+@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super'}), login_url='/excecoes/permissao_negada/')
 def cadastro(request):
     
     divisao = Tbdivisao.objects.all()
@@ -72,6 +74,7 @@ def cadastro(request):
 
 
 @login_required
+@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super'}), login_url='/excecoes/permissao_negada/')
 def edicao(request, id):
     divisao = Tbdivisao.objects.all()
     grupo = AuthGroup.objects.all()

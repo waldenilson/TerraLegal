@@ -1,4 +1,5 @@
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required, permission_required,\
+    user_passes_test
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.forms import FormSituacaoProcesso
@@ -6,6 +7,7 @@ from django.contrib import messages
 from django.http.response import HttpResponseRedirect
 from sicop.models import Tbsituacaoprocesso, AuthUser
 from sicop.relatorio_base import relatorio_base_consulta
+from sicop.admin import verificar_permissao_grupo
 
 @login_required
 def consulta(request):
@@ -20,6 +22,7 @@ def consulta(request):
     return render_to_response('sicop/restrito/situacao_processo/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @login_required
+@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
 def cadastro(request):
     if request.method == "POST":
         next = request.GET.get('next', '/')
@@ -37,6 +40,7 @@ def cadastro(request):
     return render_to_response('sicop/restrito/situacao_processo/cadastro.html', context_instance = RequestContext(request))
 
 @login_required
+@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
 def edicao(request, id):
     instance = get_object_or_404(Tbsituacaoprocesso, id=id)
     if request.method == "POST":

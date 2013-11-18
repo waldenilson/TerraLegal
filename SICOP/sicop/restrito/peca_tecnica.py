@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.template.context import RequestContext
@@ -7,25 +7,45 @@ from sicop.forms import FormPecasTecnicas
 from sicop.models import Tbpecastecnicas, Tbgleba, Tbcaixa, Tbcontrato,\
     Tbprocessobase, Tbprocessorural, AuthUser
 from sicop.relatorio_base import relatorio_base_consulta
+from sicop.admin import verificar_permissao_grupo
 
 #PECAS TECNICAS -----------------------------------------------------------------------------------------------------------------------------
 
 @login_required
 def consulta(request):
+    lista = []
     if request.method == "POST":
         requerente = request.POST['requerente']
         cpf = request.POST['cpf']
         entrega = request.POST['entrega']
-        lista = Tbpecastecnicas.objects.all().filter( nmrequerente__icontains=requerente, nrcpfrequerente__contains=cpf, nrentrega__contains=entrega, 
-                                                      tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-    else:
-        lista = Tbpecastecnicas.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-    lista = lista.order_by( 'id' )
+        
+        if len(requerente) >= 3:
+            lista = Tbpecastecnicas.objects.all().filter( nmrequerente__icontains=requerente, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        else:
+            if len(requerente) > 0 and len(requerente) < 3:
+                messages.add_message(request,messages.WARNING,'Informe no minimo 3 caracteres no campo Requerente.')
+
+        if len(cpf) >= 3:
+            lista = Tbpecastecnicas.objects.all().filter( nrcpfrequerente__contains=cpf, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        else:
+            if len(cpf) > 0 and len(cpf) < 3:
+                messages.add_message(request,messages.WARNING,'Informe no minimo 3 caracteres no campo CPF.')
+
+        if len(entrega) >= 1:
+            lista = Tbpecastecnicas.objects.all().filter( nrentrega__contains=entrega, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        else:
+            if len(entrega) > 0 and len(entrega) < 1:
+                messages.add_message(request,messages.WARNING,'Informe no minimo 3 caracteres no campo Entrega.')
+
+#    else:
+#        lista = Tbpecastecnicas.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+#    lista = lista.order_by( 'id' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_peca_tecnica'] = lista
     return render_to_response('sicop/restrito/peca_tecnica/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @login_required
+@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador','Cadastro'}), login_url='/excecoes/permissao_negada/')
 def cadastro(request):
     contrato = Tbcontrato.objects.all()
     caixa = Tbcaixa.objects.all()
@@ -65,6 +85,7 @@ def cadastro(request):
 
 
 @login_required
+@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador','Consulta'}), login_url='/excecoes/permissao_negada/')
 def edicao(request, id):
     contrato = Tbcontrato.objects.all()
     caixa = Tbcaixa.objects.all()
