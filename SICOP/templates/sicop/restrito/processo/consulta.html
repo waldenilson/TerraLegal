@@ -75,24 +75,36 @@
 		<table>
 			<thead style="background:#e5e5e5;color:black">
 				<tr>
-					<th class="colunaTabelaConsulta" style="width:8%">Detalhes</th>
-					<th class="colunaTabelaConsulta" style="width:20%">{% anchor nrprocesso Processo %}</th>
-					<th class="colunaTabelaConsulta" style="width:21%">{% anchor tbmunicipio Municipio %}</th>
-					<th class="colunaTabelaConsulta" style="width:18%">{% anchor tbgleba Gleba %}</th>
-					<th class="colunaTabelaConsulta" style="width:18%">{% anchor tbcaixa Caixa %}</th>
-					<th class="colunaTabelaConsulta" style="width:15%">{% anchor tbsituacaoprocesso Situacao %}</th>
+					<th class="colunaTabelaConsulta" style="width:8%"> </th>
+					<th class="colunaTabelaConsulta" style="width:10%"> </th>
+					<th class="colunaTabelaConsulta" style="width:10%">Processo</th>
+					<th class="colunaTabelaConsulta" style="width:21%">Municipio</th>
+					<th class="colunaTabelaConsulta" style="width:18%">Gleba</th>
+					<th class="colunaTabelaConsulta" style="width:18%">Caixa</th>
+					<th class="colunaTabelaConsulta" style="width:15%">Situacao</th>
 				</tr>
 			</thead>
 			<tbody>
 				{% if lista %}
 					{% for obj in lista %}
-						<tr style="background: {{ obj.tbtipoprocesso.coridentificacao }}">
+						<tr style="background: {{ obj.tbprocessobase.tbtipoprocesso.coridentificacao }}">
 							<td class="colunaTabelaConsulta"> <a href="/sicop/restrito/processo/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
-							<td class="colunaTabelaConsulta">{{ obj.nrprocesso }}</td>
-							<td class="colunaTabelaConsulta">{{ obj.tbmunicipio.nome_mun }}</td>
-							<td class="colunaTabelaConsulta">{{ obj.tbgleba.nmgleba }}</td>
-							<td class="colunaTabelaConsulta">{{ obj.tbcaixa.nmlocalarquivo }}</td>
-							<td class="colunaTabelaConsulta">{{ obj.tbsituacaoprocesso.nmsituacao }}</td>
+							{% if obj.tbprocessobase.tbtipoprocesso.id == 1 %}
+								<td class="colunaTabelaConsulta">{{ obj.nmrequerente }}</td>
+							{% else %}
+								{% if obj.tbprocessobase.tbtipoprocesso.id == 2 %}
+									<td class="colunaTabelaConsulta">{{ obj.nmrequerente }}</td>
+								{% else %}
+									{% if obj.tbprocessobase.tbtipoprocesso.id == 3 %}
+										<td class="colunaTabelaConsulta">{{ obj.nmpovoado }}</td>
+									{% endif %}
+								{% endif %}
+							{% endif %}
+							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.nrprocesso }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbmunicipio.nome_mun }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbgleba.nmgleba }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbcaixa.nmlocalarquivo }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbsituacaoprocesso.nmsituacao }}</td>
 						</tr>
 					{% endfor %}
 				{% else %}

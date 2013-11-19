@@ -32,7 +32,17 @@ def consulta(request):
         municipio = request.POST['municipio']
         
         if len(numero) >= 3:
-            lista = Tbprocessobase.objects.all().filter( nrprocesso__contains = numero )
+#            lista = Tbprocessobase.objects.all().filter( nrprocesso__contains = numero )
+            p_rural = Tbprocessorural.objects.all().filter( tbprocessobase__nrprocesso__contains = numero )
+            p_clausula = Tbprocessoclausula.objects.all().filter( tbprocessobase__nrprocesso__contains = numero )
+            p_urbano = Tbprocessourbano.objects.all().filter( tbprocessobase__nrprocesso__contains = numero )
+            lista = []
+            for obj in p_rural:
+                lista.append( obj )
+            for obj in p_clausula:
+                lista.append( obj )
+            for obj in p_urbano:
+                lista.append( obj )
         else:
             if len(numero) > 0 and len(numero) < 3:
                 messages.add_message(request,messages.WARNING,'Informe no minimo 3 caracteres no campo Processo.')
@@ -42,9 +52,9 @@ def consulta(request):
             p_clausula = Tbprocessoclausula.objects.all().filter( nrcpfrequerente__contains = cpf )
             lista = []
             for obj in p_rural:
-                lista.append( obj.tbprocessobase )
+                lista.append( obj )
             for obj in p_clausula:
-                lista.append( obj.tbprocessobase )
+                lista.append( obj )
         else:
             if len(cpf) > 0 and len(cpf) < 3 :
                 messages.add_message(request,messages.WARNING,'Informe no minimo 3 caracteres no campo CPF.')
@@ -54,9 +64,9 @@ def consulta(request):
             p_clausula = Tbprocessoclausula.objects.all().filter( nmrequerente__icontains = requerente )
             lista = []
             for obj in p_rural:
-                lista.append( obj.tbprocessobase )
+                lista.append( obj )
             for obj in p_clausula:
-                lista.append( obj.tbprocessobase )
+                lista.append( obj )
         else:
             if len(requerente) > 0 and len(requerente) < 3:
                 messages.add_message(request,messages.WARNING,'Informe no minimo 3 caracteres no campo Requerente.')
@@ -65,13 +75,13 @@ def consulta(request):
             p_urbano = Tbprocessourbano.objects.all().filter( nrcnpj__contains = cnpj ) 
             lista = []
             for obj in p_urbano:
-                lista.append( obj.tbprocessobase )
+                lista.append( obj )
 
         if len(municipio) >= 3 :
             p_urbano = Tbprocessourbano.objects.all().filter( tbprocessobase__tbmunicipio__nome_mun__icontains = municipio ) 
             lista = []
             for obj in p_urbano:
-                lista.append( obj.tbprocessobase ) 
+                lista.append( obj ) 
         else:
             if len(municipio) > 0 and len(municipio) < 3:
                 messages.add_message(request,messages.WARNING,'Informe no minimo 3 caracteres no campo Municipio.')
