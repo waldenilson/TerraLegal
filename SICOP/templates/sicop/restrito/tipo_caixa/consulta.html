@@ -1,6 +1,5 @@
 {% extends "base/consulta_base.html" %} 
 {% load staticfiles %} 
-{% load pagination_tags %}
 {% load sorting_tags %}
 
 {% block breadcumbs %}
@@ -57,15 +56,12 @@
 			</thead>
 			<tbody>
 				{% if lista %}
-					{% autosort lista %}
-					{% autopaginate lista 10 %}
 					{% for obj in lista %}
 						<tr>
 							<td class="colunaTabelaConsulta"> <a href="/sicop/restrito/tipo_caixa/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
 							<td class="colunaTabelaConsulta">{{ obj.nmtipocaixa }}</td>
 						</tr>
 					{% endfor %}
-					{% paginate %}
 				{% else %}
 					<tr> <td style="padding-top: 20px" colspan="6"> Nenhum Tipo Caixa Encontrado </td> </tr>
 				{% endif %}

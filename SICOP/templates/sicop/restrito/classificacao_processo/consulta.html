@@ -1,6 +1,5 @@
 {% extends "base/consulta_base.html" %} 
 {% load staticfiles %} 
-{% load pagination_tags %}
 {% load sorting_tags %}
 
 {% block breadcumbs %}
@@ -53,15 +52,12 @@
 			</thead>
 			<tbody>
 				{% if lista %}
-					{% autosort lista %}
-					{% autopaginate lista 10 %}
 					{% for obj in lista %}
 						<tr>
 							<td class="colunaTabelaConsulta"> <a href="/sicop/restrito/classificacao_processo/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
 							<td class="colunaTabelaConsulta">{{ obj.nmclassificacao }}</td>
 						</tr>
 					{% endfor %}
-					{% paginate %}
 				{% else %}
 					<tr> <td style="padding-top: 20px" colspan="6"> Nenhuma Classificacao de Processo Encontrada </td> </tr>
 				{% endif %}
