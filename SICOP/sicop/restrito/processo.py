@@ -282,7 +282,7 @@ def anexar(request, base):
             f_anexos = Tbprocessosanexos(
                                          tbprocessobase = base,
                                          tbprocessobase_id_anexo = proc_anexo,
-                                         auth_user = AuthUser.objects.get( pk = request.user.id ),
+                                         auth_user = base.auth_user,
                                          dtanexado = datetime.datetime.now()
                                         )
             f_anexos.save()
