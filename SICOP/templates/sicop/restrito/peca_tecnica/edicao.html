@@ -112,7 +112,17 @@
 <div id="tabs-2">
 {% if processo %}
 	<table style="width:100%">
-		<tr> <td class="colunaTabela"> <label>Numero:</label> </td><td> {{ processo.nrprocesso }} </td> </tr>
+		<tr> <td class="colunaTabela"> <label>Numero:</label> </td><td> {{ processo.tbprocessobase.nrprocesso }} </td> </tr>
+		<tr> <td class="colunaTabela"> <label>Gleba:</label> </td><td> {{ processo.tbprocessobase.tbgleba.nmgleba }} </td> </tr>
+		<tr> <td class="colunaTabela"> <label>Municipio:</label> </td><td> {{ processo.tbprocessobase.tbmunicipio.nome_mun }} </td> </tr>
+		<tr> <td class="colunaTabela"> <label>CPF Requerente:</label> </td><td> {{ processo.nrcpfrequerente }} </td> </tr>
+		<tr> <td class="colunaTabela"> <label>Nome Requerente:</label> </td><td> {{ processo.nmrequerente }} </td> </tr>
+		{% if processo.nrcpfconjuge %}
+			<tr> <td class="colunaTabela"> <label>CPF Conjuge:</label> </td><td> {{ processo.nrcpfconjuge }} </td> </tr>
+			<tr> <td class="colunaTabela"> <label>Nome Conjuge:</label> </td><td> {{ processo.nmconjuge }} </td> </tr>
+		{% endif %}
+		<tr> <td class="colunaTabela"> <label>Caixa:</label> </td><td> {{ processo.tbprocessobase.tbcaixa.nmlocalarquivo }} </td> </tr>
+		<tr> <td class="colunaTabela"> <label>Situacao:</label> </td><td> {{ processo.tbprocessobase.tbsituacaoprocesso.nmsituacao }} </td> </tr>
 	</table>
 {% else %}
 	Nenhum Processo ligado a esta peca tecnica

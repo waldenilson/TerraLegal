@@ -282,7 +282,7 @@ def anexar(request, base):
             f_anexos = Tbprocessosanexos(
                                          tbprocessobase = base,
                                          tbprocessobase_id_anexo = proc_anexo,
-                                         auth_user = base.auth_user,
+                                         auth_user = AuthUser.objects.get( pk = request.user.id ),
                                          dtanexado = datetime.datetime.now()
                                         )
             f_anexos.save()
@@ -296,7 +296,7 @@ def anexar(request, base):
                                     tbtipoprocesso = proc_anexo.tbtipoprocesso,
                                     tbsituacaoprocesso = proc_anexo.tbsituacaoprocesso,
                                     dtcadastrosistema = proc_anexo.dtcadastrosistema,
-                                    auth_user = proc_anexo.auth_user,
+                                    auth_user = AuthUser.objects.get( pk = request.user.id ),
                                     tbdivisao = base.tbdivisao,
                                     tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 2 )
                                     )
@@ -370,6 +370,8 @@ def edicao(request, id):
         if tipo == "tbprocessorural":
             rural = Tbprocessorural.objects.get( tbprocessobase = id )
             peca = Tbpecastecnicas.objects.all().filter( nrcpfrequerente = rural.nrcpfrequerente.replace('.','').replace('-','') )
+            if peca:
+                peca = peca[0] 
             # caixas que podem ser tramitadas
             tram = []
             for obj in Tbcaixa.objects.all():

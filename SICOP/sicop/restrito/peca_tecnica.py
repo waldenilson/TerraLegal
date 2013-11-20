@@ -143,9 +143,12 @@ def edicao(request, id):
                                    tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                    )
             peca.save()
-            return HttpResponseRedirect("/sicop/restrito/peca_tecnica/consulta/")
+            return HttpResponseRedirect( "/sicop/restrito/peca_tecnica/edicao/"+str(peca_obj.id)+"/")
 
     processo = Tbprocessorural.objects.all().filter( nrcpfrequerente = peca_obj.nrcpfrequerente.replace('.','').replace('-','') )
+    if processo:
+        processo = processo[0] 
+
     return render_to_response('sicop/restrito/peca_tecnica/edicao.html',
                               {'peca':peca_obj,'processo':processo,'caixa':caixa,'contrato':contrato,'gleba':gleba}, 
                             context_instance = RequestContext(request))

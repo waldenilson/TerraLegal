@@ -242,7 +242,7 @@
 				<tr>
 					<td class="colunaTabelaConsulta">{{ anexo.dtanexado.day }}/{{ anexo.dtanexado.month }}/{{ anexo.dtanexado.year }}</td>
 					<td class="colunaTabelaConsulta">{{ anexo.tbprocessobase_id_anexo.nrprocesso }}</td>
-					<td class="colunaTabelaConsulta">{{	anexo.tbprocessobase.auth_user.first_name }}</td>
+					<td class="colunaTabelaConsulta">{{	anexo.tbprocessobase_id_anexo.auth_user.first_name }}</td>
 				</tr>
 				{% endfor %} {% paginate %} {% else %}
 				<tr>
@@ -260,6 +260,15 @@
 		<tr> <td class="colunaTabela"> <label>Contrato:</label> </td><td> {{ peca.tbcontrato.nrcontrato }} </td> </tr>
 		<tr> <td class="colunaTabela"> <label>Entrega:</label> </td><td> {{ peca.nrentrega }} </td> </tr>
 		<tr> <td class="colunaTabela"> <label>CPF Requerente:</label> </td><td> {{ peca.nrcpfrequerente }} </td> </tr>
+		<tr> <td class="colunaTabela"> <label>Nome Requerente:</label> </td><td> {{ peca.nmrequerente }} </td> </tr>
+		<tr> <td class="colunaTabela"> <label>Caixa:</label> </td><td> {{ peca.tbcaixa.nmlocalarquivo }} </td> </tr>
+		<tr> <td class="colunaTabela"> <label>Area:</label> </td><td> {{ peca.nrarea }} </td> </tr>
+		<tr> <td class="colunaTabela"> <label>Perimetro:</label> </td><td> {{ peca.nrperimetro }} </td> </tr>
+		<tr> <td class="colunaTabela"> <label>Gleba:</label> </td><td> {{ peca.tbgleba.nmgleba }} </td> </tr>
+		<tr> <td class="colunaTabela"> <label>Anexado ao Processo:</label> </td><td> {{ peca.stanexadoprocesso }} </td> </tr>
+		<tr> <td class="colunaTabela"> <label>Enviado Brasilia:</label> </td><td> {{ peca.stenviadobrasilia }} </td> </tr>
+		<tr> <td class="colunaTabela"> <label>Aprovada:</label> </td><td> {{ peca.stpecatecnica }} </td> </tr>
+		<tr> <td class="colunaTabela"> <label>Observacao:</label> </td><td> {{ peca.dsobservacao }} </td> </tr>
 	</table>
 {% else %}
 	Nenhuma Peca Tecnica ligada a este processo
