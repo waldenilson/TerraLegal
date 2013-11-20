@@ -97,12 +97,12 @@ def edicao(request, id):
                                     nrprocesso = request.POST['nrprocesso'].replace('.','').replace('/','').replace('-',''),
                                     tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
                                     tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
-                                    tbcaixa = base.tbcaixa.id,
+                                    tbcaixa = base.tbcaixa,
                                     tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessoclausula' ),
                                     dtcadastrosistema = base.dtcadastrosistema,
                                     tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
                                     auth_user = AuthUser.objects.get( pk = request.user.id ),
-                                    tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 ),
+                                    tbclassificacaoprocesso = base.tbclassificacaoprocesso,
                                     tbdivisao = base.tbdivisao
                                     )
             f_base.save()
@@ -151,9 +151,10 @@ def validacao(request_form, metodo):
     if request_form.POST['nrcpfinteressado'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe o CPF do interessado')
         warning = False
-    if request_form.POST['tbcaixa'] == '':
-        messages.add_message(request_form,messages.WARNING,'Escolha uma caixa')
-        warning = False
+    if metodo == "cadastro":
+        if request_form.POST['tbcaixa'] == '':
+            messages.add_message(request_form,messages.WARNING,'Escolha uma caixa')
+            warning = False
     if request_form.POST['tbgleba'] == '':
         messages.add_message(request_form,messages.WARNING,'Escolha uma gleba')
         warning = False
@@ -163,9 +164,9 @@ def validacao(request_form, metodo):
     if request_form.POST['nrarea'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe o numero da area')
         warning = False
-    if request_form.POST['dttitulacao'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe a data de titulacao')
-        warning = False
+#    if request_form.POST['dttitulacao'] == '':
+#        messages.add_message(request_form,messages.WARNING,'Informe a data de titulacao')
+#        warning = False
         
     if metodo == "cadastro":    
         if nrProcessoCadastrado( request_form.POST['nrprocesso'].replace('.','').replace('/','').replace('-','') ):

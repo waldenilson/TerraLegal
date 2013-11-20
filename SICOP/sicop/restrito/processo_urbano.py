@@ -118,7 +118,7 @@ def edicao(request, id):
                                     dtcadastrosistema = base.dtcadastrosistema,
                                     tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
                                     auth_user = AuthUser.objects.get( pk = request.user.id ),
-                                    tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 ),
+                                    tbclassificacaoprocesso = base.tbclassificacaoprocesso,
                                     tbdivisao = base.tbdivisao
                                     )
             f_base.save()
