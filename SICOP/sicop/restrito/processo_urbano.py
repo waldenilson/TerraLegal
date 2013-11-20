@@ -22,7 +22,7 @@ def cadastro(request):
     carregarTbAuxProcesso(request)
       
     div_processo = "urbano"
-    escolha = "tbprocessourbano"  
+    escolha = "tbprocessourbano" 
     
     if request.method == "POST":
         if validacao(request, "cadastro"):
@@ -48,15 +48,31 @@ def cadastro(request):
             if request.POST['dtaberturaprocesso']:
                 dataaberturaprocesso = datetime.datetime.strptime( request.POST['dtaberturaprocesso'], "%d/%m/%Y")
             
+            area = request.POST['nrarea'].replace(',','.')
+            if not area:
+                area = None
+                
+            perimetro = request.POST['nrperimetro'].replace(',','.')
+            if not perimetro:
+                perimetro = None
+
+            habitantes = request.POST['nrhabitantes'].replace(',','.')
+            if not habitantes:
+                habitantes = None
+                
+            domicilios = request.POST['nrdomicilios'].replace(',','.')
+            if not domicilios:
+                domicilios = None
+            
             # cadastrando o registro processo urbano
             f_urbano = Tbprocessourbano (
                                        nmpovoado = request.POST['nmpovoado'],
                                        nrcnpj = request.POST['nrcnpj'].replace('.','').replace('/','').replace('-',''),
-                                       nrhabitantes = request.POST['nrhabitantes'],
-                                       nrdomicilios = request.POST['nrdomicilios'],
+                                       nrhabitantes = habitantes,
+                                       nrdomicilios = domicilios,
                                        tbpregao = Tbpregao.objects.get( pk = request.POST['tbpregao'] ),
-                                       nrarea = request.POST['nrarea'].replace(',','.'),
-                                       nrperimetro = request.POST['nrperimetro'].replace(',','.'),
+                                       nrarea = area,
+                                       nrperimetro = perimetro,
                                        dsprojetoassentamento = request.POST['dsprojetoassentamento'],
                                        tbsituacaogeo = Tbsituacaogeo.objects.get( pk = request.POST['tbsituacaogeo'] ),
                                        tbcontrato = Tbcontrato.objects.get( pk = request.POST['tbcontrato'] ),
@@ -89,7 +105,7 @@ def edicao(request, id):
     for obj in Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ):
         if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'URB':
             caixadestino.append( obj )    
-    
+   
     if validacao(request, "edicao"):
          # cadastrando o registro processo base            
             f_base = Tbprocessobase (
@@ -113,16 +129,32 @@ def edicao(request, id):
                 datatitulacao = datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y")
             if request.POST['dtaberturaprocesso']:
                 dataaberturaprocesso = datetime.datetime.strptime( request.POST['dtaberturaprocesso'], "%d/%m/%Y")
-            
+ 
+            area = request.POST['nrarea'].replace(',','.')
+            if not area:
+                area = None
+                        
+            perimetro = request.POST['nrperimetro'].replace(',','.')
+            if not perimetro:
+                perimetro = None
+
+            habitantes = request.POST['nrhabitantes'].replace(',','.')
+            if not habitantes:
+                habitantes = None
+                
+            domicilios = request.POST['nrdomicilios'].replace(',','.')
+            if not domicilios:
+                domicilios = None
+           
             # cadastrando o registro processo rural
             f_urbano = Tbprocessourbano (
                                        id = urbano.id,
                                        nmpovoado = request.POST['nmpovoado'],
                                        nrcnpj = request.POST['nrcnpj'].replace('.','').replace('/','').replace('-',''),
-                                       nrhabitantes = request.POST['nrhabitantes'],
-                                       nrdomicilios = request.POST['nrdomicilios'],
-                                       nrarea = request.POST['nrarea'].replace(',','.'),
-                                       nrperimetro = request.POST['nrperimetro'].replace(',','.'),
+                                       nrhabitantes = habitantes,
+                                       nrdomicilios = domicilios,
+                                       nrarea = area,
+                                       nrperimetro = perimetro,
                                        dsprojetoassentamento = request.POST['dsprojetoassentamento'],
                                        tbsituacaogeo = Tbsituacaogeo.objects.get( pk = request.POST['tbsituacaogeo'] ),
                                        tbpregao = Tbpregao.objects.get( pk = request.POST['tbpregao'] ),
@@ -156,18 +188,18 @@ def validacao(request_form, metodo):
     if request_form.POST['tbcontrato'] == '':
         messages.add_message(request_form,messages.WARNING,'Escolha o Contrato')
         warning = False
-    if request_form.POST['nrarea'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe a Area')
-        warning = False
-    if request_form.POST['nrperimetro'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe o Perimetro')
-        warning = False
-    if request_form.POST['nrhabitantes'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe o Numero de habitantes')
-        warning = False
-    if request_form.POST['nrdomicilios'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe o Numero de Domicilios')
-        warning = False
+#    if request_form.POST['nrarea'] == '':
+#        messages.add_message(request_form,messages.WARNING,'Informe a Area')
+#        warning = False
+#    if request_form.POST['nrperimetro'] == '':
+#        messages.add_message(request_form,messages.WARNING,'Informe o Perimetro')
+#        warning = False
+#    if request_form.POST['nrhabitantes'] == '':
+#        messages.add_message(request_form,messages.WARNING,'Informe o Numero de habitantes')
+#        warning = False
+#    if request_form.POST['nrdomicilios'] == '':
+#        messages.add_message(request_form,messages.WARNING,'Informe o Numero de Domicilios')
+#        warning = False
     if request_form.POST['tbpregao'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe o Pregao')
         warning = False

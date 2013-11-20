@@ -88,7 +88,7 @@
 				{% if lista %}
 					{% for obj in lista %}
 						<tr style="background: {{ obj.tbprocessobase.tbtipoprocesso.coridentificacao }}">
-							<td class="colunaTabelaConsulta"> <a href="/sicop/restrito/processo/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
+							<td class="colunaTabelaConsulta"> <a href="/sicop/restrito/processo/edicao/{{ obj.tbprocessobase.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
 							{% if obj.tbprocessobase.tbtipoprocesso.id == 1 %}
 								<td class="colunaTabelaConsulta">{{ obj.nmrequerente }}</td>
 							{% else %}

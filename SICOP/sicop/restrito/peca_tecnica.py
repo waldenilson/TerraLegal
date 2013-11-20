@@ -63,12 +63,22 @@ def cadastro(request):
     
     if request.method == "POST":
         if validacao(request):            
+
+            area = request.POST['nrarea'].replace(',','.')
+            if not area:
+                area = None
+                        
+            perimetro = request.POST['nrperimetro'].replace(',','.')
+            if not perimetro:
+                perimetro = None
+
+            
             peca = Tbpecastecnicas(
                                    tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
                                    tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
                                    tbcontrato = Tbcontrato.objects.get( pk = request.POST['tbcontrato'] ),
-                                   nrarea = request.POST['nrarea'].replace(',','.'),
-                                   nrperimetro = request.POST['nrperimetro'].replace(',','.'),
+                                   nrarea = area,
+                                   nrperimetro = perimetro,
                                    dsobservacao = request.POST['dsobservacao'],
                                    nrentrega = request.POST['nrentrega'],
                                    nmrequerente = request.POST['nmrequerente'],
@@ -106,13 +116,23 @@ def edicao(request, id):
     if request.method == "POST":       
                  
         if validacao(request):
+ 
+            area = request.POST['nrarea'].replace(',','.')
+            if not area:
+                area = None
+                        
+            perimetro = request.POST['nrperimetro'].replace(',','.')
+            if not perimetro:
+                perimetro = None
+
+            
             peca = Tbpecastecnicas(
                                    id = peca_obj.id,
                                    tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
                                    tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
                                    tbcontrato = Tbcontrato.objects.get( pk = request.POST['tbcontrato'] ),
-                                   nrarea = request.POST['nrarea'].replace(',','.'),
-                                   nrperimetro = request.POST['nrperimetro'].replace(',','.'),
+                                   nrarea = area,
+                                   nrperimetro = perimetro,
                                    dsobservacao = request.POST['dsobservacao'],
                                    nrentrega = request.POST['nrentrega'],
                                    nmrequerente = request.POST['nmrequerente'],
