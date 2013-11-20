@@ -156,12 +156,12 @@ def validacao(request_form):
     if request_form.POST['tbcaixa'] == '':
         messages.add_message(request_form,messages.WARNING,'Selecione uma Caixa') 
         warning = False
-    if request_form.POST['nrarea'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe o numero da area')
-        warning = False
-    if request_form.POST['nrperimetro'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe o numero do perimetro')
-        warning = False
+#    if request_form.POST['nrarea'] == '':
+#        messages.add_message(request_form,messages.WARNING,'Informe o numero da area')
+#        warning = False
+#    if request_form.POST['nrperimetro'] == '':
+#        messages.add_message(request_form,messages.WARNING,'Informe o numero do perimetro')
+#        warning = False
     if request_form.POST['tbgleba'] == '':
         messages.add_message(request_form,messages.WARNING,'Selecione uma Gleba') 
         warning = False
