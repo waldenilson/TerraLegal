@@ -44,7 +44,7 @@ def edicao(request, id):
         if validacao(request):
             if form.is_valid():
                 form.save()
-                return HttpResponseRedirect("/sicop/restrito/grupo/consulta/")
+                return HttpResponseRedirect("/sicop/restrito/grupo/edicao/"+str(id)+"/")
     else:
         form = FormAuthGroup(instance=instance) 
     return render_to_response('sicop/restrito/grupo/edicao.html', {"form":form}, context_instance = RequestContext(request))

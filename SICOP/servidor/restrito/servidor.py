@@ -71,7 +71,7 @@ def edicao(request, id):
                 print f.nrCPF 
                 f.nrCPF = request.POST['nrcpfrequerente'].replace('.','').replace('-','')
                 form.save()
-                return HttpResponseRedirect("/controle/restrito/servidor/consulta/")
+                return HttpResponseRedirect("/sicop/restrito/servidor/edicao/"+str(id)+"/")
     else:
         form = FormServidor(instance=instance) 
 

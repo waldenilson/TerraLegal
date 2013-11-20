@@ -47,7 +47,7 @@ def edicao(request, id):
                                                         tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                                       )
             f_classificacao.save()
-            return HttpResponseRedirect("/sicop/restrito/classificacao_processo/consulta/")
+            return HttpResponseRedirect("/sicop/restrito/classificacao_processo/edicao/"+str(id)+"/")
     return render_to_response('sicop/restrito/classificacao_processo/edicao.html', {"classificacao":instance}, context_instance = RequestContext(request))
 
 def relatorio(request):

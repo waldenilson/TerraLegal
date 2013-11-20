@@ -47,7 +47,7 @@ def edicao(request, id):
                                         tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                       )
             f_tipopendencia.save()
-            return HttpResponseRedirect("/sicop/restrito/tipo_pendencia/consulta/")
+            return HttpResponseRedirect("/sicop/restrito/tipo_pendencia/edicao/"+str(id)+"/")
     return render_to_response('sicop/restrito/tipo_pendencia/edicao.html', {"tipopendencia":instance,'tipoprocesso':tipoprocesso}, context_instance = RequestContext(request))
 
 def relatorio(request):

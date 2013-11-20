@@ -52,7 +52,7 @@ def edicao(request, id):
                                                 tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                             )
             f_situacaogeo.save()
-            return HttpResponseRedirect("/sicop/restrito/situacao_geo/consulta/")
+            return HttpResponseRedirect("/sicop/restrito/situacao_geo/edicao/"+str(id)+"/")
     return render_to_response('sicop/restrito/situacao_geo/edicao.html', {"situacaogeo":instance}, context_instance = RequestContext(request))
 
 def relatorio(request):
