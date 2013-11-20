@@ -6,7 +6,7 @@
 {% block breadcumbs %}
  Acesso Restrito | Processo Rural | Edicao 
 {% endblock %}
- 
+
 
 {% block formulario %}
 
@@ -255,17 +255,15 @@
 {% endif %}
 
 <div id="tabs-5">
-<table style="width:100%">
-	<tr>
-		<td colspan="2" class="colunaTabela" style="text-align:left">
-			{% if peca %}
-				Existe peca
-			{% else %}
-				Nenhuma Peca Tecnica ligada a este processo
-			{% endif %}
-		</td>			
-	</tr>
-</table>
+{% if peca %}
+	<table style="width:100%">
+		<tr> <td class="colunaTabela"> <label>Contrato:</label> </td><td> {{ peca.tbcontrato.nrcontrato }} </td> </tr>
+		<tr> <td class="colunaTabela"> <label>Entrega:</label> </td><td> {{ peca.nrentrega }} </td> </tr>
+		<tr> <td class="colunaTabela"> <label>CPF Requerente:</label> </td><td> {{ peca.nrcpfrequerente }} </td> </tr>
+	</table>
+{% else %}
+	Nenhuma Peca Tecnica ligada a este processo
+{% endif %}
 </div>
 
 </div>

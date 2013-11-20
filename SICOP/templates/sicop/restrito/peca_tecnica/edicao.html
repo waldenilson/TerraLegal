@@ -8,6 +8,7 @@
 <div id="tabs" style="color:black;width:100%;font-size:11px">
 <ul>
 	<li><a href="#tabs-1">EDITAR PECA TECNICA</a></li>
+	<li><a href="#tabs-2">PROCESSO</a></li>
 </ul>
 <div id="tabs-1">
 	<form method="post" action=".">
@@ -107,11 +108,16 @@
 		</table>
 	</form>
 	<br/>
-	{% if processo %}
-		Existe processo
-	{% else %}
-		Nenhum Processo ligado a esta peca tecnica
-	{% endif %}
 </div>
+<div id="tabs-2">
+{% if processo %}
+	<table style="width:100%">
+		<tr> <td class="colunaTabela"> <label>Numero:</label> </td><td> {{ processo.nrprocesso }} </td> </tr>
+	</table>
+{% else %}
+	Nenhum Processo ligado a esta peca tecnica
+{% endif %}
+</div>
+
 </div>
 {% endblock %}
