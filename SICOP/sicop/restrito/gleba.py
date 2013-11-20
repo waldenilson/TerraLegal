@@ -49,7 +49,7 @@ def edicao(request, id):
         if validacao(request):
             if form.is_valid():
                 form.save()
-                return HttpResponseRedirect("/sicop/restrito/gleba/consulta/")
+                return HttpResponseRedirect("/sicop/restrito/gleba/edicao/"+str(id)+"/")
     else:
         form = FormGleba(instance=instance) 
     return render_to_response('sicop/restrito/gleba/edicao.html', {"form":form,'subarea':subarea}, context_instance = RequestContext(request))

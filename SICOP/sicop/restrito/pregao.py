@@ -52,7 +52,7 @@ def edicao(request, id):
                                         dspregao = request.POST['dspregao']
                                     )
             f_pregao.save()
-            return HttpResponseRedirect("/sicop/restrito/pregao/consulta/")
+            return HttpResponseRedirect("/sicop/restrito/pregao/edicao/"+str(id)+"/")
     return render_to_response('sicop/restrito/pregao/edicao.html', {"pregao":instance}, context_instance = RequestContext(request))
 
 def relatorio(request):

@@ -51,7 +51,7 @@ def edicao(request, id):
                                         tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                       )
             f_subarea.save()
-            return HttpResponseRedirect("/sicop/restrito/sub_area/consulta/")
+            return HttpResponseRedirect("/sicop/restrito/sub_area/edicao/"+str(id)+"/")
     return render_to_response('sicop/restrito/sub_area/edicao.html', {"subarea":instance}, context_instance = RequestContext(request))
 
 def relatorio(request):

@@ -143,7 +143,7 @@ def edicao(request, id):
                                    tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                    )
             peca.save()
-            return HttpResponseRedirect( "/sicop/restrito/peca_tecnica/edicao/"+str(peca_obj.id)+"/")
+            return HttpResponseRedirect("/sicop/restrito/peca_tecnica/edicao/"+str(peca_obj.id)+"/")
 
     processo = Tbprocessorural.objects.all().filter( nrcpfrequerente = peca_obj.nrcpfrequerente.replace('.','').replace('-','') )
     if processo:

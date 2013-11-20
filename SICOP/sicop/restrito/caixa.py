@@ -58,7 +58,7 @@ def edicao(request, id):
         if validacao(request):
             if form.is_valid():
                 form.save()
-                return HttpResponseRedirect("/sicop/restrito/caixa/consulta/")
+                return HttpResponseRedirect("/sicop/restrito/caixa/edicao/"+str(id)+"/")
     else:
         form = FormCaixa(instance=instance)
         

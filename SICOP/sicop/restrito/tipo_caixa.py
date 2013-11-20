@@ -53,7 +53,7 @@ def edicao(request, id):
                                         tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                       )
             f_tipocaixa.save()
-            return HttpResponseRedirect("/sicop/restrito/tipo_caixa/consulta/")
+            return HttpResponseRedirect("/sicop/restrito/tipo_caixa/edicao/"+str(id)+"/")
     return render_to_response('sicop/restrito/tipo_caixa/edicao.html', {"tipocaixa":instance}, context_instance = RequestContext(request))
 
 def relatorio(request):
