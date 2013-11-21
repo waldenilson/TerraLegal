@@ -19,9 +19,9 @@
 <link rel="stylesheet" type="text/css" media="screen"
 	href="{% static "css/style.css" %}" />
 
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/south-street/jquery-ui.css" />
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<link rel="stylesheet" href="{% static "css/jquery-ui.css" %}" />
+<script src="{% static "js/jquery-1.9.1.js" %}"></script>
+<script src="{% static "js/jquery-ui.js" %}"></script>
 <script>
 $(function() {
 $( "#tabs" ).tabs();
@@ -45,8 +45,6 @@ function my_callback(data){
 .ui-menu { width: 180px; z-index: 1000; }
 </style>
 <script src="{% static "js/jquery_maskedinput.js" %}" type="text/javascript"></script>
-<script src="{% static "js/dajaxice.core.js" %}" type="text/javascript"></script>
-
 <script>
 jQuery(function($){   
 	$("#date").mask("99/99/9999");
