@@ -1,7 +1,7 @@
 {% load staticfiles %} 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-br" lang="pt-br">
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html style="font-size: 16px;" xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-br" lang="pt-br">
 <head>
 
 <meta charset="utf-8" />
@@ -80,8 +80,7 @@ function SomenteNumero(e, obj)
 					return true;
 			}
 			else
-				return false;
-			
+				return false;		
 	}
 }
 
@@ -101,13 +100,12 @@ function SomenteNumeroOK(e, obj)
 
 </head>
 
-
 	<body style="background: url('{% static 'img/bg.jpg' %}') no-repeat center center fixed;
 		 -webkit-background-size: cover;
 		  -moz-background-size: cover;
 		  -o-background-size: cover;
 		  background-size: cover;">
-
+	
 		<div id="barra-brasil">
 			<div class="barra first-child last-child">
 				<ul class="first-child last-child">
@@ -127,7 +125,7 @@ function SomenteNumeroOK(e, obj)
 		  position:absolute;
 		  top:50%;
 		  width:1000px">
-		
+	
 			<div style="height:30px;color:white; background: url('{% static "img/bgHeader.gif" %}');">
 				
 				<div style="float:left;margin-top:10px;margin-left:20px">
@@ -141,15 +139,15 @@ function SomenteNumeroOK(e, obj)
 							Divisao: {{ request.session.divisao }} | <a href="/logout/">Sair do Sistema</a>
 						{% endif %}			
 				</div>
-				
 			</div>
-		
-			<div style="width:100%;height:540px">
-				<div style="margin-left:6px;height:540px;float:left; width:194px;background:white">
-					<div style="margin:10px">
-						<img style="margin-bottom:10px" src="{% static "img/terralegal.jpg" %}" alt="Terra Amazônia Legal" />				
-	
-						<ul id="menu" style="font-size:15px">
+			
+			<div id="portal-column-content" style="background:white;margin-left:6px" class="visualColumnHideTwo">
+				<!-- COLUNA ESQUERDA -->
+				<div class="first-child" id="portal-column-one">
+					<div style="margin-bottom: 10px">
+						<img src="{% static "img/terralegal.jpg" %}" alt="Terra Amazônia Legal" />
+					</div>
+								<ul id="menu" style="font-size:15px">
 									<li>
 										<a href="/" title="">
 											<span>Inicio</span>
@@ -207,15 +205,53 @@ function SomenteNumeroOK(e, obj)
 											<li><a href="/sicop/restrito/divisao/consulta/">Divisao</a></li>
 										</ul></li>
 								</ul>
-					</div>
+	
 				</div>
-				<div style="margin-right:6px;min-height:540px;float:right; width:794px;background:white">
-					<div style="margin:20px">
-						{% block index %} {% endblock %}   				
+				<!-- FIM - COLUNA ESQUERDA -->
+	
+				<!-- COLUNA CENTRAL -->	
+				<div id="content-plain" class="last-child">
+	
+					<!-- Menu Segundo nivel -->
+	
+					<!-- Menu Segundo nivel -->
+					
+					<div class="last-child">
+	
+						<div class="visualClear">
+							<!-- -->
+						</div>
+	
+						<table class="cp_Página sem título" align="center" width="776">
+	
+							<tbody class="first-child last-child">
+								
+								<tr style="background:white" class="first-child last-child">
+									<td class="first-child" style="width: 776px" valign="top"
+										width="#">
+										<div
+											class="viewlet defaultPortletWrapper pais-tem-menor-taxa-de-desemprego-da-historia"
+											style="min-height:600px;margin: 10px">
+												{% block index %} {% endblock %}   				
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+	
 					</div>
+	
+	
+					<!-- COLUNA ESQUERDA -->
+	
+					<!-- FIM - COLUNA ESQUERDA -->
+	
 				</div>
+				<!-- FIM - COLUNA CENTRAL -->
+	
+				<!-- FIM - COLUNA CENTRAL -->
 			</div>
-			
+	
 			<div id="divCollophon" style="height:30px; color:white ;background: url('{% static "img/bgFooterDireitos.gif" %}');">
 
 				<div style="float:left;margin-top:5px;margin-left:20px">
@@ -229,9 +265,15 @@ function SomenteNumeroOK(e, obj)
 				</div>
 				
 			</div>
-			
+	
+			<div class="visualClear last-child">
+				<!-- -->
+			</div>
 		</div>
-		
-	</body>
+	
+</body>
+
 
 </html>
+
+
