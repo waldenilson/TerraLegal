@@ -6,15 +6,13 @@ from django.contrib import messages
 from sicop.forms import FormPecasTecnicas
 from sicop.models import Tbpecastecnicas, Tbgleba, Tbcaixa, Tbcontrato,\
     Tbprocessobase, Tbprocessorural, AuthUser, Tbdivisao, AuthGroup,\
-    AuthUserGroups
+    AuthUserGroups, Tbservidor
 from sicop.relatorio_base import relatorio_base_consulta
 import datetime
 from django.contrib.auth.hashers import make_password, load_hashers, get_hasher
 import json
 from collections import OrderedDict
 from sicop.admin import verificar_permissao_grupo
-
-#PECAS TECNICAS -----------------------------------------------------------------------------------------------------------------------------
 
 @login_required
 @user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
@@ -46,6 +44,7 @@ def consulta(request):
 @user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super'}), login_url='/excecoes/permissao_negada/')
 def cadastro(request):
     
+    servidor = Tbservidor.objects.all()
     divisao = Tbdivisao.objects.all()
     
     ativo = False
@@ -65,12 +64,13 @@ def cadastro(request):
                                    is_staff = True,
                                    is_active = ativo,
                                    last_login = datetime.datetime.now(),
-                                   date_joined = datetime.datetime.now()
+                                   date_joined = datetime.datetime.now(),
+                                   tbservidor = Tbservidor.objects.get( pk = request.POST['tbservidor'] )
                                    )
             usuario.save()
             return HttpResponseRedirect("/sicop/restrito/usuario/consulta/") 
     
-    return render_to_response('sicop/restrito/usuario/cadastro.html',{'divisao':divisao}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/usuario/cadastro.html',{'divisao':divisao,'servidor':servidor}, context_instance = RequestContext(request))
 
 
 @login_required
@@ -78,6 +78,7 @@ def cadastro(request):
 def edicao(request, id):
     divisao = Tbdivisao.objects.all()
     grupo = AuthGroup.objects.all()
+    servidor = Tbservidor.objects.all()
     userGrupo = AuthUserGroups.objects.all().filter( user = id )
     
     result = {}
@@ -140,13 +141,14 @@ def edicao(request, id):
                                    is_staff = True,
                                    is_active = ativo,
                                    last_login = user_obj.last_login,
-                                   date_joined = user_obj.date_joined
+                                   date_joined = user_obj.date_joined,
+                                   tbservidor = Tbservidor.objects.get( pk = request.POST['tbservidor'] )
                                    )
             usuario.save()
             return HttpResponseRedirect("/sicop/restrito/usuario/edicao/"+str(id)+"/")
     
     return render_to_response('sicop/restrito/usuario/edicao.html', 
-                              {'result':result,'grupo':grupo,'usergrupo':userGrupo,'user_obj':user_obj,'divisao':divisao}, context_instance = RequestContext(request))
+                              {'result':result,'grupo':grupo,'usergrupo':userGrupo,'user_obj':user_obj,'divisao':divisao,'servidor':servidor}, context_instance = RequestContext(request))
 
     
 def relatorio(request):
@@ -175,5 +177,8 @@ def validacao(request_form, acao):
             warning = False
     if request_form.POST['tbdivisao'] == '':
         messages.add_message(request_form,messages.WARNING,'Selecione a Divisao')
+        warning = False
+    if request_form.POST['tbservidor'] == '':
+        messages.add_message(request_form,messages.WARNING,'Selecione o Servidor')
         warning = False
     return warning

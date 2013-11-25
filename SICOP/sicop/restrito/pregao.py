@@ -14,9 +14,9 @@ def consulta(request):
     if request.method == "POST":
         num = request.POST['nrpregao']
         descricao = request.POST['dspregao']
-        lista = Tbpregao.objects.all().filter( nrpregao__icontains=num, dspregao__icontains=descricao )
+        lista = Tbpregao.objects.all().filter( nrpregao__icontains=num, dspregao__icontains=descricao, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     else:
-        lista = Tbpregao.objects.all()
+        lista = Tbpregao.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     lista = lista.order_by( 'id' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_pregao'] = lista
@@ -30,7 +30,8 @@ def cadastro(request):
         if validacao(request):
             f_pregao = Tbpregao(
                                         nrpregao = request.POST['nrpregao'],
-                                        dspregao = request.POST['dspregao']
+                                        dspregao = request.POST['dspregao'],
+                                        tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                     )
             f_pregao.save()
             if next == "/":
@@ -49,7 +50,8 @@ def edicao(request, id):
             f_pregao = Tbpregao(
                                         id = instance.id,
                                         nrpregao = request.POST['nrpregao'],
-                                        dspregao = request.POST['dspregao']
+                                        dspregao = request.POST['dspregao'],
+                                        tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                     )
             f_pregao.save()
             return HttpResponseRedirect("/sicop/restrito/pregao/edicao/"+str(id)+"/")
