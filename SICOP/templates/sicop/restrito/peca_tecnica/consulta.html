@@ -50,17 +50,16 @@
 			<thead style="background:#e5e5e5;color:black">
 				<tr>
 					<th class="colunaTabelaConsulta" style="width:8%">Detalhes</th>
-					<th class="colunaTabelaConsulta" style="width:12%">{% anchor tbcontrato Contrato %}</th>
-					<th class="colunaTabelaConsulta" style="width:14%">{% anchor tbgleba Gleba %}</th>
-					<th class="colunaTabelaConsulta" style="width:8%">{% anchor nrarea Area %}</th>
-					<th class="colunaTabelaConsulta" style="width:8%">{% anchor nrcpfrequerente CPF %}</th>
-					<th class="colunaTabelaConsulta" style="width:36%">{% anchor nmrequerente Nome %}</th>
+					<th class="colunaTabelaConsulta" style="width:12%">Contrato</th>
+					<th class="colunaTabelaConsulta" style="width:14%">Gleba</th>
+					<th class="colunaTabelaConsulta" style="width:8%">Area</th>
+					<th class="colunaTabelaConsulta" style="width:8%">CPF</th>
+					<th class="colunaTabelaConsulta" style="width:36%">Nome</th>
 					<th class="colunaTabelaConsulta" style="width:14%">Caixa</th>
 				</tr>
 			</thead>
 			<tbody>
 				{% if lista %}
-					{% autosort lista %}
 					{% for obj in lista %}
 						<tr>
 							<td class="colunaTabelaConsulta"> <a href="/sicop/restrito/peca_tecnica/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 

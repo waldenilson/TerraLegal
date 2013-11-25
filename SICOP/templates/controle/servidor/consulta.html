@@ -1,7 +1,5 @@
 {% extends "base/consulta_base.html" %} 
 {% load staticfiles %} 
-{% load pagination_tags %}
-{% load sorting_tags %}
 
 {% block breadcumbs %}
 	Acesso Restrito | Servidor
@@ -48,16 +46,13 @@
 			<thead style="background:#e5e5e5;color:black">
 				<tr>
 					<th class="colunaTabelaConsulta" style="width:8%">Detalhes</th>
-					<th class="colunaTabelaConsulta" style="width:36%">{% anchor nmservidor Nome %}</th>
-					<th class="colunaTabelaConsulta" style="width:10%">{% anchor nnunidade  Unidade %}</th>
-					<th class="colunaTabelaConsulta" style="width:15%">{% anchor nmlotacao Lotacao %}</th>
-					<!-- QUAND TIVER CHAVE th class="colunaTabelaConsulta" style="width:14%">{% anchor tbgleba Gleba %}</th-->
+					<th class="colunaTabelaConsulta" style="width:36%">Nome</th>
+					<th class="colunaTabelaConsulta" style="width:10%">Unidade</th>
+					<th class="colunaTabelaConsulta" style="width:15%">Lotacao</th>
 				</tr>
 			</thead>
 			<tbody>
 				{% if lista %}
-					{% autosort lista %}
-					{% autopaginate lista 10 %}
 					{% for obj in lista %}
 						<tr>
 							<td class="colunaTabelaConsulta"> <a href="/controle/restrito/servidor/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
@@ -68,7 +63,6 @@
 							<!-- COMO TRATAR CHAVES td class="colunaTabelaConsulta">{{ obj.tbcaixa.nmlocalarquivo }}</td-->
 						</tr>
 					{% endfor %}
-					{% paginate %}
 				{% else %}
 					<tr> <td style="padding-top: 20px" colspan="6"> Nenhum servidor cadastrado </td> </tr>
 				{% endif %}
