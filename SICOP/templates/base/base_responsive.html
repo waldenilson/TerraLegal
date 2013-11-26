@@ -1,0 +1,129 @@
+{% load staticfiles %} 
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>No Sidebar - TXT by HTML5 UP</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="sicop, terra legal, sistema de processos" />
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,700|Open+Sans+Condensed:700" rel="stylesheet" />
+
+		
+		<script src="{% static "responsive/js/jquery.min.js" %}"></script>
+		<script src="{% static "responsive/js/config.js" %}"></script>
+		<script src="{% static "responsive/js/skel.min.js" %}"></script>
+		<script src="{% static "responsive/js/skel-panels.min.js" %}"></script>
+
+		<link rel="stylesheet" href="{% static "responsive/css/skel-noscript.css" %}" />
+		<link rel="stylesheet" href="{% static "responsive/css/style.css" %}" />
+		<link rel="stylesheet" href="{% static "responsive/css/style-desktop.css" %}" />
+
+		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><link rel="stylesheet" href="css/ie8.css" /><![endif]-->
+		<!--[if lte IE 7]><link rel="stylesheet" href="css/ie7.css" /><![endif]-->
+
+<link rel="stylesheet" href="{% static "css/jquery-ui.css" %}" />
+<script src="{% static "js/jquery-1.9.1.js" %}"></script>
+<script src="{% static "js/jquery-ui.js" %}"></script>
+<script>
+$(function() {
+$( "#tabs" ).tabs();
+});
+$(function() {
+	$( "#accordion" ).accordion();
+	});
+$(function() {
+	$( "#dialog-modal" ).dialog({
+	modal: true
+	});
+	});
+$(function() {
+	$( "#menu" ).menu();
+	});
+function my_callback(data){
+    alert(data.message);
+}
+</script>
+
+
+	</head>
+	<body style="min-width:100px">
+
+		<!-- Header -->
+			<header id="header">
+				<div class="logo">
+					<div>
+						<h1><a href="#" id="logo">SICOP</a></h1>
+						<span class="byline">Sistema de controle dos processos do Terra Legal</span>
+					</div>
+				</div>
+			</header>
+		<!-- /Header -->
+
+		<!-- Nav -->
+			<nav id="nav" class="skel-panels-fixed">
+				<ul>
+					<li><a href="index.html">Inicio</a></li>
+					<li><a href="left-sidebar.html">Processo</a></li>
+					<li><a href="right-sidebar.html">Peca Tecnica</a></li>
+					<li><a href="no-sidebar.html">Caixa</a></li>
+					<li><a href="index.html">Relatorio</a></li>
+					<li><a href="left-sidebar.html">Mais</a></li>
+				</ul>
+			</nav>
+		<!-- /Nav -->
+		
+		<!-- Main -->
+			<div id="main-wrapper">
+				<div id="main" class="container">
+					<div class="row">
+						<div class="12u skel-cell-important">
+							<div class="content">
+							
+								<!-- Content -->
+								{% block index %} {% endblock %} 
+								<!-- /Content -->
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- /Main -->
+
+		<!-- Footer -->
+			<footer id="footer" class="container">
+				<div class="row">
+					<div class="12u">
+
+						<!-- About -->
+							<section>
+								<h2 class="major"><span>What's this about?</span></h2>
+								<p>
+									This is <a href="http://html5up.net/txt/">TXT</a>, a free site template designed by
+									<a href="http://n33.co">n33</a> for <a href="http://html5up.net/">HTML5 UP</a>.
+									It's built on the <a href="http://skeljs.org">skelJS</a> framework, uses well-thought out
+									HTML5 and CSS3, and is fully responsive making it a great starting point for your own
+									projects. And, like everything else we make, it's also free to use for pretty much any
+									personal or commercial work under the <a href="http://html5up.net/license/">Creative Commons Attribution</a>
+									license, so go ahead and use it &ndash; just don't forget to credit us!
+								</p>
+							</section>
+						<!-- /About -->
+
+					</div>
+				</div>
+				<div class="row">
+
+					<!-- Copyright -->
+						<div id="copyright" >
+							&copy; Untitled Something | Images: <a href="http://fotogrph.com">fotogrph</a> | Design: <a href="http://html5up.net/">HTML5 UP</a>
+						</div>
+					<!-- /Copyright -->
+
+				</div>
+			</footer>
+		<!-- /Footer -->
+
+	</body>
+</html>
