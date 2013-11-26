@@ -40,6 +40,7 @@
 				</table>
 		</div>
 		<br />
+		
 		<table style="width:100%">
 			<tr>
 				<td class="colunaTabela" style="text-align:left"> 
@@ -48,6 +49,80 @@
 				</td>
 			</tr>
 		</table>
+
+		<br/>
+		
+		{% if processos %}
+		<br/> Processos:<br/>
+		<table>
+			<thead style="background:#e5e5e5;color:black">
+				<tr>
+					<th class="colunaTabelaConsulta" style="width:8%"> </th>
+					<th class="colunaTabelaConsulta" style="width:10%"> </th>
+					<th class="colunaTabelaConsulta" style="width:10%">Processo</th>
+					<th class="colunaTabelaConsulta" style="width:21%">Municipio</th>
+					<th class="colunaTabelaConsulta" style="width:18%">Gleba</th>
+					<th class="colunaTabelaConsulta" style="width:18%">Caixa</th>
+					<th class="colunaTabelaConsulta" style="width:15%">Situacao</th>
+				</tr>
+			</thead>
+			<tbody>
+					{% for obj in processos %}
+						<tr style="background: {{ obj.tbprocessobase.tbtipoprocesso.coridentificacao }}">
+							<td class="colunaTabelaConsulta"> <a href="/sicop/restrito/processo/edicao/{{ obj.tbprocessobase.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
+							{% if obj.tbprocessobase.tbtipoprocesso.id == 1 %}
+								<td class="colunaTabelaConsulta">{{ obj.nmrequerente }}</td>
+							{% else %}
+								{% if obj.tbprocessobase.tbtipoprocesso.id == 2 %}
+									<td class="colunaTabelaConsulta">{{ obj.nmrequerente }}</td>
+								{% else %}
+									{% if obj.tbprocessobase.tbtipoprocesso.id == 3 %}
+										<td class="colunaTabelaConsulta">{{ obj.nmpovoado }}</td>
+									{% endif %}
+								{% endif %}
+							{% endif %}
+							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.nrprocesso }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbmunicipio.nome_mun }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbgleba.nmgleba }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbcaixa.nmlocalarquivo }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbsituacaoprocesso.nmsituacao }}</td>
+						</tr>
+					{% endfor %}
+			</tbody>
+		</table>
+		{% endif %}
+
+		{% if pecas %}
+		<br/> Pecas:<br/>
+		<table>
+			<thead style="background:#e5e5e5;color:black">
+				<tr>
+					<th class="colunaTabelaConsulta" style="width:8%">Detalhes</th>
+					<th class="colunaTabelaConsulta" style="width:12%">Contrato</th>
+					<th class="colunaTabelaConsulta" style="width:14%">Gleba</th>
+					<th class="colunaTabelaConsulta" style="width:8%">Area</th>
+					<th class="colunaTabelaConsulta" style="width:8%">CPF</th>
+					<th class="colunaTabelaConsulta" style="width:36%">Nome</th>
+					<th class="colunaTabelaConsulta" style="width:14%">Caixa</th>
+				</tr>
+			</thead>
+			<tbody>
+					{% for obj in pecas %}
+						<tr>
+							<td class="colunaTabelaConsulta"> <a href="/sicop/restrito/peca_tecnica/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
+							<td class="colunaTabelaConsulta">{{ obj.tbcontrato.nrcontrato }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbgleba.nmgleba }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.nrarea }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.nrcpfrequerente }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.nmrequerente }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbcaixa.nmlocalarquivo }}</td>
+						</tr>
+					{% endfor %}
+			</tbody>
+		</table>
+		{% endif %}
+
+
 	</form>
 </div>
 </div>

@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required, permission_required,\
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.models import Tbcaixa, Tbtipocaixa, AuthUser, Tbprocessobase,\
-    Tbpecastecnicas
+    Tbpecastecnicas, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from sicop.forms import FormCaixa
@@ -65,19 +65,33 @@ def edicao(request, id):
         
     # retornar o conteudo da caixa de acordo com o tipocaixa
     
-    processos = Tbprocessobase.objects.all().filter( tbcaixa__id = id )   
+#    processos = Tbprocessobase.objects.all().filter( tbcaixa__id = id )   
+
+    p_rural = Tbprocessorural.objects.all().filter( tbprocessobase__tbcaixa__id = id )
+    p_clausula = Tbprocessoclausula.objects.all().filter( tbprocessobase__tbcaixa__id = id )
+    p_urbano = Tbprocessourbano.objects.all().filter( tbprocessobase__tbcaixa__id = id )
+    processos = []
+    for obj in p_rural:
+        processos.append( obj )
+    for obj in p_clausula:
+        processos.append( obj )
+    for obj in p_urbano:
+        processos.append( obj )
+
+
+    
     pecas = Tbpecastecnicas.objects.all().filter( tbcaixa__id = id )    
     conteudo = ""
-    if processos.count() > 0:
-        conteudo = str(processos.count())+" Processo(s)"
+    if len(processos) > 0:
+        conteudo = str(len(processos))+" Processo(s)"
     if pecas.count() > 0:
         conteudo += str(pecas.count())+" Peca(s) Tecnica(s)"
         
-    if processos.count() <= 0 and pecas.count() <= 0:
+    if len(processos) <= 0 and pecas.count() <= 0:
         conteudo = "Caixa Vazia"
     
     
-    return render_to_response('sicop/restrito/caixa/edicao.html', {"form":form,'conteudo':conteudo,"tipocaixa":tipocaixa}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/caixa/edicao.html', {"form":form,'processos':processos,'pecas':pecas,'conteudo':conteudo,"tipocaixa":tipocaixa}, context_instance = RequestContext(request))
 
 def relatorio(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
