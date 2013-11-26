@@ -136,7 +136,9 @@ function SomenteNumeroOK(e, obj)
 				<div style="float:right;margin-top:10px;margin-right:20px">
 						{% if user.is_active %}
 							Usuario:
-							{% filter force_escape %}{% firstof user.get_short_name user.get_username %}{% endfilter %} 
+							<a href="/sicop/restrito/usuario/edicao/usuario/{{user.id}}/">
+							{% filter force_escape %}  {% firstof user.get_short_name user.get_username %} {% endfilter %}
+							</a> 
 							| 
 							Divisao: {{ request.session.divisao }} | <a href="/logout/">Sair do Sistema</a>
 						{% endif %}			

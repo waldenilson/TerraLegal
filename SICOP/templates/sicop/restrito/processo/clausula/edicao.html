@@ -1,7 +1,5 @@
 {% extends "base/cadastro_base.html" %} 
 {% load staticfiles %}
-{% load pagination_tags %}
-{% load sorting_tags %}
  
 {% block breadcumbs %}
 	Acesso Restrito | Processo Clausula Resolutiva | Edicao
@@ -144,14 +142,14 @@
 				</tr>
 			</thead>
 			<tbody>
-				{% if movimentacao %} {% autosort movimentacao %} {% autopaginate movimentacao 100 %} {% for mov in movimentacao %}
+				{% if movimentacao %} {% for mov in movimentacao %}
 				<tr>
 					<td class="colunaTabelaConsulta">{{ mov.dtmovimentacao.day }}/{{ mov.dtmovimentacao.month }}/{{ mov.dtmovimentacao.year }}</td>
 					<td class="colunaTabelaConsulta">{{	mov.tbcaixa_id_origem.nmlocalarquivo }}</td>
 					<td class="colunaTabelaConsulta">{{ mov.tbcaixa.nmlocalarquivo }}</td>
 					<td class="colunaTabelaConsulta">{{ mov.auth_user.first_name }}</td>
 				</tr>
-				{% endfor %} {% paginate %} {% else %}
+				{% endfor %} {% else %}
 				<tr>
 					<td style="padding-top: 20px" colspan="6">Nenhuma Movimentacao
 					</td>
@@ -197,8 +195,6 @@
 			</thead>
 			<tbody>
 				{% if pendencia %}
-					{% autosort pendencia %}
-				  	{% autopaginate pendencia 100 %}
 				   		{% for pen in pendencia %}
 							<tr>
 								<td class="colunaTabelaConsulta">
@@ -212,7 +208,6 @@
 								<td class="colunaTabelaConsulta">{{ pen.auth_user.first_name }}</td>
 							</tr>
 						{% endfor %}
-					{% paginate %}
 				{% else %}
 					<tr>
 						<td style="padding-top: 20px" colspan="6">Nenhuma Pendencia</td>
@@ -246,13 +241,13 @@
 				</tr>
 			</thead>
 			<tbody>
-				{% if anexado %} {% autosort anexado %} {% autopaginate anexado 100 %} {% for anexo in anexado %}
+				{% if anexado %} {% for anexo in anexado %}
 				<tr>
 					<td class="colunaTabelaConsulta">{{ anexo.dtanexado.day }}/{{ anexo.dtanexado.month }}/{{ anexo.dtanexado.year }}</td>
 					<td class="colunaTabelaConsulta">{{ anexo.tbprocessobase_id_anexo.nrprocesso }}</td>
 					<td class="colunaTabelaConsulta">{{	anexo.tbprocessobase.auth_user.first_name }}</td>
 				</tr>
-				{% endfor %} {% paginate %} {% else %}
+				{% endfor %} {% else %}
 				<tr>
 					<td style="padding-top: 20px" colspan="6">Nenhum Anexo</td>
 				</tr>

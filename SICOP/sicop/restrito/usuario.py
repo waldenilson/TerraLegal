@@ -76,6 +76,7 @@ def cadastro(request):
 @login_required
 @user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super'}), login_url='/excecoes/permissao_negada/')
 def edicao(request, id):
+    
     divisao = Tbdivisao.objects.all()
     grupo = AuthGroup.objects.all()
     servidor = Tbservidor.objects.all()
@@ -149,6 +150,89 @@ def edicao(request, id):
     
     return render_to_response('sicop/restrito/usuario/edicao.html', 
                               {'result':result,'grupo':grupo,'usergrupo':userGrupo,'user_obj':user_obj,'divisao':divisao,'servidor':servidor}, context_instance = RequestContext(request))
+
+
+@login_required
+def edicao_usuario_logado(request, id):
+    
+    if str(request.user.id) == str(id):
+    
+        divisao = Tbdivisao.objects.all()
+        grupo = AuthGroup.objects.all()
+        servidor = Tbservidor.objects.all()
+        userGrupo = AuthUserGroups.objects.all().filter( user = id )
+        
+        result = {}
+        for obj in grupo:
+            achou = False
+            for obj2 in userGrupo:
+                if obj.id == obj2.group.id:
+                    result.setdefault(obj.name,True)
+                    achou = True
+                    break
+            if not achou:
+                result.setdefault(obj.name, False)
+        result = sorted(result.items())
+        
+        ativo = False
+        if request.POST.get('is_active',False):
+            ativo = True
+            
+        user_obj = get_object_or_404(AuthUser, id=id)
+    
+        if request.method == "POST":
+            
+            # verificando os grupos do usuario
+            for obj in grupo:
+                if request.POST.get(obj.name, False):
+                    #verificar se esse grupo ja esta ligado ao usuario
+                    res = AuthUserGroups.objects.all().filter( user = id, group = obj.id )
+                    if not res:
+                        # inserir ao authusergroups
+                        ug = AuthUserGroups( user = AuthUser.objects.get( pk = id ),
+                                              group = AuthGroup.objects.get( pk = obj.id ) )
+                        ug.save()
+                        #print obj.name + ' nao esta ligado a este usuario'
+                else:
+                    #verificar se esse grupo foi desligado do usuario
+                    res = AuthUserGroups.objects.all().filter( user = id, group = obj.id )
+                    if res:
+                        # excluir do authusergroups
+                        for aug in res:
+                            aug.delete()
+                        #print obj.name + ' desmarcou deste usuario'
+                        
+            if validacao(request, 'edicao'):
+                
+                # tratar o campo senha
+                senha_digitada = request.POST['password']
+                senha_atual = user_obj.password
+                if len(senha_digitada) > 2:
+                    senha_atual = make_password( senha_digitada )
+                
+                usuario = AuthUser(
+                                       id = user_obj.id,
+                                       tbdivisao = Tbdivisao.objects.get( pk = request.POST['tbdivisao'] ),
+                                       password = senha_atual,
+                                       first_name = request.POST['first_name'],
+                                       last_name = request.POST['last_name'],
+                                       email = request.POST['email'],
+                                       username = request.POST['username'],
+                                       is_superuser = True,
+                                       is_staff = True,
+                                       is_active = ativo,
+                                       last_login = user_obj.last_login,
+                                       date_joined = user_obj.date_joined,
+                                       tbservidor = Tbservidor.objects.get( pk = request.POST['tbservidor'] )
+                                       )
+                usuario.save()
+                return HttpResponseRedirect("/sicop/restrito/usuario/edicao/"+str(id)+"/")
+        
+        return render_to_response('sicop/restrito/usuario/edicao.html', 
+                                  {'result':result,'grupo':grupo,'usergrupo':userGrupo,'user_obj':user_obj,'divisao':divisao,'servidor':servidor}, context_instance = RequestContext(request))
+    else:
+        return HttpResponseRedirect("/sicop/restrito/usuario/consulta/")
+        
 
     
 def relatorio(request):
