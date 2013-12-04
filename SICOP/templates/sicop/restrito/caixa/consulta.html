@@ -11,8 +11,7 @@
 	
 {% endblock %}
 
-{% block consulta %}
-	
+{% block consulta %}	
 	
 		<form action="." method="post">
 			{% csrf_token %}
@@ -31,7 +30,8 @@
 						<a href="/sicop/restrito/caixa/cadastro/"> <input class="button_green" value="NOVO" type="button" /> </a>
 					</td>
 					<td class="colunaTabela" style="text-align:right"> 
-						<a href="/sicop/restrito/caixa/relatorio/"> <img width="36" src="{% static "img/pdf.png" %}" /> </a>
+						<a href="/sicop/restrito/caixa/relatorio/pdf/"> <img width="36" src="{% static "img/pdf.png" %}" /> </a>
+						<a href="/sicop/restrito/caixa/relatorio/excel/"> <img width="36" src="{% static "img/excel.png" %}" /> </a>
 					</td>
 				</tr>
 				<tr>

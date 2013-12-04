@@ -84,8 +84,8 @@ urlpatterns = patterns('',
     url(r'^sicop/restrito/caixa/consulta/', 'sicop.restrito.caixa.consulta'),
     url(r'^sicop/restrito/caixa/cadastro/', 'sicop.restrito.caixa.cadastro'),
     url(r'^sicop/restrito/caixa/edicao/(?P<id>\d+)/', 'sicop.restrito.caixa.edicao'),
-    url(r'^sicop/restrito/caixa/relatorio/', 'sicop.restrito.caixa.relatorio'),
-
+    url(r'^sicop/restrito/caixa/relatorio/pdf/', 'sicop.restrito.caixa.relatorio'),
+    url(r'^sicop/restrito/caixa/relatorio/excel/', 'sicop.restrito.caixa.relatorio_excel'),
     # ACESSO RESTRITO SICOP SUBAREA
     url(r'^sicop/restrito/sub_area/consulta/', 'sicop.restrito.sub_area.consulta'),
     url(r'^sicop/restrito/sub_area/cadastro/', 'sicop.restrito.sub_area.cadastro'),

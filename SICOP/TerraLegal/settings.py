@@ -178,6 +178,7 @@ INSTALLED_APPS = (
     'sicop',
     'servidor',
     'controle',
+    'xlwt',
 #    'pagination',
 #    'django_sorting',
     # Uncomment the next line to enable admin documentation:
