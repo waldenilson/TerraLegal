@@ -2,69 +2,32 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.gov.incra.entity;
+package br.gov.incra.migracao;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author waldenilson
  */
-@Entity
-@Table(name = "tbpecastecnicas")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Tbpecastecnicas.findAll", query = "SELECT t FROM Tbpecastecnicas t"),
-    @NamedQuery(name = "Tbpecastecnicas.findByCdpeca", query = "SELECT t FROM Tbpecastecnicas t WHERE t.cdpeca = :cdpeca"),
-    @NamedQuery(name = "Tbpecastecnicas.findByNrcontrato", query = "SELECT t FROM Tbpecastecnicas t WHERE t.nrcontrato = :nrcontrato"),
-    @NamedQuery(name = "Tbpecastecnicas.findByNrentrega", query = "SELECT t FROM Tbpecastecnicas t WHERE t.nrentrega = :nrentrega"),
-    @NamedQuery(name = "Tbpecastecnicas.findByNrcpfrequerente", query = "SELECT t FROM Tbpecastecnicas t WHERE t.nrcpfrequerente = :nrcpfrequerente"),
-    @NamedQuery(name = "Tbpecastecnicas.findByNmrequerente", query = "SELECT t FROM Tbpecastecnicas t WHERE t.nmrequerente = :nmrequerente"),
-    @NamedQuery(name = "Tbpecastecnicas.findByStEnviadoBrasilia", query = "SELECT t FROM Tbpecastecnicas t WHERE t.stEnviadoBrasilia = :stEnviadoBrasilia"),
-    @NamedQuery(name = "Tbpecastecnicas.findByStPecaTecnica", query = "SELECT t FROM Tbpecastecnicas t WHERE t.stPecaTecnica = :stPecaTecnica"),
-    @NamedQuery(name = "Tbpecastecnicas.findByStAnexadoProcesso", query = "SELECT t FROM Tbpecastecnicas t WHERE t.stAnexadoProcesso = :stAnexadoProcesso"),
-    @NamedQuery(name = "Tbpecastecnicas.findByDsObservacao", query = "SELECT t FROM Tbpecastecnicas t WHERE t.dsObservacao = :dsObservacao"),
-    @NamedQuery(name = "Tbpecastecnicas.findByCdPastaGeo", query = "SELECT t FROM Tbpecastecnicas t WHERE t.cdPastaGeo = :cdPastaGeo"),
-    @NamedQuery(name = "Tbpecastecnicas.findByNrArea", query = "SELECT t FROM Tbpecastecnicas t WHERE t.nrArea = :nrArea"),
-    @NamedQuery(name = "Tbpecastecnicas.findByNrPerimetro", query = "SELECT t FROM Tbpecastecnicas t WHERE t.nrPerimetro = :nrPerimetro"),
-    @NamedQuery(name = "Tbpecastecnicas.findByNmGleba", query = "SELECT t FROM Tbpecastecnicas t WHERE t.nmGleba = :nmGleba"),
-    @NamedQuery(name = "Tbpecastecnicas.findById", query = "SELECT t FROM Tbpecastecnicas t WHERE t.id = :id")})
 public class Tbpecastecnicas implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Basic(optional = false)
-    @Column(name = "cdpeca")
     private String cdpeca;
-    @Column(name = "nrcontrato")
     private String nrcontrato;
-    @Column(name = "nrentrega")
     private String nrentrega;
-    @Column(name = "nrcpfrequerente")
     private String nrcpfrequerente;
-    @Column(name = "nmrequerente")
     private String nmrequerente;
-    @Column(name = "stEnviadoBrasilia")
     private String stEnviadoBrasilia;
-    @Column(name = "stPecaTecnica")
     private String stPecaTecnica;
-    @Column(name = "stAnexadoProcesso")
     private String stAnexadoProcesso;
-    @Column(name = "dsObservacao")
     private String dsObservacao;
-    @Column(name = "cdPastaGeo")
     private String cdPastaGeo;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "nrArea")
     private BigDecimal nrArea;
-    @Column(name = "nrPerimetro")
     private BigDecimal nrPerimetro;
-    @Column(name = "nmGleba")
     private String nmGleba;
-    @Id
-    @Basic(optional = false)
-    @Column(name = "ID")
     private Integer id;
 
     public Tbpecastecnicas() {
@@ -213,7 +176,7 @@ public class Tbpecastecnicas implements Serializable {
 
     @Override
     public String toString() {
-        return "br.gov.incra.entity.Tbpecastecnicas[ id=" + id + " ]";
+        return "br.gov.incra.migracao.Tbpecastecnicas[ id=" + id + " ]";
     }
     
 }

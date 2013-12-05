@@ -78,7 +78,7 @@ public class MigracaoMovimentacao {
 	//	        	String cont = linha.replaceAll("\t", ",");
 		        	String cont = linha;
 		        	String contaux = "";
-		        	String[] s = cont.split(";");
+		        	String[] s = cont.split("#");
 		        	for(int y=0; y < s.length ; y++)
 		        	{
 		        		String aux = "";
@@ -100,10 +100,11 @@ public class MigracaoMovimentacao {
 		        		{
 		        			if(a.equals("5641800070620971"))
 		        				a = "56418000706200971";
-		        			
 		        			aux = (String) MigracaoAuxiliar.mapProcessoBase().get( a );
+//		        			System.out.println(MigracaoAuxiliar.mapProcessoBase());
 		        			if (aux == null)
 		        				errosnumero.add("erro | "+a);
+		        			
 		        			numero.add(aux);
 		        		}
 		        		
@@ -134,8 +135,11 @@ public class MigracaoMovimentacao {
 		        			{
 		        				aux = (String) MigracaoAuxiliar.mapCaixa().get( MigracaoAuxiliar.normalizarString(a) );
 		        				if (aux == null )
+		        				{
+		        					aux = (String) MigracaoAuxiliar.mapCaixa().get( "-" );
 		        					errosorigem.add("erro | "+a);
-			        		}
+		        				}
+		        			}
 		        			origem.add(aux);
 		        		}
 		        		if(y==3) // caixa destino
@@ -160,7 +164,10 @@ public class MigracaoMovimentacao {
 		        			{
 		        				aux = (String) MigracaoAuxiliar.mapCaixa().get( MigracaoAuxiliar.normalizarString(a) );
 			        			if (aux == null )
-		        					errosdestino.add("erro | "+a);
+			        			{
+			        				aux = (String) MigracaoAuxiliar.mapCaixa().get( "-" );
+				        			errosdestino.add("erro | "+a);
+			        			}
 		        			}
 			        		destino.add(aux);
 		        		}
@@ -203,7 +210,7 @@ public class MigracaoMovimentacao {
 		        		cont = cont.replaceAll(",,", ",null,");
 		        		cont = cont.replaceAll("''", "null");
 		        		tabela = "tbmovimentacao";
-		        		conteudo += "INSERT INTO "+tabela+" values( "+cont+" );\n";
+ 	        		conteudo += "INSERT INTO "+tabela+" values( "+cont+" );\n";
 			        	leitura += x+"\t"+"INSERT INTO "+tabela+" values( "+cont+" );\n";
 		        	}
 		        }
@@ -216,7 +223,7 @@ public class MigracaoMovimentacao {
 		        fileReader.close();
 		        bufferedReader.close();
 
-		        System.out.println("ERROS NUMERO: "+errosnumero.size()+
+		        System.out.println("ERROS NUMERO: "+numero+
 		        		"\nERROS ORIGEM: "+errosorigem.size()+
 		        		"\nERROS DESTINO: "+errosdestino.size()+
 		        		"\nERROS NUMERO: "+errosnumero+
@@ -226,18 +233,14 @@ public class MigracaoMovimentacao {
 		        		"\nLIXOS: "+lixo+
 		        		"\nREGISTROS PERFEITOS: "+registrosp+"\n\n\n");
 
-
 		        System.out.println("numero: "+numero.size()+
 		        		"\n\n\n");
-
-
 		        
 		        return conteudo;
 		    } catch (IOException e) {
 		        e.printStackTrace();
 		        return null;
 		    }
-
 	}
 	
 	// método para escrever no TXT  

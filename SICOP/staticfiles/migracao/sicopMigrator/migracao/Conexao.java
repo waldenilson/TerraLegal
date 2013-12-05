@@ -1,4 +1,4 @@
-package br.gov.incra.util;
+package br.gov.incra.migracao;
 
 import java.sql.*;
 
@@ -8,7 +8,7 @@ public final class Conexao
    
    private Conexao(){
 	   try{
-           conexao = DriverManager.getConnection("jdbc:postgresql://localhost/sicop","admin","123456");
+           conexao = DriverManager.getConnection("jdbc:postgresql://localhost/dbprocessosdev","postgres","postgres");
        }
        catch(SQLException exception){
            exception.printStackTrace();

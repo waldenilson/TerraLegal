@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class MigracaoAuxiliar {
 
-	private static String diretorio = "c:\\DEVELOPER/SICOP/Migracao/auxiliar";
+	private static String diretorio = "c:\\DEVELOPER/SICOP/Migracao/Report";
 	private static String nomeArqMigracao = "scriptTbexemplo.sql";
 	private static String nomeArqMunicipio = "municipio.sql";
 	private static String nomeArqGleba = "gleba.sql";
@@ -31,6 +31,8 @@ public class MigracaoAuxiliar {
 	private static String nomeArqConjuge = "conjuge.txt";
 	private static String nomeArqProcessosAnexos = "processosanexos.txt";
 	
+	private static String sisterlegPlanilha = "extrato_sisterleg_total_MA.txt";
+	
 	public static Map mapMunicipio() {	return ler(diretorio, nomeArqMunicipio,"\t",11,0, true); }
 	public static Map mapGleba() {	return ler(diretorio, nomeArqGleba,"\t",3,1, true); }
 	public static Map mapCaixa() {	return ler(diretorio, nomeArqCaixa,"\t",2,0, false); }
@@ -42,10 +44,16 @@ public class MigracaoAuxiliar {
 	public static Map mapTipoPendencia() { return ler(diretorio, nomeArqTipoPendencia,"\t",0,1, false); }
 	public static Map mapPregao() { return ler(diretorio, nomeArqPregao,"\t",2,0, false); }
 		
-	public static Map mapNomeConjuge() { return ler(diretorio, nomeArqConjuge,";",2,0, false); }
-	public static Map mapCPFConjuge() { return ler(diretorio, nomeArqConjuge,";",1,0, false); }
+	public static Map mapNomeConjuge() { return ler(diretorio, nomeArqConjuge,"\t",2,0, false); }
+	public static Map mapCPFConjuge() { return ler(diretorio, nomeArqConjuge,"\t",1,0, false); }
 
 	public static Map mapProcessosAnexos() { return ler(diretorio, nomeArqProcessosAnexos,";", 1, 1, false); }
+	
+	public static Map mapSisterlegPlanilhaEndereco() { return ler(diretorio, sisterlegPlanilha,"\t", 16, 1, false); }
+	public static Map mapSisterlegPlanilhaApelido() { return ler(diretorio, sisterlegPlanilha,"\t", 5, 1, false); }
+	public static Map mapSisterlegPlanilhaConjuge() { return ler(diretorio, sisterlegPlanilha,"\t", 19, 1, false); }
+	public static Map mapSisterlegPlanilhaTelefone() { return ler(diretorio, sisterlegPlanilha,"\t", 17, 1, false); }
+	public static Map mapSisterlegPlanilhaMunicipio() { return ler(diretorio, sisterlegPlanilha,"\t", 26, 1, false); }
 		
 	public MigracaoAuxiliar()
 	{		
@@ -92,9 +100,9 @@ public class MigracaoAuxiliar {
 		        	String cont = linha;
 		        	
 		        	String[] s = cont.split(separador);
-		        			        	
+		        	
 		        	if(caixaalta)
-		        		mMunicipio.put( s[v].toUpperCase(), s[k] );
+		        		mMunicipio.put( s[v].toUpperCase(),  s[k]);
 		        	else
 		        		mMunicipio.put( s[v], s[k] );
 		        }

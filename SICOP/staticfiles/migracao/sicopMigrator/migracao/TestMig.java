@@ -5,8 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import br.gov.incra.util.Conexao;
-
 public class TestMig {
 
 	
@@ -18,7 +16,7 @@ public class TestMig {
 		Connection conexao = Conexao.getConexao();
 		Statement statement;
 		ResultSet resultSet;
-		String sql = "select * from tbtipopendencia";
+		String sql = "select * from tbpecastecnicas";
 		try{
 	   		 statement = conexao.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 	   		 resultSet = statement.executeQuery(sql);

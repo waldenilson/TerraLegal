@@ -12,7 +12,7 @@ public class MigracaoPecaTecnica {
 
 	private String diretorio = "c:\\DEVELOPER/SICOP/Migracao";
 	private String nomeArqMigracao = "scriptTbpecastecnica.sql";
-	private String nomeArqLegado = "dump_tbpecastecnicas.txt";
+	private String nomeArqLegado = "dump_tbpecastecnicas_.txt";
 	
 	public MigracaoPecaTecnica()
 	{		
@@ -73,7 +73,7 @@ public class MigracaoPecaTecnica {
 	//	        	String cont = linha.replaceAll("\t", ",");
 		        	String cont = linha;
 		        	String contaux = "";
-		        	String[] s = cont.split("|");
+		        	String[] s = cont.split("#");
 		        	
 //		        	if(s.length == 13)
 //		        	{
