@@ -104,12 +104,19 @@ def relatorio_excel(request):
     style.alignment = alignment # Add Alignment to Style
 
     # write the header
-    header = ['Header 1', 'Header 2', 'Header 3', 'Header 4']
+    header = ['NOME', 'TIPO']
     for hcol, hcol_data in enumerate(header): # [(0,'Header 1'), (1, 'Header 2'), (2,'Header 3'), (3,'Header 4')]
            sheet.write(0, hcol, hcol_data, style=xlwt.Style.default_style)
  
     # write your data, you can also get it from your model
-    data = ['genius', 'super', 'gorgeous', 'awesomeness']
+    
+    data = []
+    
+    lista_caixa = request.session['relatorio_caixa']
+    for obj in lista_caixa:
+        data2 = [obj.nmlocalarquivo,obj.tbtipocaixa.nmtipocaixa]
+        data.append(data2)
+    
     for row, row_data in enumerate(data, start=1): # start from row no.1
            for col, col_data in enumerate(row_data):
                  sheet.write(row, col, col_data, style=xlwt.Style.default_style)
