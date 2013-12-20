@@ -1,0 +1,81 @@
+{% load staticfiles %} 
+{% block formulario %}
+
+		<form name="form_cadastro" method="post" action="/sicop/restrito/processo/rural/cadastro/">
+			{% csrf_token %}
+			<table>
+				<tr> 
+					<td class="colunaTabela"> <label>N do Processo:</label> </td>
+					<td> <input size="21" name="nrprocesso" id="processo" /> </td> 
+				</tr>
+				<tr> 
+					<td class="colunaTabela"> <label>Gleba:</label> </td>
+				   	<td>
+				   		<select name="tbgleba" style="width: 200px">
+				   			<option value="">-- Selecione uma Gleba --</option>
+							{% for obj in gleba %}
+								<option value="{{ obj.id }}">{{ obj.nmgleba }}</option>
+							{% endfor %}
+						</select>
+					</td>
+					<td>
+						<a href="/sicop/restrito/gleba/cadastro/?next=/sicop/restrito/processo/rural/cadastro/" title="Nova Gleba"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+					</td>
+				</tr>
+				<tr> <td class="colunaTabela"> <label>Municipio:</label> </td>
+				   		<td>
+				   			<select name="tbmunicipio" style="width: 200px">
+								<option value="">-- Selecione um Municipio --</option>
+								{% for obj in municipio %}
+									<option value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+								{% endfor %}
+							</select>
+						</td>
+				</tr>
+				<tr> <td class="colunaTabela"> <label>Nome do Requerente:</label> </td>
+					<td> <input size="35" name="nmrequerente" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>CPF do Requerente:</label> </td>
+					<td> <input size="15" id="cpf" name="nrcpfrequerente" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Nome do Conjuge:</label> </td>
+					<td> <input size="35" name="nmconjuge" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>CPF do Conjuge:</label> </td>
+					<td> <input size="15" id="cpf2" name="nrcpfconjuge" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
+				   		<td>
+				   			<select name="tbcaixa" style="width: 200px">
+								<option value="">-- Selecione uma Caixa --</option>
+								{% for obj in caixa %}
+									<option value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
+								{% endfor %}
+							</select>
+						</td>
+						<td>
+							<a href="/sicop/restrito/caixa/cadastro/?next=/sicop/restrito/processo/rural/cadastro/" title="Nova Caixa"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+						</td>
+				</tr>
+				<tr> <td class="colunaTabela"> <label>Situacao:</label> </td>
+				   		<td>
+				   			<select name="tbsituacaoprocesso" style="width: 200px">
+								<option value="">-- Selecione uma Situacao --</option>
+								{% for obj in situacaoprocesso %}
+									<option value="{{ obj.id }}">{{ obj.nmsituacao }}</option>
+								{% endfor %}
+							</select>
+						</td>
+						<td>
+							<a href="/sicop/restrito/situacao_processo/cadastro/?next=/sicop/restrito/processo/rural/cadastro/" title="Nova Situacao"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+						</td>
+				</tr>
+			</table>
+			<br/><br/>
+	<br />
+	<table style="width:100%">
+		<tr>
+			<td class="colunaTabela" style="text-align:left"> 
+				<a href="/sicop/restrito/processo/consulta/" style="margin-right: 10px"><input type="button" class="button_yellow" value="CONSULTAR" /></a>
+				<input type="submit" class="button_green" value="SALVAR" />
+			</td>
+		</tr>
+	</table>
+</form>			
+{% endblock %}

@@ -30,6 +30,17 @@ urlpatterns = patterns('',
     url(r'^excecoes/permissao_negada/', 'web.views_excecoes.permissao_negada'),   
     
     # ACESSO RESTRITO SICOP PROCESSO
+
+    # ESCOLHA DO TIPO DE DOCUMENTO
+    url(r'^sicop/restrito/documento/consulta/', 'sicop.restrito.documento.consulta'),   
+    url(r'^sicop/restrito/documento/cadastro/', 'sicop.restrito.documento.cadastro'),
+    url(r'^sicop/restrito/documento/edicao/(?P<id>\d+)/', 'sicop.restrito.documento.edicao'),
+    # DOCUMENTO MEMORANDO
+    url(r'^sicop/restrito/documento/memorando/consulta/', 'sicop.restrito.documento_memorando.consulta'),
+    url(r'^sicop/restrito/documento/memorando/cadastro/', 'sicop.restrito.documento_memorando.cadastro'),
+    url(r'^sicop/restrito/documento/memorando/edicao/(?P<id>\d+)/', 'sicop.restrito.documento_memorando.edicao'),
+    
+    
     # ESCOLHA DO TIPO DE PROCESSO
     url(r'^sicop/restrito/processo/consulta/', 'sicop.restrito.processo.consulta'),   
     url(r'^sicop/restrito/processo/cadastro/', 'sicop.restrito.processo.cadastro'),
@@ -111,6 +122,13 @@ urlpatterns = patterns('',
     url(r'^sicop/restrito/tipo_processo/edicao/(?P<id>\d+)/', 'sicop.restrito.tipo_processo.edicao'),
     url(r'^sicop/restrito/tipo_processo/relatorio/pdf/', 'sicop.restrito.tipo_processo.relatorio'),
     url(r'^sicop/restrito/tipo_processo/relatorio/excel/', 'sicop.restrito.tipo_processo.relatorio_excel'),
+
+    # ACESSO RESTRITO SICOP TIPO DOCUMENTO
+    url(r'^sicop/restrito/tipo_documento/consulta/', 'sicop.restrito.tipo_documento.consulta'),
+    url(r'^sicop/restrito/tipo_documento/cadastro/', 'sicop.restrito.tipo_documento.cadastro'),
+    url(r'^sicop/restrito/tipo_documento/edicao/(?P<id>\d+)/', 'sicop.restrito.tipo_documento.edicao'),
+    url(r'^sicop/restrito/tipo_documento/relatorio/pdf/', 'sicop.restrito.tipo_documento.relatorio'),
+    url(r'^sicop/restrito/tipo_documento/relatorio/excel/', 'sicop.restrito.tipo_documento.relatorio_excel'),
 
     # ACESSO RESTRITO SICOP TIPO PENDENCIA
     url(r'^sicop/restrito/tipo_pendencia/consulta/', 'sicop.restrito.tipo_pendencia.consulta'),

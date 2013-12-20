@@ -350,3 +350,38 @@ class Tbpregao(models.Model):
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbpregao'
+        
+class Tbtipodocumento(models.Model):
+    nmtipodocumento = models.CharField(max_length=80, blank=True)
+    desctipodocumento = models.TextField(blank=True)
+    tabela = models.CharField(max_length=50, blank=True)
+    coridentificacao = models.CharField(max_length=20, blank=True)
+    tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True)
+    id = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = 'tbtipodocumento'
+        
+class Tbdocumentobase(models.Model):
+    nmdocumento = models.CharField(max_length=80, blank=True)
+    tbtipodocumento = models.ForeignKey('Tbtipodocumento')
+    dtdocumento = models.DateTimeField(null=True, blank=True)
+    link = models.TextField(blank=True)
+    auth_user = models.ForeignKey(AuthUser)
+    tbdivisao = models.ForeignKey('Tbdivisao')
+    id = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = 'tbdocumentobase'
+        
+class Tbdocumentomemorando(models.Model):
+    tbdocumentobase = models.ForeignKey(Tbdocumentobase)
+    nmassunto = models.CharField(max_length=100, blank=True)
+    nmlocal = models.CharField(max_length=100, blank=True)
+    nmremetente = models.CharField(max_length=100, blank=True)
+    nmdestinatario = models.CharField(max_length=100, blank=True)
+    nmmensagem = models.TextField(blank=True)
+    id = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = 'tbdocumentomemorando'
+
+
+    

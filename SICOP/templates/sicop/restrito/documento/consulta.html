@@ -1,0 +1,94 @@
+{% extends "base/consulta_base.html" %} 
+{% load staticfiles %} 
+
+{% block breadcumbs %}
+	Acesso Restrito | Documento
+{% endblock %}
+
+{% block subtitulo %}
+	
+	CONSULTAR DOCUMENTO
+	
+{% endblock %}
+
+{% block consulta %}
+
+		<form name="form" method="post" action="">
+			{% csrf_token %}
+			
+			<table border="1" style="width:100%;text-align: left">
+				<tbody>
+					<tr> 
+						<td style="width:10%;text-align:left" class="colunaTabela"> <label>Nome:</label> </td>
+						<td class="colunaTabela" colspan="5"> <input style="width:30%" name="nome" /> </td>
+					</tr>
+				</tbody>
+			</table>
+			<br />
+			<table style="width:100%">
+				<tr>
+					<td class="colunaTabela" style="text-align:left"> 
+						<input class="button_yellow" style="margin-right: 10px" type="submit" value="PESQUISAR" />
+						<a href="/sicop/restrito/documento/cadastro/"> <input class="button_green" value="NOVO" type="button" /> </a>
+					</td>
+					<td class="colunaTabela" style="text-align:right"> 
+						<a href="/sicop/restrito/documento/relatorio/pdf/"> <img width="36" src="{% static "img/pdf.png" %}" /> </a>
+						<a href="/sicop/restrito/documento/relatorio/excel/"> <img width="36" src="{% static "img/excel.png" %}" /> </a>
+					</td>
+				</tr>
+				<tr>
+					<td class="colunaTabela" style="text-align:left"> 
+						<div>Memorando: Cor Verde</div>
+					</td>
+					<td class="colunaTabela" style="text-align:right"> 
+						<div>Total de registros: {{ request.session.relatorio_documento|length }}</div>
+					</td>
+				</tr>
+			</table>
+		</form>
+	
+{% endblock %}
+
+{% block resultado %}
+		<table>
+			<thead style="background:#e5e5e5;color:black">
+				<tr>
+					<th class="colunaTabelaConsulta" style="width:8%"> </th>
+					<th class="colunaTabelaConsulta" style="width:10%"> </th>
+					<th class="colunaTabelaConsulta" style="width:10%">Processo</th>
+					<th class="colunaTabelaConsulta" style="width:21%">Municipio</th>
+					<th class="colunaTabelaConsulta" style="width:18%">Gleba</th>
+					<th class="colunaTabelaConsulta" style="width:18%">Caixa</th>
+					<th class="colunaTabelaConsulta" style="width:15%">Situacao</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% if lista %}
+					{% for obj in lista %}
+						<tr style="background: {{ obj.tbprocessobase.tbtipoprocesso.coridentificacao }}">
+							<td class="colunaTabelaConsulta"> <a href="/sicop/restrito/processo/edicao/{{ obj.tbprocessobase.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
+							{% if obj.tbprocessobase.tbtipoprocesso.id == 1 %}
+								<td class="colunaTabelaConsulta">{{ obj.nmrequerente }}</td>
+							{% else %}
+								{% if obj.tbprocessobase.tbtipoprocesso.id == 2 %}
+									<td class="colunaTabelaConsulta">{{ obj.nmrequerente }}</td>
+								{% else %}
+									{% if obj.tbprocessobase.tbtipoprocesso.id == 3 %}
+										<td class="colunaTabelaConsulta">{{ obj.nmpovoado }}</td>
+									{% endif %}
+								{% endif %}
+							{% endif %}
+							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.nrprocesso }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbmunicipio.nome_mun }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbgleba.nmgleba }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbcaixa.nmlocalarquivo }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbsituacaoprocesso.nmsituacao }}</td>
+						</tr>
+					{% endfor %}
+				{% else %}
+					<tr> <td style="padding-top: 20px" colspan="6"> Nenhum Processo Encontrado </td> </tr>
+				{% endif %}
+			</tbody>
+		</table>
+				
+{% endblock %}
