@@ -233,7 +233,7 @@ def edicao_usuario_logado(request, id):
         return render_to_response('sicop/restrito/usuario/edicao.html', 
                                   {'result':result,'grupo':grupo,'usergrupo':userGrupo,'user_obj':user_obj,'divisao':divisao,'servidor':servidor}, context_instance = RequestContext(request))
     else:
-        return HttpResponseRedirect("/sicop/restrito/usuario/consulta/")
+        return HttpResponseRedirect("/sicop/restrito/usuario/edicao/"+str(id)+"/")
         
 
     

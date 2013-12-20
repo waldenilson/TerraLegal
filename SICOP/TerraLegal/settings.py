@@ -35,7 +35,6 @@ else: #local / desenvolvimento
         }
 
 
-
 # Absolute paths for where the project and templates are stored.
 #ABSOLUTE_PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
 #ABSOLUTE_TEMPLATES_PATH = os.path.abspath(os.path.join(ABSOLUTE_PROJECT_ROOT, 'templates/'))
@@ -49,8 +48,6 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
-
-
 
 #DATABASE_ROUTERS = ['servidor.router.GeneRouter']
 

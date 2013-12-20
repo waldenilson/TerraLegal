@@ -31,9 +31,15 @@ def consulta(request):
         
         if len(nome) >= 3:
 #            lista = Tbprocessobase.objects.all().filter( nrprocesso__contains = numero )
-            p_memorando = Tbdocumentomemorando.objects.all().filter( Tbdocumentobase__nmdocumento__contains = nome )
+            p_memorando = Tbdocumentomemorando.objects.all().filter( tbdocumentobase__nmdocumento__icontains = nome )
+            p_memorando_assunto = Tbdocumentomemorando.objects.all().filter( nmassunto__icontains = nome )
+            p_memorando_mensagem = Tbdocumentomemorando.objects.all().filter( nmmensagem__icontains = nome )
             lista = []
             for obj in p_memorando:
+                lista.append( obj )
+            for obj in p_memorando_assunto:
+                lista.append( obj )
+            for obj in p_memorando_mensagem:
                 lista.append( obj )
         else:
             if len(nome) > 0 and len(nome) < 3:
@@ -79,8 +85,8 @@ def cadastro(request):
                     'div_documento':div_documento},
                     context_instance = RequestContext(request));  
         
-        return render_to_response('sicop/restrito/documento/cadastro.html',{
-            'tipodocumento':tipodocumento,'documento':escolha,'div_documento':div_documento}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/documento/cadastro.html',{
+        'tipodocumento':tipodocumento,'documento':escolha,'div_documento':div_documento}, context_instance = RequestContext(request))
 
 def relatorio(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf

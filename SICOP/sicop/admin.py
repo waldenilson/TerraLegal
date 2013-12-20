@@ -3,6 +3,8 @@ from sicop.models import Tbtipocaixa, Tbtipoprocesso, Tbstatuspendencia,\
     Tbpecastecnicas, Tbclassificacaoprocesso, Tbsubarea, Tbcaixa,\
     Tbgleba, Tbcontrato, Tbsituacaoprocesso, Tbtipopendencia, AuthUser,\
     AuthUserGroups
+import xlwt
+from django.http.response import HttpResponse
 
 def verificar_permissao_grupo(usuario, grupos):
     if usuario:
@@ -14,6 +16,33 @@ def verificar_permissao_grupo(usuario, grupos):
                     permissao = True
         return permissao
     return False
+
+def relatorio_base_excel(nome, header, lista):
+    book = xlwt.Workbook(encoding='utf8')
+    sheet = book.add_sheet('my_sheet')  
+    alignment = xlwt.Alignment()
+    alignment.horz = xlwt.Alignment.HORZ_LEFT
+    alignment.vert = xlwt.Alignment.VERT_TOP
+    style = xlwt.XFStyle() # Create Style
+    style.alignment = alignment # Add Alignment to Style
+
+    # write the header
+    for hcol, hcol_data in enumerate(header): # [(0,'Header 1'), (1, 'Header 2'), (2,'Header 3'), (3,'Header 4')]
+           sheet.write(0, hcol, hcol_data, style=xlwt.Style.default_style)
+    # write your data, you can also get it from your model    
+    data = []
+    for obj in lista:
+        data2 = [obj.nmlocalarquivo, obj.tbtipocaixa.nmtipocaixa]
+        data.append(data2)
+    
+    for row, row_data in enumerate(data, start=1): # start from row no.1
+           for col, col_data in enumerate(row_data):
+                 sheet.write(row, col, col_data, style=xlwt.Style.default_style)
+    response = HttpResponse(mimetype='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment; filename='+str(nome)+'.xls'
+    book.save(response)
+    return response
+
 
 # tbtipocaixa,
 # tbcaixa,

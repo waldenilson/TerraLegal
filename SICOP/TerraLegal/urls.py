@@ -35,12 +35,18 @@ urlpatterns = patterns('',
     url(r'^sicop/restrito/documento/consulta/', 'sicop.restrito.documento.consulta'),   
     url(r'^sicop/restrito/documento/cadastro/', 'sicop.restrito.documento.cadastro'),
     url(r'^sicop/restrito/documento/edicao/(?P<id>\d+)/', 'sicop.restrito.documento.edicao'),
+
+    # ESCOLHA DO TIPO DE DOCUMENTO
+    url(r'^sicop/restrito/tipo_documento/consulta/', 'sicop.restrito.tipo_documento.consulta'),   
+    url(r'^sicop/restrito/tipo_documento/cadastro/', 'sicop.restrito.tipo_documento.cadastro'),
+    url(r'^sicop/restrito/tipo_documento/edicao/(?P<id>\d+)/', 'sicop.restrito.tipo_documento.edicao'),
+    
     # DOCUMENTO MEMORANDO
     url(r'^sicop/restrito/documento/memorando/consulta/', 'sicop.restrito.documento_memorando.consulta'),
     url(r'^sicop/restrito/documento/memorando/cadastro/', 'sicop.restrito.documento_memorando.cadastro'),
     url(r'^sicop/restrito/documento/memorando/edicao/(?P<id>\d+)/', 'sicop.restrito.documento_memorando.edicao'),
-    
-    
+    url(r'^sicop/restrito/documento/link/memorando/(?P<id>\d+)/', 'sicop.restrito.documento_memorando.link_arquivo'),
+        
     # ESCOLHA DO TIPO DE PROCESSO
     url(r'^sicop/restrito/processo/consulta/', 'sicop.restrito.processo.consulta'),   
     url(r'^sicop/restrito/processo/cadastro/', 'sicop.restrito.processo.cadastro'),

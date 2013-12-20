@@ -365,7 +365,7 @@ class Tbdocumentobase(models.Model):
     nmdocumento = models.CharField(max_length=80, blank=True)
     tbtipodocumento = models.ForeignKey('Tbtipodocumento')
     dtdocumento = models.DateTimeField(null=True, blank=True)
-    link = models.TextField(blank=True)
+    linkdocumento = models.TextField(blank=True)
     auth_user = models.ForeignKey(AuthUser)
     tbdivisao = models.ForeignKey('Tbdivisao')
     id = models.AutoField(primary_key=True)

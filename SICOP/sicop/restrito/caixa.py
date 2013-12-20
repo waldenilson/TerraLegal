@@ -114,21 +114,24 @@ def relatorio_excel(request):
     
     lista_caixa = request.session['relatorio_caixa']
     for obj in lista_caixa:
-        data2 = [obj.nmlocalarquivo,obj.tbtipocaixa.nmtipocaixa]
+        data2 = []
+        data2.append(obj.nmlocalarquivo)
+        data2.append(obj.tbtipocaixa.nmtipocaixa)
+        #data2 = [obj.nmlocalarquivo,obj.tbtipocaixa.nmtipocaixa]
         data.append(data2)
     
     for row, row_data in enumerate(data, start=1): # start from row no.1
            for col, col_data in enumerate(row_data):
                  sheet.write(row, col, col_data, style=xlwt.Style.default_style)
     response = HttpResponse(mimetype='application/vnd.ms-excel')
-    response['Content-Disposition'] = 'attachment; filename=my_data.xls'
+    response['Content-Disposition'] = 'attachment; filename=my_data.ods'
     book.save(response)
     return response
 
 def relatorio(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session['relatorio_caixa']
-
+    
     dados = []
     styles=getSampleStyleSheet()
     styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY))
