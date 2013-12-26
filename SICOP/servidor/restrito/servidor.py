@@ -8,8 +8,7 @@ from sicop.forms import FormServidor
 
 from sicop.models import Tbpecastecnicas, Tbgleba, Tbcaixa, Tbcontrato, Tbservidor
 from sicop.relatorio_base import relatorio_base_consulta
-from sicop.admin import verificar_permissao_grupo, relatorio_base_excel
-import xlwt
+from sicop.admin import verificar_permissao_grupo
 from django.http.response import HttpResponse
 
 #SERVIDORES -----------------------------------------------------------------------------------------------------------------------------
@@ -89,10 +88,6 @@ def relatorio(request):
         return resp
     else:
         return HttpResponseRedirect("/controle/restrito/servidor/consulta/")
-
-def relatorio_excel(request):
-    header = ['Header 1', 'Header 2', 'Header 3', 'Header 4']
-    return relatorio_base_excel('nome',header ,request.session['relatorio_servidor'])
     
 
 def validacao(request_form):

@@ -17,7 +17,6 @@ import urllib
 from urllib import addinfourl
 from sicop.admin import verificar_permissao_grupo
 from django.http.response import HttpResponse
-import xlwt
 
 @login_required
 def consulta(request):
@@ -94,39 +93,6 @@ def edicao(request, id):
     
     return render_to_response('sicop/restrito/caixa/edicao.html', {"form":form,'processos':processos,'pecas':pecas,'conteudo':conteudo,"tipocaixa":tipocaixa}, context_instance = RequestContext(request))
 
-def relatorio_excel(request):
-    book = xlwt.Workbook(encoding='utf8')
-    sheet = book.add_sheet('my_sheet')  
-    alignment = xlwt.Alignment()
-    alignment.horz = xlwt.Alignment.HORZ_LEFT
-    alignment.vert = xlwt.Alignment.VERT_TOP
-    style = xlwt.XFStyle() # Create Style
-    style.alignment = alignment # Add Alignment to Style
-
-    # write the header
-    header = ['NOME', 'TIPO']
-    for hcol, hcol_data in enumerate(header): # [(0,'Header 1'), (1, 'Header 2'), (2,'Header 3'), (3,'Header 4')]
-           sheet.write(0, hcol, hcol_data, style=xlwt.Style.default_style)
- 
-    # write your data, you can also get it from your model
-    
-    data = []
-    
-    lista_caixa = request.session['relatorio_caixa']
-    for obj in lista_caixa:
-        data2 = []
-        data2.append(obj.nmlocalarquivo)
-        data2.append(obj.tbtipocaixa.nmtipocaixa)
-        #data2 = [obj.nmlocalarquivo,obj.tbtipocaixa.nmtipocaixa]
-        data.append(data2)
-    
-    for row, row_data in enumerate(data, start=1): # start from row no.1
-           for col, col_data in enumerate(row_data):
-                 sheet.write(row, col, col_data, style=xlwt.Style.default_style)
-    response = HttpResponse(mimetype='application/vnd.ms-excel')
-    response['Content-Disposition'] = 'attachment; filename=my_data.ods'
-    book.save(response)
-    return response
 
 def relatorio(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
