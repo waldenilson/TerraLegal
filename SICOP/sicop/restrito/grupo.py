@@ -6,8 +6,9 @@ from sicop.forms import FormStatusPendencia, FormAuthGroup
 from sicop.models import Tbstatuspendencia, AuthGroup
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
-from sicop.relatorio_base import relatorio_base_consulta
 from sicop.admin import verificar_permissao_grupo
+from sicop.relatorio_base import relatorio_pdf_base_consulta,\
+    relatorio_csv_base_consulta, relatorio_ods_base_consulta
 
 @login_required
 @user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
@@ -50,14 +51,26 @@ def edicao(request, id):
     return render_to_response('sicop/restrito/grupo/edicao.html', {"form":form}, context_instance = RequestContext(request))
 
 
-def relatorio(request):
+def relatorio_pdf(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session['relatorio_grupo']
     if lista:
-        resp = relatorio_base_consulta(request, lista, 'RELATORIO DOS GRUPOS')
+        resp = relatorio_pdf_base_consulta(request, lista, 'RELATORIO DOS GRUPOS')
         return resp
     else:
         return HttpResponseRedirect("/sicop/restrito/grupo/consulta/")
+
+def relatorio_ods(request):
+    return relatorio_ods_base_consulta(request, 
+                                       request.session['relatorio_grupo'], 
+                                       'RELATORIO DOS GRUPOS',
+                                       '/sicop/restrito/grupo/consulta/')
+
+def relatorio_csv(request):
+    return relatorio_csv_base_consulta(request, 
+                                       request.session['relatorio_grupo'], 
+                                       'RELATORIO DOS GRUPOS',
+                                       '/sicop/restrito/grupo/consulta/')
 
 def validacao(request_form):
     warning = True

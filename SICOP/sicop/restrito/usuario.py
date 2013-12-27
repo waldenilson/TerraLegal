@@ -7,13 +7,14 @@ from sicop.forms import FormPecasTecnicas
 from sicop.models import Tbpecastecnicas, Tbgleba, Tbcaixa, Tbcontrato,\
     Tbprocessobase, Tbprocessorural, AuthUser, Tbdivisao, AuthGroup,\
     AuthUserGroups, Tbservidor
-from sicop.relatorio_base import relatorio_base_consulta
 import datetime
 from django.contrib.auth.hashers import make_password, load_hashers, get_hasher
 import json
 from collections import OrderedDict
 from sicop.admin import verificar_permissao_grupo
 from django.http.response import HttpResponse
+from sicop.relatorio_base import relatorio_pdf_base_consulta,\
+    relatorio_csv_base_consulta, relatorio_ods_base_consulta
 
 @login_required
 @user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
@@ -236,15 +237,26 @@ def edicao_usuario_logado(request, id):
         
 
     
-def relatorio(request):
+def relatorio_pdf(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session['relatorio_usuario']
     if lista:
-        resp = relatorio_base_consulta(request, lista, 'RELATORIO DOS USUARIOS')
+        resp = relatorio_pdf_base_consulta(request, lista, 'RELATORIO DOS USUARIOS')
         return resp
     else:
         return HttpResponseRedirect("/sicop/restrito/usuario/consulta/")
 
+def relatorio_ods(request):
+    return relatorio_ods_base_consulta(request, 
+                                       request.session['relatorio_usuario'], 
+                                       'RELATORIO DOS USUARIOS',
+                                       '/sicop/restrito/usuario/consulta/')
+
+def relatorio_csv(request):
+    return relatorio_csv_base_consulta(request, 
+                                       request.session['relatorio_usuario'], 
+                                       'RELATORIO DOS USUARIOS',
+                                       '/sicop/restrito/usuario/consulta/')
 
 def validacao(request_form, acao):
     warning = True

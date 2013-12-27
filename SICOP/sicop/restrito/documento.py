@@ -13,7 +13,8 @@ from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
 from sicop.restrito import processo_rural
 from sicop.relatorio_base import relatorio_base, relatorio_documento_base,\
-    relatorio_base_consulta
+    relatorio_pdf_base_consulta, relatorio_csv_base_consulta,\
+    relatorio_ods_base_consulta
 from types import InstanceType
 from sicop.admin import verificar_permissao_grupo
 import datetime
@@ -87,14 +88,26 @@ def cadastro(request):
     return render_to_response('sicop/restrito/documento/cadastro.html',{
         'tipodocumento':tipodocumento,'documento':escolha,'div_documento':div_documento}, context_instance = RequestContext(request))
 
-def relatorio(request):
+def relatorio_pdf(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session['relatorio_documento']
     if lista:
-        resp = relatorio_base_consulta(request, lista, 'RELATORIO DOS DOCUMENTOS')
+        resp = relatorio_pdf_base_consulta(request, lista, 'RELATORIO DOS DOCUMENTOS')
         return resp
     else:
         return HttpResponseRedirect("/sicop/restrito/documento/consulta/")
+
+def relatorio_ods(request):
+    return relatorio_ods_base_consulta(request, 
+                                       request.session['relatorio_documento'], 
+                                       'RELATORIO DOS DOCUMENTOS',
+                                       '/sicop/restrito/documento/consulta/')
+
+def relatorio_csv(request):
+    return relatorio_csv_base_consulta(request, 
+                                       request.session['relatorio_documento'], 
+                                       'RELATORIO DOS DOCUMENTOS',
+                                       '/sicop/restrito/documento/consulta/')
     
 def formatDataToText( formato_data ):
     if formato_data:

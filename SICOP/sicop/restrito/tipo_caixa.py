@@ -6,9 +6,10 @@ from sicop.forms import FormTipoCaixa
 from django.http import HttpResponseRedirect
 from sicop.models import Tbtipocaixa, AuthUser
 from django.contrib import messages
-from sicop.relatorio_base import relatorio_base_consulta
 from sicop.admin import verificar_permissao_grupo
 from django.http.response import HttpResponse
+from sicop.relatorio_base import relatorio_pdf_base_consulta,\
+    relatorio_csv_base_consulta, relatorio_ods_base_consulta
 
 @login_required
 def consulta(request):
@@ -57,14 +58,26 @@ def edicao(request, id):
             return HttpResponseRedirect("/sicop/restrito/tipo_caixa/edicao/"+str(id)+"/")
     return render_to_response('sicop/restrito/tipo_caixa/edicao.html', {"tipocaixa":instance}, context_instance = RequestContext(request))
 
-def relatorio(request):
+def relatorio_pdf(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session['relatorio_tipo_caixa']
     if lista:
-        resp = relatorio_base_consulta(request, lista, 'RELATORIO DOS TIPOS CAIXA')
+        resp = relatorio_pdf_base_consulta(request, lista, 'RELATORIO DOS TIPOS CAIXA')
         return resp
     else:
         return HttpResponseRedirect("/sicop/restrito/tipo_caixa/consulta/")
+
+def relatorio_ods(request):
+    return relatorio_ods_base_consulta(request, 
+                                       request.session['relatorio_tipo_caixa'], 
+                                       'RELATORIO DOS TIPOS CAIXA',
+                                       '/sicop/restrito/tipo_caixa/consulta/')
+
+def relatorio_csv(request):
+    return relatorio_csv_base_consulta(request, 
+                                       request.session['relatorio_tipo_caixa'], 
+                                       'RELATORIO DOS TIPOS CAIXA',
+                                       '/sicop/restrito/tipo_caixa/consulta/')
 
 def validacao(request_form):
     warning = True

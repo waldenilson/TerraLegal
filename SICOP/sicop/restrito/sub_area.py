@@ -6,9 +6,10 @@ from sicop.forms import FormSubArea
 from sicop.models import Tbsubarea, AuthUser
 from django.http import HttpResponseRedirect
 from django.contrib import messages
-from sicop.relatorio_base import relatorio_base_consulta
 from sicop.admin import verificar_permissao_grupo
 from django.http.response import HttpResponse
+from sicop.relatorio_base import relatorio_pdf_base_consulta,\
+    relatorio_csv_base_consulta, relatorio_ods_base_consulta
 
 @login_required
 def consulta(request):
@@ -55,15 +56,26 @@ def edicao(request, id):
             return HttpResponseRedirect("/sicop/restrito/sub_area/edicao/"+str(id)+"/")
     return render_to_response('sicop/restrito/sub_area/edicao.html', {"subarea":instance}, context_instance = RequestContext(request))
 
-def relatorio(request):
+def relatorio_pdf(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session['relatorio_sub_area']
     if lista:
-        resp = relatorio_base_consulta(request, lista, 'RELATORIO DAS SUB AREAS')
+        resp = relatorio_pdf_base_consulta(request, lista, 'RELATORIO DAS SUB AREAS')
         return resp
     else:
         return HttpResponseRedirect("/sicop/restrito/sub_area/consulta/")
 
+def relatorio_ods(request):
+    return relatorio_ods_base_consulta(request, 
+                                       request.session['relatorio_sub_area'], 
+                                       'RELATORIO DAS SUB AREAS',
+                                       '/sicop/restrito/sub_area/consulta/')
+
+def relatorio_csv(request):
+    return relatorio_csv_base_consulta(request, 
+                                       request.session['relatorio_sub_area'], 
+                                       'RELATORIO DAS SUB AREAS',
+                                       '/sicop/restrito/sub_area/consulta/')
 
 def validacao(request_form):
     warning = True

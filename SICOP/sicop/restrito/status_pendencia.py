@@ -6,8 +6,9 @@ from sicop.forms import FormStatusPendencia
 from sicop.models import Tbstatuspendencia, AuthUser
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
-from sicop.relatorio_base import relatorio_base_consulta
 from sicop.admin import verificar_permissao_grupo
+from sicop.relatorio_base import relatorio_pdf_base_consulta,\
+    relatorio_csv_base_consulta, relatorio_ods_base_consulta
 
 @login_required
 def consulta(request):
@@ -49,15 +50,26 @@ def edicao(request, id):
             return HttpResponseRedirect("/sicop/restrito/status_pendencia/edicao/"+str(id)+"/")
     return render_to_response('sicop/restrito/status_pendencia/edicao.html', {"statuspendencia":instance}, context_instance = RequestContext(request))
 
-def relatorio(request):
+def relatorio_pdf(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session['relatorio_status_pendencia']
     if lista:
-        resp = relatorio_base_consulta(request, lista, 'RELATORIO DOS STATUS PENDENCIA')
+        resp = relatorio_pdf_base_consulta(request, lista, 'RELATORIO DOS STATUS PENDENCIA')
         return resp
     else:
         return HttpResponseRedirect("/sicop/restrito/status_pendencia/consulta/")
 
+def relatorio_ods(request):
+    return relatorio_ods_base_consulta(request, 
+                                       request.session['relatorio_status_pendencia'], 
+                                       'RELATORIO DOS STATUS PENDENCIA',
+                                       '/sicop/restrito/status_pendencia/consulta/')
+
+def relatorio_csv(request):
+    return relatorio_csv_base_consulta(request, 
+                                       request.session['relatorio_status_pendencia'], 
+                                       'RELATORIO DOS STATUS PENDENCIA',
+                                       '/sicop/restrito/status_pendencia/consulta/')
 
 def validacao(request_form):
     warning = True

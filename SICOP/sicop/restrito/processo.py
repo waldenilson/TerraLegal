@@ -12,7 +12,8 @@ from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
 from sicop.restrito import processo_rural
 from sicop.relatorio_base import relatorio_base, relatorio_documento_base,\
-    relatorio_base_consulta
+    relatorio_pdf_base_consulta, relatorio_csv_base_consulta,\
+    relatorio_ods_base_consulta
 from types import InstanceType
 from sicop.admin import verificar_permissao_grupo
 import datetime
@@ -459,15 +460,27 @@ def cadastro(request):
     return render_to_response('sicop/restrito/processo/cadastro.html',{'gleba':gleba,'caixa':caixa,'municipio':municipio,'situacaoprocesso':situacaoprocesso,
             'tipoprocesso':tipoprocesso,'processo':escolha,'div_processo':div_processo}, context_instance = RequestContext(request))
 
-def relatorio(request):
+def relatorio_pdf(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session['relatorio_processo']
     if lista:
-        resp = relatorio_base_consulta(request, lista, 'RELATORIO DOS PROCESSOS')
+        resp = relatorio_pdf_base_consulta(request, lista, 'RELATORIO DOS PROCESSOS')
         return resp
     else:
         return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
 
+
+def relatorio_ods(request):
+    return relatorio_ods_base_consulta(request, 
+                                       request.session['relatorio_processo'], 
+                                       'RELATORIO DOS PROCESSOS',
+                                       '/sicop/restrito/processo/consulta/')
+
+def relatorio_csv(request):
+    return relatorio_csv_base_consulta(request, 
+                                       request.session['relatorio_processo'], 
+                                       'RELATORIO DOS PROCESSOS',
+                                       '/sicop/restrito/processo/consulta/')
 
 # metodos classe controle
 

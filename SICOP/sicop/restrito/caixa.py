@@ -7,7 +7,8 @@ from sicop.models import Tbcaixa, Tbtipocaixa, AuthUser, Tbprocessobase,\
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from sicop.forms import FormCaixa
-from sicop.relatorio_base import relatorio_base_consulta
+from sicop.relatorio_base import relatorio_pdf_base_consulta,\
+    relatorio_ods_base_consulta, relatorio_csv_base_consulta
 from reportlab.platypus.paragraph import Paragraph
 from reportlab.platypus.flowables import Spacer
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
@@ -93,7 +94,7 @@ def edicao(request, id):
     return render_to_response('sicop/restrito/caixa/edicao.html', {"form":form,'processos':processos,'pecas':pecas,'conteudo':conteudo,"tipocaixa":tipocaixa}, context_instance = RequestContext(request))
 
 
-def relatorio(request):
+def relatorio_pdf(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session['relatorio_caixa']
     
@@ -107,53 +108,23 @@ def relatorio(request):
         dados.append(Spacer(1,12))
 
     if lista:
-        resp = relatorio_base_consulta(request, dados, 'RELATORIO DAS CAIXAS')
+        resp = relatorio_pdf_base_consulta(request, dados, 'RELATORIO DAS CAIXAS')
         return resp
     else:
         return HttpResponseRedirect("/sicop/restrito/caixa/consulta/")
 
 
-def report(request):
-    ods = ODS()
+def relatorio_ods(request):
+    return relatorio_ods_base_consulta(request, 
+                                       request.session['relatorio_caixa'], 
+                                       'RELATORIO DAS CAIXAS',
+                                       '/sicop/restrito/caixa/consulta/')
 
-    # sheet title
-    sheet = ods.content.getSheet(0)
-    sheet.setSheetName('Totals')
-
-    # title
-    sheet.getCell(0, 0).stringValue("Nice cool report").setFontSize('14pt')
-    sheet.getRow(0).setHeight('18pt')
-    sheet.getColumn(0).setWidth('10cm')
-
-    # Cell1
-    sheet.getCell(0, 1).stringValue("Foo")
-    sheet.getCell(1, 1).floatValue(2)
-
-    # Cell2
-    sheet.getCell(0, 2).stringValue("Bar")
-    sheet.getCell(1, 2).floatValue(3)
-
-    # Cell3 with formula
-    sheet.getCell(0, 3).stringValue("Total").setBold(True)
-    sheet.getCell(1, 3).floatFormula(0, '=SUM(B2:B3').setBold(True)
-
-    # generating response
-    response = HttpResponse(mimetype=ods.mimetype.toString())
-    response['Content-Disposition'] = 'attachment; filename="report.ods"'
-    ods.save(response)
-
-    return response
-
-def report_csv(request):
-    # Create the HttpResponse object with the appropriate CSV header.
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="somefilename.csv"'
-
-    writer = csv.writer(response)
-    writer.writerow(['First row', 'Foo', 'Bar', 'Baz'])
-    writer.writerow(['Second row', 'A', 'B', 'C', '"Testing"', "Here's a quote"])
-
-    return response
+def relatorio_csv(request):
+    return relatorio_csv_base_consulta(request, 
+                                       request.session['relatorio_caixa'], 
+                                       'RELATORIO DAS CAIXAS',
+                                       '/sicop/restrito/caixa/consulta/')
 
 def validacao(request_form):
     warning = True

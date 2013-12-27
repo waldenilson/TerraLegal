@@ -6,9 +6,10 @@ from django.contrib import messages
 from sicop.forms import FormPecasTecnicas
 from sicop.models import Tbpecastecnicas, Tbgleba, Tbcaixa, Tbcontrato,\
     Tbprocessobase, Tbprocessorural, AuthUser
-from sicop.relatorio_base import relatorio_base_consulta
 from sicop.admin import verificar_permissao_grupo
 from django.http.response import HttpResponse
+from sicop.relatorio_base import relatorio_pdf_base_consulta,\
+    relatorio_csv_base_consulta, relatorio_ods_base_consulta
 
 #PECAS TECNICAS -----------------------------------------------------------------------------------------------------------------------------
 
@@ -154,15 +155,26 @@ def edicao(request, id):
                               {'peca':peca_obj,'processo':processo,'caixa':caixa,'contrato':contrato,'gleba':gleba}, 
                             context_instance = RequestContext(request))
 
-def relatorio(request):
+def relatorio_pdf(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session['relatorio_peca_tecnica']
     if lista:
-        resp = relatorio_base_consulta(request, lista, 'RELATORIO DAS PECAS TECNICAS')
+        resp = relatorio_pdf_base_consulta(request, lista, 'RELATORIO DAS PECAS TECNICAS')
         return resp
     else:
         return HttpResponseRedirect("/sicop/restrito/peca_tecnica/consulta/")
 
+def relatorio_ods(request):
+    return relatorio_ods_base_consulta(request, 
+                                       request.session['relatorio_peca_tecnica'], 
+                                       'RELATORIO DAS PECAS TECNICAS',
+                                       '/sicop/restrito/peca_tecnica/consulta/')
+
+def relatorio_csv(request):
+    return relatorio_csv_base_consulta(request, 
+                                       request.session['relatorio_peca_tecnica'], 
+                                       'RELATORIO DAS PECAS TECNICAS',
+                                       '/sicop/restrito/peca_tecnica/consulta/')
 
 def validacao(request_form):
     warning = True

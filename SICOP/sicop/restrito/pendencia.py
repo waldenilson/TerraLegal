@@ -6,7 +6,6 @@ from sicop.models import Tbgleba, Tbsubarea, Tbpendencia, Tbtipopendencia,\
     Tbstatuspendencia
 from django.http.response import HttpResponseRedirect
 from django.contrib import messages
-from sicop.relatorio_base import relatorio_base_consulta
 
 @login_required
 def edicao(request, pendencia):

@@ -6,8 +6,9 @@ from sicop.forms import FormSituacaoProcesso
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect, HttpResponse
 from sicop.models import Tbsituacaoprocesso, AuthUser
-from sicop.relatorio_base import relatorio_base_consulta
 from sicop.admin import verificar_permissao_grupo
+from sicop.relatorio_base import relatorio_pdf_base_consulta,\
+    relatorio_csv_base_consulta, relatorio_ods_base_consulta
 
 @login_required
 def consulta(request):
@@ -55,14 +56,26 @@ def edicao(request, id):
            return HttpResponseRedirect("/sicop/restrito/situacao_processo/edicao/"+str(id)+"/")
     return render_to_response('sicop/restrito/situacao_processo/edicao.html', {"situacaoprocesso":instance}, context_instance = RequestContext(request))
 
-def relatorio(request):
+def relatorio_pdf(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session['relatorio_situacao_processo']
     if lista:
-        resp = relatorio_base_consulta(request, lista, 'RELATORIO DAS SITUACOES DOS PROCESSOS')
+        resp = relatorio_pdf_base_consulta(request, lista, 'RELATORIO DAS SITUACOES DOS PROCESSOS')
         return resp
     else:
         return HttpResponseRedirect("/sicop/restrito/situacao_processo/consulta/")
+
+def relatorio_ods(request):
+    return relatorio_ods_base_consulta(request, 
+                                       request.session['relatorio_situacao_processo'], 
+                                       'RELATORIO DAS SITUACOES DOS PROCESSOS',
+                                       '/sicop/restrito/situacao_processo/consulta/')
+
+def relatorio_csv(request):
+    return relatorio_csv_base_consulta(request, 
+                                       request.session['relatorio_situacao_processo'], 
+                                       'RELATORIO DAS SITUACOES DOS PROCESSOS',
+                                       '/sicop/restrito/situacao_processo/consulta/')
 
 def validacao(request_form):
     warning = True

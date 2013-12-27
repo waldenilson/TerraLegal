@@ -6,8 +6,9 @@ from sicop.forms import FormTipoPendencia
 from sicop.models import Tbtipopendencia, AuthUser, Tbtipoprocesso
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
-from sicop.relatorio_base import relatorio_base_consulta
 from sicop.admin import verificar_permissao_grupo
+from sicop.relatorio_base import relatorio_pdf_base_consulta,\
+    relatorio_csv_base_consulta, relatorio_ods_base_consulta
 
 @login_required
 def consulta(request):
@@ -50,14 +51,26 @@ def edicao(request, id):
             return HttpResponseRedirect("/sicop/restrito/tipo_pendencia/edicao/"+str(id)+"/")
     return render_to_response('sicop/restrito/tipo_pendencia/edicao.html', {"tipopendencia":instance,'tipoprocesso':tipoprocesso}, context_instance = RequestContext(request))
 
-def relatorio(request):
+def relatorio_pdf(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session['relatorio_tipo_pendencia']
     if lista:
-        resp = relatorio_base_consulta(request, lista, 'RELATORIO DOS TIPOS DE PENDENCIAS')
+        resp = relatorio_pdf_base_consulta(request, lista, 'RELATORIO DOS TIPOS DE PENDENCIAS')
         return resp
     else:
         return HttpResponseRedirect("/sicop/restrito/tipo_pendencia/consulta/")
+
+def relatorio_ods(request):
+    return relatorio_ods_base_consulta(request, 
+                                       request.session['relatorio_tipo_pendencia'], 
+                                       'RELATORIO DOS TIPOS DE PENDENCIAS',
+                                       '/sicop/restrito/tipo_pendencia/consulta/')
+
+def relatorio_csv(request):
+    return relatorio_csv_base_consulta(request, 
+                                       request.session['relatorio_tipo_processo'], 
+                                       'RELATORIO DOS TIPOS DE PENDENCIAS',
+                                       '/sicop/restrito/tipo_pendencia/consulta/')
 
 def validacao(request_form):
     warning = True

@@ -6,9 +6,10 @@ from sicop.models import Tbcaixa, Tbtipocaixa, Tbdivisao, Tbuf
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from sicop.forms import FormCaixa, FormDivisao
-from sicop.relatorio_base import relatorio_base_consulta
 from sicop.admin import verificar_permissao_grupo
 from django.http.response import HttpResponse
+from sicop.relatorio_base import relatorio_pdf_base_consulta,\
+    relatorio_csv_base_consulta, relatorio_ods_base_consulta
 
 @login_required
 @user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
@@ -56,14 +57,26 @@ def edicao(request, id):
         form = FormDivisao(instance=instance)
     return render_to_response('sicop/restrito/divisao/edicao.html', {"form":form,"uf":uf}, context_instance = RequestContext(request))
 
-def relatorio(request):
+def relatorio_pdf(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session['relatorio_divisao']
     if lista:
-        resp = relatorio_base_consulta(request, lista, 'RELATORIO DAS DIVISOES')
+        resp = relatorio_pdf_base_consulta(request, lista, 'RELATORIO DAS DIVISOES')
         return resp
     else:
         return HttpResponseRedirect("/sicop/restrito/divisao/consulta/")
+
+def relatorio_ods(request):
+    return relatorio_ods_base_consulta(request, 
+                                       request.session['relatorio_divisao'], 
+                                       'RELATORIO DAS DIVISOES',
+                                       '/sicop/restrito/divisao/consulta/')
+
+def relatorio_csv(request):
+    return relatorio_csv_base_consulta(request, 
+                                       request.session['relatorio_divisao'], 
+                                       'RELATORIO DAS DIVISOES',
+                                       '/sicop/restrito/divisao/consulta/')
 
 def validacao(request_form):
     warning = True
