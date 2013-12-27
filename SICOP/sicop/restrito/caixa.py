@@ -15,6 +15,7 @@ from reportlab.lib.enums import TA_JUSTIFY
 from sicop.admin import verificar_permissao_grupo
 from django.http.response import HttpResponse
 from odslib import ODS
+import csv
 
 @login_required
 def consulta(request):
@@ -143,6 +144,16 @@ def report(request):
 
     return response
 
+def report_csv(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="somefilename.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['First row', 'Foo', 'Bar', 'Baz'])
+    writer.writerow(['Second row', 'A', 'B', 'C', '"Testing"', "Here's a quote"])
+
+    return response
 
 def validacao(request_form):
     warning = True
