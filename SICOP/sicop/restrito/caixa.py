@@ -8,7 +8,8 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from sicop.forms import FormCaixa
 from sicop.relatorio_base import relatorio_pdf_base_consulta,\
-    relatorio_ods_base_consulta, relatorio_csv_base_consulta
+    relatorio_ods_base_consulta, relatorio_csv_base_consulta,\
+    relatorio_ods_base_header, relatorio_ods_base
 from reportlab.platypus.paragraph import Paragraph
 from reportlab.platypus.flowables import Spacer
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
@@ -115,10 +116,39 @@ def relatorio_pdf(request):
 
 
 def relatorio_ods(request):
-    return relatorio_ods_base_consulta(request, 
-                                       request.session['relatorio_caixa'], 
-                                       'RELATORIO DAS CAIXAS',
-                                       '/sicop/restrito/caixa/consulta/')
+
+    # montar objeto lista com os campos a mostrar no relatorio/pdf
+    lista = request.session['relatorio_caixa']
+    
+    if lista:
+        ods = ODS()
+        sheet = relatorio_ods_base_header('Caixas','Relatorio Caixas', ods)
+        
+        # subtitle
+        sheet.getCell(0, 1).setAlignHorizontal('center').stringValue( 'Nome' ).setFontSize('14pt')
+        sheet.getCell(1, 1).setAlignHorizontal('center').stringValue( 'Tipo' ).setFontSize('14pt')
+        sheet.getRow(1).setHeight('20pt')
+        
+    #TRECHO PERSONALIZADO DE CADA CONSULTA
+        #DADOS
+        x = 0
+        for obj in lista:
+            sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.nmlocalarquivo)
+            sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.tbtipocaixa.nmtipocaixa)    
+            x += 1
+        
+    #TRECHO PERSONALIZADO DE CADA CONSULTA     
+       
+        relatorio_ods_base(ods, 'caixas')
+        # generating response
+        response = HttpResponse(mimetype=ods.mimetype.toString())
+        response['Content-Disposition'] = 'attachment; filename="report.ods"'
+        ods.save(response)
+    
+        return response
+    else:
+        return HttpResponseRedirect( "/sicop/restrito/caixa/consulta" )
+
 
 def relatorio_csv(request):
     return relatorio_csv_base_consulta(request, 

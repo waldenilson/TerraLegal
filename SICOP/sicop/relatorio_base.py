@@ -11,6 +11,7 @@ from odslib import ODS
 import os
 import csv
 from django.http import HttpResponseRedirect
+from django.template.defaultfilters import length
 
 def relatorio_base(request, lista, titulo):
     response = HttpResponse(content_type='application/pdf')
@@ -56,30 +57,57 @@ def relatorio_pdf_base_consulta(request, lista, titulo):
     return response
 
 
+
+
+
+def relatorio_ods_base_header( nome_planilha, titulo_planilha, ods):
+    # sheet title
+    sheet = ods.content.getSheet(0)
+    sheet.setSheetName( nome_planilha )
+    
+    # title
+    sheet.getCell(0, 0).stringValue( titulo_planilha ).setFontSize('16pt')
+    sheet.getRow(0).setHeight('18pt')
+    sheet.getColumn(0).setWidth('10cm')
+    
+    return sheet
+
+def relatorio_ods_base(ods, titulo):
+    # generating response
+    response = HttpResponse(mimetype=ods.mimetype.toString())
+    response['Content-Disposition'] = 'attachment; filename='+str(titulo)+'".ods"'
+    ods.save(response)
+    
+    return response
+
+
 def relatorio_ods_base_consulta(request, lista, titulo, HttpRedirect):
     if lista:
+        
+        nome_planilha = 'Planilha 1'
+        titulo_planilha = 'TITULO PLANILHA'
         ods = ODS()
         # sheet title
         sheet = ods.content.getSheet(0)
-        sheet.setSheetName('Totals')
+        sheet.setSheetName( nome_planilha )
     
         # title
-        sheet.getCell(0, 0).stringValue("Nice cool report").setFontSize('14pt')
+        sheet.getCell(0, 0).stringValue( titulo_planilha ).setFontSize('14pt')
         sheet.getRow(0).setHeight('18pt')
         sheet.getColumn(0).setWidth('10cm')
     
-        # Cell1
-        sheet.getCell(0, 1).stringValue("Foo")
-        sheet.getCell(1, 1).floatValue(2)
     
-        # Cell2
-        sheet.getCell(0, 2).stringValue("Bar")
-        sheet.getCell(1, 2).floatValue(3)
-    
-        # Cell3 with formula
-        sheet.getCell(0, 3).stringValue("Total").setBold(True)
-        sheet.getCell(1, 3).floatFormula(0, '=SUM(B2:B3').setBold(True)
-    
+    #TRECHO PERSONALIZADO DE CADA CONSULTA
+        #DADOS
+        x = 0
+        for obj in lista:
+            sheet.getCell(0, 1).stringValue(lista)
+            sheet.getCell(1, 1).floatValue(2)    
+            x+1
+        
+    #TRECHO PERSONALIZADO DE CADA CONSULTA     
+       
+        
         # generating response
         response = HttpResponse(mimetype=ods.mimetype.toString())
         response['Content-Disposition'] = 'attachment; filename="report.ods"'
@@ -102,10 +130,6 @@ def relatorio_csv_base_consulta(request, lista, titulo, HttpRedirect):
     else:
         return HttpResponseRedirect( HttpRedirect )
     
-
-
-
-
 
 def relatorio_documento_base(request):
     response = HttpResponse(content_type='application/pdf')
