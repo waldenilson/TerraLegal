@@ -79,57 +79,14 @@ def relatorio_ods_base(ods, titulo):
     ods.save(response)
     
     return response
+    
+def relatorio_csv_base(response, titulo):
+    response['Content-Disposition'] = 'attachment; filename='+str(titulo)
+    writer = csv.writer(response)
+    return writer
 
 
-def relatorio_ods_base_consulta(request, lista, titulo, HttpRedirect):
-    if lista:
-        
-        nome_planilha = 'Planilha 1'
-        titulo_planilha = 'TITULO PLANILHA'
-        ods = ODS()
-        # sheet title
-        sheet = ods.content.getSheet(0)
-        sheet.setSheetName( nome_planilha )
-    
-        # title
-        sheet.getCell(0, 0).stringValue( titulo_planilha ).setFontSize('14pt')
-        sheet.getRow(0).setHeight('18pt')
-        sheet.getColumn(0).setWidth('10cm')
-    
-    
-    #TRECHO PERSONALIZADO DE CADA CONSULTA
-        #DADOS
-        x = 0
-        for obj in lista:
-            sheet.getCell(0, 1).stringValue(lista)
-            sheet.getCell(1, 1).floatValue(2)    
-            x+1
-        
-    #TRECHO PERSONALIZADO DE CADA CONSULTA     
-       
-        
-        # generating response
-        response = HttpResponse(mimetype=ods.mimetype.toString())
-        response['Content-Disposition'] = 'attachment; filename="report.ods"'
-        ods.save(response)
-    
-        return response
-    else:
-        return HttpResponseRedirect( HttpRedirect )
-    
-def relatorio_csv_base_consulta(request, lista, titulo, HttpRedirect):
-    # Create the HttpResponse object with the appropriate CSV header.
-    if lista:
-        response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = 'attachment; filename="somefilename.csv"'
-    
-        writer = csv.writer(response)
-        writer.writerow(['First row', 'Foo', 'Bar', 'Baz'])
-        writer.writerow(['Second row', 'A', 'B', 'C', '"Testing"', "Here's a quote"])
-        return response
-    else:
-        return HttpResponseRedirect( HttpRedirect )
-    
+
 
 def relatorio_documento_base(request):
     response = HttpResponse(content_type='application/pdf')

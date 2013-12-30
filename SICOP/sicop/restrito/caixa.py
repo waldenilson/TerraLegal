@@ -8,8 +8,7 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from sicop.forms import FormCaixa
 from sicop.relatorio_base import relatorio_pdf_base_consulta,\
-    relatorio_ods_base_consulta, relatorio_csv_base_consulta,\
-    relatorio_ods_base_header, relatorio_ods_base
+    relatorio_ods_base_header, relatorio_ods_base, relatorio_csv_base
 from reportlab.platypus.paragraph import Paragraph
 from reportlab.platypus.flowables import Spacer
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
@@ -142,7 +141,7 @@ def relatorio_ods(request):
         relatorio_ods_base(ods, 'caixas')
         # generating response
         response = HttpResponse(mimetype=ods.mimetype.toString())
-        response['Content-Disposition'] = 'attachment; filename="report.ods"'
+        response['Content-Disposition'] = 'attachment; filename="relatorio-caixas.ods"'
         ods.save(response)
     
         return response
@@ -151,10 +150,17 @@ def relatorio_ods(request):
 
 
 def relatorio_csv(request):
-    return relatorio_csv_base_consulta(request, 
-                                       request.session['relatorio_caixa'], 
-                                       'RELATORIO DAS CAIXAS',
-                                       '/sicop/restrito/caixa/consulta/')
+    # montar objeto lista com os campos a mostrar no relatorio/pdf
+    lista = request.session['relatorio_caixa']
+    if lista:
+        response = HttpResponse(content_type='text/csv')     
+        writer = relatorio_csv_base(response, 'relatorio-caixas')
+        writer.writerow(['Nome', 'Tipo'])
+        for obj in lista:
+            writer.writerow([obj.nmlocalarquivo, obj.tbtipocaixa.nmtipocaixa])
+        return response
+    else:
+        return HttpResponseRedirect( '/sicop/restrito/caixa/consulta/' )
 
 def validacao(request_form):
     warning = True
