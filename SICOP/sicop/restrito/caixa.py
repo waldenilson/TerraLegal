@@ -7,8 +7,9 @@ from sicop.models import Tbcaixa, Tbtipocaixa, AuthUser, Tbprocessobase,\
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from sicop.forms import FormCaixa
-from sicop.relatorio_base import relatorio_pdf_base_consulta,\
-    relatorio_ods_base_header, relatorio_ods_base, relatorio_csv_base
+from sicop.relatorio_base import relatorio_ods_base_header, relatorio_ods_base, relatorio_csv_base,\
+    relatorio_pdf_base_header, relatorio_pdf_base,\
+    relatorio_pdf_base_header_title
 from reportlab.platypus.paragraph import Paragraph
 from reportlab.platypus.flowables import Spacer
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
@@ -17,6 +18,10 @@ from sicop.admin import verificar_permissao_grupo
 from django.http.response import HttpResponse
 from odslib import ODS
 import csv
+from reportlab.platypus.tables import Table
+from reportlab.platypus.doctemplate import SimpleDocTemplate
+from reportlab.lib import styles
+from reportlab.lib.units import cm
 
 @login_required
 def consulta(request):
@@ -97,19 +102,16 @@ def edicao(request, id):
 def relatorio_pdf(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session['relatorio_caixa']
-    
-    dados = []
-    styles=getSampleStyleSheet()
-    styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY))
-    for obj in lista:
-        dados.append( Paragraph( obj.nmlocalarquivo , styles["Normal"]) )
-        dados.append(Spacer(100,1))
-        dados.append( Paragraph( obj.tbtipocaixa.nmtipocaixa , styles["Normal"]) )
-        dados.append(Spacer(1,12))
-
     if lista:
-        resp = relatorio_pdf_base_consulta(request, dados, 'RELATORIO DAS CAIXAS')
-        return resp
+        response = HttpResponse(mimetype='application/pdf')
+        doc = relatorio_pdf_base_header(response, 'relatorio-caixas')   
+        elements=[]
+        
+        dados = relatorio_pdf_base_header_title('Relatorio Caixas')
+        dados.append( ('NOME','CAIXA') )
+        for obj in lista:
+            dados.append( ( obj.nmlocalarquivo , obj.tbtipocaixa.nmtipocaixa ) )
+        return relatorio_pdf_base(response, doc, elements, dados)
     else:
         return HttpResponseRedirect("/sicop/restrito/caixa/consulta/")
 

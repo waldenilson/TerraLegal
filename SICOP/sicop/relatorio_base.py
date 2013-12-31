@@ -6,12 +6,14 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_JUSTIFY
 from reportlab.platypus.paragraph import Paragraph
 from reportlab.platypus.flowables import Spacer, Image, PageBreak
-from reportlab.lib.units import inch
+from reportlab.lib.units import inch, cm
 from odslib import ODS
 import os
 import csv
 from django.http import HttpResponseRedirect
 from django.template.defaultfilters import length
+from reportlab.platypus.tables import Table
+from reportlab.lib import styles
 
 def relatorio_base(request, lista, titulo):
     response = HttpResponse(content_type='application/pdf')
@@ -37,28 +39,20 @@ def relatorio_base(request, lista, titulo):
     return response
 
 
-def relatorio_pdf_base_consulta(request, lista, titulo):
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="'+str(titulo).replace(' ', '_')+'.pdf"'
-    doc = SimpleDocTemplate(response, rightMargin=72,leftMargin=72, topMargin=72,bottomMargin=18)
-    styles=getSampleStyleSheet()
-    styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY))
-    ptext = '<font size=14>%s</font>' % titulo
-    story = []
-    fn = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../staticfiles/img/terralegal.jpg')
-    im = Image(fn,90, 53)
-    story.append(im)
-    story.append(Spacer(1, 12))
-    story.append(Paragraph(ptext, styles["Normal"]))
-    story.append(Spacer(1, 12))
-    
-    doc.build(story)
-    #doc.build(lista)
+def relatorio_pdf_base_header(response, titulo):
+    response['Content-Disposition'] = 'attachment; filename='+titulo+'.pdf'
+    return SimpleDocTemplate(response, rightMargin=0, leftMargin=6.5 * cm, topMargin=0.3 * cm, bottomMargin=0)
+
+def relatorio_pdf_base_header_title(title):
+    dados = []
+    dados.append( (title,'') )
+    return dados
+
+def relatorio_pdf_base(response, doc, elements, dados):
+    table = Table(dados, colWidths=350, rowHeights=35)
+    elements.append(table)
+    doc.build(elements) 
     return response
-
-
-
-
 
 def relatorio_ods_base_header( nome_planilha, titulo_planilha, ods):
     # sheet title
@@ -69,24 +63,19 @@ def relatorio_ods_base_header( nome_planilha, titulo_planilha, ods):
     sheet.getCell(0, 0).stringValue( titulo_planilha ).setFontSize('16pt')
     sheet.getRow(0).setHeight('18pt')
     sheet.getColumn(0).setWidth('10cm')
-    
     return sheet
 
 def relatorio_ods_base(ods, titulo):
     # generating response
     response = HttpResponse(mimetype=ods.mimetype.toString())
     response['Content-Disposition'] = 'attachment; filename='+str(titulo)+'".ods"'
-    ods.save(response)
-    
+    ods.save(response)    
     return response
     
 def relatorio_csv_base(response, titulo):
     response['Content-Disposition'] = 'attachment; filename='+str(titulo)
     writer = csv.writer(response)
     return writer
-
-
-
 
 def relatorio_documento_base(request):
     response = HttpResponse(content_type='application/pdf')
@@ -103,8 +92,7 @@ def relatorio_documento_base(request):
      
     formatted_time = time.ctime()
     full_name = "Mike Driscoll"
-    address_parts = ["411 State St.", "Marshalltown, IA 50158"]
-     
+    address_parts = ["411 State St.", "Marshalltown, IA 50158"]     
      
     styles=getSampleStyleSheet()
     styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY))
