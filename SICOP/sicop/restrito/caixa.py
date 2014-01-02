@@ -115,7 +115,6 @@ def relatorio_pdf(request):
     else:
         return HttpResponseRedirect("/sicop/restrito/caixa/consulta/")
 
-
 def relatorio_ods(request):
 
     # montar objeto lista com os campos a mostrar no relatorio/pdf
@@ -150,7 +149,6 @@ def relatorio_ods(request):
     else:
         return HttpResponseRedirect( "/sicop/restrito/caixa/consulta" )
 
-
 def relatorio_csv(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session['relatorio_caixa']
@@ -163,6 +161,8 @@ def relatorio_csv(request):
         return response
     else:
         return HttpResponseRedirect( '/sicop/restrito/caixa/consulta/' )
+
+
 
 def validacao(request_form):
     warning = True
