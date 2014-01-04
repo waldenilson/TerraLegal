@@ -13,6 +13,8 @@ from sicop.relatorio_base import relatorio_pdf_base_header,\
     relatorio_ods_base_header, relatorio_ods_base, relatorio_csv_base
 from odslib import ODS
 
+nome_relatorio = "relatorio_divisao"
+
 @login_required
 @user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
 def consulta(request):
@@ -61,7 +63,7 @@ def edicao(request, id):
 
 def relatorio_pdf(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
-    lista = request.session['relatorio_caixa']
+    lista = request.session[nome_relatorio]
     if lista:
         response = HttpResponse(mimetype='application/pdf')
         doc = relatorio_pdf_base_header(response, 'relatorio-caixas')   
@@ -78,7 +80,7 @@ def relatorio_pdf(request):
 def relatorio_ods(request):
 
     # montar objeto lista com os campos a mostrar no relatorio/pdf
-    lista = request.session['relatorio_caixa']
+    lista = request.session[nome_relatorio]
     
     if lista:
         ods = ODS()
@@ -111,16 +113,16 @@ def relatorio_ods(request):
 
 def relatorio_csv(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
-    lista = request.session['relatorio_caixa']
+    lista = request.session[nome_relatorio]
     if lista:
         response = HttpResponse(content_type='text/csv')     
-        writer = relatorio_csv_base(response, 'relatorio-caixas')
-        writer.writerow(['Nome', 'Tipo'])
+        writer = relatorio_csv_base(response, nome_relatorio)
+        writer.writerow(['Nome'])
         for obj in lista:
-            writer.writerow([obj.nmlocalarquivo, obj.tbtipocaixa.nmtipocaixa])
+            writer.writerow([obj.nmdivisao])
         return response
     else:
-        return HttpResponseRedirect( '/sicop/restrito/caixa/consulta/' )
+        return HttpResponseRedirect( '/sicop/restrito/divisao/consulta/' )
 
 
 def validacao(request_form):
