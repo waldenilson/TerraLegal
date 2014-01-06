@@ -73,7 +73,7 @@ def relatorio_ods_base(ods, titulo):
     return response
     
 def relatorio_csv_base(response, titulo):
-    response['Content-Disposition'] = 'attachment; filename='+str(titulo)
+    response['Content-Disposition'] = 'attachment; filename='+str(titulo)+'.csv'
     writer = csv.writer(response)
     return writer
 
