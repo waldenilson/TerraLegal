@@ -12,10 +12,10 @@ from sicop.relatorio_base import relatorio_csv_base, relatorio_ods_base,\
     relatorio_pdf_base_header_title, relatorio_pdf_base_header
 from odslib import ODS
 
-nome_relatorio      = "relatorio_caixa"
-response_consulta  = "/sicop/restrito/caixa/consulta/"
-titulo_relatorio    = "Relatorio Caixas"
-planilha_relatorio  = "Caixas"
+nome_relatorio      = "relatorio_tipo_pendencia"
+response_consulta  = "/sicop/restrito/tipo_pendencia/consulta/"
+titulo_relatorio    = "Relatorio dos Tipos das Pendencias"
+planilha_relatorio  = "Tipos das Pendencias"
 
 
 @login_required
@@ -69,9 +69,9 @@ def relatorio_pdf(request):
         elements=[]
         
         dados = relatorio_pdf_base_header_title(titulo_relatorio)
-        dados.append( ('NOME','CAIXA') )
+        dados.append( ('DESCRICAO') )
         for obj in lista:
-            dados.append( ( obj.nmlocalarquivo , obj.tbtipocaixa.nmtipocaixa ) )
+            dados.append( ( obj.dspendencia ) )
         return relatorio_pdf_base(response, doc, elements, dados)
     else:
         return HttpResponseRedirect(response_consulta)
@@ -86,16 +86,14 @@ def relatorio_ods(request):
         sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, ods)
         
         # subtitle
-        sheet.getCell(0, 1).setAlignHorizontal('center').stringValue( 'Nome' ).setFontSize('14pt')
-        sheet.getCell(1, 1).setAlignHorizontal('center').stringValue( 'Tipo' ).setFontSize('14pt')
+        sheet.getCell(0, 1).setAlignHorizontal('center').stringValue( 'Descricao' ).setFontSize('14pt')
         sheet.getRow(1).setHeight('20pt')
         
     #TRECHO PERSONALIZADO DE CADA CONSULTA
         #DADOS
         x = 0
         for obj in lista:
-            sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.nmlocalarquivo)
-            sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.tbtipocaixa.nmtipocaixa)    
+            sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.dspendencia)    
             x += 1
         
     #TRECHO PERSONALIZADO DE CADA CONSULTA     
@@ -116,14 +114,12 @@ def relatorio_csv(request):
     if lista:
         response = HttpResponse(content_type='text/csv')     
         writer = relatorio_csv_base(response, nome_relatorio)
-        writer.writerow(['Nome', 'Tipo'])
+        writer.writerow(['Descricao'])
         for obj in lista:
-            writer.writerow([obj.nmlocalarquivo, obj.tbtipocaixa.nmtipocaixa])
+            writer.writerow([obj.dspendencia])
         return response
     else:
         return HttpResponseRedirect( response_consulta )
-
-
 
 def validacao(request_form):
     warning = True
