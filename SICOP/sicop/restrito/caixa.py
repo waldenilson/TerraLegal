@@ -23,7 +23,6 @@ from reportlab.platypus.doctemplate import SimpleDocTemplate
 from reportlab.lib import styles
 from reportlab.lib.units import cm
 
-
 nome_relatorio      = "relatorio_caixa"
 response_consulta  = "/sicop/restrito/caixa/consulta/"
 titulo_relatorio    = "Relatorio Caixas"

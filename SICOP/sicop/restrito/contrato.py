@@ -12,6 +12,11 @@ from sicop.relatorio_base import relatorio_pdf_base_header,\
     relatorio_ods_base_header, relatorio_ods_base, relatorio_csv_base
 from odslib import ODS
 
+nome_relatorio      = "relatorio_caixa"
+response_consulta  = "/sicop/restrito/caixa/consulta/"
+titulo_relatorio    = "Relatorio Caixas"
+planilha_relatorio  = "Caixas"
+
 @login_required
 def consulta(request):
     if request.method == "POST":
