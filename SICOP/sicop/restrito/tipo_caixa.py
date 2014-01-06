@@ -110,7 +110,7 @@ def relatorio_ods(request):
         relatorio_ods_base(ods, planilha_relatorio)
         # generating response
         response = HttpResponse(mimetype=ods.mimetype.toString())
-        response['Content-Disposition'] = 'attachment; filename='+nome_relatorio+'".ods"'
+        response['Content-Disposition'] = 'attachment; filename='+nome_relatorio+'.ods'
         ods.save(response)
     
         return response
