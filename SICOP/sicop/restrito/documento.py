@@ -22,10 +22,10 @@ from sicop.relatorio_base import relatorio_csv_base, relatorio_ods_base,\
     relatorio_pdf_base_header_title, relatorio_pdf_base_header
 from odslib import ODS
 
-nome_relatorio      = "relatorio_caixa"
-response_consulta  = "/sicop/restrito/caixa/consulta/"
-titulo_relatorio    = "Relatorio Caixas"
-planilha_relatorio  = "Caixas"
+nome_relatorio      = "relatorio_documento"
+response_consulta  = "/sicop/restrito/documento/consulta/"
+titulo_relatorio    = "Relatorio dos Documentos"
+planilha_relatorio  = "Documentos"
 
 
 @login_required
@@ -105,9 +105,9 @@ def relatorio_pdf(request):
         elements=[]
         
         dados = relatorio_pdf_base_header_title(titulo_relatorio)
-        dados.append( ('NOME','CAIXA') )
+        dados.append( ('NOME','TIPO') )
         for obj in lista:
-            dados.append( ( obj.nmlocalarquivo , obj.tbtipocaixa.nmtipocaixa ) )
+            dados.append( ( obj.tbdocumentobase.nmdocumento , obj.tbdocumentobase.tbtipodocumento.nmtipodocumento ) )
         return relatorio_pdf_base(response, doc, elements, dados)
     else:
         return HttpResponseRedirect(response_consulta)
@@ -130,8 +130,8 @@ def relatorio_ods(request):
         #DADOS
         x = 0
         for obj in lista:
-            sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.nmlocalarquivo)
-            sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.tbtipocaixa.nmtipocaixa)    
+            sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.tbdocumentobase.nmdocumento)
+            sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.tbdocumentobase.tbtipodocumento.nmtipodocumento)    
             x += 1
         
     #TRECHO PERSONALIZADO DE CADA CONSULTA     
@@ -154,7 +154,7 @@ def relatorio_csv(request):
         writer = relatorio_csv_base(response, nome_relatorio)
         writer.writerow(['Nome', 'Tipo'])
         for obj in lista:
-            writer.writerow([obj.nmlocalarquivo, obj.tbtipocaixa.nmtipocaixa])
+            writer.writerow([obj.tbdocumentobase.nmdocumento, obj.tbdocumentobase.tbtipodocumento.nmtipodocumento])
         return response
     else:
         return HttpResponseRedirect( response_consulta )
