@@ -11,6 +11,7 @@ from sicop.relatorio_base import relatorio_pdf_base_header,\
     relatorio_pdf_base_header_title, relatorio_pdf_base,\
     relatorio_ods_base_header, relatorio_ods_base, relatorio_csv_base
 from odslib import ODS
+import unicodedata
 
 nome_relatorio      = "relatorio_gleba"
 response_consulta  = "/sicop/restrito/gleba/consulta/"
@@ -122,7 +123,7 @@ def relatorio_csv(request):
         writer = relatorio_csv_base(response, nome_relatorio)
         writer.writerow(['Nome', 'Tipo'])
         for obj in lista:
-            writer.writerow([obj.nmgleba, obj.tbsubarea.nmsubarea])
+            writer.writerow([ obj.nmgleba.encode('iso-8859-1').strip() , obj.tbsubarea.nmsubarea])
         return response
     else:
         return HttpResponseRedirect( response_consulta )
