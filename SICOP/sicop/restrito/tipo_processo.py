@@ -73,9 +73,9 @@ def relatorio_pdf(request):
         elements=[]
         
         dados = relatorio_pdf_base_header_title(titulo_relatorio)
-        dados.append( ('NOME') )
+        dados.append( ('NOME','') )
         for obj in lista:
-            dados.append( ( obj.nome ) )
+            dados.append( ( obj.nome, '' ) )
         return relatorio_pdf_base(response, doc, elements, dados)
     else:
         return HttpResponseRedirect(response_consulta)
