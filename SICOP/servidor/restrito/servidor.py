@@ -14,6 +14,11 @@ from sicop.relatorio_base import relatorio_pdf_base_header,\
     relatorio_ods_base_header, relatorio_ods_base, relatorio_csv_base
 from odslib import ODS
 
+nome_relatorio      = "relatorio_servidor"
+response_consulta  = "/controle/restrito/servidor/consulta/"
+titulo_relatorio    = "Relatorio Servidores"
+planilha_relatorio  = "Servidores"
+
 #SERVIDORES -----------------------------------------------------------------------------------------------------------------------------
 
 @login_required
@@ -48,7 +53,7 @@ def cadastro(request):
                 f = form.save(commit=False)
                 f.nrCPF = request.POST['nrcpfrequerente'].replace('.','').replace('-','')
                 form.save()
-                return HttpResponseRedirect("/controle/restrito/servidor/consulta/") 
+                return HttpResponseRedirect( response_consulta ) 
     else:
         form = FormServidor() #gera registro novo
     
@@ -83,68 +88,70 @@ def edicao(request, id):
                               {"form":form}, 
                               context_instance = RequestContext(request))
 
+
 def relatorio_pdf(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
-    lista = request.session['relatorio_caixa']
+    lista = request.session[nome_relatorio]
     if lista:
         response = HttpResponse(mimetype='application/pdf')
-        doc = relatorio_pdf_base_header(response, 'relatorio-caixas')   
+        doc = relatorio_pdf_base_header(response, nome_relatorio)   
         elements=[]
         
-        dados = relatorio_pdf_base_header_title('Relatorio Caixas')
-        dados.append( ('NOME','CAIXA') )
+        dados = relatorio_pdf_base_header_title(titulo_relatorio)
+        dados.append( ('NOME','CARGO') )
         for obj in lista:
-            dados.append( ( obj.nmlocalarquivo , obj.tbtipocaixa.nmtipocaixa ) )
+            dados.append( ( obj.nmservidor , obj.nmcargo ) )
         return relatorio_pdf_base(response, doc, elements, dados)
     else:
-        return HttpResponseRedirect("/sicop/restrito/caixa/consulta/")
+        return HttpResponseRedirect(response_consulta)
 
 def relatorio_ods(request):
 
     # montar objeto lista com os campos a mostrar no relatorio/pdf
-    lista = request.session['relatorio_caixa']
+    lista = request.session[nome_relatorio]
     
     if lista:
         ods = ODS()
-        sheet = relatorio_ods_base_header('Caixas','Relatorio Caixas', ods)
+        sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, ods)
         
         # subtitle
         sheet.getCell(0, 1).setAlignHorizontal('center').stringValue( 'Nome' ).setFontSize('14pt')
-        sheet.getCell(1, 1).setAlignHorizontal('center').stringValue( 'Tipo' ).setFontSize('14pt')
+        sheet.getCell(1, 1).setAlignHorizontal('center').stringValue( 'Cargo' ).setFontSize('14pt')
         sheet.getRow(1).setHeight('20pt')
         
     #TRECHO PERSONALIZADO DE CADA CONSULTA
         #DADOS
         x = 0
         for obj in lista:
-            sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.nmlocalarquivo)
-            sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.tbtipocaixa.nmtipocaixa)    
+            sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.nmservidor)
+            sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.nmcargo)    
             x += 1
         
     #TRECHO PERSONALIZADO DE CADA CONSULTA     
        
-        relatorio_ods_base(ods, 'caixas')
+        relatorio_ods_base(ods, planilha_relatorio)
         # generating response
         response = HttpResponse(mimetype=ods.mimetype.toString())
-        response['Content-Disposition'] = 'attachment; filename="relatorio-caixas.ods"'
+        response['Content-Disposition'] = 'attachment; filename='+nome_relatorio+'.ods'
         ods.save(response)
     
         return response
     else:
-        return HttpResponseRedirect( "/sicop/restrito/caixa/consulta" )
+        return HttpResponseRedirect( response_consulta )
 
 def relatorio_csv(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
-    lista = request.session['relatorio_caixa']
+    lista = request.session[nome_relatorio]
     if lista:
         response = HttpResponse(content_type='text/csv')     
-        writer = relatorio_csv_base(response, 'relatorio-caixas')
-        writer.writerow(['Nome', 'Tipo'])
+        writer = relatorio_csv_base(response, nome_relatorio)
+        writer.writerow(['Nome', 'Cargo'])
         for obj in lista:
-            writer.writerow([obj.nmlocalarquivo, obj.tbtipocaixa.nmtipocaixa])
+            writer.writerow([obj.nmservidor, obj.nmcargo])
         return response
     else:
-        return HttpResponseRedirect( '/sicop/restrito/caixa/consulta/' )
+        return HttpResponseRedirect( response_consulta )
+
     
 
 def validacao(request_form):

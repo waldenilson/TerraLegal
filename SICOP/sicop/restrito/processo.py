@@ -477,9 +477,9 @@ def relatorio_pdf(request):
         elements=[]
         
         dados = relatorio_pdf_base_header_title(titulo_relatorio)
-        dados.append( ('NOME','CAIXA') )
+        dados.append( ('NUMERO','TIPO') )
         for obj in lista:
-            dados.append( ( obj.nmlocalarquivo , obj.tbtipocaixa.nmtipocaixa ) )
+            dados.append( ( obj.tbprocessobase.nrprocesso , obj.tbprocessobase.tbtipoprocesso.nome ) )
         return relatorio_pdf_base(response, doc, elements, dados)
     else:
         return HttpResponseRedirect(response_consulta)
@@ -494,7 +494,7 @@ def relatorio_ods(request):
         sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, ods)
         
         # subtitle
-        sheet.getCell(0, 1).setAlignHorizontal('center').stringValue( 'Nome' ).setFontSize('14pt')
+        sheet.getCell(0, 1).setAlignHorizontal('center').stringValue( 'Numero' ).setFontSize('14pt')
         sheet.getCell(1, 1).setAlignHorizontal('center').stringValue( 'Tipo' ).setFontSize('14pt')
         sheet.getRow(1).setHeight('20pt')
         
@@ -502,8 +502,8 @@ def relatorio_ods(request):
         #DADOS
         x = 0
         for obj in lista:
-            sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.nmlocalarquivo)
-            sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.tbtipocaixa.nmtipocaixa)    
+            sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.nrprocesso)
+            sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbtipoprocesso.nome)    
             x += 1
         
     #TRECHO PERSONALIZADO DE CADA CONSULTA     
@@ -524,9 +524,9 @@ def relatorio_csv(request):
     if lista:
         response = HttpResponse(content_type='text/csv')     
         writer = relatorio_csv_base(response, nome_relatorio)
-        writer.writerow(['Nome', 'Tipo'])
+        writer.writerow(['Numero', 'Tipo'])
         for obj in lista:
-            writer.writerow([obj.nmlocalarquivo, obj.tbtipocaixa.nmtipocaixa])
+            writer.writerow([obj.tbprocessobase.nrprocesso, obj.tbprocessobase.tbtipoprocesso.nome])
         return response
     else:
         return HttpResponseRedirect( response_consulta )
