@@ -6,31 +6,39 @@
 {% endblock %}
 
 {% block formulario %}
-<div id="accordion" style="color:black;width:100%;font-size:11px">
-<h3>{% block subtitulo %}
-	
-	CADASTRAR SERVIDOR
-	
-{% endblock %}
-</h3>
-<div>		
+
+<div id="tabs" style="color:black;width:100%;font-size:11px">
+<ul>
+	<li><a href="#tabs-1">CADASTRO SERVIDOR</a></li>
+</ul>
+
+<div id="tabs-1">
+		
 	<form method="post" action="">
 		{% csrf_token %}
 		<div style="width:100%;font-size:12px;text-align:left">
 			<table>
-				<tr> <td class="colunaTabela"> <label>Servidor:</label> </td><td>{{ form.nmservidor }} </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Unidade:</label> </td><td>{{ form.nmunidade }} </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Lotacao:</label> </td><td>{{ form.nmlotacao }} </td> </tr>
-				<tr> <td class="colunaTabela"> <label>SIAPE:</label> </td><td>{{ form.cdSIAPE }} </td> </tr>
-				<tr> <td class="colunaTabela"> <label>CPF:</label> </td><td><input  size="14" id="cpf" name="nrcpfrequerente" /> </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Portaria Cargo:</label> </td><td>{{ form.dsportariacargo }} </td> </tr>
-			    <tr> <td class="colunaTabela"> <label>Portaria:</label> </td><td>{{ form.dsportaria }} </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Cargo:</label> </td><td>{{ form.nmcargo }} </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Telefone cel:</label> </td><td>{{ form.nrtelefone1 }} </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Telefone fixo:</label> </td><td>{{ form.nrtelefone2 }} </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Mail:</label> </td><td>{{ form.email }} </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Atividades:</label> </td><td>{{ form.dsatividades }} </td> </tr>
-			 
+				<tr> <td class="colunaTabela"> <label>Servidor:</label> </td><td><input name="nmservidor"  size = "60"/> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Unidade:</label> </td><td> <input name="nmunidade"/> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Lotacao:</label> </td><td> <input name="nmlotacao"/> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>SIAPE:</label> </td><td>   <input name="cdsiape" />  </td> </tr>
+				<tr> <td class="colunaTabela"> <label>CPF:</label> </td><td>     <input size="14" id="cpf" name="nrcpf" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Portaria Cargo:</label> </td><td> <textarea name="dsportariacargo" rows="4" cols="60" ></textarea></td> </tr>
+			    <tr> <td class="colunaTabela"> <label>Portaria:</label> </td><td><textarea name = "dsportaria" rows="4" cols="60"></textarea></td> </tr>
+				<tr> <td class="colunaTabela"> <label>Cargo:</label> </td><td><input name = "nmcargo" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Telefone cel:</label> </td><td><input name = "nrtelefone1" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Telefone fixo:</label> </td><td><input name = "nrtelefone2"/></td> </tr>
+				<tr> <td class="colunaTabela"> <label>Mail:</label> </td><td><textarea rows="2" cols="60" name = "email" ></textarea> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Atividades:</label> </td><td><textarea rows="4" cols="60" name = "dsatividades"></textarea> </td> </tr>
+			 	<tr> <td class="colunaTabela"> <label>Divisao:</label></td>
+			 	<td>
+			 		<select id="id_tbdivisao" style="width: 200px" name="tbdivisao">
+			 		<option value="">-- Selecione a divisao --</option>
+			 		{%for obj in divisao %}
+			 			<option value="{{obj.id}}">{{obj.nmdivisao}} </option>
+			 		{% endfor %}
+			 		</select>
+			 	</td>
 			</table>
 		</div>
 		<br />

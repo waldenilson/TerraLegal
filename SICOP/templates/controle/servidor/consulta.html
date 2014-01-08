@@ -15,10 +15,7 @@
 			<form action="." method="post">
 			{% csrf_token %}
 			<table id="table_peca_tecnica">
-				   <tr> 
-				   		<td class="colunaTabela"> <label>Servidor:</label> </td><td> <input name="servidor" /> </td>
-				   		
-				   </tr>
+				   <tr><td class="colunaTabela"> <label>Servidor:</label> </td><td> <input name="servidor" /> </td></tr>
 			</table>
 			<br />
 			<table style="width:100%">
@@ -28,7 +25,10 @@
 						<a href="/controle/restrito/servidor/cadastro/"> <input class="button_green" value="NOVO" type="button" /> </a>
 					</td>
 					<td class="colunaTabela" style="text-align:right"> 
-						<a href="/controle/restrito/servidor/relatorio/"> <img width="36" src="{% static "img/pdf.png" %}" /> </a>
+						<a href="/controle/restrito/servidor/relatorio/pdf/"> <img width="36" alt="PDF" src="{% static "img/pdf.png" %}" /> </a>
+						<a href="/controle/restrito/servidor/relatorio/ods/"> <img width="36" alt="ODS" src="{% static "img/ods.png" %}" /> </a>
+						<a href="/controle/restrito/servidor/relatorio/csv/"> <img width="36" alt="CSV" src="{% static "img/csv.png" %}" /> </a>
+						
 					</td>
 				</tr>
 				<tr>
@@ -52,9 +52,11 @@
 				</tr>
 			</thead>
 			<tbody>
+						    
 				{% if lista %}
 					{% for obj in lista %}
 						<tr>
+						     
 							<td class="colunaTabelaConsulta"> <a href="/controle/restrito/servidor/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
 							<td class="colunaTabelaConsulta">{{ obj.nmservidor }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.nmunidade }}</td>
