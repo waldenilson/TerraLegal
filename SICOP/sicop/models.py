@@ -43,7 +43,6 @@ class AuthUser(models.Model):
     is_active = models.BooleanField()
     date_joined = models.DateTimeField()
     tbdivisao = models.ForeignKey('Tbdivisao')
-    tbservidor = models.ForeignKey('Tbservidor')
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'auth_user'
