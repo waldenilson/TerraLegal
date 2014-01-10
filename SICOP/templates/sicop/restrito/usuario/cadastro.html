@@ -18,19 +18,6 @@
 				<table>
 				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td> <input size="35" name="first_name" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Sobrenome:</label> </td><td> <input  name="last_name" /> </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Servidor:</label> </td>
-				   		<td>
-				   			<select style="width: 200px" name="tbservidor">
-				   				<option value="">-- Selecione o servidor --</option>
-								{% for obj in servidor %}
-									<option value="{{ obj.id }}">{{ obj.nmservidor }}</option>
-								{% endfor %}
-							</select>
-						</td>
-					<td>
-						<a href="/servidor/restrito/cadastro/?next=/sicop/restrito/usuario/cadastro/" title="Novo Servidor"> <img src="{% static "img/add.png" %}" width="24" /> </a>
-					</td>						
-				  </tr>
 				   <tr> <td class="colunaTabela"> <label>Email:</label> </td><td> <input name="email" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Login:</label> </td><td> <input name="username" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Senha:</label> </td><td> <input type="password" size="12" name="password" /> </td> </tr>

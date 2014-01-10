@@ -17,22 +17,6 @@
 				<table>
 				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td> <input size="35" value="{{ user_obj.first_name }}" name="first_name" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Sobrenome:</label> </td><td> <input value="{{ user_obj.last_name }}" name="last_name" /> </td> </tr>
-					<tr> <td class="colunaTabela"> <label>Servidor:</label> </td>
-				   		<td>
-				   			<select style="width: 200px" name="tbservidor">
-				   				{% for obj in servidor %}
-									{% if obj.id == user_obj.tbservidor.id %}
-										<option selected="selected" value="{{ obj.id }}">{{ obj.nmservidor }}</option>
-									{% else %}
-										<option value="{{ obj.id }}">{{ obj.nmservidor }}</option>
-									{% endif %}
-								{% endfor %}
-							</select>
-						</td>
-					<td>
-						<a href="/servidor/restrito/cadastro/?next=/sicop/restrito/usuario/cadastro/" title="Novo Servidor"> <img src="{% static "img/add.png" %}" width="24" /> </a>
-					</td>						
-				   	</tr>
 				   <tr> <td class="colunaTabela"> <label>Email:</label> </td><td> <input name="email" value="{{ user_obj.email }}" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Login:</label> </td><td> <input value="{{ user_obj.username }}" name="username" /> </td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Senha:</label> </td><td> <input type="password" size="12" name="password" /> </td> </tr>
