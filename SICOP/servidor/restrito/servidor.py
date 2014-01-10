@@ -94,7 +94,8 @@ def edicao(request, id):
                     )
             f_servidor.save()
             return HttpResponseRedirect("/controle/restrito/servidor/edicao/"+str(id)+"/")
-    return render_to_response('controle/servidor/edicao.html',{"servidor":instance},context_instance = RequestContext(request))
+    return render_to_response('controle/servidor/edicao.html',
+                              {"servidor":instance},context_instance = RequestContext(request))
 
 def relatorio_pdf(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
