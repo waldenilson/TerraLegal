@@ -375,6 +375,7 @@ def edicao(request, id):
     
     # se processobase pertencer a mesma divisao do usuario logado
     if base.auth_user.tbdivisao.id == AuthUser.objects.get( pk = request.user.id ).tbdivisao.id:
+        caixasdestino = Tbcaixa.objects.all().order_by("nmlocalarquivo")
         if tipo == "tbprocessorural":
             rural = Tbprocessorural.objects.get( tbprocessobase = id )
             peca = Tbpecastecnicas.objects.all().filter( nrcpfrequerente = rural.nrcpfrequerente.replace('.','').replace('-','') )
@@ -382,7 +383,7 @@ def edicao(request, id):
                 peca = peca[0] 
             # caixas que podem ser tramitadas
             tram = []
-            for obj in Tbcaixa.objects.all():
+            for obj in caixasdestino:
                 if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'PAD':
                     tram.append( obj )
                 
@@ -399,7 +400,7 @@ def edicao(request, id):
                 dttitulacao = formatDataToText( urbano.dttitulacao )
                 # caixas que podem ser tramitadas
                 tram = []
-                for obj in Tbcaixa.objects.all():
+                for obj in caixasdestino:
                     if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'URB':
                         tram.append( obj )
                 return render_to_response('sicop/restrito/processo/urbano/edicao.html',
@@ -414,7 +415,7 @@ def edicao(request, id):
                     dttitulacao = formatDataToText( clausula.dttitulacao )
                     # caixas que podem ser tramitadas
                     tram = []
-                    for obj in Tbcaixa.objects.all():
+                    for obj in caixasdestino:
                         if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'RES':
                             tram.append( obj )
                     return render_to_response('sicop/restrito/processo/clausula/edicao.html',

@@ -26,7 +26,7 @@ else: #local / desenvolvimento
     DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', 
-        'NAME': 'sicop_now1',                      
+        'NAME': 'sicop',                      
         'USER': 'admin',
         'PASSWORD': '123456',
         'HOST': 'localhost',                      
