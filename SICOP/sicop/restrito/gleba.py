@@ -26,7 +26,7 @@ def consulta(request):
         lista = Tbgleba.objects.all().filter( nmgleba__icontains=nome, tbsubarea__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     else:
         lista = Tbgleba.objects.all().filter( tbsubarea__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-    lista = lista.order_by( 'id' )
+    lista = lista.order_by( 'nmgleba' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_gleba'] = lista
     return render_to_response('sicop/restrito/gleba/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
