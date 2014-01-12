@@ -23,6 +23,12 @@
 <script src="{% static "js/jquery-1.9.1.js" %}"></script>
 <script src="{% static "js/jquery-ui.js" %}"></script>
 <script>
+
+function editarID(theUrl)
+{
+	document.location.href = theUrl;
+}
+
 $(function() {
 $( "#tabs" ).tabs();
 });
@@ -39,6 +45,9 @@ $(function() {
 	});
 function my_callback(data){
     alert(data.message);
+
+ 
+    
 }
 </script>
  <style>

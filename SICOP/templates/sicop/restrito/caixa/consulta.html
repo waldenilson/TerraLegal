@@ -55,8 +55,8 @@
 				</tr>
 				{% if lista %}
 					{% for obj in lista %}
-						<tr>
-							<td class="colunaTabelaConsulta"><a href="/sicop/restrito/caixa/edicao/{{ obj.id }}">{{ obj.nmlocalarquivo }}</a></td>
+						<tr onclick="editarID('/sicop/restrito/caixa/edicao/{{ obj.id }}');">
+							<td class="colunaTabelaConsulta">{{ obj.nmlocalarquivo }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.tbtipocaixa.nmtipocaixa }}</td>
 						</tr>
 					{% endfor %}

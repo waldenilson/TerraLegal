@@ -574,4 +574,5 @@
 }
 .csstable tr:hover td {
   background-color: #5cb811; color: #000;
+  cursor: pointer;
 }
