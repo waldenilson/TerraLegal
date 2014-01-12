@@ -30,19 +30,19 @@ def consulta(request):
         entrega = request.POST['entrega']
         
         if len(requerente) >= 3:
-            lista = Tbpecastecnicas.objects.all().filter( nmrequerente__icontains=requerente, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+            lista = Tbpecastecnicas.objects.all().filter( nmrequerente__icontains=requerente, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmrequerente')
         else:
             if len(requerente) > 0 and len(requerente) < 3:
                 messages.add_message(request,messages.WARNING,'Informe no minimo 3 caracteres no campo Requerente.')
 
         if len(cpf) >= 3:
-            lista = Tbpecastecnicas.objects.all().filter( nrcpfrequerente__contains=cpf, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+            lista = Tbpecastecnicas.objects.all().filter( nrcpfrequerente__contains=cpf, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmrequerente')
         else:
             if len(cpf) > 0 and len(cpf) < 3:
                 messages.add_message(request,messages.WARNING,'Informe no minimo 3 caracteres no campo CPF.')
 
         if len(entrega) >= 1:
-            lista = Tbpecastecnicas.objects.all().filter( nrentrega__contains=entrega, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+            lista = Tbpecastecnicas.objects.all().filter( nrentrega__contains=entrega, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmrequerente')
         else:
             if len(entrega) > 0 and len(entrega) < 1:
                 messages.add_message(request,messages.WARNING,'Informe no minimo 3 caracteres no campo Entrega.')

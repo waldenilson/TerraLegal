@@ -51,21 +51,21 @@
 		<table class="csstable">
 			<tbody>
 				<tr>
-					<td class="colunaTabelaConsulta" style="width:10%">Contrato</td>
-					<td class="colunaTabelaConsulta" style="width:15%">Gleba</td>
-					<td class="colunaTabelaConsulta" style="width:8%">Area</td>
-					<td class="colunaTabelaConsulta" style="width:10%">CPF</td>
 					<td class="colunaTabelaConsulta" style="width:20%">Nome</td>
+					<td class="colunaTabelaConsulta" style="width:10%">CPF</td>
+					<td class="colunaTabelaConsulta" style="width:15%">Gleba</td>
+					<td class="colunaTabelaConsulta" style="width:10%">Contrato</td>
+					<td class="colunaTabelaConsulta" style="width:8%">Area</td>
 					<td class="colunaTabelaConsulta" style="width:20%">Caixa</td>
 				</tr>
 				{% if lista %}
 					{% for obj in lista %}
 						<tr onclick="editarID('/sicop/restrito/peca_tecnica/edicao/{{ obj.id }}');">
-							<td class="colunaTabelaConsulta">{{ obj.tbcontrato.nrcontrato }}</td>
-							<td class="colunaTabelaConsulta">{{ obj.tbgleba.nmgleba }}</td>
-							<td class="colunaTabelaConsulta">{{ obj.nrarea }}</td>
-							<td class="colunaTabelaConsulta">{{ obj.nrcpfrequerente }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.nmrequerente }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.nrcpfrequerente }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbgleba.nmgleba }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbcontrato.nrcontrato }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.nrarea }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.tbcaixa.nmlocalarquivo }}</td>
 						</tr>
 					{% endfor %}
