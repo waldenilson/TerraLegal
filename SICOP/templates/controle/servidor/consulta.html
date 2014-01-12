@@ -42,25 +42,22 @@
 {% endblock %}
 
 {% block resultado %}
-	<table>
-			<thead style="background:#e5e5e5;color:black">
+	<table class="csstable">
+			<tbody>
 				<tr>
 					<!--th class="colunaTabelaConsulta" style="width:8%">Detalhes</th-->
-					<th class="colunaTabelaConsulta" style="width:20%">Nome</th>
-					<th class="colunaTabelaConsulta" style="width:10%">Unidade</th>
-					<th class="colunaTabelaConsulta" style="width:15%">Lotacao</th>
-				</tr>
-			</thead>
-			<tbody>
-						    
+					<td class="colunaTabelaConsulta" style="width:20%">Nome</td>
+					<td class="colunaTabelaConsulta" style="width:10%">Unidade</td>
+					<td class="colunaTabelaConsulta" style="width:15%">Lotacao</td>
+				</tr>					    
 				{% if lista %}
 					{% for obj in lista %}
-						<tr>
+						<tr onclick="editarID('/controle/restrito/servidor/edicao/{{ obj.id }}');">
 						     
 							<!-- td class="colunaTabelaConsulta"> <a href="/controle/restrito/servidor/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td--> 
 							<!-- td class="colunaTabelaConsulta" align="left" >{{ obj.nmservidor }}</td-->
 							
-							<td class="colunaTabelaConsulta" align="left" ><a href="/controle/restrito/servidor/edicao/{{ obj.id }}"> {{ obj.nmservidor }} </a></td>
+							<td class="colunaTabelaConsulta" align="left" >{{ obj.nmservidor }}</td>
 							
 							<td class="colunaTabelaConsulta">{{ obj.nmunidade }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.nmlotacao }}</td>
