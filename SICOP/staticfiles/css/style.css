@@ -480,7 +480,6 @@
 .csstable {
 	margin:0px;padding:0px;
 	width:100%;
-	box-shadow: 10px 10px 5px #888888;
 	border:1px solid #3f7f00;
 	
 	-moz-border-radius-bottomleft:0px;
@@ -523,7 +522,11 @@
 	-webkit-border-bottom-left-radius:0px;
 	border-bottom-left-radius:0px;
 }.csstable tr:hover td{
-	
+  background-color: #5cb811; color: #000;
+  cursor: pointer;	
+}
+.csstable tr:first-child td {
+	cursor: default;
 }
 .csstable tr:nth-child(odd){ background-color:#d4ffaa; }
 .csstable tr:nth-child(even)    { background-color:#ffffff; }.csstable td{
@@ -571,8 +574,4 @@
 }
 .csstable tr:first-child td:last-child{
 	border-width:0px 0px 1px 1px;
-}
-.csstable tr:hover td {
-  background-color: #5cb811; color: #000;
-  cursor: pointer;
 }
