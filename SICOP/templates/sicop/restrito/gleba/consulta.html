@@ -45,18 +45,16 @@
 
 
 {% block resultado %}
-		<table>
-			<thead style="background:#e5e5e5;color:black">
-				<tr>
-					<th class="colunaTabelaConsulta" style="width:20%">Nome</th>
-					<th class="colunaTabelaConsulta" style="width:10%">SubArea</th>
-				</tr>
-			</thead>
+		<table class="csstable">
 			<tbody>
+				<tr>
+					<td class="colunaTabelaConsulta" style="width:20%">Nome</td>
+					<td class="colunaTabelaConsulta" style="width:10%">SubArea</td>
+				</tr>
 				{% if lista %}
 					{% for obj in lista %}
-						<tr> 
-							<td class="colunaTabelaConsulta"> <a href="/sicop/restrito/gleba/edicao/{{ obj.id }}">{{ obj.nmgleba }}</a></td>
+						<tr onclick="editarID('/sicop/restrito/gleba/edicao/{{ obj.id }}');"> 
+							<td class="colunaTabelaConsulta">{{ obj.nmgleba }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.tbsubarea.nmsubarea }}</td>
 						</tr>
 					{% endfor %}

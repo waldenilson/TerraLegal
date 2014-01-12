@@ -46,19 +46,15 @@
 
 
 {% block resultado %}
-		<table>
-			<thead style="background:#e5e5e5;color:black">
-				<tr>
-					<th class="colunaTabelaConsulta" style="width:8%">Detalhes</th>
-					<th class="colunaTabelaConsulta" style="width:42%">Numero</th>
-					<th class="colunaTabelaConsulta" style="width:50%">Descricao</th>
-				</tr>
-			</thead>
+		<table class="csstable">
 			<tbody>
+				<tr>
+					<td class="colunaTabelaConsulta" style="width:10%">Numero</td>
+					<td class="colunaTabelaConsulta" style="width:20%">Descricao</td>
+				</tr>
 				{% if lista %}
 					{% for obj in lista %}
-						<tr>
-							<td class="colunaTabelaConsulta"> <a href="/sicop/restrito/pregao/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
+						<tr onclick="editarID('/sicop/restrito/pregao/edicao/{{ obj.id }}');">
 							<td class="colunaTabelaConsulta">{{ obj.nrpregao }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.dspregao }}</td>
 						</tr>

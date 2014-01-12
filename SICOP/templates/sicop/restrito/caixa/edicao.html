@@ -54,22 +54,19 @@
 		
 		{% if processos %}
 		<br/> Processos:<br/>
-		<table>
-			<thead style="background:#e5e5e5;color:black">
-				<tr>
-					<th class="colunaTabelaConsulta" style="width:8%"> </th>
-					<th class="colunaTabelaConsulta" style="width:10%"> </th>
-					<th class="colunaTabelaConsulta" style="width:10%">Processo</th>
-					<th class="colunaTabelaConsulta" style="width:21%">Municipio</th>
-					<th class="colunaTabelaConsulta" style="width:18%">Gleba</th>
-					<th class="colunaTabelaConsulta" style="width:18%">Caixa</th>
-					<th class="colunaTabelaConsulta" style="width:15%">Situacao</th>
-				</tr>
-			</thead>
+		<table class="csstable">
 			<tbody>
+				<tr>
+					<td class="colunaTabelaConsulta" style="width:20%"> </td>
+					<td class="colunaTabelaConsulta" style="width:10%">Processo</td>
+					<td class="colunaTabelaConsulta" style="width:20%">Municipio</td>
+					<td class="colunaTabelaConsulta" style="width:15%">Gleba</td>
+					<td class="colunaTabelaConsulta" style="width:15%">Caixa</td>
+					<td class="colunaTabelaConsulta" style="width:10%">Situacao</td>
+				</tr>
 					{% for obj in processos %}
-						<tr style="background: {{ obj.tbprocessobase.tbtipoprocesso.coridentificacao }}">
-							<td class="colunaTabelaConsulta"> <a href="/sicop/restrito/processo/edicao/{{ obj.tbprocessobase.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
+						<tr onclick="editarID('/sicop/restrito/processo/edicao/{{ obj.tbprocessobase.id }}');"
+							style="background: {{ obj.tbprocessobase.tbtipoprocesso.coridentificacao }}">
 							{% if obj.tbprocessobase.tbtipoprocesso.id == 1 %}
 								<td class="colunaTabelaConsulta">{{ obj.nmrequerente }}</td>
 							{% else %}
@@ -94,27 +91,23 @@
 
 		{% if pecas %}
 		<br/> Pecas:<br/>
-		<table>
-			<thead style="background:#e5e5e5;color:black">
-				<tr>
-					<th class="colunaTabelaConsulta" style="width:8%">Detalhes</th>
-					<th class="colunaTabelaConsulta" style="width:12%">Contrato</th>
-					<th class="colunaTabelaConsulta" style="width:14%">Gleba</th>
-					<th class="colunaTabelaConsulta" style="width:8%">Area</th>
-					<th class="colunaTabelaConsulta" style="width:8%">CPF</th>
-					<th class="colunaTabelaConsulta" style="width:36%">Nome</th>
-					<th class="colunaTabelaConsulta" style="width:14%">Caixa</th>
-				</tr>
-			</thead>
+		<table class="csstable">
 			<tbody>
+				<tr>
+					<td class="colunaTabelaConsulta" style="width:20%">Nome</td>
+					<td class="colunaTabelaConsulta" style="width:10%">CPF</td>
+					<td class="colunaTabelaConsulta" style="width:15%">Gleba</td>
+					<td class="colunaTabelaConsulta" style="width:10%">Contrato</td>
+					<td class="colunaTabelaConsulta" style="width:8%">Area</td>
+					<td class="colunaTabelaConsulta" style="width:20%">Caixa</td>
+				</tr>
 					{% for obj in pecas %}
-						<tr>
-							<td class="colunaTabelaConsulta"> <a href="/sicop/restrito/peca_tecnica/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
-							<td class="colunaTabelaConsulta">{{ obj.tbcontrato.nrcontrato }}</td>
-							<td class="colunaTabelaConsulta">{{ obj.tbgleba.nmgleba }}</td>
-							<td class="colunaTabelaConsulta">{{ obj.nrarea }}</td>
-							<td class="colunaTabelaConsulta">{{ obj.nrcpfrequerente }}</td>
+						<tr onclick="editarID('/sicop/restrito/peca_tecnica/edicao/{{ obj.id }}');">
 							<td class="colunaTabelaConsulta">{{ obj.nmrequerente }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.nrcpfrequerente }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbgleba.nmgleba }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbcontrato.nrcontrato }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.nrarea }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.tbcaixa.nmlocalarquivo }}</td>
 						</tr>
 					{% endfor %}
