@@ -47,20 +47,16 @@
 
 
 {% block resultado %}
-		<table>
-			<thead style="background:#e5e5e5;color:black">
-				<tr>
-					<th class="colunaTabelaConsulta" style="width:8%">Detalhes</th>
-					<th class="colunaTabelaConsulta" style="width:62%">Nome</th>
-					<th class="colunaTabelaConsulta" style="width:30%">Tipo</th>
-				</tr>
-			</thead>
+		<table class="csstable">
 			<tbody>
+				<tr>
+						<td class="colunaTabelaConsulta" style="width:20%">Nome</td>
+						<td class="colunaTabelaConsulta" style="width:15%">Tipo</td>
+				</tr>
 				{% if lista %}
 					{% for obj in lista %}
 						<tr>
-							<td class="colunaTabelaConsulta"> <a href="/sicop/restrito/caixa/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
-							<td class="colunaTabelaConsulta">{{ obj.nmlocalarquivo }}</td>
+							<td class="colunaTabelaConsulta"><a href="/sicop/restrito/caixa/edicao/{{ obj.id }}">{{ obj.nmlocalarquivo }}</a></td>
 							<td class="colunaTabelaConsulta">{{ obj.tbtipocaixa.nmtipocaixa }}</td>
 						</tr>
 					{% endfor %}
