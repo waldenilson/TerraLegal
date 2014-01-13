@@ -38,6 +38,7 @@ def cadastro(request):
         if validacao(request):
             f_tipopendencia = Tbtipopendencia(
                                         dspendencia = request.POST['dspendencia'],
+                                        tbtipoprocesso = Tbtipoprocesso.objects.get( request.POST['tbtipoprocesso'] ),
                                         tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                       )
             f_tipopendencia.save()
@@ -50,9 +51,11 @@ def edicao(request, id):
     instance = get_object_or_404(Tbtipopendencia, id=id)
     tipoprocesso = Tbtipoprocesso.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     if request.method == "POST":
+            print request.POST['tbtipoprocesso'] 
             f_tipopendencia = Tbtipopendencia(
                                         id = instance.id,
                                         dspendencia = request.POST['dspendencia'],
+                                        tbtipoprocesso = Tbtipoprocesso.objects.get( pk = request.POST['tbtipoprocesso'] ),
                                         tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                       )
             f_tipopendencia.save()
