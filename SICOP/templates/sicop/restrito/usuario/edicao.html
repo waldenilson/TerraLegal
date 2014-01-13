@@ -47,14 +47,12 @@
 				</table>
 		</div>
 		<br />
-		<table  style="width:100%">
-			<thead style="background:#e5e5e5;color:black">
-				<tr>
-					<th class="colunaTabelaConsulta" style="width:10%"> </th>
-					<th class="colunaTabelaConsulta" style="width:90%">Nome</th>
-				</tr>
-			</thead>
+		<table class="csstable"  style="width:100%">
 			<tbody>
+				<tr>
+					<td class="colunaTabelaConsulta" style="width:5%"> </td>
+					<td class="colunaTabelaConsulta" style="width:95%">Nome</td>
+				</tr>
 				{% if grupo %}
 					{% for k,v in result %}
 						<tr>

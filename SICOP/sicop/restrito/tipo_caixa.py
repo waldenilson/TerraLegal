@@ -26,7 +26,7 @@ def consulta(request):
         lista = Tbtipocaixa.objects.all().filter( nmtipocaixa__icontains=nome, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     else:
         lista = Tbtipocaixa.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-    lista = lista.order_by( 'id' )
+    lista = lista.order_by( 'nmtipocaixa' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_tipo_caixa'] = lista
     return render_to_response('sicop/restrito/tipo_caixa/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
