@@ -25,6 +25,9 @@ def terra_legal(request):
 def mda(request):
     return render(request, "web/mda.html")
 
+def equipe(request):
+    return render(request, "web/equipe.html")
+
 def processo_rural(request):
     return render_to_response('web/processo_rural.html',{},
                               context_instance = RequestContext(request))
