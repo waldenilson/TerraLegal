@@ -47,6 +47,7 @@ function my_callback(data){
     alert(data.message);
 
  
+
     
 }
 </script>
@@ -144,12 +145,12 @@ function SomenteNumeroOK(e, obj)
 				</div>
 				<div style="float:right;margin-top:10px;margin-right:20px">
 						{% if user.is_active %}
-							Usuario:
+							Usuário:
 							<a href="/sicop/restrito/usuario/edicao/usuario/{{user.id}}/">
 							{% filter force_escape %}  {% firstof user.get_short_name user.get_username %} {% endfilter %}
 							</a> 
 							| 
-							Divisao: {{ request.session.divisao }} | <a href="/logout/">Sair do Sistema</a>
+							Divisão: {{ request.session.divisao }} | <a href="/logout/">Sair do Sistema</a>
 						{% endif %}			
 				</div>
 				
@@ -163,7 +164,7 @@ function SomenteNumeroOK(e, obj)
 						<ul id="menu" style="font-size:15px">
 									<li>
 										<a href="/" title="">
-											<span>Inicio</span>
+											<span>Início</span>
 										</a>
 									</li>
 									<li>
@@ -202,7 +203,7 @@ function SomenteNumeroOK(e, obj)
 											<li><a href="/sicop/restrito/documento/consulta/">Controle</a></li>
 											<li><a href="/sicop/restrito/tipo_documento/consulta/">Tipo	Documento</a></li>
 										</ul><hr/></li>
-									<li><a href="#">Relatorio</a>
+									<li><a href="#">Relatório</a>
 										<ul style="width: 250px">
 											<li><a href="/sicop/restrito/relatorio/processo_peca/">Processos e peças técnicas</a></li>
 											<li><a href="/sicop/restrito/relatorio/peca_nao_aprovada/">Peças técnicas não aprovadas</a></li>
@@ -211,21 +212,21 @@ function SomenteNumeroOK(e, obj)
 											<li><a href="/sicop/restrito/relatorio/peca_gleba/">Peças técnicas e glebas</a></li>
 											<li><a href="/sicop/restrito/relatorio/peca_sem_processo/">Peças técnicas sem processo</a></li>
 										</ul></li>
-									<li><a href="#">Configuracao</a>
+									<li><a href="#">Configuração</a>
 									<ul>
 										<li><a href="/sicop/restrito/tipo_processo/consulta/">Tipo Processo</a></li>
-										<li><a href="/sicop/restrito/classificacao_processo/consulta/">Classificacao Processo</a></li>
-										<li><a href="/sicop/restrito/situacao_processo/consulta/">Situacao Processo</a></li>
-										<li><a href="/sicop/restrito/situacao_geo/consulta/">Situacao Geo</a></li>
-										<li><a href="/sicop/restrito/tipo_pendencia/consulta/">Tipo	Pendencia</a></li>
-										<li><a href="/sicop/restrito/status_pendencia/consulta/">Status	Pendencia</a></li>
+										<li><a href="/sicop/restrito/classificacao_processo/consulta/">Classificação Processo</a></li>
+										<li><a href="/sicop/restrito/situacao_processo/consulta/">Situação Processo</a></li>
+										<li><a href="/sicop/restrito/situacao_geo/consulta/">Situação Geo</a></li>
+										<li><a href="/sicop/restrito/tipo_pendencia/consulta/">Tipo	Pendência</a></li>
+										<li><a href="/sicop/restrito/status_pendencia/consulta/">Status	Pendência</a></li>
 									</ul>
 									</li>
-									<li><a href="#">Usuario</a>
+									<li><a href="#">Usuário</a>
 										<ul>
 											<li><a href="/sicop/restrito/usuario/consulta/">Controle</a></li>
 											<li><a href="/sicop/restrito/grupo/consulta/">Grupo</a></li>
-											<li><a href="/sicop/restrito/divisao/consulta/">Divisao</a></li>
+											<li><a href="/sicop/restrito/divisao/consulta/">Divisão</a></li>
 										</ul></li>
 								</ul>
 					</div>
@@ -240,7 +241,7 @@ function SomenteNumeroOK(e, obj)
 			<div id="divCollophon" style="height:30px; color:white ;background: url('{% static "img/bgFooterDireitos.gif" %}');">
 
 				<div style="float:left;margin-top:5px;margin-left:20px">
-						© 2013 Sistema de Controle de Processos do Terra Legal - Revisao 299 				
+						© 2013 Sistema de Controle de Processos do Terra Legal - Revisao 316 				
 				</div>
 				<div style="float:right;margin-top:5px;margin-right:20px">
 						<a
