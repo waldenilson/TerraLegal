@@ -17,6 +17,7 @@ from sicop.relatorio_base import relatorio_pdf_base_header,\
     relatorio_pdf_base_header_title, relatorio_pdf_base,\
     relatorio_ods_base_header, relatorio_ods_base, relatorio_csv_base
 from odslib import ODS
+from django.db.models import Q
 
 nome_relatorio      = "relatorio_usuario"
 response_consulta  = "/sicop/restrito/usuario/consulta/"
@@ -45,7 +46,7 @@ def consulta(request):
         else:
             lista = AuthUser.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
 
-    lista = lista.order_by( 'id' )
+    lista = lista.order_by( 'username' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_usuario'] = lista
     return render_to_response('sicop/restrito/usuario/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
@@ -318,15 +319,15 @@ def validacao(request_form, acao):
         messages.add_message(request_form,messages.WARNING,'Informe o Login')
         warning = False
     
-    result = AuthUser.objects.all().filter( username = request_form.POST['username'] )
-    if result:
-        messages.add_message(request_form,messages.WARNING,'Login usado por outro usuario. Informe um login diferente.')
-        warning = False
+#    result = AuthUser.objects.filter( username = request_form.POST['username'], id = request_form.user.id )
+#    if result:
+#        messages.add_message(request_form,messages.WARNING,'Login usado por outro usuario. Informe um login diferente.')
+#        warning = False
     
-    result = AuthUser.objects.all().filter( first_name = request_form.POST['first_name'] )
-    if result:
-        messages.add_message(request_form,messages.WARNING,'Nome usado por outro usuario. Informe um nome diferente.')
-        warning = False
+#    result = AuthUser.objects.filter( first_name = request_form.POST['first_name'], id = request_form.user.id )
+#    if result:
+#        messages.add_message(request_form,messages.WARNING,'Nome usado por outro usuario. Informe um nome diferente.')
+#        warning = False
     
     if acao == 'cadastro':
         if request_form.POST['password'] == '':
