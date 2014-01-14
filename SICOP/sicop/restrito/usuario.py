@@ -317,6 +317,17 @@ def validacao(request_form, acao):
     if request_form.POST['username'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe o Login')
         warning = False
+    
+    result = AuthUser.objects.all().filter( username = request_form.POST['username'] )
+    if result:
+        messages.add_message(request_form,messages.WARNING,'Login usado por outro usuario. Informe um login diferente.')
+        warning = False
+    
+    result = AuthUser.objects.all().filter( first_name = request_form.POST['first_name'] )
+    if result:
+        messages.add_message(request_form,messages.WARNING,'Nome usado por outro usuario. Informe um nome diferente.')
+        warning = False
+    
     if acao == 'cadastro':
         if request_form.POST['password'] == '':
             messages.add_message(request_form,messages.WARNING,'Informe a Senha')
