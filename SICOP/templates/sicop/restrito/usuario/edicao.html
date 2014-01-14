@@ -47,6 +47,7 @@
 				</table>
 		</div>
 		<br />
+		{% if user_obj.is_superuser == True %}
 		<table class="csstable"  style="width:100%">
 			<tbody>
 				<tr>
@@ -71,6 +72,7 @@
 				{% endif %}
 			</tbody>
 		</table>
+		{% endif %}
 		<br/>
 		<table style="width:100%">
 			<tr>

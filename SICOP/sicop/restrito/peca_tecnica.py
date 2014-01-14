@@ -105,7 +105,7 @@ def cadastro(request):
 
 
 @login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador','Consulta'}), login_url='/excecoes/permissao_negada/')
+@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador','Cadastro'}), login_url='/excecoes/permissao_negada/')
 def edicao(request, id):
     contrato = Tbcontrato.objects.all()
     caixa = Tbcaixa.objects.all()

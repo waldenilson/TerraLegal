@@ -17,7 +17,6 @@ from sicop.relatorio_base import relatorio_pdf_base_header,\
     relatorio_pdf_base_header_title, relatorio_pdf_base,\
     relatorio_ods_base_header, relatorio_ods_base, relatorio_csv_base
 from odslib import ODS
-from django.db.models import Q
 
 nome_relatorio      = "relatorio_usuario"
 response_consulta  = "/sicop/restrito/usuario/consulta/"
