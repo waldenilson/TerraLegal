@@ -71,6 +71,27 @@ def edicao(request, id):
     
     instance = get_object_or_404(AuthGroup, id=id)
     if request.method == "POST":
+
+        # verificando os grupos do usuario
+        for obj in permissao:
+            if request.POST.get(obj.name, False):
+                #verificar se esse grupo ja esta ligado ao usuario
+                res = AuthGroupPermissions.objects.all().filter( group = id, permission = obj.id )
+                if not res:
+                    # inserir ao authusergroups
+                    ug = AuthGroupPermissions( group = AuthGroup.objects.get( pk = id ),
+                                          permission = AuthPermission.objects.get( pk = obj.id ) )
+                    ug.save()
+                    #print obj.name + ' nao esta ligado a este usuario'
+            else:
+                #verificar se esse grupo foi desligado do usuario
+                res = AuthGroupPermissions.objects.all().filter( group = id, permission = obj.id )
+                if res:
+                    # excluir do authusergroups
+                    for aug in res:
+                        aug.delete()
+                    #print obj.name + ' desmarcou deste usuario'        
+        
         if validacao(request):
             f_grupo = AuthGroup(
                                         id = instance.id,
