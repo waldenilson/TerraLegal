@@ -2,7 +2,7 @@ from django.contrib import admin
 from sicop.models import Tbtipocaixa, Tbtipoprocesso, Tbstatuspendencia,\
     Tbpecastecnicas, Tbclassificacaoprocesso, Tbsubarea, Tbcaixa,\
     Tbgleba, Tbcontrato, Tbsituacaoprocesso, Tbtipopendencia, AuthUser,\
-    AuthUserGroups
+    AuthUserGroups, AuthGroupPermissions
 from django.http.response import HttpResponse
 
 def verificar_permissao_grupo(usuario, grupos):
@@ -12,6 +12,17 @@ def verificar_permissao_grupo(usuario, grupos):
         for obj in obj_usuarios:
             for obj_g in grupos:
                 if obj.user.id == usuario.id and obj.group.name == str(obj_g):
+                    permissao = True
+        return permissao
+    return False
+
+def verificar_permissoes(grupo, permissoes):
+    if grupo:
+        permissao = False
+        obj_grupos = AuthGroupPermissions.objects.all().filter( group = grupo.id )
+        for obj in obj_grupos:
+            for obj_g in permissoes:
+                if obj.group.id == grupo.id and obj.permission.id == obj_g.id:
                     permissao = True
         return permissao
     return False

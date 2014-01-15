@@ -3,7 +3,8 @@ from django.contrib.auth.decorators import login_required, permission_required,\
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.forms import FormStatusPendencia, FormAuthGroup
-from sicop.models import Tbstatuspendencia, AuthGroup
+from sicop.models import Tbstatuspendencia, AuthGroup, AuthPermission,\
+    AuthGroupPermissions, AuthUser
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from sicop.admin import verificar_permissao_grupo
@@ -23,10 +24,10 @@ planilha_relatorio  = "Grupos"
 def consulta(request):
     if request.method == "POST":
         nome = request.POST['name']
-        lista = AuthGroup.objects.all().filter( name__icontains=nome )
+        lista = AuthGroup.objects.all().filter( name__icontains=nome, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     else:
-        lista = AuthGroup.objects.all()
-    lista = lista.order_by( 'id' )
+        lista = AuthGroup.objects.all().filter(tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id)
+    lista = lista.order_by( 'name' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_grupo'] = lista
     return render_to_response('sicop/restrito/grupo/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
@@ -47,6 +48,23 @@ def cadastro(request):
 @login_required
 @user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super'}), login_url='/excecoes/permissao_negada/')
 def edicao(request, id):
+
+    permissao = AuthPermission.objects.all()
+    grupoPermissao = AuthGroupPermissions.objects.all().filter( group = id )
+
+    result = {}
+    for obj in permissao:
+        achou = False
+        for obj2 in grupoPermissao:
+            if obj.id == obj2.permission.id:
+                result.setdefault(obj.name,True)
+                achou = True
+                break
+        if not achou:
+            result.setdefault(obj.name, False)
+    result = sorted(result.items())
+
+    
     instance = get_object_or_404(AuthGroup, id=id)
     if request.method == "POST":
         form = FormAuthGroup(request.POST,request.FILES,instance=instance)
@@ -56,7 +74,7 @@ def edicao(request, id):
                 return HttpResponseRedirect("/sicop/restrito/grupo/edicao/"+str(id)+"/")
     else:
         form = FormAuthGroup(instance=instance) 
-    return render_to_response('sicop/restrito/grupo/edicao.html', {"form":form}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/grupo/edicao.html', {"form":form,'result':result,'permissao':permissao,'grupopermissao':grupoPermissao}, context_instance = RequestContext(request))
 
 
 def relatorio_pdf(request):
