@@ -9,11 +9,11 @@ from django.http.response import HttpResponseRedirect
 from sicop.forms import FormProcessoUrbano
 import datetime
 
-@permission_required('sicop.caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.processo_urbano_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
     return render_to_response('sicop/restrito/processo/urbano/consulta.html',{}, context_instance = RequestContext(request))    
     
-@permission_required('sicop.caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.processo_urbano_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
     tipoprocesso = Tbtipoprocesso.objects.all()
     pregao = Tbpregao.objects.all()
@@ -88,7 +88,7 @@ def cadastro(request):
          'situacaogeo':situacaogeo,'pregao':pregao,'contrato':contrato,'gleba':gleba,'caixa':caixa,'municipio':municipio,'div_processo':div_processo},
          context_instance = RequestContext(request))     
 
-@permission_required('sicop.caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.processo_urbano_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     carregarTbAuxProcesso(request)
     pregao = Tbpregao.objects.all()
