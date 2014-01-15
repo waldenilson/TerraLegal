@@ -36,15 +36,19 @@ def consulta(request):
 @user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super'}), login_url='/excecoes/permissao_negada/')
 def cadastro(request):
     if request.method == "POST":
-        form = FormAuthGroup(request.POST)
+        next = request.GET.get('next', '/')    
         if validacao(request):
-            if form.is_valid():
-                form.save()
-                return HttpResponseRedirect("/sicop/restrito/grupo/consulta/") 
-    else:
-        form = FormAuthGroup()
-    return render_to_response('sicop/restrito/grupo/cadastro.html',{"form":form}, context_instance = RequestContext(request))
-
+            f_grupo = AuthGroup(
+                                        name = request.POST['nome'],
+                                        tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
+                                      )
+            f_grupo.save()
+            if next == "/":
+                return HttpResponseRedirect("/sicop/restrito/grupo/consulta/")
+            else:    
+                return HttpResponseRedirect( next ) 
+    return render_to_response('sicop/restrito/grupo/cadastro.html',{}, context_instance = RequestContext(request))
+    
 @login_required
 @user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super'}), login_url='/excecoes/permissao_negada/')
 def edicao(request, id):
@@ -67,14 +71,15 @@ def edicao(request, id):
     
     instance = get_object_or_404(AuthGroup, id=id)
     if request.method == "POST":
-        form = FormAuthGroup(request.POST,request.FILES,instance=instance)
         if validacao(request):
-            if form.is_valid():
-                form.save()
-                return HttpResponseRedirect("/sicop/restrito/grupo/edicao/"+str(id)+"/")
-    else:
-        form = FormAuthGroup(instance=instance) 
-    return render_to_response('sicop/restrito/grupo/edicao.html', {"form":form,'result':result,'permissao':permissao,'grupopermissao':grupoPermissao}, context_instance = RequestContext(request))
+            f_grupo = AuthGroup(
+                                        id = instance.id,
+                                        name = request.POST['nome'],
+                                        tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
+                                      )
+            f_grupo.save()
+            return HttpResponseRedirect("/sicop/restrito/grupo/edicao/"+str(id)+"/")
+    return render_to_response('sicop/restrito/grupo/edicao.html', {"grupo":instance,'result':result,'permissao':permissao,'grupopermissao':grupoPermissao}, context_instance = RequestContext(request))
 
 
 def relatorio_pdf(request):
@@ -142,7 +147,7 @@ def relatorio_csv(request):
 
 def validacao(request_form):
     warning = True
-    if request_form.POST['name'] == '':
+    if request_form.POST['nome'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe o nome do grupo')
         warning = False
     return warning
