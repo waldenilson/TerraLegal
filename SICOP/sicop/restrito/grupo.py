@@ -50,7 +50,7 @@ def cadastro(request):
 @permission_required('sicop.grupo_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
 
-    permissao = AuthPermission.objects.all()
+    permissao = AuthPermission.objects.all().order_by('name')
     grupoPermissao = AuthGroupPermissions.objects.all().filter( group = id )
 
     result = {}

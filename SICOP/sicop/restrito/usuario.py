@@ -155,7 +155,7 @@ def edicao(request, id):
                               {'result':result,'grupo':grupo,'usergrupo':userGrupo,'user_obj':user_obj,'divisao':divisao}, context_instance = RequestContext(request))
 
 
-@permission_required('sicop.usuario_logado_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@login_required
 def edicao_usuario_logado(request, id):
     
     if str(request.user.id) == str(id):

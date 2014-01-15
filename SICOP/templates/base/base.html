@@ -233,12 +233,12 @@ function SomenteNumeroOK(e, obj)
 												{% if perms.servidor.tipo_documento_consulta %}
 													<li><a href="/sicop/restrito/tipo_documento/consulta/">Tipo	Documento</a></li>
 												{% endif %}
-											</ul><hr/>
+											</ul>
 										</li>
 									{% endif %}
 									
 									{% if perms.sicop.relatorio_processo_peca_consulta or perms.sicop.relatorio_peca_nao_aprovada_consulta or perms.sicop.relatorio_peca_rejeitada_consulta or perms.sicop.relatorio_peca_validada_consulta or perms.sicop.relatorio_peca_gleba_consulta or perms.sicop.relatorio_peca_sem_processo_consulta %}
-										<li><a href="#">Relatório</a>
+										<li><hr/><a href="#">Relatório</a>
 											<ul style="width: 250px">
 												{% if perms.sicop.relatorio_processo_peca_consulta %}
 													<li><a href="/sicop/restrito/relatorio/processo_peca/">Processos e peças técnicas</a></li>
@@ -315,7 +315,7 @@ function SomenteNumeroOK(e, obj)
 			<div id="divCollophon" style="height:30px; color:white ;background: url('{% static "img/bgFooterDireitos.gif" %}');">
 
 				<div style="float:left;margin-top:5px;margin-left:20px">
-						© 2013 Sistema de Controle de Processos do Terra Legal - Revisao 319 				
+						© 2013 Sistema de Controle de Processos do Terra Legal - Revisao 330 				
 				</div>
 				<div style="float:right;margin-top:5px;margin-right:20px">
 						<a

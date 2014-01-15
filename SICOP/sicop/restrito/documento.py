@@ -59,7 +59,8 @@ def consulta(request):
         
     return render_to_response('sicop/restrito/documento/consulta.html',{'lista':lista}, context_instance = RequestContext(request))
 
-@permission_required('servidor.documento_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@login_required
+#@permission_required('servidor.documento_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     base = get_object_or_404(Tbdocumentobase, id=id)
     
@@ -75,7 +76,8 @@ def edicao(request, id):
         
     return HttpResponseRedirect("/sicop/restrito/documento/consulta/")
     
-@permission_required('servidor.documento_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@login_required
+#@permission_required('servidor.documento_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
     tipodocumento = Tbtipodocumento.objects.all()
     escolha = "tbdocumentomemorando"
