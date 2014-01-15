@@ -31,7 +31,6 @@ def consulta(request):
     return render_to_response('sicop/restrito/status_pendencia/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
 def cadastro(request):
     if request.method == "POST":
         if validacao(request):
@@ -44,7 +43,6 @@ def cadastro(request):
     return render_to_response('sicop/restrito/status_pendencia/cadastro.html',{}, context_instance = RequestContext(request))
 
 @login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
 def edicao(request, id):
     instance = get_object_or_404(Tbstatuspendencia, id=id)
     if request.method == "POST":

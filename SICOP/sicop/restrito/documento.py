@@ -60,7 +60,6 @@ def consulta(request):
     return render_to_response('sicop/restrito/documento/consulta.html',{'lista':lista}, context_instance = RequestContext(request))
 
 @login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador','ServidorRH'}), login_url='/excecoes/permissao_negada/')
 def edicao(request, id):
     base = get_object_or_404(Tbdocumentobase, id=id)
     
@@ -77,7 +76,6 @@ def edicao(request, id):
     return HttpResponseRedirect("/sicop/restrito/documento/consulta/")
     
 @login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador','ServidorRH'}), login_url='/excecoes/permissao_negada/')
 def cadastro(request):
     tipodocumento = Tbtipodocumento.objects.all()
     escolha = "tbdocumentomemorando"

@@ -20,7 +20,6 @@ planilha_relatorio  = "Grupos"
 
 
 @login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
 def consulta(request):
     if request.method == "POST":
         nome = request.POST['name']
@@ -33,7 +32,6 @@ def consulta(request):
     return render_to_response('sicop/restrito/grupo/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super'}), login_url='/excecoes/permissao_negada/')
 def cadastro(request):
     if request.method == "POST":
         next = request.GET.get('next', '/')    
@@ -50,7 +48,6 @@ def cadastro(request):
     return render_to_response('sicop/restrito/grupo/cadastro.html',{}, context_instance = RequestContext(request))
     
 @login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super'}), login_url='/excecoes/permissao_negada/')
 def edicao(request, id):
 
     permissao = AuthPermission.objects.all()

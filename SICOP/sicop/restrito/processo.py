@@ -102,7 +102,6 @@ def consulta(request):
     return render_to_response('sicop/restrito/processo/consulta.html',{'lista':lista}, context_instance = RequestContext(request))
 
 @login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador','Cadastro'}), login_url='/excecoes/permissao_negada/')
 def tramitar(request, base):
     if request.method == "POST":
         
@@ -212,7 +211,6 @@ def tramitar(request, base):
                                        'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))      
 
 @login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador','Cadastro'}), login_url='/excecoes/permissao_negada/')
 def criar_pendencia(request, base):
     if request.method == "POST":
         
@@ -277,7 +275,6 @@ def criar_pendencia(request, base):
                                        'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))      
 
 @login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador','Cadastro'}), login_url='/excecoes/permissao_negada/')
 def anexar(request, base):
     if request.method == "POST":
         
@@ -358,7 +355,6 @@ def anexar(request, base):
                                        'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))      
 
 @login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador','Cadastro'}), login_url='/excecoes/permissao_negada/')
 def edicao(request, id):
     base = get_object_or_404(Tbprocessobase, id=id)
     
@@ -427,7 +423,6 @@ def edicao(request, id):
     return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
     
 @login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador','Cadastro'}), login_url='/excecoes/permissao_negada/')
 def cadastro(request):
     tipoprocesso = Tbtipoprocesso.objects.all()
     escolha = "tbprocessorural"

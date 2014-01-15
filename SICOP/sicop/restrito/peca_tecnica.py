@@ -55,7 +55,6 @@ def consulta(request):
     return render_to_response('sicop/restrito/peca_tecnica/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador','Cadastro'}), login_url='/excecoes/permissao_negada/')
 def cadastro(request):
     contrato = Tbcontrato.objects.all()
     caixa = Tbcaixa.objects.all()
@@ -105,7 +104,6 @@ def cadastro(request):
 
 
 @login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador','Cadastro'}), login_url='/excecoes/permissao_negada/')
 def edicao(request, id):
     contrato = Tbcontrato.objects.all()
     caixa = Tbcaixa.objects.all()
