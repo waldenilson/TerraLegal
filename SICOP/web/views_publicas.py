@@ -19,11 +19,8 @@ from reportlab.lib.pagesizes import letter
 def inicio(request):
     return render(request, "web/index.html")
 
-def terra_legal(request):
-    return render(request, "web/terra_legal.html")
-
-def mda(request):
-    return render(request, "web/mda.html")
+def e_legal(request):
+    return render(request, "web/e_legal.html")
 
 def equipe(request):
     return render(request, "web/equipe.html")
