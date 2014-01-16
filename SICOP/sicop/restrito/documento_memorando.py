@@ -12,12 +12,11 @@ import datetime
 
 #10.12.0.60
 
-@login_required
+@permission_required('servidor.documento_memorando_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
     return render_to_response('sicop/restrito/documento/memorando/consulta.html',{}, context_instance = RequestContext(request))    
     
-@login_required
-@permission_required('sicop.add tbprocesso', login_url='/sicop/acesso_restrito/', raise_exception=True)
+@permission_required('servidor.documento_memorando_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
     tipodocumento = Tbtipodocumento.objects.all()
     
@@ -53,11 +52,11 @@ def cadastro(request):
     return render_to_response('sicop/restrito/documento/cadastro.html',
         {'tipodocumento':tipodocumento, 'documento':escolha, 'div_documento':div_documento}, context_instance = RequestContext(request))    
 
-@login_required
+@permission_required('servidor.documento_memorando_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def link_arquivo(request, id):    
     return HttpResponseRedirect("/sicop/restrito/documento/arquivo.pdf")
 
-@login_required
+@permission_required('servidor.documento_memorando_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     
     memorando = get_object_or_404(Tbdocumentomemorando, id=id)

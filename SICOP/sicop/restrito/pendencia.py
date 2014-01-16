@@ -7,7 +7,7 @@ from sicop.models import Tbgleba, Tbsubarea, Tbpendencia, Tbtipopendencia,\
 from django.http.response import HttpResponseRedirect
 from django.contrib import messages
 
-@login_required
+@permission_required('sicop.pendencia_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, pendencia):
     tipopendencia = Tbtipopendencia.objects.all().order_by("dspendencia")
     statuspendencia = Tbstatuspendencia.objects.all()

@@ -17,7 +17,7 @@ response_consulta  = "/sicop/restrito/contrato/consulta/"
 titulo_relatorio    = "Relatorio dos Contratos"
 planilha_relatorio  = "Contratos"
 
-@login_required
+@permission_required('sicop.contrato_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
     if request.method == "POST":
         num = request.POST['nrcontrato']
@@ -30,8 +30,7 @@ def consulta(request):
     request.session['relatorio_contrato'] = lista
     return render_to_response('sicop/restrito/contrato/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
-@login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
+@permission_required('sicop.contrato_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
     if request.method == "POST":
         next = request.GET.get('next', '/')
@@ -49,8 +48,7 @@ def cadastro(request):
     return render_to_response('sicop/restrito/contrato/cadastro.html',
                                context_instance = RequestContext(request))
 
-@login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
+@permission_required('sicop.contrato_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     instance = get_object_or_404(Tbcontrato, id=id)
     if request.method == "POST":
@@ -66,6 +64,7 @@ def edicao(request, id):
     return render_to_response('sicop/restrito/contrato/edicao.html', {"contrato":instance}, context_instance = RequestContext(request))
 
 
+@permission_required('sicop.contrato_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_pdf(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session[nome_relatorio]
@@ -82,6 +81,7 @@ def relatorio_pdf(request):
     else:
         return HttpResponseRedirect(response_consulta)
 
+@permission_required('sicop.contrato_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_ods(request):
 
     # montar objeto lista com os campos a mostrar no relatorio/pdf
@@ -116,6 +116,7 @@ def relatorio_ods(request):
     else:
         return HttpResponseRedirect( response_consulta )
 
+@permission_required('sicop.contrato_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_csv(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session[nome_relatorio]

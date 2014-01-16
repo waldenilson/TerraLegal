@@ -1,4 +1,5 @@
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required, user_passes_test,\
+    permission_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.template.context import RequestContext
@@ -22,7 +23,7 @@ planilha_relatorio  = "Servidores"
 
 #SERVIDORES -----------------------------------------------------------------------------------------------------------------------------
 
-@login_required
+@permission_required('servidor.servidor_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
     if request.method == "POST":
         servidor = request.POST['servidor']
@@ -34,8 +35,7 @@ def consulta(request):
     request.session['relatorio_servidor'] = lista
     return render_to_response('controle/servidor/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
-@login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador','ServidorRH'}), login_url='/excecoes/permissao_negada/')
+@permission_required('servidor.servidor_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
     #usar quando tives chaves 
     #contrato = Tbcontrato.objects.all()
@@ -66,8 +66,7 @@ def cadastro(request):
             return HttpResponseRedirect("/controle/restrito/servidor/consulta/")
     return render_to_response('controle/servidor/cadastro.html',{'divisao':divisao}, context_instance = RequestContext(request))
 
-@login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador','ServidorRH'}), login_url='/excecoes/permissao_negada/')
+@permission_required('servidor.servidor_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     #usar abaixo se tiver FK tem que recuperar todas antes de exibir
     ##contrato = Tbcontrato.objects.all()
@@ -97,6 +96,7 @@ def edicao(request, id):
     return render_to_response('controle/servidor/edicao.html',
                               {"servidor":instance},context_instance = RequestContext(request))
 
+@permission_required('servidor.servidor_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_pdf(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session[nome_relatorio]
@@ -113,6 +113,7 @@ def relatorio_pdf(request):
     else:
         return HttpResponseRedirect(response_consulta)
 
+@permission_required('servidor.servidor_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_ods(request):
 
     # montar objeto lista com os campos a mostrar no relatorio/pdf
@@ -147,6 +148,7 @@ def relatorio_ods(request):
     else:
         return HttpResponseRedirect( response_consulta )
 
+@permission_required('servidor.servidor_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_csv(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session[nome_relatorio]

@@ -22,9 +22,6 @@ def inicio(request):
 def terra_legal(request):
     return render(request, "web/terra_legal.html")
 
-def mda(request):
-    return render(request, "web/mda.html")
-
 def equipe(request):
     return render(request, "web/equipe.html")
 

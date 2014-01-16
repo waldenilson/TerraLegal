@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required, permission_required,\
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.forms import FormGleba
-from sicop.models import Tbgleba, Tbsubarea, AuthUser
+from sicop.models import Tbgleba, Tbsubarea, AuthUser, Tbdivisao
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from sicop.admin import verificar_permissao_grupo
@@ -19,20 +19,19 @@ titulo_relatorio    = "Relatorio Glebas"
 planilha_relatorio  = "Glebas"
 
 
-@login_required
+@permission_required('sicop.gleba_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
     if request.method == "POST":
         nome = request.POST['nmgleba']
-        lista = Tbgleba.objects.all().filter( nmgleba__icontains=nome, tbsubarea__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        lista = Tbgleba.objects.all().filter( nmgleba__icontains=nome, tbuf__id = Tbdivisao.objects.get( pk = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).tbuf.id )
     else:
-        lista = Tbgleba.objects.all().filter( tbsubarea__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        lista = Tbgleba.objects.all().filter( tbuf__id = Tbdivisao.objects.get( pk = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).tbuf.id )
     lista = lista.order_by( 'nmgleba' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_gleba'] = lista
     return render_to_response('sicop/restrito/gleba/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
-@login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
+@permission_required('sicop.gleba_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
     subarea = Tbsubarea.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     if request.method == "POST":
@@ -49,8 +48,7 @@ def cadastro(request):
         form = FormGleba()
     return render_to_response('sicop/restrito/gleba/cadastro.html',{"form":form,'subarea':subarea}, context_instance = RequestContext(request))
 
-@login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
+@permission_required('sicop.gleba_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     subarea = Tbsubarea.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     instance = get_object_or_404(Tbgleba, id=id)
@@ -65,6 +63,7 @@ def edicao(request, id):
     return render_to_response('sicop/restrito/gleba/edicao.html', {"form":form,'subarea':subarea}, context_instance = RequestContext(request))
 
 
+@permission_required('sicop.gleba_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_pdf(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session[nome_relatorio]
@@ -81,6 +80,7 @@ def relatorio_pdf(request):
     else:
         return HttpResponseRedirect(response_consulta)
 
+@permission_required('sicop.gleba_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_ods(request):
 
     # montar objeto lista com os campos a mostrar no relatorio/pdf
@@ -115,6 +115,7 @@ def relatorio_ods(request):
     else:
         return HttpResponseRedirect( response_consulta )
 
+@permission_required('sicop.gleba_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_csv(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session[nome_relatorio]

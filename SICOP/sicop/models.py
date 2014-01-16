@@ -11,20 +11,21 @@ from __future__ import unicode_literals
 from django.db import models
 
 class AuthGroup(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=80, unique=True)
+    tbdivisao = models.ForeignKey('Tbdivisao')
     class Meta:
         db_table = 'auth_group'
 
 class AuthGroupPermissions(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     group = models.ForeignKey(AuthGroup)
     permission = models.ForeignKey('AuthPermission')
     class Meta:
         db_table = 'auth_group_permissions'
 
 class AuthPermission(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
     content_type = models.ForeignKey('DjangoContentType')
     codename = models.CharField(max_length=100)
@@ -55,7 +56,7 @@ class AuthUserGroups(models.Model):
         db_table = 'auth_user_groups'
 
 class AuthUserUserPermissions(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(AuthUser)
     permission = models.ForeignKey(AuthPermission)
     class Meta:
@@ -129,6 +130,7 @@ class Tbgleba(models.Model):
     cdgleba = models.IntegerField(null=True, blank=True)
     nmgleba = models.CharField(max_length=80, blank=True)
     tbsubarea = models.ForeignKey('Tbsubarea')
+    tbuf = models.ForeignKey('Tbuf', null=True, blank=True)
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbgleba'

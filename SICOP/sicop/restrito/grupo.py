@@ -3,7 +3,8 @@ from django.contrib.auth.decorators import login_required, permission_required,\
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.forms import FormStatusPendencia, FormAuthGroup
-from sicop.models import Tbstatuspendencia, AuthGroup
+from sicop.models import Tbstatuspendencia, AuthGroup, AuthPermission,\
+    AuthGroupPermissions, AuthUser
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from sicop.admin import verificar_permissao_grupo
@@ -18,47 +19,88 @@ titulo_relatorio    = "Relatorio Grupos"
 planilha_relatorio  = "Grupos"
 
 
-@login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
+@permission_required('sicop.grupo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
     if request.method == "POST":
         nome = request.POST['name']
-        lista = AuthGroup.objects.all().filter( name__icontains=nome )
+        lista = AuthGroup.objects.all().filter( name__icontains=nome, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     else:
-        lista = AuthGroup.objects.all()
-    lista = lista.order_by( 'id' )
+        lista = AuthGroup.objects.all().filter(tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id)
+    lista = lista.order_by( 'name' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_grupo'] = lista
     return render_to_response('sicop/restrito/grupo/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
-@login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super'}), login_url='/excecoes/permissao_negada/')
+@permission_required('sicop.grupo_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
     if request.method == "POST":
-        form = FormAuthGroup(request.POST)
+        next = request.GET.get('next', '/')    
         if validacao(request):
-            if form.is_valid():
-                form.save()
-                return HttpResponseRedirect("/sicop/restrito/grupo/consulta/") 
-    else:
-        form = FormAuthGroup()
-    return render_to_response('sicop/restrito/grupo/cadastro.html',{"form":form}, context_instance = RequestContext(request))
-
-@login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super'}), login_url='/excecoes/permissao_negada/')
+            f_grupo = AuthGroup(
+                                        name = request.POST['nome'],
+                                        tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
+                                      )
+            f_grupo.save()
+            if next == "/":
+                return HttpResponseRedirect("/sicop/restrito/grupo/consulta/")
+            else:    
+                return HttpResponseRedirect( next ) 
+    return render_to_response('sicop/restrito/grupo/cadastro.html',{}, context_instance = RequestContext(request))
+    
+@permission_required('sicop.grupo_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
+
+    permissao = AuthPermission.objects.all().order_by('name')
+    grupoPermissao = AuthGroupPermissions.objects.all().filter( group = id )
+
+    result = {}
+    for obj in permissao:
+        achou = False
+        for obj2 in grupoPermissao:
+            if obj.id == obj2.permission.id:
+                result.setdefault(obj.name,True)
+                achou = True
+                break
+        if not achou:
+            result.setdefault(obj.name, False)
+    result = sorted(result.items())
+
+    
     instance = get_object_or_404(AuthGroup, id=id)
     if request.method == "POST":
-        form = FormAuthGroup(request.POST,request.FILES,instance=instance)
+
+        # verificando os grupos do usuario
+        for obj in permissao:
+            if request.POST.get(obj.name, False):
+                #verificar se esse grupo ja esta ligado ao usuario
+                res = AuthGroupPermissions.objects.all().filter( group = id, permission = obj.id )
+                if not res:
+                    # inserir ao authusergroups
+                    ug = AuthGroupPermissions( group = AuthGroup.objects.get( pk = id ),
+                                          permission = AuthPermission.objects.get( pk = obj.id ) )
+                    ug.save()
+                    #print obj.name + ' nao esta ligado a este usuario'
+            else:
+                #verificar se esse grupo foi desligado do usuario
+                res = AuthGroupPermissions.objects.all().filter( group = id, permission = obj.id )
+                if res:
+                    # excluir do authusergroups
+                    for aug in res:
+                        aug.delete()
+                    #print obj.name + ' desmarcou deste usuario'        
+        
         if validacao(request):
-            if form.is_valid():
-                form.save()
-                return HttpResponseRedirect("/sicop/restrito/grupo/edicao/"+str(id)+"/")
-    else:
-        form = FormAuthGroup(instance=instance) 
-    return render_to_response('sicop/restrito/grupo/edicao.html', {"form":form}, context_instance = RequestContext(request))
+            f_grupo = AuthGroup(
+                                        id = instance.id,
+                                        name = request.POST['nome'],
+                                        tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
+                                      )
+            f_grupo.save()
+            return HttpResponseRedirect("/sicop/restrito/grupo/edicao/"+str(id)+"/")
+    return render_to_response('sicop/restrito/grupo/edicao.html', {"grupo":instance,'result':result,'permissao':permissao,'grupopermissao':grupoPermissao}, context_instance = RequestContext(request))
 
 
+@permission_required('sicop.grupo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_pdf(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session[nome_relatorio]
@@ -75,6 +117,7 @@ def relatorio_pdf(request):
     else:
         return HttpResponseRedirect(response_consulta)
 
+@permission_required('sicop.grupo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_ods(request):
 
     # montar objeto lista com os campos a mostrar no relatorio/pdf
@@ -107,6 +150,7 @@ def relatorio_ods(request):
     else:
         return HttpResponseRedirect( response_consulta )
 
+@permission_required('sicop.grupo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_csv(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session[nome_relatorio]
@@ -124,7 +168,7 @@ def relatorio_csv(request):
 
 def validacao(request_form):
     warning = True
-    if request_form.POST['name'] == '':
+    if request_form.POST['nome'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe o nome do grupo')
         warning = False
     return warning

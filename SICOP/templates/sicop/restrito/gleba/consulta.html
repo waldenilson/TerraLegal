@@ -50,12 +50,14 @@
 				<tr>
 					<td class="colunaTabelaConsulta" style="width:20%">Nome</td>
 					<td class="colunaTabelaConsulta" style="width:10%">SubArea</td>
+					<td class="colunaTabelaConsulta" style="width:5%">UF</td>
 				</tr>
 				{% if lista %}
 					{% for obj in lista %}
 						<tr onclick="editarID('/sicop/restrito/gleba/edicao/{{ obj.id }}');"> 
 							<td class="colunaTabelaConsulta">{{ obj.nmgleba }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.tbsubarea.nmsubarea }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbuf.nmuf }}</td>
 						</tr>
 					{% endfor %}
 				{% else %}

@@ -46,22 +46,30 @@
 				   	</tr>
 				</table>
 		</div>
+
 		<br />
-		{% if user_obj.is_superuser == True %}
 		<table class="csstable"  style="width:100%">
 			<tbody>
 				<tr>
 					<td class="colunaTabelaConsulta" style="width:5%"> </td>
-					<td class="colunaTabelaConsulta" style="width:95%">Nome</td>
+					<td class="colunaTabelaConsulta" style="width:95%">Grupos</td>
 				</tr>
 				{% if grupo %}
 					{% for k,v in result %}
 						<tr>
 							<td class="colunaTabelaConsulta">
 								{% if v %}
-									<input checked="checked" name="{{ k }}" type="checkbox" />
+									{% if user.is_superuser == True %}
+										<input checked="checked" name="{{ k }}" type="checkbox" />
+									{% else %}
+										<input disabled="disabled" checked="checked" name="{{ k }}" type="checkbox" />
+									{% endif %}
 								{% else %}
-									<input name="{{ k }}" type="checkbox" />
+									{% if user.is_superuser == True %}
+										<input name="{{ k }}" type="checkbox" />
+									{% else %}
+										<input disabled="disabled" name="{{ k }}" type="checkbox" />
+									{% endif %}
 								{% endif %}
 							</td>
 							<td class="colunaTabelaConsulta">{{ k }}</td>
@@ -72,8 +80,8 @@
 				{% endif %}
 			</tbody>
 		</table>
-		{% endif %}
 		<br/>
+		
 		<table style="width:100%">
 			<tr>
 				<td class="colunaTabela" style="text-align:left"> 

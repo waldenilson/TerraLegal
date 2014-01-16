@@ -7,7 +7,8 @@ from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
     Tbprocessoclausula, Tbprocessobase, Tbcaixa, Tbgleba, Tbmunicipio,\
     Tbcontrato, Tbsituacaoprocesso, Tbsituacaogeo, Tbpecastecnicas, AuthUser,\
     AuthUserGroups, Tbmovimentacao, Tbprocessosanexos, Tbpendencia,\
-    Tbclassificacaoprocesso, Tbtipopendencia, Tbstatuspendencia, Tbpregao
+    Tbclassificacaoprocesso, Tbtipopendencia, Tbstatuspendencia, Tbpregao,\
+    Tbdivisao
 from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
 from sicop.restrito import processo_rural
@@ -27,7 +28,7 @@ titulo_relatorio    = "Relatorio Processos"
 planilha_relatorio  = "Processos"
 
 
-@login_required
+@permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
     # carrega os processos da divisao do usuario logado
     lista = []
@@ -101,8 +102,7 @@ def consulta(request):
         
     return render_to_response('sicop/restrito/processo/consulta.html',{'lista':lista}, context_instance = RequestContext(request))
 
-@login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador','Cadastro'}), login_url='/excecoes/permissao_negada/')
+@permission_required('sicop.processo_tramitar', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def tramitar(request, base):
     if request.method == "POST":
         
@@ -211,8 +211,7 @@ def tramitar(request, base):
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))      
 
-@login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador','Cadastro'}), login_url='/excecoes/permissao_negada/')
+@permission_required('sicop.processo_criar_pendencia', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def criar_pendencia(request, base):
     if request.method == "POST":
         
@@ -276,8 +275,7 @@ def criar_pendencia(request, base):
                                        'movimentacao':movimentacao,'caixadestino':caixadestino,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))      
 
-@login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador','Cadastro'}), login_url='/excecoes/permissao_negada/')
+@permission_required('sicop.processo_anexar', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def anexar(request, base):
     if request.method == "POST":
         
@@ -357,8 +355,7 @@ def anexar(request, base):
                                        'movimentacao':movimentacao,'caixadestino':caixadestino,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))      
 
-@login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador','Cadastro'}), login_url='/excecoes/permissao_negada/')
+@permission_required('sicop.processo_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     base = get_object_or_404(Tbprocessobase, id=id)
     
@@ -426,8 +423,7 @@ def edicao(request, id):
         
     return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
     
-@login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador','Cadastro'}), login_url='/excecoes/permissao_negada/')
+@permission_required('sicop.processo_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
     tipoprocesso = Tbtipoprocesso.objects.all()
     escolha = "tbprocessorural"
@@ -469,6 +465,7 @@ def cadastro(request):
             'tipoprocesso':tipoprocesso,'processo':escolha,'div_processo':div_processo}, context_instance = RequestContext(request))
 
 
+@permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_pdf(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session[nome_relatorio]
@@ -485,6 +482,7 @@ def relatorio_pdf(request):
     else:
         return HttpResponseRedirect(response_consulta)
 
+@permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_ods(request):
 
     # montar objeto lista com os campos a mostrar no relatorio/pdf
@@ -519,6 +517,7 @@ def relatorio_ods(request):
     else:
         return HttpResponseRedirect( response_consulta )
 
+@permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_csv(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session[nome_relatorio]
@@ -604,7 +603,7 @@ def carregarTbAuxProcesso(request, tipo):
         if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == tipo:
             caixa.append( obj )
     
-    gleba = Tbgleba.objects.all().filter( tbsubarea__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+    gleba = Tbgleba.objects.all().filter( tbuf__id = Tbdivisao.objects.get( pk = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).tbuf.id )
     contrato = Tbcontrato.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     situacaogeo = Tbsituacaogeo.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     situacaoprocesso = Tbsituacaoprocesso.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )

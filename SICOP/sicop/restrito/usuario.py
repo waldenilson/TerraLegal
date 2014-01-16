@@ -1,4 +1,5 @@
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required, user_passes_test,\
+    permission_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.template.context import RequestContext
@@ -11,12 +12,12 @@ import datetime
 from django.contrib.auth.hashers import make_password, load_hashers, get_hasher
 import json
 from collections import OrderedDict
-from sicop.admin import verificar_permissao_grupo
 from django.http.response import HttpResponse
 from sicop.relatorio_base import relatorio_pdf_base_header,\
     relatorio_pdf_base_header_title, relatorio_pdf_base,\
     relatorio_ods_base_header, relatorio_ods_base, relatorio_csv_base
 from odslib import ODS
+from sicop.admin import verificar_permissao_grupo
 
 nome_relatorio      = "relatorio_usuario"
 response_consulta  = "/sicop/restrito/usuario/consulta/"
@@ -24,8 +25,7 @@ titulo_relatorio    = "Relatorio Usuarios"
 planilha_relatorio  = "Usuarios"
 
 
-@login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
+@permission_required('sicop.usuario_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
     
     if request.method == "POST":
@@ -50,8 +50,7 @@ def consulta(request):
     request.session['relatorio_usuario'] = lista
     return render_to_response('sicop/restrito/usuario/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
-@login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super'}), login_url='/excecoes/permissao_negada/')
+@permission_required('sicop.usuario_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
     
     #servidor = Tbservidor.objects.all()
@@ -70,7 +69,7 @@ def cadastro(request):
                                    last_name = request.POST['last_name'],
                                    email = request.POST['email'],
                                    username = request.POST['username'],
-                                   is_superuser = True,
+                                   is_superuser = False,
                                    is_staff = True,
                                    is_active = ativo,
                                    last_login = datetime.datetime.now(),
@@ -82,8 +81,7 @@ def cadastro(request):
     return render_to_response('sicop/restrito/usuario/cadastro.html',{'divisao':divisao}, context_instance = RequestContext(request))
 
 
-@login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super'}), login_url='/excecoes/permissao_negada/')
+@permission_required('sicop.usuario_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     
     divisao = Tbdivisao.objects.all()
@@ -103,9 +101,6 @@ def edicao(request, id):
             result.setdefault(obj.name, False)
     result = sorted(result.items())
     
-    ativo = False
-    if request.POST.get('is_active',False):
-        ativo = True
         
     user_obj = get_object_or_404(AuthUser, id=id)
 
@@ -147,9 +142,9 @@ def edicao(request, id):
                                    last_name = request.POST['last_name'],
                                    email = request.POST['email'],
                                    username = request.POST['username'],
-                                   is_superuser = True,
-                                   is_staff = True,
-                                   is_active = ativo,
+                                   is_superuser = user_obj.is_superuser,
+                                   is_staff = user_obj.is_staff,
+                                   is_active = user_obj.is_active,
                                    last_login = user_obj.last_login,
                                    date_joined = user_obj.date_joined
                                    )
@@ -190,25 +185,26 @@ def edicao_usuario_logado(request, id):
     
         if request.method == "POST":
             
-            # verificando os grupos do usuario
-            for obj in grupo:
-                if request.POST.get(obj.name, False):
-                    #verificar se esse grupo ja esta ligado ao usuario
-                    res = AuthUserGroups.objects.all().filter( user = id, group = obj.id )
-                    if not res:
-                        # inserir ao authusergroups
-                        ug = AuthUserGroups( user = AuthUser.objects.get( pk = id ),
-                                              group = AuthGroup.objects.get( pk = obj.id ) )
-                        ug.save()
-                        #print obj.name + ' nao esta ligado a este usuario'
-                else:
-                    #verificar se esse grupo foi desligado do usuario
-                    res = AuthUserGroups.objects.all().filter( user = id, group = obj.id )
-                    if res:
-                        # excluir do authusergroups
-                        for aug in res:
-                            aug.delete()
-                        #print obj.name + ' desmarcou deste usuario'
+            if request.user.has_perm('sicop.usuario_grupo_edicao'):
+                # verificando os grupos do usuario
+                for obj in grupo:
+                    if request.POST.get(obj.name, False):
+                        #verificar se esse grupo ja esta ligado ao usuario
+                        res = AuthUserGroups.objects.all().filter( user = id, group = obj.id )
+                        if not res:
+                            # inserir ao authusergroups
+                            ug = AuthUserGroups( user = AuthUser.objects.get( pk = id ),
+                                                  group = AuthGroup.objects.get( pk = obj.id ) )
+                            ug.save()
+                            #print obj.name + ' nao esta ligado a este usuario'
+                    else:
+                        #verificar se esse grupo foi desligado do usuario
+                        res = AuthUserGroups.objects.all().filter( user = id, group = obj.id )
+                        if res:
+                            # excluir do authusergroups
+                            for aug in res:
+                                aug.delete()
+                            #print obj.name + ' desmarcou deste usuario'
                         
             if validacao(request, 'edicao'):
                 
@@ -226,14 +222,14 @@ def edicao_usuario_logado(request, id):
                                        last_name = request.POST['last_name'],
                                        email = request.POST['email'],
                                        username = request.POST['username'],
-                                       is_superuser = True,
-                                       is_staff = True,
+                                       is_superuser = user_obj.is_superuser,
+                                       is_staff = user_obj.is_staff,
                                        is_active = ativo,
                                        last_login = user_obj.last_login,
                                        date_joined = user_obj.date_joined
                                        )
                 usuario.save()
-                return HttpResponseRedirect("/sicop/restrito/usuario/edicao/"+str(id)+"/")
+                return HttpResponseRedirect("/sicop/restrito/usuario/edicao/usuario/"+str(id)+"/")
         
         return render_to_response('sicop/restrito/usuario/edicao.html', 
                                   {'result':result,'grupo':grupo,'usergrupo':userGrupo,'user_obj':user_obj,'divisao':divisao}, context_instance = RequestContext(request))
@@ -241,6 +237,7 @@ def edicao_usuario_logado(request, id):
         return HttpResponseRedirect("/sicop/restrito/usuario/edicao/"+str(id)+"/")
 
 
+@permission_required('sicop.usuario_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_pdf(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session[nome_relatorio]
@@ -257,6 +254,7 @@ def relatorio_pdf(request):
     else:
         return HttpResponseRedirect(response_consulta)
 
+@permission_required('sicop.usuario_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_ods(request):
 
     # montar objeto lista com os campos a mostrar no relatorio/pdf
@@ -291,6 +289,7 @@ def relatorio_ods(request):
     else:
         return HttpResponseRedirect( response_consulta )
 
+@permission_required('sicop.usuario_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_csv(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session[nome_relatorio]

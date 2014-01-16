@@ -1,0 +1,177 @@
+
+
+ok	1-	acrescentar tbdivisao_id = 1 na tabela tbservidor
+
+	2-	fazer backup somente dos dados com comandos sql
+
+	3-	recriar banco sicop e carregar com script sicop_schema.sql
+
+	4-	acrescentar tbdivisao_id = 1 na tabela auth_group
+
+	5-	colocar insert da divisao acima do auth_group no script de dados
+
+	6-	carregar dados salvos
+
+	6.1-	acrescentar tbuf_id = 10 na tabela tbgleba
+
+	7-	carregar dados da tabela django_content_type:
+
+INSERT INTO django_content_type (id, name, app_label, model) VALUES (1, 'servidor', 'servidor', 'tbservidor');
+INSERT INTO django_content_type (id, name, app_label, model) VALUES (2, 'documento', 'servidor', 'tbdocumento');
+INSERT INTO django_content_type (id, name, app_label, model) VALUES (3, 'tipo_documento', 'servidor', 'tbtipodocumento');
+INSERT INTO django_content_type (id, name, app_label, model) VALUES (4, 'documento memorando', 'servidor', 'tbdocumentomemorando');
+
+INSERT INTO django_content_type (id, name, app_label, model) VALUES (5, 'processo', 'sicop', 'tbprocessobase');
+INSERT INTO django_content_type (id, name, app_label, model) VALUES (6, 'processo urbano', 'sicop', 'tbprocessourbano');
+INSERT INTO django_content_type (id, name, app_label, model) VALUES (7, 'processo clausula', 'sicop', 'tbprocessoclausula');
+INSERT INTO django_content_type (id, name, app_label, model) VALUES (8, 'processo rural', 'sicop', 'tbprocessorural');
+
+INSERT INTO django_content_type (id, name, app_label, model) VALUES (9, 'peca tecnica', 'sicop', 'tbpecastecnicas');
+INSERT INTO django_content_type (id, name, app_label, model) VALUES (10, 'caixa', 'sicop', 'tbcaixa');
+INSERT INTO django_content_type (id, name, app_label, model) VALUES (11, 'tipo caixa', 'sicop', 'tbtipocaixa');
+
+INSERT INTO django_content_type (id, name, app_label, model) VALUES (12, 'gleba', 'sicop', 'tbgleba');
+INSERT INTO django_content_type (id, name, app_label, model) VALUES (13, 'sub area', 'sicop', 'tbsubarea');
+INSERT INTO django_content_type (id, name, app_label, model) VALUES (14, 'contrato', 'sicop', 'tbcontrato');
+INSERT INTO django_content_type (id, name, app_label, model) VALUES (15, 'pregao', 'sicop', 'tbpregao');
+
+INSERT INTO django_content_type (id, name, app_label, model) VALUES (16, 'tipo processo', 'sicop', 'tbtipoprocesso');
+INSERT INTO django_content_type (id, name, app_label, model) VALUES (17, 'classificacao processo', 'sicop', 'tbclassificacaoprocesso');
+INSERT INTO django_content_type (id, name, app_label, model) VALUES (18, 'situacao processo', 'sicop', 'tbsituacaoprocesso');
+INSERT INTO django_content_type (id, name, app_label, model) VALUES (19, 'situacao geo', 'sicop', 'tbsituacaogeo');
+INSERT INTO django_content_type (id, name, app_label, model) VALUES (20, 'tipo pendencia', 'sicop', 'tbtipopendencia');
+INSERT INTO django_content_type (id, name, app_label, model) VALUES (21, 'status pendencia', 'sicop', 'tbstatuspendencia');
+
+INSERT INTO django_content_type (id, name, app_label, model) VALUES (22, 'usuario', 'sicop', 'auth_user');
+INSERT INTO django_content_type (id, name, app_label, model) VALUES (23, 'grupo', 'sicop', 'auth_group');
+INSERT INTO django_content_type (id, name, app_label, model) VALUES (24, 'divisao', 'sicop', 'tbdivisao');
+
+
+	8-	carregar todas as permissoes. tabela auth_permission:
+
+
+-- SERVIDOR
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Servidor Consultar', 1, 'servidor_consulta');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Servidor Cadastrar', 1, 'servidor_cadastro');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Servidor Editar', 1, 'servidor_edicao');
+
+-- DOCUMENTO
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Documento Consultar', 2, 'documento_consulta');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Documento Cadastrar', 2, 'documento_cadastro');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Documento Editar', 2, 'documento_edicao');
+
+--TIPODOCUMENTO
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Tipo Documento Consultar', 3, 'tipo_documento_consulta');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Tipo Documento Cadastrar', 3, 'tipo_documento_cadastro');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Tipo Documento Editar', 3, 'tipo_documento_edicao');
+
+--DOCUMENTOMEMORANDO
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Documento Memorando Cadastrar', 4, 'documento_memorando_cadastro');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Documento Memorando Editar', 4, 'documento_memorando_edicao');
+
+--PROCESSO
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Processo Consultar', 5, 'processo_consulta');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Processo Cadastrar', 5, 'processo_cadastro');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Processo Editar', 5, 'processo_edicao');
+
+--URBANO
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Processo Urbano Cadastrar', 6, 'processo_urbano_cadastro');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Processo Urbano Editar', 6, 'processo_urbano_edicao');
+
+--CLAUSULA
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Processo Clausula Cadastrar', 7, 'processo_clausula_cadastro');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Processo Clausula Editar', 7, 'processo_clausula_edicao');
+
+--RURAL
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Processo Rural Cadastrar', 8, 'processo_rural_cadastro');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Processo Rural Editar', 8, 'processo_rural_edicao');
+
+--PECA
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Peça Técnica Consultar', 9, 'peca_tecnica_consulta');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Peça Técnica Cadastrar', 9, 'peca_tecnica_cadastro');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Peça Técnica Editar', 9, 'peca_tecnica_edicao');
+
+--CAIXA
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Caixa Consultar', 10, 'caixa_consulta');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Caixa Cadastrar', 10, 'caixa_cadastro');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Caixa Editar', 10, 'caixa_edicao');
+
+--TIPOCAIXA
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Tipo Caixa Consultar', 11, 'tipo_caixa_consulta');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Tipo Caixa Cadastrar', 11, 'tipo_caixa_cadastro');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Tipo Caixa Editar', 11, 'tipo_caixa_edicao');
+
+--GLEBA
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Gleba Consultar', 12, 'gleba_consulta');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Gleba Cadastrar', 12, 'gleba_cadastro');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Gleba Editar', 12, 'gleba_edicao');
+
+--SUBAREA
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Sub Área Consultar', 13, 'sub_area_consulta');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Sub Área Cadastrar', 13, 'sub_area_cadastro');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Sub Área Editar', 13, 'sub_area_edicao');
+
+--CONTRATO
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Contrato Consultar', 14, 'contrato_consulta');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Contrato Cadastrar', 14, 'contrato_cadastro');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Contrato Editar', 14, 'contrato_edicao');
+
+--PREGAO
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Pregão Consultar', 15, 'pregao_consulta');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Pregão Cadastrar', 15, 'pregao_cadastro');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Pregão Editar', 15, 'pregao_edicao');
+
+--TIPOPROCESSO
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Tipo Processo Consultar', 16, 'tipo_processo_consulta');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Tipo Processo Cadastrar', 16, 'tipo_processo_cadastro');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Tipo Processo Editar', 16, 'tipo_processo_edicao');
+
+--CLASSIFICACAOPROCESSO
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Classificação Processo Consultar', 17, 'classificacao_processo_consulta');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Classificação Processo Cadastrar', 17, 'classificacao_processo_cadastro');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Classificação Processo Editar', 17, 'classificacao_processo_edicao');
+
+--SITUACAOPROCESSO
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Situação Processo Consultar', 18, 'situacao_processo_consulta');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Situação Processo Cadastrar', 18, 'situacao_processo_cadastro');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Situação Processo Editar', 18, 'situacao_processo_edicao');
+
+--SITUACAOGEO
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Situação GEO Consultar', 19, 'situacao_geo_consulta');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Situação GEO Cadastrar', 19, 'situacao_geo_cadastro');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Situação GEO Editar', 19, 'situacao_geo_edicao');
+
+--TIPOPENDENCIA
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Tipo Pendência Consultar', 20, 'tipo_pendencia_consulta');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Tipo Pendência Cadastrar', 20, 'tipo_pendencia_cadastro');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Tipo Pendência Editar', 20, 'tipo_pendencia_edicao');
+
+--STATUSPENDENCIA
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Status Pendência Consultar', 21, 'status_pendencia_consulta');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Status Pendência Cadastrar', 21, 'status_pendencia_cadastro');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Status Pendência Editar', 21, 'status_pendencia_edicao');
+
+--USUARIO
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Usuário Consultar', 22, 'usuario_consulta');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Usuário Cadastrar', 22, 'usuario_cadastro');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Usuário Editar', 22, 'usuario_edicao');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Grupo de Usuário Editar', 22, 'usuario_grupo_edicao');
+
+--GRUPO
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Grupo Consultar', 23, 'grupo_consulta');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Grupo Cadastrar', 23, 'grupo_cadastro');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Grupo Editar', 23, 'grupo_edicao');
+
+--RELATORIO
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Relatório Processo x Peça', 5, 'processo_peca_consulta');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Relatório Peça x Gleba', 9, 'peca_gleba_consulta');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Relatório Peça não aprovada', 9, 'peca_nao_aprovada_consulta');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Relatório Peça rejeitada', 9, 'peca_rejeitada_consulta');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Relatório Peça sem processo', 9, 'peca_sem_processo_consulta');
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Relatório Peça validada', 9, 'peca_validada_consulta');
+
+
+	9-	Deixar somente os grupos como padrão: administrador, cadastro, consulta, servidorrh
+
+
+

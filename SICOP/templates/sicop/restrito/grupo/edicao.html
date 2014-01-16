@@ -15,10 +15,38 @@
 		{% csrf_token %}
 		<div style="width:100%;font-size:12px;text-align:left">
 				<table>
-				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td>{{ form.name }} </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td> <input name="nome" value="{{ grupo.name }}" /> </td> </tr>
 				</table>
 		</div>
+		
 		<br />
+		<table class="csstable"  style="width:100%">
+			<tbody>
+				<tr>
+					<td class="colunaTabelaConsulta" style="width:5%"> </td>
+					<td class="colunaTabelaConsulta" style="width:95%">Permissões</td>
+				</tr>
+				{% if permissao %}
+					{% for k,v in result %}
+						<tr>
+							<td class="colunaTabelaConsulta">
+								{% if v %}
+									<input checked="checked" name="{{ k }}" type="checkbox" />
+								{% else %}
+									<input name="{{ k }}" type="checkbox" />
+								{% endif %}
+							</td>
+							<td class="colunaTabelaConsulta">{{ k }}</td>
+						</tr>
+					{% endfor %}
+				{% else %}
+					<tr> <td style="padding-top: 20px" colspan="6"> Cadastre as permissoes do sistema </td> </tr>
+				{% endif %}
+			</tbody>
+		</table>
+		<br/>
+		
+		
 		<table style="width:100%">
 			<tr>
 				<td class="colunaTabela" style="text-align:left"> 

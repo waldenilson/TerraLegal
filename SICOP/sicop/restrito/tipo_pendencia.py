@@ -18,7 +18,7 @@ titulo_relatorio    = "Relatorio dos Tipos das Pendencias"
 planilha_relatorio  = "Tipos das Pendencias"
 
 
-@login_required
+@permission_required('sicop.tipo_pendencia_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
     if request.method == "POST":
         nome = request.POST['dspendencia']
@@ -30,8 +30,7 @@ def consulta(request):
     request.session['relatorio_tipo_pendencia'] = lista
     return render_to_response('sicop/restrito/tipo_pendencia/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
-@login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
+@permission_required('sicop.tipo_pendencia_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
     tipoprocesso = Tbtipoprocesso.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     if request.method == "POST":
@@ -45,8 +44,7 @@ def cadastro(request):
             return HttpResponseRedirect("/sicop/restrito/tipo_pendencia/consulta/") 
     return render_to_response('sicop/restrito/tipo_pendencia/cadastro.html',{'tipoprocesso':tipoprocesso}, context_instance = RequestContext(request))
 
-@login_required
-@user_passes_test( lambda u: verificar_permissao_grupo(u, {'Super','Administrador'}), login_url='/excecoes/permissao_negada/')
+@permission_required('sicop.tipo_pendencia_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     instance = get_object_or_404(Tbtipopendencia, id=id)
     tipoprocesso = Tbtipoprocesso.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
@@ -63,6 +61,7 @@ def edicao(request, id):
     return render_to_response('sicop/restrito/tipo_pendencia/edicao.html', {"tipopendencia":instance,'tipoprocesso':tipoprocesso}, context_instance = RequestContext(request))
 
 
+@permission_required('sicop.tipo_pendencia_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_pdf(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session[nome_relatorio]
@@ -79,6 +78,7 @@ def relatorio_pdf(request):
     else:
         return HttpResponseRedirect(response_consulta)
 
+@permission_required('sicop.tipo_pendencia_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_ods(request):
 
     # montar objeto lista com os campos a mostrar no relatorio/pdf
@@ -111,6 +111,7 @@ def relatorio_ods(request):
     else:
         return HttpResponseRedirect( response_consulta )
 
+@permission_required('sicop.tipo_pendencia_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_csv(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session[nome_relatorio]
