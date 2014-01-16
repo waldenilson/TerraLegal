@@ -611,6 +611,7 @@ CREATE TABLE tbgleba (
     cdgleba integer,
     nmgleba character varying(80) NOT NULL,
     tbsubarea_id integer NOT NULL,
+    tbuf_id integer,
     id integer NOT NULL
 );
 
@@ -2378,6 +2379,8 @@ CREATE INDEX tbcontrato_tbdivisao_id ON tbcontrato USING btree (tbdivisao_id);
 CREATE INDEX tbdivisao_tbuf_id ON tbdivisao USING btree (tbuf_id);
 
 
+CREATE INDEX tbgleba_tbuf_id ON tbgleba USING btree (tbuf_id);
+
 --
 -- TOC entry 2197 (class 1259 OID 5868194)
 -- Dependencies: 185 2351
@@ -3401,6 +3404,8 @@ ALTER TABLE ONLY tbtipoprocesso
 ALTER TABLE ONLY tbdivisao
     ADD CONSTRAINT tbuf_id_refs_id_c8d633fb FOREIGN KEY (tbuf_id) REFERENCES tbuf(id) DEFERRABLE INITIALLY DEFERRED;
 
+ALTER TABLE ONLY tbgleba
+    ADD CONSTRAINT tbuf_id_tbgleba FOREIGN KEY (tbuf_id) REFERENCES tbuf(id) DEFERRABLE INITIALLY DEFERRED;
 
 --
 -- TOC entry 2356 (class 0 OID 0)

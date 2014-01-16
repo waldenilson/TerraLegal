@@ -130,6 +130,7 @@ class Tbgleba(models.Model):
     cdgleba = models.IntegerField(null=True, blank=True)
     nmgleba = models.CharField(max_length=80, blank=True)
     tbsubarea = models.ForeignKey('Tbsubarea')
+    tbuf = models.ForeignKey('Tbuf', null=True, blank=True)
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbgleba'
