@@ -6,7 +6,7 @@ from django.template.context import RequestContext
 from django.contrib import messages
 from sicop.forms import FormPecasTecnicas
 from sicop.models import Tbpecastecnicas, Tbgleba, Tbcaixa, Tbcontrato,\
-    Tbprocessobase, Tbprocessorural, AuthUser
+    Tbprocessobase, Tbprocessorural, AuthUser, Tbdivisao
 from sicop.admin import verificar_permissao_grupo
 from django.http.response import HttpResponse
 from sicop.relatorio_base import relatorio_csv_base, relatorio_ods_base,\
@@ -57,9 +57,9 @@ def consulta(request):
 
 @permission_required('sicop.peca_tecnica_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
-    contrato = Tbcontrato.objects.all()
-    caixa = Tbcaixa.objects.all()
-    gleba = Tbgleba.objects.all()
+    contrato = Tbcontrato.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+    caixa = Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+    gleba = Tbgleba.objects.all().filter( tbuf__id = Tbdivisao.objects.get( pk = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).tbuf.id )
     
     enviadobrasilia = False
     if request.POST.get('stenviadobrasilia',False):
@@ -106,9 +106,9 @@ def cadastro(request):
 
 @permission_required('sicop.peca_tecnica_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
-    contrato = Tbcontrato.objects.all()
-    caixa = Tbcaixa.objects.all()
-    gleba = Tbgleba.objects.all()
+    contrato = Tbcontrato.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+    caixa = Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+    gleba = Tbgleba.objects.all().filter( tbuf__id = Tbdivisao.objects.get( pk = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).tbuf.id )
     
     enviadobrasilia = False
     if request.POST.get('stenviadobrasilia',False):

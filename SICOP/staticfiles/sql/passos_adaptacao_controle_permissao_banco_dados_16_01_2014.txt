@@ -1,18 +1,16 @@
 
 
-	1-	acrescentar tbdivisao_id = 1 na tabela tbservidor
+ok	1-	acrescentar tbdivisao_id = 1 na tabela tbservidor
 
 	2-	fazer backup somente dos dados com comandos sql
 
-	3-	acrescentar fk tbdivisao_id na tabela auth_group
+	3-	recriar banco sicop e carregar com script sicop_schema.sql
 
 	4-	acrescentar tbdivisao_id = 1 na tabela auth_group
 
-	5-	recriar banco sicop e carregar com script sicop_schema.sql
+	5-	colocar insert da divisao acima do auth_group no script de dados
 
-	5.1-	colocar insert da divisao acima do auth_group no script de dados
-
-	6-	carregar dados salvos no item 4
+	6-	carregar dados salvos
 
 	6.1-	acrescentar tbuf_id = 10 na tabela tbgleba
 

@@ -16,7 +16,7 @@ urlpatterns = patterns('',
     
     # ACESSO AO PUBLICO
     url(r'^$', 'web.views_publicas.inicio'),
-    url(r'^web/e_legal/', 'web.views_publicas.e_legal'),
+    url(r'^web/terra_legal/', 'web.views_publicas.terra_legal'),
     url(r'^web/equipe/', 'web.views_publicas.equipe'),
     url(r'^web/processo_rural/', 'web.views_publicas.processo_rural'),
     url(r'^web/regularizacao_urbana/', 'web.views_publicas.regularizacao_urbana'),
