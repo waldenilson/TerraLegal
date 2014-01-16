@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required, permission_required,\
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.forms import FormGleba
-from sicop.models import Tbgleba, Tbsubarea, AuthUser
+from sicop.models import Tbgleba, Tbsubarea, AuthUser, Tbdivisao
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from sicop.admin import verificar_permissao_grupo
@@ -23,9 +23,9 @@ planilha_relatorio  = "Glebas"
 def consulta(request):
     if request.method == "POST":
         nome = request.POST['nmgleba']
-        lista = Tbgleba.objects.all().filter( nmgleba__icontains=nome, tbsubarea__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        lista = Tbgleba.objects.all().filter( nmgleba__icontains=nome, tbuf__id = Tbdivisao.objects.get( pk = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).tbuf.id )
     else:
-        lista = Tbgleba.objects.all().filter( tbsubarea__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        lista = Tbgleba.objects.all().filter( tbuf__id = Tbdivisao.objects.get( pk = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).tbuf.id )
     lista = lista.order_by( 'nmgleba' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_gleba'] = lista
