@@ -167,11 +167,13 @@ function SomenteNumeroOK(e, obj)
 											<span>Início</span>
 										</a>
 									</li>
-									<li>
-										<a href="/login/" title="">
-											<span>O Sistema</span>
-										</a>
-									</li>
+									{% if not user.is_active %}
+										<li>
+											<a href="/login/" title="">
+												<span>O Sistema</span>
+											</a>
+										</li>
+									{% endif %}
 									<li>
 										<a href="/web/equipe/" title="">
 											<span>Equipe</span>
