@@ -171,7 +171,6 @@ def relatorio_pdf(request):
         response = HttpResponse(mimetype='application/pdf')
         doc = relatorio_pdf_base_header(response, nome_relatorio)   
         elements=[]
-        
         dados = relatorio_pdf_base_header_title(titulo_relatorio)
         dados.append( ('CPF','CAIXA') )
         for obj in lista:
