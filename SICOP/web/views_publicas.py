@@ -15,6 +15,9 @@ from reportlab.graphics.shapes import Image
 import time
 from reportlab.platypus.doctemplate import SimpleDocTemplate
 from reportlab.lib.pagesizes import letter
+import urllib2
+import json
+import pprint
 
 def inicio(request):
     return render(request, "web/index.html")
@@ -22,7 +25,7 @@ def inicio(request):
 def terra_legal(request):
     return render(request, "web/terra_legal.html")
 
-def equipe(request):
+def equipe(request):        
     return render(request, "web/equipe.html")
 
 def processo_rural(request):

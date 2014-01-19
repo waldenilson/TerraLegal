@@ -75,14 +75,17 @@ INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Processo 
 INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Processo Editar', 5, 'processo_edicao');
 
 --URBANO
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Processo Urbano Consultar', 6, 'processo_urbano_consulta');
 INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Processo Urbano Cadastrar', 6, 'processo_urbano_cadastro');
 INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Processo Urbano Editar', 6, 'processo_urbano_edicao');
 
 --CLAUSULA
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Processo Clausula Consultar', 7, 'processo_clausula_consulta');
 INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Processo Clausula Cadastrar', 7, 'processo_clausula_cadastro');
 INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Processo Clausula Editar', 7, 'processo_clausula_edicao');
 
 --RURAL
+INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Processo Rural Consultar', 8, 'processo_rural_consulta');
 INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Processo Rural Cadastrar', 8, 'processo_rural_cadastro');
 INSERT INTO auth_permission (name, content_type_id, codename) VALUES ('Processo Rural Editar', 8, 'processo_rural_edicao');
 

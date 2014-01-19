@@ -21,6 +21,7 @@ from sicop.relatorio_base import relatorio_csv_base, relatorio_ods_base,\
     relatorio_ods_base_header, relatorio_pdf_base,\
     relatorio_pdf_base_header_title, relatorio_pdf_base_header
 from odslib import ODS
+from django.contrib.auth.models import Permission
 
 nome_relatorio      = "relatorio_processo"
 response_consulta  = "/sicop/restrito/processo/consulta/"
@@ -34,17 +35,25 @@ def consulta(request):
     lista = []
     #lista = Tbprocessobase.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by( "dtcadastrosistema" )
     if request.method == "POST":
+        # consulta generica de processos
         numero = request.POST['numero']
+        
+        # consulta de processo rural e clausula
         cpf = request.POST['cpf']
         requerente = request.POST['requerente']
+        
+        # consulta de processo urbano
         cnpj = request.POST['cnpj']
         municipio = request.POST['municipio']
         
         if len(numero) >= 3:
 #            lista = Tbprocessobase.objects.all().filter( nrprocesso__contains = numero )
-            p_rural = Tbprocessorural.objects.all().filter( tbprocessobase__nrprocesso__contains = numero )
-            p_clausula = Tbprocessoclausula.objects.all().filter( tbprocessobase__nrprocesso__contains = numero )
-            p_urbano = Tbprocessourbano.objects.all().filter( tbprocessobase__nrprocesso__contains = numero )
+            if request.user.has_perm('sicop.processo_rural_consulta'):
+                p_rural = Tbprocessorural.objects.all().filter( tbprocessobase__nrprocesso__contains = numero )
+            if request.user.has_perm('sicop.processo_clausula_consulta'):
+                p_clausula = Tbprocessoclausula.objects.all().filter( tbprocessobase__nrprocesso__contains = numero )
+            if request.user.has_perm('sicop.processo_urbano_consulta'):
+                p_urbano = Tbprocessourbano.objects.all().filter( tbprocessobase__nrprocesso__contains = numero )
             lista = []
             for obj in p_rural:
                 lista.append( obj )
@@ -57,8 +66,10 @@ def consulta(request):
                 messages.add_message(request,messages.WARNING,'Informe no minimo 3 caracteres no campo Processo.')
         
         if len(cpf) >= 3 :
-            p_rural = Tbprocessorural.objects.all().filter( nrcpfrequerente__contains = cpf )
-            p_clausula = Tbprocessoclausula.objects.all().filter( nrcpfrequerente__contains = cpf )
+            if request.user.has_perm('sicop.processo_rural_consulta'):
+                p_rural = Tbprocessorural.objects.all().filter( nrcpfrequerente__contains = cpf )
+            if request.user.has_perm('sicop.processo_clausula_consulta'):
+                p_clausula = Tbprocessoclausula.objects.all().filter( nrcpfrequerente__contains = cpf )
             lista = []
             for obj in p_rural:
                 lista.append( obj )
@@ -69,8 +80,10 @@ def consulta(request):
                 messages.add_message(request,messages.WARNING,'Informe no minimo 3 caracteres no campo CPF.')
                 
         if len(requerente) >= 3 :
-            p_rural = Tbprocessorural.objects.all().filter( nmrequerente__icontains = requerente )
-            p_clausula = Tbprocessoclausula.objects.all().filter( nmrequerente__icontains = requerente )
+            if request.user.has_perm('sicop.processo_rural_consulta'):
+                p_rural = Tbprocessorural.objects.all().filter( nmrequerente__icontains = requerente )
+            if request.user.has_perm('sicop.processo_clausula_consulta'):
+                p_clausula = Tbprocessoclausula.objects.all().filter( nmrequerente__icontains = requerente )
             lista = []
             for obj in p_rural:
                 lista.append( obj )
@@ -79,15 +92,17 @@ def consulta(request):
         else:
             if len(requerente) > 0 and len(requerente) < 3:
                 messages.add_message(request,messages.WARNING,'Informe no minimo 3 caracteres no campo Requerente.')
-                        
+        
         if len(cnpj) >= 3 :
-            p_urbano = Tbprocessourbano.objects.all().filter( nrcnpj__contains = cnpj ) 
+            if request.user.has_perm('sicop.processo_urbano_consulta'):
+                p_urbano = Tbprocessourbano.objects.all().filter( nrcnpj__contains = cnpj ) 
             lista = []
             for obj in p_urbano:
                 lista.append( obj )
-
+    
         if len(municipio) >= 3 :
-            p_urbano = Tbprocessourbano.objects.all().filter( tbprocessobase__tbmunicipio__nome_mun__icontains = municipio ) 
+            if request.user.has_perm('sicop.processo_urbano_consulta'):
+                p_urbano = Tbprocessourbano.objects.all().filter( tbprocessobase__tbmunicipio__nome_mun__icontains = municipio ) 
             lista = []
             for obj in p_urbano:
                 lista.append( obj ) 
