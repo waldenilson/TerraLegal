@@ -45,15 +45,18 @@ def consulta(request):
         # consulta de processo urbano
         cnpj = request.POST['cnpj']
         municipio = request.POST['municipio']
+        p_rural = []
+        p_clausula = []
+        p_urbano = []
         
         if len(numero) >= 3:
 #            lista = Tbprocessobase.objects.all().filter( nrprocesso__contains = numero )
             if request.user.has_perm('sicop.processo_rural_consulta'):
-                p_rural = Tbprocessorural.objects.all().filter( tbprocessobase__nrprocesso__contains = numero )
+                p_rural = Tbprocessorural.objects.all().filter( tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural' )
             if request.user.has_perm('sicop.processo_clausula_consulta'):
-                p_clausula = Tbprocessoclausula.objects.all().filter( tbprocessobase__nrprocesso__contains = numero )
+                p_clausula = Tbprocessoclausula.objects.all().filter( tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessoclausula' )
             if request.user.has_perm('sicop.processo_urbano_consulta'):
-                p_urbano = Tbprocessourbano.objects.all().filter( tbprocessobase__nrprocesso__contains = numero )
+                p_urbano = Tbprocessourbano.objects.all().filter( tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessourbano' )
             lista = []
             for obj in p_rural:
                 lista.append( obj )
@@ -67,9 +70,9 @@ def consulta(request):
         
         if len(cpf) >= 3 :
             if request.user.has_perm('sicop.processo_rural_consulta'):
-                p_rural = Tbprocessorural.objects.all().filter( nrcpfrequerente__contains = cpf )
+                p_rural = Tbprocessorural.objects.all().filter( nrcpfrequerente__contains = cpf, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural' )
             if request.user.has_perm('sicop.processo_clausula_consulta'):
-                p_clausula = Tbprocessoclausula.objects.all().filter( nrcpfrequerente__contains = cpf )
+                p_clausula = Tbprocessoclausula.objects.all().filter( nrcpfrequerente__contains = cpf, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessoclausula' )
             lista = []
             for obj in p_rural:
                 lista.append( obj )
@@ -81,9 +84,9 @@ def consulta(request):
                 
         if len(requerente) >= 3 :
             if request.user.has_perm('sicop.processo_rural_consulta'):
-                p_rural = Tbprocessorural.objects.all().filter( nmrequerente__icontains = requerente )
+                p_rural = Tbprocessorural.objects.all().filter( nmrequerente__icontains = requerente, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural' )
             if request.user.has_perm('sicop.processo_clausula_consulta'):
-                p_clausula = Tbprocessoclausula.objects.all().filter( nmrequerente__icontains = requerente )
+                p_clausula = Tbprocessoclausula.objects.all().filter( nmrequerente__icontains = requerente, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessoclausula' )
             lista = []
             for obj in p_rural:
                 lista.append( obj )
@@ -95,14 +98,14 @@ def consulta(request):
         
         if len(cnpj) >= 3 :
             if request.user.has_perm('sicop.processo_urbano_consulta'):
-                p_urbano = Tbprocessourbano.objects.all().filter( nrcnpj__contains = cnpj ) 
+                p_urbano = Tbprocessourbano.objects.all().filter( nrcnpj__contains = cnpj, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessourbano' ) 
             lista = []
             for obj in p_urbano:
                 lista.append( obj )
     
         if len(municipio) >= 3 :
             if request.user.has_perm('sicop.processo_urbano_consulta'):
-                p_urbano = Tbprocessourbano.objects.all().filter( tbprocessobase__tbmunicipio__nome_mun__icontains = municipio ) 
+                p_urbano = Tbprocessourbano.objects.all().filter( tbprocessobase__tbmunicipio__nome_mun__icontains = municipio, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessourbano' ) 
             lista = []
             for obj in p_urbano:
                 lista.append( obj ) 
