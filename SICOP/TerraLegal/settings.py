@@ -5,28 +5,14 @@ DEBUG = False
 
 TEMPLATE_DEBUG = DEBUG
 
-import socket
+#import socket
 #print socket.gethostname()
 
-if socket.gethostname() == 'mslsbrgf00r.sls.incra.gov.br':
-    DEBUG = TEMPLATE_DEBUG = True
-    DATABASES = {
-    'default': {
+DEBUG = TEMPLATE_DEBUG = True
+DATABASES = {
+        'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', 
-        'NAME': 'dbSicop_homologa',                      
-        'USER': 'admin',
-        'PASSWORD': '123456',
-        'HOST': 'localhost',                      
-        'PORT': '5432'                      
-        },
-    }
-else: #local / desenvolvimento
-    print socket.gethostname
-    DEBUG = TEMPLATE_DEBUG = True
-    DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', 
-        'NAME': 'sicop',                      
+        'NAME': 'dbSicop',                      
         'USER': 'admin',
         'PASSWORD': '123456',
         'HOST': 'localhost',                      
