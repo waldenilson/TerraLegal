@@ -32,7 +32,7 @@ planilha_relatorio  = "Documentos"
 def consulta(request):
     # carrega os processos da divisao do usuario logado
     lista = []
-    #lista = Tbprocessobase.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by( "dtcadastrosistema" )
+    #lista = Tbdocumentobase.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by( "dtdocumento" )
     if request.method == "POST":
         nome = request.POST['nome']
         

@@ -7,8 +7,14 @@ from sicop.models import Tbtipoprocesso, Tbcaixa, Tbgleba, Tbmunicipio, AuthUser
     Tbdocumentomemorando
 from sicop.forms import FormProcessoRural, FormProcessoBase
 from django.contrib import messages
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponseRedirect, HttpResponse
 import datetime
+from reportlab.platypus.flowables import Spacer
+from reportlab.platypus.paragraph import Paragraph
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.enums import TA_JUSTIFY
+import time
+from reportlab.platypus.doctemplate import SimpleDocTemplate
 
 #10.12.0.60
 
@@ -53,8 +59,73 @@ def cadastro(request):
         {'tipodocumento':tipodocumento, 'documento':escolha, 'div_documento':div_documento}, context_instance = RequestContext(request))    
 
 @permission_required('servidor.documento_memorando_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
-def link_arquivo(request, id):    
-    return HttpResponseRedirect("/sicop/restrito/documento/arquivo.pdf")
+def criacao(request, id):   
+    
+    memorando = get_object_or_404(Tbdocumentomemorando, id=id)
+    base  = get_object_or_404(Tbdocumentobase, id=memorando.tbdocumentobase.id)
+    print base.nmdocumento
+    
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="'+base.nmdocumento+'.pdf"'
+
+    doc = SimpleDocTemplate(response, rightMargin=72,leftMargin=72, topMargin=72,bottomMargin=18)
+    
+    Story=[]
+    magName = "Pythonista"
+    issueNum = 12
+    subPrice = "99.00"
+    limitedDate = "03/05/2010"
+    freeGift = "tin foil hat"
+     
+    formatted_time = time.ctime()
+    full_name = memorando.nmassunto
+     
+    styles=getSampleStyleSheet()
+    styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY))
+    ptext = '<font size=12>%s</font>' % formatted_time
+     
+    Story.append(Paragraph(ptext, styles["Normal"]))
+    Story.append(Spacer(1, 12))
+     
+    # Create return address
+    ptext = '<font size=12>%s</font>' % full_name
+    Story.append(Paragraph(ptext, styles["Normal"]))       
+     
+    Story.append(Spacer(1, 12))
+    Story.append(Spacer(1, 12))
+       
+     
+#    ptext = '<font size=12>We would like to welcome you to our subscriber base for %s Magazine! \
+#            You will receive %s issues at the excellent introductory price of $%s. Please respond by\
+#            %s to start receiving your subscription and get the following free gift: %s.</font>' % (magName, 
+#                                                                                                   issueNum,
+#                                                                                                    subPrice,
+#                                                                                                    limitedDate,
+#                                                                                                    freeGift)
+    
+    corpo = memorando.nmmensagem
+    
+    ptext = '<font size=12>'+corpo+'</font>'
+    
+    Story.append(Paragraph(ptext, styles["Justify"]))
+    Story.append(Spacer(1, 12))
+          
+    ptext = '<font size=12>'+memorando.nmlocal+'</font>'
+    Story.append(Paragraph(ptext, styles["Normal"]))
+    Story.append(Spacer(1, 12))
+
+    ptext = '<font size=12>'+memorando.nmremetente+'</font>'
+    Story.append(Paragraph(ptext, styles["Normal"]))
+    Story.append(Spacer(1, 12))
+
+    ptext = '<font size=12>'+memorando.nmdestinatario+'</font>'
+    Story.append(Paragraph(ptext, styles["Normal"]))
+    Story.append(Spacer(1, 12))
+    
+    doc.build(Story)
+    
+    return response
+
 
 @permission_required('servidor.documento_memorando_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
