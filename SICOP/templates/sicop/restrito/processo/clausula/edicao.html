@@ -245,7 +245,7 @@
 				<tr>
 					<td class="colunaTabelaConsulta">{{ anexo.dtanexado.day }}/{{ anexo.dtanexado.month }}/{{ anexo.dtanexado.year }}</td>
 					<td class="colunaTabelaConsulta">{{ anexo.tbprocessobase_id_anexo.nrprocesso }}</td>
-					<td class="colunaTabelaConsulta">{{	anexo.tbprocessobase.auth_user.first_name }}</td>
+					<td class="colunaTabelaConsulta">{{	anexo.auth_user.first_name }}</td>
 				</tr>
 				{% endfor %} {% else %}
 				<tr>
