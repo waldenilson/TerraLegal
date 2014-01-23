@@ -147,7 +147,7 @@ function SomenteNumeroOK(e, obj)
 							{% filter force_escape %}  {% firstof user.get_short_name user.get_username %} {% endfilter %}
 							</a> 
 							| 
-							Divisão: {{ user.get_tbdivisao_id }} | <a href="/logout/">Sair do Sistema</a>
+							Divisão: {{ request.session.divisao }} | <a href="/logout/">Sair do Sistema</a>
 						{% endif %}			
 				</div>
 				
