@@ -31,6 +31,7 @@ planilha_relatorio  = "Processos"
 
 @permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
+        
     # carrega os processos da divisao do usuario logado
     lista = []
     #lista = Tbprocessobase.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by( "dtcadastrosistema" )
