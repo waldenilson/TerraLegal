@@ -41,7 +41,7 @@ def cadastro(request):
     #contrato = Tbcontrato.objects.all()
     #caixa = Tbcaixa.objects.filter( tbtipocaixa = 2 )
     #gleba = Tbgleba.objects.all()
-    divisao = Tbdivisao.objects.all()
+    divisao = Tbdivisao.objects.all().order_by('nmdivisao')
     if request.method == "POST":
         if validacao(request):
             _nrCPF = request.POST['nrcpf'].replace('.','').replace('-','')
