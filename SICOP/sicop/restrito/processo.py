@@ -22,6 +22,7 @@ from sicop.relatorio_base import relatorio_csv_base, relatorio_ods_base,\
     relatorio_pdf_base_header_title, relatorio_pdf_base_header
 from odslib import ODS
 from django.contrib.auth.models import Permission
+from sicop import admin
 
 nome_relatorio      = "relatorio_processo"
 response_consulta  = "/sicop/restrito/processo/consulta/"
@@ -601,8 +602,7 @@ def validarAnexo(request_form, base, processoanexo):
     result = Tbprocessosanexos.objects.all().filter( tbprocessobase = base.id, tbprocessobase_id_anexo__nrprocesso = processoanexo )
     if result:
         messages.add_message(request_form, messages.WARNING, 'Processo '+processoanexo+' ja anexado.')
-        warning = False        
-    
+        warning = False
     return warning
     
 def formatDataToText( formato_data ):
