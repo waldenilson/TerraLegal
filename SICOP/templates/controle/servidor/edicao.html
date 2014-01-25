@@ -8,6 +8,7 @@
 <div id="tabs" style="color:black;width:100%;font-size:11px">
 <ul>
 	<li><a href="#tabs-1">EDITAR SERVIDOR</a></li>
+	<li><a href="#tabs-2">FERIAS</a></li>
 </ul>
 
 <div id="tabs-1">
@@ -40,5 +41,38 @@
 		</table>
 	</form>
 </div>
-</div>		
+		
+<div id="tabs-2">
+<form method="post" action="">
+	{% if ferias %}
+	<table class="csstable">
+			<tbody>
+				<tr>
+					<td class="colunaTabelaConsulta" style="width:20%">Ano</td>
+					<td class="colunaTabelaConsulta" style="width:80%">Situacao</td>
+				</tr>					    
+				
+					{% for obj in ferias %}
+						<tr onclick="editarID('/controle/restrito/servidor/edicaoferias/{{ obj.id }}');">
+						     
+							<td class="colunaTabelaConsulta" align="left" >{{ obj.nrAno }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.stSituacao }}</td>
+						</tr>
+					{% endfor %}
+			</body>
+		</table>
+		{% else %}
+			<a  style="padding-top: 20px" colspan="6"> Servidor sem ferias cadastradas </a>
+		{% endif %}
+	
+		</br></br>
+		<tr>	<td class="colunaTabela" style="text-align:left"> 
+		<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
+		<a href="/controle/restrito/servidor/cadastroferias/{{ servidor.id }}/"> <input class="button_green" value="NOVO PEDIDO" type="button" /> </a>
+		</td></tr>
+	
+</form>
+</div>
+</div>
+
 {% endblock %}

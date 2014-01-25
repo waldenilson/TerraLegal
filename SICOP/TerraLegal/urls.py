@@ -235,7 +235,8 @@ urlpatterns = patterns('',
     url(r'^controle/restrito/servidor/relatorio/pdf/', 'servidor.restrito.servidor.relatorio_pdf'),
     url(r'^controle/restrito/servidor/relatorio/ods/', 'servidor.restrito.servidor.relatorio_ods'),
     url(r'^controle/restrito/servidor/relatorio/csv/', 'servidor.restrito.servidor.relatorio_csv'),
-       
+    url(r'^controle/restrito/servidor/edicaoferias/(?P<id>\d+)/', 'servidor.restrito.servidor.edicaoferias'),
+    url(r'^controle/restrito/servidor/cadastroferias/(?P<id>\d+)/', 'servidor.restrito.servidor.cadastroferias'),
     #END------------------------------CONTROLE---------------------------------------------------------------------------------
         
     # CONTROLE AUTENTICACAO

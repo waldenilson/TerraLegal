@@ -1,0 +1,64 @@
+{% extends "base/cadastro_base.html" %} 
+{% load staticfiles %} 
+{% block breadcumbs %}
+	Acesso Restrito | Servidor | Edicao Ferias
+{% endblock %}
+
+{% block formulario %}
+<div id="tabs" style="color:black;width:100%;font-size:11px">
+<ul>
+	<li><a href="#tabs-1">EDITAR FERIAS SERVIDOR </a></li>
+</ul>
+
+<div id="tabs-1">
+	<form method="post" action=".">
+		{% csrf_token %}
+		<div style="width:100%;font-size:12px;text-align:left">
+				<table>
+				<tr><td class="colunaTabela"> <label>Servidor:</label> </td>	<td>	{{ servidor.nmservidor }}</td> </tr></br>
+				</table>
+				
+				<table>
+				<tr> <td class="colunaTabela"> <label>Ano:</label> </td><td> <input name="nrAno" size=4 value="{{ferias.nrAno }}" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Inicio 1o.Periodo:</label> </td> <td> <input size=9 value="{{dtInicio1}}" id="date2" name ="dtInicio1"/> </td>
+					 <td class="colunaTabela"> <label>Dias:</label> </td><td> <input name ="nrDias1" size=5 value="{{ ferias.nrDias1 }}" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Inicio 2o.Periodo:</label> </td> <td> <input size=9 name ="dtInicio2" id="date" value="{{dtInicio2}}" /> </td>
+				     <td class="colunaTabela"> <label>Dias:</label> </td><td> <input name ="nrDias2" size=5 value="{{ ferias.nrDias2 }}" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Inicio 3o.Periodo:</label> </td> <td> <input size=9 name ="dtInicio3" id="date3" value="{{dtInicio3}}" /> </td>
+				     <td class="colunaTabela"> <label>Dias:</label> </td><td> <input name ="nrDias3" size=5 value="{{ ferias.nrDias3 }}" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Antecipa:</label> </td>
+				   <td>
+				   	{% if ferias.stAntecipa == True %} 
+						<input checked="checked" type="checkbox" name="stAntecipa" />
+					{% else %}
+						<input type="checkbox" name="stAntecipa" />
+					{% endif %} 
+				   </td>
+				</tr>
+				<tr> <td class="colunaTabela"> <label>Decimo Terceiro:</label> </td>
+				   <td>
+				   	{% if ferias.stDecimoTerceiro == True %} 
+						<input checked="checked" type="checkbox" name="stDecimoTerceiro" />
+					{% else %}
+						<input type="checkbox" name="stDecimoTerceiro" />
+					{% endif %} 
+				   </td>
+				</tr>
+				<tr><td class="colunaTabela"><label> Situacao: </label></td><td><input <input name ="stSituacao" size=20 value="{{ ferias.stSituacao }}" /> </td> </tr>
+													
+				</table>
+		</div>
+		<br />
+		<table style="width:100%">
+			<tr>
+				<td class="colunaTabela" style="text-align:left"> 
+					<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
+					<input type="submit" class="button_green" value="SALVAR" />
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+</div>
+
+{% endblock %}

@@ -6,7 +6,7 @@ from sicop.models import Tbpecastecnicas, Tbprocessobase, Tbtipopendencia,\
     Tbclassificacaoprocesso,\
     Tbtipoprocesso, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano,\
     Tbsituacaoprocesso, Tbsituacaogeo , Tbservidor, AuthGroup, Tbdivisao,\
-    Tbpendencia
+    Tbpendencia, Tbferias
 
 
 class FormPecasTecnicas(forms.ModelForm):
@@ -21,6 +21,12 @@ class FormServidor(forms.ModelForm):
         fields = ('nmservidor','nmunidade','nmlotacao','cdsiape','nrcpf',
                   'dsportariacargo','dsportaria','nmcargo','nrtelefone1','nrtelefone2',
                   'email','dsatividades')
+        
+class FormFerias(forms.ModelForm):
+    class Meta:
+        model = Tbferias
+        fields = ('nrAno','dtInicio1','nrDias1','dtInicio2','nrDias2','dtInicio3',
+                  'nrDias3','stAntecipa','stDecimoTerceiro','stSituacao')
 
 # ----PROCESSOS----------------------------------------------------------------------------------------------------------------------
 class FormProcessoBase(models.ModelForm):
