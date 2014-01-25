@@ -21,7 +21,7 @@ response_consulta  = "/controle/restrito/servidor/consulta/"
 titulo_relatorio    = "Relatorio Servidores"
 planilha_relatorio  = "Servidores"
 
-#SERVIDORES -----------------------------------------------------------------------------------------------------------------------------
+#SERVIDOR-----------------------------------------------------------------------------------------------------------------------------
 
 @permission_required('servidor.servidor_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
