@@ -32,7 +32,7 @@ def consulta(request):
 
 @permission_required('sicop.tipo_pendencia_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
-    tipoprocesso = Tbtipoprocesso.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+    tipoprocesso = Tbtipoprocesso.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nome')
     if request.method == "POST":
         if validacao(request):
             f_tipopendencia = Tbtipopendencia(
@@ -47,7 +47,7 @@ def cadastro(request):
 @permission_required('sicop.tipo_pendencia_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     instance = get_object_or_404(Tbtipopendencia, id=id)
-    tipoprocesso = Tbtipoprocesso.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+    tipoprocesso = Tbtipoprocesso.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nome')
     if request.method == "POST":
             print request.POST['tbtipoprocesso'] 
             f_tipopendencia = Tbtipopendencia(

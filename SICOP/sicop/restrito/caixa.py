@@ -44,7 +44,7 @@ def consulta(request):
 
 @permission_required('sicop.caixa_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
-    tipocaixa = Tbtipocaixa.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+    tipocaixa = Tbtipocaixa.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmtipocaixa')
     if request.method == "POST":
         next = request.GET.get('next', '/')
         form = FormCaixa(request.POST)
@@ -61,7 +61,7 @@ def cadastro(request):
 
 @permission_required('sicop.caixa_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
-    tipocaixa = Tbtipocaixa.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+    tipocaixa = Tbtipocaixa.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmtipocaixa')
     instance = get_object_or_404(Tbcaixa, id=id)
     if request.method == "POST":
         form = FormCaixa(request.POST,request.FILES,instance=instance)

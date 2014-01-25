@@ -18,8 +18,13 @@ from reportlab.lib.pagesizes import letter
 import urllib2
 import json
 import pprint
+from sicop.models import AuthUser
 
 def inicio(request):
+    if request.user.id is not None:
+        # gravando na sessao a divisao do usuario logado
+        request.session['divisao'] = AuthUser.objects.get( pk = request.user.id ).tbdivisao.nmdivisao +" - "+AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.nmuf
+    
     return render(request, "web/index.html")
 
 def terra_legal(request):

@@ -33,7 +33,7 @@ def consulta(request):
 
 @permission_required('sicop.gleba_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
-    subarea = Tbsubarea.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+    subarea = Tbsubarea.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmsubarea')
     if request.method == "POST":
         next = request.GET.get('next', '/')
         form = FormGleba(request.POST)
@@ -50,7 +50,7 @@ def cadastro(request):
 
 @permission_required('sicop.gleba_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
-    subarea = Tbsubarea.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+    subarea = Tbsubarea.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmsubarea')
     instance = get_object_or_404(Tbgleba, id=id)
     if request.method == "POST":
         form = FormGleba(request.POST,request.FILES,instance=instance)

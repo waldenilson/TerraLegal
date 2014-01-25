@@ -54,7 +54,7 @@ def consulta(request):
 def cadastro(request):
     
     #servidor = Tbservidor.objects.all()
-    divisao = Tbdivisao.objects.all()
+    divisao = Tbdivisao.objects.all().order_by('nmdivisao')
     
     ativo = False
     if request.POST.get('is_active',False):
@@ -84,8 +84,8 @@ def cadastro(request):
 @permission_required('sicop.usuario_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     
-    divisao = Tbdivisao.objects.all()
-    grupo = AuthGroup.objects.all()
+    divisao = Tbdivisao.objects.all().order_by('nmdivisao')
+    grupo = AuthGroup.objects.all().order_by('name')
     #servidor = Tbservidor.objects.all()
     userGrupo = AuthUserGroups.objects.all().filter( user = id )
     

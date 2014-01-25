@@ -22,6 +22,7 @@ from sicop.relatorio_base import relatorio_csv_base, relatorio_ods_base,\
     relatorio_pdf_base_header_title, relatorio_pdf_base_header
 from odslib import ODS
 from django.contrib.auth.models import Permission
+from sicop import admin
 
 nome_relatorio      = "relatorio_processo"
 response_consulta  = "/sicop/restrito/processo/consulta/"
@@ -31,6 +32,7 @@ planilha_relatorio  = "Processos"
 
 @permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
+        
     # carrega os processos da divisao do usuario logado
     lista = []
     #lista = Tbprocessobase.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by( "dtcadastrosistema" )
@@ -115,8 +117,6 @@ def consulta(request):
         
     # gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_processo'] = lista
-    # gravando na sessao a divisao do usuario logado
-    request.session['divisao'] = AuthUser.objects.get( pk = request.user.id ).tbdivisao.nmdivisao +" - "+AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.nmuf
         
     return render_to_response('sicop/restrito/processo/consulta.html',{'lista':lista}, context_instance = RequestContext(request))
 
@@ -406,7 +406,7 @@ def edicao(request, id):
             # caixas que podem ser tramitadas
             tram = []
             for obj in caixasdestino:
-                if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'PAD':
+                if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'PAD' or obj.tbtipocaixa.nmtipocaixa == 'FT':
                     tram.append( obj )
                 
             return render_to_response('sicop/restrito/processo/rural/edicao.html',
@@ -417,13 +417,13 @@ def edicao(request, id):
         else:
             if tipo == "tbprocessourbano":
                 urbano = Tbprocessourbano.objects.get( tbprocessobase = id )
-                pregao = Tbpregao.objects.all()
+                pregao = Tbpregao.objects.all().order_by('nrpregao')
                 dtaberturaprocesso = formatDataToText( urbano.dtaberturaprocesso )
                 dttitulacao = formatDataToText( urbano.dttitulacao )
                 # caixas que podem ser tramitadas
                 tram = []
                 for obj in caixasdestino:
-                    if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'URB':
+                    if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'URB' or obj.tbtipocaixa.nmtipocaixa == 'FT':
                         tram.append( obj )
                 return render_to_response('sicop/restrito/processo/urbano/edicao.html',
                                           {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'situacaogeo':situacaogeo,
@@ -438,7 +438,7 @@ def edicao(request, id):
                     # caixas que podem ser tramitadas
                     tram = []
                     for obj in caixasdestino:
-                        if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'RES':
+                        if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'RES' or obj.tbtipocaixa.nmtipocaixa == 'FT':
                             tram.append( obj )
                     return render_to_response('sicop/restrito/processo/clausula/edicao.html',
                                               {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
@@ -470,7 +470,7 @@ def cadastro(request):
             if escolha == "tbprocessourbano":
                 div_processo = "urbano"
                 carregarTbAuxProcesso(request, 'URB')
-                pregao = Tbpregao.objects.all()
+                pregao = Tbpregao.objects.all().order_by('nrpregao')
                 return render_to_response('sicop/restrito/processo/cadastro.html',
                     {'tipoprocesso':tipoprocesso,'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                      'caixa':caixa,'municipio':municipio,'processo':escolha,'pregao':pregao,
@@ -602,8 +602,7 @@ def validarAnexo(request_form, base, processoanexo):
     result = Tbprocessosanexos.objects.all().filter( tbprocessobase = base.id, tbprocessobase_id_anexo__nrprocesso = processoanexo )
     if result:
         messages.add_message(request_form, messages.WARNING, 'Processo '+processoanexo+' ja anexado.')
-        warning = False        
-    
+        warning = False
     return warning
     
 def formatDataToText( formato_data ):
@@ -624,19 +623,19 @@ def formatDataToText( formato_data ):
 def carregarTbAuxProcesso(request, tipo):
     global caixa, contrato, gleba, situacaoprocesso, situacaogeo
     caixa = []
-    for obj in Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ):
-        if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == tipo:
+    for obj in Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmlocalarquivo'):
+        if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'FT' or obj.tbtipocaixa.nmtipocaixa == tipo:
             caixa.append( obj )
     
-    gleba = Tbgleba.objects.all().filter( tbuf__id = Tbdivisao.objects.get( pk = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).tbuf.id )
-    contrato = Tbcontrato.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-    situacaogeo = Tbsituacaogeo.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-    situacaoprocesso = Tbsituacaoprocesso.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+    gleba = Tbgleba.objects.all().filter( tbuf__id = Tbdivisao.objects.get( pk = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).tbuf.id ).order_by('nmgleba')
+    contrato = Tbcontrato.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nrcontrato')
+    situacaogeo = Tbsituacaogeo.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmsituacaogeo')
+    situacaoprocesso = Tbsituacaoprocesso.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmsituacao')
 
 def carregarTbAuxFuncoesProcesso(request, base):
     global pendencia, tipopendencia, statuspendencia
-    pendencia = Tbpendencia.objects.all().filter( tbprocessobase = base.id )
-    tipopendencia = Tbtipopendencia.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+    pendencia = Tbpendencia.objects.all().filter( tbprocessobase = base.id ).order_by('dsdescricao')
+    tipopendencia = Tbtipopendencia.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('dspendencia')
     statuspendencia = Tbstatuspendencia.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by("dspendencia")
 
 
