@@ -93,10 +93,19 @@ def edicaoferias(request, id): #esse id se refere as ferias
     dtInicio1 = formatDataToText(ferias.dtInicio1)
     dtInicio2 = formatDataToText(ferias.dtInicio2)
     dtInicio3 = formatDataToText(ferias.dtInicio3)
+    
+    if ferias.nrDias1 == None:
+        ferias.nrDias1 = ""
+    if ferias.nrDias2 == None:
+        ferias.nrDias2 = ""
+    if ferias.nrDias3 == None:
+        ferias.nrDias3 = ""
+     
+        
     print "antes do POST"
     print servidor.id
     if request.method == "POST":
-        print"POST"
+        print "POST"
         stAntecipa = False
         if request.POST.get('stAntecipa',False):
                 stAntecipa = True
@@ -112,13 +121,21 @@ def edicaoferias(request, id): #esse id se refere as ferias
         dtInicio3 = None
         if request.POST['dtInicio3']:
             dtInicio3 = datetime.datetime.strptime( request.POST['dtInicio3'], "%d/%m/%Y")
-        nrDias2 = None
-        if not request.POST['nrDias2']:
+        
+             
+        nrDias2 = request.POST['nrDias2']
+        if nrDias2 == "":
             nrDias2 = None
-        nrDias3 = None
-        if not request.POST['nrDias3']:
+   
+        nrDias3 = request.POST['nrDias3']
+        if nrDias3 == "":
             nrDias3 = None
         
+        print request.POST['nrDias2']
+        print request.POST['nrDias3']
+        
+        
+          
         f_ferias = Tbferias(
                     id = ferias.id,# se nao colocar essa linha ele cria um novo
                     tbservidor_id = servidor.id,
