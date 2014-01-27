@@ -59,7 +59,23 @@
 	<tr><td class="colunaTabela"> <label>Decimo terceiro:</label> </td>	<td><input type="checkbox" name="stDecimoTerceiro" /> </td> </tr>
 	
 	</table>
-	<table><tr><td class="colunaTabela"> <label>Situacao:</label> </td>			<td><input name="stSituacao" /> </td></tr></table>
+	
+	</table>
+	<tr> 
+		<td class="colunaTabela"> <label>Situacao:</label> </td>
+		<td>	<select id="id_tbcaixa" style="width: 200px" name="tbsituacao">
+			{% for obj in situacao %}
+			{% if obj.id == ferias.stsituacao.id %}
+				<option selected="selected" value="{{ obj.id }}">{{ obj.dsSituacao }}</option>
+			{% else %}
+				<option value="{{ obj.id }}">{{ obj.dsSituacao }}</option>
+			{% endif %}
+			{% endfor %}
+			</select>
+		</td>
+	</tr>
+	
+	<!--  table><tr><td class="colunaTabela"> <label>Situacao:</label> </td>			<td><input name="stSituacao" /> </td></tr></table-->
 	</div>
 	<br />
 		<table style="width:100%">

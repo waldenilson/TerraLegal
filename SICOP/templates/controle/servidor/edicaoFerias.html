@@ -14,11 +14,11 @@
 	<form method="post" action=".">
 		{% csrf_token %}
 		<div style="width:100%;font-size:12px;text-align:left">
-				<table>
+			<table>
 				<tr><td class="colunaTabela"> <label>Servidor:</label> </td>	<td>	{{ servidor.nmservidor }}</td> </tr></br>
-				</table>
+			</table>
 				
-				<table>
+			<table>
 				<tr> <td class="colunaTabela"> <label>Ano:</label> </td><td> <input name="nrAno" size=4 value="{{ferias.nrAno }}" /> </td> </tr>
 				
 				<tr> 
@@ -65,15 +65,25 @@
 					{% endif %} 
 				   </td>
 				</tr>
-				<tr><td class="colunaTabela"><label> Situacao: </label></td><td><input <input name ="stSituacao" size=20 value="{{ ferias.stSituacao }}" /> </td> </tr>
-				
+				</table>
+				<table>
+					<tr> 
+					<td class="colunaTabela"><label>Situacao:</label> </td>
+					<td>	<select id="id_tbcaixa" style="width: 200px" name="tbsituacao">
+					{% for obj in situacao %}
+						{% if obj.id == ferias.stSituacao.id %}
+							<option selected="selected" value="{{ obj.id }}"> {{ obj.dsSituacao }}</option>
+						{% else %}
+							<option value="{{ obj.id }}">{{ obj.dsSituacao }}</option>
+						{% endif %}
+					{% endfor %}
+					</select>
+					</td>	
+					</tr>
 				</table>
 				</br>
-				
-				<!-- p> Variavel dtInicioPick:<input type="text" size=9 name ="dtInicioPick" id="id_myDate" value="{{dtInicioPick}}" ></p-->
-				
-		</div>
-		<br />
+			</div>
+		<br/>
 		<table style="width:100%">
 			<tr>
 				<td class="colunaTabela" style="text-align:left"> 

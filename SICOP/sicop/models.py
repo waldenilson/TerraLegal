@@ -126,6 +126,22 @@ class Tbdivisao(models.Model):
     class Meta:
         db_table = 'tbdivisao'
 
+class Tbferias(models.Model):
+    tbservidor = models.ForeignKey('Tbservidor')
+    nrAno = models.IntegerField()
+    dtInicio1 = models.DateField()
+    nrDias1 = models.IntegerField()
+    dtInicio2 = models.DateTimeField(null=True,blank=True)
+    nrDias2 = models.IntegerField(null=True,blank=True)
+    dtInicio3 = models.DateField(null=True,blank=True)
+    nrDias3 = models.IntegerField(null=True,blank=True)
+    stAntecipa = models.NullBooleanField()
+    stDecimoTerceiro = models.NullBooleanField()
+    stSituacao = models.ForeignKey('Tbsituacao')
+    class Meta:
+        db_table = 'tbferias'
+
+
 class Tbgleba(models.Model):
     cdgleba = models.IntegerField(null=True, blank=True)
     nmgleba = models.CharField(max_length=80, blank=True)
@@ -279,21 +295,13 @@ class Tbservidor(models.Model):
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbservidor'
-        
-class Tbferias(models.Model):
-    tbservidor = models.ForeignKey('Tbservidor')
-    nrAno = models.IntegerField()
-    dtInicio1 = models.DateField()
-    nrDias1 = models.IntegerField()
-    dtInicio2 = models.DateTimeField(null=True,blank=True)
-    nrDias2 = models.IntegerField(null=True,blank=True)
-    dtInicio3 = models.DateField(null=True,blank=True)
-    nrDias3 = models.IntegerField(null=True,blank=True)
-    stAntecipa = models.NullBooleanField()
-    stDecimoTerceiro = models.NullBooleanField()
-    stSituacao = models.CharField(max_length=20)
+                
+class Tbsituacao(models.Model):
+    cdTabela = models.CharField(max_length=30)
+    dsSituacao = models.CharField(max_length=50)
     class Meta:
-        db_table = 'tbferias'
+        db_table = 'tbsituacao'
+    
 
 class Tbsituacaogeo(models.Model):
     nmsituacaogeo = models.CharField(max_length=80, blank=True)

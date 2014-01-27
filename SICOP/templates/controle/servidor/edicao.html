@@ -56,7 +56,9 @@
 						<tr onclick="editarID('/controle/restrito/servidor/edicaoferias/{{ obj.id }}');">
 						     
 							<td class="colunaTabelaConsulta" align="left" >{{ obj.nrAno }}</td>
-							<td class="colunaTabelaConsulta">{{ obj.stSituacao }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.stSituacao.dsSituacao }}</td>
+							
+							{{ base.tbcaixa.nmlocalarquivo }}
 						</tr>
 					{% endfor %}
 			</body>

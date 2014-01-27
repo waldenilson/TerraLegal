@@ -7,7 +7,7 @@ from django.contrib import messages
 
 from sicop.forms import FormPecasTecnicas, FormServidor,FormFerias
 
-from sicop.models import Tbpecastecnicas, Tbgleba, Tbcaixa,Tbcontrato, Tbservidor, AuthUser, Tbdivisao, Tbferias
+from sicop.models import Tbpecastecnicas, Tbgleba, Tbcaixa,Tbcontrato, Tbservidor, AuthUser, Tbdivisao, Tbferias, Tbsituacao
 from sicop.admin import verificar_permissao_grupo
 from django.http.response import HttpResponse
 from sicop.relatorio_base import relatorio_pdf_base_header,\
@@ -41,6 +41,7 @@ def consulta(request):
 def cadastroferias(request,id): #id se refere ao servidor
     servidor = Tbservidor.objects.filter(id = id)
     ferias = Tbferias.objects.all().filter(tbservidor=id)
+    situacao = Tbsituacao.objects.all().filter(cdTabela="ferias")
     
     if request.method == "POST":
             stAntecipa = False
@@ -81,19 +82,20 @@ def cadastroferias(request,id): #id se refere ao servidor
                     nrDias3 = nrDias3,
                     stAntecipa = stAntecipa,
                     stDecimoTerceiro = stDecimoTerceiro,
-                    stSituacao = request.POST['stSituacao'],
+                    stSituacao = Tbsituacao.objects.get( pk = request.POST['tbsituacao'] )
                     )
             f_ferias.save()
             #colocar aqui uma chamada para as ferias cadastradas do servido
             return HttpResponseRedirect("/controle/restrito/servidor/consulta/")
     else:
-            return render_to_response('controle/servidor/cadastroFerias.html',{'servidor':servidor,'ferias':ferias}, context_instance = RequestContext(request))
+            return render_to_response('controle/servidor/cadastroFerias.html',{'servidor':servidor,'ferias':ferias,'situacao':situacao}, context_instance = RequestContext(request))
 
 @permission_required('servidor.servidor_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicaoferias(request, id): #esse id se refere as ferias
     ferias = get_object_or_404(Tbferias, id=id)
     servidor = Tbservidor.objects.get(id = Tbferias.objects.get(pk = id).tbservidor_id)
-
+    situacao = Tbsituacao.objects.all().filter(cdTabela="ferias")
+    
     dtInicio1 = formatDataToText(ferias.dtInicio1)
     dtInicio2 = formatDataToText(ferias.dtInicio2)
     dtInicio3 = formatDataToText(ferias.dtInicio3)
@@ -144,12 +146,12 @@ def edicaoferias(request, id): #esse id se refere as ferias
                     nrDias3 = nrDias3,
                     stAntecipa = stAntecipa,
                     stDecimoTerceiro = stDecimoTerceiro,
-                    stSituacao = request.POST['stSituacao'],
+                    stSituacao = Tbsituacao.objects.get( pk = request.POST['tbsituacao'] )
                     )
         f_ferias.save()
         return HttpResponseRedirect("/controle/restrito/servidor/edicao/"+str(servidor.id)+"/")
     else:
-        return render_to_response('controle/servidor/edicaoFerias.html',{'ferias':ferias,'servidor':servidor,'dtInicio1':dtInicio1,'dtInicio2':dtInicio2,'dtInicio3':dtInicio3},context_instance = RequestContext(request))
+        return render_to_response('controle/servidor/edicaoFerias.html',{'ferias':ferias,'servidor':servidor,'dtInicio1':dtInicio1,'dtInicio2':dtInicio2,'dtInicio3':dtInicio3,'situacao':situacao},context_instance = RequestContext(request))
 
 @permission_required('servidor.servidor_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
@@ -186,6 +188,8 @@ def cadastro(request):
 def edicao(request, id):
     ferias = Tbferias.objects.filter(tbservidor = id)
     instance = get_object_or_404(Tbservidor, id=id)
+    situacaoferias  = Tbsituacao.objects.all().filter(cdTabela="ferias")
+     
     if request.method == "POST":
         if validacao(request):
             f_servidor = Tbservidor(
@@ -207,7 +211,7 @@ def edicao(request, id):
             f_servidor.save()
             return HttpResponseRedirect("/controle/restrito/servidor/edicao/"+str(id)+"/")
     return render_to_response('controle/servidor/edicao.html',
-                              {"servidor":instance , "ferias":ferias},context_instance = RequestContext(request))
+                              {"servidor":instance , "ferias":ferias, "situacaoferias":situacaoferias },context_instance = RequestContext(request))
 
 @permission_required('servidor.servidor_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_pdf(request):
