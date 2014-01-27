@@ -17,26 +17,49 @@
 		{% csrf_token %}
 	<div style="width:100%;font-size:12px;text-align:left">
 	<table>
-	
 	<tr> <td class="colunaTabela"> <label>Servidor:</label> </td><td>
 	{% for obj in servidor %}
 		{{ obj.nmservidor }} 
 	{% endfor %}	
-	</td> </tr>
-	</br>
+	</td></tr></br>
+	
+	</table>
+	
+	<table>
+	 
 	
 	<tr><td class="colunaTabela"> <label>Ano:</label> </td><td><input name="nrAno"  size = "4"/>				</td></tr>
 	
-	<tr> <td class="colunaTabela"> <label>Inicio 1o.periodo:</label> </td><td> <input size="9" id="date2" name="dtInicio1" /> </td> </tr>
-	<tr><td class="colunaTabela"> <label>Dias:</label> </td>				<td><input name="nrDias1" />						</td></tr>
-	<tr> <td class="colunaTabela"> <label>Inicio 2o.periodo:</label> </td><td> <input size="9" id="date" name="dtInicio2" /> </td> </tr>
-	<tr><td class="colunaTabela"> <label>Dias:</label> </td>				<td><input name="nrDias2"/> 							</td></tr>
-	<tr> <td class="colunaTabela"> <label>Inicio 3o.periodo:</label> </td><td> <input size="9" id="date3" name="dtInicio3" /> </td> </tr>
-	<tr><td class="colunaTabela"> <label>Dias:</label></td>				<td><input name="nrDias3" />	</td></tr>
-	<tr><td class="colunaTabela"> <label>Antecipa:</label> </td>			<td><input type="checkbox" name="stAntecipa" /> </td></tr>
+	<tr> 
+		<td class="colunaTabela"> <label>Inicio 1o.periodo:</label> </td>
+		<td>	<input size="9" id="id_myDate" name="dtInicio1"/> </td>
+		<td class="colunaTabela"> <label>Dias:</label> </td>
+		<td><input name="nrDias1" size = 2  onblur=""" />	</td>
+		<td class="colunaTabela"><input disabled type = "text" name="dtFim1" id="alternate" size=9 /></td>
+	</tr>
+	
+	<tr> 
+		<td class="colunaTabela"> <label>Inicio 2o.periodo:</label></td>
+		<td> <input size="9" id="id_myDate2" name="dtInicio2" />	</td>
+		<td class="colunaTabela"> <label>Dias:</label> </td>
+		<td><input name="nrDias2" size = 2 /></td>
+		<td class="colunaTabela"><input disabled type = "text" name="dtFim2" id="alternate2" size=9 /></td>
+	</tr>
+	
+	<tr> 
+		<td class="colunaTabela"> <label>Inicio 3o.periodo:</label></td>
+		<td> <input size="9" id="id_myDate3" name="dtInicio3" /></td>
+		<td class="colunaTabela"> <label>Dias:</label></td>
+		<td><input name="nrDias3"  size = 2 />	</td>
+		<td class="colunaTabela"><input disabled type = "text" name="dtFim3" id="alternate3" size=9 /></td>
+	</tr>
+	
+	<tr>
+	<td class="colunaTabela"> <label>Antecipa:</label> </td>			<td><input type="checkbox" name="stAntecipa" /> </td></tr>
 	<tr><td class="colunaTabela"> <label>Decimo terceiro:</label> </td>	<td><input type="checkbox" name="stDecimoTerceiro" /> </td> </tr>
-	<tr><td class="colunaTabela"> <label>Situacao:</label> </td>			<td><input name="stSituacao" /> </td></tr>
+	
 	</table>
+	<table><tr><td class="colunaTabela"> <label>Situacao:</label> </td>			<td><input name="stSituacao" /> </td></tr></table>
 	</div>
 	<br />
 		<table style="width:100%">
@@ -55,13 +78,13 @@
 				</tr>					    
 				{% if ferias %}
 					{% for obj in ferias %}
-						<tr >
+						<tr onclick="editarID('/controle/restrito/servidor/edicaoferias/{{ obj.id }}');" >
 						    	<td class="colunaTabelaConsulta" align="left" >{{ obj.nrAno }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.stSituacao }}</td>
 						</tr>
 					{% endfor %}
 				{% endif %}
-	
+				
 			</tbody>
 		</table>
 	

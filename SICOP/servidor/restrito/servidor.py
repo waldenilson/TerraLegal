@@ -24,7 +24,6 @@ planilha_relatorio = "Servidores"
 
     
 #SERVIDORES -----------------------------------------------------------------------------------------------------------------------------
-
 @permission_required('servidor.servidor_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
     if request.method == "POST":
@@ -42,7 +41,6 @@ def consulta(request):
 def cadastroferias(request,id): #id se refere ao servidor
     servidor = Tbservidor.objects.filter(id = id)
     ferias = Tbferias.objects.all().filter(tbservidor=id)
-    print id
     
     if request.method == "POST":
             stAntecipa = False
@@ -51,6 +49,7 @@ def cadastroferias(request,id): #id se refere ao servidor
             stDecimoTerceiro = False
             if request.POST.get('stDecimoTerceiro',False):
                 stDecimoTerceiro = True
+            
             dtInicio1 = None
             if request.POST['dtInicio1']:
                 dtInicio1 = datetime.datetime.strptime( request.POST['dtInicio1'], "%d/%m/%Y")
@@ -60,10 +59,14 @@ def cadastroferias(request,id): #id se refere ao servidor
             dtInicio3 = None
             if request.POST['dtInicio3']:
                 dtInicio3 = datetime.datetime.strptime( request.POST['dtInicio3'], "%d/%m/%Y")
-            nrDias2 = None
+            
+            nrDias1 = request.POST['nrDias1']
+            if not request.POST['nrDias1']:
+                nrDias1 = None
+            nrDias2 = request.POST['nrDias2']
             if not request.POST['nrDias2']:
                 nrDias2 = None
-            nrDias3 = None
+            nrDias3 = request.POST['nrDias3']
             if not request.POST['nrDias3']:
                 nrDias3 = None
                 
@@ -71,7 +74,7 @@ def cadastroferias(request,id): #id se refere ao servidor
                     tbservidor_id = id,
                     nrAno = request.POST['nrAno'],
                     dtInicio1 = dtInicio1,
-                    nrDias1 = request.POST['nrDias1'],
+                    nrDias1 = nrDias1,
                     dtInicio2 = dtInicio2,
                     nrDias2 = nrDias2,
                     dtInicio3 = dtInicio3,
@@ -90,9 +93,12 @@ def cadastroferias(request,id): #id se refere ao servidor
 def edicaoferias(request, id): #esse id se refere as ferias
     ferias = get_object_or_404(Tbferias, id=id)
     servidor = Tbservidor.objects.get(id = Tbferias.objects.get(pk = id).tbservidor_id)
+
     dtInicio1 = formatDataToText(ferias.dtInicio1)
     dtInicio2 = formatDataToText(ferias.dtInicio2)
     dtInicio3 = formatDataToText(ferias.dtInicio3)
+    #print "vem do banco"
+    #print dtInicio1
     
     if ferias.nrDias1 == None:
         ferias.nrDias1 = ""
@@ -100,28 +106,24 @@ def edicaoferias(request, id): #esse id se refere as ferias
         ferias.nrDias2 = ""
     if ferias.nrDias3 == None:
         ferias.nrDias3 = ""
-     
         
-    print "antes do POST"
-    print servidor.id
     if request.method == "POST":
-        print "POST"
         stAntecipa = False
         if request.POST.get('stAntecipa',False):
                 stAntecipa = True
         stDecimoTerceiro = False
         if request.POST.get('stDecimoTerceiro',False):
             stDecimoTerceiro = True
+        
         dtInicio1 = None
         if request.POST['dtInicio1']:
-                dtInicio1 = datetime.datetime.strptime( request.POST['dtInicio1'], "%d/%m/%Y")
+            dtInicio1 = datetime.datetime.strptime( request.POST['dtInicio1'], "%d/%m/%Y")
         dtInicio2 = None
         if request.POST['dtInicio2']:
             dtInicio2 = datetime.datetime.strptime( request.POST['dtInicio2'], "%d/%m/%Y")
         dtInicio3 = None
         if request.POST['dtInicio3']:
             dtInicio3 = datetime.datetime.strptime( request.POST['dtInicio3'], "%d/%m/%Y")
-        
              
         nrDias2 = request.POST['nrDias2']
         if nrDias2 == "":
@@ -130,12 +132,6 @@ def edicaoferias(request, id): #esse id se refere as ferias
         nrDias3 = request.POST['nrDias3']
         if nrDias3 == "":
             nrDias3 = None
-        
-        print request.POST['nrDias2']
-        print request.POST['nrDias3']
-        
-        
-          
         f_ferias = Tbferias(
                     id = ferias.id,# se nao colocar essa linha ele cria um novo
                     tbservidor_id = servidor.id,

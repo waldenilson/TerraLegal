@@ -57,6 +57,7 @@ jQuery(function($){
 	$("#date").mask("99/99/9999");
 	$("#date2").mask("99/99/9999");
 	$("#date3").mask("99/99/9999");
+	$("#datePicker").mask("99/99/9999");
 	$("#cpf").mask("999.999.999-99");
 	$("#cpf2").mask("999.999.999-99");
 	$("#cnpj").mask("99.999.999/9999-99");
@@ -70,6 +71,63 @@ function proc()
 		document.form.submit();
 	} 
 }
+
+$(function() {
+    $( "#id_myDate" ).datepicker({ 
+    	dateFormat: "dd/mm/yy",
+    	numberOfMonths: 1,
+    	changeMonth: true,
+    	changeYear: true,
+    	showOn: "button",
+    	buttonImage: '/static/img/calendar.gif',
+    	buttonImageOnly: true,
+    	altField: "#alternate",
+    	altFormat: "dd/mm/yy"
+    	});
+});
+
+$(function() {
+    $( "#id_myDate2" ).datepicker({ 
+    	dateFormat: "dd/mm/yy",
+    	numberOfMonths: 1,
+    	changeMonth: true,
+    	changeYear: true,
+    	showOn: "button",
+    	buttonImage: '/static/img/calendar.gif',
+    	buttonImageOnly: true,
+    	altField: "#alternate2",
+    	altFormat: "dd/mm/yy"
+    	
+    });
+});
+
+$(function() {
+    $( "#id_myDate3" ).datepicker({ dateFormat: "dd/mm/yy",
+    	numberOfMonths: 1,
+    	changeMonth: true,
+    	changeYear: true,
+    	showOn: "button",
+    	buttonImage: '/static/img/calendar.gif',
+    	buttonImageOnly: true,
+    	altField: "#alternate3",
+    	altFormat: "dd/mm/yy"
+    	});
+});
+
+function SomarData(txtData,DiasAdd) 
+{
+        var d = new Date();
+        d.setTime(Date.parse(txtData.split("/").reverse().join("/"))+(86400000*(DiasAdd)))
+        var DataFinal;
+        if(d.getDate() < 10)
+        {DataFinal = "0"+d.getDate().toString();}
+        else
+        	{DataFinal = d.getDate().toString();}
+            if((d.getMonth()+1) < 10)
+        {   DataFinal += "/0"+(d.getMonth()+1).toString()+"/"+d.getFullYear().toString();}
+        else
+        {DataFinal += "/"+((d.getMonth()+1).toString())+"/"+d.getFullYear().toString();}
+ }
 
 function SomenteNumero(e, obj)
 {

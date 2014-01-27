@@ -20,12 +20,33 @@
 				
 				<table>
 				<tr> <td class="colunaTabela"> <label>Ano:</label> </td><td> <input name="nrAno" size=4 value="{{ferias.nrAno }}" /> </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Inicio 1o.Periodo:</label> </td> <td> <input size=9 value="{{dtInicio1}}" id="date2" name ="dtInicio1"/> </td>
-					 <td class="colunaTabela"> <label>Dias:</label> </td><td> <input name ="nrDias1" size=5 value="{{ ferias.nrDias1 }}" /> </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Inicio 2o.Periodo:</label> </td> <td> <input size=9 name ="dtInicio2" id="date" value="{{dtInicio2}}" /> </td>
-				     <td class="colunaTabela"> <label>Dias:</label> </td><td> <input name ="nrDias2" size=5 value="{{ ferias.nrDias2 }}" /> </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Inicio 3o.Periodo:</label> </td> <td> <input size=9 name ="dtInicio3" id="date3" value="{{dtInicio3}}" /> </td>
-				     <td class="colunaTabela"> <label>Dias:</label> </td><td> <input name ="nrDias3" size=5 value="{{ ferias.nrDias3 }}" /> </td> </tr>
+				
+				<tr> 
+					<td class="colunaTabela"> <label>Inicio 1o.periodo:</label> </td>
+					<td>	<input size="9" id="id_myDate" name="dtInicio1" value="{{dtInicio1}}" type="text"/> </td>
+					<td class="colunaTabela"> <label>Dias:</label> </td>
+					<td><input name="nrDias1" size = 2  onblur="" value="{{ ferias.nrDias1 }}" />	</td>
+					<td class="colunaTabela"><input disabled type = "text" name="dtFim1" id="alternate" size=9 /></td>
+				</tr>
+	
+				
+				<tr> 
+					<td class="colunaTabela"> <label>Inicio 2o.periodo:</label> </td>
+					<td>	<input size="9" id="id_myDate2" name="dtInicio2" value="{{dtInicio2}}" type="text"/> </td>
+					<td class="colunaTabela"> <label>Dias:</label> </td>
+					<td><input name="nrDias2" size = 2  onblur="" value="{{ ferias.nrDias2 }}" />	</td>
+					<td class="colunaTabela"><input disabled type = "text" name="dtFim2" id="alternate2" size=9 /></td>
+				</tr>
+				
+				
+				<tr> 
+					<td class="colunaTabela"> <label>Inicio 3o.periodo:</label> </td>
+					<td>	<input size="9" id="id_myDate3" name="dtInicio3" value="{{dtInicio3}}" type="text"/> </td>
+					<td class="colunaTabela"> <label>Dias:</label> </td>
+					<td><input name="nrDias3" size = 2  onblur="" value="{{ ferias.nrDias3 }}" />	</td>
+					<td class="colunaTabela"><input disabled type = "text" name="dtFim3" id="alternate3" size=9 /></td>
+				</tr>
+				
 				<tr> <td class="colunaTabela"> <label>Antecipa:</label> </td>
 				   <td>
 				   	{% if ferias.stAntecipa == True %} 
@@ -45,8 +66,12 @@
 				   </td>
 				</tr>
 				<tr><td class="colunaTabela"><label> Situacao: </label></td><td><input <input name ="stSituacao" size=20 value="{{ ferias.stSituacao }}" /> </td> </tr>
-													
+				
 				</table>
+				</br>
+				
+				<!-- p> Variavel dtInicioPick:<input type="text" size=9 name ="dtInicioPick" id="id_myDate" value="{{dtInicioPick}}" ></p-->
+				
 		</div>
 		<br />
 		<table style="width:100%">

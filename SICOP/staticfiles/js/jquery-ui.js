@@ -7643,7 +7643,7 @@ function Datepicker() {
 		closeText: "Done", // Display text for close link
 		prevText: "Prev", // Display text for previous month link
 		nextText: "Next", // Display text for next month link
-		currentText: "Today", // Display text for current month link
+		currentText: "Hoje", // Display text for current month link
 		monthNames: ["January","February","March","April","May","June",
 			"July","August","September","October","November","December"], // Names of months for drop-down and formatting
 		monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], // For formatting
