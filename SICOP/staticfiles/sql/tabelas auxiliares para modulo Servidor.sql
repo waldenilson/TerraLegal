@@ -1,4 +1,21 @@
+--criacao de campo em tabela de sevidores para indicar o tipo de servidor
+ALTER TABLE tbservidor ADD COLUMN nmcontrato character varying(20);
 
+--tabela para gerir todos os tipos de situacos usado pelo sistema  
+ CREATE TABLE tbsituacao
+(
+  id serial NOT NULL,
+  "cdTabela" character varying(30) NOT NULL,
+  "dsSituacao" character varying(50) NOT NULL,
+  CONSTRAINT tbsituacao_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE tbsituacao
+  OWNER TO admin;
+
+--criacao de tabela de ferias dos servidores
 CREATE TABLE tbferias
 (
   id serial NOT NULL,
@@ -28,15 +45,5 @@ ALTER TABLE tbferias
   OWNER TO admin;
 
   
- CREATE TABLE tbsituacao
-(
-  id serial NOT NULL,
-  "cdTabela" character varying(30) NOT NULL,
-  "dsSituacao" character varying(50) NOT NULL,
-  CONSTRAINT tbsituacao_pkey PRIMARY KEY (id)
-)
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE tbsituacao
-  OWNER TO admin;
+  
+  
