@@ -48,11 +48,15 @@ def cadastro(request):
         form = FormGleba()
     return render_to_response('sicop/restrito/gleba/cadastro.html',{"form":form,'subarea':subarea}, context_instance = RequestContext(request))
 
-@permission_required('sicop.gleba_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.gleba_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     subarea = Tbsubarea.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmsubarea')
     instance = get_object_or_404(Tbgleba, id=id)
     if request.method == "POST":
+
+        if not request.user.has_perm('sicop.gleba_edicao'):
+            return HttpResponseRedirect('/excecoes/permissao_negada/') 
+        
         form = FormGleba(request.POST,request.FILES,instance=instance)
         if validacao(request):
             if form.is_valid():

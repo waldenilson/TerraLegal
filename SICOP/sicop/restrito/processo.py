@@ -380,7 +380,7 @@ def anexar(request, base):
 
 
 
-@permission_required('sicop.processo_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     base = get_object_or_404(Tbprocessobase, id=id)
     

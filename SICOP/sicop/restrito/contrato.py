@@ -48,10 +48,14 @@ def cadastro(request):
     return render_to_response('sicop/restrito/contrato/cadastro.html',
                                context_instance = RequestContext(request))
 
-@permission_required('sicop.contrato_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.contrato_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     instance = get_object_or_404(Tbcontrato, id=id)
     if request.method == "POST":
+
+        if not request.user.has_perm('sicop.contrato_edicao'):
+            return HttpResponseRedirect('/excecoes/permissao_negada/') 
+
         if validacao(request):
             f_contrato = Tbcontrato(
                                         id = instance.id,

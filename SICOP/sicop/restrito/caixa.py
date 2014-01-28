@@ -59,11 +59,16 @@ def cadastro(request):
         form = FormCaixa()
     return render_to_response('sicop/restrito/caixa/cadastro.html',{"form":form,"tipocaixa":tipocaixa}, context_instance = RequestContext(request))
 
-@permission_required('sicop.caixa_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     tipocaixa = Tbtipocaixa.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmtipocaixa')
     instance = get_object_or_404(Tbcaixa, id=id)
+    
     if request.method == "POST":
+
+        if not request.user.has_perm('sicop.caixa_edicao'):
+            return HttpResponseRedirect('/excecoes/permissao_negada/') 
+        
         form = FormCaixa(request.POST,request.FILES,instance=instance)
         if validacao(request):
             if form.is_valid():

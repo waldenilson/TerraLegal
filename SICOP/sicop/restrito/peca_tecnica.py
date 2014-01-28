@@ -104,7 +104,7 @@ def cadastro(request):
     return render_to_response('sicop/restrito/peca_tecnica/cadastro.html',{'caixa':caixa,'contrato':contrato,'gleba':gleba}, context_instance = RequestContext(request))
 
 
-@permission_required('sicop.peca_tecnica_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.peca_tecnica_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     contrato = Tbcontrato.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nrcontrato')
     caixa = Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmlocalarquivo')
@@ -123,6 +123,9 @@ def edicao(request, id):
     peca_obj = get_object_or_404(Tbpecastecnicas, id=id)
         
     if request.method == "POST":       
+
+        if not request.user.has_perm('sicop.peca_tecnica_edicao'):
+            return HttpResponseRedirect('/excecoes/permissao_negada/') 
                  
         if validacao(request):
  
