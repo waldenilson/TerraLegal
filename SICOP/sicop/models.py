@@ -118,6 +118,13 @@ class Tbcontrato(models.Model):
     class Meta:
         db_table = 'tbcontrato'
 
+class Tbcontratoservidor(models.Model):
+    nmcontrato = models.CharField(max_length=10)
+    dscontrato = models.CharField(max_length=40, blank=True)
+    class Meta:
+        db_table = 'tbcontratoservidor'
+
+
 class Tbdivisao(models.Model):
     nmdivisao = models.CharField(max_length=80, blank=True)
     dsdivisao = models.TextField(blank=True)
@@ -293,6 +300,8 @@ class Tbservidor(models.Model):
     dsatividades = models.TextField()
     tbdivisao = models.ForeignKey('Tbdivisao')
     id = models.AutoField(primary_key=True)
+    nmcontrato = models.CharField(max_length=20)
+    
     class Meta:
         db_table = 'tbservidor'
                 

@@ -28,7 +28,8 @@ planilha_relatorio = "Servidores"
 def consulta(request):
     if request.method == "POST":
         servidor = request.POST['servidor']
-        lista = Tbservidor.objects.all().filter( nmservidor__icontains=servidor)
+        contrato = request.POST['contrato']
+        lista = Tbservidor.objects.all().filter( nmservidor__icontains=servidor,nmcontrato__icontains=contrato)
     else:
         lista = Tbservidor.objects.all()
     lista = lista.order_by( 'nmservidor' )
@@ -40,7 +41,7 @@ def consulta(request):
 @permission_required('servidor.servidor_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastroferias(request,id): #id se refere ao servidor
     servidor = Tbservidor.objects.filter(id = id)
-    ferias = Tbferias.objects.all().filter(tbservidor=id)
+    ferias   = Tbferias.objects.all().filter(tbservidor=id)
     situacao = Tbsituacao.objects.all().filter(cdTabela="ferias")
     
     if request.method == "POST":
@@ -179,6 +180,7 @@ def cadastro(request):
                     email = request.POST['email'],
                     dsatividades = request.POST['dsatividades'],
                     tbdivisao = Tbdivisao.objects.get( pk = request.POST['tbdivisao']),
+                    nmcontrato = request.POST['nmcontrato']
                     )
             f_servidor.save()
             return HttpResponseRedirect("/controle/restrito/servidor/consulta/")
@@ -206,7 +208,9 @@ def edicao(request, id):
                     nrtelefone2 = request.POST['nrtelefone2'],
                     email = request.POST['email'],
                     dsatividades = request.POST['dsatividades'],
-                    tbdivisao = AuthUser.objects.get(pk = request.user.id ).tbdivisao
+                    tbdivisao = AuthUser.objects.get(pk = request.user.id ).tbdivisao,
+                    nmcontrato = request.POST['nmcontrato']
+                    
                     )
             f_servidor.save()
             return HttpResponseRedirect("/controle/restrito/servidor/edicao/"+str(id)+"/")
