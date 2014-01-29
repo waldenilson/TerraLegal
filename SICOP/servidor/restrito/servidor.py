@@ -15,10 +15,11 @@ from sicop.relatorio_base import relatorio_pdf_base_header,\
     relatorio_ods_base_header, relatorio_ods_base, relatorio_csv_base
 from odslib import ODS
 import datetime
+from datetime import timedelta
 from sicop.restrito.processo import formatDataToText
 
 nome_relatorio = "relatorio_servidor"
-response_consulta = "/controle/restrito/servidor/consulta/"
+response_consulta = "/servidor/restrito/servidor/consulta/"
 titulo_relatorio = "Relatorio Servidores"
 planilha_relatorio = "Servidores"
 
@@ -87,7 +88,7 @@ def cadastroferias(request,id): #id se refere ao servidor
                     )
             f_ferias.save()
             #colocar aqui uma chamada para as ferias cadastradas do servido
-            return HttpResponseRedirect("/controle/restrito/servidor/consulta/")
+            return HttpResponseRedirect("/servidor/restrito/servidor/consulta/")
     else:
             return render_to_response('controle/servidor/cadastroFerias.html',{'servidor':servidor,'ferias':ferias,'situacao':situacao}, context_instance = RequestContext(request))
 
@@ -100,16 +101,28 @@ def edicaoferias(request, id): #esse id se refere as ferias
     dtInicio1 = formatDataToText(ferias.dtInicio1)
     dtInicio2 = formatDataToText(ferias.dtInicio2)
     dtInicio3 = formatDataToText(ferias.dtInicio3)
-    #print "vem do banco"
-    #print dtInicio1
-    
+ 
     if ferias.nrDias1 == None:
         ferias.nrDias1 = ""
+        dtFim1 = ""
+    else:
+        dtFim1 = formatDataToText(ferias.dtInicio1 + timedelta(ferias.nrDias1))
+        
+    
     if ferias.nrDias2 == None:
         ferias.nrDias2 = ""
+        dtFim2 = ""
+    else:
+        dtFim2 = formatDataToText(ferias.dtInicio2 + timedelta(ferias.nrDias2))
+    
     if ferias.nrDias3 == None:
         ferias.nrDias3 = ""
+        dtFim3 = ""
+    else:
+        dtFim3 = formatDataToText(ferias.dtInicio3 + timedelta(ferias.nrDias3))
         
+    print dtFim1
+      
     if request.method == "POST":
         stAntecipa = False
         if request.POST.get('stAntecipa',False):
@@ -150,9 +163,9 @@ def edicaoferias(request, id): #esse id se refere as ferias
                     stSituacao = Tbsituacao.objects.get( pk = request.POST['tbsituacao'] )
                     )
         f_ferias.save()
-        return HttpResponseRedirect("/controle/restrito/servidor/edicao/"+str(servidor.id)+"/")
+        return HttpResponseRedirect("/servidor/restrito/servidor/edicao/"+str(servidor.id)+"/")
     else:
-        return render_to_response('controle/servidor/edicaoFerias.html',{'ferias':ferias,'servidor':servidor,'dtInicio1':dtInicio1,'dtInicio2':dtInicio2,'dtInicio3':dtInicio3,'situacao':situacao},context_instance = RequestContext(request))
+        return render_to_response('controle/servidor/edicaoFerias.html',{'ferias':ferias,'servidor':servidor,'dtInicio1':dtInicio1,'dtInicio2':dtInicio2,'dtInicio3':dtInicio3,'situacao':situacao,'dtFim1':dtFim1,'dtFim2':dtFim2,'dtFim3':dtFim3},context_instance = RequestContext(request))
 
 @permission_required('servidor.servidor_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
@@ -183,7 +196,7 @@ def cadastro(request):
                     nmcontrato = request.POST['nmcontrato']
                     )
             f_servidor.save()
-            return HttpResponseRedirect("/controle/restrito/servidor/consulta/")
+            return HttpResponseRedirect("/servidor/restrito/servidor/consulta/")
     return render_to_response('controle/servidor/cadastro.html',{'divisao':divisao}, context_instance = RequestContext(request))
 
 @permission_required('servidor.servidor_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -213,7 +226,7 @@ def edicao(request, id):
                     
                     )
             f_servidor.save()
-            return HttpResponseRedirect("/controle/restrito/servidor/edicao/"+str(id)+"/")
+            return HttpResponseRedirect("/servidor/restrito/servidor/edicao/"+str(id)+"/")
     return render_to_response('controle/servidor/edicao.html',
                               {"servidor":instance , "ferias":ferias, "situacaoferias":situacaoferias },context_instance = RequestContext(request))
 

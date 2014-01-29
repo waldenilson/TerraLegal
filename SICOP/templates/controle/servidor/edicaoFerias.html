@@ -17,25 +17,24 @@
 			<table>
 				<tr><td class="colunaTabela"> <label>Servidor:</label> </td>	<td>	{{ servidor.nmservidor }}</td> </tr></br>
 			</table>
-				
 			<table>
 				<tr> <td class="colunaTabela"> <label>Ano:</label> </td><td> <input name="nrAno" size=4 value="{{ferias.nrAno }}" /> </td> </tr>
 				
 				<tr> 
-					<td class="colunaTabela"> <label>Inicio 1o.periodo:</label> </td>
+					<td class="colunaTabela"> <label>1o.periodo:</label> </td>
 					<td>	<input size="9" id="id_myDate" name="dtInicio1" value="{{dtInicio1}}" type="text"/> </td>
 					<td class="colunaTabela"> <label>Dias:</label> </td>
-					<td><input name="nrDias1" size = 2  onblur="" value="{{ ferias.nrDias1 }}" />	</td>
-					<td class="colunaTabela"><input disabled type = "text" name="dtFim1" id="alternate" size=9 /></td>
+					<td><input name="nrDias1" id="nrDias1" size = 2  onblur ="return somardia1();" value="{{ ferias.nrDias1 }}" />	</td>
+					<td class="colunaTabela"><input id="date" disabled type = "text" name="dtFim1"  size=9 value="{{dtFim1}}" /></td>
 				</tr>
 	
 				
 				<tr> 
-					<td class="colunaTabela"> <label>Inicio 2o.periodo:</label> </td>
+					<td class="colunaTabela"> <label>2o.periodo:</label> </td>
 					<td>	<input size="9" id="id_myDate2" name="dtInicio2" value="{{dtInicio2}}" type="text"/> </td>
 					<td class="colunaTabela"> <label>Dias:</label> </td>
-					<td><input name="nrDias2" size = 2  onblur="" value="{{ ferias.nrDias2 }}" />	</td>
-					<td class="colunaTabela"><input disabled type = "text" name="dtFim2" id="alternate2" size=9 /></td>
+					<td><input name="nrDias2" id="nrDias2" size = 2  onblur ="return somardia2();" value="{{ ferias.nrDias2 }}" />	</td>
+					<td class="colunaTabela"><input id="date2" disabled type = "text" name="dtFim2"  size=9 value="{{dtFim2}}"/></td>
 				</tr>
 				
 				
@@ -43,8 +42,8 @@
 					<td class="colunaTabela"> <label>Inicio 3o.periodo:</label> </td>
 					<td>	<input size="9" id="id_myDate3" name="dtInicio3" value="{{dtInicio3}}" type="text"/> </td>
 					<td class="colunaTabela"> <label>Dias:</label> </td>
-					<td><input name="nrDias3" size = 2  onblur="" value="{{ ferias.nrDias3 }}" />	</td>
-					<td class="colunaTabela"><input disabled type = "text" name="dtFim3" id="alternate3" size=9 /></td>
+					<td><input name="nrDias3" id="nrDias3" size = 2  onblur ="return somardia3();" value="{{ ferias.nrDias3 }}" />	</td>
+					<td class="colunaTabela"><input id="date3" disabled type = "text" name="dtFim3"  size=9 value="{{dtFim3}}" /></td>
 				</tr>
 				
 				<tr> <td class="colunaTabela"> <label>Antecipa:</label> </td>
@@ -74,7 +73,7 @@
 						{% if obj.id == ferias.stSituacao.id %}
 							<option selected="selected" value="{{ obj.id }}"> {{ obj.dsSituacao }}</option>
 						{% else %}
-							<option value="{{ obj.id }}">{{ obj.dsSituacao }}</option>
+							<option value="{{ obj.id }}">{{ obj.stSituacao.dsSituacao }}</option>
 						{% endif %}
 					{% endfor %}
 					</select>

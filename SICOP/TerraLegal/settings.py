@@ -160,8 +160,8 @@ INSTALLED_APPS = (
     'web',
     'sicop',
     'servidor',
-    'controle',
-    'odslib'
+    'odslib',
+    #'livrofundiario',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
