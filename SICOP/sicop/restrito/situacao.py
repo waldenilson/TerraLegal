@@ -23,7 +23,6 @@ planilha_relatorio  = "Tipos de Caixa"
 def consulta(request):
     if request.method == "POST":
         nome = request.POST['cdTabela']
-        print nome
         lista = Tbsituacao.objects.all().filter(cdTabela__icontains=nome)
     else:
         lista = Tbsituacao.objects.all()
@@ -32,8 +31,6 @@ def consulta(request):
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_tipo_situacao'] = lista
     return render_to_response('sicop/restrito/situacao/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
-
-    
     
 @permission_required('sicop.tipo_situacao_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
