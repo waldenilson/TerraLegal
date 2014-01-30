@@ -235,8 +235,14 @@ urlpatterns = patterns('',
     url(r'^servidor/restrito/servidor/relatorio/pdf/', 'servidor.restrito.servidor.relatorio_pdf'),
     url(r'^servidor/restrito/servidor/relatorio/ods/', 'servidor.restrito.servidor.relatorio_ods'),
     url(r'^servidor/restrito/servidor/relatorio/csv/', 'servidor.restrito.servidor.relatorio_csv'),
+    # ACESSO CONTROLE DE FERIAS
     url(r'^servidor/restrito/servidor/edicaoferias/(?P<id>\d+)/', 'servidor.restrito.servidor.edicaoferias'),
     url(r'^servidor/restrito/servidor/cadastroferias/(?P<id>\d+)/', 'servidor.restrito.servidor.cadastroferias'),
+    # ACESSO RESTRITO TABELA SITUACAO 
+    url(r'^sicop/restrito/situacao/consulta/', 'sicop.restrito.situacao.consulta'),
+    url(r'^sicop/restrito/situacao/edicao/(?P<id>\d+)/','sicop.restrito.situacao.edicao'),
+    url(r'^sicop/restrito/situacao/cadastro/', 'sicop.restrito.situacao.cadastro'),
+    
     #END------------------------------CONTROLE---------------------------------------------------------------------------------
         
     # CONTROLE AUTENTICACAO

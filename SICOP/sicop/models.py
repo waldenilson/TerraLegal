@@ -122,7 +122,7 @@ class Tbcontratoservidor(models.Model):
     nmcontrato = models.CharField(max_length=10)
     dscontrato = models.CharField(max_length=40, blank=True)
     class Meta:
-        db_table = 'tbcontratoservidor'
+        db_table = 'tbSIervidor'
 
 
 class Tbdivisao(models.Model):

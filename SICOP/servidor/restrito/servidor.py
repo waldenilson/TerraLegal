@@ -39,7 +39,7 @@ def consulta(request):
     return render_to_response('controle/servidor/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 
-@permission_required('servidor.servidor_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('servidor.servidor_cadastro_ferias', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastroferias(request,id): #id se refere ao servidor
     servidor = Tbservidor.objects.filter(id = id)
     ferias   = Tbferias.objects.all().filter(tbservidor=id)
@@ -92,7 +92,7 @@ def cadastroferias(request,id): #id se refere ao servidor
     else:
             return render_to_response('controle/servidor/cadastroFerias.html',{'servidor':servidor,'ferias':ferias,'situacao':situacao}, context_instance = RequestContext(request))
 
-@permission_required('servidor.servidor_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('servidor.servidor_edicao_ferias', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicaoferias(request, id): #esse id se refere as ferias
     ferias = get_object_or_404(Tbferias, id=id)
     servidor = Tbservidor.objects.get(id = Tbferias.objects.get(pk = id).tbservidor_id)
@@ -121,8 +121,6 @@ def edicaoferias(request, id): #esse id se refere as ferias
     else:
         dtFim3 = formatDataToText(ferias.dtInicio3 + timedelta(ferias.nrDias3))
         
-    print dtFim1
-      
     if request.method == "POST":
         stAntecipa = False
         if request.POST.get('stAntecipa',False):
@@ -295,8 +293,6 @@ def relatorio_csv(request):
         return response
     else:
         return HttpResponseRedirect( response_consulta )
-
-    
 
 def validacao(request_form):
     warning = True

@@ -326,7 +326,7 @@ function SomenteNumeroOK(e, obj)
 									{% endif %}
 									
 									{% if perms.servidor.servidor_consulta %}
-										<li><hr/><a href="/servidor/restrito/servidor/consulta/">Servidor</a></li>
+										<li><a href="/servidor/restrito/servidor/consulta/">Servidor</a></li>
 									{% endif %}
 									
 									{% if perms.servidor.documento_consulta or perms.servidor.tipo_documento_consulta %}
@@ -388,6 +388,11 @@ function SomenteNumeroOK(e, obj)
 												{% if perms.sicop.status_pendencia_consulta %}
 													<li><a href="/sicop/restrito/status_pendencia/consulta/">Status	Pendência</a></li>
 												{% endif %}
+												{% if perms.sicop.situacao_consulta %}
+													<li><a href="/sicop/restrito/situacao/consulta/">Tipo Situacao</a></li>
+												{% endif %}
+												
+												
 											</ul>
 										</li>
 									{% endif %}
