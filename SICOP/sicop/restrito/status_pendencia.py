@@ -42,10 +42,14 @@ def cadastro(request):
             return HttpResponseRedirect("/sicop/restrito/status_pendencia/consulta/") 
     return render_to_response('sicop/restrito/status_pendencia/cadastro.html',{}, context_instance = RequestContext(request))
 
-@permission_required('sicop.status_pendencia_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.status_pendencia_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     instance = get_object_or_404(Tbstatuspendencia, id=id)
     if request.method == "POST":
+
+        if not request.user.has_perm('sicop.status_pendencia_edicao'):
+            return HttpResponseRedirect('/excecoes/permissao_negada/') 
+
         if validacao(request):
             f_statuspendencia = Tbstatuspendencia(
                                         id = instance.id,

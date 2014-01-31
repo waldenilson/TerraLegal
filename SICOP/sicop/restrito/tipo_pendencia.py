@@ -44,11 +44,15 @@ def cadastro(request):
             return HttpResponseRedirect("/sicop/restrito/tipo_pendencia/consulta/") 
     return render_to_response('sicop/restrito/tipo_pendencia/cadastro.html',{'tipoprocesso':tipoprocesso}, context_instance = RequestContext(request))
 
-@permission_required('sicop.tipo_pendencia_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.tipo_pendencia_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     instance = get_object_or_404(Tbtipopendencia, id=id)
     tipoprocesso = Tbtipoprocesso.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nome')
     if request.method == "POST":
+
+        if not request.user.has_perm('sicop.tipo_pendencia_edicao'):
+            return HttpResponseRedirect('/excecoes/permissao_negada/') 
+
             print request.POST['tbtipoprocesso'] 
             f_tipopendencia = Tbtipopendencia(
                                         id = instance.id,

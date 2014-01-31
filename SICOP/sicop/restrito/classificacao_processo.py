@@ -41,10 +41,14 @@ def cadastro(request):
             return HttpResponseRedirect("/sicop/restrito/classificacao_processo/consulta/") 
     return render_to_response('sicop/restrito/classificacao_processo/cadastro.html', context_instance = RequestContext(request))
 
-@permission_required('sicop.classificacao_processo_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.classificacao_processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     instance = get_object_or_404(Tbclassificacaoprocesso, id=id)
     if request.method == "POST":
+
+        if not request.user.has_perm('sicop.classificacao_processo_edicao'):
+            return HttpResponseRedirect('/excecoes/permissao_negada/') 
+
         if validacao(request):
             f_classificacao = Tbclassificacaoprocesso(
                                                         id = instance.id,

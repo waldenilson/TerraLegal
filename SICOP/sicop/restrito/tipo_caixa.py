@@ -49,10 +49,14 @@ def cadastro(request):
                 return HttpResponseRedirect( next ) 
     return render_to_response('sicop/restrito/tipo_caixa/cadastro.html',{}, context_instance = RequestContext(request))
 
-@permission_required('sicop.tipo_caixa_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.tipo_caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     instance = get_object_or_404(Tbtipocaixa, id=id)
     if request.method == "POST":
+
+        if not request.user.has_perm('sicop.tipo_caixa_edicao'):
+            return HttpResponseRedirect('/excecoes/permissao_negada/') 
+
         if validacao(request):
             f_tipocaixa = Tbtipocaixa(
                                         id = instance.id,

@@ -47,7 +47,7 @@ def cadastro(request):
                 return HttpResponseRedirect( next ) 
     return render_to_response('sicop/restrito/grupo/cadastro.html',{}, context_instance = RequestContext(request))
     
-@permission_required('sicop.grupo_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.grupo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
 
     permissao = AuthPermission.objects.all().order_by('name')
@@ -68,6 +68,10 @@ def edicao(request, id):
     
     instance = get_object_or_404(AuthGroup, id=id)
     if request.method == "POST":
+        
+        if not request.user.has_perm('sicop.grupo_edicao'):
+            return HttpResponseRedirect('/excecoes/permissao_negada/') 
+
 
         # verificando os grupos do usuario
         for obj in permissao:
