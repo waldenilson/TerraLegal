@@ -197,13 +197,17 @@ def cadastro(request):
             return HttpResponseRedirect("/servidor/restrito/servidor/consulta/")
     return render_to_response('controle/servidor/cadastro.html',{'divisao':divisao}, context_instance = RequestContext(request))
 
-@permission_required('servidor.servidor_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('servidor.servidor_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     ferias = Tbferias.objects.filter(tbservidor = id)
     instance = get_object_or_404(Tbservidor, id=id)
     situacaoferias  = Tbsituacao.objects.all().filter(cdTabela="ferias")
      
     if request.method == "POST":
+        
+        if not request.user.has_perm('servidor.servidor_edicao'):
+            return HttpResponseRedirect('/excecoes/permissao_negada/') 
+
         if validacao(request):
             f_servidor = Tbservidor(
                     id = instance.id,
