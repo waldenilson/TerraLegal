@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.forms import FormStatusPendencia, FormAuthGroup
 from sicop.models import Tbstatuspendencia, AuthGroup, AuthPermission,\
-    AuthGroupPermissions, AuthUser
+    AuthGroupPermissions, AuthUser, DjangoContentType
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from sicop.admin import verificar_permissao_grupo
@@ -50,21 +50,22 @@ def cadastro(request):
 @permission_required('sicop.grupo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
 
-    permissao = AuthPermission.objects.all().order_by('name')
+    permissao = AuthPermission.objects.all().order_by('content_type')
     grupoPermissao = AuthGroupPermissions.objects.all().filter( group = id )
+
+    contenttype = DjangoContentType.objects.all().order_by('name')
 
     result = {}
     for obj in permissao:
         achou = False
         for obj2 in grupoPermissao:
             if obj.id == obj2.permission.id:
-                result.setdefault(obj.name,True)
+                result.setdefault(obj, True)
                 achou = True
                 break
         if not achou:
-            result.setdefault(obj.name, False)
+            result.setdefault(obj, False)
     result = sorted(result.items())
-
     
     instance = get_object_or_404(AuthGroup, id=id)
     if request.method == "POST":
@@ -101,7 +102,7 @@ def edicao(request, id):
                                       )
             f_grupo.save()
             return HttpResponseRedirect("/sicop/restrito/grupo/edicao/"+str(id)+"/")
-    return render_to_response('sicop/restrito/grupo/edicao.html', {"grupo":instance,'result':result,'permissao':permissao,'grupopermissao':grupoPermissao}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/grupo/edicao.html', {'content':contenttype,"grupo":instance,'result':result,'permissao':permissao,'grupopermissao':grupoPermissao}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.grupo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)

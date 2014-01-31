@@ -20,31 +20,45 @@
 		</div>
 		
 		<br />
-		<table class="csstable"  style="width:100%">
+			<div style="width:100%;font-size:18px;text-align:left">
+				Permissoes
+			</div>
+		<br />
+		
+	{% for obj in content %}	
+		<table style="width:100%">
 			<tbody>
 				<tr>
-					<td class="colunaTabelaConsulta" style="width:5%"> </td>
-					<td class="colunaTabelaConsulta" style="width:95%">Permissões</td>
+					<td class="colunaTabelaConsulta" style="width:100%;font-size:16px">{{ obj.name }}</td>
 				</tr>
-				{% if permissao %}
-					{% for k,v in result %}
-						<tr>
-							<td class="colunaTabelaConsulta">
-								{% if v %}
-									<input checked="checked" name="{{ k }}" type="checkbox" />
-								{% else %}
-									<input name="{{ k }}" type="checkbox" />
-								{% endif %}
-							</td>
-							<td class="colunaTabelaConsulta">{{ k }}</td>
-						</tr>
-					{% endfor %}
-				{% else %}
-					<tr> <td style="padding-top: 20px" colspan="6"> Cadastre as permissoes do sistema </td> </tr>
-				{% endif %}
+				<tr> 
+					<td class="colunaTabelaConsulta">
+						<table style="width:100%">
+							<tbody>
+								{% for k,v in result %}
+									{% if k.content_type.id == obj.id %}
+										<tr>
+											<td class="colunaTabelaConsulta" style="width:5%">
+												{% if v %}
+													<input checked="checked" name="{{ k.name }}" type="checkbox" />
+												{% else %}
+													<input name="{{ k.name }}" type="checkbox" />
+												{% endif %}
+											</td>
+											<td class="colunaTabelaConsulta" style="width:95%">{{ k.name }}</td>
+										</tr>
+									{% endif %}
+								{% endfor %}
+							</tbody>
+						</table>
+					</td>
+				</tr>
 			</tbody>
 		</table>
 		<br/>
+	{% endfor %}
+		
+		
 		
 		
 		<table style="width:100%">
