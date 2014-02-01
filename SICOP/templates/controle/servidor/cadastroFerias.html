@@ -27,7 +27,10 @@
 	</table>
 	
 	<table>
-	<tr><td class="colunaTabela"><label>Ano:</label></td><td><input name="nrAno" size="4"/>	</td></tr>
+	<tr><td class="colunaTabela"><label>Ano:</label></td><td><input name="nrAno" size="4"/></td>
+	<td></td><td></td><td></td><td></td><td>Situacao</td>
+	</tr>
+	
 	<tr> 
 		<td class="colunaTabela"> <label>1o.periodo:</label> </td>
 		<td>	<input size="9" id="id_myDate" name="dtInicio1" /> </td>
@@ -35,32 +38,8 @@
 		<td><input name="nrDias1" id="nrDias1" size = 2 onblur ="return somardia1();"/>	</td>
 		<td class="colunaTabela"> <label>Fim: </label> </td>
 		<td class="colunaTabela"><input disabled type = "text" name="dtFim1" size=9 id="date"/></td>
-	</tr>
-	<tr> 
-		<td class="colunaTabela"> <label>2o.periodo:</label></td>
-		<td> <input size="9" id="id_myDate2" name="dtInicio2" />	</td>
-		<td class="colunaTabela"> <label>Dias:</label> </td>
-		<td><input name="nrDias2" id="nrDias2" size = 2 onblur ="return somardia2();" /></td>
-		<td class="colunaTabela"> <label>Fim: </label> </td>
-		<td class="colunaTabela"><input disabled type = "text" name="dtFim2" id="date2" size=9 /></td>
-	</tr>
-	<tr> 
-		<td class="colunaTabela"> <label>3o.periodo:</label></td>
-		<td> <input size="9" id="id_myDate3" name="dtInicio3" /></td>
-		<td class="colunaTabela"> <label>Dias:</label></td>
-		<td><input name="nrDias3" id="nrDias3"  size = 2 onblur ="return somardia3();" />	</td>
-		<td class="colunaTabela"> <label>Fim: </label> </td>
-		<td class="colunaTabela"><input disabled type = "text" name="dtFim3" id="date3" size=9 /></td>
-	</tr>
-	
-	<tr>
-	<td class="colunaTabela"> <label>Antecipa:</label></td><td><input type="checkbox" name="stAntecipa" /> </td></tr>
-	<tr><td class="colunaTabela"> <label>13o.salario:</label> </td>	<td><input type="checkbox" name="stDecimoTerceiro" /> </td> </tr>
-	</table>
-	<table>
-	<tr> 
-		<td class="colunaTabela"> <label>Situacao:</label> </td>
-		<td>	<select id="id_tbcaixa" style="width: 200px" name="tbsituacao">
+		
+		<td>	<select id="tbsituacao1" style="width: 200px" name="tbsituacao1">
 			{% for obj in situacao %}
 			{% if obj.id == ferias.stsituacao.id %}
 				<option selected="selected" value="{{ obj.id }}">{{ obj.dsSituacao }}</option>
@@ -70,8 +49,53 @@
 			{% endfor %}
 			</select>
 		</td>
+
 	</tr>
+	<tr> 
+		<td class="colunaTabela"> <label>2o.periodo:</label></td>
+		<td> <input size="9" id="id_myDate2" name="dtInicio2" />	</td>
+		<td class="colunaTabela"> <label>Dias:</label> </td>
+		<td><input name="nrDias2" id="nrDias2" size = 2 onblur ="return somardia2();" /></td>
+		<td class="colunaTabela"> <label>Fim: </label> </td>
+		<td class="colunaTabela"><input disabled type = "text" name="dtFim2" id="date2" size=9 /></td>
+		<td>	<select id="tbsituacao2" style="width: 200px" name="tbsituacao2">
+			{% for obj in situacao %}
+			{% if obj.id == ferias.stsituacao.id %}
+				<option selected="selected" value="{{ obj.id }}">{{ obj.dsSituacao }}</option>
+			{% else %}
+				<option value="{{ obj.id }}">{{ obj.dsSituacao }}</option>
+			{% endif %}
+			{% endfor %}
+			</select>
+		</td>
+
+	</tr>
+	<tr> 
+		<td class="colunaTabela"> <label>3o.periodo:</label></td>
+		<td> <input size="9" id="id_myDate3" name="dtInicio3" /></td>
+		<td class="colunaTabela"> <label>Dias:</label></td>
+		<td><input name="nrDias3" id="nrDias3"  size = 2 onblur ="return somardia3();" />	</td>
+		<td class="colunaTabela"> <label>Fim: </label> </td>
+		<td class="colunaTabela"><input disabled type = "text" name="dtFim3" id="date3" size=9 /></td>
+		<td>	<select id="tbsituacao3" style="width: 200px" name="tbsituacao3">
+			{% for obj in situacao %}
+			{% if obj.id == ferias.stsituacao.id %}
+				<option selected="selected" value="{{ obj.id }}">{{ obj.dsSituacao }}</option>
+			{% else %}
+				<option value="{{ obj.id }}">{{ obj.dsSituacao }}</option>
+			{% endif %}
+			{% endfor %}
+			</select>
+		</td>
+	
+	</tr>
+	
+	<tr>
+	<td class="colunaTabela"> <label>Antecipa:</label></td><td><input type="checkbox" name="stAntecipa" /> </td></tr>
+	<tr><td class="colunaTabela"> <label>13o.salario:</label> </td>	<td><input type="checkbox" name="stDecimoTerceiro" /> </td> </tr>
 	</table>
+	
+	 
 	
 	</div>
 	<br />
@@ -91,7 +115,7 @@
 				</tr>					    
 				{% if ferias %}
 					{% for obj in ferias %}
-						<tr onclick="editarID('/servidor/restrito/servidor/edicaoferias/{{ obj.id }}');" >
+						<tr onclick="editarID('/EditarFerias/{{ obj.id }}');" >
 						    	<td class="colunaTabelaConsulta" align="left" >{{ obj.nrAno }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.stSituacao.dsSituacao  }}</td>
 						</tr>

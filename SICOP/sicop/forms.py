@@ -26,7 +26,7 @@ class FormFerias(forms.ModelForm):
     class Meta:
         model = Tbferias
         fields = ('nrAno','dtInicio1','nrDias1','dtInicio2','nrDias2','dtInicio3',
-                  'nrDias3','stAntecipa','stDecimoTerceiro','stSituacao')
+                  'nrDias3','stAntecipa','stDecimoTerceiro','stSituacao1')
 
 # ----PROCESSOS----------------------------------------------------------------------------------------------------------------------
 class FormProcessoBase(models.ModelForm):

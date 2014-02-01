@@ -19,22 +19,41 @@
 			</table>
 			<table>
 				<tr> <td class="colunaTabela"> <label>Ano:</label> </td><td> <input name="nrAno" size=4 value="{{ferias.nrAno }}" /> </td> </tr>
-				
+				<td></td><td></td><td></td><td></td><td></td><td>Situacao</td>
 				<tr> 
 					<td class="colunaTabela"> <label>1o.periodo:</label> </td>
 					<td>	<input size="9" id="id_myDate" name="dtInicio1" value="{{dtInicio1}}" type="text"/> </td>
 					<td class="colunaTabela"> <label>Dias:</label> </td>
 					<td><input name="nrDias1" id="nrDias1" size = 2  onblur ="return somardia1();" value="{{ ferias.nrDias1 }}" />	</td>
 					<td class="colunaTabela"><input id="date" disabled type = "text" name="dtFim1"  size=9 value="{{dtFim1}}" /></td>
-				</tr>
-	
-				
+					<td>	<select id="tbsituacao1" style="width: 200px" name="tbsituacao1">
+					{% for obj in situacao %}
+						{% if obj.id == ferias.stSituacao1.id %}
+							<option selected="selected" value="{{ obj.id }}"> {{ obj.dsSituacao }}</option>
+						{% else %}
+							<option value="{{ obj.id }}">{{ obj.dsSituacao }}</option>
+						{% endif %}
+					{% endfor %}
+					</select>
+					</td>	
+					</tr>
 				<tr> 
 					<td class="colunaTabela"> <label>2o.periodo:</label> </td>
 					<td>	<input size="9" id="id_myDate2" name="dtInicio2" value="{{dtInicio2}}" type="text"/> </td>
 					<td class="colunaTabela"> <label>Dias:</label> </td>
 					<td><input name="nrDias2" id="nrDias2" size = 2  onblur ="return somardia2();" value="{{ ferias.nrDias2 }}" />	</td>
 					<td class="colunaTabela"><input id="date2" disabled type = "text" name="dtFim2"  size=9 value="{{dtFim2}}"/></td>
+					<td>	<select id="tbsituacao2" style="width: 200px" name="tbsituacao2">
+					{% for obj in situacao %}
+						{% if obj.id == ferias.stSituacao2.id %}
+							<option selected="selected" value="{{ obj.id }}"> {{ obj.dsSituacao }}</option>
+						{% else %}
+							<option value="{{ obj.id }}">{{ obj.dsSituacao }}</option>
+						{% endif %}
+					{% endfor %}
+					</select>
+					</td>	
+
 				</tr>
 				
 				
@@ -44,6 +63,17 @@
 					<td class="colunaTabela"> <label>Dias:</label> </td>
 					<td><input name="nrDias3" id="nrDias3" size = 2  onblur ="return somardia3();" value="{{ ferias.nrDias3 }}" />	</td>
 					<td class="colunaTabela"><input id="date3" disabled type = "text" name="dtFim3"  size=9 value="{{dtFim3}}" /></td>
+					<td>	<select id="tbsituacao3" style="width: 200px" name="tbsituacao3">
+					{% for obj in situacao %}
+						{% if obj.id == ferias.stSituacao3.id %}
+							<option selected="selected" value="{{ obj.id }}"> {{ obj.dsSituacao }}</option>
+						{% else %}
+							<option value="{{ obj.id }}">{{ obj.dsSituacao }}</option>
+						{% endif %}
+					{% endfor %}
+					</select>
+					</td>	
+				
 				</tr>
 				
 				<tr> <td class="colunaTabela"> <label>Antecipa:</label> </td>
@@ -66,19 +96,7 @@
 				</tr>
 				</table>
 				<table>
-					<tr> 
-					<td class="colunaTabela"><label>Situacao:</label> </td>
-					<td>	<select id="id_tbcaixa" style="width: 200px" name="tbsituacao">
-					{% for obj in situacao %}
-						{% if obj.id == ferias.stSituacao.id %}
-							<option selected="selected" value="{{ obj.id }}"> {{ obj.dsSituacao }}</option>
-						{% else %}
-							<option value="{{ obj.id }}">{{ obj.dsSituacao }}</option>
-						{% endif %}
-					{% endfor %}
-					</select>
-					</td>	
-					</tr>
+					
 				</table>
 				</br>
 			</div>

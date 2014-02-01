@@ -19,7 +19,7 @@ from datetime import timedelta
 from sicop.restrito.processo import formatDataToText
 
 nome_relatorio = "relatorio_servidor"
-response_consulta = "/servidor/restrito/servidor/consulta/"
+response_consulta = "/ConsultarServidor/"
 titulo_relatorio = "Relatorio Servidores"
 planilha_relatorio = "Servidores"
 
@@ -39,131 +39,6 @@ def consulta(request):
     return render_to_response('controle/servidor/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 
-@permission_required('servidor.servidor_cadastro_ferias', login_url='/excecoes/permissao_negada/', raise_exception=True)
-def cadastroferias(request,id): #id se refere ao servidor
-    servidor = Tbservidor.objects.filter(id = id)
-    ferias   = Tbferias.objects.all().filter(tbservidor=id)
-    situacao = Tbsituacao.objects.all().filter(cdTabela="ferias")
-    
-    if request.method == "POST":
-            stAntecipa = False
-            if request.POST.get('stAntecipa',False):
-                stAntecipa = True
-            stDecimoTerceiro = False
-            if request.POST.get('stDecimoTerceiro',False):
-                stDecimoTerceiro = True
-            
-            dtInicio1 = None
-            if request.POST['dtInicio1']:
-                dtInicio1 = datetime.datetime.strptime( request.POST['dtInicio1'], "%d/%m/%Y")
-            dtInicio2 = None
-            if request.POST['dtInicio2']:
-                dtInicio2 = datetime.datetime.strptime( request.POST['dtInicio2'], "%d/%m/%Y")
-            dtInicio3 = None
-            if request.POST['dtInicio3']:
-                dtInicio3 = datetime.datetime.strptime( request.POST['dtInicio3'], "%d/%m/%Y")
-            
-            nrDias1 = request.POST['nrDias1']
-            if not request.POST['nrDias1']:
-                nrDias1 = None
-            nrDias2 = request.POST['nrDias2']
-            if not request.POST['nrDias2']:
-                nrDias2 = None
-            nrDias3 = request.POST['nrDias3']
-            if not request.POST['nrDias3']:
-                nrDias3 = None
-                
-            f_ferias = Tbferias(
-                    tbservidor_id = id,
-                    nrAno = request.POST['nrAno'],
-                    dtInicio1 = dtInicio1,
-                    nrDias1 = nrDias1,
-                    dtInicio2 = dtInicio2,
-                    nrDias2 = nrDias2,
-                    dtInicio3 = dtInicio3,
-                    nrDias3 = nrDias3,
-                    stAntecipa = stAntecipa,
-                    stDecimoTerceiro = stDecimoTerceiro,
-                    stSituacao = Tbsituacao.objects.get( pk = request.POST['tbsituacao'] )
-                    )
-            f_ferias.save()
-            #colocar aqui uma chamada para as ferias cadastradas do servido
-            return HttpResponseRedirect("/servidor/restrito/servidor/consulta/")
-    else:
-            return render_to_response('controle/servidor/cadastroFerias.html',{'servidor':servidor,'ferias':ferias,'situacao':situacao}, context_instance = RequestContext(request))
-
-@permission_required('servidor.servidor_edicao_ferias', login_url='/excecoes/permissao_negada/', raise_exception=True)
-def edicaoferias(request, id): #esse id se refere as ferias
-    ferias = get_object_or_404(Tbferias, id=id)
-    servidor = Tbservidor.objects.get(id = Tbferias.objects.get(pk = id).tbservidor_id)
-    situacao = Tbsituacao.objects.all().filter(cdTabela="ferias")
-    
-    dtInicio1 = formatDataToText(ferias.dtInicio1)
-    dtInicio2 = formatDataToText(ferias.dtInicio2)
-    dtInicio3 = formatDataToText(ferias.dtInicio3)
- 
-    if ferias.nrDias1 == None:
-        ferias.nrDias1 = ""
-        dtFim1 = ""
-    else:
-        dtFim1 = formatDataToText(ferias.dtInicio1 + timedelta(ferias.nrDias1))
-        
-    
-    if ferias.nrDias2 == None:
-        ferias.nrDias2 = ""
-        dtFim2 = ""
-    else:
-        dtFim2 = formatDataToText(ferias.dtInicio2 + timedelta(ferias.nrDias2))
-    
-    if ferias.nrDias3 == None:
-        ferias.nrDias3 = ""
-        dtFim3 = ""
-    else:
-        dtFim3 = formatDataToText(ferias.dtInicio3 + timedelta(ferias.nrDias3))
-        
-    if request.method == "POST":
-        stAntecipa = False
-        if request.POST.get('stAntecipa',False):
-                stAntecipa = True
-        stDecimoTerceiro = False
-        if request.POST.get('stDecimoTerceiro',False):
-            stDecimoTerceiro = True
-        
-        dtInicio1 = None
-        if request.POST['dtInicio1']:
-            dtInicio1 = datetime.datetime.strptime( request.POST['dtInicio1'], "%d/%m/%Y")
-        dtInicio2 = None
-        if request.POST['dtInicio2']:
-            dtInicio2 = datetime.datetime.strptime( request.POST['dtInicio2'], "%d/%m/%Y")
-        dtInicio3 = None
-        if request.POST['dtInicio3']:
-            dtInicio3 = datetime.datetime.strptime( request.POST['dtInicio3'], "%d/%m/%Y")
-             
-        nrDias2 = request.POST['nrDias2']
-        if nrDias2 == "":
-            nrDias2 = None
-   
-        nrDias3 = request.POST['nrDias3']
-        if nrDias3 == "":
-            nrDias3 = None
-        f_ferias = Tbferias(
-                    id = ferias.id,# se nao colocar essa linha ele cria um novo
-                    tbservidor_id = servidor.id,
-                    nrAno = request.POST['nrAno'],
-                    dtInicio1 = dtInicio1,
-                    nrDias1 = request.POST['nrDias1'],
-                    dtInicio2 = dtInicio2,
-                    nrDias2 = nrDias2,
-                    dtInicio3 = dtInicio3,
-                    nrDias3 = nrDias3,
-                    stAntecipa = stAntecipa,
-                    stDecimoTerceiro = stDecimoTerceiro,
-                    stSituacao = Tbsituacao.objects.get( pk = request.POST['tbsituacao'] )
-                    )
-        f_ferias.save()
-        return HttpResponseRedirect("/servidor/restrito/servidor/edicao/"+str(servidor.id)+"/")
-    else:
-        return render_to_response('controle/servidor/edicaoFerias.html',{'ferias':ferias,'servidor':servidor,'dtInicio1':dtInicio1,'dtInicio2':dtInicio2,'dtInicio3':dtInicio3,'situacao':situacao,'dtFim1':dtFim1,'dtFim2':dtFim2,'dtFim3':dtFim3},context_instance = RequestContext(request))
 
 @permission_required('servidor.servidor_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
@@ -194,7 +69,7 @@ def cadastro(request):
                     nmcontrato = request.POST['nmcontrato']
                     )
             f_servidor.save()
-            return HttpResponseRedirect("/servidor/restrito/servidor/consulta/")
+            return HttpResponseRedirect("/ConsultarServidor/")
     return render_to_response('controle/servidor/cadastro.html',{'divisao':divisao}, context_instance = RequestContext(request))
 
 @permission_required('servidor.servidor_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -228,7 +103,7 @@ def edicao(request, id):
                     
                     )
             f_servidor.save()
-            return HttpResponseRedirect("/servidor/restrito/servidor/edicao/"+str(id)+"/")
+            return HttpResponseRedirect("/EditarServidor/"+str(id)+"/")
     return render_to_response('controle/servidor/edicao.html',
                               {"servidor":instance , "ferias":ferias, "situacaoferias":situacaoferias },context_instance = RequestContext(request))
 

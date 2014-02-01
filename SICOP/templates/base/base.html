@@ -81,7 +81,7 @@ function somardia1()
 	//mudar aqui de dmy para mdy
 	var dataMDY1 = dtInicio1.value.substr(3,2) + '/' + dtInicio1.value.substr(0,2) + '/' +dtInicio1.value.substr(6,4);
 	var data1 = new Date(dataMDY1);
-	data1.setDate(data1.getDate() + parseInt(nrDias1.value));
+	data1.setDate(data1.getDate() + parseInt(nrDias1.value) - 1 );
 	
 	var dd = data1.getDate();
 	var mm = data1.getMonth() + 1;
@@ -100,7 +100,7 @@ function somardia2()
 	//mudar aqui de dmy para mdy
 	var dataMDY2 = dtInicio2.value.substr(3,2) + '/' + dtInicio2.value.substr(0,2) + '/' +dtInicio2.value.substr(6,4);
 	var data2 = new Date(dataMDY2);
-	data2.setDate(data2.getDate() + parseInt(nrDias2.value));
+	data2.setDate(data2.getDate() + parseInt(nrDias2.value) - 1);
 	
 	var dd2 = data2.getDate();
 	var mm2 = data2.getMonth() + 1;
@@ -118,7 +118,7 @@ function somardia3()
 	//mudar aqui de dmy para mdy
 	var dataMDY3 = dtInicio3.value.substr(3,2) + '/' + dtInicio3.value.substr(0,2) + '/' +dtInicio3.value.substr(6,4);
 	var data3 = new Date(dataMDY3);
-	data3.setDate(data3.getDate() + parseInt(nrDias3.value));
+	data3.setDate(data3.getDate() + parseInt(nrDias3.value) - 1 );
 	
 	var dd3 = data3.getDate();
 	var mm3 = data3.getMonth() + 1;
@@ -127,10 +127,6 @@ function somardia3()
 	dtFim3.value = someFormattedDate3;
 }
 	
-function atualizadias()
-{
-	alert('');
-	}
 $(function() {
     $( "#id_myDate" ).datepicker({ 
     	dateFormat: "dd/mm/yy",
@@ -326,7 +322,7 @@ function SomenteNumeroOK(e, obj)
 									{% endif %}
 									
 									{% if perms.servidor.servidor_consulta %}
-										<li><a href="/servidor/restrito/servidor/consulta/">Servidor</a></li>
+										<li><a href="/ConsultarServidor/">Servidor</a></li>
 									{% endif %}
 									
 									{% if perms.servidor.documento_consulta or perms.servidor.tipo_documento_consulta %}

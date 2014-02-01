@@ -229,15 +229,15 @@ urlpatterns = patterns('',
     #INIT------------------------------CONTROLE---------------------------------------------------------------------------------
     # ACESSO SISTEMAS DE CONTROLE
     url(r'^servidor/$', 'servidor.views.inicio'),
-    url(r'^servidor/restrito/servidor/consulta/', 'servidor.restrito.servidor.consulta'),
+    url(r'^ConsultarServidor/', 'servidor.restrito.servidor.consulta'),
     url(r'^servidor/restrito/servidor/cadastro/', 'servidor.restrito.servidor.cadastro'),
-    url(r'^servidor/restrito/servidor/edicao/(?P<id>\d+)/', 'servidor.restrito.servidor.edicao'),
+    url(r'^EditarServidor/(?P<id>\d+)/', 'servidor.restrito.servidor.edicao'),
     url(r'^servidor/restrito/servidor/relatorio/pdf/', 'servidor.restrito.servidor.relatorio_pdf'),
     url(r'^servidor/restrito/servidor/relatorio/ods/', 'servidor.restrito.servidor.relatorio_ods'),
     url(r'^servidor/restrito/servidor/relatorio/csv/', 'servidor.restrito.servidor.relatorio_csv'),
     # ACESSO CONTROLE DE FERIAS
-    url(r'^servidor/restrito/servidor/edicaoferias/(?P<id>\d+)/', 'servidor.restrito.servidor.edicaoferias'),
-    url(r'^servidor/restrito/servidor/cadastroferias/(?P<id>\d+)/', 'servidor.restrito.servidor.cadastroferias'),
+    url(r'^EditarFerias/(?P<id>\d+)/', 'servidor.restrito.ferias.edicaoferias'),
+    url(r'^CadastroFerias/(?P<id>\d+)/', 'servidor.restrito.ferias.cadastroferias'),
     # ACESSO RESTRITO TABELA SITUACAO 
     url(r'^sicop/restrito/situacao/consulta/', 'sicop.restrito.situacao.consulta'),
     url(r'^sicop/restrito/situacao/edicao/(?P<id>\d+)/','sicop.restrito.situacao.edicao'),

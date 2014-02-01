@@ -55,10 +55,10 @@
 				</tr>					    
 				
 					{% for obj in ferias %}
-						<tr onclick="editarID('/servidor/restrito/servidor/edicaoferias/{{ obj.id }}');">
+						<tr onclick="editarID('/EditarFerias/{{ obj.id }}');">
 						     
 							<td class="colunaTabelaConsulta" align="left" >{{ obj.nrAno }}</td>
-							<td class="colunaTabelaConsulta">{{ obj.stSituacao.dsSituacao }}</td>
+							<!-- td class="colunaTabelaConsulta">{{ obj.stSituacao.dsSituacao }}</td-->
 							
 							{{ base.tbcaixa.nmlocalarquivo }}
 						</tr>
@@ -72,7 +72,7 @@
 		</br></br>
 		<tr>	<td class="colunaTabela" style="text-align:left"> 
 		<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
-		<a href="/servidor/restrito/servidor/cadastroferias/{{ servidor.id }}/"> <input class="button_green" value="NOVO PEDIDO" type="button" /> </a>
+		<a href="/CadastroFerias/{{ servidor.id }}/"> <input class="button_green" value="NOVO PEDIDO" type="button" /> </a>
 		</td></tr>
 	
 </form>

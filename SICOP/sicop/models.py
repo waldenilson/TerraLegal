@@ -122,7 +122,7 @@ class Tbcontratoservidor(models.Model):
     nmcontrato = models.CharField(max_length=10)
     dscontrato = models.CharField(max_length=40, blank=True)
     class Meta:
-        db_table = 'tbSIervidor'
+        db_table = 'tbservidor'
 
 
 class Tbdivisao(models.Model):
@@ -138,13 +138,16 @@ class Tbferias(models.Model):
     nrAno = models.IntegerField()
     dtInicio1 = models.DateField()
     nrDias1 = models.IntegerField()
+    stSituacao1 = models.ForeignKey('Tbsituacao',related_name='situacao_p1')
     dtInicio2 = models.DateTimeField(null=True,blank=True)
     nrDias2 = models.IntegerField(null=True,blank=True)
+    stSituacao2 = models.ForeignKey('Tbsituacao',related_name='situacao_p2')
     dtInicio3 = models.DateField(null=True,blank=True)
     nrDias3 = models.IntegerField(null=True,blank=True)
+    stSituacao3 = models.ForeignKey('Tbsituacao',related_name='situacao_p3')
     stAntecipa = models.NullBooleanField()
     stDecimoTerceiro = models.NullBooleanField()
-    stSituacao = models.ForeignKey('Tbsituacao')
+    dsObservacao = models.TextField(blank=True)
     class Meta:
         db_table = 'tbferias'
 
