@@ -243,6 +243,9 @@ class Tbprocessoclausula(models.Model):
     stprocuracao = models.BooleanField( blank=True)
     dttitulacao = models.DateTimeField(null=True, blank=True)
     id = models.AutoField(primary_key=True)
+    stcertquitacao = models.BooleanField( blank=True)
+    stcertliberacao = models.BooleanField( blank=True)
+       
     class Meta:
         db_table = 'tbprocessoclausula'
 

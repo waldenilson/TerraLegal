@@ -75,6 +75,25 @@
 						<input type="checkbox" name="stprocuracao" />
 					{% endif %} 
 				</td> </tr>
+
+				<tr> <td class="colunaTabela"> <label>Certidao quitacao:</label> </td>
+				<td>
+					{% if clausula.stcertquitacao == True %} 
+						<input checked="checked" type="checkbox" name="stcertquitacao" />
+					{% else %}
+						<input type="checkbox" name="stcertquitacao" />
+					{% endif %} 
+				</td> </tr>
+
+				<tr> <td class="colunaTabela"> <label>Certidao liberacao:</label> </td>
+				<td>
+					{% if clausula.stcertliberacao == True %} 
+						<input checked="checked" type="checkbox" name="stcertliberacao" />
+					{% else %}
+						<input type="checkbox" name="stcertliberacao" />
+					{% endif %} 
+				</td> </tr>
+
 			{% if base.tbclassificacaoprocesso.id == 2 %}
 				<tr> <td class="colunaTabela"> <label>Classificacao:</label> </td>
 				   		<td>

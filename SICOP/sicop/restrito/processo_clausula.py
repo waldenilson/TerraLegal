@@ -23,7 +23,13 @@ def cadastro(request):
     procuracao = False
     if request.POST.get('stprocuracao',False):
         procuracao = True
-        
+    liberacao = False
+    if request.POST.get('stcertliberacao',False):
+        liberacao = True
+    quitacao = False
+    if request.POST.get('stcertquitacao',False):
+        quitacao = True
+            
     div_processo = "clausula"
     escolha = "tbprocessoclausula"  
     
@@ -58,7 +64,9 @@ def cadastro(request):
                                        dttitulacao =  datatitulacao,
                                        nrarea = request.POST['nrarea'].replace(',','.'),
                                        stprocuracao = procuracao,
-                                       dsobs = request.POST['dsobs']
+                                       dsobs = request.POST['dsobs'],
+                                       stcertquitacao = quitacao,
+                                       stcertliberacao = liberacao
                                        )
             f_clausula.save()
             
@@ -76,6 +84,12 @@ def edicao(request, id):
     procuracao = False
     if request.POST.get('stprocuracao',False):
         procuracao = True
+    quitacao = False
+    if request.POST.get('stcertquitacao',False):
+        quitacao = True
+    liberacao = False
+    if request.POST.get('stcertliberacao',False):
+        liberacao = True
     
     clausula = get_object_or_404(Tbprocessoclausula, id=id)
     base  = get_object_or_404(Tbprocessobase, id=clausula.tbprocessobase.id)
@@ -121,7 +135,9 @@ def edicao(request, id):
                                        dttitulacao =  datatitulacao,
                                        nrarea = request.POST['nrarea'].replace(',','.'),
                                        stprocuracao = procuracao,
-                                       dsobs = request.POST['dsobs']
+                                       dsobs = request.POST['dsobs'],
+                                       stcertquitacao = quitacao,
+                                       stcertliberacao = liberacao
                                        )
             f_clausula.save()
             
