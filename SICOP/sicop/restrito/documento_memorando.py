@@ -4,7 +4,7 @@ from django.template.context import RequestContext
 from sicop.models import Tbtipoprocesso, Tbcaixa, Tbgleba, Tbmunicipio, AuthUser,\
     AuthGroup, Tbprocessobase, Tbprocessorural, Tbclassificacaoprocesso, Tbsituacaoprocesso,\
     Tbpecastecnicas, Tbmovimentacao, Tbtipodocumento, Tbdocumentobase,\
-    Tbdocumentomemorando
+    Tbdocumentomemorando, Tbservidor
 from sicop.forms import FormProcessoRural, FormProcessoBase
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect, HttpResponse
@@ -25,7 +25,7 @@ def consulta(request):
 @permission_required('servidor.documento_memorando_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
     tipodocumento = Tbtipodocumento.objects.all()
-    
+    servidor = Tbservidor.objects.all()
     div_documento = "memorando"
     escolha = "tbdocumentomemorando"
     
@@ -38,6 +38,7 @@ def cadastro(request):
                                     tbtipodocumento = Tbtipodocumento.objects.get( tabela = 'tbdocumentomemorando' ),
                                     linkdocumento = 'arquivo.pdf',
                                     dtdocumento = datetime.datetime.now(),
+                                    tbservidor = Tbservidor.objects.get( pk = request.POST['tbservidor'] ),
                                     auth_user = AuthUser.objects.get( pk = request.user.id ),
                                     tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                     )
@@ -56,7 +57,7 @@ def cadastro(request):
             return HttpResponseRedirect("/sicop/restrito/documento/consulta/")
         
     return render_to_response('sicop/restrito/documento/cadastro.html',
-        {'tipodocumento':tipodocumento, 'documento':escolha, 'div_documento':div_documento}, context_instance = RequestContext(request))    
+        {'tipodocumento':tipodocumento, 'documento':escolha, 'div_documento':div_documento,'servidor':servidor}, context_instance = RequestContext(request))    
 
 @permission_required('servidor.documento_memorando_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def criacao(request, id):   
@@ -132,7 +133,8 @@ def edicao(request, id):
     
     memorando = get_object_or_404(Tbdocumentomemorando, id=id)
     base  = get_object_or_404(Tbprocessobase, id=memorando.tbdocumentobase.id)
-      
+    servidor = Tbservidor.objects.all()
+ 
     if validacao(request, "edicao"):
          # cadastrando o registro processo base            
             f_base = Tbdocumentobase (
@@ -141,6 +143,7 @@ def edicao(request, id):
                                     tbtipodocumento = Tbtipodocumento.objects.get( tabela = 'tbdocumentomemorando' ),
                                     linkdocumento = 'arquivo.pdf',
                                     dtdocumento = datetime.datetime.now(),
+                                    tbservidor = Tbservidor.objects.get( pk = request.POST['tbservidor'] ),
                                     auth_user = AuthUser.objects.get( pk = request.user.id ),
                                     tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                     )
@@ -159,7 +162,7 @@ def edicao(request, id):
             return HttpResponseRedirect("/sicop/restrito/documento/edicao/"+str(base.id)+"/")
     
     return render_to_response('sicop/restrito/documento/memorando/edicao.html',
-                              {'base':base,'memorando':memorando},
+                              {'base':base,'memorando':memorando,'servidor':servidor},
                                context_instance = RequestContext(request))   
 
 def validacao(request_form, metodo):

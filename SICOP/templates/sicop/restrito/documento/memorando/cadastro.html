@@ -8,6 +8,16 @@
 					<td class="colunaTabela"> <label>Nome:</label> </td>
 					<td> <input size="21" name="nmdocumento" id="documento" /> </td> 
 				</tr>
+  			    <tr> <td class="colunaTabela"> <label>Servidor:</label> </td>
+ 				   	<td>
+				   		<select name="tbservidor"  style="width:150px">
+							{% for obj in servidor %}
+								<option value="0">Nenhum Selecionado</option>
+								<option value="{{ obj.id }}">{{ obj.nmservidor }}</option>
+							{% endfor %}
+						</select>		
+				   	</td>
+				</tr>
 				<tr> <td class="colunaTabela"> <label>Assunto:</label> </td>
 					<td> <input size="40" name="nmassunto" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Local:</label> </td>

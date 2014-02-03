@@ -8,7 +8,7 @@ from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
     Tbcontrato, Tbsituacaoprocesso, Tbsituacaogeo, Tbpecastecnicas, AuthUser,\
     AuthUserGroups, Tbmovimentacao, Tbprocessosanexos, Tbpendencia,\
     Tbclassificacaoprocesso, Tbtipopendencia, Tbstatuspendencia, Tbpregao,\
-    Tbdocumentomemorando, Tbdocumentobase, Tbtipodocumento
+    Tbdocumentomemorando, Tbdocumentobase, Tbtipodocumento, Tbservidor
 from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
 from sicop.restrito import processo_rural
@@ -35,6 +35,7 @@ def consulta(request):
     #lista = Tbdocumentobase.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by( "dtdocumento" )
     if request.method == "POST":
         nome = request.POST['nome']
+        servidor = request.POST['servidor']
         
         if len(nome) >= 3:
 #            lista = Tbprocessobase.objects.all().filter( nrprocesso__contains = numero )
@@ -51,6 +52,15 @@ def consulta(request):
         else:
             if len(nome) > 0 and len(nome) < 3:
                 messages.add_message(request,messages.WARNING,'Informe no minimo 3 caracteres no campo Nome.')
+                
+        if len(servidor) >= 3:
+            p_memorando = Tbdocumentomemorando.objects.all().filter( tbdocumentobase__tbservidor__nmservidor__icontains = servidor )
+            for obj in p_memorando:
+                lista.append( obj )
+        else:
+            if len(servidor) > 0 and len(servidor) < 3:
+                messages.add_message(request,messages.WARNING,'Informe no minimo 3 caracteres no campo Servidor.')
+            
         
     # gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_documento'] = lista
@@ -78,6 +88,7 @@ def edicao(request, id):
 @permission_required('servidor.documento_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
     tipodocumento = Tbtipodocumento.objects.all()
+    servidor = Tbservidor.objects.all()
     escolha = "tbdocumentomemorando"
     div_documento = "memorando"
            
@@ -87,11 +98,12 @@ def cadastro(request):
             div_documento = "memorando"
             return render_to_response('sicop/restrito/documento/cadastro.html',
                     {'tipodocumento':tipodocumento,'documento':escolha,
-                    'div_documento':div_documento},
+                    'div_documento':div_documento,'servidor':servidor},
                     context_instance = RequestContext(request));  
         
     return render_to_response('sicop/restrito/documento/cadastro.html',{
-        'tipodocumento':tipodocumento,'documento':escolha,'div_documento':div_documento}, context_instance = RequestContext(request))
+        'tipodocumento':tipodocumento,'documento':escolha,
+        'div_documento':div_documento,'servidor':servidor}, context_instance = RequestContext(request))
 
 
 @permission_required('servidor.documento_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)

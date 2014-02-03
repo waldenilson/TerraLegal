@@ -22,6 +22,23 @@
 			<tr> 
 				<td class="colunaTabela"> <label>Nome:</label> </td>
 				<td class="colunaTabela"> <input size="21" name="nmdocumento" id="documento" value="{{ base.nmdocumento }}" /> </td> 
+				   <tr> <td class="colunaTabela"> <label>Servidor:</label> </td>
+				   	<td>
+				   		<select name="tbservidor" style="width:150px">
+							{% for obj in servidor %}
+								{% if obj.id == base.tbservidor.value %}
+									<option selected="selected" value="{{ obj.id }}">{{ obj.nmservidor }}</option>
+								{% else %}
+									<option value="0">Nenhum Selecionado</option>
+									<option value="{{ obj.id }}">{{ obj.nmservidor }}</option>
+								{% endif %}
+							{% endfor %}
+						</select>		
+				   	</td>
+					<td>
+						<a href="/sicop/restrito/tipo_caixa/cadastro/?next=/sicop/restrito/caixa/cadastro/" title="Novo Tipo"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+					</td>						
+				   </tr>
 
 				<tr> <td class="colunaTabela"> <label>Assunto:</label> </td>
 					<td> <input size="40" name="nmassunto" value="{{ memorando.nmassunto }}" /> </td> </tr>
