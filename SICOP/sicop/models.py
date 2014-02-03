@@ -406,6 +406,7 @@ class Tbdocumentobase(models.Model):
     dtdocumento = models.DateTimeField(null=True, blank=True)
     linkdocumento = models.TextField(blank=True)
     auth_user = models.ForeignKey(AuthUser)
+    tbservidor = models.ForeignKey('Tbservidor')
     tbdivisao = models.ForeignKey('Tbdivisao')
     id = models.AutoField(primary_key=True)
     class Meta:
