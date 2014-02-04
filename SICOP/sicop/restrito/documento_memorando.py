@@ -16,8 +16,6 @@ from reportlab.lib.enums import TA_JUSTIFY
 import time
 from reportlab.platypus.doctemplate import SimpleDocTemplate
 
-#10.12.0.60
-
 @permission_required('servidor.documento_memorando_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
     return render_to_response('sicop/restrito/documento/memorando/consulta.html',{}, context_instance = RequestContext(request))    
@@ -25,20 +23,18 @@ def consulta(request):
 @permission_required('servidor.documento_memorando_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
     tipodocumento = Tbtipodocumento.objects.all()
-    servidor = Tbservidor.objects.all()
     div_documento = "memorando"
     escolha = "tbdocumentomemorando"
     
     if request.method == "POST":
         if validacao(request, "cadastro"):
-            
+                        
             # cadastrando o registro processo base            
             f_base = Tbdocumentobase (
                                     nmdocumento = request.POST['nmdocumento'],
                                     tbtipodocumento = Tbtipodocumento.objects.get( tabela = 'tbdocumentomemorando' ),
                                     linkdocumento = 'arquivo.pdf',
                                     dtdocumento = datetime.datetime.now(),
-                                    tbservidor = Tbservidor.objects.get( pk = request.POST['tbservidor'] ),
                                     auth_user = AuthUser.objects.get( pk = request.user.id ),
                                     tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                     )
@@ -57,7 +53,7 @@ def cadastro(request):
             return HttpResponseRedirect("/sicop/restrito/documento/consulta/")
         
     return render_to_response('sicop/restrito/documento/cadastro.html',
-        {'tipodocumento':tipodocumento, 'documento':escolha, 'div_documento':div_documento,'servidor':servidor}, context_instance = RequestContext(request))    
+        {'tipodocumento':tipodocumento, 'documento':escolha, 'div_documento':div_documento}, context_instance = RequestContext(request))    
 
 @permission_required('servidor.documento_memorando_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def criacao(request, id):   
@@ -127,15 +123,14 @@ def criacao(request, id):
     
     return response
 
-
 @permission_required('servidor.documento_memorando_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     
     memorando = get_object_or_404(Tbdocumentomemorando, id=id)
-    base  = get_object_or_404(Tbprocessobase, id=memorando.tbdocumentobase.id)
-    servidor = Tbservidor.objects.all()
- 
+    base  = get_object_or_404(Tbdocumentobase, id=memorando.tbdocumentobase.id)
+    
     if validacao(request, "edicao"):
+        
          # cadastrando o registro processo base            
             f_base = Tbdocumentobase (
                                     id = base.id,
@@ -143,13 +138,13 @@ def edicao(request, id):
                                     tbtipodocumento = Tbtipodocumento.objects.get( tabela = 'tbdocumentomemorando' ),
                                     linkdocumento = 'arquivo.pdf',
                                     dtdocumento = datetime.datetime.now(),
-                                    tbservidor = Tbservidor.objects.get( pk = request.POST['tbservidor'] ),
                                     auth_user = AuthUser.objects.get( pk = request.user.id ),
                                     tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                     )
             f_base.save()
 
             f_memorando = Tbdocumentomemorando (
+                                       id = memorando.id,
                                        nmassunto = request.POST['nmassunto'],
                                        nmlocal = request.POST['nmlocal'],
                                        nmremetente = request.POST['nmremetente'],
@@ -162,7 +157,7 @@ def edicao(request, id):
             return HttpResponseRedirect("/sicop/restrito/documento/edicao/"+str(base.id)+"/")
     
     return render_to_response('sicop/restrito/documento/memorando/edicao.html',
-                              {'base':base,'memorando':memorando,'servidor':servidor},
+                              {'base':base,'memorando':memorando},
                                context_instance = RequestContext(request))   
 
 def validacao(request_form, metodo):

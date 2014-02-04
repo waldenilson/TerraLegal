@@ -406,11 +406,17 @@ class Tbdocumentobase(models.Model):
     dtdocumento = models.DateTimeField(null=True, blank=True)
     linkdocumento = models.TextField(blank=True)
     auth_user = models.ForeignKey(AuthUser)
-    tbservidor = models.ForeignKey('Tbservidor')
     tbdivisao = models.ForeignKey('Tbdivisao')
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbdocumentobase'
+
+class Tbdocumentoservidor(models.Model):
+    tbdocumentobase = models.ForeignKey(Tbdocumentobase)
+    tbservidor = models.ForeignKey(Tbservidor)
+    id = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = 'tbdocumentoservidor'
         
 class Tbdocumentomemorando(models.Model):
     tbdocumentobase = models.ForeignKey(Tbdocumentobase)

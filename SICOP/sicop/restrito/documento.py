@@ -31,36 +31,22 @@ planilha_relatorio  = "Documentos"
 @permission_required('servidor.documento_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
     # carrega os processos da divisao do usuario logado
+        
     lista = []
     #lista = Tbdocumentobase.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by( "dtdocumento" )
     if request.method == "POST":
         nome = request.POST['nome']
-        servidor = request.POST['servidor']
         
         if len(nome) >= 3:
 #            lista = Tbprocessobase.objects.all().filter( nrprocesso__contains = numero )
-            p_memorando = Tbdocumentomemorando.objects.all().filter( tbdocumentobase__nmdocumento__icontains = nome )
-            p_memorando_assunto = Tbdocumentomemorando.objects.all().filter( nmassunto__icontains = nome )
-            p_memorando_mensagem = Tbdocumentomemorando.objects.all().filter( nmmensagem__icontains = nome )
+            p_memorando = Tbdocumentomemorando.objects.filter( tbdocumentobase__nmdocumento__icontains = nome ) | Tbdocumentomemorando.objects.filter( nmassunto__icontains = nome ) | Tbdocumentomemorando.objects.filter( nmmensagem__icontains = nome )           
             lista = []
             for obj in p_memorando:
-                lista.append( obj )
-            for obj in p_memorando_assunto:
-                lista.append( obj )
-            for obj in p_memorando_mensagem:
                 lista.append( obj )
         else:
             if len(nome) > 0 and len(nome) < 3:
                 messages.add_message(request,messages.WARNING,'Informe no minimo 3 caracteres no campo Nome.')
-                
-        if len(servidor) >= 3:
-            p_memorando = Tbdocumentomemorando.objects.all().filter( tbdocumentobase__tbservidor__nmservidor__icontains = servidor )
-            for obj in p_memorando:
-                lista.append( obj )
-        else:
-            if len(servidor) > 0 and len(servidor) < 3:
-                messages.add_message(request,messages.WARNING,'Informe no minimo 3 caracteres no campo Servidor.')
-            
+                            
         
     # gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_documento'] = lista
@@ -72,16 +58,16 @@ def consulta(request):
 @permission_required('servidor.documento_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     base = get_object_or_404(Tbdocumentobase, id=id)
-    
+    servidor = Tbservidor.objects.all()
     tipo = base.tbtipodocumento.tabela
-    
+        
     # se processobase pertencer a mesma divisao do usuario logado
     if base.auth_user.tbdivisao.id == AuthUser.objects.get( pk = request.user.id ).tbdivisao.id:
         if tipo == "tbdocumentomemorando":
             memorando = Tbdocumentomemorando.objects.get( tbdocumentobase = id )
                 
             return render_to_response('sicop/restrito/documento/memorando/edicao.html',
-                                      {'base':base,'memorando':memorando}, context_instance = RequestContext(request))
+                                      {'base':base,'memorando':memorando,'servidor':servidor}, context_instance = RequestContext(request))
         
     return HttpResponseRedirect("/sicop/restrito/documento/consulta/")
     
