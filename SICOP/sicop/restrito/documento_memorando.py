@@ -4,7 +4,7 @@ from django.template.context import RequestContext
 from sicop.models import Tbtipoprocesso, Tbcaixa, Tbgleba, Tbmunicipio, AuthUser,\
     AuthGroup, Tbprocessobase, Tbprocessorural, Tbclassificacaoprocesso, Tbsituacaoprocesso,\
     Tbpecastecnicas, Tbmovimentacao, Tbtipodocumento, Tbdocumentobase,\
-    Tbdocumentomemorando, Tbservidor
+    Tbdocumentomemorando, Tbservidor, Tbdocumentoservidor
 from sicop.forms import FormProcessoRural, FormProcessoBase
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect, HttpResponse
@@ -125,14 +125,41 @@ def criacao(request, id):
 
 @permission_required('servidor.documento_memorando_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
-    
+        
     memorando = get_object_or_404(Tbdocumentomemorando, id=id)
     base  = get_object_or_404(Tbdocumentobase, id=memorando.tbdocumentobase.id)
     
+        
+    
     if validacao(request, "edicao"):
+
+        servidor = Tbservidor.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        
+        # verificando os grupos do usuario
+        for obj in servidor:
+            print 'AQUI'
+            if request.POST.get(obj.nmservidor, False):
+                #verificar se esse grupo ja esta ligado ao usuario
+                res = Tbdocumentoservidor.objects.filter( tbdocumentobase__id = id, tbservidor__id = obj.id )
+                if not res:
+                    # inserir ao authusergroups
+                    ug = Tbdocumentoservidor( tbdocumentobase = Tbdocumentobase.objects.get( pk = id ),
+                                          tbservidor = Tbservidor.objects.get( pk = obj.id ) )
+                    ug.save()
+                    #print obj.name + ' nao esta ligado a este usuario'
+            else:
+                #verificar se esse grupo foi desligado do usuario
+                res = Tbdocumentoservidor.objects.filter( tbdocumentobase__id = id, tbservidor__id = obj.id )
+                if res:
+                    # excluir do authusergroups
+                    for aug in res:
+                        aug.delete()
+                    #print obj.name + ' desmarcou deste usuario'
+
+        
         
          # cadastrando o registro processo base            
-            f_base = Tbdocumentobase (
+        f_base = Tbdocumentobase (
                                     id = base.id,
                                     nmdocumento = request.POST['nmdocumento'],
                                     tbtipodocumento = Tbtipodocumento.objects.get( tabela = 'tbdocumentomemorando' ),
@@ -141,9 +168,9 @@ def edicao(request, id):
                                     auth_user = AuthUser.objects.get( pk = request.user.id ),
                                     tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                     )
-            f_base.save()
+        f_base.save()
 
-            f_memorando = Tbdocumentomemorando (
+        f_memorando = Tbdocumentomemorando (
                                        id = memorando.id,
                                        nmassunto = request.POST['nmassunto'],
                                        nmlocal = request.POST['nmlocal'],
@@ -152,9 +179,9 @@ def edicao(request, id):
                                        nmmensagem = request.POST['nmmensagem'],
                                        tbdocumentobase = f_base,
                                        )
-            f_memorando.save()
+        f_memorando.save()
             
-            return HttpResponseRedirect("/sicop/restrito/documento/edicao/"+str(base.id)+"/")
+        return HttpResponseRedirect("/sicop/restrito/documento/edicao/"+str(base.id)+"/")
     
     return render_to_response('sicop/restrito/documento/memorando/edicao.html',
                               {'base':base,'memorando':memorando},

@@ -85,8 +85,7 @@ def cadastro(request):
 def edicao(request, id):
     
     divisao = Tbdivisao.objects.all().order_by('nmdivisao')
-    grupo = AuthGroup.objects.all().order_by('name')
-    #servidor = Tbservidor.objects.all()
+    grupo = AuthGroup.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('name')
     userGrupo = AuthUserGroups.objects.all().filter( user = id )
     
     result = {}
@@ -100,8 +99,7 @@ def edicao(request, id):
         if not achou:
             result.setdefault(obj.name, False)
     result = sorted(result.items())
-    
-        
+            
     user_obj = get_object_or_404(AuthUser, id=id)
 
     if request.method == "POST":
