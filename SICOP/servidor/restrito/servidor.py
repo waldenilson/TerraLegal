@@ -7,7 +7,8 @@ from django.contrib import messages
 
 from sicop.forms import FormPecasTecnicas, FormServidor,FormFerias
 
-from sicop.models import Tbpecastecnicas, Tbgleba, Tbcaixa,Tbcontrato, Tbservidor, AuthUser, Tbdivisao, Tbferias, Tbsituacao
+from sicop.models import Tbpecastecnicas, Tbgleba, Tbcaixa,Tbcontrato,\
+    Tbservidor, AuthUser, Tbdivisao, Tbferias, Tbsituacao, Tbdocumentoservidor
 from sicop.admin import verificar_permissao_grupo
 from django.http.response import HttpResponse
 from sicop.relatorio_base import relatorio_pdf_base_header,\
@@ -42,10 +43,6 @@ def consulta(request):
 
 @permission_required('servidor.servidor_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
-    #usar quando tives chaves
-    #contrato = Tbcontrato.objects.all()
-    #caixa = Tbcaixa.objects.filter( tbtipocaixa = 2 )
-    #gleba = Tbgleba.objects.all()
     divisao = Tbdivisao.objects.all()
     if request.method == "POST":
         if validacao(request):
@@ -77,6 +74,7 @@ def edicao(request, id):
     ferias = Tbferias.objects.filter(tbservidor = id)
     instance = get_object_or_404(Tbservidor, id=id)
     situacaoferias  = Tbsituacao.objects.all().filter(cdTabela="ferias")
+    documentos  = Tbdocumentoservidor.objects.filter(tbservidor = id)
      
     if request.method == "POST":
         
@@ -105,7 +103,7 @@ def edicao(request, id):
             f_servidor.save()
             return HttpResponseRedirect("/EditarServidor/"+str(id)+"/")
     return render_to_response('controle/servidor/edicao.html',
-                              {"servidor":instance , "ferias":ferias, "situacaoferias":situacaoferias },context_instance = RequestContext(request))
+                              {"servidor":instance , "ferias":ferias, "situacaoferias":situacaoferias ,"documentos":documentos},context_instance = RequestContext(request))
 
 @permission_required('servidor.servidor_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_pdf(request):
