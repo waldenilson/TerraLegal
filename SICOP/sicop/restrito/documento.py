@@ -81,9 +81,7 @@ def edicao(request, id):
                 if not achou:
                     result.setdefault(obj.nmservidor, False)
             result = sorted(result.items())
-
-            
-            
+                     
             
             memorando = Tbdocumentomemorando.objects.get( tbdocumentobase = id )
                 

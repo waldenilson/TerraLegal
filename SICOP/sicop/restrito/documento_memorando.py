@@ -29,6 +29,23 @@ def cadastro(request):
     if request.method == "POST":
         if validacao(request, "cadastro"):
                         
+            servidor = Tbservidor.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+            docservidor = Tbdocumentoservidor.objects.filter( tbdocumentobase__id = id )
+                
+            result = {}
+            for obj in servidor:
+                achou = False
+                for obj2 in docservidor:
+                    if obj.id == obj2.tbservidor.id:
+                        result.setdefault(obj.nmservidor,True)
+                        achou = True
+                        break
+                if not achou:
+                    result.setdefault(obj.nmservidor, False)
+            result = sorted(result.items())
+           
+                        
+                        
             # cadastrando o registro processo base            
             f_base = Tbdocumentobase (
                                     nmdocumento = request.POST['nmdocumento'],
@@ -128,9 +145,7 @@ def edicao(request, id):
         
     memorando = get_object_or_404(Tbdocumentomemorando, id=id)
     base  = get_object_or_404(Tbdocumentobase, id=memorando.tbdocumentobase.id)
-    
-        
-    
+     
     if validacao(request, "edicao"):
 
         servidor = Tbservidor.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
