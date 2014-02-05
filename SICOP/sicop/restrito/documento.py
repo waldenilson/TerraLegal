@@ -94,9 +94,14 @@ def edicao(request, id):
 @permission_required('servidor.documento_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
     tipodocumento = Tbtipodocumento.objects.all()
-    servidor = Tbservidor.objects.all()
+    servidor = Tbservidor.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     escolha = "tbdocumentomemorando"
     div_documento = "memorando"
+    
+    result = {}
+    for obj in servidor:
+        result.setdefault(obj.nmservidor, False)
+    result = sorted(result.items())
            
     if request.method == "POST":
         escolha = request.POST['escolha']
@@ -108,7 +113,7 @@ def cadastro(request):
                     context_instance = RequestContext(request));  
         
     return render_to_response('sicop/restrito/documento/cadastro.html',{
-        'tipodocumento':tipodocumento,'documento':escolha,
+        'tipodocumento':tipodocumento,'documento':escolha,'result':result,
         'div_documento':div_documento,'servidor':servidor}, context_instance = RequestContext(request))
 
 

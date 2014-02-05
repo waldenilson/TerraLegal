@@ -30,22 +30,7 @@ def cadastro(request):
         if validacao(request, "cadastro"):
                         
             servidor = Tbservidor.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-            docservidor = Tbdocumentoservidor.objects.filter( tbdocumentobase__id = id )
-                
-            result = {}
-            for obj in servidor:
-                achou = False
-                for obj2 in docservidor:
-                    if obj.id == obj2.tbservidor.id:
-                        result.setdefault(obj.nmservidor,True)
-                        achou = True
-                        break
-                if not achou:
-                    result.setdefault(obj.nmservidor, False)
-            result = sorted(result.items())
-           
-                        
-                        
+                                    
             # cadastrando o registro processo base            
             f_base = Tbdocumentobase (
                                     nmdocumento = request.POST['nmdocumento'],
@@ -66,6 +51,14 @@ def cadastro(request):
                                        tbdocumentobase = f_base,
                                        )
             f_memorando.save()
+
+            for obj in servidor:
+                if request.POST.get(obj.nmservidor, False):
+                    #verificar se esse grupo ja esta ligado ao usuario
+                        # inserir ao authusergroups
+                    ug = Tbdocumentoservidor( tbdocumentobase = Tbdocumentobase.objects.get( pk = f_base.id ),
+                                              tbservidor = Tbservidor.objects.get( pk = obj.id ) )
+                    ug.save()
             
             return HttpResponseRedirect("/sicop/restrito/documento/consulta/")
         
@@ -152,26 +145,23 @@ def edicao(request, id):
         
         # verificando os grupos do usuario
         for obj in servidor:
-            print 'AQUI'
             if request.POST.get(obj.nmservidor, False):
                 #verificar se esse grupo ja esta ligado ao usuario
-                res = Tbdocumentoservidor.objects.filter( tbdocumentobase__id = id, tbservidor__id = obj.id )
+                res = Tbdocumentoservidor.objects.filter( tbdocumentobase__id = base.id, tbservidor__id = obj.id )
                 if not res:
                     # inserir ao authusergroups
-                    ug = Tbdocumentoservidor( tbdocumentobase = Tbdocumentobase.objects.get( pk = id ),
+                    ug = Tbdocumentoservidor( tbdocumentobase = base,
                                           tbservidor = Tbservidor.objects.get( pk = obj.id ) )
                     ug.save()
                     #print obj.name + ' nao esta ligado a este usuario'
             else:
                 #verificar se esse grupo foi desligado do usuario
-                res = Tbdocumentoservidor.objects.filter( tbdocumentobase__id = id, tbservidor__id = obj.id )
+                res = Tbdocumentoservidor.objects.filter( tbdocumentobase__id = base.id, tbservidor__id = obj.id )
                 if res:
                     # excluir do authusergroups
                     for aug in res:
                         aug.delete()
                     #print obj.name + ' desmarcou deste usuario'
-
-        
         
          # cadastrando o registro processo base            
         f_base = Tbdocumentobase (

@@ -1,61 +1,57 @@
 {% load staticfiles %} 
 {% block formulario %}
-
 <div id="tabs" style="color:black;width:100%;font-size:11px">
  <ul>
-	<li><a href="#tabs-1">CADASTRO DOCUMENTO MEMORANDO</a></li>
+	<li><a href="#tabs-1">CADASTRAR DOCUMENTO</a></li>
 	<li><a href="#tabs-2">SERVIDORES</a></li>
 </ul>
 
 	<form name="form_cadastro" method="post" action="/sicop/restrito/documento/memorando/cadastro/">
 			{% csrf_token %}
-		<div id="tabs-1">
 
-			<table>
-				<tr> 
-					<td class="colunaTabela"> <label>Nome:</label> </td>
-					<td> <input size="21" name="nmdocumento" id="documento" /> </td> 
-				</tr>
-				<tr> <td class="colunaTabela"> <label>Assunto:</label> </td>
-					<td> <input size="40" name="nmassunto" /> </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Local:</label> </td>
-					<td> <input size="20" name="nmlocal" /> </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Remetente:</label> </td>
-					<td> <input size="35" name="nmremetente" /> </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Destinatario:</label> </td>
-					<td> <input size="35" name="nmdestinatario" /> </td> </tr>
-			   <tr> <td class="colunaTabela"> <label>Mensagem:</label> </td><td> <textarea rows="4" cols="40" name="nmmensagem"></textarea></td> </tr>
-			</table>
-		
-		</div>
-
-		<div id="tabs-2">
-				<table class="csstable"  style="width:100%">
-					<tbody>
-						<tr>
-							<td class="colunaTabelaConsulta" style="width:5%"> </td>
-							<td class="colunaTabelaConsulta" style="width:95%">Servidores</td>
-						</tr>
-						{% if servidor %}
-							{% for k,v in result %}
-								<tr>
-									<td class="colunaTabelaConsulta">
-										{% if v %}
-												<input checked="checked" name="{{ k }}" type="checkbox" />
-										{% else %}
-												<input name="{{ k }}" type="checkbox" />
-										{% endif %}
-									</td>
-									<td class="colunaTabelaConsulta">{{ k }}</td>
-								</tr>
-							{% endfor %}
-						{% else %}
-							<tr> <td style="padding-top: 20px" colspan="6"> Cadastre os servidores </td> </tr>
-						{% endif %}
-					</tbody>
+			<div id="tabs-1">
+	
+				<table>
+					<tr> 
+						<td class="colunaTabela"> <label>Nome:</label> </td>
+						<td> <input size="21" name="nmdocumento" id="documento" /> </td> 
+					</tr>
+					<tr> <td class="colunaTabela"> <label>Assunto:</label> </td>
+						<td> <input size="40" name="nmassunto" /> </td> </tr>
+					<tr> <td class="colunaTabela"> <label>Local:</label> </td>
+						<td> <input size="20" name="nmlocal" /> </td> </tr>
+					<tr> <td class="colunaTabela"> <label>Remetente:</label> </td>
+						<td> <input size="35" name="nmremetente" /> </td> </tr>
+					<tr> <td class="colunaTabela"> <label>Destinatario:</label> </td>
+						<td> <input size="35" name="nmdestinatario" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Mensagem:</label> </td><td> <textarea rows="4" cols="40" name="nmmensagem"></textarea></td> </tr>
 				</table>
-		</div>
 			
+			</div>
+
+			<div id="tabs-2">
+					<table class="csstable"  style="width:100%">
+						<tbody>
+							<tr>
+								<td class="colunaTabelaConsulta" style="width:5%"> </td>
+								<td class="colunaTabelaConsulta" style="width:95%">Servidores</td>
+							</tr>
+							{% if servidor %}
+								{% for k,v in result %}
+									<tr>
+										<td class="colunaTabelaConsulta">
+											<input name="{{ k }}" type="checkbox" />
+										</td>
+										<td class="colunaTabelaConsulta">{{ k }}</td>
+									</tr>
+								{% endfor %}
+							{% else %}
+								<tr> <td style="padding-top: 20px" colspan="6"> Cadastre os servidores </td> </tr>
+							{% endif %}
+						</tbody>
+					</table>
+			</div>
+	
 		<table style="width:100%">
 			<tr>
 				<td class="colunaTabela" style="text-align:left"> 
@@ -65,7 +61,7 @@
 			</tr>
 		</table>
 	
-	</form>			
+	</form>
+	
 </div>
-
 {% endblock %}
