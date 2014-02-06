@@ -87,7 +87,7 @@ def cadastro(request):
             usuario.save()
             
             for obj in grupo:
-                if request.POST.get(obj.nmservidor, False):
+                if request.POST.get(obj.name, False):
                     #verificar se esse grupo ja esta ligado ao usuario
                         # inserir ao authusergroups
                     ug = AuthUserGroups( user = AuthUser.objects.get( pk = usuario.id ),
@@ -96,7 +96,7 @@ def cadastro(request):
             
             return HttpResponseRedirect("/sicop/restrito/usuario/consulta/") 
     
-    return render_to_response('sicop/restrito/usuario/cadastro.html',{'divisao':divisao,'result':result}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/usuario/cadastro.html',{'divisao':divisao,'result':result,'grupo':grupo}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.usuario_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
