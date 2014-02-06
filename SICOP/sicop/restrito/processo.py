@@ -377,9 +377,6 @@ def anexar(request, base):
 
 
 
-
-
-
 @permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     base = get_object_or_404(Tbprocessobase, id=id)
@@ -436,6 +433,7 @@ def edicao(request, id):
                     clausula = Tbprocessoclausula.objects.get( tbprocessobase = id )
                     dttitulacao = formatDataToText( clausula.dttitulacao )
                     # caixas que podem ser tramitadas
+                
                     tram = []
                     for obj in caixasdestino:
                         if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'RES' or obj.tbtipocaixa.nmtipocaixa == 'FT':

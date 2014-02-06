@@ -118,9 +118,10 @@ def edicao(request, id):
 
 def validacao(request_form, metodo):
     warning = True
-    if request_form.POST['nrprocesso'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe o numero do processo')
-        warning = False
+    if metodo == "cadastro":        
+        if request_form.POST['nrprocesso'] == '':
+            messages.add_message(request_form,messages.WARNING,'Informe o numero do processo')
+            warning = False
     if request_form.POST['tbgleba'] == '':
         messages.add_message(request_form,messages.WARNING,'Escolha uma gleba')
         warning = False
