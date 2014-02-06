@@ -147,6 +147,10 @@ def edicao(request, id):
                     
         if validacao(request, 'edicao'):
             
+            ativo = False
+            if request.POST.get('is_active',False):
+                ativo = True
+            
             # tratar o campo senha
             senha_digitada = request.POST['password']
             senha_atual = user_obj.password
@@ -163,7 +167,7 @@ def edicao(request, id):
                                    username = request.POST['username'],
                                    is_superuser = user_obj.is_superuser,
                                    is_staff = user_obj.is_staff,
-                                   is_active = user_obj.is_active,
+                                   is_active = ativo,
                                    last_login = user_obj.last_login,
                                    date_joined = user_obj.date_joined
                                    )
