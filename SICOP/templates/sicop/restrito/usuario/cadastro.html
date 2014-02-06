@@ -38,7 +38,31 @@
 				   
 				</table>
 		</div>
+		
 		<br />
+		<table class="csstable"  style="width:100%">
+			<tbody>
+				<tr>
+					<td class="colunaTabelaConsulta" style="width:5%"> </td>
+					<td class="colunaTabelaConsulta" style="width:95%">Grupos</td>
+				</tr>
+				{% if grupo %}
+					{% for k,v in result %}
+						<tr>
+							<td class="colunaTabelaConsulta">
+								<input checked="checked" name="{{ k }}" type="checkbox" />
+							</td>
+							<td class="colunaTabelaConsulta">{{ k }}</td>
+						</tr>
+					{% endfor %}
+				{% else %}
+					<tr> <td style="padding-top: 20px" colspan="6"> Cadastre Grupos de Usuario </td> </tr>
+				{% endif %}
+			</tbody>
+		</table>
+		<br/>
+				
+		
 		<table style="width:100%">
 			<tr>
 				<td class="colunaTabela" style="text-align:left"> 

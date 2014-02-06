@@ -56,6 +56,15 @@ def cadastro(request):
     #servidor = Tbservidor.objects.all()
     divisao = Tbdivisao.objects.all().order_by('nmdivisao')
     
+    
+    grupo = AuthGroup.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('name')
+    
+    result = {}
+    for obj in grupo:
+        result.setdefault(obj.name, False)
+    result = sorted(result.items())
+
+    
     ativo = False
     if request.POST.get('is_active',False):
         ativo = True
@@ -76,9 +85,18 @@ def cadastro(request):
                                    date_joined = datetime.datetime.now()
                                    )
             usuario.save()
+            
+            for obj in grupo:
+                if request.POST.get(obj.nmservidor, False):
+                    #verificar se esse grupo ja esta ligado ao usuario
+                        # inserir ao authusergroups
+                    ug = AuthUserGroups( user = AuthUser.objects.get( pk = usuario.id ),
+                                          group = AuthGroup.objects.get( pk = obj.id ) )
+                    ug.save()
+            
             return HttpResponseRedirect("/sicop/restrito/usuario/consulta/") 
     
-    return render_to_response('sicop/restrito/usuario/cadastro.html',{'divisao':divisao}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/usuario/cadastro.html',{'divisao':divisao,'result':result}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.usuario_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
