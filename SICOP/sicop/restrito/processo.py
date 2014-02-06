@@ -54,11 +54,11 @@ def consulta(request):
         if len(numero) >= 3:
 #            lista = Tbprocessobase.objects.all().filter( nrprocesso__contains = numero )
             if request.user.has_perm('sicop.processo_rural_consulta'):
-                p_rural = Tbprocessorural.objects.all().filter( tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural' )
+                p_rural = Tbprocessorural.objects.filter( tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural', tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
             if request.user.has_perm('sicop.processo_clausula_consulta'):
-                p_clausula = Tbprocessoclausula.objects.all().filter( tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessoclausula' )
+                p_clausula = Tbprocessoclausula.objects.filter( tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessoclausula', tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
             if request.user.has_perm('sicop.processo_urbano_consulta'):
-                p_urbano = Tbprocessourbano.objects.all().filter( tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessourbano' )
+                p_urbano = Tbprocessourbano.objects.filter( tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessourbano', tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
             lista = []
             for obj in p_rural:
                 lista.append( obj )
@@ -72,9 +72,9 @@ def consulta(request):
         
         if len(cpf) >= 3 :
             if request.user.has_perm('sicop.processo_rural_consulta'):
-                p_rural = Tbprocessorural.objects.all().filter( nrcpfrequerente__contains = cpf, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural' )
+                p_rural = Tbprocessorural.objects.filter( nrcpfrequerente__contains = cpf, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural', tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
             if request.user.has_perm('sicop.processo_clausula_consulta'):
-                p_clausula = Tbprocessoclausula.objects.all().filter( nrcpfrequerente__contains = cpf, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessoclausula' )
+                p_clausula = Tbprocessoclausula.objects.filter( nrcpfrequerente__contains = cpf, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessoclausula', tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
             lista = []
             for obj in p_rural:
                 lista.append( obj )
@@ -86,9 +86,9 @@ def consulta(request):
                 
         if len(requerente) >= 3 :
             if request.user.has_perm('sicop.processo_rural_consulta'):
-                p_rural = Tbprocessorural.objects.all().filter( nmrequerente__icontains = requerente, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural' )
+                p_rural = Tbprocessorural.objects.filter( nmrequerente__icontains = requerente, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural', tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
             if request.user.has_perm('sicop.processo_clausula_consulta'):
-                p_clausula = Tbprocessoclausula.objects.all().filter( nmrequerente__icontains = requerente, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessoclausula' )
+                p_clausula = Tbprocessoclausula.objects.filter( nmrequerente__icontains = requerente, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessoclausula', tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
             lista = []
             for obj in p_rural:
                 lista.append( obj )
@@ -100,14 +100,14 @@ def consulta(request):
         
         if len(cnpj) >= 3 :
             if request.user.has_perm('sicop.processo_urbano_consulta'):
-                p_urbano = Tbprocessourbano.objects.all().filter( nrcnpj__contains = cnpj, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessourbano' ) 
+                p_urbano = Tbprocessourbano.objects.filter( nrcnpj__contains = cnpj, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessourbano', tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ) 
             lista = []
             for obj in p_urbano:
                 lista.append( obj )
     
         if len(municipio) >= 3 :
             if request.user.has_perm('sicop.processo_urbano_consulta'):
-                p_urbano = Tbprocessourbano.objects.all().filter( tbprocessobase__tbmunicipio__nome_mun__icontains = municipio, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessourbano' ) 
+                p_urbano = Tbprocessourbano.objects.filter( tbprocessobase__tbmunicipio__nome_mun__icontains = municipio, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessourbano', tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ) 
             lista = []
             for obj in p_urbano:
                 lista.append( obj ) 
