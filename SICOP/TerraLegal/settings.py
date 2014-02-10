@@ -149,6 +149,9 @@ TEMPLATE_DIRS = (
     # ABSOLUTE_TEMPLATES_PATH,
 )
 
+WEBODT_TEMPLATE_PATH = abspath(join(dirname(__file__), '../staticfiles/doc'))
+WEBODT_TMP_DIR = abspath(join(dirname(__file__), '../staticfiles/doc'))
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -161,6 +164,8 @@ INSTALLED_APPS = (
     'sicop',
     'servidor',
     'odslib',
+    'webodt',
+    'lxml',
     #'livrofundiario',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
