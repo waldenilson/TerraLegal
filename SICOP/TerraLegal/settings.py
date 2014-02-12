@@ -149,8 +149,8 @@ TEMPLATE_DIRS = (
     # ABSOLUTE_TEMPLATES_PATH,
 )
 
-WEBODT_TEMPLATE_PATH = abspath(join(dirname(__file__), '../staticfiles/doc'))
-WEBODT_TMP_DIR = abspath(join(dirname(__file__), '../staticfiles/doc'))
+WEBODT_TEMPLATE_PATH = abspath(join(dirname(__file__), '../staticfiles/doc/template'))
+WEBODT_TMP_DIR = abspath(join(dirname(__file__), '../staticfiles/doc/tmp'))
 
 INSTALLED_APPS = (
     'django.contrib.auth',

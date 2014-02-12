@@ -17,6 +17,7 @@ import time
 from reportlab.platypus.doctemplate import SimpleDocTemplate
 import webodt
 from TerraLegal import settings
+from django.core.files.storage import default_storage
 
 @permission_required('servidor.documento_memorando_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
@@ -152,6 +153,16 @@ def edicao(request, id):
      
     if validacao(request, "edicao"):
 
+        # EXCLUINDO ULTIMO DOCUMENTO
+            
+        # CRIANDO O DOCUMENTO            
+        template = webodt.ODFTemplate('memorando.odt')
+        context = dict(assunto=request.POST['nmassunto'])
+        document = template.render(Context(context))
+        caminho_nome = str( document.name ).split("\\")
+            
+        nome_document = caminho_nome[ len(caminho_nome)-1 ]
+
         servidor = Tbservidor.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
         
         # verificando os grupos do usuario
@@ -179,7 +190,7 @@ def edicao(request, id):
                                     id = base.id,
                                     nmdocumento = request.POST['nmdocumento'],
                                     tbtipodocumento = Tbtipodocumento.objects.get( tabela = 'tbdocumentomemorando' ),
-                                    linkdocumento = 'arquivo.pdf',
+                                    linkdocumento = nome_document,
                                     dtdocumento = datetime.datetime.now(),
                                     auth_user = AuthUser.objects.get( pk = request.user.id ),
                                     tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
