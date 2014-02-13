@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required, permission_required,\
     user_passes_test
 from django.shortcuts import render_to_response, get_object_or_404
-from django.template.context import RequestContext
+from django.template.context import RequestContext, Context
 from sicop.models import Tbcaixa, Tbtipocaixa, AuthUser, Tbprocessobase,\
     Tbpecastecnicas, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano
 from django.http import HttpResponseRedirect
@@ -22,6 +22,17 @@ from reportlab.platypus.tables import Table
 from reportlab.platypus.doctemplate import SimpleDocTemplate
 from reportlab.lib import styles
 from reportlab.lib.units import cm
+import webodt
+from webodt import converters, ODFDocument
+from webodt.converters import converter
+from TerraLegal import settings
+from django import conf
+import os
+from django.template.defaultfilters import join
+from django.core.files.storage import FileSystemStorage, default_storage
+from django.core.files.base import File
+import django
+from django.core.files import storage
 
 nome_relatorio      = "relatorio_caixa"
 response_consulta  = "/sicop/restrito/caixa/consulta/"
@@ -37,6 +48,7 @@ def consulta(request):
     else:
         lista = Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     lista = lista.order_by( 'nmlocalarquivo' )
+        
     
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session[nome_relatorio] = lista

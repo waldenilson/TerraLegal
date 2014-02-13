@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render_to_response, get_object_or_404
-from django.template.context import RequestContext
+from django.template.context import RequestContext, Context
 from sicop.models import Tbtipoprocesso, Tbcaixa, Tbgleba, Tbmunicipio, AuthUser,\
     AuthGroup, Tbprocessobase, Tbprocessorural, Tbclassificacaoprocesso, Tbsituacaoprocesso,\
     Tbpecastecnicas, Tbmovimentacao, Tbtipodocumento, Tbdocumentobase,\
@@ -15,6 +15,9 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_JUSTIFY
 import time
 from reportlab.platypus.doctemplate import SimpleDocTemplate
+import webodt
+from TerraLegal import settings
+from django.core.files.storage import default_storage
 
 @permission_required('servidor.documento_memorando_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
@@ -28,14 +31,22 @@ def cadastro(request):
     
     if request.method == "POST":
         if validacao(request, "cadastro"):
-                        
+
+            # CRIANDO O DOCUMENTO            
+            template = webodt.ODFTemplate('memorando.odt')
+            context = dict(assunto=request.POST['nmassunto'])
+            document = template.render(Context(context))
+            caminho_nome = str( document.name ).split("\\")
+            
+            nome_document = caminho_nome[ len(caminho_nome)-1 ]
+            
             servidor = Tbservidor.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
                                     
             # cadastrando o registro processo base            
             f_base = Tbdocumentobase (
                                     nmdocumento = request.POST['nmdocumento'],
                                     tbtipodocumento = Tbtipodocumento.objects.get( tabela = 'tbdocumentomemorando' ),
-                                    linkdocumento = 'arquivo.pdf',
+                                    linkdocumento = nome_document,
                                     dtdocumento = datetime.datetime.now(),
                                     auth_user = AuthUser.objects.get( pk = request.user.id ),
                                     tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
@@ -59,7 +70,7 @@ def cadastro(request):
                     ug = Tbdocumentoservidor( tbdocumentobase = Tbdocumentobase.objects.get( pk = f_base.id ),
                                               tbservidor = Tbservidor.objects.get( pk = obj.id ) )
                     ug.save()
-            
+                                
             return HttpResponseRedirect("/sicop/restrito/documento/consulta/")
         
     return render_to_response('sicop/restrito/documento/cadastro.html',
@@ -68,9 +79,10 @@ def cadastro(request):
 @permission_required('servidor.documento_memorando_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def criacao(request, id):   
     
+    print 'CRIOU'
+    
     memorando = get_object_or_404(Tbdocumentomemorando, id=id)
     base  = get_object_or_404(Tbdocumentobase, id=memorando.tbdocumentobase.id)
-    print base.nmdocumento
     
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="'+base.nmdocumento+'.pdf"'
@@ -141,6 +153,16 @@ def edicao(request, id):
      
     if validacao(request, "edicao"):
 
+        # EXCLUINDO ULTIMO DOCUMENTO
+            
+        # CRIANDO O DOCUMENTO            
+        template = webodt.ODFTemplate('memorando.odt')
+        context = dict(assunto=request.POST['nmassunto'])
+        document = template.render(Context(context))
+        caminho_nome = str( document.name ).split("\\")
+            
+        nome_document = caminho_nome[ len(caminho_nome)-1 ]
+
         servidor = Tbservidor.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
         
         # verificando os grupos do usuario
@@ -168,7 +190,7 @@ def edicao(request, id):
                                     id = base.id,
                                     nmdocumento = request.POST['nmdocumento'],
                                     tbtipodocumento = Tbtipodocumento.objects.get( tabela = 'tbdocumentomemorando' ),
-                                    linkdocumento = 'arquivo.pdf',
+                                    linkdocumento = nome_document,
                                     dtdocumento = datetime.datetime.now(),
                                     auth_user = AuthUser.objects.get( pk = request.user.id ),
                                     tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
