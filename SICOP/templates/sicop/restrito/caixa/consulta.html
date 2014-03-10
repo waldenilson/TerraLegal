@@ -18,7 +18,8 @@
 			<table style="width:100%;text-align: left">
 				<tbody>
 				   <tr> 
-				   		<td class="colunaTabela"> <label>Nome:</label> </td><td> <input style="width:100%" name="nmlocalarquivo" /> </td>
+				   		<td class="colunaTabela"> <label>Nome:</label> </td><td> <input style="width:70%" name="nmlocalarquivo" /> </td>
+				   		<td class="colunaTabela"> <label>Tipo:</label> </td><td> <input style="width:30%" name="desctipocaixa" /> </td>
 				   </tr>
 				</tbody>
 			</table>
@@ -57,7 +58,7 @@
 					{% for obj in lista %}
 						<tr onclick="editarID('/sicop/restrito/caixa/edicao/{{ obj.id }}');">
 							<td class="colunaTabelaConsulta">{{ obj.nmlocalarquivo }}</td>
-							<td class="colunaTabelaConsulta">{{ obj.tbtipocaixa.nmtipocaixa }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbtipocaixa.desctipocaixa }}</td>
 						</tr>
 					{% endfor %}
 				{% else %}

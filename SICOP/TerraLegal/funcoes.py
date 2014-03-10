@@ -25,21 +25,27 @@ from sicop.relatorio_base import relatorio_csv_base, relatorio_ods_base,\
 from django.contrib.auth.models import Permission
 from sicop import admin
 
-
 def verificaDivisaoUsuario(request):
-    print 'VerificaDivisaoUsuario'
     classe_divisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao.nrclasse
-    print request.user.id
-    print classe_divisao
-    
     divisoes = []
-    p_divisoes = Tbdivisao.objects.filter(nrclasse__lte = classe_divisao )
+    id_divisoes = []
+    id_uf_classe = []
     
-    for obj in p_divisoes:
-        divisoes.append(obj)
-
+    if Tbdivisao.objects.filter(nrclasse__lt = classe_divisao ):
+        #a divisao do usuario logado permite que veja objetos de sua div e das divs de classes menores que a sua
+        request.session['isdivisao'] = False
+        p_divisoes = Tbdivisao.objects.filter(nrclasse__lte = classe_divisao )
+        for obj in p_divisoes:
+            divisoes.append(obj)
+    else:
+        #eh uma divisao regional e/ou possui a menor classe da hierarquia
+        request.session['isdivisao'] = True
+        #usa a divisao do usuario logado
+        divisoes = Tbdivisao.objects.all().filter(id = AuthUser.objects.get(pk = request.user.id ).tbdivisao.id)
+    
     for obj in divisoes:
-        print obj.nmdivisao,obj.id,obj.nrclasse
-    
-    return (divisoes); 
-        
+        id_divisoes.append(obj.id)#cria lista com as divisoes que o usuario pode acessar
+    for obj in divisoes:
+        id_uf_classe.append(obj.tbuf.id)#cria lista com os estados que o usuario pode acessar
+    request.session['divisoes'] = id_divisoes
+    request.session['uf'] = id_uf_classe

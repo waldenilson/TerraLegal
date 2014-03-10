@@ -13,6 +13,9 @@ from sicop.relatorio_base import relatorio_csv_base, relatorio_ods_base,\
     relatorio_ods_base_header, relatorio_pdf_base,\
     relatorio_pdf_base_header_title, relatorio_pdf_base_header
 from odslib import ODS
+from django.db.models import  Q
+
+
 
 nome_relatorio      = "relatorio_peca_tecnica"
 response_consulta  = "/sicop/restrito/peca_tecnica/consulta/"
@@ -31,19 +34,22 @@ def consulta(request):
         entrega = request.POST['entrega']
         
         if len(requerente) >= 3:
-            lista = Tbpecastecnicas.objects.all().filter( nmrequerente__icontains=requerente, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmrequerente')
+            #lista = Tbpecastecnicas.objects.all().filter( nmrequerente__icontains=requerente, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmrequerente')
+            lista = Tbpecastecnicas.objects.all().filter( nmrequerente__icontains=requerente, tbdivisao__id__in = request.session['divisoes']).order_by('nmrequerente')
         else:
             if len(requerente) > 0 and len(requerente) < 3:
                 messages.add_message(request,messages.WARNING,'Informe no minimo 3 caracteres no campo Requerente.')
 
         if len(cpf) >= 3:
-            lista = Tbpecastecnicas.objects.all().filter( nrcpfrequerente__contains=cpf, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmrequerente')
+            #lista = Tbpecastecnicas.objects.all().filter( nrcpfrequerente__contains=cpf, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmrequerente')
+            lista = Tbpecastecnicas.objects.all().filter( nrcpfrequerente__contains=cpf, tbdivisao__id__in=request.session['divisoes']).order_by('nmrequerente')
         else:
             if len(cpf) > 0 and len(cpf) < 3:
                 messages.add_message(request,messages.WARNING,'Informe no minimo 3 caracteres no campo CPF.')
 
         if len(entrega) >= 1:
-            lista = Tbpecastecnicas.objects.all().filter( nrentrega__contains=entrega, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmrequerente')
+            #lista = Tbpecastecnicas.objects.all().filter( nrentrega__contains=entrega, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmrequerente')
+            lista = Tbpecastecnicas.objects.all().filter( nrentrega__contains=entrega, tbdivisao__id__in=request.session['divisoes']).order_by('nmrequerente')
         else:
             if len(entrega) > 0 and len(entrega) < 1:
                 messages.add_message(request,messages.WARNING,'Informe no minimo 3 caracteres no campo Entrega.')
@@ -57,9 +63,16 @@ def consulta(request):
 
 @permission_required('sicop.peca_tecnica_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
-    contrato = Tbcontrato.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nrcontrato')
-    caixa = Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmlocalarquivo')
-    gleba = Tbgleba.objects.all().filter( tbuf__id = Tbdivisao.objects.get( pk = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).tbuf.id ).order_by('nmgleba')
+    #alterado abaixo para retornar os contratos, glebas e caixas de acordo com a hierarquia dass divisoes.
+    #contrato = Tbcontrato.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nrcontrato')
+    #caixa = Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmlocalarquivo')
+    #gleba = Tbgleba.objects.all().filter( tbuf__id = Tbdivisao.objects.get( pk = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).tbuf.id ).order_by('nmgleba')
+    contrato = Tbcontrato.objects.all().filter( tbdivisao__id__in = request.session['divisoes']).order_by('nrcontrato')
+    gleba = Tbgleba.objects.all().filter( tbuf__id__in= request.session['uf']).order_by('nmgleba')
+    caixa = Tbcaixa.objects.all().filter(
+                Q(tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id)|
+                Q(tbtipocaixa__nmtipocaixa__icontains='ENT')
+                )
     
     enviadobrasilia = False
     if request.POST.get('stenviadobrasilia',False):
@@ -106,9 +119,12 @@ def cadastro(request):
 
 @permission_required('sicop.peca_tecnica_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
-    contrato = Tbcontrato.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nrcontrato')
-    caixa = Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmlocalarquivo')
-    gleba = Tbgleba.objects.all().filter( tbuf__id = Tbdivisao.objects.get( pk = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).tbuf.id ).order_by('nmgleba')
+    #contrato = Tbcontrato.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nrcontrato')
+    #caixa = Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmlocalarquivo')
+    #gleba = Tbgleba.objects.all().filter( tbuf__id = Tbdivisao.objects.get( pk = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).tbuf.id ).order_by('nmgleba')
+    caixa = Tbcaixa.objects.all().filter( tbdivisao__id__in = request.session['divisoes']).order_by('nmlocalarquivo')#AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmlocalarquivo')
+    contrato = Tbcontrato.objects.all().filter( tbdivisao__id__in = request.session['divisoes']).order_by('nrcontrato') #= AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nrcontrato')
+    gleba = Tbgleba.objects.all().filter( tbuf__id__in=request.session['uf']).order_by('nmgleba')#  Tbdivisao.objects.get( pk = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).tbuf.id ).order_by('nmgleba')
     
     enviadobrasilia = False
     if request.POST.get('stenviadobrasilia',False):

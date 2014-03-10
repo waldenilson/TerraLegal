@@ -53,7 +53,7 @@ def edicao(request, id):
         if not request.user.has_perm('sicop.tipo_pendencia_edicao'):
             return HttpResponseRedirect('/excecoes/permissao_negada/') 
 
-            print request.POST['tbtipoprocesso'] 
+           #print request.POST['tbtipoprocesso'] 
             f_tipopendencia = Tbtipopendencia(
                                         id = instance.id,
                                         dspendencia = request.POST['dspendencia'],

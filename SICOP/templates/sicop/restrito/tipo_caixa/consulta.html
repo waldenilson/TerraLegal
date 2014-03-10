@@ -51,12 +51,15 @@
 		<table class="csstable">
 			<tbody>
 				<tr>
-					<td class="colunaTabelaConsulta" style="width:100%">Nome</td>
+					<td class="colunaTabelaConsulta" style="width:30%">Nome</td>
+					<td class="colunaTabelaConsulta" style="width:70%">Descricao</td>
+					
 				</tr>
 				{% if lista %}
 					{% for obj in lista %}
 						<tr onclick="editarID('/sicop/restrito/tipo_caixa/edicao/{{ obj.id }}');">
 							<td class="colunaTabelaConsulta">{{ obj.nmtipocaixa }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.desctipocaixa }}</td>
 						</tr>
 					{% endfor %}
 				{% else %}

@@ -22,9 +22,9 @@ def consulta(request):
     if request.method == "POST":
         num = request.POST['nrcontrato']
         nome = request.POST['nmempresa']
-        lista = Tbcontrato.objects.all().filter( nrcontrato__icontains=num, nmempresa__contains=nome, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        lista = Tbcontrato.objects.all().filter( nrcontrato__icontains=num, nmempresa__contains=nome, tbdivisao__id__in = request.session['divisoes']) #AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     else:
-        lista = Tbcontrato.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        lista = Tbcontrato.objects.all().filter( tbdivisao__id__in = request.session['divisoes'])# = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     lista = lista.order_by( 'id' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_contrato'] = lista

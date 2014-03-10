@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from django.http.response import HttpResponseRedirect, HttpResponse
 from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
-    Tbprocessoclausula, Tbprocessobase, Tbcaixa, Tbgleba, Tbmunicipio,\
+    Tbprocessoclausula, Tbprocessobase, Tbcaixa, Tbgleba, Tbmunicipio, Tbuf,\
     Tbcontrato, Tbsituacaoprocesso, Tbsituacaogeo, Tbpecastecnicas, AuthUser,\
     AuthUserGroups, Tbmovimentacao, Tbprocessosanexos, Tbpendencia,\
     Tbclassificacaoprocesso, Tbtipopendencia, Tbstatuspendencia, Tbpregao,\
@@ -23,6 +23,7 @@ from sicop.relatorio_base import relatorio_csv_base, relatorio_ods_base,\
 from odslib import ODS
 from django.contrib.auth.models import Permission
 from sicop import admin
+from django.db.models import Q
 
 nome_relatorio      = "relatorio_processo"
 response_consulta  = "/sicop/restrito/processo/consulta/"
@@ -50,15 +51,23 @@ def consulta(request):
         p_rural = []
         p_clausula = []
         p_urbano = []
-        
+        #as queries abaixo verificam dentre outras coisas, se o  processo que deseja consultar pertene a divisao do
+        #usuario logado, neste caso , mesmo que nao esteja no escopo de sua divisao, o usuario logado pode 
+        #acessar o processo.Mas o usuario logado nao pode tramitar este processo. Somente aquele que detem o 
+        #processo tramitado para a sua divisao pode tramitar o processo.
         if len(numero) >= 3:
-#            lista = Tbprocessobase.objects.all().filter( nrprocesso__contains = numero )
             if request.user.has_perm('sicop.processo_rural_consulta'):
-                p_rural = Tbprocessorural.objects.filter( tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural', tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+                p_rural = Tbprocessorural.objects.filter( 
+                    Q(tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural',tbprocessobase__tbdivisao__id__in=request.session['divisoes'])| #= AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+                    Q(tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural',tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id))
             if request.user.has_perm('sicop.processo_clausula_consulta'):
-                p_clausula = Tbprocessoclausula.objects.filter( tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessoclausula', tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+                p_clausula = Tbprocessoclausula.objects.filter( 
+                    Q(tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessoclausula',tbprocessobase__tbdivisao__id__in=request.session['divisoes'])| # = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+                    Q(tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessoclausula',tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id))
             if request.user.has_perm('sicop.processo_urbano_consulta'):
-                p_urbano = Tbprocessourbano.objects.filter( tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessourbano', tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+                p_urbano = Tbprocessourbano.objects.filter( 
+                    Q(tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessourbano',tbprocessobase__tbdivisao__id__in=request.session['divisoes'])|
+                    Q(tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessourbano',tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id)) # = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
             lista = []
             for obj in p_rural:
                 lista.append( obj )
@@ -72,9 +81,13 @@ def consulta(request):
         
         if len(cpf) >= 3 :
             if request.user.has_perm('sicop.processo_rural_consulta'):
-                p_rural = Tbprocessorural.objects.filter( nrcpfrequerente__contains = cpf, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural', tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+                p_rural = Tbprocessorural.objects.filter( 
+                    Q(nrcpfrequerente__contains = cpf, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural', tbprocessobase__tbdivisao__id__in=request.session['divisoes'])|
+                    Q(nrcpfrequerente__contains = cpf, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural', tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id))#__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
             if request.user.has_perm('sicop.processo_clausula_consulta'):
-                p_clausula = Tbprocessoclausula.objects.filter( nrcpfrequerente__contains = cpf, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessoclausula', tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+                p_clausula = Tbprocessoclausula.objects.filter( 
+                    Q(nrcpfrequerente__contains = cpf, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessoclausula',tbprocessobase__tbdivisao__id__in=request.session['divisoes'])|
+                    Q(nrcpfrequerente__contains = cpf, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessoclausula',tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id))# = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
             lista = []
             for obj in p_rural:
                 lista.append( obj )
@@ -86,9 +99,13 @@ def consulta(request):
                 
         if len(requerente) >= 3 :
             if request.user.has_perm('sicop.processo_rural_consulta'):
-                p_rural = Tbprocessorural.objects.filter( nmrequerente__icontains = requerente, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural', tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+                p_rural = Tbprocessorural.objects.filter( 
+                    Q(nmrequerente__icontains = requerente, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural', tbprocessobase__tbdivisao__id__in=request.session['divisoes'])|
+                    Q(nmrequerente__icontains = requerente, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural',tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id))# = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
             if request.user.has_perm('sicop.processo_clausula_consulta'):
-                p_clausula = Tbprocessoclausula.objects.filter( nmrequerente__icontains = requerente, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessoclausula', tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+                p_clausula = Tbprocessoclausula.objects.filter( 
+                    Q(nmrequerente__icontains = requerente, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessoclausula', tbprocessobase__tbdivisao__id__in=request.session['divisoes'])|
+                    Q(nmrequerente__icontains = requerente, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessoclausula',tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id))# = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
             lista = []
             for obj in p_rural:
                 lista.append( obj )
@@ -100,14 +117,18 @@ def consulta(request):
         
         if len(cnpj) >= 3 :
             if request.user.has_perm('sicop.processo_urbano_consulta'):
-                p_urbano = Tbprocessourbano.objects.filter( nrcnpj__contains = cnpj, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessourbano', tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ) 
+                p_urbano = Tbprocessourbano.objects.filter( 
+                    Q(nrcnpj__contains = cnpj, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessourbano', tbprocessobase__tbdivisao__id__in=request.session['divisoes'])|
+                    Q(nrcnpj__contains = cnpj, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessourbano', tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id)) # = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ) 
             lista = []
             for obj in p_urbano:
                 lista.append( obj )
     
         if len(municipio) >= 3 :
             if request.user.has_perm('sicop.processo_urbano_consulta'):
-                p_urbano = Tbprocessourbano.objects.filter( tbprocessobase__tbmunicipio__nome_mun__icontains = municipio, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessourbano', tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ) 
+                p_urbano = Tbprocessourbano.objects.filter( 
+                    Q(tbprocessobase__tbmunicipio__nome_mun__icontains = municipio, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessourbano', tbprocessobase__tbdivisao__id__in=request.session['divisoes'])|
+                    Q(tbprocessobase__tbmunicipio__nome_mun__icontains = municipio, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessourbano', tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id))# = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ) 
             lista = []
             for obj in p_urbano:
                 lista.append( obj ) 
@@ -117,7 +138,8 @@ def consulta(request):
         
     # gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_processo'] = lista
-        
+    
+            
     return render_to_response('sicop/restrito/processo/consulta.html',{'lista':lista}, context_instance = RequestContext(request))
 
 @permission_required('sicop.processo_tramitar', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -173,7 +195,7 @@ def tramitar(request, base):
                 f_base.save()
                     
             return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(base.id)+"/")
-        
+        #segue abaixo se a validacao da tramitacao nao der certo
         carregarTbAuxProcesso(request, base.tbcaixa.tbtipocaixa.nmtipocaixa)
         carregarTbAuxFuncoesProcesso(request, base)
 
@@ -183,14 +205,21 @@ def tramitar(request, base):
         movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase = base.id ).order_by( "-dtmovimentacao" ) 
         # anexos deste processo
         anexado = Tbprocessosanexos.objects.all().filter( tbprocessobase = base.id )
+        
+        #pre-selecao das caixas exibidas como caixa destino. Verifica a classe da divisao
+        caixasdestino = Tbcaixa.objects.all().filter(
+                Q(tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id)|
+                Q(tbtipocaixa__nmtipocaixa__icontains='ENT')
+                )        
+        
 
         if tipo == "tbprocessorural":
             rural = Tbprocessorural.objects.get( tbprocessobase = base.id )
             peca = Tbpecastecnicas.objects.all().filter( nrcpfrequerente = rural.nrcpfrequerente.replace('.','').replace('-','') )
             # caixas que podem ser tramitadas
             tram = []
-            for obj in Tbcaixa.objects.all():
-                if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'PAD':
+            for obj in caixasdestino:
+                if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'PAD' or obj.tbtipocaixa.nmtipocaixa == 'FT' or obj.tbtipocaixa.nmtipocaixa == 'ENT' :
                     tram.append( obj )
             return render_to_response('sicop/restrito/processo/rural/edicao.html',
                                       {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
@@ -373,28 +402,49 @@ def anexar(request, base):
                                        'movimentacao':movimentacao,'caixadestino':caixadestino,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))      
 
-
-
-
-
 @permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     base = get_object_or_404(Tbprocessobase, id=id)
-    
     carregarTbAuxProcesso(request, base.tbcaixa.tbtipocaixa.nmtipocaixa)
     carregarTbAuxFuncoesProcesso(request, base)
     
-    # municipios da divisao do usuario logado
-    municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
+    # municipios da divisao do usuario logado E municipios associados a DIVISAO que criou o processo
+    municipio = Tbmunicipio.objects.all().filter( 
+        Q(codigo_uf__in=request.session['uf'])| 
+        Q(codigo_uf= base.tbcaixa.tbdivisao.tbuf.id))# = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
+    
     tipo = base.tbtipoprocesso.tabela
     # movimentacoes deste processo
     movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase = id ).order_by( "-dtmovimentacao" ) 
     # anexos deste processo
     anexado = Tbprocessosanexos.objects.all().filter( tbprocessobase = base.id )
     
-    # se processobase pertencer a mesma divisao do usuario logado
-    if base.auth_user.tbdivisao.id == AuthUser.objects.get( pk = request.user.id ).tbdivisao.id:
-        caixasdestino = Tbcaixa.objects.all().order_by("nmlocalarquivo")
+    
+    
+    #se processobase pertencer a mesma divisao do usuario logado(teste anterior)
+    #if base.auth_user.tbdivisao.id == AuthUser.objects.get( pk = request.user.id ).tbdivisao.id:
+    #mudar para: se o processo estah numa CAIXA que pertenca a divisao do usuario logado OU estiver numa caixa de entrada OU
+    # a classe do usuario eh maior que a classe da divisao a qual pertence o processo OU a divisao do usuario eh a divisao do processo
+    #print "Divisao do usuario:" + str(AuthUser.objects.get( pk = request.user.id ).tbdivisao.id)
+    #print "Divisao do processo " + str(base.tbdivisao.nmdivisao)
+    #print "UF do usuario "+ str(request.session['uf'])
+    #print "Divisao da Caixa  " + str(base.tbcaixa.tbdivisao.nmdivisao)
+    #print "Uf da caixa "+ str(base.tbcaixa.tbdivisao.tbuf.nmuf)
+    
+    #adiciona a lista de glebas, aquelas que estao associada a divisao do processo, pois o processo pode ser,
+    #por exemplo da SRFA02 e esteja tramitado para a SRFA01.
+    for obj in Tbgleba.objects.all().filter(tbuf__id = base.tbcaixa.tbdivisao.tbuf.id).order_by("nmgleba"):
+        gleba.append(obj)
+    
+    #for obj in gleba:
+        #print obj.nmgleba
+    
+    if base.tbcaixa.tbdivisao.id == AuthUser.objects.get( pk = request.user.id ).tbdivisao.id or base.tbcaixa.tbtipocaixa.nmtipocaixa=="ENT" or AuthUser.objects.get( pk = request.user.id ).tbdivisao.nrclasse > base.tbdivisao.nrclasse or AuthUser.objects.get( pk = request.user.id ).tbdivisao.id == base.tbdivisao.id:
+        #caixasdestino = Tbcaixa.objects.all().order_by("nmlocalarquivo")
+        caixasdestino = Tbcaixa.objects.all().filter(
+                Q(tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id)|
+                Q(tbtipocaixa__nmtipocaixa__icontains='ENT')
+                )
         if tipo == "tbprocessorural":
             rural = Tbprocessorural.objects.get( tbprocessobase = id )
             peca = Tbpecastecnicas.objects.all().filter( nrcpfrequerente = rural.nrcpfrequerente.replace('.','').replace('-','') )
@@ -403,9 +453,8 @@ def edicao(request, id):
             # caixas que podem ser tramitadas
             tram = []
             for obj in caixasdestino:
-                if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'PAD' or obj.tbtipocaixa.nmtipocaixa == 'FT':
+                if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'PAD' or obj.tbtipocaixa.nmtipocaixa == 'FT' or obj.tbtipocaixa.nmtipocaixa == 'ENT' :
                     tram.append( obj )
-                
             return render_to_response('sicop/restrito/processo/rural/edicao.html',
                                       {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
@@ -420,7 +469,7 @@ def edicao(request, id):
                 # caixas que podem ser tramitadas
                 tram = []
                 for obj in caixasdestino:
-                    if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'URB' or obj.tbtipocaixa.nmtipocaixa == 'FT':
+                    if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'URB' or obj.tbtipocaixa.nmtipocaixa == 'FT' or obj.tbtipocaixa.nmtipocaixa == 'ENT' :
                         tram.append( obj )
                 return render_to_response('sicop/restrito/processo/urbano/edicao.html',
                                           {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'situacaogeo':situacaogeo,
@@ -436,7 +485,7 @@ def edicao(request, id):
                 
                     tram = []
                     for obj in caixasdestino:
-                        if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'RES' or obj.tbtipocaixa.nmtipocaixa == 'FT':
+                        if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'RES' or obj.tbtipocaixa.nmtipocaixa == 'FT' or obj.tbtipocaixa.nmtipocaixa == 'ENT' :
                             tram.append( obj )
                     return render_to_response('sicop/restrito/processo/clausula/edicao.html',
                                               {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
@@ -566,16 +615,26 @@ def validarTramitacao(request_form, base, origem, destino):
     if origem.id == Tbcaixa.objects.get( pk = destino).id:
         messages.add_message(request_form,messages.WARNING,'Processo ja encontra-se no local de destino.')
         warning = False    
+    if origem.tbtipocaixa.nmtipocaixa != "ENT" and origem.tbdivisao != AuthUser.objects.get(pk= request_form.user.id ).tbdivisao:
+        messages.add_message(request_form,messages.WARNING,'Processo esta em divisao que nao pode ser tramitada pelo seu usuario.')
+        warning = False  
+    
     return warning
+    
 
 def validarPendencia(request_form, base, descricao):
     warning = True
     if descricao == '':
         messages.add_message(request_form, messages.WARNING, 'Informe a descricao da pendencia.')
         warning = False
+    #verificar se o processo esta no dominio de outra divisao. Caso positivo, nao pode alterar/inserir pendencia
+    if base.tbdivisao != Tbdivisao.objects.get(pk=AuthUser.objects.get( pk=request_form.user.id  ).tbdivisao.id ):
+        messages.add_message(request_form, messages.WARNING, 'O processo esta tramitado para outra divisao/sede. Nao pode ser editado')
+        warning = False        
     return warning
 
 def validarAnexo(request_form, base, processoanexo):
+    global fgexiste 
     warning = True
     #verificar se campo processo a anexar esta em branco
     if processoanexo == '':
@@ -586,10 +645,18 @@ def validarAnexo(request_form, base, processoanexo):
         messages.add_message(request_form, messages.WARNING, 'Nao permitido anexar o proprio processo.')
         warning = False
     #verificar se processo a anexar existe e pertence a divisao do usuario
-    proc_anexo = Tbprocessobase.objects.all().filter( nrprocesso = processoanexo, auth_user__tbdivisao = AuthUser.objects.get( pk = request_form.user.id ).tbdivisao )
+    proc_anexo = Tbprocessobase.objects.all().filter( nrprocesso = processoanexo)#, auth_user__tbdivisao = AuthUser.objects.get( pk = request_form.user.id ).tbdivisao )
     if not proc_anexo:
         messages.add_message(request_form, messages.WARNING, 'O processo a anexar nao existe.')
-        warning = False        
+        warning = False
+    
+    #verificar se o proceso a ser anexado pertence a outra divisao
+    if proc_anexo:
+        divisao = Tbdivisao.objects.get(pk = Tbprocessobase.objects.get(nrprocesso = processoanexo).tbdivisao.id)
+        if base.tbdivisao != divisao:
+            messages.add_message(request_form, messages.WARNING, 'O processo a anexar existe,mas pertence a outra divisao.')
+            warning = False        
+    
     #verifica se o processo base eh classificado como processo pai
     if base.tbclassificacaoprocesso.id != 1:
         messages.add_message(request_form, messages.WARNING, 'Nao permitido anexar processo a processos classificados como anexos.')
@@ -621,19 +688,25 @@ def formatDataToText( formato_data ):
 def carregarTbAuxProcesso(request, tipo):
     global caixa, contrato, gleba, situacaoprocesso, situacaogeo
     caixa = []
-    for obj in Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmlocalarquivo'):
+    gleba = []
+    
+    #for obj in Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmlocalarquivo'):
+    for obj in Tbcaixa.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmlocalarquivo'):
         if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'FT' or obj.tbtipocaixa.nmtipocaixa == tipo:
             caixa.append( obj )
     
-    gleba = Tbgleba.objects.all().filter( tbuf__id = Tbdivisao.objects.get( pk = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).tbuf.id ).order_by('nmgleba')
-    contrato = Tbcontrato.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nrcontrato')
-    situacaogeo = Tbsituacaogeo.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmsituacaogeo')
-    situacaoprocesso = Tbsituacaoprocesso.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmsituacao')
+    #gleba = Tbgleba.objects.all().filter( tbuf__id = Tbdivisao.objects.get( pk = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).tbuf.id ).order_by('nmgleba')
+    for obj in Tbgleba.objects.all().filter(tbuf__id__in=request.session['uf']):
+        gleba.append(obj)
+    
+    contrato = Tbcontrato.objects.all().filter( tbdivisao__id__in = request.session['divisoes']).order_by('nrcontrato')#AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nrcontrato')
+    situacaogeo = Tbsituacaogeo.objects.all().order_by('nmsituacaogeo')#filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmsituacaogeo')
+    situacaoprocesso = Tbsituacaoprocesso.objects.all().order_by('nmsituacao')#filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmsituacao')
 
 def carregarTbAuxFuncoesProcesso(request, base):
     global pendencia, tipopendencia, statuspendencia
     pendencia = Tbpendencia.objects.all().filter( tbprocessobase = base.id ).order_by('dsdescricao')
-    tipopendencia = Tbtipopendencia.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('dspendencia')
-    statuspendencia = Tbstatuspendencia.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by("dspendencia")
+    tipopendencia = Tbtipopendencia.objects.all().order_by('dspendencia')#filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('dspendencia')
+    statuspendencia = Tbstatuspendencia.objects.all().order_by("dspendencia")#filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by("dspendencia")
 
 

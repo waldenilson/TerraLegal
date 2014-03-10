@@ -12,7 +12,7 @@ DEBUG = TEMPLATE_DEBUG = True
 DATABASES = {
         'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', 
-        'NAME': 'Sicop',                      
+        'NAME': 'dbSicop',                      
         'USER': 'admin',
         'PASSWORD': '123456',
         'HOST': 'localhost',                      

@@ -62,12 +62,12 @@ class FormDivisao(models.ModelForm):
 class FormSubArea(models.ModelForm):
     class Meta:
         model = Tbsubarea
-        fields = ('cdsubarea','nmsubarea')
+        fields = ('cdsubarea','nmsubarea','tbdivisao')
         
 class FormGleba(models.ModelForm):
     class Meta:
         model = Tbgleba
-        fields = ('nmgleba', 'tbsubarea')     
+        fields = ('nmgleba', 'tbsubarea','tbuf')     
         
 class FormContrato(models.ModelForm):        
     class Meta:

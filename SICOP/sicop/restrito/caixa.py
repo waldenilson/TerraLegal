@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required, permission_required,\
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext, Context
 from sicop.models import Tbcaixa, Tbtipocaixa, AuthUser, Tbprocessobase,\
-    Tbpecastecnicas, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano
+    Tbpecastecnicas, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano, Tbdivisao
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from sicop.forms import FormCaixa
@@ -33,66 +33,72 @@ from django.core.files.storage import FileSystemStorage, default_storage
 from django.core.files.base import File
 import django
 from django.core.files import storage
+from django.db.models import  Q
 
 nome_relatorio      = "relatorio_caixa"
 response_consulta  = "/sicop/restrito/caixa/consulta/"
 titulo_relatorio    = "Relatorio Caixas"
 planilha_relatorio  = "Caixas"
 
-
 @permission_required('sicop.caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
     if request.method == "POST":
         nome = request.POST['nmlocalarquivo']
-        lista = Tbcaixa.objects.all().filter( nmlocalarquivo__icontains=nome, tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        tipo = request.POST['desctipocaixa']
+        #lista = Tbcaixa.objects.all().filter( nmlocalarquivo__icontains=nome, tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        lista = Tbcaixa.objects.all().filter( nmlocalarquivo__icontains=nome, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id,tbtipocaixa__desctipocaixa__icontains=tipo )
     else:
-        lista = Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        #lista = Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        lista = Tbcaixa.objects.all().filter(
+                Q(tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id)|
+                Q(tbtipocaixa__nmtipocaixa__icontains='ENT')
+                )
     lista = lista.order_by( 'nmlocalarquivo' )
-        
     
-    #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
+#gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session[nome_relatorio] = lista
     return render_to_response('sicop/restrito/caixa/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @permission_required('sicop.caixa_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
-    tipocaixa = Tbtipocaixa.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmtipocaixa')
+    tipocaixa = Tbtipocaixa.objects.all()#.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmtipocaixa')
+       
     if request.method == "POST":
         next = request.GET.get('next', '/')
-        form = FormCaixa(request.POST)
         if validacao(request):
-            if form.is_valid():
-                form.save()
-                if next == "/":
-                    return HttpResponseRedirect(response_consulta)
-                else:    
-                    return HttpResponseRedirect( next ) 
-    else:
-        form = FormCaixa()
-    return render_to_response('sicop/restrito/caixa/cadastro.html',{"form":form,"tipocaixa":tipocaixa}, context_instance = RequestContext(request))
+            f_caixa = Tbcaixa(
+                              nmlocalarquivo = request.POST['nmlocalarquivo'],
+                              tbtipocaixa = Tbtipocaixa.objects.get(pk = request.POST['tbtipocaixa']),
+                              tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
+                              )
+            f_caixa.save()
+            if next == "/":
+                return HttpResponseRedirect(response_consulta)
+            else:    
+                return HttpResponseRedirect(next)
+    return render_to_response('sicop/restrito/caixa/cadastro.html',{"tipocaixa":tipocaixa}, context_instance = RequestContext(request))
 
 @permission_required('sicop.caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
-    tipocaixa = Tbtipocaixa.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmtipocaixa')
+    tipocaixa = Tbtipocaixa.objects.all()#.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmtipocaixa')
     instance = get_object_or_404(Tbcaixa, id=id)
-    
+    divisao = Tbdivisao.objects.get(pk = Tbcaixa.objects.get(pk = id).tbdivisao_id)
     if request.method == "POST":
 
         if not request.user.has_perm('sicop.caixa_edicao'):
             return HttpResponseRedirect('/excecoes/permissao_negada/') 
-        
+       
         form = FormCaixa(request.POST,request.FILES,instance=instance)
         if validacao(request):
             if form.is_valid():
                 form.save()
                 return HttpResponseRedirect("/sicop/restrito/caixa/edicao/"+str(id)+"/")
     else:
+        if divisao.id <> AuthUser.objects.get(pk = request.user.id).tbdivisao.id:
+            return HttpResponseRedirect('/excecoes/permissao_negada/')
         form = FormCaixa(instance=instance)
-        
-        
-    # retornar o conteudo da caixa de acordo com o tipocaixa
-    
-#    processos = Tbprocessobase.objects.all().filter( tbcaixa__id = id )   
+#retornar o conteudo da caixa de acordo com o tipocaixa
+#processos = Tbprocessobase.objects.all().filter( tbcaixa__id = id )   
 
     p_rural = Tbprocessorural.objects.all().filter( tbprocessobase__tbcaixa__id = id )
     p_clausula = Tbprocessoclausula.objects.all().filter( tbprocessobase__tbcaixa__id = id )
@@ -117,7 +123,7 @@ def edicao(request, id):
         conteudo = "Caixa Vazia"
     
     
-    return render_to_response('sicop/restrito/caixa/edicao.html', {"form":form,'processos':processos,'pecas':pecas,'conteudo':conteudo,"tipocaixa":tipocaixa}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/caixa/edicao.html', {"form":form,'processos':processos,'pecas':pecas,'conteudo':conteudo,"tipocaixa":tipocaixa,"divisao":divisao}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)

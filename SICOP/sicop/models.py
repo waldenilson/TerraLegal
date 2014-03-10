@@ -100,6 +100,8 @@ class Tbcaixa(models.Model):
     nmlocalarquivo = models.CharField(max_length=80, blank=True)
     tbtipocaixa = models.ForeignKey('Tbtipocaixa')
     id = models.AutoField(primary_key=True)
+    tbdivisao = models.ForeignKey('Tbdivisao', null=True, blank=True)
+    blentrada = models.NullBooleanField()
     class Meta:
         db_table = 'tbcaixa'
 
@@ -123,6 +125,7 @@ class Tbdivisao(models.Model):
     dsdivisao = models.TextField(blank=True)
     tbuf = models.ForeignKey('Tbuf', null=True, blank=True)
     id = models.AutoField(primary_key=True)
+    nrclasse = models.SmallIntegerField()
     class Meta:
         db_table = 'tbdivisao'
 
@@ -146,7 +149,7 @@ class Tbferias(models.Model):
 
 
 class Tbgleba(models.Model):
-    cdgleba = models.IntegerField(null=True, blank=True)
+    #cdgleba = models.IntegerField(null=True, blank=True)
     nmgleba = models.CharField(max_length=80, blank=True)
     tbsubarea = models.ForeignKey('Tbsubarea')
     tbuf = models.ForeignKey('Tbuf', null=True, blank=True)
@@ -346,7 +349,7 @@ class Tbsubarea(models.Model):
 class Tbtipocaixa(models.Model):
     nmtipocaixa = models.CharField(max_length=80, blank=True)
     desctipocaixa = models.TextField(blank=True)
-    tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True)
+    #tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True) removido 20140214 
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbtipocaixa'

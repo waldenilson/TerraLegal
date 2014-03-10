@@ -31,7 +31,7 @@ def consulta(request):
     if request.method == "POST":
         first_name = request.POST['first_name']
         email = request.POST['email']
-        print 'User: '+AuthUser.objects.get( pk = request.user.id ).tbdivisao.nmdivisao
+        #print 'User: '+AuthUser.objects.get( pk = request.user.id ).tbdivisao.nmdivisao
         # se usuario for do grupo Super; mostra todos senao mostra somente os usuarios da divisao
         if verificar_permissao_grupo( AuthUser.objects.get( pk = request.user.id ), {'Super'} ):
             lista = AuthUser.objects.all().filter( first_name__icontains=first_name, email__icontains=email )

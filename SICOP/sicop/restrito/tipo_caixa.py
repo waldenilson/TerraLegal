@@ -23,9 +23,9 @@ planilha_relatorio  = "Tipos de Caixa"
 def consulta(request):
     if request.method == "POST":
         nome = request.POST['nmtipocaixa']
-        lista = Tbtipocaixa.objects.all().filter( nmtipocaixa__icontains=nome, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        lista = Tbtipocaixa.objects.all().filter( nmtipocaixa__icontains=nome)#, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     else:
-        lista = Tbtipocaixa.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        lista = Tbtipocaixa.objects.all()#.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     lista = lista.order_by( 'nmtipocaixa' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_tipo_caixa'] = lista
@@ -40,7 +40,7 @@ def cadastro(request):
             f_tipocaixa = Tbtipocaixa(
                                         nmtipocaixa = request.POST['nmtipocaixa'],
                                         desctipocaixa = request.POST['desctipocaixa'],
-                                        tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
+                                        #tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                       )
             f_tipocaixa.save()
             if next == "/":
@@ -62,7 +62,7 @@ def edicao(request, id):
                                         id = instance.id,
                                         nmtipocaixa = request.POST['nmtipocaixa'],
                                         desctipocaixa = request.POST['desctipocaixa'],
-                                        tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
+                                        #tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                       )
             f_tipocaixa.save()
             return HttpResponseRedirect("/sicop/restrito/tipo_caixa/edicao/"+str(id)+"/")

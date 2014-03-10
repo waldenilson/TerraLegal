@@ -78,9 +78,6 @@ def cadastro(request):
 
 @permission_required('servidor.documento_memorando_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def criacao(request, id):   
-    
-    print 'CRIOU'
-    
     memorando = get_object_or_404(Tbdocumentomemorando, id=id)
     base  = get_object_or_404(Tbdocumentobase, id=memorando.tbdocumentobase.id)
     

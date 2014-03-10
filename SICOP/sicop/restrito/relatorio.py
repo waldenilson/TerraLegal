@@ -26,7 +26,7 @@ def processo_peca(request):
     for r in p_rural:
         if Tbpecastecnicas.objects.all().filter( nrcpfrequerente = r.nrcpfrequerente.replace('.','').replace('-','') ):
             p_rural_com_peca.append( r )
-    print 'total processos com peca: '+str(len(p_rural_com_peca))
+    #print 'total processos com peca: '+str(len(p_rural_com_peca))
     
     
     lista = Tbprocessobase.objects.all()
@@ -47,12 +47,12 @@ def peca_gleba(request):
     #todas as pecas
     pecas = Tbpecastecnicas.objects.all()
     for g in glebas:
-        print 'Gleba: '+str(g.nmgleba)
+        #print 'Gleba: '+str(g.nmgleba)
         qtd = 0
         for p in pecas:
             if p.tbgleba.id == g.id:
                 qtd += 1
-        print 'Total: '+str(qtd)
+        #print 'Total: '+str(qtd)
     
     lista = Tbprocessobase.objects.all()
     resp = relatorio_base(request, lista, 'Peca x Gleba')
@@ -64,7 +64,7 @@ def peca_nao_aprovada(request):
     
     #buscar as pecas tecnicas com status false
     pecas = Tbpecastecnicas.objects.filter( stpecatecnica = False )
-    print 'pecas nao aprovadas: '+str(pecas.count())
+    #print 'pecas nao aprovadas: '+str(pecas.count())
     
     lista = Tbprocessobase.objects.all()
     resp = relatorio_base(request, lista, 'Pecas nao Aprovadas')
@@ -76,7 +76,7 @@ def peca_rejeitada(request):
     
     #buscar as pecas tecnicas nao enviadas pra brasilia
     pecas = Tbpecastecnicas.objects.filter( stenviadobrasilia = False )
-    print 'pecas rejeitadas: '+str(pecas.count())
+    #print 'pecas rejeitadas: '+str(pecas.count())
     
     lista = Tbprocessobase.objects.all()
     resp = relatorio_base(request, lista, 'Pecas Rejeitadas')
@@ -92,7 +92,7 @@ def peca_sem_processo(request):
     for p in pecas:
         if not Tbprocessorural.objects.all().filter( nrcpfrequerente = p.nrcpfrequerente.replace('.','').replace('-','') ):
             pecas_sem_proc.append( p )
-    print 'total pecas sem processo: '+str(len(pecas_sem_proc))
+    #print 'total pecas sem processo: '+str(len(pecas_sem_proc))
 
 
     lista = Tbprocessobase.objects.all()
@@ -105,7 +105,7 @@ def peca_validada(request):
     
     #buscar as pecas tecnicas enviadas pra brasilia
     pecas = Tbpecastecnicas.objects.filter( stenviadobrasilia = True )
-    print 'pecas validadas: '+str(pecas.count())
+    #print 'pecas validadas: '+str(pecas.count())
         
     lista = Tbprocessobase.objects.all()
     resp = relatorio_base(request, lista, 'Pecas Validadas')

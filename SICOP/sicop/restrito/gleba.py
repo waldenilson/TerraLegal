@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required, permission_required,\
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.forms import FormGleba
-from sicop.models import Tbgleba, Tbsubarea, AuthUser, Tbdivisao
+from sicop.models import Tbgleba, Tbsubarea, AuthUser, Tbdivisao, Tbuf
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from sicop.admin import verificar_permissao_grupo
@@ -21,42 +21,48 @@ planilha_relatorio  = "Glebas"
 
 @permission_required('sicop.gleba_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
+    # as divisoes somente podem ver suas glebas (classe = 1) Divisoes com classe > 1 podem acessar todas as glebas das classe inferiores
     if request.method == "POST":
         nome = request.POST['nmgleba']
-        lista = Tbgleba.objects.all().filter( nmgleba__icontains=nome, tbuf__id = Tbdivisao.objects.get( pk = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).tbuf.id )
+        lista = Tbgleba.objects.all().filter( nmgleba__icontains=nome, tbuf__id__in=request.session['uf'])# = Tbdivisao.objects.get( pk = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).tbuf.id )
     else:
-        lista = Tbgleba.objects.all().filter( tbuf__id = Tbdivisao.objects.get( pk = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).tbuf.id )
+        #lista = Tbgleba.objects.all().filter(tbuf__id=Tbdivisao.objects.get( pk = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).tbuf.id )
+        lista = Tbgleba.objects.all().filter(tbuf__id__in=request.session['uf'])
     lista = lista.order_by( 'nmgleba' )
+    
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_gleba'] = lista
     return render_to_response('sicop/restrito/gleba/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @permission_required('sicop.gleba_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
-    subarea = Tbsubarea.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmsubarea')
+    subarea = Tbsubarea.objects.all()#.filter( tbdivisao__id__in=request.session['divisoes']).order_by('nmsubarea')  #= AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmsubarea')
+    uf = Tbuf.objects.all()
+    ufdiv = Tbdivisao.objects.get(pk=AuthUser.objects.get( pk=request.user.id  ).tbdivisao.id ).tbuf.id
     if request.method == "POST":
+        #print request.POST['tbuf']
         next = request.GET.get('next', '/')
-        form = FormGleba(request.POST)
         if validacao(request):
-            if form.is_valid():
-                form.save()
-                if next == "/":
-                    return HttpResponseRedirect("/sicop/restrito/gleba/consulta/")
-                else:    
-                    return HttpResponseRedirect( next ) 
-    else:
-        form = FormGleba()
-    return render_to_response('sicop/restrito/gleba/cadastro.html',{"form":form,'subarea':subarea}, context_instance = RequestContext(request))
+            f_gleba = Tbgleba(nmgleba = request.POST['nmgleba'],
+                              tbsubarea = Tbsubarea.objects.get(pk = request.POST['tbsubarea']),
+                              tbuf = Tbuf.objects.get(pk = request.POST['tbuf'])
+                              )
+            f_gleba.save()
+            if next == "/":
+                return HttpResponseRedirect("/sicop/restrito/gleba/consulta/")
+            else:    
+                return HttpResponseRedirect( next ) 
+    return render_to_response('sicop/restrito/gleba/cadastro.html',{"uf":uf,'subarea':subarea,'ufdiv':ufdiv}, context_instance = RequestContext(request))
 
 @permission_required('sicop.gleba_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
-    subarea = Tbsubarea.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmsubarea')
+    subarea = Tbsubarea.objects.all()#.filter( tbdivisao__id__in=request.session['divisoes']).order_by('nmsubarea')# = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmsubarea')
     instance = get_object_or_404(Tbgleba, id=id)
+    uf = Tbuf.objects.all()
+    
     if request.method == "POST":
-
         if not request.user.has_perm('sicop.gleba_edicao'):
             return HttpResponseRedirect('/excecoes/permissao_negada/') 
-        
         form = FormGleba(request.POST,request.FILES,instance=instance)
         if validacao(request):
             if form.is_valid():
@@ -64,7 +70,7 @@ def edicao(request, id):
                 return HttpResponseRedirect("/sicop/restrito/gleba/edicao/"+str(id)+"/")
     else:
         form = FormGleba(instance=instance) 
-    return render_to_response('sicop/restrito/gleba/edicao.html', {"form":form,'subarea':subarea}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/gleba/edicao.html', {"form":form,'subarea':subarea,'uf':uf}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.gleba_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -132,8 +138,6 @@ def relatorio_csv(request):
         return response
     else:
         return HttpResponseRedirect( response_consulta )
-
-
 
 def validacao(request_form):
     warning = True
