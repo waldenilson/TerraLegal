@@ -400,9 +400,7 @@ class Tbdocumentobase(models.Model):
     nmdocumento = models.CharField(max_length=80, blank=True)
     tbtipodocumento = models.ForeignKey('Tbtipodocumento')
     dtcadastrodocumento = models.DateTimeField(null=True, blank=True)
-    dtatualdocumento = models.DateTimeField(null=True, blank=True)
-    nrsisdoc = models.IntegerField(null=True, blank=True)
-    nrsufixosisdoc = models.IntegerField(null=True, blank=True)
+    dtdocumento = models.DateTimeField(null=True, blank=True)
     auth_user = models.ForeignKey(AuthUser)
     tbdivisao = models.ForeignKey('Tbdivisao')
     id = models.AutoField(primary_key=True)
@@ -418,11 +416,14 @@ class Tbdocumentoservidor(models.Model):
         
 class Tbdocumentomemorando(models.Model):
     tbdocumentobase = models.ForeignKey(Tbdocumentobase)
+    nrsisdoc = models.CharField(max_length=20, blank=True)
+    nrsufixosisdoc = models.CharField(max_length=20, blank=True)
     nmassunto = models.CharField(max_length=100, blank=True)
     nmlocal = models.CharField(max_length=100, blank=True)
     nmremetente = models.CharField(max_length=100, blank=True)
     nmdestinatario = models.CharField(max_length=100, blank=True)
     nmmensagem = models.TextField(blank=True)
+    blcircular = models.BooleanField()
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbdocumentomemorando'

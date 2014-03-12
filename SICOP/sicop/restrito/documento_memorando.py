@@ -1,3 +1,6 @@
+
+# -*- coding: UTF-8 -*-
+
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext, Context
@@ -19,6 +22,8 @@ import webodt
 from TerraLegal import settings
 from django.core.files.storage import default_storage
 from webodt.shortcuts import render_to
+from webodt import shortcuts
+from sicop.admin import mes_do_ano_texto
 
 @permission_required('servidor.documento_memorando_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
@@ -34,15 +39,13 @@ def cadastro(request):
         if validacao(request, "cadastro"):
 
             servidor = Tbservidor.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-            dtvolatildocumento = datetime.datetime.strptime( request.POST['dtvolatildocumento'], "%d/%m/%Y")
+            dtdocumento = datetime.datetime.strptime( request.POST['dtdocumento'], "%d/%m/%Y")
             
             # cadastrando o registro processo base            
             f_base = Tbdocumentobase (
                                     nmdocumento = request.POST['nmdocumento'],
                                     tbtipodocumento = Tbtipodocumento.objects.get( tabela = 'tbdocumentomemorando' ),
-                                    nrsisdoc = request.POST['nrsisdoc'],
-                                    nrsufixosisdoc = request.POST['nrsufixosisdoc'],
-                                    dtvolatildocumento = dtvolatildocumento,
+                                    dtdocumento = dtdocumento,
                                     dtcadastrodocumento = datetime.datetime.now(),
                                     auth_user = AuthUser.objects.get( pk = request.user.id ),
                                     tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
@@ -51,6 +54,8 @@ def cadastro(request):
             
             f_memorando = Tbdocumentomemorando (
                                        nmassunto = request.POST['nmassunto'],
+                                       nrsisdoc = request.POST['nrsisdoc'],
+                                       nrsufixosisdoc = request.POST['nrsufixosisdoc'],
                                        nmlocal = request.POST['nmlocal'],
                                        nmremetente = request.POST['nmremetente'],
                                        nmdestinatario = request.POST['nmdestinatario'],
@@ -67,9 +72,6 @@ def cadastro(request):
                                               tbservidor = Tbservidor.objects.get( pk = obj.id ) )
                     ug.save()
     
-            #GERANDO O DOCUMENTO
-            render_to( "odt", "memorando.odt", dictionary = dict( memorando = f_memorando ), context_instance=None, delete_on_close=True )
-            
             return HttpResponseRedirect("/sicop/restrito/documento/consulta/")
         
     return render_to_response('sicop/restrito/documento/cadastro.html',
@@ -77,70 +79,15 @@ def cadastro(request):
 
 @permission_required('servidor.documento_memorando_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def criacao(request, id):   
-    memorando = get_object_or_404(Tbdocumentomemorando, id=id)
-    base  = get_object_or_404(Tbdocumentobase, id=memorando.tbdocumentobase.id)
+    obj = get_object_or_404(Tbdocumentomemorando, id=id)
     
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="'+base.nmdocumento+'.pdf"'
-
-    doc = SimpleDocTemplate(response, rightMargin=72,leftMargin=72, topMargin=72,bottomMargin=18)
+    ano_sisdoc = obj.tbdocumentobase.dtcadastrodocumento.year
+    obj_dia = obj.tbdocumentobase.dtdocumento.day
+    obj_mes = mes_do_ano_texto( obj.tbdocumentobase.dtdocumento.month )
+    obj_ano = obj.tbdocumentobase.dtdocumento.year
     
-    Story=[]
-    magName = "Pythonista"
-    issueNum = 12
-    subPrice = "99.00"
-    limitedDate = "03/05/2010"
-    freeGift = "tin foil hat"
-     
-    formatted_time = time.ctime()
-    full_name = memorando.nmassunto
-     
-    styles=getSampleStyleSheet()
-    styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY))
-    ptext = '<font size=12>%s</font>' % formatted_time
-     
-    Story.append(Paragraph(ptext, styles["Normal"]))
-    Story.append(Spacer(1, 12))
-     
-    # Create return address
-    ptext = '<font size=12>%s</font>' % full_name
-    Story.append(Paragraph(ptext, styles["Normal"]))       
-     
-    Story.append(Spacer(1, 12))
-    Story.append(Spacer(1, 12))
-       
-     
-#    ptext = '<font size=12>We would like to welcome you to our subscriber base for %s Magazine! \
-#            You will receive %s issues at the excellent introductory price of $%s. Please respond by\
-#            %s to start receiving your subscription and get the following free gift: %s.</font>' % (magName, 
-#                                                                                                   issueNum,
-#                                                                                                    subPrice,
-#                                                                                                    limitedDate,
-#                                                                                                    freeGift)
-    
-    corpo = memorando.nmmensagem
-    
-    ptext = '<font size=12>'+corpo+'</font>'
-    
-    Story.append(Paragraph(ptext, styles["Justify"]))
-    Story.append(Spacer(1, 12))
-          
-    ptext = '<font size=12>'+memorando.nmlocal+'</font>'
-    Story.append(Paragraph(ptext, styles["Normal"]))
-    Story.append(Spacer(1, 12))
-
-    ptext = '<font size=12>'+memorando.nmremetente+'</font>'
-    Story.append(Paragraph(ptext, styles["Normal"]))
-    Story.append(Spacer(1, 12))
-
-    ptext = '<font size=12>'+memorando.nmdestinatario+'</font>'
-    Story.append(Paragraph(ptext, styles["Normal"]))
-    Story.append(Spacer(1, 12))
-    
-    doc.build(Story)
-    
-    return response
-
+    return shortcuts.render_to_response('memorando.odt',dictionary=dict( memorando = obj, anosisdoc = ano_sisdoc, dia = obj_dia, mes = obj_mes, ano = obj_ano ),format='odt',filename=str(obj.tbdocumentobase.nmdocumento)+'.odt')
+            
 @permission_required('servidor.documento_memorando_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
         
@@ -150,7 +97,7 @@ def edicao(request, id):
     if validacao(request, "edicao"):
             
         servidor = Tbservidor.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-        dtvolatildocumento = datetime.datetime.strptime( request.POST['dtvolatildocumento'], "%d/%m/%Y")
+        dtdocumento = datetime.datetime.strptime( request.POST['dtdocumento'], "%d/%m/%Y")
             
         # verificando os grupos do usuario
         for obj in servidor:
@@ -177,9 +124,7 @@ def edicao(request, id):
                                     id = base.id,
                                     nmdocumento = request.POST['nmdocumento'],
                                     tbtipodocumento = Tbtipodocumento.objects.get( tabela = 'tbdocumentomemorando' ),
-                                    nrsisdoc = request.POST['nrsisdoc'],
-                                    nrsufixosisdoc = request.POST['nrsufixosisdoc'],
-                                    dtvolatildocumento = dtvolatildocumento,
+                                    dtdocumento = dtdocumento,
                                     dtcadastrodocumento = base.dtcadastrodocumento,
                                     auth_user = AuthUser.objects.get( pk = request.user.id ),
                                     tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
@@ -189,6 +134,8 @@ def edicao(request, id):
         f_memorando = Tbdocumentomemorando (
                                        id = memorando.id,
                                        nmassunto = request.POST['nmassunto'],
+                                       nrsisdoc = request.POST['nrsisdoc'],
+                                       nrsufixosisdoc = request.POST['nrsufixosisdoc'],
                                        nmlocal = request.POST['nmlocal'],
                                        nmremetente = request.POST['nmremetente'],
                                        nmdestinatario = request.POST['nmdestinatario'],
