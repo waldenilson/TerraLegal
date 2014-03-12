@@ -17,6 +17,7 @@
 		<div style="width:100%;font-size:12px;text-align:left">
 				<table>
 				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td>{{ form.nmdivisao }} </td> </tr>
+				   
 				   <tr> <td class="colunaTabela"> <label>UF:</label> </td>
 				   	<td>
 				   		<select name="tbuf">
@@ -30,6 +31,24 @@
 						</select>		
 				   	</td>				
 				   </tr>
+				   
+
+				   <tr> <td class="colunaTabela"> <label>Classe:</label> </td>
+				   	<td>
+				   		<select name="nrclasse">
+							{% for obj in classe %}
+								{% if obj == form.nrclasse.value %}
+									<option selected="selected" value="{{ obj }}">{{ obj }}</option>
+								{% else %}
+									<option value="{{ obj}}">{{ obj }}</option>
+								{% endif %}
+							{% endfor %}
+						</select>		
+				   	</td>				
+				   </tr>
+
+				   
+				   
 				   <tr> <td class="colunaTabela"> <label>Descricao:</label> </td><td> <textarea rows="4" cols="40" name="dsdivisao">{{ form.dsdivisao.value }}</textarea></td> </tr>
 				</table>
 		</div>
