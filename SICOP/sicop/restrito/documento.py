@@ -68,7 +68,9 @@ def edicao(request, id):
             
             
             servidor = Tbservidor.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+            dtvolatil = formatDataToText( base.dtvolatildocumento )
             docservidor = Tbdocumentoservidor.objects.filter( tbdocumentobase__id = id )
+                
                 
             result = {}
             for obj in servidor:
@@ -87,7 +89,7 @@ def edicao(request, id):
                 
             return render_to_response('sicop/restrito/documento/memorando/edicao.html',
                                       {'result':result,'servidor':servidor,'docservidor':docservidor,
-                                       'base':base,'memorando':memorando,'servidor':servidor}, context_instance = RequestContext(request))
+                                       'base':base,'dtvolatil':dtvolatil,'memorando':memorando,'servidor':servidor}, context_instance = RequestContext(request))
         
     return HttpResponseRedirect("/sicop/restrito/documento/consulta/")
     

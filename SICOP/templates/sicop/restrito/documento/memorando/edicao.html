@@ -20,11 +20,23 @@
 <div id="tabs-1">
 	<div style="width: 100%; font-size: 12px; text-align: left">
 		<table>
-			<tr> <td class="colunaTabela"> <label>Numero:</label> </td><td> {{ base.id }} </td> </tr>
-			<tr> 
-				<td class="colunaTabela"> <label>Nome:</label> </td>
-				<td class="colunaTabela"> <input size="21" name="nmdocumento" id="documento" value="{{ base.nmdocumento }}" /> </td> 
-
+				<tr> <td class="colunaTabela"> <label>Numero:</label> </td><td> {{ base.id }} </td> </tr>
+				<tr> 
+					<td class="colunaTabela"> <label>Nome:</label> </td>
+					<td class="colunaTabela"> <input size="21" name="nmdocumento" id="documento" value="{{ base.nmdocumento }}" /> </td> 
+				</tr>
+				<tr> 
+					<td class="colunaTabela"> <label>Número do SISDOC:</label> </td>
+					<td class="colunaTabela"> <input size="15" name="nrsisdoc" value="{{ base.nrsisdoc }}" /> </td> 
+				</tr>
+				<tr> 
+					<td class="colunaTabela"> <label>Sufixo do SISDOC:</label> </td>
+					<td class="colunaTabela"> <input size="8" name="nrsufixosisdoc" value="{{ base.nrsufixosisdoc }}" /> </td> 
+				</tr>
+				<tr> 
+					<td class="colunaTabela"> <label>Data:</label> </td>
+					<td class="colunaTabela"> <input name="dtvolatildocumento" id="date" value="{{ dtvolatil }}" /> </td> 
+				</tr>
 				<tr> <td class="colunaTabela"> <label>Assunto:</label> </td>
 					<td> <input size="40" name="nmassunto" value="{{ memorando.nmassunto }}" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Local:</label> </td>
@@ -34,8 +46,6 @@
 				<tr> <td class="colunaTabela"> <label>Destinatario:</label> </td>
 					<td> <input size="35" name="nmdestinatario" value="{{ memorando.nmdestinatario }}" /> </td> </tr>
 			   <tr> <td class="colunaTabela"> <label>Mensagem:</label> </td><td> <textarea rows="4" cols="40" name="nmmensagem">{{ memorando.nmmensagem }}</textarea></td> </tr>
-
-			<tr> <td colspan="2" class="colunaTabela"> <a href="/static/doc/{{ base.linkdocumento }}"> <label>Acessar o documento</label> </a> </td> </tr>
 
 		</table>
 	</div>
@@ -73,6 +83,7 @@
 			<td class="colunaTabela" style="text-align:left"> 
 				<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
 				<input type="submit" class="button_green" value="SALVAR" />
+				<a href="#" style="margin-left: 10px"><input type="button" class="button_green" value="GERAR DOCUMENTO" /></a>
 			</td>
 		</tr>
 	</table>
