@@ -41,6 +41,10 @@ def cadastro(request):
             servidor = Tbservidor.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
             dtdocumento = datetime.datetime.strptime( request.POST['dtdocumento'], "%d/%m/%Y")
             
+            circular = False
+            if request.POST.get('blcircular',False):
+                circular = True
+    
             # cadastrando o registro processo base            
             f_base = Tbdocumentobase (
                                     nmdocumento = request.POST['nmdocumento'],
@@ -60,6 +64,7 @@ def cadastro(request):
                                        nmremetente = request.POST['nmremetente'],
                                        nmdestinatario = request.POST['nmdestinatario'],
                                        nmmensagem = request.POST['nmmensagem'],
+                                       blcircular = circular,
                                        tbdocumentobase = f_base,
                                        )
             f_memorando.save()
@@ -98,7 +103,11 @@ def edicao(request, id):
             
         servidor = Tbservidor.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
         dtdocumento = datetime.datetime.strptime( request.POST['dtdocumento'], "%d/%m/%Y")
-            
+        
+        circular = False
+        if request.POST.get('blcircular',False):
+            circular = True
+
         # verificando os grupos do usuario
         for obj in servidor:
             if request.POST.get(obj.nmservidor, False):
@@ -119,7 +128,7 @@ def edicao(request, id):
                         aug.delete()
                     #print obj.name + ' desmarcou deste usuario'
         
-         # cadastrando o registro processo base            
+        # cadastrando o registro processo base            
         f_base = Tbdocumentobase (
                                     id = base.id,
                                     nmdocumento = request.POST['nmdocumento'],
@@ -140,6 +149,7 @@ def edicao(request, id):
                                        nmremetente = request.POST['nmremetente'],
                                        nmdestinatario = request.POST['nmdestinatario'],
                                        nmmensagem = request.POST['nmmensagem'],
+                                       blcircular = circular,
                                        tbdocumentobase = f_base,
                                        )
         f_memorando.save()
