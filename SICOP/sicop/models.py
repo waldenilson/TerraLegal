@@ -398,8 +398,10 @@ class Tbtipodocumento(models.Model):
 class Tbdocumentobase(models.Model):
     nmdocumento = models.CharField(max_length=80, blank=True)
     tbtipodocumento = models.ForeignKey('Tbtipodocumento')
-    dtdocumento = models.DateTimeField(null=True, blank=True)
-    linkdocumento = models.TextField(blank=True)
+    dtcadastrodocumento = models.DateTimeField(null=True, blank=True)
+    dtatualdocumento = models.DateTimeField(null=True, blank=True)
+    nrsisdoc = models.IntegerField(null=True, blank=True)
+    nrsufixosisdoc = models.IntegerField(null=True, blank=True)
     auth_user = models.ForeignKey(AuthUser)
     tbdivisao = models.ForeignKey('Tbdivisao')
     id = models.AutoField(primary_key=True)

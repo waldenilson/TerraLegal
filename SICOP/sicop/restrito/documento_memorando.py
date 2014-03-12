@@ -18,6 +18,7 @@ from reportlab.platypus.doctemplate import SimpleDocTemplate
 import webodt
 from TerraLegal import settings
 from django.core.files.storage import default_storage
+from webodt.shortcuts import render_to
 
 @permission_required('servidor.documento_memorando_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
@@ -25,29 +26,24 @@ def consulta(request):
     
 @permission_required('servidor.documento_memorando_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
-    tipodocumento = Tbtipodocumento.objects.all()
+    tipodocumento = Tbtipodocumento.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     div_documento = "memorando"
     escolha = "tbdocumentomemorando"
     
     if request.method == "POST":
         if validacao(request, "cadastro"):
 
-            # CRIANDO O DOCUMENTO            
-            template = webodt.ODFTemplate('memorando.odt')
-            context = dict(assunto=request.POST['nmassunto'])
-            document = template.render(Context(context))
-            caminho_nome = str( document.name ).split("\\")
-            
-            nome_document = caminho_nome[ len(caminho_nome)-1 ]
-            
             servidor = Tbservidor.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-                                    
+            dtvolatildocumento = datetime.datetime.strptime( request.POST['dtvolatildocumento'], "%d/%m/%Y")
+            
             # cadastrando o registro processo base            
             f_base = Tbdocumentobase (
                                     nmdocumento = request.POST['nmdocumento'],
                                     tbtipodocumento = Tbtipodocumento.objects.get( tabela = 'tbdocumentomemorando' ),
-                                    linkdocumento = nome_document,
-                                    dtdocumento = datetime.datetime.now(),
+                                    nrsisdoc = request.POST['nrsisdoc'],
+                                    nrsufixosisdoc = request.POST['nrsufixosisdoc'],
+                                    dtvolatildocumento = dtvolatildocumento,
+                                    dtcadastrodocumento = datetime.datetime.now(),
                                     auth_user = AuthUser.objects.get( pk = request.user.id ),
                                     tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                     )
@@ -70,7 +66,10 @@ def cadastro(request):
                     ug = Tbdocumentoservidor( tbdocumentobase = Tbdocumentobase.objects.get( pk = f_base.id ),
                                               tbservidor = Tbservidor.objects.get( pk = obj.id ) )
                     ug.save()
-                                
+    
+            #GERANDO O DOCUMENTO
+            render_to( "odt", "memorando.odt", dictionary = dict( memorando = f_memorando ), context_instance=None, delete_on_close=True )
+            
             return HttpResponseRedirect("/sicop/restrito/documento/consulta/")
         
     return render_to_response('sicop/restrito/documento/cadastro.html',
@@ -149,19 +148,10 @@ def edicao(request, id):
     base  = get_object_or_404(Tbdocumentobase, id=memorando.tbdocumentobase.id)
      
     if validacao(request, "edicao"):
-
-        # EXCLUINDO ULTIMO DOCUMENTO
             
-        # CRIANDO O DOCUMENTO            
-        template = webodt.ODFTemplate('memorando.odt')
-        context = dict(assunto=request.POST['nmassunto'])
-        document = template.render(Context(context))
-        caminho_nome = str( document.name ).split("\\")
-            
-        nome_document = caminho_nome[ len(caminho_nome)-1 ]
-
         servidor = Tbservidor.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-        
+        dtvolatildocumento = datetime.datetime.strptime( request.POST['dtvolatildocumento'], "%d/%m/%Y")
+            
         # verificando os grupos do usuario
         for obj in servidor:
             if request.POST.get(obj.nmservidor, False):
@@ -187,8 +177,10 @@ def edicao(request, id):
                                     id = base.id,
                                     nmdocumento = request.POST['nmdocumento'],
                                     tbtipodocumento = Tbtipodocumento.objects.get( tabela = 'tbdocumentomemorando' ),
-                                    linkdocumento = nome_document,
-                                    dtdocumento = datetime.datetime.now(),
+                                    nrsisdoc = request.POST['nrsisdoc'],
+                                    nrsufixosisdoc = request.POST['nrsufixosisdoc'],
+                                    dtvolatildocumento = dtvolatildocumento,
+                                    dtcadastrodocumento = base.dtcadastrodocumento,
                                     auth_user = AuthUser.objects.get( pk = request.user.id ),
                                     tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                     )
