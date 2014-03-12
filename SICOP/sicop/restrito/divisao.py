@@ -46,7 +46,7 @@ def cadastro(request):
                     return HttpResponseRedirect( next ) 
     else:
         form = FormDivisao()
-    return render_to_response('sicop/restrito/divisao/cadastro.html',{"form":form,"uf":uf}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/divisao/cadastro.html',{"form":form,"uf":uf,"classe":request.session['classe']}, context_instance = RequestContext(request))
 
 @permission_required('sicop.divisao_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
@@ -64,7 +64,7 @@ def edicao(request, id):
                 return HttpResponseRedirect("/sicop/restrito/divisao/edicao/"+str(id)+"/")
     else:
         form = FormDivisao(instance=instance)
-    return render_to_response('sicop/restrito/divisao/edicao.html', {"form":form,"uf":uf}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/divisao/edicao.html', {"form":form,"uf":uf,"classe":request.session['classe']}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.divisao_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)

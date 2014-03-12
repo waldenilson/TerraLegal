@@ -49,3 +49,4 @@ def verificaDivisaoUsuario(request):
         id_uf_classe.append(obj.tbuf.id)#cria lista com os estados que o usuario pode acessar
     request.session['divisoes'] = id_divisoes
     request.session['uf'] = id_uf_classe
+    request.session['classe'] = [1,2,3,4,5,6,7,8,9,10]

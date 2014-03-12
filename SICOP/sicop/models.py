@@ -101,7 +101,6 @@ class Tbcaixa(models.Model):
     tbtipocaixa = models.ForeignKey('Tbtipocaixa')
     id = models.AutoField(primary_key=True)
     tbdivisao = models.ForeignKey('Tbdivisao', null=True, blank=True)
-    blentrada = models.NullBooleanField()
     class Meta:
         db_table = 'tbcaixa'
 

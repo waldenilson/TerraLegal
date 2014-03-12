@@ -27,6 +27,17 @@
 						</select>		
 				   	</td>
 				   </tr>
+				   <tr> <td class="colunaTabela"> <label>Classe:</label> </td>
+				   	<td>
+				   		<select name="nrclasse">
+							{% for obj in classe %}
+								<option value="{{ obj}}">{{ obj }}</option>
+							{% endfor %}
+						</select>		
+				   	</td>
+				   </tr>
+				   
+				   
 				   <tr> <td class="colunaTabela"> <label>Descricao:</label> </td><td> <textarea rows="4" cols="40" name="dsdivisao"></textarea></td> </tr>
 				</table>
 		</div>
