@@ -45,7 +45,7 @@
 					<td> <input size="35" name="nmremetente" value="{{ memorando.nmremetente }}" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Destinatario:</label> </td>
 					<td> <input size="35" name="nmdestinatario" value="{{ memorando.nmdestinatario }}" /> </td> </tr>
-			   <tr> <td class="colunaTabela"> <label>Circular:</label> </td>
+			   <tr> <td class="colunaTabela"> <label>Documento Circular:</label> </td>
 				<td>
 					{% if memorando.blcircular == True %} 
 						<input checked="checked" type="checkbox" name="blcircular" />
@@ -54,7 +54,7 @@
 					{% endif %} 
 				</td> </tr>
 			   
-			   <tr> <td class="colunaTabela"> <label>Mensagem:</label> </td><td> <textarea rows="6" cols="100" id="mensagem" name="nmmensagem">{{ memorando.nmmensagem }}</textarea></td> </tr>
+			   <tr> <td class="colunaTabela"> <label>Mensagem:</label> </td><td> <textarea rows="6" cols="50" id="mensagem" name="nmmensagem">{{ memorando.nmmensagem }}</textarea></td> </tr>
 				
 		</table>
 	</div>

@@ -55,14 +55,14 @@
 			<tbody>
 					<td class="colunaTabelaConsulta" style="width:10%">Numero</td>
 					<td class="colunaTabelaConsulta" style="width:20%">Nome</td>
-					<td class="colunaTabelaConsulta" style="width:10%">Data</td>
+					<td class="colunaTabelaConsulta" style="width:10%">Data do cadastro</td>
 				{% if lista %}
 					{% for obj in lista %}
 						<tr onclick="editarID('/sicop/restrito/documento/edicao/{{ obj.tbdocumentobase.id }}');"
 							style="background: {{ obj.tbdocumentobase.tbtipodocumento.coridentificacao }}">
 							<td class="colunaTabelaConsulta">{{ obj.tbdocumentobase.id }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.tbdocumentobase.nmdocumento }}</td>
-							<td class="colunaTabelaConsulta">{{ obj.tbdocumentobase.dtdocumento }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbdocumentobase.dtcadastrodocumento }}</td>
 						</tr>
 					{% endfor %}
 				{% else %}

@@ -84,8 +84,9 @@ def cadastro(request):
 
 @permission_required('servidor.documento_memorando_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def criacao(request, id):   
+        
     obj = get_object_or_404(Tbdocumentomemorando, id=id)
-    
+    print obj
     ano_sisdoc = obj.tbdocumentobase.dtcadastrodocumento.year
     obj_dia = obj.tbdocumentobase.dtdocumento.day
     obj_mes = mes_do_ano_texto( obj.tbdocumentobase.dtdocumento.month )
