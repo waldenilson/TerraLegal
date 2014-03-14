@@ -44,7 +44,7 @@ urlpatterns = patterns('',
     url(r'^sicop/restrito/documento/memorando/consulta/', 'sicop.restrito.documento_memorando.consulta'),
     url(r'^sicop/restrito/documento/memorando/cadastro/', 'sicop.restrito.documento_memorando.cadastro'),
     url(r'^sicop/restrito/documento/memorando/edicao/(?P<id>\d+)/', 'sicop.restrito.documento_memorando.edicao'),
-#    url(r'^sicop/restrito/documento/link/memorando/(?P<id>\d+)/', 'sicop.restrito.documento_memorando.criacao'),
+    url(r'^sicop/restrito/documento/memorando/criacao/(?P<id>\d+)/', 'sicop.restrito.documento_memorando.criacao'),
         
     # ESCOLHA DO TIPO DE PROCESSO
     url(r'^sicop/restrito/processo/consulta/', 'sicop.restrito.processo.consulta'),   

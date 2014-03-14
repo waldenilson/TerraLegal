@@ -1,3 +1,6 @@
+
+# -*- coding: UTF-8 -*-
+
 from django.contrib import admin
 from sicop.models import Tbtipocaixa, Tbtipoprocesso, Tbstatuspendencia,\
     Tbpecastecnicas, Tbclassificacaoprocesso, Tbsubarea, Tbcaixa,\
@@ -8,7 +11,7 @@ from django.http.response import HttpResponse
 def verificar_permissao_grupo(usuario, grupos):
     if usuario:
         permissao = False
-        obj_usuarios = AuthUserGroups.objects.all().filter( user = usuario.id )
+        obj_usuarios = AuthUserGroups.objects.filter( user = usuario.id )
         for obj in obj_usuarios:
             for obj_g in grupos:
                 if obj.user.id == usuario.id and obj.group.name == str(obj_g):
@@ -19,7 +22,7 @@ def verificar_permissao_grupo(usuario, grupos):
 def verificar_permissoes(grupo, permissoes):
     if grupo:
         permissao = False
-        obj_grupos = AuthGroupPermissions.objects.all().filter( group = grupo.id )
+        obj_grupos = AuthGroupPermissions.objects.filter( group = grupo.id )
         for obj in obj_grupos:
             for obj_g in permissoes:
                 if obj.group.id == grupo.id and obj.permission.id == obj_g.id:
@@ -27,6 +30,24 @@ def verificar_permissoes(grupo, permissoes):
         return permissao
     return False
 
+
+def mes_do_ano_texto(inteiro):
+    mes_texto = ""
+    
+    if inteiro == 1: mes_texto = "Janeiro"
+    elif inteiro == 2: mes_texto = "Fevereiro"
+    elif inteiro == 3: mes_texto = "Março"
+    elif inteiro == 4: mes_texto = "Abril"
+    elif inteiro == 5: mes_texto = "Maio"
+    elif inteiro == 6: mes_texto = "Junho"
+    elif inteiro == 7: mes_texto = "Julho"
+    elif inteiro == 8: mes_texto = "Agosto"
+    elif inteiro == 9: mes_texto = "Setembro"
+    elif inteiro == 10: mes_texto = "Outubro"
+    elif inteiro == 11: mes_texto = "Novembro"
+    elif inteiro == 12: mes_texto = "Dezembro"
+    
+    return mes_texto
 
 # tbtipocaixa,
 # tbcaixa,

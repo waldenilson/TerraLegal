@@ -1,3 +1,6 @@
+
+# -*- coding: UTF-8 -*-
+
 from django.contrib.auth.decorators import login_required, permission_required,\
     user_passes_test
 from django.shortcuts import render_to_response, get_object_or_404
@@ -32,6 +35,7 @@ planilha_relatorio  = "Documentos"
 @permission_required('servidor.documento_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
     # carrega os processos da divisao do usuario logado
+    
         
     lista = []
     #lista = Tbdocumentobase.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by( "dtdocumento" )
@@ -68,7 +72,7 @@ def edicao(request, id):
             
             
             servidor = Tbservidor.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-            dtvolatil = formatDataToText( base.dtvolatildocumento )
+            data_documento = formatDataToText( base.dtdocumento )
             docservidor = Tbdocumentoservidor.objects.filter( tbdocumentobase__id = id )
                 
                 
@@ -89,7 +93,7 @@ def edicao(request, id):
                 
             return render_to_response('sicop/restrito/documento/memorando/edicao.html',
                                       {'result':result,'servidor':servidor,'docservidor':docservidor,
-                                       'base':base,'dtvolatil':dtvolatil,'memorando':memorando,'servidor':servidor}, context_instance = RequestContext(request))
+                                       'base':base,'data_documento':data_documento,'memorando':memorando,'servidor':servidor}, context_instance = RequestContext(request))
         
     return HttpResponseRedirect("/sicop/restrito/documento/consulta/")
     
