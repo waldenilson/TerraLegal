@@ -274,7 +274,7 @@ function SomenteNumeroOK(e, obj)
 									{% if not user.is_active %}
 										<li>
 											<a href="/login/" title="">
-												<span>O Sistema</span>
+												<span>Sistema</span>
 											</a>
 										</li>
 									{% endif %}
@@ -283,6 +283,12 @@ function SomenteNumeroOK(e, obj)
 											<span>Equipe</span>
 										</a>
 									</li>
+									<li>
+										<a href="/web/organizacao/" title="">
+											<span>Organizacao</span>
+										</a>
+									</li>
+									
 									
 									{% if perms.sicop.processo_consulta %}
 										<li><hr /><a href="/sicop/restrito/processo/consulta/">Processo</a> </li>

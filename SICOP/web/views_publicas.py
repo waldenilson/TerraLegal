@@ -44,4 +44,6 @@ def regularizacao_urbana(request):
     return render_to_response('web/regularizacao_urbana.html',{},
                               context_instance = RequestContext(request))
     
+def organizacao(request):        
+    return render(request, "web/organizacao.html")
     

@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     url(r'^web/equipe/', 'web.views_publicas.equipe'),
     url(r'^web/processo_rural/', 'web.views_publicas.processo_rural'),
     url(r'^web/regularizacao_urbana/', 'web.views_publicas.regularizacao_urbana'),
+    url(r'^web/organizacao/', 'web.views_publicas.organizacao'),
     
     
     #INIT------------------------------SICOP---------------------------------------------------------------------------------

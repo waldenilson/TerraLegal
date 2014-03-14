@@ -1,0 +1,132 @@
+{% extends "base/consulta_base.html" %}
+{% block style %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/nv.d3.css">
+<style>
+
+</style>
+{% endblock style %}
+{% block content %}
+<h3>Estatisticas do Sistema </h3>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="span2">
+            <div class="stat-box medium-blue">
+            <i class="icon-arrow-up icon-large"></i>
+            <span class="count">{{qtd_processos}} </span>
+            <span class="stat-text">Total de Envios</span>
+            </div>
+        </div>
+        <div class="span2">
+            <div class="stat-box medium-blue">
+            <i class="icon-ok icon-large"></i>
+            <span class="count">{{ qtd_certificadas|floatformat:'-3'}}</span>
+            <span class="stat-text">Total Certificacoes</span>
+            </div>
+        </div>
+        <div class="span2">
+            <div class="stat-box medium-blue">
+            <span class="count">{{qtd_ha_certificados}}</span>
+            <span class="stat-text">Total Ha Certificados</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid" style="border-bottom:1px dashed #ccc;">
+    <div class="span12">
+        <h4>Parcelas Certificadas por dia (ultima semana)</h4>
+        <div class="" id="chart_qtd_by_day" style="" >
+                <svg style="height:350px;width:750px"></svg>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span5">
+                <h4>Numero parcelas certificadas por estados</h4>
+        <div class="" id="chart_uf_qtd" style="" >
+            <svg style="height:350px;width:750px"></svg>
+        </div>
+    </div>
+    <div class="span5">
+                <h4>Qtd em HA certificadas por estados</h4>
+        <div class="" id="chart_uf_ha" style="" >
+            <svg style="height:350px;width:750px"></svg>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+{% block body_scripts %}
+<script src="{{ STATIC_URL }}/js/d3.min.js" type="text/javascript"></script>
+<script src="{{ STATIC_URL }}/js/nv.d3.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+
+nv.addGraph(function() {
+    var chart = nv.models.multiBarChart()
+           .x(function(d) { return d.label })
+           .y(function(d) { return d.value });
+     chart.xAxis.tickFormat(function(d) {
+       return d3.time.format('%d/%m/%y,')(new Date(d))
+     });
+     d3.select('#chart_qtd_by_day svg')
+         .datum(diarioQtd())
+       .transition().duration(1000).call(chart);
+
+    return chart;
+});
+function diarioQtd() {
+  return [
+  {
+    color: "#D0D100",
+    key: "Parcelas Certificadas",
+    values: {{certificados_by_day|safe}}
+  }
+
+  ];
+}
+
+//Estados QTD
+nv.addGraph(function() {
+   var chart = nv.models.pieChart()
+      .x(function(d) { return d.label })
+      .y(function(d) { return d.value })
+      .showLabels(true);
+    d3.select("#chart_uf_qtd svg")
+       .datum(estadosQtd())
+       .transition().duration(500)
+       .call(chart);
+   return chart;
+ });
+function estadosQtd() {
+  return [
+  {
+    key: "submissoes",
+    values: {{qtd_uf|safe}}
+  }
+  ];
+}
+
+//Estados QTD
+nv.addGraph(function() {
+   var chart = nv.models.pieChart()
+      .x(function(d) { return d.label })
+      .y(function(d) { return d.value })
+      .showLabels(true);
+    d3.select("#chart_uf_ha svg")
+       .datum(estadosHa())
+       .transition().duration(500)
+       .call(chart);
+   return chart;
+ });
+function estadosHa() {
+  return [
+  {
+    key: "certificacoes",
+    values: {{ha_uf|safe}}
+  }
+  ];
+}
+</script>
+{% endblock body_scripts %}
+
