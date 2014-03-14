@@ -128,6 +128,32 @@ class Tbdivisao(models.Model):
     class Meta:
         db_table = 'tbdivisao'
 
+class Tbdocumentobase(models.Model):
+    nmdocumento = models.CharField(max_length=80, blank=True)
+    tbtipodocumento = models.ForeignKey('Tbtipodocumento')
+    dtcadastrodocumento = models.DateTimeField(null=True, blank=True)
+    dtdocumento = models.DateTimeField(null=True, blank=True)
+    auth_user = models.ForeignKey(AuthUser)
+    tbdivisao = models.ForeignKey('Tbdivisao')
+    id = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = 'tbdocumentobase'
+
+        
+class Tbdocumentomemorando(models.Model):
+    tbdocumentobase = models.ForeignKey(Tbdocumentobase)
+    nrsisdoc = models.CharField(max_length=20, blank=True)
+    nrsufixosisdoc = models.CharField(max_length=20, blank=True)
+    nmassunto = models.CharField(max_length=100, blank=True)
+    nmlocal = models.CharField(max_length=100, blank=True)
+    nmremetente = models.CharField(max_length=100, blank=True)
+    nmdestinatario = models.CharField(max_length=100, blank=True)
+    nmmensagem = models.TextField(blank=True)
+    blcircular = models.BooleanField()
+    id = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = 'tbdocumentomemorando'
+
 class Tbferias(models.Model):
     tbservidor = models.ForeignKey('Tbservidor')
     nrAno = models.IntegerField()
@@ -213,6 +239,15 @@ class Tbpendencia(models.Model):
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbpendencia'
+
+class Tbpregao(models.Model):
+    nrpregao = models.CharField(max_length=30, blank=True)
+    dspregao = models.TextField(blank=True)
+    tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True)
+    id = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = 'tbpregao'
+
 
 class Tbprocessobase(models.Model):
     nrprocesso = models.CharField(max_length=17, blank=True)
@@ -302,6 +337,7 @@ class Tbservidor(models.Model):
     tbdivisao = models.ForeignKey('Tbdivisao')
     id = models.AutoField(primary_key=True)
     nmcontrato = models.CharField(max_length=20)
+    dtnascimento = models.DateField()
     
     class Meta:
         db_table = 'tbservidor'
@@ -370,20 +406,6 @@ class Tbtipoprocesso(models.Model):
     class Meta:
         db_table = 'tbtipoprocesso'
 
-class Tbuf(models.Model):
-    sigla = models.CharField(max_length=2, blank=True)
-    nmuf = models.CharField(max_length=50, blank=True)
-    id = models.AutoField(primary_key=True)
-    class Meta:
-        db_table = 'tbuf'
-
-class Tbpregao(models.Model):
-    nrpregao = models.CharField(max_length=30, blank=True)
-    dspregao = models.TextField(blank=True)
-    tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True)
-    id = models.AutoField(primary_key=True)
-    class Meta:
-        db_table = 'tbpregao'
         
 class Tbtipodocumento(models.Model):
     nmtipodocumento = models.CharField(max_length=80, blank=True)
@@ -395,16 +417,12 @@ class Tbtipodocumento(models.Model):
     class Meta:
         db_table = 'tbtipodocumento'
         
-class Tbdocumentobase(models.Model):
-    nmdocumento = models.CharField(max_length=80, blank=True)
-    tbtipodocumento = models.ForeignKey('Tbtipodocumento')
-    dtcadastrodocumento = models.DateTimeField(null=True, blank=True)
-    dtdocumento = models.DateTimeField(null=True, blank=True)
-    auth_user = models.ForeignKey(AuthUser)
-    tbdivisao = models.ForeignKey('Tbdivisao')
+class Tbuf(models.Model):
+    sigla = models.CharField(max_length=2, blank=True)
+    nmuf = models.CharField(max_length=50, blank=True)
     id = models.AutoField(primary_key=True)
     class Meta:
-        db_table = 'tbdocumentobase'
+        db_table = 'tbuf'
 
 class Tbdocumentoservidor(models.Model):
     tbdocumentobase = models.ForeignKey(Tbdocumentobase)
@@ -412,20 +430,6 @@ class Tbdocumentoservidor(models.Model):
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbdocumentoservidor'
-        
-class Tbdocumentomemorando(models.Model):
-    tbdocumentobase = models.ForeignKey(Tbdocumentobase)
-    nrsisdoc = models.CharField(max_length=20, blank=True)
-    nrsufixosisdoc = models.CharField(max_length=20, blank=True)
-    nmassunto = models.CharField(max_length=100, blank=True)
-    nmlocal = models.CharField(max_length=100, blank=True)
-    nmremetente = models.CharField(max_length=100, blank=True)
-    nmdestinatario = models.CharField(max_length=100, blank=True)
-    nmmensagem = models.TextField(blank=True)
-    blcircular = models.BooleanField()
-    id = models.AutoField(primary_key=True)
-    class Meta:
-        db_table = 'tbdocumentomemorando'
 
 
     
