@@ -39,12 +39,11 @@ def consulta(request):
     request.session['relatorio_servidor'] = lista
     return render_to_response('controle/servidor/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
-
-
 @permission_required('servidor.servidor_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
     divisao = Tbdivisao.objects.all()
     if request.method == "POST":
+       
         if validacao(request):
             _nrCPF = request.POST['nrcpf'].replace('.','').replace('-','')
             if not _nrCPF:
@@ -59,12 +58,12 @@ def cadastro(request):
                     nmunidade = request.POST['nmunidade'],
                     nmlotacao = request.POST['nmlotacao'],
                     cdsiape = request.POST['cdsiape'],
-                    nrcpf = _nrCPF,
+                    nrcpf = request.POST['nrcpf'].replace('.','').replace('-',''),
                     dsportariacargo = request.POST['dsportariacargo'],
                     dsportaria = request.POST['dsportaria'],
                     nmcargo = request.POST['nmcargo'],
-                    nrtelefone1 = request.POST['nrtelefone1'],
-                    nrtelefone2 = request.POST['nrtelefone2'],
+                    nrtelefone1 = request.POST['nrtelefone1'].replace('(','').replace(')','').replace('-',''),
+                    nrtelefone2 = request.POST['nrtelefone2'].replace('(','').replace(')','').replace('-',''),
                     email = request.POST['email'],
                     dsatividades = request.POST['dsatividades'],
                     tbdivisao = Tbdivisao.objects.get( pk = request.POST['tbdivisao']),
@@ -100,8 +99,8 @@ def edicao(request, id):
                     dsportariacargo = request.POST['dsportariacargo'],
                     dsportaria = request.POST['dsportaria'],
                     nmcargo = request.POST['nmcargo'],
-                    nrtelefone1 = request.POST['nrtelefone1'],
-                    nrtelefone2 = request.POST['nrtelefone2'],
+                    nrtelefone1 = request.POST['nrtelefone1'].replace('(','').replace(')','').replace('-',''),
+                    nrtelefone2 = request.POST['nrtelefone2'].replace('(','').replace(')','').replace('-',''),
                     email = request.POST['email'],
                     dsatividades = request.POST['dsatividades'],
                     tbdivisao = AuthUser.objects.get(pk = request.user.id ).tbdivisao,
@@ -184,5 +183,4 @@ def validacao(request_form):
     warning = True
     if request_form.POST['nmservidor'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe nome do servidor')
-        warning = False
     return warning
