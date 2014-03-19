@@ -181,6 +181,9 @@ class Tbgleba(models.Model):
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbgleba'
+        
+    def __str__(self):              # __unicode__ on Python 2
+        return self.nmgleba
 
 class Tbmovimentacao(models.Model):
     tbprocessobase = models.ForeignKey('Tbprocessobase')
