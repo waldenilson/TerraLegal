@@ -24,6 +24,7 @@ from odslib import ODS
 from django.contrib.auth.models import Permission
 from sicop import admin
 from django.db.models import Q
+from operator import  itemgetter, attrgetter
 
 nome_relatorio      = "relatorio_processo"
 response_consulta  = "/sicop/restrito/processo/consulta/"
@@ -419,8 +420,6 @@ def edicao(request, id):
     # anexos deste processo
     anexado = Tbprocessosanexos.objects.all().filter( tbprocessobase = base.id )
     
-    
-    
     #se processobase pertencer a mesma divisao do usuario logado(teste anterior)
     #if base.auth_user.tbdivisao.id == AuthUser.objects.get( pk = request.user.id ).tbdivisao.id:
     #mudar para: se o processo estah numa CAIXA que pertenca a divisao do usuario logado OU estiver numa caixa de entrada OU
@@ -433,18 +432,22 @@ def edicao(request, id):
     
     #adiciona a lista de glebas, aquelas que estao associada a divisao do processo, pois o processo pode ser,
     #por exemplo da SRFA02 e esteja tramitado para a SRFA01.
-    for obj in Tbgleba.objects.all().filter(tbuf__id = base.tbcaixa.tbdivisao.tbuf.id).order_by("nmgleba"):
-        gleba.append(obj)
+    #efeito colateral a ser combatido: se o processo estiver na divisao do usuario , nao precisa adicionar estas glebas
     
-    #for obj in gleba:
-        #print obj.nmgleba
+    if base.tbcaixa.tbdivisao.id !=  AuthUser.objects.get( pk = request.user.id ).tbdivisao.id:
+        for obj in Tbgleba.objects.all().filter(tbuf__id = base.tbcaixa.tbdivisao.tbuf.id):
+            gleba.append(obj)
+    
+    #sorted(gleba,key=attrgetter('nmgleba'))
     
     if base.tbcaixa.tbdivisao.id == AuthUser.objects.get( pk = request.user.id ).tbdivisao.id or base.tbcaixa.tbtipocaixa.nmtipocaixa=="ENT" or AuthUser.objects.get( pk = request.user.id ).tbdivisao.nrclasse > base.tbdivisao.nrclasse or AuthUser.objects.get( pk = request.user.id ).tbdivisao.id == base.tbdivisao.id:
         #caixasdestino = Tbcaixa.objects.all().order_by("nmlocalarquivo")
         caixasdestino = Tbcaixa.objects.all().filter(
                 Q(tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id)|
                 Q(tbtipocaixa__nmtipocaixa__icontains='ENT')
-                )
+                ).order_by('nmlocalarquivo')
+        
+        
         if tipo == "tbprocessorural":
             rural = Tbprocessorural.objects.get( tbprocessobase = id )
             peca = Tbpecastecnicas.objects.all().filter( nrcpfrequerente = rural.nrcpfrequerente.replace('.','').replace('-','') )
@@ -455,6 +458,7 @@ def edicao(request, id):
             for obj in caixasdestino:
                 if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'PAD' or obj.tbtipocaixa.nmtipocaixa == 'FT' or obj.tbtipocaixa.nmtipocaixa == 'ENT' :
                     tram.append( obj )
+                    
             return render_to_response('sicop/restrito/processo/rural/edicao.html',
                                       {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
@@ -694,9 +698,11 @@ def carregarTbAuxProcesso(request, tipo):
     for obj in Tbcaixa.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmlocalarquivo'):
         if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'FT' or obj.tbtipocaixa.nmtipocaixa == tipo:
             caixa.append( obj )
-    
+    sorted(caixa,key=lambda caixa: caixa.nmlocalarquivo)
+       
     #gleba = Tbgleba.objects.all().filter( tbuf__id = Tbdivisao.objects.get( pk = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).tbuf.id ).order_by('nmgleba')
-    for obj in Tbgleba.objects.all().filter(tbuf__id__in=request.session['uf']):
+    #carrega com as glebas da UF que o usuario pode acessar
+    for obj in Tbgleba.objects.all().filter(tbuf__id__in=request.session['uf']).order_by('nmgleba'):
         gleba.append(obj)
     
     contrato = Tbcontrato.objects.all().filter( tbdivisao__id__in = request.session['divisoes']).order_by('nrcontrato')#AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nrcontrato')

@@ -39,31 +39,36 @@ def consulta(request):
     request.session['relatorio_servidor'] = lista
     return render_to_response('controle/servidor/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
-
-
 @permission_required('servidor.servidor_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
     divisao = Tbdivisao.objects.all()
     if request.method == "POST":
+       
         if validacao(request):
             _nrCPF = request.POST['nrcpf'].replace('.','').replace('-','')
             if not _nrCPF:
                 _nrCPF = None
+                
+            dtnascimento = None
+            if request.POST['dtnascimento']:
+                dtnascimento = datetime.datetime.strptime( request.POST['dtnascimento'], "%d/%m/%Y")
+
             f_servidor = Tbservidor(
                     nmservidor = request.POST['nmservidor'],
                     nmunidade = request.POST['nmunidade'],
                     nmlotacao = request.POST['nmlotacao'],
                     cdsiape = request.POST['cdsiape'],
-                    nrcpf = _nrCPF,
+                    nrcpf = request.POST['nrcpf'].replace('.','').replace('-',''),
                     dsportariacargo = request.POST['dsportariacargo'],
                     dsportaria = request.POST['dsportaria'],
                     nmcargo = request.POST['nmcargo'],
-                    nrtelefone1 = request.POST['nrtelefone1'],
-                    nrtelefone2 = request.POST['nrtelefone2'],
+                    nrtelefone1 = request.POST['nrtelefone1'].replace('(','').replace(')','').replace('-',''),
+                    nrtelefone2 = request.POST['nrtelefone2'].replace('(','').replace(')','').replace('-',''),
                     email = request.POST['email'],
                     dsatividades = request.POST['dsatividades'],
                     tbdivisao = Tbdivisao.objects.get( pk = request.POST['tbdivisao']),
-                    nmcontrato = request.POST['nmcontrato']
+                    nmcontrato = request.POST['nmcontrato'],
+                    dtnascimento = dtnascimento
                     )
             f_servidor.save()
             return HttpResponseRedirect("/ConsultarServidor/")
@@ -75,13 +80,15 @@ def edicao(request, id):
     instance = get_object_or_404(Tbservidor, id=id)
     situacaoferias  = Tbsituacao.objects.all().filter(cdTabela="ferias")
     documentos  = Tbdocumentoservidor.objects.filter(tbservidor = id)
-     
+    dtnascimento = formatDataToText(instance.dtnascimento)
+    
     if request.method == "POST":
-        
         if not request.user.has_perm('servidor.servidor_edicao'):
             return HttpResponseRedirect('/excecoes/permissao_negada/') 
-
         if validacao(request):
+            dtnascimento = None
+            if request.POST['dtnascimento']:
+                dtnascimento = datetime.datetime.strptime(request.POST['dtnascimento'], "%d/%m/%Y")
             f_servidor = Tbservidor(
                     id = instance.id,
                     nmservidor = request.POST['nmservidor'],
@@ -92,18 +99,19 @@ def edicao(request, id):
                     dsportariacargo = request.POST['dsportariacargo'],
                     dsportaria = request.POST['dsportaria'],
                     nmcargo = request.POST['nmcargo'],
-                    nrtelefone1 = request.POST['nrtelefone1'],
-                    nrtelefone2 = request.POST['nrtelefone2'],
+                    nrtelefone1 = request.POST['nrtelefone1'].replace('(','').replace(')','').replace('-',''),
+                    nrtelefone2 = request.POST['nrtelefone2'].replace('(','').replace(')','').replace('-',''),
                     email = request.POST['email'],
                     dsatividades = request.POST['dsatividades'],
                     tbdivisao = AuthUser.objects.get(pk = request.user.id ).tbdivisao,
-                    nmcontrato = request.POST['nmcontrato']
+                    nmcontrato = request.POST['nmcontrato'],
+                    dtnascimento = dtnascimento
                     
                     )
             f_servidor.save()
             return HttpResponseRedirect("/EditarServidor/"+str(id)+"/")
     return render_to_response('controle/servidor/edicao.html',
-                              {"servidor":instance , "ferias":ferias, "situacaoferias":situacaoferias ,"documentos":documentos},context_instance = RequestContext(request))
+                              {"servidor":instance , "ferias":ferias, "situacaoferias":situacaoferias ,"documentos":documentos,"dtnascimento":dtnascimento},context_instance = RequestContext(request))
 
 @permission_required('servidor.servidor_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_pdf(request):
@@ -175,5 +183,4 @@ def validacao(request_form):
     warning = True
     if request_form.POST['nmservidor'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe nome do servidor')
-        warning = False
     return warning
