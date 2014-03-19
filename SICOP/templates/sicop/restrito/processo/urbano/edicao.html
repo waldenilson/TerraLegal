@@ -11,9 +11,17 @@
 
  <ul>
 	<li><a href="#tabs-1">EDICAO PROCESSO URBANO</a></li>
+	
+{% if base.tbclassificacaoprocesso.id == 1 %}
 	<li><a href="#tabs-2">TRAMITACOES</a></li>
+{% endif %}
+
 	<li><a href="#tabs-3">PENDENCIAS</a></li>
+
+{% if base.tbclassificacaoprocesso.id == 1 %}
 	<li><a href="#tabs-4">ANEXOS</a></li>
+{% endif %}
+
 </ul>
 
 
@@ -23,7 +31,7 @@
 	<div style="width: 100%; font-size: 12px; text-align: left">
 		<table>
 				<tr> <td class="colunaTabela"> <label>N do Processo:</label> </td>
-					<td> <input size="21" readonly="readonly" name="nrprocesso" value="{{ base.nrprocesso }}" id="processo" /> </td> </tr>
+					<td> {{ base.nrprocesso }} </td> </tr>
 				<tr> <td class="colunaTabela"> <label>CNPJ:</label> </td>
 					<td> <input size="18" value="{{ urbano.nrcnpj }}" id="cnpj" name="nrcnpj" /> </td> </tr>
 				<tr> <td class="colunaTabela" title="Bairro / Distrito / Povoado / Vila"> <label>Bairro/Dist./Pov./Vila:</label> </td>

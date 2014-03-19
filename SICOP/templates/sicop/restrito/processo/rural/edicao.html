@@ -11,9 +11,17 @@
 <div id="tabs" style="color:black;width:100%;font-size:11px">
  <ul>
 	<li><a href="#tabs-1">EDICAO PROCESSO RURAL</a></li>
+
+{% if base.tbclassificacaoprocesso.id == 1 %}
 	<li><a href="#tabs-2">TRAMITACOES</a></li>
+{% endif %}
+
 	<li><a href="#tabs-3">PENDENCIAS</a></li>
+
+{% if base.tbclassificacaoprocesso.id == 1 %}
 	<li><a href="#tabs-4">ANEXOS</a></li>
+{% endif %}
+
 	<li><a href="#tabs-5">PECA TECNICA</a></li>
 </ul>
 
@@ -24,7 +32,7 @@
 		<table>
 			<tr> 
 				<td class="colunaTabela"> <label>N do Processo:</label> </td>
-				<td class="colunaTabela"> <input size="21" readonly="readonly" name="nrprocesso" id="processo" value="{{ base.nrprocesso }}" /> </td> 
+				<td class="colunaTabela"> {{ base.nrprocesso }} </td> 
 			</tr>
 				<tr> 
 					<td class="colunaTabela"> <label>Gleba:</label> </td>

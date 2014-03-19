@@ -10,9 +10,17 @@
 
  <ul>
 	<li><a href="#tabs-1">EDICAO PROCESSO CLAUSULA</a></li>
+
+{% if base.tbclassificacaoprocesso.id == 1 %}
 	<li><a href="#tabs-2">TRAMITACOES</a></li>
+{% endif %}
+
 	<li><a href="#tabs-3">PENDENCIAS</a></li>
+
+{% if base.tbclassificacaoprocesso.id == 1 %}
 	<li><a href="#tabs-4">ANEXOS</a></li>
+{% endif %}
+
 </ul>
 
 <div id="tabs-1">
@@ -21,7 +29,7 @@
 	<div style="width: 100%; font-size: 12px; text-align: left">
 		<table>
 				<tr> <td class="colunaTabela"> <label>N do Processo:</label> </td>
-					<td> <input size="21" readonly="readonly" value="{{ base.nrprocesso }}" name="nrprocesso" id="processo" /> </td> </tr>
+					<td> {{ base.nrprocesso }} </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Nome do Titulado:</label> </td>
 					<td> <input value="{{ clausula.nmrequerente }}" size="35" name="nmrequerente" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>CPF do Titulado:</label> </td>
@@ -245,7 +253,7 @@
 	<table style="width:100%">
 		<tr> 
 		   	<td class="colunaTabelaConsulta">
-				<input id="processo2" name="processoanexo" />
+				<input name="processoanexo" />
 				<input type="submit" value="ANEXAR" />
 			</td>
 		</tr>
