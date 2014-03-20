@@ -34,6 +34,11 @@ def cadastro(request):
     escolha = "tbprocessoclausula"  
     
     if request.method == "POST":
+
+        datatitulacao = None
+        if request.POST['dttitulacao']:
+            datatitulacao = datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y")
+
         if validacao(request, "cadastro"):
             # cadastrando o registro processo base            
             f_base = Tbprocessobase (
@@ -50,10 +55,6 @@ def cadastro(request):
                                     )
             f_base.save()
             
-            datatitulacao = None
-            if request.POST['dttitulacao']:
-                datatitulacao = datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y")
-
             # cadastrando o registro processo rural
             f_clausula = Tbprocessoclausula (
                                        nmrequerente = request.POST['nmrequerente'],
@@ -103,11 +104,15 @@ def edicao(request, id):
         if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'RES' or obj.tbtipocaixa.nmtipocaixa == 'FT':
             caixadestino.append( obj )    
 
+    datatitulacao = None
+    if request.POST['dttitulacao']:
+        datatitulacao = datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y")
+
     if validacao(request, "edicao"):
         # cadastrando o registro processo base            
             f_base = Tbprocessobase (
                                     id = base.id,
-                                    nrprocesso = request.POST['nrprocesso'].replace('.','').replace('/','').replace('-',''),
+                                    nrprocesso = base.nrprocesso,
                                     tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
                                     tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
                                     tbcaixa = base.tbcaixa,
@@ -119,10 +124,6 @@ def edicao(request, id):
                                     tbdivisao = base.tbdivisao
                                     )
             f_base.save()
-
-            datatitulacao = None
-            if request.POST['dttitulacao']:
-                datatitulacao = datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y")
             
             # cadastrando o registro processo clausula
             f_clausula = Tbprocessoclausula (
@@ -151,9 +152,10 @@ def edicao(request, id):
 
 def validacao(request_form, metodo):
     warning = True
-    if request_form.POST['nrprocesso'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe o numero do processo')
-        warning = False
+    if metodo == "cadastro":
+        if request_form.POST['nrprocesso'] == '':
+            messages.add_message(request_form,messages.WARNING,'Informe o numero do processo')
+            warning = False
     if request_form.POST['nmrequerente'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe o nome do titulado')
         warning = False

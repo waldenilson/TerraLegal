@@ -24,6 +24,14 @@ def cadastro(request):
     escolha = "tbprocessourbano" 
     
     if request.method == "POST":
+
+        datatitulacao = None
+        dataaberturaprocesso = None
+        if request.POST['dttitulacao']:
+            datatitulacao = datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y")
+        if request.POST['dtaberturaprocesso']:
+            dataaberturaprocesso = datetime.datetime.strptime( request.POST['dtaberturaprocesso'], "%d/%m/%Y")
+        
         if validacao(request, "cadastro"):
             # cadastrando o registro processo base            
             f_base = Tbprocessobase (
@@ -39,14 +47,7 @@ def cadastro(request):
                                     tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                     )
             f_base.save()
-     
-            datatitulacao = None
-            dataaberturaprocesso = None
-            if request.POST['dttitulacao']:
-                datatitulacao = datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y")
-            if request.POST['dtaberturaprocesso']:
-                dataaberturaprocesso = datetime.datetime.strptime( request.POST['dtaberturaprocesso'], "%d/%m/%Y")
-            
+                 
             area = request.POST['nrarea'].replace(',','.')
             if not area:
                 area = None
@@ -112,7 +113,7 @@ def edicao(request, id):
          # cadastrando o registro processo base            
             f_base = Tbprocessobase (
                                     id = base.id,
-                                    nrprocesso = request.POST['nrprocesso'].replace('.','').replace('/','').replace('-',''),
+                                    nrprocesso = base.nrprocesso,
                                     tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
                                     tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
                                     tbcaixa = base.tbcaixa,
@@ -178,9 +179,10 @@ def edicao(request, id):
 
 def validacao(request_form, metodo):
     warning = True
-    if request_form.POST['nrprocesso'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe o numero do processo')
-        warning = False
+    if metodo == "cadastro":
+        if request_form.POST['nrprocesso'] == '':
+            messages.add_message(request_form,messages.WARNING,'Informe o numero do processo')
+            warning = False
     if request_form.POST['nrcnpj'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe o CNPJ')
         warning = False

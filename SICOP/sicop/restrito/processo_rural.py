@@ -23,6 +23,12 @@ def cadastro(request):
     escolha = "tbprocessorural"
     
     if request.method == "POST":
+            
+        #verifica se o cadastro tem conjuge
+        tem_conjuge = False
+        if request.POST['nmconjuge'] != '' and request.POST['nrcpfconjuge'] != '':
+            tem_conjuge = True
+
         if validacao(request, "cadastro"):
             
             # cadastrando o registro processo base            
@@ -41,9 +47,6 @@ def cadastro(request):
             f_base.save()
             
             # cadastrando o registro processo rural
-            tem_conjuge = False
-            if request.POST['nmconjuge'] != '' and request.POST['nrcpfconjuge'] != '':
-                tem_conjuge = True
             f_rural = Tbprocessorural (
                                        nmrequerente = request.POST['nmrequerente'],
                                        nrcpfrequerente = request.POST['nrcpfrequerente'].replace('.','').replace('-',''),
@@ -77,11 +80,16 @@ def edicao(request, id):
         if obj.tbtipocaixa.nmtipocaixa=='SER' or obj.tbtipocaixa.nmtipocaixa=='PAD' or obj.tbtipocaixa.nmtipocaixa=='FT' or obj.tbtipocaixa.nmtipocaixa=='ENT':
             caixadestino.append(obj)
 
+    #verifica se o cadastro tem conjuge
+    tem_conjuge = False
+    if request.POST['nmconjuge'] != '' and request.POST['nrcpfconjuge'] != '':
+        tem_conjuge = True
+
     if validacao(request, "edicao"):
          # cadastrando o registro processo base            
             f_base = Tbprocessobase (
                                     id = base.id,
-                                    nrprocesso = request.POST['nrprocesso'].replace('.','').replace('/','').replace('-',''),
+                                    nrprocesso = base.nrprocesso,
                                     tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
                                     tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
                                     tbcaixa = base.tbcaixa,
@@ -95,9 +103,6 @@ def edicao(request, id):
             f_base.save()
             
             # cadastrando o registro processo rural
-            tem_conjuge = False
-            if request.POST['nmconjuge'] != '' and request.POST['nrcpfconjuge'] != '':
-                tem_conjuge = True
             f_rural = Tbprocessorural (
                                        id = rural.id,
                                        nmrequerente = request.POST['nmrequerente'],
