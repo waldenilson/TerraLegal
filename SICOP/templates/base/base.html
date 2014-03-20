@@ -361,7 +361,7 @@ function SomenteNumeroOK(e, obj)
 										<li><a href="#">Documento</a>
 											<ul>
 												{% if perms.servidor.documento_consulta %}
-													<li><a href="/sicop/restrito/documento/consulta/">Controle</a></li>
+													<li><a href="/sicop/restrito/documento/consulta/">Controle (Beta)</a></li>
 												{% endif %}
 												{% if perms.servidor.tipo_documento_consulta %}
 													<li><a href="/sicop/restrito/tipo_documento/consulta/">Tipo	Documento</a></li>
@@ -377,7 +377,7 @@ function SomenteNumeroOK(e, obj)
 													<li><a href="/sicop/restrito/relatorio/processo_peca/">Processos e peças técnicas</a></li>
 												{% endif %}
 												{% if perms.sicop.relatorio_peca_nao_aprovada_consulta %}
-													<li><a href="/sicop/restrito/relatorio/peca_nao_aprovada/">Peças técnicas não aprovadas</a></li>
+													<li><a href="/sicop/restrito/relatorio/peca_nao_aprovada/">Peças técnicas não aprovadas (Beta)</a></li>
 												{% endif %}
 												{% if perms.sicop.relatorio_peca_rejeitada_consulta %}
 													<li><a href="/sicop/restrito/relatorio/peca_rejeitada/">Peças técnicas rejeitadas</a></li>
@@ -450,7 +450,7 @@ function SomenteNumeroOK(e, obj)
 			<div id="divCollophon" style="height:30px; color:white ;background: url('{% static "img/bgFooterDireitos.gif" %}');">
 
 				<div style="float:left;margin-top:5px;margin-left:20px">
-						© 2014 Sistema de Controle de Processos do Terra Legal - Revisao 397 				
+						© 2014 Sistema de Controle de Processos do Terra Legal - Revisao 418 				
 				</div>
 				<div style="float:right;margin-top:5px;margin-right:20px">
 						<a
