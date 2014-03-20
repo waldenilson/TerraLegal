@@ -181,6 +181,8 @@ $(function() {
 
 function SomenteNumero(e, obj)
 {
+	
+	
 	var tecla=(window.event)?event.keyCode:e.which;
 	if((tecla>47 && tecla<58)) return true;
 	else
@@ -188,15 +190,29 @@ function SomenteNumero(e, obj)
 
 		if (tecla==8 || tecla==0 ) return true;
 		else
-			if(tecla==46)
+			if(tecla==44)
 			{
-				if (obj.value.indexOf(".") > 1)
+				if ( obj.value.split(',').length > 1 )
 					return false;
 				else
-					return true;
+					if ( obj.value.split('.').length > 1 )
+						return false;
+					else
+						return true;
 			}
 			else
-				return false;
+				if(tecla==46)
+				{
+					if ( obj.value.split('.').length > 1 )
+						return false;
+					else
+						if ( obj.value.split(',').length > 1 )
+							return false;
+						else
+							return true;
+				}
+				else
+					return false;
 			
 	}
 }
