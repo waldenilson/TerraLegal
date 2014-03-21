@@ -1,21 +1,16 @@
 
 # -*- coding: UTF-8 -*-
 
-from django.template.context import Context, RequestContext
-from sicop.models import Tbprocessobase, Tbpecastecnicas, \
+from django.template.context import RequestContext
+from sicop.models import Tbpecastecnicas, \
     Tbprocessorural, AuthUser
-from sicop.relatorio_base import relatorio_base, relatorio_ods_base_header,\
+from sicop.relatorio_base import relatorio_ods_base_header,\
     relatorio_ods_base
 from django.contrib.auth.decorators import permission_required
-from fileinput import filename
-import os
-from django.http.response import HttpResponse, HttpResponseRedirect
-import shutil
-from TerraLegal import settings
-import datetime
+from django.http.response import HttpResponse
 from odslib import ODS
 from django.shortcuts import render_to_response
-from sicop.admin import mes_do_ano_texto
+from django.db.models import Q
 
 
 
@@ -74,9 +69,19 @@ def peca_gleba(request):
 def peca_nao_aprovada(request):
     
     if request.method == "POST":
-
+        pecas = []
         #CONSULTA ORDENADA E/OU BASEADA EM FILTROS DE PESQUISA
-        pecas = Tbpecastecnicas.objects.filter( stpecatecnica = False ).order_by('nmrequerente')
+        consulta = Tbpecastecnicas.objects.filter( Q(stpecatecnica = False) )
+        ordem = request.POST['ordenacao']
+        if ordem == '1':
+            pecas = consulta.order_by('tbcaixa__nmlocalarquivo')
+        elif ordem == '2':
+            pecas = consulta.order_by('tbcontrato__nrcontrato')
+        elif ordem == '3':
+            pecas = consulta.order_by('tbgleba__nmgleba')
+        else:
+            pecas = consulta.order_by('nmrequerente')
+            
           
         #GERACAO
         nome_relatorio = "relatorio-pecas-nao-aprovadas"

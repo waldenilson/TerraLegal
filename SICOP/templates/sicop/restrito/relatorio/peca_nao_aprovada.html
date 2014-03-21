@@ -18,8 +18,22 @@
 			<form method="post" action="">
 				{% csrf_token %}
 				<div style="width:100%;font-size:12px;text-align:left">
+					<table>
+					   <tr> 
+					   		<td class="colunaTabela"> <label>Ordenar Por:</label> </td>
+					   		<td>
+					   			<select name="ordenacao" style="width:150px">
+										<option value="0">REQUERENTE</option>
+										<option value="1">PASTA</option>
+										<option value="2">CONTRATO</option>
+										<option value="3">GLEBA</option>
+								</select>
+							</td>
+						</tr>
+					</table>				
+				
 				</div>
-				<br />
+				<br/><br />
 				<table style="width:100%">
 					<tr>
 						<td class="colunaTabela" style="text-align:left"> 
