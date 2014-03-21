@@ -128,32 +128,6 @@ class Tbdivisao(models.Model):
     class Meta:
         db_table = 'tbdivisao'
 
-class Tbdocumentobase(models.Model):
-    nmdocumento = models.CharField(max_length=80, blank=True)
-    tbtipodocumento = models.ForeignKey('Tbtipodocumento')
-    dtcadastrodocumento = models.DateTimeField(null=True, blank=True)
-    dtdocumento = models.DateTimeField(null=True, blank=True)
-    auth_user = models.ForeignKey(AuthUser)
-    tbdivisao = models.ForeignKey('Tbdivisao')
-    id = models.AutoField(primary_key=True)
-    class Meta:
-        db_table = 'tbdocumentobase'
-
-        
-class Tbdocumentomemorando(models.Model):
-    tbdocumentobase = models.ForeignKey(Tbdocumentobase)
-    nrsisdoc = models.CharField(max_length=20, blank=True)
-    nrsufixosisdoc = models.CharField(max_length=20, blank=True)
-    nmassunto = models.CharField(max_length=100, blank=True)
-    nmlocal = models.CharField(max_length=100, blank=True)
-    nmremetente = models.CharField(max_length=100, blank=True)
-    nmdestinatario = models.CharField(max_length=100, blank=True)
-    nmmensagem = models.TextField(blank=True)
-    blcircular = models.BooleanField()
-    id = models.AutoField(primary_key=True)
-    class Meta:
-        db_table = 'tbdocumentomemorando'
-
 class Tbferias(models.Model):
     tbservidor = models.ForeignKey('Tbservidor')
     nrAno = models.IntegerField()
@@ -427,6 +401,19 @@ class Tbuf(models.Model):
     class Meta:
         db_table = 'tbuf'
 
+
+class Tbdocumentobase(models.Model):
+    nmdocumento = models.CharField(max_length=80, blank=True)
+    tbtipodocumento = models.ForeignKey('Tbtipodocumento')
+    dtcadastrodocumento = models.DateTimeField(null=True, blank=True)
+    dtdocumento = models.DateTimeField(null=True, blank=True)
+    auth_user = models.ForeignKey(AuthUser)
+    tbdivisao = models.ForeignKey('Tbdivisao')
+    id = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = 'tbdocumentobase'
+
+        
 class Tbdocumentoservidor(models.Model):
     tbdocumentobase = models.ForeignKey(Tbdocumentobase)
     tbservidor = models.ForeignKey(Tbservidor)
@@ -434,5 +421,70 @@ class Tbdocumentoservidor(models.Model):
     class Meta:
         db_table = 'tbdocumentoservidor'
 
-
-    
+class Tbmemorando(models.Model):
+    tbdocumentobase = models.ForeignKey(Tbdocumentobase)
+    nrsisdoc = models.CharField(max_length=20, blank=True)
+    nrsufixosisdoc = models.CharField(max_length=20, blank=True)
+    nmassunto = models.CharField(max_length=100, blank=True)
+    nmlocal = models.CharField(max_length=100, blank=True)
+    nmremetente = models.CharField(max_length=100, blank=True)
+    nmdestinatario = models.CharField(max_length=100, blank=True)
+    nmmensagem = models.TextField(blank=True)
+    blcircular = models.BooleanField()
+    id = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = "'documentos'.'tbmemorando'"
+        
+#===============================================================================
+# 
+# class Tboficio(models.Model):
+#     tbdocumentobase = models.ForeignKey(Tbdocumentobase)
+#     id = models.AutoField(primary_key=True)
+#     class Meta:
+#         db_table = "'documentos'.'tboficio'"
+#     
+# class Tbbmp(models.Model):
+#     tbdocumentobase = models.ForeignKey(Tbdocumentobase)
+#     id = models.AutoField(primary_key=True)
+#     class Meta:
+#         db_table = "'documentos'.'tbbmp'"
+# 
+# class Tbbmp_patrimonio(models.Model):
+#     tbbmp = models.ForeignKey(Tbbmp)
+#     id = models.AutoField(primary_key=True)
+#     class Meta:
+#         db_table = "'documentos'.'tbbmp_patrimonio'"
+#   
+# class Tbtru(models.Model):
+#     tbdocumentobase = models.ForeignKey(Tbdocumentobase)
+#     id = models.AutoField(primary_key=True)
+#     class Meta:
+#         db_table = "'documentos'.'tbtru'"
+# 
+# class Tbrme(models.Model):
+#     tbdocumentobase = models.ForeignKey(Tbdocumentobase)
+#     id = models.AutoField(primary_key=True)
+#     class Meta:
+#         db_table = "'documentos'.'tbrme'"
+# 
+# class Tbrme_material(models.Model):
+#     tbrme = models.ForeignKey(Tbrme)
+#     id = models.AutoField(primary_key=True)
+#     class Meta:
+#         db_table = "'documentos'.'tbrme_material'"
+#===============================================================================
+   
+class Tbrv(models.Model):
+    tbdocumentobase = models.ForeignKey(Tbdocumentobase)
+    id = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = "'documentos'.'tbrv'"
+ 
+#===============================================================================
+# class Tbdiaria(models.Model):
+#     tbdocumentobase = models.ForeignKey(Tbdocumentobase)
+#     id = models.AutoField(primary_key=True)
+#     class Meta:
+#         db_table = "'documentos'.'tbdiaria'"
+#===============================================================================
+ 
