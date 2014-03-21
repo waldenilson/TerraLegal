@@ -17,22 +17,75 @@ from django.db.models import Q
 #PROCESSOS QUE TEM PECA TECNICA
 @permission_required('sicop.processo_peca_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def processo_peca(request):
-        
-    #buscar os processos que tem o cpf do requerente ligado a uma peca tecnica
-    p_rural = Tbprocessorural.objects.filter( tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-    p_rural_com_peca = []
-    for r in p_rural:
-        if Tbpecastecnicas.objects.filter( nrcpfrequerente = r.nrcpfrequerente.replace('.','').replace('-','') ):
-            p_rural_com_peca.append( r )
-    
-    context = dict(         
-                        titulo='Relatorio Processos com Peca Tecnica',
-                        total=len(p_rural_com_peca),
-                        lista=p_rural_com_peca
-                  )
-    
-    return render_to_response('relatorio/processos-com-peca.odt',dictionary=context,format='odt',filename='relatorio-processos-com-peca.odt')
 
+    if request.method == "POST":
+        p_rural = []
+        #CONSULTA ORDENADA E/OU BASEADA EM FILTROS DE PESQUISA
+        consulta = Tbprocessorural.objects.filter( tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        p_rural_com_peca = []
+        
+        ordem = request.POST['ordenacao']
+        if ordem == '1':
+            p_rural = consulta.order_by('tbprocessobase__tbcaixa__nmlocalarquivo')
+        elif ordem == '2':
+            p_rural = consulta.order_by('tbprocessobase__nrprocesso')
+        elif ordem == '3':
+            p_rural = consulta.order_by('tbprocessobase__tbgleba__nmgleba')
+        elif ordem == '4':
+            p_rural = consulta.order_by('tbprocessobase__tbmunicipio__nome_mun')
+        else:
+            p_rural = consulta.order_by('nmrequerente')
+            
+        for r in p_rural:
+            if Tbpecastecnicas.objects.filter( nrcpfrequerente = r.nrcpfrequerente.replace('.','').replace('-','') ):
+                p_rural_com_peca.append( r )
+
+        #GERACAO
+        nome_relatorio = "relatorio-processos-com-peca"
+        titulo_relatorio    = "RELATORIO DOS PROCESSOS COM PECAS TECNICAS"
+        planilha_relatorio  = "Processos com peca"
+        ods = ODS()
+        sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, len(p_rural_com_peca), ods)
+        
+        # TITULOS DAS COLUNAS
+        sheet.getCell(0, 6).setAlignHorizontal('center').stringValue( 'Processo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(1, 6).setAlignHorizontal('center').stringValue( 'Requerente' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'CPF' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'Caixa' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(4, 6).setAlignHorizontal('center').stringValue( 'Municipio' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(5, 6).setAlignHorizontal('center').stringValue( 'Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getRow(1).setHeight('20pt')
+        sheet.getRow(2).setHeight('20pt')
+        sheet.getRow(6).setHeight('20pt')
+        
+        sheet.getColumn(0).setWidth("2in")
+        sheet.getColumn(1).setWidth("5in")
+        sheet.getColumn(2).setWidth("2in")
+        sheet.getColumn(3).setWidth("4in")
+        sheet.getColumn(4).setWidth("2.5in")
+        sheet.getColumn(5).setWidth("2.5in")
+        
+            
+        #DADOS DA CONSULTA
+        x = 5
+        for obj in p_rural_com_peca:
+            sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.nrprocesso)
+            sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.nmrequerente)    
+            sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue(obj.nrcpfrequerente)
+            sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbcaixa.nmlocalarquivo)
+            sheet.getCell(4, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbmunicipio.nome_mun)
+            sheet.getCell(5, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbgleba.nmgleba)
+            x += 1
+            
+        #GERACAO DO DOCUMENTO  
+        relatorio_ods_base(ods, planilha_relatorio)
+        response = HttpResponse(mimetype=ods.mimetype.toString())
+        response['Content-Disposition'] = 'attachment; filename='+nome_relatorio+'.ods'
+        ods.save(response)
+        return response
+
+    return render_to_response('sicop/restrito/relatorio/processo_peca.html',{}, context_instance = RequestContext(request))
+      
 #PECAS TECNICAS POR GLEBAS
 
 @permission_required('sicop.peca_gleba_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
