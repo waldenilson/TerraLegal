@@ -12,8 +12,6 @@ from odslib import ODS
 from django.shortcuts import render_to_response
 from django.db.models import Q
 
-
-
 #PROCESSOS QUE TEM PECA TECNICA
 @permission_required('sicop.processo_peca_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def processo_peca(request):
@@ -23,18 +21,7 @@ def processo_peca(request):
         #CONSULTA ORDENADA E/OU BASEADA EM FILTROS DE PESQUISA
         consulta = Tbprocessorural.objects.filter( tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
         p_rural_com_peca = []
-        
-        ordem = request.POST['ordenacao']
-        if ordem == '1':
-            p_rural = consulta.order_by('tbprocessobase__tbcaixa__nmlocalarquivo')
-        elif ordem == '2':
-            p_rural = consulta.order_by('tbprocessobase__nrprocesso')
-        elif ordem == '3':
-            p_rural = consulta.order_by('tbprocessobase__tbgleba__nmgleba')
-        elif ordem == '4':
-            p_rural = consulta.order_by('tbprocessobase__tbmunicipio__nome_mun')
-        else:
-            p_rural = consulta.order_by('nmrequerente')
+        p_rural = consulta.order_by( request.POST['ordenacao'] )
             
         for r in p_rural:
             if Tbpecastecnicas.objects.filter( nrcpfrequerente = r.nrcpfrequerente.replace('.','').replace('-','') ):
@@ -125,16 +112,7 @@ def peca_nao_aprovada(request):
         pecas = []
         #CONSULTA ORDENADA E/OU BASEADA EM FILTROS DE PESQUISA
         consulta = Tbpecastecnicas.objects.filter( Q(stpecatecnica = False, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id) )
-        ordem = request.POST['ordenacao']
-        if ordem == '1':
-            pecas = consulta.order_by('tbcaixa__nmlocalarquivo')
-        elif ordem == '2':
-            pecas = consulta.order_by('tbcontrato__nrcontrato')
-        elif ordem == '3':
-            pecas = consulta.order_by('tbgleba__nmgleba')
-        else:
-            pecas = consulta.order_by('nmrequerente')
-            
+        pecas = consulta.order_by( request.POST['ordenacao'] )
           
         #GERACAO
         nome_relatorio = "relatorio-pecas-nao-aprovadas"
@@ -194,16 +172,7 @@ def peca_rejeitada(request):
         pecas = []
         #CONSULTA ORDENADA E/OU BASEADA EM FILTROS DE PESQUISA
         consulta = Tbpecastecnicas.objects.filter( Q(stenviadobrasilia = False, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id) )
-        ordem = request.POST['ordenacao']
-        if ordem == '1':
-            pecas = consulta.order_by('tbcaixa__nmlocalarquivo')
-        elif ordem == '2':
-            pecas = consulta.order_by('tbcontrato__nrcontrato')
-        elif ordem == '3':
-            pecas = consulta.order_by('tbgleba__nmgleba')
-        else:
-            pecas = consulta.order_by('nmrequerente')
-            
+        pecas = consulta.order_by( request.POST['ordenacao'] )            
           
         #GERACAO
         nome_relatorio = "relatorio-pecas-rejeitadas"
@@ -264,16 +233,7 @@ def peca_sem_processo(request):
         #CONSULTA ORDENADA E/OU BASEADA EM FILTROS DE PESQUISA
         consulta = Tbpecastecnicas.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
         pecas_sem_proc = []
-        
-        ordem = request.POST['ordenacao']
-        if ordem == '1':
-            pecas = consulta.order_by('tbcaixa__nmlocalarquivo')
-        elif ordem == '2':
-            pecas = consulta.order_by('tbcontrato__nrcontrato')
-        elif ordem == '3':
-            pecas = consulta.order_by('tbgleba__nmgleba')
-        else:
-            pecas = consulta.order_by('nmrequerente')
+        pecas = consulta.order_by( request.POST['ordenacao'] )
             
         for p in pecas:
             if not Tbprocessorural.objects.filter( nrcpfrequerente = p.nrcpfrequerente ):
@@ -354,16 +314,7 @@ def peca_validada(request):
         pecas = []
         #CONSULTA ORDENADA E/OU BASEADA EM FILTROS DE PESQUISA
         consulta = Tbpecastecnicas.objects.filter( Q(stenviadobrasilia = True, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id) )
-        ordem = request.POST['ordenacao']
-        if ordem == '1':
-            pecas = consulta.order_by('tbcaixa__nmlocalarquivo')
-        elif ordem == '2':
-            pecas = consulta.order_by('tbcontrato__nrcontrato')
-        elif ordem == '3':
-            pecas = consulta.order_by('tbgleba__nmgleba')
-        else:
-            pecas = consulta.order_by('nmrequerente')
-            
+        pecas = consulta.order_by( request.POST['ordenacao'] )            
           
         #GERACAO
         nome_relatorio = "relatorio-pecas-validadas"
