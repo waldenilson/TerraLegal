@@ -7,7 +7,7 @@ from django.template.context import RequestContext, Context
 from sicop.models import Tbtipoprocesso, Tbcaixa, Tbgleba, Tbmunicipio, AuthUser,\
     AuthGroup, Tbprocessobase, Tbprocessorural, Tbclassificacaoprocesso, Tbsituacaoprocesso,\
     Tbpecastecnicas, Tbmovimentacao, Tbtipodocumento, Tbdocumentobase,\
-    Tbdocumentomemorando, Tbservidor, Tbdocumentoservidor
+    Tbmemorando, Tbservidor, Tbdocumentoservidor
 from sicop.forms import FormProcessoRural, FormProcessoBase
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect, HttpResponse
@@ -56,7 +56,7 @@ def cadastro(request):
                                     )
             f_base.save()
             
-            f_memorando = Tbdocumentomemorando (
+            f_memorando = Tbmemorando (
                                        nmassunto = request.POST['nmassunto'],
                                        nrsisdoc = request.POST['nrsisdoc'],
                                        nrsufixosisdoc = request.POST['nrsufixosisdoc'],
@@ -85,7 +85,7 @@ def cadastro(request):
 @permission_required('servidor.documento_memorando_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def criacao(request, id):   
         
-    obj = get_object_or_404(Tbdocumentomemorando, id=id)
+    obj = get_object_or_404(Tbmemorando, id=id)
     print obj
     ano_sisdoc = obj.tbdocumentobase.dtcadastrodocumento.year
     obj_dia = obj.tbdocumentobase.dtdocumento.day
@@ -97,7 +97,7 @@ def criacao(request, id):
 @permission_required('servidor.documento_memorando_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
         
-    memorando = get_object_or_404(Tbdocumentomemorando, id=id)
+    memorando = get_object_or_404(Tbmemorando, id=id)
     base  = get_object_or_404(Tbdocumentobase, id=memorando.tbdocumentobase.id)
      
     if validacao(request, "edicao"):
@@ -141,7 +141,7 @@ def edicao(request, id):
                                     )
         f_base.save()
 
-        f_memorando = Tbdocumentomemorando (
+        f_memorando = Tbmemorando (
                                        id = memorando.id,
                                        nmassunto = request.POST['nmassunto'],
                                        nrsisdoc = request.POST['nrsisdoc'],

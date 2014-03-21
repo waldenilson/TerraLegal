@@ -11,7 +11,7 @@ from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
     Tbcontrato, Tbsituacaoprocesso, Tbsituacaogeo, Tbpecastecnicas, AuthUser,\
     AuthUserGroups, Tbmovimentacao, Tbprocessosanexos, Tbpendencia,\
     Tbclassificacaoprocesso, Tbtipopendencia, Tbstatuspendencia, Tbpregao,\
-    Tbdocumentomemorando, Tbdocumentobase, Tbtipodocumento, Tbservidor,\
+    Tbmemorando, Tbdocumentobase, Tbtipodocumento, Tbservidor,\
     Tbdocumentoservidor
 from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
@@ -44,7 +44,7 @@ def consulta(request):
         
         if len(nome) >= 3:
 #            lista = Tbprocessobase.objects.all().filter( nrprocesso__contains = numero )
-            p_memorando = Tbdocumentomemorando.objects.filter( tbdocumentobase__nmdocumento__icontains = nome ) | Tbdocumentomemorando.objects.filter( nmassunto__icontains = nome ) | Tbdocumentomemorando.objects.filter( nmmensagem__icontains = nome )           
+            p_memorando = Tbmemorando.objects.filter( tbdocumentobase__nmdocumento__icontains = nome ) | Tbmemorando.objects.filter( nmassunto__icontains = nome ) | Tbmemorando.objects.filter( nmmensagem__icontains = nome )           
             lista = []
             for obj in p_memorando:
                 lista.append( obj )
@@ -68,7 +68,7 @@ def edicao(request, id):
         
     # se processobase pertencer a mesma divisao do usuario logado
     if base.auth_user.tbdivisao.id == AuthUser.objects.get( pk = request.user.id ).tbdivisao.id:
-        if tipo == "tbdocumentomemorando":
+        if tipo == "tbmemorando":
             
             
             servidor = Tbservidor.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
@@ -89,7 +89,7 @@ def edicao(request, id):
             result = sorted(result.items())
                      
             
-            memorando = Tbdocumentomemorando.objects.get( tbdocumentobase = id )
+            memorando = Tbmemorando.objects.get( tbdocumentobase = id )
                 
             return render_to_response('sicop/restrito/documento/memorando/edicao.html',
                                       {'result':result,'servidor':servidor,'docservidor':docservidor,
@@ -101,7 +101,7 @@ def edicao(request, id):
 def cadastro(request):
     tipodocumento = Tbtipodocumento.objects.all()
     servidor = Tbservidor.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-    escolha = "tbdocumentomemorando"
+    escolha = "tbmemorando"
     div_documento = "memorando"
     
     result = {}
@@ -111,7 +111,7 @@ def cadastro(request):
            
     if request.method == "POST":
         escolha = request.POST['escolha']
-        if escolha == "tbdocumentomemorando":
+        if escolha == "tbmemorando":
             div_documento = "memorando"
             return render_to_response('sicop/restrito/documento/cadastro.html',
                     {'tipodocumento':tipodocumento,'documento':escolha,
