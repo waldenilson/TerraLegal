@@ -71,7 +71,7 @@ def peca_nao_aprovada(request):
     if request.method == "POST":
         pecas = []
         #CONSULTA ORDENADA E/OU BASEADA EM FILTROS DE PESQUISA
-        consulta = Tbpecastecnicas.objects.filter( Q(stpecatecnica = False) )
+        consulta = Tbpecastecnicas.objects.filter( Q(stpecatecnica = False, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id) )
         ordem = request.POST['ordenacao']
         if ordem == '1':
             pecas = consulta.order_by('tbcaixa__nmlocalarquivo')
@@ -136,22 +136,145 @@ def peca_nao_aprovada(request):
 
 @permission_required('sicop.peca_rejeitada_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def peca_rejeitada(request):
-    
-    #buscar as pecas tecnicas nao enviadas pra brasilia
-    pecas = Tbpecastecnicas.objects.filter( stenviadobrasilia = False )
-    
-    context = dict(        
-                            titulo='Relatório das Peças Técnicas rejeitadas',
-                            total=len(pecas),
-                            lista=pecas
-                        )
-    
-    return render_to_response('relatorio/pecas-rejeitadas.odt',dictionary=context,format='odt',filename='relatorio-pecas-rejeitadas.odt')
-    
+
+    if request.method == "POST":
+        pecas = []
+        #CONSULTA ORDENADA E/OU BASEADA EM FILTROS DE PESQUISA
+        consulta = Tbpecastecnicas.objects.filter( Q(stenviadobrasilia = False, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id) )
+        ordem = request.POST['ordenacao']
+        if ordem == '1':
+            pecas = consulta.order_by('tbcaixa__nmlocalarquivo')
+        elif ordem == '2':
+            pecas = consulta.order_by('tbcontrato__nrcontrato')
+        elif ordem == '3':
+            pecas = consulta.order_by('tbgleba__nmgleba')
+        else:
+            pecas = consulta.order_by('nmrequerente')
+            
+          
+        #GERACAO
+        nome_relatorio = "relatorio-pecas-rejeitadas"
+        titulo_relatorio    = "RELATORIO DAS PECAS TECNICAS REJEITADAS"
+        planilha_relatorio  = "Pecas rejeitadas"
+        ods = ODS()
+        sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, len(pecas), ods)
+        
+        # TITULOS DAS COLUNAS
+        sheet.getCell(0, 6).setAlignHorizontal('center').stringValue( 'Contrato' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(1, 6).setAlignHorizontal('center').stringValue( 'Entrega' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'Requerente' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'Pasta' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(4, 6).setAlignHorizontal('center').stringValue( 'Area' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(5, 6).setAlignHorizontal('center').stringValue( 'Perimetro' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(6, 6).setAlignHorizontal('center').stringValue( 'Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getRow(1).setHeight('20pt')
+        sheet.getRow(2).setHeight('20pt')
+        sheet.getRow(6).setHeight('20pt')
+        
+        sheet.getColumn(0).setWidth("2in")
+        sheet.getColumn(1).setWidth("2in")
+        sheet.getColumn(2).setWidth("5in")
+        sheet.getColumn(3).setWidth("3.5in")
+        sheet.getColumn(4).setWidth("2in")
+        sheet.getColumn(5).setWidth("2in")
+        sheet.getColumn(6).setWidth("2.5in")
+        
+            
+        #DADOS DA CONSULTA
+        x = 5
+        for obj in pecas:
+            sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.tbcontrato.nrcontrato)
+            sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.nrentrega)    
+            sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue(obj.nmrequerente)
+            sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(obj.tbcaixa.nmlocalarquivo)
+            sheet.getCell(4, x+2).setAlignHorizontal('center').stringValue(obj.nrarea)
+            sheet.getCell(5, x+2).setAlignHorizontal('center').stringValue(obj.nrperimetro)
+            sheet.getCell(6, x+2).setAlignHorizontal('center').stringValue(obj.tbgleba.nmgleba)    
+            x += 1
+            
+        #GERACAO DO DOCUMENTO  
+        relatorio_ods_base(ods, planilha_relatorio)
+        response = HttpResponse(mimetype=ods.mimetype.toString())
+        response['Content-Disposition'] = 'attachment; filename='+nome_relatorio+'.ods'
+        ods.save(response)
+        return response
+
+    return render_to_response('sicop/restrito/relatorio/peca_rejeitada.html',{}, context_instance = RequestContext(request))
+        
 #PECAS TECNICAS SEM PROCESSO
 
 @permission_required('sicop.peca_sem_processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def peca_sem_processo(request):
+
+    if request.method == "POST":
+        pecas = []
+        #CONSULTA ORDENADA E/OU BASEADA EM FILTROS DE PESQUISA
+        consulta = Tbpecastecnicas.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        pecas_sem_proc = []
+        
+        ordem = request.POST['ordenacao']
+        if ordem == '1':
+            pecas = consulta.order_by('tbcaixa__nmlocalarquivo')
+        elif ordem == '2':
+            pecas = consulta.order_by('tbcontrato__nrcontrato')
+        elif ordem == '3':
+            pecas = consulta.order_by('tbgleba__nmgleba')
+        else:
+            pecas = consulta.order_by('nmrequerente')
+            
+        for p in pecas:
+            if not Tbprocessorural.objects.filter( nrcpfrequerente = p.nrcpfrequerente ):
+                pecas_sem_proc.append(p)
+  
+        #GERACAO
+        nome_relatorio = "relatorio-pecas-sem-processo"
+        titulo_relatorio    = "RELATORIO DAS PECAS TECNICAS SEM PROCESSO"
+        planilha_relatorio  = "Pecas sem processo"
+        ods = ODS()
+        sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, len(pecas_sem_proc), ods)
+        
+        # TITULOS DAS COLUNAS
+        sheet.getCell(0, 6).setAlignHorizontal('center').stringValue( 'Contrato' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(1, 6).setAlignHorizontal('center').stringValue( 'Entrega' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'Requerente' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'Pasta' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(4, 6).setAlignHorizontal('center').stringValue( 'Area' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(5, 6).setAlignHorizontal('center').stringValue( 'Perimetro' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(6, 6).setAlignHorizontal('center').stringValue( 'Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getRow(1).setHeight('20pt')
+        sheet.getRow(2).setHeight('20pt')
+        sheet.getRow(6).setHeight('20pt')
+        
+        sheet.getColumn(0).setWidth("2in")
+        sheet.getColumn(1).setWidth("2in")
+        sheet.getColumn(2).setWidth("5in")
+        sheet.getColumn(3).setWidth("3.5in")
+        sheet.getColumn(4).setWidth("2in")
+        sheet.getColumn(5).setWidth("2in")
+        sheet.getColumn(6).setWidth("2.5in")
+        
+            
+        #DADOS DA CONSULTA
+        x = 5
+        for obj in pecas_sem_proc:
+            sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.tbcontrato.nrcontrato)
+            sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.nrentrega)    
+            sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue(obj.nmrequerente)
+            sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(obj.tbcaixa.nmlocalarquivo)
+            sheet.getCell(4, x+2).setAlignHorizontal('center').stringValue(obj.nrarea)
+            sheet.getCell(5, x+2).setAlignHorizontal('center').stringValue(obj.nrperimetro)
+            sheet.getCell(6, x+2).setAlignHorizontal('center').stringValue(obj.tbgleba.nmgleba)    
+            x += 1
+            
+        #GERACAO DO DOCUMENTO  
+        relatorio_ods_base(ods, planilha_relatorio)
+        response = HttpResponse(mimetype=ods.mimetype.toString())
+        response['Content-Disposition'] = 'attachment; filename='+nome_relatorio+'.ods'
+        ods.save(response)
+        return response
+
+    return render_to_response('sicop/restrito/relatorio/peca_sem_processo.html',{}, context_instance = RequestContext(request))
+
 
     #buscar as pecas tecnicas que nao estao ligadas a um processo
     pecas = Tbpecastecnicas.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
@@ -173,16 +296,68 @@ def peca_sem_processo(request):
 
 @permission_required('sicop.peca_validada_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def peca_validada(request):
-    
-    #buscar as pecas tecnicas enviadas pra brasilia
-    pecas = Tbpecastecnicas.objects.filter( stenviadobrasilia = True )
-    print 'pecas validadas: '+str(pecas.count())
+
+    if request.method == "POST":
+        pecas = []
+        #CONSULTA ORDENADA E/OU BASEADA EM FILTROS DE PESQUISA
+        consulta = Tbpecastecnicas.objects.filter( Q(stenviadobrasilia = True, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id) )
+        ordem = request.POST['ordenacao']
+        if ordem == '1':
+            pecas = consulta.order_by('tbcaixa__nmlocalarquivo')
+        elif ordem == '2':
+            pecas = consulta.order_by('tbcontrato__nrcontrato')
+        elif ordem == '3':
+            pecas = consulta.order_by('tbgleba__nmgleba')
+        else:
+            pecas = consulta.order_by('nmrequerente')
+            
+          
+        #GERACAO
+        nome_relatorio = "relatorio-pecas-validadas"
+        titulo_relatorio    = "RELATORIO DAS PECAS TECNICAS VALIDADAS"
+        planilha_relatorio  = "Pecas validadas"
+        ods = ODS()
+        sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, len(pecas), ods)
         
-    context = dict(         
-                    titulo='Relatório das Peças Técnicas validadas',
-                    total=len(pecas),
-                    lista=pecas
-                )
-    
-    return render_to_response('relatorio/pecas-validadas.odt',dictionary=context,format='odt',filename='relatorio-pecas-validadas.odt')
-    
+        # TITULOS DAS COLUNAS
+        sheet.getCell(0, 6).setAlignHorizontal('center').stringValue( 'Contrato' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(1, 6).setAlignHorizontal('center').stringValue( 'Entrega' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'Requerente' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'Pasta' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(4, 6).setAlignHorizontal('center').stringValue( 'Area' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(5, 6).setAlignHorizontal('center').stringValue( 'Perimetro' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(6, 6).setAlignHorizontal('center').stringValue( 'Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getRow(1).setHeight('20pt')
+        sheet.getRow(2).setHeight('20pt')
+        sheet.getRow(6).setHeight('20pt')
+        
+        sheet.getColumn(0).setWidth("2in")
+        sheet.getColumn(1).setWidth("2in")
+        sheet.getColumn(2).setWidth("5in")
+        sheet.getColumn(3).setWidth("3.5in")
+        sheet.getColumn(4).setWidth("2in")
+        sheet.getColumn(5).setWidth("2in")
+        sheet.getColumn(6).setWidth("2.5in")
+        
+            
+        #DADOS DA CONSULTA
+        x = 5
+        for obj in pecas:
+            sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.tbcontrato.nrcontrato)
+            sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.nrentrega)    
+            sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue(obj.nmrequerente)
+            sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(obj.tbcaixa.nmlocalarquivo)
+            sheet.getCell(4, x+2).setAlignHorizontal('center').stringValue(obj.nrarea)
+            sheet.getCell(5, x+2).setAlignHorizontal('center').stringValue(obj.nrperimetro)
+            sheet.getCell(6, x+2).setAlignHorizontal('center').stringValue(obj.tbgleba.nmgleba)    
+            x += 1
+            
+        #GERACAO DO DOCUMENTO  
+        relatorio_ods_base(ods, planilha_relatorio)
+        response = HttpResponse(mimetype=ods.mimetype.toString())
+        response['Content-Disposition'] = 'attachment; filename='+nome_relatorio+'.ods'
+        ods.save(response)
+        return response
+
+    return render_to_response('sicop/restrito/relatorio/peca_validada.html',{}, context_instance = RequestContext(request))
+
