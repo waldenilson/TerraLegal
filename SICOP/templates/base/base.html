@@ -283,7 +283,7 @@ function SomenteNumeroOK(e, obj)
 		
 			<div style="width:100%;height:540px">
 				<div style="margin-left:6px;height:540px;float:left; width:194px;background:white">
-					<div style="position:fixed;background:white;margin:10px">
+					<div style="background:white;margin:10px">
 						<img style="margin-bottom:10px" src="{% static "img/terralegal.jpg" %}" alt="Terra Amazônia Legal" />				
 	
 						<ul id="menu" style="font-size:15px">
@@ -377,16 +377,16 @@ function SomenteNumeroOK(e, obj)
 													<li><a href="/sicop/restrito/relatorio/processo_peca/">Processos e peças técnicas</a></li>
 												{% endif %}
 												{% if perms.sicop.relatorio_peca_nao_aprovada_consulta %}
-													<li><a href="/sicop/restrito/relatorio/peca_nao_aprovada/">Peças técnicas não aprovadas (Beta)</a></li>
+													<li><a href="/sicop/restrito/relatorio/peca_nao_aprovada/">Peças técnicas não aprovadas</a></li>
 												{% endif %}
 												{% if perms.sicop.relatorio_peca_rejeitada_consulta %}
-													<li><a href="/sicop/restrito/relatorio/peca_rejeitada/">Peças técnicas rejeitadas (Beta)</a></li>
+													<li><a href="/sicop/restrito/relatorio/peca_rejeitada/">Peças técnicas rejeitadas</a></li>
 												{% endif %}
 												{% if perms.sicop.relatorio_peca_validada_consulta %}
-													<li><a href="/sicop/restrito/relatorio/peca_validada/">Peças técnicas validadas (Beta)</a></li>
+													<li><a href="/sicop/restrito/relatorio/peca_validada/">Peças técnicas validadas</a></li>
 												{% endif %}
 												{% if perms.sicop.relatorio_peca_sem_processo_consulta %}
-													<li><a href="/sicop/restrito/relatorio/peca_sem_processo/">Peças técnicas sem processo (Beta)</a></li>
+													<li><a href="/sicop/restrito/relatorio/peca_sem_processo/">Peças técnicas sem processo</a></li>
 												{% endif %}
 											</ul>
 										</li>
