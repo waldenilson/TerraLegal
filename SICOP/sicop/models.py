@@ -437,11 +437,26 @@ class Tbmemorando(models.Model):
         
 #===============================================================================
 # 
-# class Tboficio(models.Model):
-#     tbdocumentobase = models.ForeignKey(Tbdocumentobase)
-#     id = models.AutoField(primary_key=True)
-#     class Meta:
-#         db_table = "'documentos'.'tboficio'"
+class Tboficio(models.Model):
+    tbdocumentobase = models.ForeignKey(Tbdocumentobase)
+    nrsisdoc = models.CharField(max_length=20, blank=True)
+    nrsufixosisdoc = models.CharField(max_length=20, blank=True)
+    nmtratamento = models.CharField(max_length=80, blank=True)
+    nmcargo = models.CharField(max_length=80, blank=True)
+    nmempresa = models.CharField(max_length=80, blank=True)
+    nmassunto = models.CharField(max_length=100, blank=True)
+    nmlocal = models.CharField(max_length=100, blank=True)
+    nmdestinatario = models.CharField(max_length=100, blank=True)
+    nrcep = models.CharField(max_length=10, blank=True)
+    nmendereco = models.TextField(blank=True)
+    nmcidade = models.CharField(max_length=100, blank=True)
+    nrtelefone = models.CharField(max_length=20, blank=True)
+    nmemail = models.TextField(blank=True)
+    nmmensagem = models.TextField(blank=True)
+    blcircular = models.BooleanField()
+    id = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = "'documentos'.'tboficio'"
 #     
 # class Tbbmp(models.Model):
 #     tbdocumentobase = models.ForeignKey(Tbdocumentobase)
@@ -455,17 +470,29 @@ class Tbmemorando(models.Model):
 #     class Meta:
 #         db_table = "'documentos'.'tbbmp_patrimonio'"
 #   
-# class Tbtru(models.Model):
-#     tbdocumentobase = models.ForeignKey(Tbdocumentobase)
-#     id = models.AutoField(primary_key=True)
-#     class Meta:
-#         db_table = "'documentos'.'tbtru'"
+class Tbtru(models.Model):
+    tbdocumentobase = models.ForeignKey(Tbdocumentobase)
+    localidade = models.CharField(max_length=80, blank=True)
+    nome = models.CharField(max_length=80, blank=True)
+    nrsiape = models.CharField(max_length=20, blank=True)
+    nrcpf = models.CharField(max_length=11, blank=True)
+    endereco = models.TextField(blank=True)
+    justificativa = models.TextField(blank=True)
+    dtiniciocedencia = models.DateField()
+    dtfimcedencia = models.DateField()
+    declaracao = models.TextField(blank=True)
+    id = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = "'documentos'.'tbtru'"
 # 
-# class Tbrme(models.Model):
-#     tbdocumentobase = models.ForeignKey(Tbdocumentobase)
-#     id = models.AutoField(primary_key=True)
-#     class Meta:
-#         db_table = "'documentos'.'tbrme'"
+class Tbrme(models.Model):
+    tbdocumentobase = models.ForeignKey(Tbdocumentobase)
+    dtperiodo = models.DateField()
+    nrordem = models.IntegerField(primary_key=True)
+    solicitante = models.CharField(max_length=120, blank=True)
+    id = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = "'documentos'.'tbrme'"
 # 
 # class Tbrme_material(models.Model):
 #     tbrme = models.ForeignKey(Tbrme)
@@ -477,6 +504,17 @@ class Tbmemorando(models.Model):
 class Tbrv(models.Model):
     tbdocumentobase = models.ForeignKey(Tbdocumentobase)
     id = models.AutoField(primary_key=True)
+    dtinicioservicos = models.DateTimeField()
+    objetivo = models.TextField(blank=True)
+    destino = models.CharField(max_length=120, blank=True)
+    tempodias = models.IntegerField(primary_key=True)
+    motorista = models.CharField(max_length=120, blank=True)
+    usuarios = models.TextField(blank=True)
+    localviatura = models.CharField(max_length=80, blank=True)
+    dtsolicitante = models.DateField()
+    dtautorizado = models.DateField()
+    veiculo = models.CharField(max_length=80, blank=True)
+    placa = models.CharField(max_length=20, blank=True)
     class Meta:
         db_table = "'documentos'.'tbrv'"
  
