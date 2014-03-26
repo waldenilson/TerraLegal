@@ -58,11 +58,11 @@
 					<td class="colunaTabelaConsulta" style="width:10%">Data do cadastro</td>
 				{% if lista %}
 					{% for obj in lista %}
-						<tr onclick="editarID('/sicop/restrito/documento/edicao/{{ obj.tbdocumentobase.id }}');"
+						<tr onclick="editarID('/sicop/restrito/documento/edicao/{{ obj.id }}');"
 							style="background: {{ obj.tbdocumentobase.tbtipodocumento.coridentificacao }}">
-							<td class="colunaTabelaConsulta">{{ obj.tbdocumentobase.id }}</td>
-							<td class="colunaTabelaConsulta">{{ obj.tbdocumentobase.nmdocumento }}</td>
-							<td class="colunaTabelaConsulta">{{ obj.tbdocumentobase.dtcadastrodocumento }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.id }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.nmdocumento }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.dtcadastrodocumento }}</td>
 						</tr>
 					{% endfor %}
 				{% else %}

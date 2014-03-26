@@ -7,7 +7,7 @@ from django.template.context import RequestContext, Context
 from sicop.models import Tbtipoprocesso, Tbcaixa, Tbgleba, Tbmunicipio, AuthUser,\
     AuthGroup, Tbprocessobase, Tbprocessorural, Tbclassificacaoprocesso, Tbsituacaoprocesso,\
     Tbpecastecnicas, Tbmovimentacao, Tbtipodocumento, Tbdocumentobase,\
-    Tbdocumentomemorando, Tbservidor, Tbdocumentoservidor
+    Tbdocumentomemorando, Tbservidor, Tbdocumentoservidor, Tbdocumentooficio
 from sicop.forms import FormProcessoRural, FormProcessoBase
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect, HttpResponse
@@ -25,15 +25,15 @@ from webodt.shortcuts import render_to
 from webodt import shortcuts
 from sicop.admin import mes_do_ano_texto
 
-@permission_required('servidor.documento_memorando_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('servidor.documento_oficio_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
-    return render_to_response('sicop/restrito/documento/memorando/consulta.html',{}, context_instance = RequestContext(request))    
+    return render_to_response('sicop/restrito/documento/oficio/consulta.html',{}, context_instance = RequestContext(request))    
     
-@permission_required('servidor.documento_memorando_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('servidor.documento_oficio_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
     tipodocumento = Tbtipodocumento.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-    div_documento = "memorando"
-    escolha = "tbdocumentomemorando"
+    div_documento = "oficio"
+    escolha = "tbdocumentooficio"
     
     if request.method == "POST":
         if validacao(request, "cadastro"):
@@ -48,7 +48,7 @@ def cadastro(request):
             # cadastrando o registro processo base            
             f_base = Tbdocumentobase (
                                     nmdocumento = request.POST['nmdocumento'],
-                                    tbtipodocumento = Tbtipodocumento.objects.get( tabela = 'tbdocumentomemorando' ),
+                                    tbtipodocumento = Tbtipodocumento.objects.get( tabela = 'tbdocumentooficio' ),
                                     dtdocumento = dtdocumento,
                                     dtcadastrodocumento = datetime.datetime.now(),
                                     auth_user = AuthUser.objects.get( pk = request.user.id ),
@@ -56,18 +56,25 @@ def cadastro(request):
                                     )
             f_base.save()
             
-            f_memorando = Tbdocumentomemorando (
+            f_oficio = Tbdocumentooficio (
                                        nmassunto = request.POST['nmassunto'],
                                        nrsisdoc = request.POST['nrsisdoc'],
                                        nrsufixosisdoc = request.POST['nrsufixosisdoc'],
                                        nmlocal = request.POST['nmlocal'],
-                                       nmremetente = request.POST['nmremetente'],
+                                       nmcargo = request.POST['nmcargo'],
+                                       nmempresa = request.POST['nmempresa'],
+                                       nrcep = request.POST['nrcep'],
+                                       nmendereco = request.POST['nmendereco'],
+                                       nmcidade = request.POST['nmcidade'],
+                                       nrtelefone = request.POST['nrtelefone'],
+                                       nmemail = request.POST['nmemail'],
+                                       nmtratamento = request.POST['nmtratamento'],
                                        nmdestinatario = request.POST['nmdestinatario'],
                                        nmmensagem = request.POST['nmmensagem'],
                                        blcircular = circular,
                                        tbdocumentobase = f_base,
                                        )
-            f_memorando.save()
+            f_oficio.save()
 
             for obj in servidor:
                 if request.POST.get(obj.nmservidor, False):
@@ -82,23 +89,23 @@ def cadastro(request):
     return render_to_response('sicop/restrito/documento/cadastro.html',
         {'tipodocumento':tipodocumento, 'documento':escolha, 'div_documento':div_documento}, context_instance = RequestContext(request))    
 
-@permission_required('servidor.documento_memorando_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('servidor.documento_oficio_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def criacao(request, id):   
         
-    obj = get_object_or_404(Tbdocumentomemorando, id=id)
+    obj = get_object_or_404(Tbdocumentooficio, id=id)
     print obj
     ano_sisdoc = obj.tbdocumentobase.dtcadastrodocumento.year
     obj_dia = obj.tbdocumentobase.dtdocumento.day
     obj_mes = mes_do_ano_texto( obj.tbdocumentobase.dtdocumento.month )
     obj_ano = obj.tbdocumentobase.dtdocumento.year
     
-    return shortcuts.render_to_response('memorando.odt',dictionary=dict( memorando = obj, anosisdoc = ano_sisdoc, dia = obj_dia, mes = obj_mes, ano = obj_ano ),format='odt',filename=str(obj.tbdocumentobase.nmdocumento)+'.odt')
+    return shortcuts.render_to_response('oficio.odt',dictionary=dict( oficio = obj, anosisdoc = ano_sisdoc, dia = obj_dia, mes = obj_mes, ano = obj_ano ),format='odt',filename=str(obj.tbdocumentobase.nmdocumento)+'.odt')
             
-@permission_required('servidor.documento_memorando_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('servidor.documento_oficio_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
         
-    memorando = get_object_or_404(Tbdocumentomemorando, id=id)
-    base  = get_object_or_404(Tbdocumentobase, id=memorando.tbdocumentobase.id)
+    oficio = get_object_or_404(Tbdocumentooficio, id=id)
+    base  = get_object_or_404(Tbdocumentobase, id=oficio.tbdocumentobase.id)
      
     if validacao(request, "edicao"):
             
@@ -133,7 +140,7 @@ def edicao(request, id):
         f_base = Tbdocumentobase (
                                     id = base.id,
                                     nmdocumento = request.POST['nmdocumento'],
-                                    tbtipodocumento = Tbtipodocumento.objects.get( tabela = 'tbdocumentomemorando' ),
+                                    tbtipodocumento = Tbtipodocumento.objects.get( tabela = 'tbdocumentooficio' ),
                                     dtdocumento = dtdocumento,
                                     dtcadastrodocumento = base.dtcadastrodocumento,
                                     auth_user = AuthUser.objects.get( pk = request.user.id ),
@@ -141,24 +148,32 @@ def edicao(request, id):
                                     )
         f_base.save()
 
-        f_memorando = Tbdocumentomemorando (
-                                       id = memorando.id,
+        f_oficio = Tbdocumentooficio (
+                                       id = oficio.id,
                                        nmassunto = request.POST['nmassunto'],
                                        nrsisdoc = request.POST['nrsisdoc'],
                                        nrsufixosisdoc = request.POST['nrsufixosisdoc'],
                                        nmlocal = request.POST['nmlocal'],
-                                       nmremetente = request.POST['nmremetente'],
+                                       nmcargo = request.POST['nmcargo'],
+                                       nmempresa = request.POST['nmempresa'],
+                                       nrcep = request.POST['nrcep'],
+                                       nmendereco = request.POST['nmendereco'],
+                                       nmcidade = request.POST['nmcidade'],
+                                       nrtelefone = request.POST['nrtelefone'],
+                                       nmemail = request.POST['nmemail'],
+                                       nmtratamento = request.POST['nmtratamento'],
                                        nmdestinatario = request.POST['nmdestinatario'],
                                        nmmensagem = request.POST['nmmensagem'],
                                        blcircular = circular,
                                        tbdocumentobase = f_base,
                                        )
-        f_memorando.save()
-            
+        f_oficio.save()
+        
+                    
         return HttpResponseRedirect("/sicop/restrito/documento/edicao/"+str(base.id)+"/")
     
-    return render_to_response('sicop/restrito/documento/memorando/edicao.html',
-                              {'base':base,'memorando':memorando},
+    return render_to_response('sicop/restrito/documento/oficio/edicao.html',
+                              {'base':base,'oficio':oficio},
                                context_instance = RequestContext(request))   
 
 def validacao(request_form, metodo):

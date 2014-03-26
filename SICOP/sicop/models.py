@@ -421,7 +421,7 @@ class Tbdocumentoservidor(models.Model):
     class Meta:
         db_table = 'tbdocumentoservidor'
 
-class Tbmemorando(models.Model):
+class Tbdocumentomemorando(models.Model):
     tbdocumentobase = models.ForeignKey(Tbdocumentobase)
     nrsisdoc = models.CharField(max_length=20, blank=True)
     nrsufixosisdoc = models.CharField(max_length=20, blank=True)
@@ -433,11 +433,11 @@ class Tbmemorando(models.Model):
     blcircular = models.BooleanField()
     id = models.AutoField(primary_key=True)
     class Meta:
-        db_table = "'documentos'.'tbmemorando'"
+        db_table = 'tbdocumentomemorando'
         
 #===============================================================================
 # 
-class Tboficio(models.Model):
+class Tbdocumentooficio(models.Model):
     tbdocumentobase = models.ForeignKey(Tbdocumentobase)
     nrsisdoc = models.CharField(max_length=20, blank=True)
     nrsufixosisdoc = models.CharField(max_length=20, blank=True)
@@ -456,7 +456,7 @@ class Tboficio(models.Model):
     blcircular = models.BooleanField()
     id = models.AutoField(primary_key=True)
     class Meta:
-        db_table = "'documentos'.'tboficio'"
+        db_table = 'tbdocumentooficio'
 #     
 # class Tbbmp(models.Model):
 #     tbdocumentobase = models.ForeignKey(Tbdocumentobase)
