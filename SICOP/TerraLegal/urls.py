@@ -214,8 +214,10 @@ urlpatterns = patterns('',
 
     # ACESSO RESTRITO SICOP MUNICIPIO
     url(r'^sicop/restrito/municipio/consulta/', 'sicop.restrito.municipio.consulta'),
-    url(r'^sicop/restrito/municipio/cadastro/', 'sicop.restrito.municipio.cadastro'),
     url(r'^sicop/restrito/municipio/edicao/(?P<id>\d+)/', 'sicop.restrito.municipio.edicao'),
+   
+   url(r'^sicop/restrito/portaria80/calculo/', 'sicop.restrito.portaria80.calculo'),
+   
    
     # ACESSO RESTRITO SICOP RELATORIO
     url(r'^sicop/restrito/relatorio/processo_peca', 'sicop.restrito.relatorio.processo_peca'),

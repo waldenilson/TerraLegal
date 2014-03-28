@@ -1,0 +1,4 @@
+id,descricao,y,x
+1,menos de 5 anos,0,0.95
+2,entre 5 e 15 anos,-0.027,1.085
+3,mais de 15 anos,0,0.68

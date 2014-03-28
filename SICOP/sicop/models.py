@@ -201,7 +201,6 @@ class Tbmunicipio(models.Model):
     nome_mun = models.CharField(max_length=50, db_column='Nome_Mun', blank=True) # Field name made lowercase.
     codigo_mun = models.IntegerField(null=True, db_column='Codigo_Mun', blank=True) # Field name made lowercase.
     regiao = models.CharField(null=True, max_length=50, db_column='Regiao', blank=True) # Field name made lowercase.
-    nome_estado = models.CharField(null=True, max_length=50, db_column='Nome_Estado', blank=True) # Field name made lowercase.
     uf = models.CharField(max_length=2, db_column='UF', blank=True) # Field name made lowercase.
     sr = models.CharField(null=True, max_length=50, db_column='SR', blank=True) # Field name made lowercase.
     codigo_uf = models.ForeignKey('Tbuf', null=True, db_column='Codigo_UF', blank=True) # Field name made lowercase.
@@ -209,6 +208,7 @@ class Tbmunicipio(models.Model):
     nrmodulofiscal = models.IntegerField(null=True, blank=True)
     nrfracaominima = models.IntegerField(null=True, blank=True)
     id = models.AutoField(primary_key=True)
+    vlterranua = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     class Meta:
         db_table = 'tbmunicipio'
 

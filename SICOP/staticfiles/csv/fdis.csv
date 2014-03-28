@@ -1,0 +1,5 @@
+descricao,valor
+ate 15 km,0.95
+acima de 15 ate 30 km,0.86
+acima de 30 ate 50 km,0.77
+acima de 50 km,0.68

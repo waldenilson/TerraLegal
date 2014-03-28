@@ -1,0 +1,65 @@
+{% extends "base/cadastro_base.html" %} 
+{% load staticfiles %} 
+
+{% block breadcumbs %}
+	Acesso Restrito | Gleba | Cadastro
+{% endblock %}
+
+{% block formulario %}
+<div id="tabs" style="color:black;width:100%;font-size:11px">
+<ul>
+	<li><a href="#tabs-1">CADASTRAR GLEBA</a></li>
+</ul>
+<div id="tabs-1">		
+
+	<form method="post" action="">
+		{% csrf_token %}
+		<div style="width:100%;font-size:12px;text-align:left">
+				<table>
+				   <tr> <td class="colunaTabela"> <label>Nome:</label></td><td><input required name="nmgleba"/> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Sub Area:</label> </td>
+				   		<td>
+				   			<select name="tbsubarea">
+								{% for obj in subarea %}
+									<option value="{{ obj.id }}">{{ obj.nmsubarea }}</option>
+								{% endfor %}
+							</select>
+						</td>
+					<td>
+						<a href="/sicop/restrito/sub_area/cadastro/?next=/sicop/restrito/sub_area/cadastro/" title="Nova SubArea"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+					</td>						
+				   	</tr>
+				    
+				    <tr> <td class="colunaTabela"> <label>UF:</label> </td>
+				   		<td>
+				   		{% if not request.session.isdivisao %}
+				   			<select name="tbuf">
+								{% for obj in uf %}
+									<option value="{{ obj.id }}">{{ obj.nmuf }}</option>
+								{% endfor %}
+							</select>
+						{% else %}
+					   			{% for obj in uf %}
+									{% if obj.id == ufdiv %}
+										<input name="tbuf" type="hidden" value="{{ obj.id }}">{{ obj.nmuf }}
+									{% endif %}
+								{% endfor %}
+							</select>
+						{% endif%}
+						</td>
+				   	</tr>
+			</table>
+		</div>
+		<br />
+		<table style="width:100%">
+			<tr>
+				<td class="colunaTabela" style="text-align:left"> 
+					<a href="/sicop/restrito/gleba/consulta/" style="margin-right: 10px"><input type="button" class="button_yellow" value="CONSULTAR" /></a>
+					<input type="submit" class="button_green" value="SALVAR" />
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+</div>
+{% endblock %}
