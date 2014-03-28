@@ -182,6 +182,8 @@ $(function() {
 
 function SomenteNumero(e, obj)
 {
+	
+	
 	var tecla=(window.event)?event.keyCode:e.which;
 	if((tecla>47 && tecla<58)) return true;
 	else
@@ -189,15 +191,29 @@ function SomenteNumero(e, obj)
 
 		if (tecla==8 || tecla==0 ) return true;
 		else
-			if(tecla==46)
+			if(tecla==44)
 			{
-				if (obj.value.indexOf(".") > 1)
+				if ( obj.value.split(',').length > 1 )
 					return false;
 				else
-					return true;
+					if ( obj.value.split('.').length > 1 )
+						return false;
+					else
+						return true;
 			}
 			else
-				return false;
+				if(tecla==46)
+				{
+					if ( obj.value.split('.').length > 1 )
+						return false;
+					else
+						if ( obj.value.split(',').length > 1 )
+							return false;
+						else
+							return true;
+				}
+				else
+					return false;
 			
 	}
 }
@@ -268,7 +284,7 @@ function SomenteNumeroOK(e, obj)
 		
 			<div style="width:100%;height:540px">
 				<div style="margin-left:6px;height:540px;float:left; width:194px;background:white">
-					<div style="position:fixed;background:white;margin:10px">
+					<div style="background:white;margin:10px">
 						<img style="margin-bottom:10px" src="{% static "img/terralegal.jpg" %}" alt="Terra Amazônia Legal" />				
 	
 						<ul id="menu" style="font-size:15px">
@@ -346,7 +362,7 @@ function SomenteNumeroOK(e, obj)
 										<li><a href="#">Documento</a>
 											<ul>
 												{% if perms.servidor.documento_consulta %}
-													<li><a href="/sicop/restrito/documento/consulta/">Controle</a></li>
+													<li><a href="/sicop/restrito/documento/consulta/">Controle (Beta)</a></li>
 												{% endif %}
 												{% if perms.servidor.tipo_documento_consulta %}
 													<li><a href="/sicop/restrito/tipo_documento/consulta/">Tipo	Documento</a></li>
@@ -451,7 +467,7 @@ function SomenteNumeroOK(e, obj)
 			<div id="divCollophon" style="height:30px; color:white ;background: url('{% static "img/bgFooterDireitos.gif" %}');">
 
 				<div style="float:left;margin-top:5px;margin-left:20px">
-						© 2014 Sistema de Controle de Processos do Terra Legal - Revisao 397 				
+						© 2014 Sistema de Controle de Processos do Terra Legal - Revisao 418 				
 				</div>
 				<div style="float:right;margin-top:5px;margin-right:20px">
 						<a

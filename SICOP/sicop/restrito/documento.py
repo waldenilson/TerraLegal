@@ -12,7 +12,7 @@ from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
     AuthUserGroups, Tbmovimentacao, Tbprocessosanexos, Tbpendencia,\
     Tbclassificacaoprocesso, Tbtipopendencia, Tbstatuspendencia, Tbpregao,\
     Tbdocumentomemorando, Tbdocumentobase, Tbtipodocumento, Tbservidor,\
-    Tbdocumentoservidor
+    Tbdocumentoservidor, Tbdocumentooficio
 from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
 from sicop.restrito import processo_rural
@@ -25,6 +25,7 @@ from sicop.relatorio_base import relatorio_csv_base, relatorio_ods_base,\
     relatorio_ods_base_header, relatorio_pdf_base,\
     relatorio_pdf_base_header_title, relatorio_pdf_base_header
 from odslib import ODS
+from django.db.models import Q
 
 nome_relatorio      = "relatorio_documento"
 response_consulta  = "/sicop/restrito/documento/consulta/"
@@ -43,10 +44,9 @@ def consulta(request):
         nome = request.POST['nome']
         
         if len(nome) >= 3:
-#            lista = Tbprocessobase.objects.all().filter( nrprocesso__contains = numero )
-            p_memorando = Tbdocumentomemorando.objects.filter( tbdocumentobase__nmdocumento__icontains = nome ) | Tbdocumentomemorando.objects.filter( nmassunto__icontains = nome ) | Tbdocumentomemorando.objects.filter( nmmensagem__icontains = nome )           
+            p_documento = Tbdocumentobase.objects.filter( nmdocumento__icontains = nome, tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id )           
             lista = []
-            for obj in p_memorando:
+            for obj in p_documento:
                 lista.append( obj )
         else:
             if len(nome) > 0 and len(nome) < 3:
@@ -68,13 +68,11 @@ def edicao(request, id):
         
     # se processobase pertencer a mesma divisao do usuario logado
     if base.auth_user.tbdivisao.id == AuthUser.objects.get( pk = request.user.id ).tbdivisao.id:
+
         if tipo == "tbdocumentomemorando":
-            
-            
             servidor = Tbservidor.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
             data_documento = formatDataToText( base.dtdocumento )
             docservidor = Tbdocumentoservidor.objects.filter( tbdocumentobase__id = id )
-                
                 
             result = {}
             for obj in servidor:
@@ -94,6 +92,29 @@ def edicao(request, id):
             return render_to_response('sicop/restrito/documento/memorando/edicao.html',
                                       {'result':result,'servidor':servidor,'docservidor':docservidor,
                                        'base':base,'data_documento':data_documento,'memorando':memorando,'servidor':servidor}, context_instance = RequestContext(request))
+
+        if tipo == "tbdocumentooficio":
+            servidor = Tbservidor.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+            data_documento = formatDataToText( base.dtdocumento )
+            docservidor = Tbdocumentoservidor.objects.filter( tbdocumentobase__id = id )
+                
+            result = {}
+            for obj in servidor:
+                achou = False
+                for obj2 in docservidor:
+                    if obj.id == obj2.tbservidor.id:
+                        result.setdefault(obj.nmservidor,True)
+                        achou = True
+                        break
+                if not achou:
+                    result.setdefault(obj.nmservidor, False)
+            result = sorted(result.items())
+                     
+            oficio = Tbdocumentooficio.objects.get( tbdocumentobase = id )
+            
+            return render_to_response('sicop/restrito/documento/oficio/edicao.html',
+                                      {'result':result,'servidor':servidor,'docservidor':docservidor,
+                                       'base':base,'data_documento':data_documento,'oficio':oficio,'servidor':servidor}, context_instance = RequestContext(request))
         
     return HttpResponseRedirect("/sicop/restrito/documento/consulta/")
     
@@ -117,6 +138,14 @@ def cadastro(request):
                     {'tipodocumento':tipodocumento,'documento':escolha,
                     'div_documento':div_documento,'servidor':servidor},
                     context_instance = RequestContext(request));  
+ 
+        if escolha == "tbdocumentooficio":
+            div_documento = "oficio"
+            return render_to_response('sicop/restrito/documento/cadastro.html',
+                    {'tipodocumento':tipodocumento,'documento':escolha,
+                    'div_documento':div_documento,'servidor':servidor},
+                    context_instance = RequestContext(request));  
+
         
     return render_to_response('sicop/restrito/documento/cadastro.html',{
         'tipodocumento':tipodocumento,'documento':escolha,'result':result,

@@ -14,6 +14,8 @@ from django.http import HttpResponseRedirect
 from django.template.defaultfilters import length
 from reportlab.platypus.tables import Table
 from reportlab.lib import styles
+import datetime
+from sicop.admin import mes_do_ano_texto
 
 def relatorio_base(request, lista, titulo):
     response = HttpResponse(content_type='application/pdf')
@@ -54,15 +56,29 @@ def relatorio_pdf_base(response, doc, elements, dados):
     doc.build(elements) 
     return response
 
-def relatorio_ods_base_header( nome_planilha, titulo_planilha, ods):
+def relatorio_ods_base_header( nome_planilha, titulo_planilha, total_registro, ods):
     # sheet title
     sheet = ods.content.getSheet(0)
     sheet.setSheetName( nome_planilha )
     
     # title
-    sheet.getCell(0, 0).stringValue( titulo_planilha ).setFontSize('16pt')
-    sheet.getRow(0).setHeight('18pt')
+    sheet.getCell(0, 0).setAlignHorizontal('center').stringValue( titulo_planilha ).setFontSize('20pt').setBold(True).setCellColor("#ccff99")
+    sheet.getRow(0).setHeight('25pt')
     sheet.getColumn(0).setWidth('10cm')
+    
+    data_geracao = datetime.datetime.now()
+    data_extenso = str(data_geracao.day)+' de '+mes_do_ano_texto(data_geracao.month)+" de "+str(data_geracao.year) 
+        
+    sheet.getCell(0,1).setAlignHorizontal('center').stringValue( 'Data: ' ).setFontSize('16pt').setBold(True)
+    sheet.getCell(1,1).stringValue( str( data_extenso ) ).setFontSize('14pt')
+
+    sheet.getCell(0,2).setAlignHorizontal('center').stringValue( 'Total: ' ).setFontSize('16pt').setBold(True)
+    sheet.getCell(1,2).stringValue( str(total_registro) ).setFontSize('14pt')
+                
+    ods.content.mergeCells(0,0,7,1)
+    ods.content.mergeCells(1,1,2,1)
+    ods.content.mergeCells(1,2,2,1)
+    
     return sheet
 
 def relatorio_ods_base(ods, titulo):

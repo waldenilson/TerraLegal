@@ -1,15 +1,13 @@
 {% extends "base/consulta_base.html" %} 
-{% load staticfiles %} 
-{% load pagination_tags %}
-{% load sorting_tags %}
+{% load staticfiles %}
 
 {% block breadcumbs %}
-	Acesso Restrito | Relatorio | Pecas nao aprovadas
+	Acesso Restrito | Relatório | Pecas não aprovadas
 {% endblock %}
 
 {% block subtitulo %}
 	
-	PECAS NAO APROVADAS
+	PEÇAS NÃO APROVADAS
 	
 {% endblock %}
 
@@ -17,7 +15,34 @@
 	
 	<br/><br/>
 	<div style="width:100%;font-size:12px;text-align:center">
-		lista das consultas / relatorios
+			<form method="post" action="">
+				{% csrf_token %}
+				<div style="width:100%;font-size:12px;text-align:left">
+					<table>
+					   <tr> 
+					   		<td class="colunaTabela"> <label>Ordenar Por:</label> </td>
+					   		<td>
+					   			<select name="ordenacao" style="width:150px">
+										<option value="nmrequerente">REQUERENTE</option>
+										<option value="tbcaixa__nmlocalarquivo">PASTA</option>
+										<option value="tbcontrato__nrcontrato">CONTRATO</option>
+										<option value="tbgleba__nmgleba">GLEBA</option>
+								</select>
+							</td>
+						</tr>
+					</table>				
+				
+				</div>
+				<br/><br />
+				<table style="width:100%">
+					<tr>
+						<td class="colunaTabela" style="text-align:left"> 
+							<a href="javascript:history.back()" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
+							<input type="submit" class="button_green" value="GERAR RELATÓRIO" />
+						</td>
+					</tr>
+				</table>
+			</form>
 	</div>
 	
 {% endblock %}
