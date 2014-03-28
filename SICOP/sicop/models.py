@@ -470,29 +470,29 @@ class Tbdocumentooficio(models.Model):
 #     class Meta:
 #         db_table = "'documentos'.'tbbmp_patrimonio'"
 #   
-class Tbtru(models.Model):
-    tbdocumentobase = models.ForeignKey(Tbdocumentobase)
-    localidade = models.CharField(max_length=80, blank=True)
-    nome = models.CharField(max_length=80, blank=True)
-    nrsiape = models.CharField(max_length=20, blank=True)
-    nrcpf = models.CharField(max_length=11, blank=True)
-    endereco = models.TextField(blank=True)
-    justificativa = models.TextField(blank=True)
-    dtiniciocedencia = models.DateField()
-    dtfimcedencia = models.DateField()
-    declaracao = models.TextField(blank=True)
-    id = models.AutoField(primary_key=True)
-    class Meta:
-        db_table = "'documentos'.'tbtru'"
-# 
-class Tbrme(models.Model):
-    tbdocumentobase = models.ForeignKey(Tbdocumentobase)
-    dtperiodo = models.DateField()
-    nrordem = models.IntegerField(primary_key=True)
-    solicitante = models.CharField(max_length=120, blank=True)
-    id = models.AutoField(primary_key=True)
-    class Meta:
-        db_table = "'documentos'.'tbrme'"
+# class Tbtru(models.Model):
+#     tbdocumentobase = models.ForeignKey(Tbdocumentobase)
+#     localidade = models.CharField(max_length=80, blank=True)
+#     nome = models.CharField(max_length=80, blank=True)
+#     nrsiape = models.CharField(max_length=20, blank=True)
+#     nrcpf = models.CharField(max_length=11, blank=True)
+#     endereco = models.TextField(blank=True)
+#     justificativa = models.TextField(blank=True)
+#     dtiniciocedencia = models.DateField()
+#     dtfimcedencia = models.DateField()
+#     declaracao = models.TextField(blank=True)
+#     id = models.AutoField(primary_key=True)
+#     class Meta:
+#         db_table = "'documentos'.'tbtru'"
+#  
+# class Tbrme(models.Model):
+#     tbdocumentobase = models.ForeignKey(Tbdocumentobase)
+#     dtperiodo = models.DateField()
+#     nrordem = models.IntegerField(primary_key=True)
+#     solicitante = models.CharField(max_length=120, blank=True)
+#     id = models.AutoField(primary_key=True)
+#     class Meta:
+#         db_table = "'documentos'.'tbrme'"
 # 
 # class Tbrme_material(models.Model):
 #     tbrme = models.ForeignKey(Tbrme)
@@ -501,9 +501,8 @@ class Tbrme(models.Model):
 #         db_table = "'documentos'.'tbrme_material'"
 #===============================================================================
    
-class Tbrv(models.Model):
+class Tbdocumentovr(models.Model):
     tbdocumentobase = models.ForeignKey(Tbdocumentobase)
-    id = models.AutoField(primary_key=True)
     dtinicioservicos = models.DateTimeField()
     objetivo = models.TextField(blank=True)
     destino = models.CharField(max_length=120, blank=True)
@@ -515,8 +514,9 @@ class Tbrv(models.Model):
     dtautorizado = models.DateField()
     veiculo = models.CharField(max_length=80, blank=True)
     placa = models.CharField(max_length=20, blank=True)
+    id = models.AutoField(primary_key=True)
     class Meta:
-        db_table = "'documentos'.'tbrv'"
+        db_table = 'tbdocumentovr'
  
 #===============================================================================
 # class Tbdiaria(models.Model):

@@ -139,8 +139,15 @@ def cadastro(request):
                     'div_documento':div_documento,'servidor':servidor},
                     context_instance = RequestContext(request));  
  
-        if escolha == "tbdocumentooficio":
+        elif escolha == "tbdocumentooficio":
             div_documento = "oficio"
+            return render_to_response('sicop/restrito/documento/cadastro.html',
+                    {'tipodocumento':tipodocumento,'documento':escolha,
+                    'div_documento':div_documento,'servidor':servidor},
+                    context_instance = RequestContext(request));  
+        
+        elif escolha == "tbdocumentovr":
+            div_documento = "requisicao_viatura"
             return render_to_response('sicop/restrito/documento/cadastro.html',
                     {'tipodocumento':tipodocumento,'documento':escolha,
                     'div_documento':div_documento,'servidor':servidor},
