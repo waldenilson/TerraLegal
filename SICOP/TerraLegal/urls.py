@@ -51,6 +51,12 @@ urlpatterns = patterns('',
     url(r'^sicop/restrito/documento/oficio/cadastro/', 'sicop.restrito.documento_oficio.cadastro'),
     url(r'^sicop/restrito/documento/oficio/edicao/(?P<id>\d+)/', 'sicop.restrito.documento_oficio.edicao'),
     url(r'^sicop/restrito/documento/oficio/criacao/(?P<id>\d+)/', 'sicop.restrito.documento_oficio.criacao'),
+    
+    # DOCUMENTO REQUISICAO DE VIATURA
+    url(r'^sicop/restrito/documento/requisicao_viatura/consulta/', 'sicop.restrito.documento_requisicao_viatura.consulta'),
+    url(r'^sicop/restrito/documento/requisicao_viatura/cadastro/', 'sicop.restrito.documento_requisicao_viatura.cadastro'),
+    url(r'^sicop/restrito/documento/requisicao_viatura/edicao/(?P<id>\d+)/', 'sicop.restrito.documento_requisicao_viatura.edicao'),
+    url(r'^sicop/restrito/documento/requisicao_viatura/criacao/(?P<id>\d+)/', 'sicop.restrito.documento_requisicao_viatura.criacao'),
         
     # ESCOLHA DO TIPO DE PROCESSO
     url(r'^sicop/restrito/processo/consulta/', 'sicop.restrito.processo.consulta'),   
@@ -219,6 +225,8 @@ urlpatterns = patterns('',
     url(r'^sicop/restrito/usuario/relatorio/csv/', 'sicop.restrito.usuario.relatorio_csv'),
 
     # ACESSO RESTRITO SICOP MUNICIPIO
+    
+    
     url(r'^sicop/restrito/municipio/consulta/', 'sicop.restrito.municipio.consulta'),
     url(r'^sicop/restrito/municipio/edicao/(?P<id>\d+)/', 'sicop.restrito.municipio.edicao'),
    

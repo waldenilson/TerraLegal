@@ -1,0 +1,85 @@
+{% load staticfiles %} 
+{% block formulario %}
+<div id="tabs" style="color:black;width:100%;font-size:11px">
+ <ul>
+	<li><a href="#tabs-1">CADASTRAR DOCUMENTO</a></li>
+	<li><a href="#tabs-2">SERVIDORES</a></li>
+</ul>
+
+	<form name="form_cadastro" method="post" action="/sicop/restrito/documento/requisicao_viatura/cadastro/">
+			{% csrf_token %}
+
+			<div id="tabs-1">
+	
+				<table>
+					<tr> 
+						<td class="colunaTabela"> <label>Nome:</label> </td>
+						<td> <input size="21" name="nmdocumento" id="documento" /> </td> 
+					</tr>
+					<tr> 
+						<td class="colunaTabela"> <label>Data de inicio dos servicos:</label> </td>
+						<td> <input id="date" size="9" name="dtinicio" /> </td> 
+					</tr>
+					<tr> <td class="colunaTabela"> <label>Objetivo:</label> </td><td> <textarea rows="6" cols="50" name="objetivo"></textarea></td> </tr>
+					<tr> <td class="colunaTabela"> <label>Destino:</label> </td>
+						<td> <input size="40" name="destino" /> </td> </tr>
+					<tr> <td class="colunaTabela"> <label>Dias:</label> </td>
+						<td> <input size="5" name="tempodias" /> </td> </tr>
+					<tr> <td class="colunaTabela"> <label>Motorista:</label> </td>
+						<td> <input size="35" name="motorista" /> </td> </tr>
+				    <tr> <td class="colunaTabela"> <label>Usuarios:</label> </td><td> <textarea rows="6" cols="50" name="usuarios"></textarea></td> </tr>
+					<tr> <td class="colunaTabela"> <label>Local de apresentacao:</label> </td>
+						<td> <input size="35" name="localviatura" /> </td> </tr>
+					<tr> 
+						<td class="colunaTabela"> <label>Data solicitante:</label> </td>
+						<td> <input id="date2" size="9" name="dtsolicitante" /> </td> 
+					</tr>
+					<tr> 
+						<td class="colunaTabela"> <label>Data autorizado:</label> </td>
+						<td> <input id="date3" size="9" name="dtautorizado" /> </td> 
+					</tr>
+					<tr> <td class="colunaTabela"> <label>Veiculo:</label> </td>
+						<td> <input size="35" name="veiculo" /> </td> </tr>
+				    <tr> <td class="colunaTabela"> <label>Placa:</label> </td>
+						<td> <input id="placa" size="9" name="placa" /> </td> </tr>
+				    
+				</table>
+			
+			</div>
+
+			<div id="tabs-2">
+					<table class="csstable"  style="width:100%">
+						<tbody>
+							<tr>
+								<td class="colunaTabelaConsulta" style="width:5%"> </td>
+								<td class="colunaTabelaConsulta" style="width:95%">Servidores</td>
+							</tr>
+							{% if servidor %}
+								{% for k,v in result %}
+									<tr>
+										<td class="colunaTabelaConsulta">
+											<input name="{{ k }}" type="checkbox" />
+										</td>
+										<td class="colunaTabelaConsulta">{{ k }}</td>
+									</tr>
+								{% endfor %}
+							{% else %}
+								<tr> <td style="padding-top: 20px" colspan="6"> Cadastre os servidores </td> </tr>
+							{% endif %}
+						</tbody>
+					</table>
+			</div>
+	
+		<table style="width:100%">
+			<tr>
+				<td class="colunaTabela" style="text-align:left"> 
+					<a href="/sicop/restrito/documento/consulta/" style="margin-right: 10px"><input type="button" class="button_yellow" value="CONSULTAR" /></a>
+					<input type="submit" class="button_green" value="SALVAR" />
+				</td>
+			</tr>
+		</table>
+	
+	</form>
+	
+</div>
+{% endblock %}

@@ -59,7 +59,7 @@
 				{% if lista %}
 					{% for obj in lista %}
 						<tr onclick="editarID('/sicop/restrito/documento/edicao/{{ obj.id }}');"
-							style="background: {{ obj.tbdocumentobase.tbtipodocumento.coridentificacao }}">
+							style="background: {{ obj.tbtipodocumento.coridentificacao }}">
 							<td class="colunaTabelaConsulta">{{ obj.id }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.nmdocumento }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.dtcadastrodocumento }}</td>
