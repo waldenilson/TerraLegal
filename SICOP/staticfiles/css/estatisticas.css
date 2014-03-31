@@ -1,0 +1,173 @@
+.box-counting {
+    background-color:#740207;
+    height:80px;
+    padding:10px;
+    color:#fff;
+    display:block;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.box-title{
+    display:block;
+    color:#fff;
+    font-size: 15px;
+    font-weight: normal;
+    height: 41px;
+    line-height: 20px;
+    width: 100%;
+    bottom:5px;
+}
+.number{
+    display:block;
+    color:#fff;
+    font-family:'Open Sans', sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 20px;
+    float:right;
+    width: 100%;
+    text-align:right;
+}
+
+/* Stat-box */
+/* line 184, components/widgets.css.scss */
+.stat-box {
+  width: 100%;
+  height: 100px;
+  min-height: 90px;
+  margin: 4px auto;
+  display: inline-block;
+  background-color: #eeeeee;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.5);
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px; }
+  /* line 197, components/widgets.css.scss */
+  .stat-box i {
+    padding: 0;
+    font-size: 2em;
+    vertical-align: top;
+    text-align: center; }
+  /* line 204, components/widgets.css.scss */
+  .stat-box .icon-large:before {
+    margin-top: 15px; }
+  /* line 208, components/widgets.css.scss */
+  .stat-box .count {
+    font-size: 2em;
+    padding-left: 5px;
+    font-weight: 600;
+    line-height: 2.5em; }
+  /* line 215, components/widgets.css.scss */
+  .stat-box .stat-text {
+    display: block;
+    font-size: 1.2em;
+    margin-top: -5px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 600; }
+  /* line 224, components/widgets.css.scss */
+  .stat-box.light-blue {
+    background: #aad7ea;
+    border: 1px solid #96cde5; }
+    /* line 79, general/_mixin-helpers.css.scss */
+    .stat-box.light-blue:hover {
+      background: #9ed1e7; }
+  /* line 227, components/widgets.css.scss */
+  .stat-box.medium-blue {
+    background: #67a0be;
+    border: 1px solid #5595b6; }
+    /* line 79, general/_mixin-helpers.css.scss */
+    .stat-box.medium-blue:hover {
+      background: #5c99b9; }
+  /* line 230, components/widgets.css.scss */
+  .stat-box.text-blue {
+    background: #33566a;
+    border: 1px solid #2b4859; }
+    /* line 79, general/_mixin-helpers.css.scss */
+    .stat-box.text-blue:hover {
+      background: #2e4e60; }
+  /* line 233, components/widgets.css.scss */
+  .stat-box.border-blue {
+    background: #7998aa;
+    border: 1px solid #698ca0; }
+    /* line 79, general/_mixin-helpers.css.scss */
+    .stat-box.border-blue:hover {
+      background: #7091a4; }
+  /* line 236, components/widgets.css.scss */
+  .stat-box.dark-blue {
+    background: #50769b;
+    border: 1px solid #47698a; }
+    /* line 79, general/_mixin-helpers.css.scss */
+    .stat-box.dark-blue:hover {
+      background: #4b6e91; }
+  /* line 239, components/widgets.css.scss */
+  .stat-box.dark-plum {
+    background: #6c5e6d;
+    border: 1px solid #5e525f; }
+    /* line 79, general/_mixin-helpers.css.scss */
+    .stat-box.dark-plum:hover {
+      background: #645765; }
+  /* line 243, components/widgets.css.scss */
+  .stat-box.yellow {
+    background: #f0c22e;
+    border: 1px solid #eebb16; }
+    /* line 79, general/_mixin-helpers.css.scss */
+    .stat-box.yellow:hover {
+      background: #efbe20; }
+  /* line 246, components/widgets.css.scss */
+  .stat-box.orange {
+    background: #ff8330;
+    border: 1px solid #ff7417; }
+    /* line 79, general/_mixin-helpers.css.scss */
+    .stat-box.orange:hover {
+      background: #ff7a21; }
+  /* line 249, components/widgets.css.scss */
+  .stat-box.red {
+    background: #db3535;
+    border: 1px solid #d12525; }
+    /* line 79, general/_mixin-helpers.css.scss */
+    .stat-box.red:hover {
+      background: #d92828; }
+  /* line 252, components/widgets.css.scss */
+  .stat-box.plum {
+    background: #ca6eff;
+    border: 1px solid #c155ff; }
+    /* line 79, general/_mixin-helpers.css.scss */
+    .stat-box.plum:hover {
+      background: #c45fff; }
+  /* line 255, components/widgets.css.scss */
+  .stat-box.blue {
+    background: #2191ed;
+    border: 1px solid #1284e2; }
+    /* line 79, general/_mixin-helpers.css.scss */
+    .stat-box.blue:hover {
+      background: #138aec; }
+  /* line 258, components/widgets.css.scss */
+  .stat-box.turquoise {
+    background: #39c5aa;
+    border: 1px solid #33b199; }
+    /* line 79, general/_mixin-helpers.css.scss */
+    .stat-box.turquoise:hover {
+      background: #36b9a0; }
+  /* line 261, components/widgets.css.scss */
+  .stat-box.green {
+    background: #63a822;
+    border: 1px solid #57931e; }
+    /* line 79, general/_mixin-helpers.css.scss */
+    .stat-box.green:hover {
+      background: #5c9b1f; }
+  /* line 264, components/widgets.css.scss */
+  .stat-box.inverse {
+    background: #444444;
+    border: 1px solid #373737; }
+    /* line 79, general/_mixin-helpers.css.scss */
+    .stat-box.inverse:hover {
+      background: #3c3c3c; }
+  /* line 268, components/widgets.css.scss */
+  .stat-box.text-inverse {
+    color: #555;
+    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.5); }

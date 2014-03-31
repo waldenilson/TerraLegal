@@ -4,4 +4,5 @@ encoding//servidor/restrito/estatisticas.py=utf-8
 encoding//sicop/admin.py=UTF-8
 encoding//sicop/restrito/documento.py=UTF-8
 encoding//sicop/restrito/documento_memorando.py=UTF-8
+encoding//sicop/restrito/documento_oficio.py=UTF-8
 encoding//sicop/restrito/relatorio.py=UTF-8
