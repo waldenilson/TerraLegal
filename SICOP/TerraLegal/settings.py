@@ -154,7 +154,7 @@ WEBODT_TEMPLATE_PATH = abspath(join(dirname(__file__), '../staticfiles/doc/templ
 WEBODT_TMP_DIR = abspath(join(dirname(__file__), '../staticfiles/doc/tmp'))
 CSV_PATH_DIR = abspath(join(dirname(__file__), '../staticfiles/csv'))
 
-print CSV_PATH_DIR
+#print CSV_PATH_DIR
 
 INSTALLED_APPS = (
     'django.contrib.auth',

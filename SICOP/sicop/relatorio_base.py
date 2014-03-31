@@ -51,7 +51,7 @@ def relatorio_pdf_base_header_title(title):
     return dados
 
 def relatorio_pdf_base(response, doc, elements, dados):
-    table = Table(dados, colWidths=350, rowHeights=35)
+    table = Table(dados, colWidths=350, rowHeights=20)
     elements.append(table)
     doc.build(elements) 
     return response
