@@ -31,7 +31,7 @@ response_consulta  = "/sicop/restrito/portaria80/calculo/"
 titulo_relatorio    = "Calculo Portaria 80 - Clausulas Resolutivas"
 
 
-@permission_required('sicop.municipio_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.calculo_portaria80', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def calculo(request):
     
     filename = './TerraLegal/SICOP/staticfiles/csv/fdis.csv'
@@ -144,7 +144,7 @@ def calculo(request):
     return render_to_response('sicop/restrito/portaria80/calculo.html' ,dicionarios, context_instance = RequestContext(request))
 
 
-@permission_required('sicop.usuario_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.calculo_portaria80', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_pdf(request):
     auth_user = AuthUser.objects.get( pk = request.user.id )
     
@@ -197,4 +197,5 @@ def validacao(request_form):
     if request_form.POST['nrparcelaspagas'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe a quantidade de parcelas ja pagas')
         warning = False
+        
     return warning
