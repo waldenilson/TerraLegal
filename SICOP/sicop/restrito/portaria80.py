@@ -34,27 +34,27 @@ titulo_relatorio    = "Calculo Portaria 80 - Clausulas Resolutivas"
 @permission_required('sicop.municipio_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def calculo(request):
     
-    filename = './TerraLegal/SICOP/staticfiles/csv/fdis.csv'
+    filename = settings.CSV_PATH_DIR + '/fdis.csv'
     fdis = csv.DictReader(open(filename,"rb"),delimiter=',')
     l_fdis = []
     for line in fdis:
         l_fdis.append(line)
     
-    filename = './TerraLegal/SICOP/staticfiles/csv/fcon.csv'
+    filename = settings.CSV_PATH_DIR +'/fcon.csv'
     fcon = csv.DictReader(open(filename,"rb"),delimiter=',')
     l_fcon = []
     for line in fcon:
         l_fcon.append(line)
         
     #fanc indica o fator de ancianidade
-    filename = './TerraLegal/SICOP/staticfiles/csv/fanc.csv'
+    filename = settings.CSV_PATH_DIR +'/fanc.csv'
     fanc = csv.DictReader(open(filename,"rb"),delimiter=',')
     l_fanc = []
     for row in fanc:
         l_fanc.append(row)
     
     #fdim soh tem uma linha
-    filename = './TerraLegal/SICOP/staticfiles/csv/fdim.csv'
+    filename = settings.CSV_PATH_DIR +'/fdim.csv'
     fdim = csv.DictReader(open(filename,"rb"),delimiter=',')
     request.session[nome_relatorio] = []
     if request.method == "POST":

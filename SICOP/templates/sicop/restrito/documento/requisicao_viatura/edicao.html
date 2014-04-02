@@ -19,44 +19,39 @@
 
 <div id="tabs-1">
 	<div style="width: 100%; font-size: 12px; text-align: left">
-		<table>
-				<tr> <td class="colunaTabela"> <label>Numero:</label> </td><td> {{ base.id }} </td> </tr>
-				<tr> 
-					<td class="colunaTabela"> <label>Nome:</label> </td>
-					<td class="colunaTabela"> <input size="21" name="nmdocumento" id="documento" value="{{ base.nmdocumento }}" /> </td> 
-				</tr>
-				<tr> 
-					<td class="colunaTabela"> <label>Numero do SISDOC:</label> </td>
-					<td class="colunaTabela"> <input size="15" name="nrsisdoc" value="{{ memorando.nrsisdoc }}" /> </td> 
-				</tr>
-				<tr> 
-					<td class="colunaTabela"> <label>Sufixo do SISDOC:</label> </td>
-					<td class="colunaTabela"> <input size="8" name="nrsufixosisdoc" value="{{ memorando.nrsufixosisdoc }}" /> </td> 
-				</tr>
-				<tr> 
-					<td class="colunaTabela"> <label>Data:</label> </td>
-					<td class="colunaTabela"> <input name="dtdocumento" size="9" id="date" value="{{ data_documento }}" /> </td> 
-				</tr>
-				<tr> <td class="colunaTabela"> <label>Assunto:</label> </td>
-					<td> <input size="40" name="nmassunto" value="{{ memorando.nmassunto }}" /> </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Local:</label> </td>
-					<td> <input size="20" name="nmlocal" value="{{ memorando.nmlocal }}" /> </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Remetente:</label> </td>
-					<td> <input size="35" name="nmremetente" value="{{ memorando.nmremetente }}" /> </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Destinatario:</label> </td>
-					<td> <input size="35" name="nmdestinatario" value="{{ memorando.nmdestinatario }}" /> </td> </tr>
-			   <tr> <td class="colunaTabela"> <label>Documento Circular:</label> </td>
-				<td>
-					{% if memorando.blcircular == True %} 
-						<input checked="checked" type="checkbox" name="blcircular" />
-					{% else %}
-						<input type="checkbox" name="blcircular" />
-					{% endif %} 
-				</td> </tr>
-			   
-			   <tr> <td class="colunaTabela"> <label>Mensagem:</label> </td><td> <textarea rows="6" cols="50" id="mensagem" name="nmmensagem">{{ memorando.nmmensagem }}</textarea></td> </tr>
-				
-		</table>
+				<table>
+					<tr> 
+						<td class="colunaTabela"> <label>Nome:</label> </td>
+						<td> <input size="21" name="nmdocumento" id="documento" value="{{ base.nmdocumento }}" /> </td> 
+					</tr>
+					<tr> 
+						<td class="colunaTabela"> <label>Data de inicio dos servicos:</label> </td>
+						<td> <input id="id_myDate" size="9" name="dtinicio" value="{{ datainicio }}" /> </td> 
+					</tr>
+					<tr> <td class="colunaTabela"> <label>Objetivo:</label> </td><td> <textarea rows="6" cols="50" name="objetivo">{{ vr.objetivo }}</textarea></td> </tr>
+					<tr> <td class="colunaTabela"> <label>Destino:</label> </td>
+						<td> <input size="40" name="destino" value="{{ vr.destino }}" /> </td> </tr>
+					<tr> <td class="colunaTabela"> <label>Dias:</label> </td>
+						<td> <input size="5" value="{{ vr.tempodias }}" name="tempodias" /> </td> </tr>
+					<tr> <td class="colunaTabela"> <label>Motorista:</label> </td>
+						<td> <input size="35" name="motorista" value="{{ vr.motorista }}" /> </td> </tr>
+				    <tr> <td class="colunaTabela"> <label>Usuarios:</label> </td><td> <textarea rows="6" cols="50" name="usuarios">{{ vr.usuarios }}</textarea></td> </tr>
+					<tr> <td class="colunaTabela"> <label>Local de apresentacao:</label> </td>
+						<td> <input size="35" name="localviatura" value="{{ vr.localviatura }}" /> </td> </tr>
+					<tr> 
+						<td class="colunaTabela"> <label>Data solicitante:</label> </td>
+						<td> <input id="id_myDate2" size="9" name="dtsolicitante" value="{{ datasolicitante }}" /> </td> 
+					</tr>
+					<tr> 
+						<td class="colunaTabela"> <label>Data autorizado:</label> </td>
+						<td> <input id="id_myDate3" size="9" name="dtautorizado" value="{{ dataautorizado }}" /> </td> 
+					</tr>
+					<tr> <td class="colunaTabela"> <label>Veiculo:</label> </td>
+						<td> <input size="35" name="veiculo" value="{{ vr.veiculo }}" /> </td> </tr>
+				    <tr> <td class="colunaTabela"> <label>Placa:</label> </td>
+						<td> <input id="placa" size="9" name="placa" value="{{ vr.placa }}" /> </td> </tr>
+				    
+				</table>
 	</div>
 </div>
 
