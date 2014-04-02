@@ -215,6 +215,14 @@ urlpatterns = patterns('',
     url(r'^sicop/restrito/grupo/relatorio/ods/', 'sicop.restrito.grupo.relatorio_ods'),
     url(r'^sicop/restrito/grupo/relatorio/csv/', 'sicop.restrito.grupo.relatorio_csv'),
 
+  # ACESSO RESTRITO SICOP PERMISSAO
+    url(r'^sicop/restrito/permissao/consulta/', 'sicop.restrito.permissao.consulta'),
+    url(r'^sicop/restrito/permissao/cadastro/', 'sicop.restrito.permissao.cadastro'),
+    url(r'^sicop/restrito/permissao/edicao/(?P<id>\d+)/', 'sicop.restrito.permissao.edicao'),
+    url(r'^sicop/restrito/permissao/relatorio/pdf/', 'sicop.restrito.permissao.relatorio_pdf'),
+    url(r'^sicop/restrito/permissao/relatorio/ods/', 'sicop.restrito.permissao.relatorio_ods'),
+    url(r'^sicop/restrito/permissao/relatorio/csv/', 'sicop.restrito.permissao.relatorio_csv'),
+
   # ACESSO RESTRITO SICOP USUARIO
     url(r'^sicop/restrito/usuario/consulta/', 'sicop.restrito.usuario.consulta'),
     url(r'^sicop/restrito/usuario/cadastro/', 'sicop.restrito.usuario.cadastro'),
