@@ -12,7 +12,7 @@ from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
     AuthUserGroups, Tbmovimentacao, Tbprocessosanexos, Tbpendencia,\
     Tbclassificacaoprocesso, Tbtipopendencia, Tbstatuspendencia, Tbpregao,\
     Tbdocumentomemorando, Tbdocumentobase, Tbtipodocumento, Tbservidor,\
-    Tbdocumentoservidor, Tbdocumentooficio
+    Tbdocumentoservidor, Tbdocumentooficio, Tbdocumentovr
 from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
 from sicop.restrito import processo_rural
@@ -63,7 +63,7 @@ def consulta(request):
 @permission_required('servidor.documento_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     base = get_object_or_404(Tbdocumentobase, id=id)
-    servidor = Tbservidor.objects.all()
+    servidor = Tbservidor.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     tipo = base.tbtipodocumento.tabela
         
     # se processobase pertencer a mesma divisao do usuario logado
@@ -115,6 +115,29 @@ def edicao(request, id):
             return render_to_response('sicop/restrito/documento/oficio/edicao.html',
                                       {'result':result,'servidor':servidor,'docservidor':docservidor,
                                        'base':base,'data_documento':data_documento,'oficio':oficio,'servidor':servidor}, context_instance = RequestContext(request))
+
+        if tipo == "tbdocumentovr":
+            servidor = Tbservidor.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+            data_documento = formatDataToText( base.dtdocumento )
+            docservidor = Tbdocumentoservidor.objects.filter( tbdocumentobase__id = id )
+                
+            result = {}
+            for obj in servidor:
+                achou = False
+                for obj2 in docservidor:
+                    if obj.id == obj2.tbservidor.id:
+                        result.setdefault(obj.nmservidor,True)
+                        achou = True
+                        break
+                if not achou:
+                    result.setdefault(obj.nmservidor, False)
+            result = sorted(result.items())
+                     
+            vr = Tbdocumentovr.objects.get( tbdocumentobase = id )
+            
+            return render_to_response('sicop/restrito/documento/requisicao_viatura/edicao.html',
+                                      {'result':result,'servidor':servidor,'docservidor':docservidor,
+                                       'base':base,'data_documento':data_documento,'vr':vr,'servidor':servidor}, context_instance = RequestContext(request))
         
     return HttpResponseRedirect("/sicop/restrito/documento/consulta/")
     

@@ -39,6 +39,7 @@ def cadastro(request):
         if validacao(request, "cadastro"):
 
             servidor = Tbservidor.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+            dtinicio = datetime.datetime.strptime( request.POST['dtinicio'], "%d/%m/%Y")
             dtsolicitante = datetime.datetime.strptime( request.POST['dtsolicitante'], "%d/%m/%Y")
             dtautorizado = datetime.datetime.strptime( request.POST['dtautorizado'], "%d/%m/%Y")
       
@@ -60,6 +61,7 @@ def cadastro(request):
                                        motorista = request.POST['motorista'],
                                        usuarios = request.POST['usuarios'],
                                        localviatura = request.POST['localviatura'],
+                                       dtinicioservicos = dtinicio,
                                        dtsolicitante = dtsolicitante,
                                        dtautorizado = dtautorizado,
                                        veiculo = request.POST['veiculo'],
@@ -90,7 +92,7 @@ def criacao(request, id):
     obj_mes = mes_do_ano_texto( obj.tbdocumentobase.dtdocumento.month )
     obj_ano = obj.tbdocumentobase.dtdocumento.year
     
-    return shortcuts.render_to_response('requisicao_viatura.odt',dictionary=dict( requisicao_viatura = obj, anosisdoc = ano_sisdoc, dia = obj_dia, mes = obj_mes, ano = obj_ano ),format='odt',filename=str(obj.tbdocumentobase.nmdocumento)+'.odt')
+    return shortcuts.render_to_response('rv.odt',dictionary=dict( requisicao_viatura = obj, anosisdoc = ano_sisdoc, dia = obj_dia, mes = obj_mes, ano = obj_ano ),format='odt',filename=str(obj.tbdocumentobase.nmdocumento)+'.odt')
             
 @permission_required('servidor.documento_requisicao_viatura_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
