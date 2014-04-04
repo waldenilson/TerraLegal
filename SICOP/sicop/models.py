@@ -502,6 +502,7 @@ class Tbdocumentooficio(models.Model):
 #===============================================================================
    
 class Tbdocumentovr(models.Model):
+    id = models.AutoField(primary_key=True)
     tbdocumentobase = models.ForeignKey(Tbdocumentobase)
     dtinicioservicos = models.DateTimeField()
     objetivo = models.TextField(blank=True)
@@ -514,7 +515,6 @@ class Tbdocumentovr(models.Model):
     dtautorizado = models.DateField()
     veiculo = models.CharField(max_length=80, blank=True)
     placa = models.CharField(max_length=20, blank=True)
-    id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbdocumentovr'
  
