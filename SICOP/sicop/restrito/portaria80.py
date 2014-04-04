@@ -39,6 +39,8 @@ def calculo(request):
     l_fdis = []
     for line in fdis:
         l_fdis.append(line)
+        
+    print l_fdis
     
     filename = settings.CSV_PATH_DIR +'/fcon.csv'
     fcon = csv.DictReader(open(filename,"rb"),delimiter=',')
