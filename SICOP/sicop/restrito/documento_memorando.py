@@ -178,7 +178,7 @@ def validacao(request_form, metodo):
         messages.add_message(request_form,messages.WARNING,'Informe o assunto')
         warning = False
     if request_form.POST['nmlocal'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe o local')
+        messages.add_message(request_form,messages.WARNING,'Informe a localidade')
         warning = False
     if request_form.POST['nmdestinatario'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe o nome do documento')

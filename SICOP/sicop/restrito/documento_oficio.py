@@ -181,6 +181,34 @@ def validacao(request_form, metodo):
     if request_form.POST['nmdocumento'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe o nome do documento')
         warning = False
-    
+    if request_form.POST['dtdocumento'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe a data do documento')
+        warning = False
+    if request_form.POST['nrsisdoc'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe o Nº SISDOC')
+        warning = False
+    if request_form.POST['nrsufixosisdoc'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe o Nº Sufixo SISDOC')
+        warning = False
+    if request_form.POST['nmassunto'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe o assunto')
+        warning = False
+    if request_form.POST['nmlocal'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe a localidade')
+        warning = False
+    if request_form.POST['nmassunto'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe o assunto')
+        warning = False
+
+    if request_form.POST['nmendereco'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe o endereco')
+        warning = False
+    if request_form.POST['nmdestinatario'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe o destinatario')
+        warning = False
+    if request_form.POST['nmmensagem'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe a mensagem')
+        warning = False
+
     return warning 
 
