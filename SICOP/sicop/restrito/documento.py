@@ -134,10 +134,13 @@ def edicao(request, id):
             result = sorted(result.items())
                      
             vr = Tbdocumentovr.objects.get( tbdocumentobase = id )
+            datainicio = formatDataToText( vr.dtinicioservicos )
+            datasolicitante = formatDataToText( vr.dtsolicitante )
+            dataautorizado = formatDataToText( vr.dtautorizado )
             
             return render_to_response('sicop/restrito/documento/requisicao_viatura/edicao.html',
                                       {'result':result,'servidor':servidor,'docservidor':docservidor,
-                                       'base':base,'data_documento':data_documento,'vr':vr,'servidor':servidor}, context_instance = RequestContext(request))
+                                       'base':base,'datainicio':datainicio,'datasolicitante':datasolicitante,'dataautorizado':dataautorizado,'vr':vr,'servidor':servidor}, context_instance = RequestContext(request))
         
     return HttpResponseRedirect("/sicop/restrito/documento/consulta/")
     
@@ -263,6 +266,6 @@ def formatDataToText( formato_data ):
         dtaberturaprocesso += str(formato_data.year)
         return str( dtaberturaprocesso )
     else:
-        return "";
+        return ""
 
 

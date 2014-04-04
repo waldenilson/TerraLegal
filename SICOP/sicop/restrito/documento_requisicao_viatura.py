@@ -41,8 +41,10 @@ def cadastro(request):
             servidor = Tbservidor.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
             dtinicio = datetime.datetime.strptime( request.POST['dtinicio'], "%d/%m/%Y")
             dtsolicitante = datetime.datetime.strptime( request.POST['dtsolicitante'], "%d/%m/%Y")
-            dtautorizado = datetime.datetime.strptime( request.POST['dtautorizado'], "%d/%m/%Y")
-      
+            dtautorizado = None
+            if request.POST['dtautorizado']:
+                dtautorizado = datetime.datetime.strptime( request.POST['dtautorizado'], "%d/%m/%Y")
+            
             # cadastrando o registro processo base            
             f_base = Tbdocumentobase (
                                     nmdocumento = request.POST['nmdocumento'],
@@ -156,8 +158,10 @@ def edicao(request, id):
             
         return HttpResponseRedirect("/sicop/restrito/documento/edicao/"+str(base.id)+"/")
     
+    
+    
     return render_to_response('sicop/restrito/documento/requisicao_viatura/edicao.html',
-                              {'base':base,'requisicao_viatura':requisicao_viatura},
+                              {'base':base,'vr':requisicao_viatura},
                                context_instance = RequestContext(request))   
 
 def validacao(request_form, metodo):
@@ -165,6 +169,33 @@ def validacao(request_form, metodo):
     if request_form.POST['nmdocumento'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe o nome do documento')
         warning = False
-    
+    if request_form.POST['objetivo'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe o objetivo')
+        warning = False
+    if request_form.POST['destino'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe o destino')
+        warning = False
+    if request_form.POST['tempodias'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe o tempo em dias')
+        warning = False
+    if request_form.POST['motorista'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe o motorista')
+        warning = False
+    if request_form.POST['usuarios'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe os usuarios')
+        warning = False
+    if request_form.POST['localviatura'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe o local de apresentacao')
+        warning = False
+    if request_form.POST['dtsolicitante'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe a data solicitante')
+        warning = False
+    if request_form.POST['veiculo'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe o veiculo')
+        warning = False
+    if request_form.POST['placa'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe a placa')
+        warning = False
+
     return warning 
 
