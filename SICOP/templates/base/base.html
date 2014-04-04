@@ -22,10 +22,32 @@ href="{% static "css/style.css" %}" />
 <link rel="stylesheet" type="text/css" media="screen"
 href="{% static "css/jquery-te-1.4.0.css" %}" />
 
+<link rel="stylesheet" type="text/css" media="screen"
+href="{% static "css/estatisticas.css" %}" />
+
+<!-- link rel="stylesheet" type="text/css" media="screen"
+href="{% static "css/bootstrap/bootstrap.css" %}" />
+<link rel="stylesheet" type="text/css" media="screen"
+href="{% static "css/bootstrap/bootstrap.min.css" %}" />
+<link rel="stylesheet" type="text/css" media="screen"
+href="{% static "css/bootstrap/bootstrap-responsive.css" %}" /-->
+<link rel="stylesheet" type="text/css" media="screen"
+href="{% static "css/bootstrap/bootstrap-responsive.min.css" %}" />
+
+<link rel="stylesheet" type="text/css" media="screen"
+href="{% static "css/nv.d3.css" %}" />
+
 <link rel="stylesheet" href="{% static "css/jquery-ui.css" %}" />
+
 <script src="{% static "js/jquery-1.9.1.js" %}"></script>
 <script src="{% static "js/jquery-ui.js" %}"></script>
 <script src="{% static "js/jquery-te-1.4.0.min.js" %}"></script>
+
+<script src="{% static "js/d3.min.js" %}"></script>
+<script src="{% static "js/nv.d3.min.js" %}"></script>
+
+
+
 <script>
 
 function editarID(theUrl)
@@ -283,7 +305,7 @@ Divisão: {{ request.session.divisao }} | <a href="/logout/">Sair do Sistema</a>
 </div>
 
 <div style="width:100%;height:540px">
-<div style="margin-left:6px;height:540px;float:left; width:194px;background:white">
+<div style="margin-left:6px;height:600px;float:left; width:194px;background:white">
 <div style="background:white;margin:10px">
 <img style="margin-bottom:10px" src="{% static "img/terralegal.jpg" %}" alt="Terra Amazônia Legal" />	
 
@@ -305,9 +327,15 @@ Divisão: {{ request.session.divisao }} | <a href="/logout/">Sair do Sistema</a>
 <span>Equipe</span>
 </a>
 </li>
+
 <li>
 <a href="/web/organizacao/" title="">
 <span>Organizacao</span>
+</a>
+</li>
+<li>
+<a href="/web/estatisticas/" title="">
+<span>Estatisticas</span>
 </a>
 </li>
 
@@ -465,7 +493,7 @@ Divisão: {{ request.session.divisao }} | <a href="/logout/">Sair do Sistema</a>
 </ul><!-- MENU -->
 </div>
 </div>
-<div style="margin-right:6px;min-height:540px;float:right; width:794px;background:white">
+<div style="margin-right:6px;min-height:570px;float:right; width:794px;background:white">
 <div style="margin:20px">
 {% block index %} {% endblock %}
 </div>
@@ -488,20 +516,10 @@ Desenvolvido em Software Livre</a>
 
 </div>
 
+{% block body_scripts %}
+
+{% endblock body_scripts %}
+
 </body>
 
 </html>
-
-    Status
-    API
-    Training
-    Shop
-    Blog
-    About
-
-    © 2014 GitHub, Inc.
-    Terms
-    Privacy
-    Security
-    Contact
-

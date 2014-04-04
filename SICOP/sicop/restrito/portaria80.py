@@ -39,6 +39,8 @@ def calculo(request):
     l_fdis = []
     for line in fdis:
         l_fdis.append(line)
+        
+    print l_fdis
     
     filename = './TerraLegal/SICOP/staticfiles/csv/fcon.csv'
     fcon = csv.DictReader(open(filename,"rb"),delimiter=',')

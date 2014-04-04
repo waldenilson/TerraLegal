@@ -1,132 +1,369 @@
-{% extends "base/consulta_base.html" %}
+{% extends "base/base.html" %}
+{% load staticfiles %} 
+{% load bootstrap_toolkit %}
+
+{% block breadcumbs %}
+	Estatiscas
+{% endblock %}
+{% block titulo %}
+Estatisticas
+{% endblock %}
+
 {% block style %}
 <link rel="stylesheet" href="{{ STATIC_URL }}css/nv.d3.css">
+
+<link rel="stylesheet" type="text/css" media="screen"
+href="{% static "css/bootstrap/bootstrap.css" %}" />
+<link rel="stylesheet" type="text/css" media="screen"
+href="{% static "css/bootstrap/bootstrap.min.css" %}" />
+<!-- link rel="stylesheet" type="text/css" media="screen"
+href="{% static "css/bootstrap/bootstrap-responsive.css" %}" /-->
+<link rel="stylesheet" type="text/css" media="screen"
+href="{% static "css/bootstrap/bootstrap-responsive.min.css" %}" />
+
 <style>
+.box-counting {
+    background-color:#740207;
+    height:80px;
+    padding:10px;
+    color:#fff;
+    display:block;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.box-title{
+    display:block;
+    color:#fff;
+    font-size: 15px;
+    font-weight: normal;
+    height: 41px;
+    line-height: 20px;
+    width: 100%;
+    bottom:5px;
+}
+.number{
+    display:block;
+    color:#fff;
+    font-family:'Open Sans', sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 20px;
+    float:right;
+    width: 100%;
+    text-align:right;
+}
+
+/* Stat-box */
+/* line 184, components/widgets.css.scss */
+.stat-box {
+  width: 100%;
+  height: 100px;
+  min-height: 90px;
+  margin: 4px auto;
+  display: inline-block;
+  background-color: #eeeeee;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.5);
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px; }
+  /* line 197, components/widgets.css.scss */
+  .stat-box i {
+    padding: 0;
+    font-size: 2em;
+    vertical-align: top;
+    text-align: center; }
+  /* line 204, components/widgets.css.scss */
+  .stat-box .icon-large:before {
+    margin-top: 15px; }
+  /* line 208, components/widgets.css.scss */
+  .stat-box .count {
+    font-size: 2em;
+    padding-left: 5px;
+    font-weight: 600;
+    line-height: 2.5em; }
+  /* line 215, components/widgets.css.scss */
+  .stat-box .stat-text {
+    display: block;
+    font-size: 1.2em;
+    margin-top: -5px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 600; }
+  /* line 224, components/widgets.css.scss */
+  .stat-box.light-blue {
+    background: #aad7ea;
+    border: 1px solid #96cde5; }
+    /* line 79, general/_mixin-helpers.css.scss */
+    .stat-box.light-blue:hover {
+      background: #9ed1e7; }
+  /* line 227, components/widgets.css.scss */
+  .stat-box.medium-blue {
+    background: #67a0be;
+    border: 1px solid #5595b6; }
+    /* line 79, general/_mixin-helpers.css.scss */
+    .stat-box.medium-blue:hover {
+      background: #5c99b9; }
+  /* line 230, components/widgets.css.scss */
+  .stat-box.text-blue {
+    background: #33566a;
+    border: 1px solid #2b4859; }
+    /* line 79, general/_mixin-helpers.css.scss */
+    .stat-box.text-blue:hover {
+      background: #2e4e60; }
+  /* line 233, components/widgets.css.scss */
+  .stat-box.border-blue {
+    background: #7998aa;
+    border: 1px solid #698ca0; }
+    /* line 79, general/_mixin-helpers.css.scss */
+    .stat-box.border-blue:hover {
+      background: #7091a4; }
+  /* line 236, components/widgets.css.scss */
+  .stat-box.dark-blue {
+    background: #50769b;
+    border: 1px solid #47698a; }
+    /* line 79, general/_mixin-helpers.css.scss */
+    .stat-box.dark-blue:hover {
+      background: #4b6e91; }
+  /* line 239, components/widgets.css.scss */
+  .stat-box.dark-plum {
+    background: #6c5e6d;
+    border: 1px solid #5e525f; }
+    /* line 79, general/_mixin-helpers.css.scss */
+    .stat-box.dark-plum:hover {
+      background: #645765; }
+  /* line 243, components/widgets.css.scss */
+  .stat-box.yellow {
+    background: #f0c22e;
+    border: 1px solid #eebb16; }
+    /* line 79, general/_mixin-helpers.css.scss */
+    .stat-box.yellow:hover {
+      background: #efbe20; }
+  /* line 246, components/widgets.css.scss */
+  .stat-box.orange {
+    background: #ff8330;
+    border: 1px solid #ff7417; }
+    /* line 79, general/_mixin-helpers.css.scss */
+    .stat-box.orange:hover {
+      background: #ff7a21; }
+  /* line 249, components/widgets.css.scss */
+  .stat-box.red {
+    background: #db3535;
+    border: 1px solid #d12525; }
+    /* line 79, general/_mixin-helpers.css.scss */
+    .stat-box.red:hover {
+      background: #d92828; }
+  /* line 252, components/widgets.css.scss */
+  .stat-box.plum {
+    background: #ca6eff;
+    border: 1px solid #c155ff; }
+    /* line 79, general/_mixin-helpers.css.scss */
+    .stat-box.plum:hover {
+      background: #c45fff; }
+  /* line 255, components/widgets.css.scss */
+  .stat-box.blue {
+    background: #2191ed;
+    border: 1px solid #1284e2; }
+    /* line 79, general/_mixin-helpers.css.scss */
+    .stat-box.blue:hover {
+      background: #138aec; }
+  /* line 258, components/widgets.css.scss */
+  .stat-box.turquoise {
+    background: #39c5aa;
+    border: 1px solid #33b199; }
+    /* line 79, general/_mixin-helpers.css.scss */
+    .stat-box.turquoise:hover {
+      background: #36b9a0; }
+  /* line 261, components/widgets.css.scss */
+  .stat-box.green {
+    background: #63a822;
+    border: 1px solid #57931e; }
+    /* line 79, general/_mixin-helpers.css.scss */
+    .stat-box.green:hover {
+      background: #5c9b1f; }
+  /* line 264, components/widgets.css.scss */
+  .stat-box.inverse {
+    background: #444444;
+    border: 1px solid #373737; }
+    /* line 79, general/_mixin-helpers.css.scss */
+    .stat-box.inverse:hover {
+      background: #3c3c3c; }
+  /* line 268, components/widgets.css.scss */
+  .stat-box.text-inverse {
+    color: #555;
+    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.5); }
 
 </style>
 {% endblock style %}
-{% block content %}
+
+{% block index %}
+
+<div class="span12">
 <h3>Estatisticas do Sistema </h3>
 <div class="row-fluid">
     <div class="span12">
         <div class="span2">
             <div class="stat-box medium-blue">
-            <i class="icon-arrow-up icon-large"></i>
-            <span class="count">{{qtd_processos}} </span>
-            <span class="stat-text">Total de Envios</span>
+            	<span class="count">{{qtd_processos}} </span>
+            	<span class="stat-text">Processos</span>
+            </div>
+        </div>
+        
+        <div class="span2">
+            <div class="stat-box medium-blue">
+            <span class="count">{{ qtd_pecas}}</span>
+            <span class="stat-text">Pecas Tecnicas</span>
+            </div>
+        </div>
+        
+        <div class="span2">
+            <div class="stat-box medium-blue">
+            <span class="count">{{qtd_mov}}</span>
+            <span class="stat-text">Tramitacoes</span>
             </div>
         </div>
         <div class="span2">
             <div class="stat-box medium-blue">
-            <i class="icon-ok icon-large"></i>
-            <span class="count">{{ qtd_certificadas|floatformat:'-3'}}</span>
-            <span class="stat-text">Total Certificacoes</span>
+            <span class="count">{{qtd_pend}}</span>
+            <span class="stat-text">Pendencias</span>
             </div>
         </div>
-        <div class="span2">
-            <div class="stat-box medium-blue">
-            <span class="count">{{qtd_ha_certificados}}</span>
-            <span class="stat-text">Total Ha Certificados</span>
-            </div>
+        
+    </div>
+    </div>
+</br>
+<div class="row-fluid">
+    <div class="span5">
+        <h4>Tipos de processos</h4>
+        <div class="" id="chart_tipos" style="" >
+                <svg style="height:350px;width:400px"></svg>
         </div>
     </div>
 </div>
 
-<div class="row-fluid" style="border-bottom:1px dashed #ccc;">
+<div class="row-fluid" >
     <div class="span12">
-        <h4>Parcelas Certificadas por dia (ultima semana)</h4>
+        <h4>Movimentacao por dia (último mes)</h4>
         <div class="" id="chart_qtd_by_day" style="" >
                 <svg style="height:350px;width:750px"></svg>
         </div>
     </div>
 </div>
-<div class="row-fluid">
-    <div class="span5">
-                <h4>Numero parcelas certificadas por estados</h4>
-        <div class="" id="chart_uf_qtd" style="" >
-            <svg style="height:350px;width:750px"></svg>
-        </div>
-    </div>
-    <div class="span5">
-                <h4>Qtd em HA certificadas por estados</h4>
-        <div class="" id="chart_uf_ha" style="" >
-            <svg style="height:350px;width:750px"></svg>
+
+<div class="row-fluid" >
+    <div class="span12">
+        <h4>Batimento</h4>
+        <div class="" id="chart_bat" style="" >
+             <svg style="height:350px;width:750px"></svg>
         </div>
     </div>
 </div>
-{% endblock content %}
+{{qtd_bat}}
+</div>
+
+{% endblock %}
 {% block body_scripts %}
+
 <script src="{{ STATIC_URL }}/js/d3.min.js" type="text/javascript"></script>
 <script src="{{ STATIC_URL }}/js/nv.d3.min.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 
-
+//TRAMITACOES POR DIA
 nv.addGraph(function() {
     var chart = nv.models.multiBarChart()
            .x(function(d) { return d.label })
-           .y(function(d) { return d.value });
-     chart.xAxis.tickFormat(function(d) {
+           .y(function(d) { return d.value })
+           .showControls(false);
+     
+    chart.xAxis.tickFormat(function(d) {
        return d3.time.format('%d/%m/%y,')(new Date(d))
      });
+     
      d3.select('#chart_qtd_by_day svg')
-         .datum(diarioQtd())
-       .transition().duration(1000).call(chart);
+         	.datum(diarioQtd())
+       		.transition().duration(100)
+       		.call(chart);
 
-    return chart;
-});
-function diarioQtd() {
+    return chart;});
+    
+function diarioQtd() 
+{
   return [
   {
     color: "#D0D100",
-    key: "Parcelas Certificadas",
-    values: {{certificados_by_day|safe}}
+    key: "Tramitacoes",
+    values: {{tramitados_por_dia|safe}}
   }
-
   ];
 }
+//FIM TRAMITACAO POR DIA
 
-//Estados QTD
+
+
+//TIPOS DE PROCESSO
 nv.addGraph(function() {
    var chart = nv.models.pieChart()
       .x(function(d) { return d.label })
       .y(function(d) { return d.value })
-      .showLabels(true);
-    d3.select("#chart_uf_qtd svg")
-       .datum(estadosQtd())
+      .showLabels(false)
+      .donut(true)
+      //.width(240).height(240);
+    d3.select("#chart_tipos svg")
+       .datum(TiposQtd())
        .transition().duration(500)
        .call(chart);
    return chart;
  });
-function estadosQtd() {
+ 
+function TiposQtd() {
   return [
   {
     key: "submissoes",
-    values: {{qtd_uf|safe}}
+    values: {{qtd_tipos|safe}}
   }
   ];
 }
+//Fim TIPOS DE PROCESSOS 
 
-//Estados QTD
+//BATIMENTO PROCESSO COM PECAS
 nv.addGraph(function() {
-   var chart = nv.models.pieChart()
-      .x(function(d) { return d.label })
-      .y(function(d) { return d.value })
-      .showLabels(true);
-    d3.select("#chart_uf_ha svg")
-       .datum(estadosHa())
-       .transition().duration(500)
-       .call(chart);
-   return chart;
- });
-function estadosHa() {
+    var chart = nv.models.multiBarHorizontalChart()
+           .x(function(d) { return d.label })
+           .y(function(d) { return d.value })
+           .showControls(true)
+           .showValues(true)           //Show bar value next to each bar.
+           .tooltips(true) 
+           .margin({top:0, right: 20, bottom: 50, left: 175})
+        ;
+     
+    chart.yAxis
+    .tickFormat(d3.format(',.2f'));
+     
+     d3.select('#chart_bat svg')
+         	.datum(BatQtd())
+       		.transition().duration(1500)
+       		.call(chart);
+
+     nv.utils.windowResize(chart.update);
+    return chart;});
+    
+function BatQtd() 
+{
   return [
   {
-    key: "certificacoes",
-    values: {{ha_uf|safe}}
+    key: "Batimento",
+    values: {{qtd_bat|safe}}
   }
   ];
 }
+//FIM BATIMENTO
+
+
+
 </script>
 {% endblock body_scripts %}
 
