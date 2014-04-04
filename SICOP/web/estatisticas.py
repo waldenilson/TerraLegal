@@ -28,7 +28,10 @@ sql_mov_dia = """ select date_trunc('day',dtmovimentacao) ,
             count(*) from tbmovimentacao where dtmovimentacao > '%(date_mthago)s'
             group by date_trunc('day',dtmovimentacao); """
 
-sql_processo_com_peca = """ select 'Processo com peca',count(*)  from tbprocessorural r inner join tbpecastecnicas p on r.nrcpfrequerente = p.nrcpfrequerente  and tbprocessobase_id in (select id from tbprocessobase where tbclassificacaoprocesso_id = 1 and tbtipoprocesso_id = 1) """
+sql_processo_com_peca = """ select 'Processo com peca', count(*) from tbprocessorural r 
+        where r.nrcpfrequerente in (select nrcpfrequerente from tbpecastecnicas) and
+        r.tbprocessobase_id in (select  id from tbprocessobase 
+        where tbclassificacaoprocesso_id = 1 and tbtipoprocesso_id = 1)  """
 sql_processo_sem_peca = """ select 'Processo sem peca', count(*) from tbprocessorural r left outer join  tbpecastecnicas p on r.nrcpfrequerente = p.nrcpfrequerente where p.nrcpfrequerente is null and r.tbprocessobase_id in (select  id from tbprocessobase where tbclassificacaoprocesso_id = 1 and tbtipoprocesso_id = 1)  """
 sql_peca_com_processo = """ """
 sql_peca_sem_processo = """ """
