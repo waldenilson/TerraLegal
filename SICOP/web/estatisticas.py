@@ -20,13 +20,22 @@ sql_tipo_processo = """ select t.nome, count(*)
                 where b.tbtipoprocesso_id = t.id and
                 tbclassificacaoprocesso_id = 1
                 group by b.tbtipoprocesso_id, t.nome
-                having count(*) > 1"""
+                having count(*) > 1
+                """
+                
                 
 sql_pend = """ select count(*) from tbpendencia where tbstatuspendencia_id = 2"""
 
 sql_mov_dia = """ select date_trunc('day',dtmovimentacao) , 
             count(*) from tbmovimentacao where dtmovimentacao > '%(date_mthago)s'
-            group by date_trunc('day',dtmovimentacao); """
+            group by date_trunc('day',dtmovimentacao) 
+            order by date_trunc('day',dtmovimentacao);
+            """
+
+
+sql_processo_rural = """ select 'Processos', count(*)
+                from tbprocessobase as b where b.tbtipoprocesso_id = 1 and
+                tbclassificacaoprocesso_id = 1 """ 
 
 sql_processo_com_peca = """ select 'Processo com peca', count(*) from tbprocessorural r 
         where r.nrcpfrequerente in (select nrcpfrequerente from tbpecastecnicas) and
@@ -82,12 +91,17 @@ def estatisticas(request):
     qtd_verifica_2 = cursor.fetchone()
     teste2 = int(qtd_verifica_2[1])
     
+    cursor.execute(sql_processo_rural)
+    qtd_verifica_3 = cursor.fetchone()
+    teste3 = int(qtd_verifica_3[1])
     
     qtd_bat = []
     
-    qtd_bat = [ {"label" : qtd_verifica_1[0]   ,"value" : teste} , 
-                 {"label" : qtd_verifica_2[0] ,"value" : -teste2} 
-                ]
+    qtd_bat = [ 
+               {"label" : qtd_verifica_3[0] ,"value" : teste3},
+               {"label" : qtd_verifica_1[0] ,"value" : teste}, 
+               {"label" : qtd_verifica_2[0] ,"value" : -teste2} 
+              ]
     return render(request, "web/estatisticas.html", {'qtd_processos': qtd_processos,'qtd_pecas':qtd_pecas,
                                                      'qtd_mov':qtd_mov,'qtd_tipos':qtd_tipos,'qtd_pend':qtd_pend,
                                                      'tramitados_por_dia': tramitados_por_dia,'qtd_bat':qtd_bat

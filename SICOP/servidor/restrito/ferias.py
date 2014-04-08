@@ -18,6 +18,10 @@ import datetime
 from datetime import timedelta
 from sicop.restrito.processo import formatDataToText
 
+from django.shortcuts import render_to_response
+import random
+import time
+
 nome_relatorio = "relatorio_servidor"
 response_consulta = "/ConsultarServidor/"
 titulo_relatorio = "Relatorio Servidores"
@@ -229,3 +233,34 @@ def validacao(request_form):
         messages.add_message(request_form,messages.WARNING,'Informe a quantidade de dias do 1o. periodo')
         warning = False
     return warning
+
+def demo_linewithfocuschart(request):
+    """
+    linewithfocuschart page
+    """
+    nb_element = 100
+    start_time = int(time.mktime(datetime.datetime(2012, 6, 1).timetuple()) * 1000)
+
+    xdata = range(nb_element)
+    xdata = map(lambda x: start_time + x * 1000000000, xdata)
+    ydata = [i + random.randint(1, 10) for i in range(nb_element)]
+    ydata2 = map(lambda x: x * 2, ydata)
+    ydata3 = map(lambda x: x * 3, ydata)
+    ydata4 = map(lambda x: x * 4, ydata)
+
+    tooltip_date = "%d %b %Y %H:%M:%S %p"
+    extra_serie = {"tooltip": {"y_start": "There are ", "y_end": " calls"},
+                   "date_format": tooltip_date}
+    chartdata = {
+        'x': xdata,
+        'name1': 'series 1', 'y1': ydata, 'extra1': extra_serie,
+        'name2': 'series 2', 'y2': ydata2, 'extra2': extra_serie,
+        'name3': 'series 3', 'y3': ydata3, 'extra3': extra_serie,
+        'name4': 'series 4', 'y4': ydata4, 'extra4': extra_serie
+    }
+    charttype = "lineWithFocusChart"
+    data = {
+        'charttype': charttype,
+        'chartdata': chartdata
+    }
+    return render_to_response('controle/servidor/linewithfocuschart.html', data)
