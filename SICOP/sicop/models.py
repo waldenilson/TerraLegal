@@ -202,6 +202,8 @@ class Tbpecastecnicas(models.Model):
     tbgleba = models.ForeignKey(Tbgleba)
     tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True)
     id = models.AutoField(primary_key=True)
+    tbmunicipio = models.ForeignKey(Tbmunicipio)
+    stassentamento = models.BooleanField()
     class Meta:
         db_table = 'tbpecastecnicas'
 

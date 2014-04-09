@@ -51,9 +51,7 @@
 						<a href="/sicop/restrito/caixa/cadastro/?next=/sicop/restrito/peca_tecnica/edicao/{{ peca.id }}/" title="Novo Caixa"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>						
 				   	</tr>
-				   <tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input onkeypress="return SomenteNumero(event,this)"  size="15" value="{{ peca.nrarea|default:'' }}" name="nrarea" /> </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Perimetro:</label> </td><td> <input onkeypress="return SomenteNumero(event,this)" id="perimetro"  size="15" value="{{ peca.nrperimetro|default:'' }}" name="nrperimetro" /> </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Gleba:</label> </td>
+				   	<tr> <td class="colunaTabela"> <label>Gleba:</label> </td>
 				   		<td>
 				   			<select id="id_tbgleba" style="width: 200px" name="tbgleba">
 								{% for obj in gleba %}
@@ -69,14 +67,45 @@
 						<a href="/sicop/restrito/gleba/cadastro/?next=/sicop/restrito/peca_tecnica/edicao/{{ peca.id }}/" title="Novo Gleba"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>						
 				   	</tr>
-				   <tr> <td class="colunaTabela"> <label>Anexado ao processo:</label> </td>
+				   	
+				   	<tr> <td class="colunaTabela"> <label>Municipio:</label> </td>
+				   		<td>
+				   			<select name="tbmunicipio" style="width: 200px">
+								{% for obj in municipio %}
+									{% if obj.id == peca.tbmunicipio.id %}
+										<option selected="selected" value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+									{% else %}
+										<option value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						</td>
+				</tr>
+				   
+				   <tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input onkeypress="return SomenteNumero(event,this)"  size="15" value="{{ peca.nrarea|default:'' }}" name="nrarea" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Perimetro:</label> </td><td> <input onkeypress="return SomenteNumero(event,this)" id="perimetro"  size="15" value="{{ peca.nrperimetro|default:'' }}" name="nrperimetro" /> </td> </tr>
+				   
+				   <tr>
+				   </table>
+				   <table> 
+				   <td class="colunaTabela"> <label>Anexado ao processo:</label> </td>
 				   <td>
 				   	{% if peca.stanexadoprocesso == True %} 
 						<input checked="checked" type="checkbox" name="stanexadoprocesso" />
 					{% else %}
 						<input type="checkbox" name="stanexadoprocesso" />
 					{% endif %} 
-				   </td> </tr>
+				   </td> 
+				   
+				   <td class="colunaTabela"> <label>Em assentamento:</label> </td>
+				   <td>
+				   	{% if peca.stassentamento == True %} 
+						<input checked="checked" type="checkbox" name="stassentamento" />
+					{% else %}
+						<input type="checkbox" name="stassentamento" />
+					{% endif %} 
+				   </td>
+				   </tr>
 				   <tr> <td class="colunaTabela"> <label>Enviado Brasilia:</label> </td>
 				   <td>
 				    {% if peca.stenviadobrasilia == True %} 
@@ -92,7 +121,9 @@
 					{% else %}
 						<input type="checkbox" name="stpecatecnica" />
 					{% endif %} 				   
-				   </td> </tr>	   
+				   </td> </tr>	
+				   </table>
+				   <table>   
 				   <tr> <td class="colunaTabela"> <label>Observacao:</label> </td><td> <textarea rows="4" cols="40" name="dsobservacao">{{ peca.dsobservacao }}</textarea> </td> </tr>
 				
 				</table>

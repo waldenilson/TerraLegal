@@ -6,7 +6,7 @@ from django.template.context import RequestContext
 from django.contrib import messages
 from sicop.forms import FormPecasTecnicas
 from sicop.models import Tbpecastecnicas, Tbgleba, Tbcaixa, Tbcontrato,\
-    Tbprocessobase, Tbprocessorural, AuthUser, Tbdivisao
+    Tbprocessobase, Tbprocessorural, AuthUser, Tbdivisao, Tbmunicipio
 from sicop.admin import verificar_permissao_grupo
 from django.http.response import HttpResponse
 from sicop.relatorio_base import relatorio_csv_base, relatorio_ods_base,\
@@ -67,6 +67,7 @@ def cadastro(request):
     #contrato = Tbcontrato.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nrcontrato')
     #caixa = Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmlocalarquivo')
     #gleba = Tbgleba.objects.all().filter( tbuf__id = Tbdivisao.objects.get( pk = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).tbuf.id ).order_by('nmgleba')
+    municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
     contrato = Tbcontrato.objects.all().filter( tbdivisao__id__in = request.session['divisoes']).order_by('nrcontrato')
     gleba = Tbgleba.objects.all().filter( tbuf__id__in= request.session['uf']).order_by('nmgleba')
     caixa = Tbcaixa.objects.all().filter(
@@ -83,7 +84,10 @@ def cadastro(request):
     anexadoprocesso = False
     if request.POST.get('stanexadoprocesso',False):
         anexadoprocesso = True
-    
+    assentamento = False
+    if request.POST.get('stassentamento',False):
+        assentamento = True
+        
     if request.method == "POST":
         if validacao(request):            
 
@@ -109,12 +113,14 @@ def cadastro(request):
                                    stanexadoprocesso = anexadoprocesso,
                                    stpecatecnica = pecatecnica,
                                    stenviadobrasilia = enviadobrasilia,
-                                   tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao                                   
+                                   tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao,
+                                   tbmunicipio = Tbmunicipio.objects.get(pk = request.POST['tbmunicipio']),
+                                   stassentamento = assentamento                               
                                    )
             peca.save()
             return HttpResponseRedirect("/sicop/restrito/peca_tecnica/consulta/") 
     
-    return render_to_response('sicop/restrito/peca_tecnica/cadastro.html',{'caixa':caixa,'contrato':contrato,'gleba':gleba}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/peca_tecnica/cadastro.html',{'caixa':caixa,'contrato':contrato,'gleba':gleba,'municipio':municipio}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.peca_tecnica_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -125,7 +131,8 @@ def edicao(request, id):
     caixa = Tbcaixa.objects.all().filter( tbdivisao__id__in = request.session['divisoes']).order_by('nmlocalarquivo')#AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmlocalarquivo')
     contrato = Tbcontrato.objects.all().filter( tbdivisao__id__in = request.session['divisoes']).order_by('nrcontrato') #= AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nrcontrato')
     gleba = Tbgleba.objects.all().filter( tbuf__id__in=request.session['uf']).order_by('nmgleba')#  Tbdivisao.objects.get( pk = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).tbuf.id ).order_by('nmgleba')
-    
+    municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
+     
     enviadobrasilia = False
     if request.POST.get('stenviadobrasilia',False):
         enviadobrasilia = True
@@ -135,6 +142,10 @@ def edicao(request, id):
     anexadoprocesso = False
     if request.POST.get('stanexadoprocesso',False):
         anexadoprocesso = True
+    assentamento = False
+    if request.POST.get('stassentamento',False):
+        assentamento = True
+        
     
     peca_obj = get_object_or_404(Tbpecastecnicas, id=id)
         
@@ -168,7 +179,10 @@ def edicao(request, id):
                                    stanexadoprocesso = anexadoprocesso,
                                    stpecatecnica = pecatecnica,
                                    stenviadobrasilia = enviadobrasilia,
-                                   tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
+                                   tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao,
+                                   tbmunicipio = Tbmunicipio.objects.get(pk = request.POST['tbmunicipio']),
+                                   stassentamento = assentamento
+    
                                    )
             peca.save()
             return HttpResponseRedirect("/sicop/restrito/peca_tecnica/edicao/"+str(peca_obj.id)+"/")
@@ -178,7 +192,7 @@ def edicao(request, id):
         processo = processo[0] 
 
     return render_to_response('sicop/restrito/peca_tecnica/edicao.html',
-                              {'peca':peca_obj,'processo':processo,'caixa':caixa,'contrato':contrato,'gleba':gleba}, 
+                              {'peca':peca_obj,'processo':processo,'caixa':caixa,'contrato':contrato,'gleba':gleba,'municipio':municipio}, 
                             context_instance = RequestContext(request))
 
 
