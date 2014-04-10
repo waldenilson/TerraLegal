@@ -522,7 +522,7 @@
 	-webkit-border-bottom-left-radius:0px;
 	border-bottom-left-radius:0px;
 }.csstable tr:hover td{
-  background-color: #5cb811; color: #000;
+  background-color: #fff; color: #000;
   cursor: pointer;	
 }
 .csstable tr:first-child td {
@@ -533,7 +533,7 @@
 	vertical-align:middle;
 	
 	
-	border:1px solid #3f7f00;
+	border:1px solid gray;
 	border-width:0px 1px 1px 0px;
 	text-align:left;
 	padding:7px;
