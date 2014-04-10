@@ -71,6 +71,7 @@
 				   	<tr> <td class="colunaTabela"> <label>Municipio:</label> </td>
 				   		<td>
 				   			<select name="tbmunicipio" style="width: 200px">
+				   			<option value="">-- Selecione um Municipio --</option>
 								{% for obj in municipio %}
 									{% if obj.id == peca.tbmunicipio.id %}
 										<option selected="selected" value="{{ obj.id }}">{{ obj.nome_mun }}</option>
@@ -97,7 +98,7 @@
 					{% endif %} 
 				   </td> 
 				   
-				   <td class="colunaTabela"> <label>Em assentamento:</label> </td>
+				   <td class="colunaTabela"> <label>Lote de assentamento:</label> </td>
 				   <td>
 				   	{% if peca.stassentamento == True %} 
 						<input checked="checked" type="checkbox" name="stassentamento" />

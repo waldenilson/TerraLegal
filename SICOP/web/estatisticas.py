@@ -26,6 +26,15 @@ sql_tipo_processo = """ select t.nome, count(*)
                 
 sql_pend = """ select count(*) from tbpendencia where tbstatuspendencia_id = 2"""
 
+sql_pend_chart = """ 
+                select tipo.dspendencia, count(*)
+                from tbpendencia  as p,  tbstatuspendencia as s, tbtipopendencia as tipo
+                where p.tbstatuspendencia_id = 2 and
+                p.tbtipopendencia_id = tipo.id
+                group by tipo.dspendencia, p.tbstatuspendencia_id
+                having count(*) > 1
+                """
+
 sql_mov_dia = """ select date_trunc('day',dtmovimentacao) , 
             count(*) from tbmovimentacao where dtmovimentacao > '%(date_mthago)s'
             group by date_trunc('day',dtmovimentacao) 
@@ -83,6 +92,13 @@ def estatisticas(request):
     qtd_tipos = [{"label": k, "value": v} for k, v in qtd_tipos_proc]
     qtd_tipos = json.dumps(qtd_tipos, cls=DjangoJSONEncoder)
     
+    
+    cursor.execute(sql_pend_chart)
+    qtd_pend_chart = cursor.fetchall()
+    qtd_pend_c = [{"label": k, "value": v} for k, v in qtd_pend_chart]
+    qtd_pend_c = json.dumps(qtd_pend_c, cls=DjangoJSONEncoder)
+    
+    
     cursor.execute(sql_processo_com_peca)
     qtd_verifica_1 = cursor.fetchone()
     teste = int(qtd_verifica_1[1])
@@ -104,6 +120,6 @@ def estatisticas(request):
               ]
     return render(request, "web/estatisticas.html", {'qtd_processos': qtd_processos,'qtd_pecas':qtd_pecas,
                                                      'qtd_mov':qtd_mov,'qtd_tipos':qtd_tipos,'qtd_pend':qtd_pend,
-                                                     'tramitados_por_dia': tramitados_por_dia,'qtd_bat':qtd_bat
+                                                     'tramitados_por_dia': tramitados_por_dia,'qtd_bat':qtd_bat,'qtd_pend_c':qtd_pend_c
                                                      })
 

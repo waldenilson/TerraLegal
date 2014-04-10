@@ -201,7 +201,7 @@ href="{% static "css/bootstrap/bootstrap-responsive.min.css" %}" />
 {% block index %}
 
 <div class="span12">
-<h2>Estatisticas do Sistema </h2>
+<h2>Estatisticas - Maranhao</h2>
 <div class="row-fluid">
     <div class="span12">
         <div class="span2">
@@ -233,16 +233,22 @@ href="{% static "css/bootstrap/bootstrap-responsive.min.css" %}" />
         
     </div>
     </div>
-</br>
-<div class="row-fluid">
-    <div class="span5">
-        <h4>Tipos de processos</h4>
-        <div class="" id="chart_tipos" style="" >
-                <svg style="height:350px;width:400px"></svg>
+  </br>  
+    <div class="span8">
+       	<div class="" id="chart_tipos" style="" >
+           	 <h4>Processos por tipo</h4>
+               <svg style="height:350px;width:500px"></svg>
+       	</div>
+	</div>
+     
+    <div class="span8">
+        <div class="" id="chart_pend" style="" >
+       		<h4>Pendencias por tipo</h4>
+             <svg style="height:350px;width:410px"></svg>
         </div>
     </div>
-</div>
-
+</br>
+</br>
 <div class="row-fluid" >
     <div class="span12">
         <h4>Movimentacao por dia (últimos 3 meses)</h4>
@@ -270,6 +276,8 @@ href="{% static "css/bootstrap/bootstrap-responsive.min.css" %}" />
 
 <script type="text/javascript">
 
+
+
 //TRAMITACOES POR DIA
 nv.addGraph(function() {
     var chart = nv.models.multiBarChart()
@@ -285,7 +293,7 @@ nv.addGraph(function() {
          	.datum(diarioQtd())
        		.transition().duration(100)
        		.call(chart);
-
+     
     return chart;});
     
 function diarioQtd() 
@@ -299,9 +307,7 @@ function diarioQtd()
   ];
 }
 //FIM TRAMITACAO POR DIA
-
-
-
+   
 //TIPOS DE PROCESSO
 nv.addGraph(function() {
    var chart = nv.models.pieChart()
@@ -310,11 +316,15 @@ nv.addGraph(function() {
       .showLabels(false)
       .donut(true)
       .color(['blue', 'orange', 'yellow'])
-      //.width(240).height(240);
-    d3.select("#chart_tipos svg")
+      .width(400).height(360)
+      .showLegend(true);
+  	  ;
+   d3.select("#chart_tipos svg")
        .datum(TiposQtd())
        .transition().duration(500)
        .call(chart);
+   
+
    return chart;
  });
  
@@ -326,18 +336,49 @@ function TiposQtd() {
   }
   ];
 }
-//Fim TIPOS DE PROCESSOS 
+
+
+//Fim
+
+//TIPOS DE pendencias
+nv.addGraph(function() {
+   var chart = nv.models.pieChart()
+      .x(function(d) { return d.label })
+      .y(function(d) { return d.value })
+      .showLabels(false)
+      .donut(true)
+      .width(400).height(400)
+      .showLegend(false)
+   	  ;
+   
+   d3.select("#chart_pend svg")
+       .datum(TiposPend())
+       .transition().duration(500)
+       .call(chart);
+   return chart;
+ });
+ 
+function TiposPend() {
+  return [
+  {
+    key: "tipo",
+    values: {{qtd_pend_c|safe}}
+  }
+  ];
+}
+//Fim
 
 //BATIMENTO PROCESSO COM PECAS
 nv.addGraph(function() {
     var chart = nv.models.multiBarHorizontalChart()
            .x(function(d) { return d.label })
            .y(function(d) { return d.value })
-           .showControls(true)
+           .showControls(false)
            .showValues(true)           //Show bar value next to each bar.
            .tooltips(true) 
            .margin({top:0, right: 20, bottom: 50, left: 175})
            .color(['yellow','blue'])
+            
         ;
      
     chart.yAxis
@@ -360,6 +401,9 @@ function BatQtd()
   }
   ];
 }
+
+
+
 //FIM BATIMENTO
 
 
