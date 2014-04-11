@@ -25,8 +25,9 @@
 						<td> <input size="21" name="nmdocumento" id="documento" value="{{ base.nmdocumento }}" /> </td> 
 					</tr>
 					<tr> 
-						<td class="colunaTabela"> <label>Data de inicio dos servicos:</label> </td>
-						<td> <input id="id_myDate" size="9" name="dtinicio" value="{{ datainicio }}" /> </td> 
+						<td class="colunaTabela"> <label>Inicio dos servicos:</label> </td>
+						<td> <input id="id_myDate" size="10" name="dtinicio" value="{{ datainicio }}" />
+							Hora: <input id="hora" size="3" name="horainicio" value="{{ vr.dtinicioservicos.hour }}" /> Minuto: <input value="{{ vr.dtinicioservicos.minute }}" id="minuto" size="3" name="mininicio" /> </td> 
 					</tr>
 					<tr> <td class="colunaTabela"> <label>Objetivo:</label> </td><td> <textarea rows="6" cols="50" name="objetivo">{{ vr.objetivo }}</textarea></td> </tr>
 					<tr> <td class="colunaTabela"> <label>Destino:</label> </td>
