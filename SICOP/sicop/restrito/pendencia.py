@@ -25,7 +25,7 @@ def edicao(request, pendencia):
                                        tbstatuspendencia = Tbstatuspendencia.objects.get( pk = request.POST['tbstatuspendencia'] ) 
                                       )
             f_pendencia.save()
-            return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
+            return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(instance.tbprocessobase.id)+"/")
      
     return render_to_response('sicop/restrito/pendencia/edicao.html', 
                               {"pendencia":instance,'tipopendencia':tipopendencia,
