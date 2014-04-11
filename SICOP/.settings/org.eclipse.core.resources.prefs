@@ -1,6 +1,7 @@
 eclipse.preferences.version=1
-encoding//web/estatisticas.py=utf-8
 encoding//sicop/restrito/documento.py=UTF-8
 encoding//sicop/restrito/documento_memorando.py=UTF-8
 encoding//sicop/restrito/documento_oficio.py=UTF-8
 encoding//sicop/restrito/documento_requisicao_viatura.py=UTF-8
+encoding//sicop/restrito/documento_rme.py=UTF-8
+encoding//web/estatisticas.py=utf-8

@@ -474,3 +474,13 @@ class Tbdocumentovr(models.Model):
     placa = models.CharField(max_length=20, blank=True)
     class Meta:
         db_table = 'tbdocumentovr'
+
+class Tbdocumentorme(models.Model):
+    id = models.AutoField(primary_key=True)
+    tbdocumentobase = models.ForeignKey(Tbdocumentobase, null=True, blank=True)
+    dtperiodo = models.DateField(null=True, blank=True)
+    nrordem = models.IntegerField(null=True, blank=True)
+    solicitante = models.CharField(max_length=120, blank=True)
+    class Meta:
+        db_table = 'tbdocumentorme'
+
