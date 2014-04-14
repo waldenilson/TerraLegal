@@ -73,7 +73,7 @@ def cadastro(request):
     caixa = Tbcaixa.objects.all().filter(
                 Q(tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id)|
                 Q(tbtipocaixa__nmtipocaixa__icontains='ENT')
-                )
+                ).order_by('nmlocalarquivo')
     
     enviadobrasilia = False
     if request.POST.get('stenviadobrasilia',False):
