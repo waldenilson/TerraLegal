@@ -39,7 +39,7 @@
 				</tr>
 				<tr>
 					<td class="colunaTabela" style="text-align:left"> 
-						<div>Memorando: Cor Verde</div>
+						<div>Memorando: Azul | Oficio: Verde | VR: Amarelo</div>
 					</td>
 					<td class="colunaTabela" style="text-align:right"> 
 						<div>Total de registros: {{ request.session.relatorio_documento|length }}</div>
@@ -53,8 +53,8 @@
 {% block resultado %}
 		<table class="csstable">
 			<tbody>
-					<td class="colunaTabelaConsulta" style="width:10%">Numero</td>
-					<td class="colunaTabelaConsulta" style="width:20%">Nome</td>
+					<td class="colunaTabelaConsulta" style="width:5%">Numero</td>
+					<td class="colunaTabelaConsulta" style="width:20%">Nome / Referencia</td>
 					<td class="colunaTabelaConsulta" style="width:10%">Data do cadastro</td>
 				{% if lista %}
 					{% for obj in lista %}

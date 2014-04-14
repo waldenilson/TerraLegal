@@ -24,6 +24,7 @@ from django.core.files.storage import default_storage
 from webodt.shortcuts import render_to
 from webodt import shortcuts
 from sicop.admin import mes_do_ano_texto
+from sicop.restrito.documento import formatDataToText
 
 @permission_required('servidor.documento_requisicao_viatura_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
@@ -38,8 +39,16 @@ def cadastro(request):
     if request.method == "POST":
         if validacao(request, "cadastro"):
 
+            # validando campos para uso no formato datetime do atributo datainicio dos servicos
+            hrinicio = request.POST['horainicio']
+            mininicio = request.POST['mininicio']
+            if hrinicio == '':
+                hrinicio = '00'
+            if mininicio == '':
+                mininicio = '00'
+
             servidor = Tbservidor.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-            dtinicio = datetime.datetime.strptime( request.POST['dtinicio'], "%d/%m/%Y")
+            dtinicio = datetime.datetime.strptime( request.POST['dtinicio']+" "+hrinicio+":"+mininicio , "%d/%m/%Y %H:%M")
             dtsolicitante = datetime.datetime.strptime( request.POST['dtsolicitante'], "%d/%m/%Y")
             dtautorizado = None
             if request.POST['dtautorizado']:
@@ -89,12 +98,15 @@ def cadastro(request):
 def criacao(request, id):   
         
     obj = get_object_or_404(Tbdocumentovr, id=id)
-    ano_sisdoc = obj.tbdocumentobase.dtcadastrodocumento.year
-    obj_dia = obj.tbdocumentobase.dtdocumento.day
-    obj_mes = mes_do_ano_texto( obj.tbdocumentobase.dtdocumento.month )
-    obj_ano = obj.tbdocumentobase.dtdocumento.year
     
-    return shortcuts.render_to_response('rv.odt',dictionary=dict( requisicao_viatura = obj, anosisdoc = ano_sisdoc, dia = obj_dia, mes = obj_mes, ano = obj_ano ),format='odt',filename=str(obj.tbdocumentobase.nmdocumento)+'.odt')
+    dataservicos = formatDataToText(obj.dtinicioservicos)
+    dtsol = formatDataToText(obj.dtsolicitante)
+    dtauto = formatDataToText(obj.dtautorizado)
+    hrservicos = str(obj.dtinicioservicos.hour)+":"+str(obj.dtinicioservicos.minute)+"h"
+    
+    return shortcuts.render_to_response('rv.odt',
+                                        dictionary=dict( rv = obj, dataservicos = dataservicos, datasolicitante = dtsol, dataautorizado = dtauto, horaservicos = hrservicos ),
+                                        format='odt',filename=str(obj.tbdocumentobase.nmdocumento)+'.odt')
             
 @permission_required('servidor.documento_requisicao_viatura_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
@@ -103,11 +115,21 @@ def edicao(request, id):
     base  = get_object_or_404(Tbdocumentobase, id=requisicao_viatura.tbdocumentobase.id)
      
     if validacao(request, "edicao"):
-            
+        
+        # validando campos para uso no formato datetime do atributo datainicio dos servicos
+        hrinicio = request.POST['horainicio']
+        mininicio = request.POST['mininicio']
+        if hrinicio == '':
+            hrinicio = str( requisicao_viatura.dtinicioservicos.hour )
+        if mininicio == '':
+            mininicio = str( requisicao_viatura.dtinicioservicos.minute )
+                
         servidor = Tbservidor.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
         dtsolicitante = datetime.datetime.strptime( request.POST['dtsolicitante'], "%d/%m/%Y")
         dtautorizado = datetime.datetime.strptime( request.POST['dtautorizado'], "%d/%m/%Y")
-
+        dtinicio = datetime.datetime.strptime( request.POST['dtinicio']+" "+hrinicio+":"+mininicio , "%d/%m/%Y %H:%M")
+            
+        
         # verificando os grupos do usuario
         for obj in servidor:
             if request.POST.get(obj.nmservidor, False):
@@ -132,7 +154,7 @@ def edicao(request, id):
         f_base = Tbdocumentobase (
                                     id = base.id,
                                     nmdocumento = request.POST['nmdocumento'],
-                                    tbtipodocumento = Tbtipodocumento.objects.get( tabela = 'tbdocumentorequisicao_viatura' ),
+                                    tbtipodocumento = Tbtipodocumento.objects.get( tabela = 'tbdocumentovr' ),
                                     dtdocumento = dtsolicitante,
                                     dtcadastrodocumento = base.dtcadastrodocumento,
                                     auth_user = AuthUser.objects.get( pk = request.user.id ),
@@ -149,6 +171,7 @@ def edicao(request, id):
                                        usuarios = request.POST['usuarios'],
                                        localviatura = request.POST['localviatura'],
                                        dtsolicitante = dtsolicitante,
+                                       dtinicioservicos = dtinicio,
                                        dtautorizado = dtautorizado,
                                        veiculo = request.POST['veiculo'],
                                        placa = request.POST['placa'],

@@ -436,9 +436,7 @@ class Tbdocumentomemorando(models.Model):
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbdocumentomemorando'
-        
-#===============================================================================
-# 
+  
 class Tbdocumentooficio(models.Model):
     tbdocumentobase = models.ForeignKey(Tbdocumentobase)
     nrsisdoc = models.CharField(max_length=20, blank=True)
@@ -461,18 +459,28 @@ class Tbdocumentooficio(models.Model):
         db_table = 'tbdocumentooficio'
 
 class Tbdocumentovr(models.Model):
-    tbdocumentobase = models.ForeignKey(Tbdocumentobase)
-    dtinicioservicos = models.DateTimeField()
+    id = models.AutoField(primary_key=True)
+    tbdocumentobase = models.ForeignKey(Tbdocumentobase, null=True, blank=True)
+    dtinicioservicos = models.DateTimeField(null=True, blank=True)
     objetivo = models.TextField(blank=True)
     destino = models.CharField(max_length=120, blank=True)
-    tempodias = models.IntegerField(primary_key=True)
+    tempodias = models.IntegerField(null=True, blank=True)
     motorista = models.CharField(max_length=120, blank=True)
     usuarios = models.TextField(blank=True)
     localviatura = models.CharField(max_length=80, blank=True)
-    dtsolicitante = models.DateField()
-    dtautorizado = models.DateField()
+    dtsolicitante = models.DateField(null=True, blank=True)
+    dtautorizado = models.DateField(null=True, blank=True)
     veiculo = models.CharField(max_length=80, blank=True)
     placa = models.CharField(max_length=20, blank=True)
-    id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbdocumentovr'
+
+class Tbdocumentorme(models.Model):
+    id = models.AutoField(primary_key=True)
+    tbdocumentobase = models.ForeignKey(Tbdocumentobase, null=True, blank=True)
+    dtperiodo = models.DateField(null=True, blank=True)
+    nrordem = models.IntegerField(null=True, blank=True)
+    solicitante = models.CharField(max_length=120, blank=True)
+    class Meta:
+        db_table = 'tbdocumentorme'
+
