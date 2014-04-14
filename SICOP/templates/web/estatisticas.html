@@ -260,12 +260,24 @@ href="{% static "css/bootstrap/bootstrap-responsive.min.css" %}" />
 
 <div class="row-fluid" >
     <div class="span12">
-        <h4>Batimento</h4>
+        <h4>Batimento Processos</h4>
         <div class="" id="chart_bat" style="" >
              <svg style="height:350px;width:750px"></svg>
         </div>
     </div>
 </div>
+
+
+
+<!-- div class="row-fluid" >
+    <div class="span12">
+        <h4>Cadastro de processos</h4>
+        <div class="" id="chart_cad" style="" >
+                <svg style="height:350px;width:750px"></svg>
+        </div>
+    </div>
+</div-->
+
 </div>
 
 {% endblock %}
@@ -307,7 +319,49 @@ function diarioQtd()
   ];
 }
 //FIM TRAMITACAO POR DIA
-   
+
+//CADASTROS - EVOLUCAO
+nv.addGraph
+(function() 
+{
+    var chart = nv.models.cumulativeLineChart()
+           .x(function(d) { return d.label })
+           .y(function(d) { return d.value })
+           .color(d3.scale.category10().range())
+           ;
+     
+    chart.xAxis
+    .showMaxMin(false)
+    .tickFormat(function(d) {
+       return d3.time.format('%d/%m/%y,')(new Date(d))
+     });
+
+    chart.yAxis
+    .tickFormat(d3.format(',f'));
+
+     
+     d3.select('#chart_cad svg')
+         	.datum(diarioCad())
+       		.call(chart);
+     nv.utils.windowResize(chart.update);
+     
+    return chart;
+});
+    
+function diarioCad() 
+{
+  return [
+  {
+    color: "#B29333",
+    key: "Cadastros",
+    values: {{qtd_cadastro|safe}}
+  }
+  ];
+}
+//FIM
+
+
+
 //TIPOS DE PROCESSO
 nv.addGraph(function() {
    var chart = nv.models.pieChart()

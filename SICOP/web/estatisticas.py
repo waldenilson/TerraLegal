@@ -20,7 +20,7 @@ sql_tipo_processo = """ select t.nome, count(*)
                 where b.tbtipoprocesso_id = t.id and
                 tbclassificacaoprocesso_id = 1
                 group by b.tbtipoprocesso_id, t.nome
-                having count(*) > 1
+                having count(*) > 0
                 """
                 
                 
@@ -32,7 +32,7 @@ sql_pend_chart = """
                 where p.tbstatuspendencia_id = 2 and
                 p.tbtipopendencia_id = tipo.id
                 group by tipo.dspendencia, p.tbstatuspendencia_id
-                having count(*) > 1
+                having count(*) > 0
                 """
 
 sql_mov_dia = """ select date_trunc('day',dtmovimentacao) , 
@@ -54,6 +54,14 @@ sql_processo_sem_peca = """ select 'Processo sem peca', count(*) from tbprocesso
 sql_peca_com_processo = """ """
 sql_peca_sem_processo = """ """
 
+sql_cadastro =  """
+                select dtcadastrosistema::timestamp::date , count(*)
+                from tbprocessobase 
+                where dtcadastrosistema > '20110101'
+                group by dtcadastrosistema::timestamp::date
+                having count(*) > 0
+                order by 1
+                """
 
 qtd_usuarios = User.objects.count()
 
@@ -98,6 +106,10 @@ def estatisticas(request):
     qtd_pend_c = [{"label": k, "value": v} for k, v in qtd_pend_chart]
     qtd_pend_c = json.dumps(qtd_pend_c, cls=DjangoJSONEncoder)
     
+    cursor.execute(sql_cadastro)
+    qtd_cad = cursor.fetchall()
+    qtd_cadastro = [{"label": milisec_datetime(k),"value": v} for k, v in qtd_cad]
+    qtd_cadastro = json.dumps(qtd_cadastro, cls=DjangoJSONEncoder)
     
     cursor.execute(sql_processo_com_peca)
     qtd_verifica_1 = cursor.fetchone()
@@ -111,8 +123,6 @@ def estatisticas(request):
     qtd_verifica_3 = cursor.fetchone()
     teste3 = int(qtd_verifica_3[1])
     
-    qtd_bat = []
-    
     qtd_bat = [ 
                {"label" : qtd_verifica_3[0] ,"value" : teste3},
                {"label" : qtd_verifica_1[0] ,"value" : teste}, 
@@ -120,6 +130,7 @@ def estatisticas(request):
               ]
     return render(request, "web/estatisticas.html", {'qtd_processos': qtd_processos,'qtd_pecas':qtd_pecas,
                                                      'qtd_mov':qtd_mov,'qtd_tipos':qtd_tipos,'qtd_pend':qtd_pend,
-                                                     'tramitados_por_dia': tramitados_por_dia,'qtd_bat':qtd_bat,'qtd_pend_c':qtd_pend_c
+                                                     'tramitados_por_dia': tramitados_por_dia,'qtd_bat':qtd_bat,
+                                                     'qtd_pend_c':qtd_pend_c,'qtd_cadastro':qtd_cadastro
                                                      })
 
