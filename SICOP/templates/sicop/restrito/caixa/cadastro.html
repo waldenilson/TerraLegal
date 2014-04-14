@@ -21,6 +21,7 @@
 				   <tr> <td class="colunaTabela"> <label>Tipo Caixa:</label> </td>
 				   	<td>
 				   		<select name="tbtipocaixa"  style="width:150px">
+							<option value="">-- Selecione um Tipo --</option>
 							{% for obj in tipocaixa %}
 								<option value="{{ obj.id }}">{{obj.desctipocaixa}}</option>
 							{% endfor %}

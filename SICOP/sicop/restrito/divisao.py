@@ -140,4 +140,7 @@ def validacao(request_form):
     if request_form.POST['nmdivisao'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe o nome da dvisao')
         warning = False
+    if request_form.POST['tbuf'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe o UF')
+        warning = False
     return warning
