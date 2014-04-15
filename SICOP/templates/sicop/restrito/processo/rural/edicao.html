@@ -5,7 +5,6 @@
  Acesso Restrito | Processo Rural | Edicao 
 {% endblock %}
 
-
 {% block formulario %}
 
 <div id="tabs" style="color:black;width:100%;font-size:11px">
@@ -175,7 +174,7 @@
 						<option value="{{ obj.id }}">{{ obj.dspendencia }}</option>
 					{% endfor %}
 				</select>
-				<input name="dspendencia" />
+				<input placeholder="Descricao" size="30" required="required" name="dspendencia" />
 		   		<select name="tbstatuspendencia" style="width: 200px">
 		   			{% for obj in statuspendencia %}
 						<option value="{{ obj.id }}">{{ obj.dspendencia }}</option>

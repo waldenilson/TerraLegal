@@ -484,3 +484,11 @@ class Tbdocumentorme(models.Model):
     class Meta:
         db_table = 'tbdocumentorme'
 
+class Tbdocumentomaterialrme(models.Model):
+    id = models.AutoField(primary_key=True)
+    especificacao = models.CharField(max_length=120, blank=True)
+    unidade = models.CharField(max_length=80, blank=True)
+    qtdsolicitada = models.IntegerField(null=True, blank=True)
+    tbdocumentorme = models.ForeignKey('Tbdocumentorme', null=True, blank=True)
+    class Meta:
+        db_table = 'tbdocumentomaterialrme'

@@ -63,6 +63,9 @@ urlpatterns = patterns('',
     url(r'^sicop/restrito/documento/rme/cadastro/', 'sicop.restrito.documento_rme.cadastro'),
     url(r'^sicop/restrito/documento/rme/edicao/(?P<id>\d+)/', 'sicop.restrito.documento_rme.edicao'),
     url(r'^sicop/restrito/documento/rme/criacao/(?P<id>\d+)/', 'sicop.restrito.documento_rme.criacao'),
+    url(r'^sicop/restrito/documento/rme/material/(?P<doc>\d+)/', 'sicop.restrito.documento_rme.criar_material'),
+    url(r'^sicop/restrito/documento/rme/material/edicao/(?P<materialrme>\d+)/', 'sicop.restrito.materialrme.edicao'),
+       
         
     # ESCOLHA DO TIPO DE PROCESSO
     url(r'^sicop/restrito/processo/consulta/', 'sicop.restrito.processo.consulta'),   

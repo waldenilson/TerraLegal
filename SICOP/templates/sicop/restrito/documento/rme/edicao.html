@@ -11,7 +11,8 @@
 <div id="tabs" style="color:black;width:100%;font-size:11px">
  <ul>
 	<li><a href="#tabs-1">EDICAO DOCUMENTO RME</a></li>
-	<li><a href="#tabs-2">SERVIDORES</a></li>
+	<li><a href="#tabs-2">MATERIAIS</a></li>
+	<li><a href="#tabs-3">SERVIDORES</a></li>
 </ul>
 
 <form method="post" action="/sicop/restrito/documento/rme/edicao/{{ rme.id }}/">
@@ -37,10 +38,20 @@
 					<tr> <td class="colunaTabela"> <label>Solicitante:</label> </td>
 						<td> <input size="30" name="solicitante" value="{{ rme.solicitante }}" /> </td> </tr>				
 		</table>
+		<table style="width:100%">
+			<tr>
+				<td class="colunaTabela" style="text-align:left"> 
+					<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
+					<input type="submit" class="button_green" value="SALVAR" />
+					<a href="/sicop/restrito/documento/rme/criacao/{{ rme.id }}" style="margin-left: 10px"><input type="button" class="button_green" value="GERAR DOCUMENTO" /></a>
+				</td>
+			</tr>
+		</table>
 	</div>
 </div>
 
-<div id="tabs-2">
+
+<div id="tabs-3">
 		<table class="csstable"  style="width:100%">
 			<tbody>
 				<tr>
@@ -67,17 +78,55 @@
 		</table>
 </div>
 	
-	<table style="width:100%">
-		<tr>
-			<td class="colunaTabela" style="text-align:left"> 
-				<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
-				<input type="submit" class="button_green" value="SALVAR" />
-				<a href="/sicop/restrito/documento/rme/criacao/{{ rme.id }}" style="margin-left: 10px"><input type="button" class="button_green" value="GERAR DOCUMENTO" /></a>
-			</td>
-		</tr>
-	</table>
-
 </form>
+
+<div id="tabs-2">
+	<form method="post" action="/sicop/restrito/documento/rme/material/{{ rme.id }}/">
+		{% csrf_token %}
+		<table style="width:100%">
+			<tr> 
+			   	<td class="colunaTabelaConsulta">
+					<input placeholder="Especificacao" size="50" name="especificacao" required="required" />
+					<input placeholder="Unidade" size="10" name="unidade" required="required" />
+					<input placeholder="Qtd. Solicitada" size="15" name="qtdsolicitada" required="required" />
+					<input type="submit" value="ADICIONAR MATERIAL" />
+				</td>
+			</tr>
+		</table>
+	</form>
+		<table style="width: 100%; text-align: center">
+			<thead style="background: #e5e5e5; color: black">
+				<tr>
+					<th class="colunaTabelaConsulta" style="width: 8%">Detalhes</th>
+					<th class="colunaTabelaConsulta" style="width: 26%">Especificacao</th>
+					<th class="colunaTabelaConsulta" style="width: 15%">Unidade</th>
+					<th class="colunaTabelaConsulta" style="width: 15%">Qtd. Solicitada</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% if material %}
+				   		{% for m in material %}
+							<tr>
+								<td class="colunaTabelaConsulta">
+									<a	href="/sicop/restrito/documento/rme/material/edicao/{{ m.id }}"> 
+										<img width="16" src="{% static "img/search.png" %}" />
+									</a>
+								</td>
+								<td class="colunaTabelaConsulta">{{	m.especificacao }}</td>
+								<td class="colunaTabelaConsulta">{{	m.unidade }}</td>
+								<td class="colunaTabelaConsulta">{{ m.qtdsolicitada }}</td>
+							</tr>
+						{% endfor %}
+				{% else %}
+					<tr>
+						<td style="padding-top: 20px" colspan="6">Nenhum Material</td>
+					</tr>
+				{% endif %}
+
+			</tbody>
+		</table>
+
+</div>
 
 </div>
 
