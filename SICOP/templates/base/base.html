@@ -460,6 +460,9 @@ Divisão: {{ request.session.divisao }} | <a href="/logout/">Sair do Sistema</a>
 {% if perms.sicop.grupo_consulta %}
 <li><a href="/sicop/restrito/grupo/consulta/">Grupo</a></li>
 {% endif %}
+{% if perms.sicop.permissao_consulta %}
+<li><a href="/sicop/restrito/permissao/consulta/">Permissão</a></li>
+{% endif %}
 {% if perms.sicop.divisao_consulta %}
 <li><a href="/sicop/restrito/divisao/consulta/">Divisão</a></li>
 {% endif %}
@@ -503,7 +506,7 @@ Divisão: {{ request.session.divisao }} | <a href="/logout/">Sair do Sistema</a>
 <div id="divCollophon" style="height:30px; color:white ;background: url('{% static "img/bgFooterDireitos.gif" %}');">
 
 <div style="float:left;margin-top:5px;margin-left:20px">
-© 2014 Sistema de Controle de Processos do Terra Legal - Revisao 447
+© 2014 Sistema de Controle de Processos do Terra Legal - Revisao 472
 </div>
 <div style="float:right;margin-top:5px;margin-right:20px">
 <a
