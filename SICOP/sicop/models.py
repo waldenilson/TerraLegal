@@ -492,3 +492,29 @@ class Tbdocumentomaterialrme(models.Model):
     tbdocumentorme = models.ForeignKey('Tbdocumentorme', null=True, blank=True)
     class Meta:
         db_table = 'tbdocumentomaterialrme'
+        
+class Tbdocumentotru(models.Model):
+    id = models.AutoField()
+    tbdocumentobase_id = models.IntegerField(null=True, blank=True)
+    nmlocalidade = models.CharField(max_length=80, blank=True)
+    nome = models.CharField(max_length=80, blank=True)
+    nrsiape = models.CharField(max_length=20, blank=True)
+    nrcpf = models.CharField(max_length=11, blank=True)
+    endereco = models.TextField(blank=True)
+    justificativa = models.TextField(blank=True)
+    dtiniciocedencia = models.DateField(null=True, blank=True)
+    dtfimcedencia = models.DateField(null=True, blank=True)
+    declaracao = models.TextField(blank=True)
+    class Meta:
+        db_table = 'tbdocumentotru'
+
+class Tbdocumentobmp(models.Model):
+    id = models.AutoField()
+    tbdocumentobase_id = models.IntegerField(null=True, blank=True)
+    coddestino = models.CharField(max_length=20, blank=True)
+    localdestino = models.CharField(max_length=120, blank=True)
+    observacao = models.TextField(blank=True)
+    dtrecebimento = models.DateField(null=True, blank=True)
+    class Meta:
+        db_table = 'tbdocumentobmp'
+
