@@ -12,7 +12,8 @@ from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
     AuthUserGroups, Tbmovimentacao, Tbprocessosanexos, Tbpendencia,\
     Tbclassificacaoprocesso, Tbtipopendencia, Tbstatuspendencia, Tbpregao,\
     Tbdocumentomemorando, Tbdocumentobase, Tbtipodocumento, Tbservidor,\
-    Tbdocumentoservidor, Tbdocumentooficio, Tbdocumentovr, Tbdocumentorme
+    Tbdocumentoservidor, Tbdocumentooficio, Tbdocumentovr, Tbdocumentorme,\
+    Tbdocumentomaterialrme
 from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
 from sicop.restrito import processo_rural
@@ -65,7 +66,7 @@ def edicao(request, id):
     base = get_object_or_404(Tbdocumentobase, id=id)
     servidor = Tbservidor.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     tipo = base.tbtipodocumento.tabela
-        
+                  
     # se processobase pertencer a mesma divisao do usuario logado
     if base.auth_user.tbdivisao.id == AuthUser.objects.get( pk = request.user.id ).tbdivisao.id:
         servidor = Tbservidor.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
@@ -114,10 +115,12 @@ def edicao(request, id):
         if tipo == "tbdocumentorme":
                      
             rme = Tbdocumentorme.objects.get( tbdocumentobase = id )
+            dtperiodo = formatDataToText(rme.dtperiodo)
+            material = Tbdocumentomaterialrme.objects.filter( tbdocumentorme = rme.id ).order_by('especificacao')
             
             return render_to_response('sicop/restrito/documento/rme/edicao.html',
-                                      {'result':result,'servidor':servidor,'docservidor':docservidor,
-                                       'base':base,'data_documento':data_documento,'rme':rme,'servidor':servidor}, context_instance = RequestContext(request))
+                                      {'result':result,'servidor':servidor,'docservidor':docservidor,'dtperiodo':dtperiodo,
+                                       'base':base,'material':material,'data_documento':data_documento,'rme':rme,'servidor':servidor}, context_instance = RequestContext(request))
 
         
     return HttpResponseRedirect("/sicop/restrito/documento/consulta/")

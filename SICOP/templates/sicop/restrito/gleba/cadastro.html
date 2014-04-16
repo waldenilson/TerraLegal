@@ -20,7 +20,8 @@
 				   <tr> <td class="colunaTabela"> <label>Sub Area:</label> </td>
 				   		<td>
 				   			<select name="tbsubarea">
-								{% for obj in subarea %}
+							<option value="">-- Selecione uma Sub Area --</option>
+							{% for obj in subarea %}
 									<option value="{{ obj.id }}">{{ obj.nmsubarea }}</option>
 								{% endfor %}
 							</select>

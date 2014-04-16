@@ -193,10 +193,12 @@ def relatorio_csv(request):
         return HttpResponseRedirect( response_consulta )
 
 
-
 def validacao(request_form):
     warning = True
     if request_form.POST['nmlocalarquivo'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe um nome para a caixa')
+        warning = False
+    if request_form.POST['tbtipocaixa'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe o tipo da caixa')
         warning = False
     return warning

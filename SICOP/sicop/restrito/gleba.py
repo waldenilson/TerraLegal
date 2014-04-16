@@ -144,4 +144,7 @@ def validacao(request_form):
     if request_form.POST['nmgleba'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe o nome da gleba')
         warning = False
+    if request_form.POST['tbsubarea'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe uma subarea')
+        warning = False
     return warning

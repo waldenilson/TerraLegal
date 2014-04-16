@@ -7,7 +7,8 @@ from django.template.context import RequestContext, Context
 from sicop.models import Tbtipoprocesso, Tbcaixa, Tbgleba, Tbmunicipio, AuthUser,\
     AuthGroup, Tbprocessobase, Tbprocessorural, Tbclassificacaoprocesso, Tbsituacaoprocesso,\
     Tbpecastecnicas, Tbmovimentacao, Tbtipodocumento, Tbdocumentobase,\
-    Tbdocumentomemorando, Tbservidor, Tbdocumentoservidor, Tbdocumentorme
+    Tbdocumentomemorando, Tbservidor, Tbdocumentoservidor, Tbdocumentorme,\
+    Tbdocumentomaterialrme
 from sicop.forms import FormProcessoRural, FormProcessoBase
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect, HttpResponse
@@ -90,7 +91,7 @@ def edicao(request, id):
     rme = get_object_or_404(Tbdocumentorme, id=id)
     base  = get_object_or_404(Tbdocumentobase, id=rme.tbdocumentobase.id)
     dtperiodo = formatDataToText(rme.dtperiodo)
-    
+    material = Tbdocumentomaterialrme.objects.filter( tbdocumentorme = rme.id ).order_by('especificacao')
      
     if validacao(request, "edicao"):
             
@@ -142,8 +143,44 @@ def edicao(request, id):
         return HttpResponseRedirect("/sicop/restrito/documento/edicao/"+str(base.id)+"/")
     
     return render_to_response('sicop/restrito/documento/rme/edicao.html',
-                              {'base':base,'rme':rme, 'dtperiodo':dtperiodo},
+                              {'base':base,'rme':rme,'material':material,'dtperiodo':dtperiodo},
                                context_instance = RequestContext(request))   
+
+
+@permission_required('servidor.documento_rme_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def criar_material(request, doc):
+    rme = get_object_or_404(Tbdocumentorme, id=doc )
+    if request.method == "POST":
+        if validacaoMaterial(request):
+            
+            f_material = Tbdocumentomaterialrme(
+                                       tbdocumentorme = rme,
+                                       especificacao = request.POST['especificacao'],
+                                       unidade = request.POST['unidade'],
+                                       qtdsolicitada = request.POST['qtdsolicitada']
+                                    )
+            f_material.save()
+                    
+            return HttpResponseRedirect("/sicop/restrito/documento/rme/edicao/"+str(rme.id)+"/")
+        
+    dtperiodo = formatDataToText(rme.dtperiodo)
+    return render_to_response('sicop/restrito/documento/rme/edicao.html',
+                              {'base':rme.tbdocumentobase,'rme':rme, 'dtperiodo':dtperiodo},
+                               context_instance = RequestContext(request))   
+
+
+def validacaoMaterial(request_form):
+    warning = True
+    if request_form.POST['especificacao'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe a especificacao.')
+        warning = False
+    if request_form.POST['unidade'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe a unidade.')
+        warning = False
+    if request_form.POST['qtdsolicitada'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe a quantidade solicitada.')
+        warning = False
+    return warning
 
 def validacao(request_form, metodo):
     
