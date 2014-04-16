@@ -171,12 +171,14 @@
 		<tr> 
 		   	<td class="colunaTabelaConsulta">
 		   		<select name="tbtipopendencia" style="width: 200px">
+		   			<option value="">-- Selecione --</option>
 		   			{% for obj in tipopendencia %}
 						<option value="{{ obj.id }}">{{ obj.dspendencia }}</option>
 					{% endfor %}
 				</select>
 				<input name="dspendencia" />
 		   		<select name="tbstatuspendencia" style="width: 200px">
+		   		<option value="">-- Selecione --</option>
 		   			{% for obj in statuspendencia %}
 						<option value="{{ obj.id }}">{{ obj.dspendencia }}</option>
 					{% endfor %}
@@ -235,20 +237,25 @@
 		</tr>
 	</table>
 </form>
-		<table style="width: 100%; text-align: center">
-			<thead style="background: #e5e5e5; color: black">
-				<tr>
-					<th class="colunaTabelaConsulta" style="width: 15%">Data do	anexo</th>
-					<th class="colunaTabelaConsulta" style="width: 30%">Processo anexado</th>
-					<th class="colunaTabelaConsulta" style="width: 25%">Usuario</th>
-				</tr>
-			</thead>
+	<div style="overflow:auto;height:500px">
+		<table class="csstable">
 			<tbody>
+				<tr>
+					<td class="colunaTabelaConsulta" style="width: 5%">Desanexar</th>
+					<td class="colunaTabelaConsulta" style="width: 15%">Data do	anexo</th>
+					<td class="colunaTabelaConsulta" style="width: 30%">Processo anexado</th>
+					<td class="colunaTabelaConsulta" style="width: 25%">Usuario</th>
+				</tr>
 				{% if anexado %} 
 				{% for anexo in anexado %}
-				<tr>
+					<tr>
+					<td class="colunaTabelaConsulta">
+						<a	href="/sicop/restrito/processo/desanexar/{{ anexo.tbprocessobase_id_anexo.id}}"	onclick="return confirm('Deseja mesmo desanexar os processos ?');" > 
+							<img width="22" src="{% static "img/desanexar.jpg" %}" />
+						</a>
+					</td>
 					<td class="colunaTabelaConsulta">{{ anexo.dtanexado.day }}/{{ anexo.dtanexado.month }}/{{ anexo.dtanexado.year }}</td>
-					<td class="colunaTabelaConsulta">{{ anexo.tbprocessobase_id_anexo.nrprocesso }}</td>
+					<td class="colunaTabelaConsulta" onclick="editarID('/sicop/restrito/processo/edicao/{{ anexo.tbprocessobase_id_anexo.id}}');" >{{ anexo.tbprocessobase_id_anexo.nrprocesso }}</td>
 					<td class="colunaTabelaConsulta">{{	anexo.tbprocessobase_id_anexo.auth_user.first_name }}</td>
 				</tr>
 				{% endfor %} 
@@ -259,6 +266,7 @@
 				{% endif %}
 			</tbody>
 		</table>
+	</div>
 	</div>
 {% endif %}
 

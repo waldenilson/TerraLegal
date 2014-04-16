@@ -265,7 +265,10 @@ def criar_pendencia(request, base):
         
         base = get_object_or_404(Tbprocessobase, id=base )
         descricao = request.POST['dspendencia']
-        if validarPendencia(request, base, descricao):
+        status_pendencia = request.POST['tbstatuspendencia']     
+        tipo_pendencia = request.POST['tbtipopendencia']
+           
+        if validarPendencia(request, base, descricao,status_pendencia,tipo_pendencia):
             
             f_pendencia = Tbpendencia(
                                       tbprocessobase = base,
@@ -325,8 +328,6 @@ def criar_pendencia(request, base):
 
 @permission_required('sicop.processo_anexar', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def anexar(request, base):
-    if request.method == "POST":
-        
         base = get_object_or_404(Tbprocessobase, id=base )
         processoanexo = request.POST['processoanexo'].replace('.','').replace('/','').replace('-','')
         if validarAnexo(request, base, processoanexo):
@@ -402,6 +403,80 @@ def anexar(request, base):
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
                                        'movimentacao':movimentacao,'caixadestino':caixadestino,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))      
+
+
+@permission_required('sicop.processo_anexar', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def desanexar(request,id_anexo):
+    id_processo_anexo =  get_object_or_404(Tbprocessosanexos, tbprocessobase_id_anexo=id_anexo)
+    base =          get_object_or_404(Tbprocessobase, id = id_processo_anexo.tbprocessobase.id)
+    proc_anexo =    get_object_or_404(Tbprocessobase, id = id_processo_anexo.tbprocessobase_id_anexo.id)
+    if validarDesAnexo(request, base, proc_anexo):
+        #remover o registro que anexa os processos entre si
+        id_processo_anexo.delete()
+        #atualizar a classificacao do processo_anexo para pai (desanexar)
+        f_anexo = Tbprocessobase (
+                                id = proc_anexo.id,
+                                nrprocesso = proc_anexo.nrprocesso,
+                                tbgleba = proc_anexo.tbgleba,
+                                tbmunicipio = proc_anexo.tbmunicipio,
+                                tbcaixa = base.tbcaixa,
+                                tbtipoprocesso = proc_anexo.tbtipoprocesso,
+                                tbsituacaoprocesso = proc_anexo.tbsituacaoprocesso,
+                                dtcadastrosistema = proc_anexo.dtcadastrosistema,
+                                auth_user = AuthUser.objects.get( pk = request.user.id ),
+                                tbdivisao = base.tbdivisao,
+                                tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 )
+                                )
+        f_anexo.save()
+        messages.add_message(request, messages.WARNING, 'Processo desanexado')
+        return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(base.id)+"/")
+  
+        #se nao passar na validacao
+        
+    carregarTbAuxProcesso(request, base.tbcaixa.tbtipocaixa.nmtipocaixa)
+    carregarTbAuxFuncoesProcesso(request, base)
+
+    tipo = base.tbtipoprocesso.tabela
+    municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
+    # movimentacoes deste processo
+    movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase = base.id ).order_by( "-dtmovimentacao" ) 
+    # caixa destino
+    caixadestino = Tbcaixa.objects.all()
+    # anexos deste processo
+    anexado = Tbprocessosanexos.objects.all().filter( tbprocessobase = base.id )
+
+
+    if tipo == "tbprocessorural":
+        rural = Tbprocessorural.objects.get( tbprocessobase = base.id )
+        peca = Tbpecastecnicas.objects.all().filter( nrcpfrequerente = rural.nrcpfrequerente.replace('.','').replace('-','') )
+        return render_to_response('sicop/restrito/processo/rural/edicao.html',
+                                  {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
+                                   'movimentacao':movimentacao,'caixadestino':caixadestino,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
+                                   'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
+                                   'base':base,'rural':rural,'peca':peca}, context_instance = RequestContext(request))
+    else:
+        if tipo == "tbprocessourbano":
+            urbano = Tbprocessourbano.objects.get( tbprocessobase = base.id )
+     
+            dtaberturaprocesso = formatDataToText( urbano.dtaberturaprocesso )
+            dttitulacao = formatDataToText( urbano.dttitulacao )
+            
+            return render_to_response('sicop/restrito/processo/urbano/edicao.html',
+                                      {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'situacaogeo':situacaogeo,
+                                   'caixa':caixa,'municipio':municipio,'contrato':contrato,
+                                   'base':base,'urbano':urbano,'anexado':anexado,'pendencia':pendencia,
+                                   'movimentacao':movimentacao,'caixadestino':caixadestino,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
+                                   'dtaberturaprocesso':dtaberturaprocesso,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
+        else:
+            if tipo == "tbprocessoclausula":
+                clausula = Tbprocessoclausula.objects.get( tbprocessobase = base.id )
+                dttitulacao = formatDataToText( clausula.dttitulacao )
+                return render_to_response('sicop/restrito/processo/clausula/edicao.html',
+                                          {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
+                                   'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
+                                   'movimentacao':movimentacao,'caixadestino':caixadestino,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
+                                   'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))      
+
 
 @permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
@@ -626,7 +701,7 @@ def validarTramitacao(request_form, base, origem, destino):
     return warning
     
 
-def validarPendencia(request_form, base, descricao):
+def validarPendencia(request_form, base, descricao,status_pendencia,tipo_pendencia):
     warning = True
     if descricao == '':
         messages.add_message(request_form, messages.WARNING, 'Informe a descricao da pendencia.')
@@ -634,8 +709,19 @@ def validarPendencia(request_form, base, descricao):
     #verificar se o processo esta no dominio de outra divisao. Caso positivo, nao pode alterar/inserir pendencia
     if base.tbdivisao != Tbdivisao.objects.get(pk=AuthUser.objects.get( pk=request_form.user.id  ).tbdivisao.id ):
         messages.add_message(request_form, messages.WARNING, 'O processo esta tramitado para outra divisao/sede. Nao pode ser editado')
-        warning = False        
+        warning = False   
+        
+    if status_pendencia == '':
+        messages.add_message(request_form, messages.WARNING, 'Informe o status da pendencia.')
+        warning = False
+        
+    if tipo_pendencia == '':
+        messages.add_message(request_form, messages.WARNING, 'Informe o tipo da pendencia.')
+        warning = False
+        
     return warning
+
+
 
 def validarAnexo(request_form, base, processoanexo):
     global fgexiste 
@@ -715,4 +801,30 @@ def carregarTbAuxFuncoesProcesso(request, base):
     tipopendencia = Tbtipopendencia.objects.all().order_by('dspendencia')#filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('dspendencia')
     statuspendencia = Tbstatuspendencia.objects.all().order_by("dspendencia")#filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by("dspendencia")
 
+
+
+def validarDesAnexo(request_form, base, processoanexo):
+    global fgexiste 
+    warning = True
+    #verificar se campo processo a anexar esta em branco
+    if processoanexo == '':
+        messages.add_message(request_form, messages.WARNING, 'Numero do processo a ser desanexado nao informado')
+        warning = False
+    #verificar se processo a anexar eh o mesmo processo base
+    if processoanexo == base.nrprocesso:
+        messages.add_message(request_form, messages.WARNING, 'Processos iguais')
+        warning = False
+   
+    #verificar se processo a anexar existe e pertence a divisao do usuario
+    #proc_anexo = Tbprocessobase.objects.all().filter( nrprocesso = processoanexo)#, auth_user__tbdivisao = AuthUser.objects.get( pk = request_form.user.id ).tbdivisao )
+    if not processoanexo:
+        messages.add_message(request_form, messages.WARNING, 'O processo a desanexar nao existe.')
+        warning = False
+    
+    #verificar se o proceso a ser anexado pertence a outra divisao
+    if processoanexo:
+        divisao = Tbdivisao.objects.get(pk = Tbprocessobase.objects.get(nrprocesso = processoanexo.nrprocesso).tbdivisao.id)
+        if base.tbdivisao != divisao:
+            messages.add_message(request_form, messages.WARNING, 'O processo a desanexar existe,mas pertence a outra divisao.')
+    return warning
 

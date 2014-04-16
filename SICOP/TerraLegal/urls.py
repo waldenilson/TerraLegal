@@ -74,6 +74,8 @@ urlpatterns = patterns('',
     url(r'^sicop/restrito/processo/relatorio/pdf/', 'sicop.restrito.processo.relatorio_pdf'),   
     url(r'^sicop/restrito/processo/relatorio/ods/', 'sicop.restrito.processo.relatorio_ods'),
     url(r'^sicop/restrito/processo/relatorio/csv/', 'sicop.restrito.processo.relatorio_csv'),
+    url(r'^sicop/restrito/processo/desanexar/(?P<id_anexo>\d+)/', 'sicop.restrito.processo.desanexar'),
+    
 
     # ACESSO RESTRITO SICOP PENDENCIA
     url(r'^sicop/restrito/pendencia/edicao/(?P<pendencia>\d+)/', 'sicop.restrito.pendencia.edicao'),
