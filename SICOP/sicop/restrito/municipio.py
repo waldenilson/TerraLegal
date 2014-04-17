@@ -39,7 +39,7 @@ def consulta(request):
     return render_to_response('sicop/restrito/municipio/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 
-@permission_required('sicop.gleba_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.municipio_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     instance = get_object_or_404(Tbmunicipio, id=id)
     uf = Tbuf.objects.all()

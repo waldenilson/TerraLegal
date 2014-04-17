@@ -405,7 +405,7 @@ def anexar(request, base):
                                        'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))      
 
 
-@permission_required('sicop.processo_anexar', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.processo_desanexar', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def desanexar(request,id_anexo):
     id_processo_anexo =  get_object_or_404(Tbprocessosanexos, tbprocessobase_id_anexo=id_anexo)
     base =          get_object_or_404(Tbprocessobase, id = id_processo_anexo.tbprocessobase.id)

@@ -494,7 +494,7 @@ class Tbdocumentomaterialrme(models.Model):
         db_table = 'tbdocumentomaterialrme'
         
 class Tbdocumentotru(models.Model):
-    id = models.AutoField()
+    id = models.AutoField(primary_key=True)
     tbdocumentobase_id = models.IntegerField(null=True, blank=True)
     nmlocalidade = models.CharField(max_length=80, blank=True)
     nome = models.CharField(max_length=80, blank=True)
@@ -509,7 +509,7 @@ class Tbdocumentotru(models.Model):
         db_table = 'tbdocumentotru'
 
 class Tbdocumentobmp(models.Model):
-    id = models.AutoField()
+    id = models.AutoField(primary_key=True)
     tbdocumentobase_id = models.IntegerField(null=True, blank=True)
     coddestino = models.CharField(max_length=20, blank=True)
     localdestino = models.CharField(max_length=120, blank=True)
