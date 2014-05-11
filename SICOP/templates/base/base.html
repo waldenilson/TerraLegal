@@ -451,6 +451,9 @@ Divisão: {{ request.session.divisao }} | <a href="/logout/">Sair do Sistema</a>
 {% if perms.sicop.situacao_processo_consulta %}
 <li><a href="/sicop/restrito/situacao_processo/consulta/">Situação Processo</a></li>
 {% endif %}
+{% if perms.sicop.situacao_processo_consulta %}
+<li><a href="/sicop/restrito/fase/consulta/">Fases do Processo</a></li>
+{% endif %}
 {% if perms.sicop.situacao_geo_consulta %}
 <li><a href="/sicop/restrito/situacao_geo/consulta/">Situação Geo</a></li>
 {% endif %}

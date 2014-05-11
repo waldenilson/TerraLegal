@@ -542,3 +542,36 @@ class Tbdocumentobmp(models.Model):
     class Meta:
         db_table = 'tbdocumentobmp'
 
+class Tbfase(models.Model):
+    nmfase = models.CharField(max_length=80, blank=True)
+    tbtipoprocesso = models.ForeignKey(Tbtipoprocesso, null=True, blank=True)
+    ordem = models.IntegerField(null=False)
+    dsfase = models.TextField(blank=True)
+    id = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = 'tbfase'
+
+class Tbchecklist(models.Model):
+    nmchecklist = models.CharField(max_length=80, blank=True)
+    tbfase = models.ForeignKey(Tbfase, null=True, blank=True)
+    dschecklist = models.TextField(blank=True)
+    id = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = 'tbchecklist'
+
+class Tbchecklistprocessobase(models.Model):
+    tbchecklist = models.ForeignKey(Tbchecklist, null=True, blank=True)
+    tbprocessobase = models.ForeignKey(Tbprocessobase, null=True, blank=True)
+    concluido = models.BooleanField(null=False)
+    id = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = 'tbchecklistprocessobase'
+
+class Tbtransicao(models.Model):
+    tbprocessobase = models.ForeignKey(Tbprocessobase, null=True, blank=True)
+    tbfase = models.ForeignKey(Tbfase, null=True, blank=True)
+    dttransicao = models.DateTimeField( null=False )
+    id = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = 'tbtransicao'
+
