@@ -270,24 +270,32 @@
 {% endif %}
 
 <div id="tabs-5">
-{% if peca %}
-	<table style="width:100%">
-		<tr> <td class="colunaTabela"> <label>Contrato:</label> </td><td> {{ peca.tbcontrato.nrcontrato }} </td> </tr>
-		<tr> <td class="colunaTabela"> <label>Entrega:</label> </td><td> {{ peca.nrentrega }} </td> </tr>
-		<tr> <td class="colunaTabela"> <label>CPF Requerente:</label> </td><td> {{ peca.nrcpfrequerente }} </td> </tr>
-		<tr> <td class="colunaTabela"> <label>Nome Requerente:</label> </td><td> {{ peca.nmrequerente }} </td> </tr>
-		<tr> <td class="colunaTabela"> <label>Pasta:</label> </td><td> {{ peca.tbcaixa.nmlocalarquivo }} </td> </tr>
-		<tr> <td class="colunaTabela"> <label>Area:</label> </td><td> {{ peca.nrarea }} </td> </tr>
-		<tr> <td class="colunaTabela"> <label>Perimetro:</label> </td><td> {{ peca.nrperimetro }} </td> </tr>
-		<tr> <td class="colunaTabela"> <label>Gleba:</label> </td><td> {{ peca.tbgleba.nmgleba }} </td> </tr>
-		<tr> <td class="colunaTabela"> <label>Anexado ao Processo:</label> </td><td> {{ peca.stanexadoprocesso }} </td> </tr>
-		<tr> <td class="colunaTabela"> <label>Enviado Brasilia:</label> </td><td> {{ peca.stenviadobrasilia }} </td> </tr>
-		<tr> <td class="colunaTabela"> <label>Aprovada:</label> </td><td> {{ peca.stpecatecnica }} </td> </tr>
-		<tr> <td class="colunaTabela"> <label>Observacao:</label> </td><td> {{ peca.dsobservacao }} </td> </tr>
+{% if peca%}
+<table class="csstable">
+		<tbody>
+			<tr>
+				<td class="colunaTabelaConsulta" >Gleba</td>
+				<td class="colunaTabelaConsulta" >Area</td>
+				<td class="colunaTabelaConsulta" >Municipio</td>
+				<td class="colunaTabelaConsulta" >Contrato</td>
+			</tr>					    
+				{% for obj in peca %}
+					<tr onclick="editarID('/sicop/restrito/peca_tecnica/edicao/{{ obj.id }}');">
+						<td class="colunaTabelaConsulta" align="left" >{{ obj.tbgleba.nmgleba }}</td>
+						<td class="colunaTabelaConsulta" align="left" >{{ obj.nrarea }}</td>
+						<td class="colunaTabelaConsulta" align="left" >{{ obj.tbmunicipio.nome_mun_maiusculo }}</td>
+						<td class="colunaTabelaConsulta" align="left" >{{ obj.tbcontrato.nrcontrato }}</td>
+						
+					</tr>
+				{% endfor %}
+		</body>
 	</table>
-{% else %}
-	Nenhuma Peca Tecnica ligada a este processo
-{% endif %}
+	{% else %}
+		<a  style="padding-top: 20px" colspan="6">	Nenhuma Peca Tecnica ligada a este processo</a>
+	{% endif %}</br></br>
+
+
+
 </div>
 
 </div>

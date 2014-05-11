@@ -526,8 +526,8 @@ def edicao(request, id):
         if tipo == "tbprocessorural":
             rural = Tbprocessorural.objects.get( tbprocessobase = id )
             peca = Tbpecastecnicas.objects.all().filter( nrcpfrequerente = rural.nrcpfrequerente.replace('.','').replace('-','') )
-            if peca:
-                peca = peca[0] 
+            #if peca:
+            #    peca = peca[0] 
             # caixas que podem ser tramitadas
             tram = []
             for obj in caixasdestino:
