@@ -20,6 +20,7 @@ DATABASES = {
         },
         }
 
+#usuario e senha estava admin e 123456
 
 # Absolute paths for where the project and templates are stored.
 #ABSOLUTE_PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))

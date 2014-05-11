@@ -6,7 +6,7 @@ from sicop.models import Tbpecastecnicas, Tbprocessobase, Tbtipopendencia,\
     Tbclassificacaoprocesso,\
     Tbtipoprocesso, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano,\
     Tbsituacaoprocesso, Tbsituacaogeo , Tbservidor, AuthGroup, Tbdivisao,\
-    Tbpendencia, Tbferias, Tbmunicipio
+    Tbpendencia, Tbferias, Tbmunicipio, Tbstatustitulo, Tbtitulo
 
 
 class FormPecasTecnicas(forms.ModelForm):
@@ -81,10 +81,18 @@ class FormStatusPendencia(models.ModelForm):
     class Meta:
         model = Tbstatuspendencia
         
+class FormStatusTitulo(models.ModelForm):
+    class Meta:
+        model = Tbstatustitulo
+        
 class FormTipoPendencia(models.ModelForm):        
     class Meta:
         model = Tbtipopendencia
-
+        
+class FormTitulo(models.ModelForm):        
+    class Meta:
+        model = Tbtitulo
+        
 class FormTipoProcesso(models.ModelForm):
     class Meta:
         model = Tbtipoprocesso

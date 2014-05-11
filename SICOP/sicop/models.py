@@ -239,6 +239,8 @@ class Tbprocessobase(models.Model):
     dtcadastrosistema = models.DateTimeField(null=True, blank=True)
     tbclassificacaoprocesso = models.ForeignKey(Tbclassificacaoprocesso, null=True, blank=True)
     tbdivisao = models.ForeignKey('Tbdivisao')
+    nmendereco = models.TextField(blank=True)
+    nmcontato = models.TextField(blank=True)
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbprocessobase'
@@ -351,6 +353,12 @@ class Tbstatuspendencia(models.Model):
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbstatuspendencia'
+        
+class Tbstatustitulo(models.Model):
+    id = models.AutoField(primary_key=True)
+    sttitulo = models.CharField(max_length=30)
+    class Meta:
+        db_table = 'tbstatustitulo'
 
 class Tbsubarea(models.Model):
     cdsubarea = models.CharField(max_length=10, blank=True)
@@ -396,6 +404,22 @@ class Tbtipodocumento(models.Model):
     class Meta:
         db_table = 'tbtipodocumento'
         
+class Tbtipotitulo(models.Model):
+    cdtipo = models.CharField(max_length=10, blank=True)
+    dstipo = models.CharField(max_length=50, blank=True)
+    id = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = 'tbtipotitulo'
+        
+class Tbtitulo(models.Model):
+    cdtitulo = models.CharField(max_length=8)
+    tbprocessobase = models.ForeignKey(Tbprocessobase,blank=True)
+    tbstatustitulo = models.ForeignKey(Tbstatustitulo,blank=True)
+    tbtipotitulo = models.ForeignKey(Tbtipotitulo,blank=True)
+    id = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = 'tbtitulo'
+    
 class Tbuf(models.Model):
     sigla = models.CharField(max_length=2, blank=True)
     nmuf = models.CharField(max_length=50, blank=True)

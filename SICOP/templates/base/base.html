@@ -348,8 +348,26 @@ Divisão: {{ request.session.divisao }} | <a href="/logout/">Sair do Sistema</a>
 <li> <a href="/sicop/restrito/peca_tecnica/consulta/">Peça Técnica</a> </li>
 {% endif %}
 
+
+{% if perms.sicop.livro_consulta %}
+
+<li><a href="/sicop/restrito/livro/consulta/">Livro fundiário</a>
+<ul>
+	{% if perms.sicop.livro_consulta %}
+	<li><a href="/sicop/restrito/livro/consulta/">Consulta</a></li>
+	{% endif %}
+	{% if perms.sicop.livro_consulta %}
+	<li><a href="/sicop/restrito/livro/titulados_entregues/">Titulados entregues</a></li>
+	{% endif %}
+	{% if perms.sicop.livro_consulta %}
+	<li><a href="/sicop/restrito/livro/consulta/">Titulados não entregues</a></li>
+	{% endif %}
+</ul>
+</li>
+{% endif %}
+
 {% if perms.sicop.caixa_consulta or perms.sicop.tipo_caixa_consulta %}
-<li><a href="#">Caixa</a>
+<li><hr/> <a href="#">Caixa</a>
 <ul>
 {% if perms.sicop.caixa_consulta %}
 <li><a href="/sicop/restrito/caixa/consulta/">Controle</a></li>
@@ -357,7 +375,7 @@ Divisão: {{ request.session.divisao }} | <a href="/logout/">Sair do Sistema</a>
 {% if perms.sicop.tipo_caixa_consulta %}
 <li><a href="/sicop/restrito/tipo_caixa/consulta/">Tipo Caixa</a></li>
 {% endif %}
-</ul><hr/>
+</ul>
 </li>
 {% endif %}
 
@@ -421,7 +439,7 @@ Divisão: {{ request.session.divisao }} | <a href="/logout/">Sair do Sistema</a>
 </li>
 {% endif %}
 
-{% if perms.sicop.tipo_processo_consulta or perms.sicop.classificacao_processo_consulta or perms.sicop.situacao_processo_consulta or perms.sicop.situacao_geo_consulta or perms.sicop.tipo_pendencia_consulta or perms.sicop.status_pendencia_consulta %}
+{% if perms.sicop.tipo_processo_consulta or perms.sicop.classificacao_processo_consulta or perms.sicop.situacao_processo_consulta or perms.sicop.situacao_geo_consulta or perms.sicop.tipo_pendencia_consulta or perms.sicop.status_pendencia_consulta or perms.sicop.status_titulo_consulta%}
 <li><a href="#">Configuração</a>
 <ul>
 {% if perms.sicop.tipo_processo_consulta %}
@@ -445,6 +463,10 @@ Divisão: {{ request.session.divisao }} | <a href="/logout/">Sair do Sistema</a>
 {% if perms.sicop.situacao_consulta %}
 <li><a href="/sicop/restrito/situacao/consulta/">Tipo Situacao</a></li>
 {% endif %}
+{% if perms.sicop.status_titulo_consulta %}
+<li><a href="/sicop/restrito/status_titulo/consulta/">Status titulo</a></li>
+{% endif %}
+
 
 
 </ul>
