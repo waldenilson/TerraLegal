@@ -146,12 +146,12 @@ urlpatterns = patterns('',
     url(r'^sicop/restrito/fase/relatorio/csv/', 'sicop.restrito.fase.relatorio_csv'),
 
     # ACESSO RESTRITO SICOP CHECKLIST
-#    url(r'^sicop/restrito/checklist/consulta/', 'sicop.restrito.checklist.consulta'),
-#    url(r'^sicop/restrito/checklist/cadastro/', 'sicop.restrito.checklist.cadastro'),
-#    url(r'^sicop/restrito/checklist/edicao/(?P<id>\d+)/', 'sicop.restrito.checklist.edicao'),
-#    url(r'^sicop/restrito/checklist/relatorio/pdf/', 'sicop.restrito.checklist.relatorio_pdf'),
-#    url(r'^sicop/restrito/checklist/relatorio/ods/', 'sicop.restrito.checklist.relatorio_ods'),
-#    url(r'^sicop/restrito/checklist/relatorio/csv/', 'sicop.restrito.checklist.relatorio_csv'),
+    url(r'^sicop/restrito/checklist/consulta/', 'sicop.restrito.checklist.consulta'),
+    url(r'^sicop/restrito/checklist/cadastro/', 'sicop.restrito.checklist.cadastro'),
+    url(r'^sicop/restrito/checklist/edicao/(?P<id>\d+)/', 'sicop.restrito.checklist.edicao'),
+    url(r'^sicop/restrito/checklist/relatorio/pdf/', 'sicop.restrito.checklist.relatorio_pdf'),
+    url(r'^sicop/restrito/checklist/relatorio/ods/', 'sicop.restrito.checklist.relatorio_ods'),
+    url(r'^sicop/restrito/checklist/relatorio/csv/', 'sicop.restrito.checklist.relatorio_csv'),
 
     # ACESSO RESTRITO SICOP SUBAREA
     url(r'^sicop/restrito/sub_area/consulta/', 'sicop.restrito.sub_area.consulta'),

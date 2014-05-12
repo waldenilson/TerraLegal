@@ -1,0 +1,53 @@
+{% extends "base/cadastro_base.html" %} 
+{% load staticfiles %} 
+{% block breadcumbs %}
+	Acesso Restrito | CheckList | Edicao
+{% endblock %}
+
+{% block formulario %}
+<div id="tabs" style="color:black;width:100%;font-size:11px">
+<ul>
+	<li><a href="#tabs-1">EDITAR CHECKLIST</a></li>
+</ul>
+<div id="tabs-1">		
+	<form method="post" action=".">
+		{% csrf_token %}
+		<div style="width:100%;font-size:12px;text-align:left">
+				<table>
+				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td><input required="required" name="nmchecklist" value="{{checklist.nmchecklist}}" /></td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Fase do Processo:</label> </td>
+				   	<td>
+				   		<select name="tbfase" style="width:200px">
+							{% for obj in fase %}
+								{% if obj.id == checklist.tbfase.id %}
+									<option selected="selected" value="{{ obj.id }}">{{obj.nmfase}} - {{obj.tbtipoprocesso.nome}}</option>
+								{% else %}
+									<option value="{{ obj.id }}">{{obj.nmfase}}</option>
+								{% endif %}
+							{% endfor %}f
+						</select>		
+				   	</td>
+				   	<td>
+						<a href="/sicop/restrito/fase/cadastro/?next=/sicop/restrito/checklist/cadastro/" title="Nova Fase"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+					</td>						
+				   </tr>
+				   <tr> <td class="colunaTabela"> <label>Descricao:</label> </td><td> <textarea rows="4" cols="40" name="dschecklist">{{checklist.dschecklist}}</textarea></td> </tr>				   
+				</table>
+		</div>
+		<br />
+		
+		<table style="width:100%">
+			<tr>
+				<td class="colunaTabela" style="text-align:left"> 
+					<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
+					<input type="submit" class="button_green" value="SALVAR" />
+				</td>
+			</tr>
+		</table>
+
+		<br/>
+		
+	</form>
+</div>
+</div>
+{% endblock %}
