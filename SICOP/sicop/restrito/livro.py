@@ -94,7 +94,7 @@ def edicao(request, id):
         if divisao <> AuthUser.objects.get(pk = request.user.id).tbdivisao.id:
             return HttpResponseRedirect('/excecoes/permissao_negada/')
     
-    return render_to_response('sicop/restrito/livro/edicao.html', {"titulo":titulo,"statustitulo":statustitulo,"tipotitulo":tipotitulo,"processobase":processobase,"peca":peca,"rural":rural}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/livro/edicao.html', {"titulo":titulo,"statustitulo":statustitulo,"tipotitulo":tipotitulo,"processo":processobase,"peca":peca,"rural":rural}, context_instance = RequestContext(request))
 
 @permission_required('sicop.caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_pdf(request):

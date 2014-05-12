@@ -30,7 +30,7 @@
 	<div style="width: 100%; font-size: 12px; text-align: left">
 		<table>
 			<tr> 
-				<td class="colunaTabela"> <label>N do Processo:</label> </td>
+				<td class="colunaTabela"> <label>Processo:</label> </td>
 				<td class="colunaTabela"> {{ base.nrprocesso }} </td> 
 			</tr>
 				<tr> 
@@ -99,6 +99,12 @@
 							<a href="/sicop/restrito/situacao_processo/cadastro/?next=/sicop/restrito/processo/rural/cadastro/" title="Nova Situacao"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 						</td>
 				</tr>
+				<tr> <td class="colunaTabela"> <label>Endereco:</label> </td>
+					<td> <textarea value="{{ base.nmendereco|default:''}}" name="nmendereco" style="width: 200px"></textarea></td> </tr>
+				<tr> <td class="colunaTabela"> <label>Contato:</label> </td>
+					<td> <input value="{{ base.nmcontato|default:''}}" name="nmcontato" style="width: 250px"/> </td> </tr>
+				
+				
 		</table>
 	</div>
 	<br />

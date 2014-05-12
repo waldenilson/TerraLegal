@@ -163,7 +163,9 @@ def tramitar(request, base):
                                     dtcadastrosistema = base.dtcadastrosistema,
                                     auth_user = base.auth_user,
                                     tbdivisao = base.tbdivisao,
-                                    tbclassificacaoprocesso = base.tbclassificacaoprocesso
+                                    tbclassificacaoprocesso = base.tbclassificacaoprocesso,
+                                    nmendereco = base.nmendereco,
+                                    nmcontato = base.nmcontato
                                     )
             f_base.save()
             # criar registro da movimentacao
@@ -191,7 +193,9 @@ def tramitar(request, base):
                                         dtcadastrosistema = proc_anexado.dtcadastrosistema,
                                         auth_user = proc_anexado.auth_user,
                                         tbdivisao = proc_anexado.tbdivisao,
-                                        tbclassificacaoprocesso = proc_anexado.tbclassificacaoprocesso
+                                        tbclassificacaoprocesso = proc_anexado.tbclassificacaoprocesso,
+                                        nmendereco = base.nmendereco,
+                                        nmcontato = base.nmcontato
                                         )
                 f_base.save()
                     
@@ -353,11 +357,11 @@ def anexar(request, base):
                                     dtcadastrosistema = proc_anexo.dtcadastrosistema,
                                     auth_user = AuthUser.objects.get( pk = request.user.id ),
                                     tbdivisao = base.tbdivisao,
-                                    tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 2 )
+                                    tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 2 ),
+                                    nmendereco = base.nmendereco,
+                                    nmcontato = base.nmcontato
                                     )
             f_anexo.save()
-  
-            
             return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(base.id)+"/")
         
         carregarTbAuxProcesso(request, base.tbcaixa.tbtipocaixa.nmtipocaixa)
@@ -425,7 +429,9 @@ def desanexar(request,id_anexo):
                                 dtcadastrosistema = proc_anexo.dtcadastrosistema,
                                 auth_user = AuthUser.objects.get( pk = request.user.id ),
                                 tbdivisao = base.tbdivisao,
-                                tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 )
+                                tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 ),
+                                nmendereco = base.nmendereco,
+                                nmcontato = base.nmcontato
                                 )
         f_anexo.save()
         messages.add_message(request, messages.WARNING, 'Processo desanexado')
