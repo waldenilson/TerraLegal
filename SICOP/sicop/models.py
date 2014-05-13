@@ -547,6 +547,7 @@ class Tbfase(models.Model):
     tbtipoprocesso = models.ForeignKey(Tbtipoprocesso, null=True, blank=True)
     ordem = models.IntegerField(null=False)
     dsfase = models.TextField(blank=True)
+    blativo = models.BooleanField()
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbfase'
@@ -562,7 +563,6 @@ class Tbchecklist(models.Model):
 class Tbchecklistprocessobase(models.Model):
     tbchecklist = models.ForeignKey(Tbchecklist, null=True, blank=True)
     tbprocessobase = models.ForeignKey(Tbprocessobase, null=True, blank=True)
-    concluido = models.BooleanField(null=False)
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbchecklistprocessobase'

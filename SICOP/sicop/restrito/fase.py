@@ -68,7 +68,8 @@ def cadastro(request):
                               nmfase = request.POST['nmfase'],
                               tbtipoprocesso = Tbtipoprocesso.objects.get(pk = request.POST['tbtipoprocesso']),
                               dsfase = request.POST['dsfase'],
-                              ordem = request.POST['ordem']
+                              ordem = request.POST['ordem'],
+                              blativo = True
                               )
             f_fase.save()
             if next == "/":
@@ -82,7 +83,11 @@ def cadastro(request):
 def edicao(request, id):
     instance = get_object_or_404(Tbfase, id=id)
     tipoprocesso = Tbtipoprocesso.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('id')
-       
+    
+    ativo = False
+    if request.POST.get('blativo',False):
+        ativo = True
+
     if request.method == "POST":
         
         if not request.user.has_perm('sicop.fase_edicao'):
@@ -95,7 +100,8 @@ def edicao(request, id):
                               nmfase = request.POST['nmfase'],
                               tbtipoprocesso = Tbtipoprocesso.objects.get(pk = request.POST['tbtipoprocesso']),
                               dsfase = request.POST['dsfase'],
-                              ordem = request.POST['ordem']
+                              ordem = request.POST['ordem'],
+                              blativo = ativo
                               )
             f_fase.save()
             if next == "/":

@@ -33,6 +33,16 @@
 				   </tr>
 				   <tr> <td class="colunaTabela"> <label>Ordem:</label> </td><td><input onkeypress="return SomenteNumeroOK(event, this);" required="required" name="ordem" value="{{fase.ordem}}" /></td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Descricao:</label> </td><td> <textarea rows="4" cols="40" name="dsfase">{{fase.dsfase}}</textarea></td> </tr>				   
+					<tr>
+						<td class="colunaTabela"> <label>Ativo:</label> </td>
+					    <td>
+						   	{% if fase.blativo == True %} 
+								<input checked="checked" type="checkbox" name="blativo" />
+							{% else %}
+								<input type="checkbox" name="blativo" />
+							{% endif %} 
+					   </td> 
+					</tr>
 				</table>
 		</div>
 		<br />
