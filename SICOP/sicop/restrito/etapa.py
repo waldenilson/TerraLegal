@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext, Context
 from sicop.models import Tbcaixa, Tbtipocaixa, AuthUser, Tbprocessobase,\
     Tbpecastecnicas, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano, Tbdivisao,\
-    Tbfase, Tbtipoprocesso
+    Tbfase, Tbtipoprocesso, Tbchecklist, Tbchecklistprocessobase
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from sicop.forms import FormCaixa
@@ -105,10 +105,34 @@ def edicao(request, id):
                               )
             f_fase.save()
             if next == "/":
-                return HttpResponseRedirect("/sicop/restrito/fase/edicao/"+str(id)+"/")
+                return HttpResponseRedirect("/sicop/restrito/etapa/edicao/"+str(id)+"/")
             else:    
                 return HttpResponseRedirect(next)
-    return render_to_response('sicop/restrito/fase/edicao.html',{"fase":instance,"tipoprocesso":tipoprocesso}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/etapa/edicao.html',{"fase":instance,"tipoprocesso":tipoprocesso}, context_instance = RequestContext(request))
+
+
+@permission_required('sicop.etapa_checklist', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def checklist(request, processo,etapa):    
+    obj_processo = Tbprocessobase.objects.get( pk = processo )
+    obj_etapa = Tbfase.objects.get( pk = etapa )
+    
+    checklist = Tbchecklist.objects.filter( tbfase__id = etapa ).order_by('nmchecklist')
+    procChecklist = Tbchecklistprocessobase.objects.filter( tbprocessobase__id = processo )
+
+    result = {}
+    for obj in checklist:
+        achou = False
+        for obj2 in procChecklist:
+            if obj.id == obj2.tbchecklist.id:
+                result.setdefault(obj.nmchecklist,True)
+                achou = True
+                break
+        if not achou:
+            result.setdefault(obj.nmchecklist, False)
+    result = sorted(result.items())
+
+    
+    return render_to_response('sicop/restrito/etapa/checklist.html',{"processo":obj_processo,"etapa":obj_etapa,'result':result}, context_instance = RequestContext(request))
 
 @permission_required('sicop.etapa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_pdf(request):

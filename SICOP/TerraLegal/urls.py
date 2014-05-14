@@ -144,6 +144,7 @@ urlpatterns = patterns('',
     url(r'^sicop/restrito/etapa/relatorio/pdf/', 'sicop.restrito.etapa.relatorio_pdf'),
     url(r'^sicop/restrito/etapa/relatorio/ods/', 'sicop.restrito.etapa.relatorio_ods'),
     url(r'^sicop/restrito/etapa/relatorio/csv/', 'sicop.restrito.etapa.relatorio_csv'),
+    url(r'^sicop/restrito/etapa/checklist/(?P<processo>\d+)/(?P<etapa>\d+)/', 'sicop.restrito.etapa.checklist'),
 
     # ACESSO RESTRITO SICOP CHECKLIST
     url(r'^sicop/restrito/checklist/consulta/', 'sicop.restrito.checklist.consulta'),
@@ -152,7 +153,7 @@ urlpatterns = patterns('',
     url(r'^sicop/restrito/checklist/relatorio/pdf/', 'sicop.restrito.checklist.relatorio_pdf'),
     url(r'^sicop/restrito/checklist/relatorio/ods/', 'sicop.restrito.checklist.relatorio_ods'),
     url(r'^sicop/restrito/checklist/relatorio/csv/', 'sicop.restrito.checklist.relatorio_csv'),
-
+    
     # ACESSO RESTRITO SICOP SUBAREA
     url(r'^sicop/restrito/sub_area/consulta/', 'sicop.restrito.sub_area.consulta'),
     url(r'^sicop/restrito/sub_area/cadastro/', 'sicop.restrito.sub_area.cadastro'),

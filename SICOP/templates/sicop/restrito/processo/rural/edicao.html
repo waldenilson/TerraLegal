@@ -127,7 +127,8 @@
 					{% if fases %}
 						<div style="width:100%;text-align:center">
 							{% for fase in fases %}
-								<input type="button" class="bt_grey" value="{{ fase.nmfase }}" title="{{ fase.dsfase }}" />
+								<input onclick="editarID('/sicop/restrito/etapa/checklist/{{ rural.tbprocessobase.id }}/{{ fase.id }}');" 
+									type="button" class="bt_grey" value="{{ fase.nmfase }}" title="{{ fase.dsfase }}" />
 								<br/><br/>
 							{% endfor %}
 						</div>
