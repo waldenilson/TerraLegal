@@ -137,13 +137,13 @@ urlpatterns = patterns('',
     url(r'^sicop/restrito/caixa/relatorio/ods/', 'sicop.restrito.caixa.relatorio_ods'),
     url(r'^sicop/restrito/caixa/relatorio/csv/', 'sicop.restrito.caixa.relatorio_csv'),
 
-    # ACESSO RESTRITO SICOP FASE
-    url(r'^sicop/restrito/fase/consulta/', 'sicop.restrito.fase.consulta'),
-    url(r'^sicop/restrito/fase/cadastro/', 'sicop.restrito.fase.cadastro'),
-    url(r'^sicop/restrito/fase/edicao/(?P<id>\d+)/', 'sicop.restrito.fase.edicao'),
-    url(r'^sicop/restrito/fase/relatorio/pdf/', 'sicop.restrito.fase.relatorio_pdf'),
-    url(r'^sicop/restrito/fase/relatorio/ods/', 'sicop.restrito.fase.relatorio_ods'),
-    url(r'^sicop/restrito/fase/relatorio/csv/', 'sicop.restrito.fase.relatorio_csv'),
+    # ACESSO RESTRITO SICOP ETAPA
+    url(r'^sicop/restrito/etapa/consulta/', 'sicop.restrito.etapa.consulta'),
+    url(r'^sicop/restrito/etapa/cadastro/', 'sicop.restrito.etapa.cadastro'),
+    url(r'^sicop/restrito/etapa/edicao/(?P<id>\d+)/', 'sicop.restrito.etapa.edicao'),
+    url(r'^sicop/restrito/etapa/relatorio/pdf/', 'sicop.restrito.etapa.relatorio_pdf'),
+    url(r'^sicop/restrito/etapa/relatorio/ods/', 'sicop.restrito.etapa.relatorio_ods'),
+    url(r'^sicop/restrito/etapa/relatorio/csv/', 'sicop.restrito.etapa.relatorio_csv'),
 
     # ACESSO RESTRITO SICOP CHECKLIST
     url(r'^sicop/restrito/checklist/consulta/', 'sicop.restrito.checklist.consulta'),

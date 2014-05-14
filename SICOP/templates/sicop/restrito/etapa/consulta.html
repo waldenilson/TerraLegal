@@ -2,12 +2,12 @@
 {% load staticfiles %} 
 
 {% block breadcumbs %}
-	Acesso Restrito | Fase
+	Acesso Restrito | Etapa
 {% endblock %}
 
 {% block subtitulo %}
 	
-	CONSULTAR FASE
+	CONSULTAR ETAPA
 	
 {% endblock %}
 
@@ -45,19 +45,28 @@
 	
 {% endblock %}
 
-
 {% block resultado %}
 		<table class="csstable">
 			<tbody>
 				<tr>
 						<td class="colunaTabelaConsulta" style="width:20%">Nome</td>
 						<td class="colunaTabelaConsulta" style="width:15%">Tipo do Processo</td>
+						<td class="colunaTabelaConsulta" style="width:10%">Ordenacao</td>
+						<td class="colunaTabelaConsulta" style="width:10%">Ativo</td>
 				</tr>
 				{% if lista %}
 					{% for obj in lista %}
 						<tr onclick="editarID('/sicop/restrito/fase/edicao/{{ obj.id }}');">
 							<td class="colunaTabelaConsulta">{{ obj.nmfase }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.tbtipoprocesso.nome }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.ordem }}</td>
+							<td class="colunaTabelaConsulta">
+								{% if obj.blativo %}
+									Sim
+								{% else %}
+									Nao
+								{% endif %}
+							</td>
 						</tr>
 					{% endfor %}
 				{% else %}

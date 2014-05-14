@@ -36,12 +36,12 @@ import django
 from django.core.files import storage
 from django.db.models import  Q
 
-nome_relatorio      = "relatorio_fase"
-response_consulta  = "/sicop/restrito/fase/consulta/"
-titulo_relatorio    = "Relatorio Fases"
-planilha_relatorio  = "Fases"
+nome_relatorio      = "relatorio_etapa"
+response_consulta  = "/sicop/restrito/etapa/consulta/"
+titulo_relatorio    = "Relatorio Etapas"
+planilha_relatorio  = "Etapas"
 
-@permission_required('sicop.fase_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.etapa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
     if request.method == "POST":
         nome = request.POST['nmfase']
@@ -55,9 +55,9 @@ def consulta(request):
     
 #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session[nome_relatorio] = lista
-    return render_to_response('sicop/restrito/fase/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/etapa/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
-@permission_required('sicop.fase_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.etapa_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
     tipoprocesso = Tbtipoprocesso.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('id')
        
@@ -79,7 +79,7 @@ def cadastro(request):
     return render_to_response('sicop/restrito/fase/cadastro.html',{"tipoprocesso":tipoprocesso}, context_instance = RequestContext(request))
 
 
-@permission_required('sicop.fase_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.etapa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     instance = get_object_or_404(Tbfase, id=id)
     tipoprocesso = Tbtipoprocesso.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('id')
@@ -90,7 +90,7 @@ def edicao(request, id):
 
     if request.method == "POST":
         
-        if not request.user.has_perm('sicop.fase_edicao'):
+        if not request.user.has_perm('sicop.etapa_edicao'):
             return HttpResponseRedirect('/excecoes/permissao_negada/') 
 
         next = request.GET.get('next', '/')
@@ -110,7 +110,7 @@ def edicao(request, id):
                 return HttpResponseRedirect(next)
     return render_to_response('sicop/restrito/fase/edicao.html',{"fase":instance,"tipoprocesso":tipoprocesso}, context_instance = RequestContext(request))
 
-@permission_required('sicop.fase_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.etapa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_pdf(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session[nome_relatorio]
@@ -127,7 +127,7 @@ def relatorio_pdf(request):
     else:
         return HttpResponseRedirect(response_consulta)
 
-@permission_required('sicop.fase_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.etapa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_ods(request):
 
     # montar objeto lista com os campos a mostrar no relatorio/pdf
@@ -162,7 +162,7 @@ def relatorio_ods(request):
     else:
         return HttpResponseRedirect( response_consulta )
 
-@permission_required('sicop.fase_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.etapa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_csv(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session[nome_relatorio]
