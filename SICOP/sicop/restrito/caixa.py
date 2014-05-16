@@ -42,7 +42,6 @@ planilha_relatorio  = "Caixas"
 
 @permission_required('sicop.caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
-        
     if request.method == "POST":
         nome = request.POST['nmlocalarquivo']
         tipo = request.POST['desctipocaixa']
@@ -152,7 +151,7 @@ def relatorio_ods(request):
     
     if lista:
         ods = ODS()
-        sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, len(lista), ods)
+        sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, ods)
         
         # subtitle
         sheet.getCell(0, 1).setAlignHorizontal('center').stringValue( 'Nome' ).setFontSize('14pt')

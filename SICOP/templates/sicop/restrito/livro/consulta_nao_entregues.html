@@ -2,12 +2,12 @@
 {% load staticfiles %} 
 
 {% block breadcumbs %}
-	Acesso Restrito | Livro Fundiario
+	Acesso Restrito | Livro Fundiario TITULOS NAO ENTREGUES
 {% endblock %}
 
 {% block subtitulo %}
 	
-	CONSULTAR TITULO
+	TITULOS NAO ENTREGUES
 	
 {% endblock %}
 
@@ -35,7 +35,7 @@
 					</tr>
 					<tr>
 						<td style="width:10%;text-align:left" class="colunaTabela"> <label>Processo:</label> </td>
-						<td style="width:35%;text-align:left" class="colunaTabela"> <input style="width:60%" name="nrprocesso"/> </td>
+						<td style="width:35%;text-align:left" class="colunaTabela"> <input style="width:60%" name="nrprocesso" /> </td>
 						<td style="width:5%;text-align:left" class="colunaTabela"> </td>
 						<td style="width:5%;text-align:left" class="colunaTabela"> </td>
 						<td style="width:10%;text-align:left" class="colunaTabela"> <label>CPF:</label> </td>
@@ -51,41 +51,34 @@
 					</td>
 					
 				<td class="colunaTabela" style="text-align:right"> 
-						<p>Total de registros: {{ request.session.relatorio_livro|length }}</p>
-					
+						<p>Total de registros: {{ request.session.relatorio_livro_nao_entregues|length }}</p>
 						<!-- >a href="/sicop/restrito/caixa/relatorio/pdf/"> <img width="36" alt="PDF" src="{% static "img/pdf.png" %}" /> </a-->
 						<a href="/sicop/restrito/livro/relatorio/ods/"> <img width="36" alt="ODS" src="{% static "img/ods.png" %}" /> </a>
 						<!-- >a href="/sicop/restrito/caixa/relatorio/csv/"> <img width="36" alt="CSV" src="{% static "img/csv.png" %}" /> </a-->
-				
 				</td>
-				
-				</tr>
-				
+				</tr>	
 			</table>
 		</form>
 	
 {% endblock %}
-
-
 {% block resultado %}
-		<table class="csstable"  style="width:100%">
+		<table class="csstable">
 			<tbody>
 				<tr>
-						<td class="colunaTabelaConsulta" style="width:5%">ID</td>
+						<td class="colunaTabelaConsulta" style="width:4%">Titulo</td>
 						<td class="colunaTabelaConsulta" style="width:15%">Processo</td>
-						<td class="colunaTabelaConsulta" style="width:10%">Titulo</td>
-						<td class="colunaTabelaConsulta" style="width:20%">Nome</td>
-						<td class="colunaTabelaConsulta" style="width:20%">CPF</td>
+						<td class="colunaTabelaConsulta" style="width:4%">CPF</td>
+						<td class="colunaTabelaConsulta" style="width:40%">Nome</td>
+						
 						
 				</tr>
 				{% if lista %}
 					{% for obj in lista %}
 						<tr onclick="editarID('/sicop/restrito/livro/edicao/{{ obj.id }}');">
-							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbtitulo.id }}</td>							
-							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.nrprocesso }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbtitulo.cdtitulo }}</td>
-							<td class="colunaTabelaConsulta">{{ obj.nmrequerente }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.nrprocesso }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.nrcpfrequerente }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.nmrequerente}}</td>
 							
 						</tr>
 					{% endfor %}

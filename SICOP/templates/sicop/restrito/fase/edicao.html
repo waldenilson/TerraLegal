@@ -1,13 +1,13 @@
 {% extends "base/cadastro_base.html" %} 
 {% load staticfiles %} 
 {% block breadcumbs %}
-	Acesso Restrito | Etapa | Edicao
+	Acesso Restrito | Fase | Edicao
 {% endblock %}
 
 {% block formulario %}
 <div id="tabs" style="color:black;width:100%;font-size:11px">
 <ul>
-	<li><a href="#tabs-1">EDITAR ETAPA</a></li>
+	<li><a href="#tabs-1">EDITAR FASE</a></li>
 </ul>
 <div id="tabs-1">		
 	<form method="post" action=".">
@@ -33,16 +33,6 @@
 				   </tr>
 				   <tr> <td class="colunaTabela"> <label>Ordem:</label> </td><td><input onkeypress="return SomenteNumeroOK(event, this);" required="required" name="ordem" value="{{fase.ordem}}" /></td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Descricao:</label> </td><td> <textarea rows="4" cols="40" name="dsfase">{{fase.dsfase}}</textarea></td> </tr>				   
-					<tr>
-						<td class="colunaTabela"> <label>Ativo:</label> </td>
-					    <td>
-						   	{% if fase.blativo == True %} 
-								<input checked="checked" type="checkbox" name="blativo" />
-							{% else %}
-								<input type="checkbox" name="blativo" />
-							{% endif %} 
-					   </td> 
-					</tr>
 				</table>
 		</div>
 		<br />
