@@ -30,7 +30,7 @@ def consulta(request):
     request.session['relatorio_status_titulo'] = lista
     return render_to_response('sicop/restrito/status_titulo/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
-@permission_required('sicop.status_titulo_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.tipo_processo_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
     if request.method == "POST":
         if validacao(request):
@@ -41,7 +41,7 @@ def cadastro(request):
             return HttpResponseRedirect("/sicop/restrito/status_titulo/consulta/") 
     return render_to_response('sicop/restrito/status_titulo/cadastro.html', context_instance = RequestContext(request))
 
-@permission_required('sicop.status_titulo_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.tipo_processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     instance = get_object_or_404(Tbstatustitulo, id=id)
     if request.method == "POST":

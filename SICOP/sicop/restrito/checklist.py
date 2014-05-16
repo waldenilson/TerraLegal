@@ -3,7 +3,8 @@ from django.contrib.auth.decorators import login_required, permission_required,\
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext, Context
 from sicop.models import Tbcaixa, Tbtipocaixa, AuthUser, Tbprocessobase,\
-    Tbpecastecnicas, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano, Tbdivisao
+    Tbpecastecnicas, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano, Tbdivisao,\
+    Tbfase, Tbtipoprocesso, Tbchecklist
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from sicop.forms import FormCaixa
@@ -35,99 +36,73 @@ import django
 from django.core.files import storage
 from django.db.models import  Q
 
-nome_relatorio      = "relatorio_caixa"
-response_consulta  = "/sicop/restrito/caixa/consulta/"
-titulo_relatorio    = "Relatorio Caixas"
-planilha_relatorio  = "Caixas"
+nome_relatorio      = "relatorio_checklist"
+response_consulta  = "/sicop/restrito/checklist/consulta/"
+titulo_relatorio    = "Relatorio Checklist"
+planilha_relatorio  = "Checklist"
 
-@permission_required('sicop.caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.checklist_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
-        
     if request.method == "POST":
-        nome = request.POST['nmlocalarquivo']
-        tipo = request.POST['desctipocaixa']
+        nome = request.POST['nmchecklist']
         #lista = Tbcaixa.objects.all().filter( nmlocalarquivo__icontains=nome, tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-        lista = Tbcaixa.objects.all().filter( nmlocalarquivo__icontains=nome, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id,tbtipocaixa__desctipocaixa__icontains=tipo )
+        lista = Tbchecklist.objects.filter( nmchecklist__icontains=nome )
     else:
         #lista = Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-        lista = Tbcaixa.objects.all().filter(
-                Q(tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id)|
-                Q(tbtipocaixa__nmtipocaixa__icontains='ENT')
-                )
-    lista = lista.order_by( 'nmlocalarquivo' )
+        lista = Tbchecklist.objects.all()
+        
+    lista = lista.order_by( 'nmchecklist' )
     
 #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session[nome_relatorio] = lista
-    return render_to_response('sicop/restrito/caixa/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/checklist/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
-@permission_required('sicop.caixa_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.checklist_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
-    tipocaixa = Tbtipocaixa.objects.all()#.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmtipocaixa')
+    fase = Tbfase.objects.all().order_by('id')
        
     if request.method == "POST":
         next = request.GET.get('next', '/')
         if validacao(request):
-            f_caixa = Tbcaixa(
-                              nmlocalarquivo = request.POST['nmlocalarquivo'],
-                              tbtipocaixa = Tbtipocaixa.objects.get(pk = request.POST['tbtipocaixa']),
-                              tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
+            f_checklist = Tbchecklist(
+                              nmchecklist = request.POST['nmchecklist'],
+                              tbfase = Tbfase.objects.get(pk = request.POST['tbfase']),
+                              dschecklist = request.POST['dschecklist']
                               )
-            f_caixa.save()
+            f_checklist.save()
             if next == "/":
                 return HttpResponseRedirect(response_consulta)
             else:    
                 return HttpResponseRedirect(next)
-    return render_to_response('sicop/restrito/caixa/cadastro.html',{"tipocaixa":tipocaixa}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/checklist/cadastro.html',{"fase":fase}, context_instance = RequestContext(request))
 
-@permission_required('sicop.caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+
+@permission_required('sicop.checklist_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
-    tipocaixa = Tbtipocaixa.objects.all()#.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmtipocaixa')
-    instance = get_object_or_404(Tbcaixa, id=id)
-    divisao = Tbdivisao.objects.get(pk = Tbcaixa.objects.get(pk = id).tbdivisao_id)
-    if request.method == "POST":
-
-        if not request.user.has_perm('sicop.caixa_edicao'):
-            return HttpResponseRedirect('/excecoes/permissao_negada/') 
+    instance = get_object_or_404(Tbchecklist, id=id)
+    fase = Tbfase.objects.all().order_by('id')
        
-        form = FormCaixa(request.POST,request.FILES,instance=instance)
-        if validacao(request):
-            if form.is_valid():
-                form.save()
-                return HttpResponseRedirect("/sicop/restrito/caixa/edicao/"+str(id)+"/")
-    else:
-        if divisao.id <> AuthUser.objects.get(pk = request.user.id).tbdivisao.id:
-            return HttpResponseRedirect('/excecoes/permissao_negada/')
-        form = FormCaixa(instance=instance)
-#retornar o conteudo da caixa de acordo com o tipocaixa
-#processos = Tbprocessobase.objects.all().filter( tbcaixa__id = id )   
-
-    p_rural = Tbprocessorural.objects.all().filter( tbprocessobase__tbcaixa__id = id )
-    p_clausula = Tbprocessoclausula.objects.all().filter( tbprocessobase__tbcaixa__id = id )
-    p_urbano = Tbprocessourbano.objects.all().filter( tbprocessobase__tbcaixa__id = id )
-    processos = []
-    for obj in p_rural:
-        processos.append( obj )
-    for obj in p_clausula:
-        processos.append( obj )
-    for obj in p_urbano:
-        processos.append( obj )
-
-    
-    pecas = Tbpecastecnicas.objects.all().filter( tbcaixa__id = id )    
-    conteudo = ""
-    if len(processos) > 0:
-        conteudo = str(len(processos))+" Processo(s)"
-    if pecas.count() > 0:
-        conteudo += str(pecas.count())+" Peca(s) Tecnica(s)"
+    if request.method == "POST":
         
-    if len(processos) <= 0 and pecas.count() <= 0:
-        conteudo = "Caixa Vazia"
-    
-    
-    return render_to_response('sicop/restrito/caixa/edicao.html', {"form":form,'processos':processos,'pecas':pecas,'conteudo':conteudo,"tipocaixa":tipocaixa,"divisao":divisao}, context_instance = RequestContext(request))
+        if not request.user.has_perm('sicop.checklist_edicao'):
+            return HttpResponseRedirect('/excecoes/permissao_negada/') 
 
+        next = request.GET.get('next', '/')
+        if validacao(request):
+            f_checklist = Tbchecklist(
+                              id = instance.id,
+                              nmchecklist = request.POST['nmchecklist'],
+                              tbfase = Tbfase.objects.get(pk = request.POST['tbfase']),
+                              dschecklist = request.POST['dschecklist']
+                              )
+            f_checklist.save()
+            if next == "/":
+                return HttpResponseRedirect("/sicop/restrito/checklist/edicao/"+str(id)+"/")
+            else:    
+                return HttpResponseRedirect(next)
+    return render_to_response('sicop/restrito/checklist/edicao.html',{"checklist":instance,"fase":fase}, context_instance = RequestContext(request))
 
-@permission_required('sicop.caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.checklist_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_pdf(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session[nome_relatorio]
@@ -144,7 +119,7 @@ def relatorio_pdf(request):
     else:
         return HttpResponseRedirect(response_consulta)
 
-@permission_required('sicop.caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.checklist_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_ods(request):
 
     # montar objeto lista com os campos a mostrar no relatorio/pdf
@@ -152,7 +127,7 @@ def relatorio_ods(request):
     
     if lista:
         ods = ODS()
-        sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, len(lista), ods)
+        sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, ods)
         
         # subtitle
         sheet.getCell(0, 1).setAlignHorizontal('center').stringValue( 'Nome' ).setFontSize('14pt')
@@ -179,7 +154,7 @@ def relatorio_ods(request):
     else:
         return HttpResponseRedirect( response_consulta )
 
-@permission_required('sicop.caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.checklist_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_csv(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session[nome_relatorio]
@@ -196,10 +171,25 @@ def relatorio_csv(request):
 
 def validacao(request_form):
     warning = True
-    if request_form.POST['nmlocalarquivo'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe um nome para a caixa')
+#    nome = request_form.POST['nmfase']
+#    pos = request_form.POST['ordem']
+    fase = request_form.POST['tbfase']
+    
+    if fase == '':
+        messages.add_message(request_form,messages.WARNING,'Informe uma fase de processo')
         warning = False
-    if request_form.POST['tbtipocaixa'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe o tipo da caixa')
-        warning = False
+#    else:
+#        list = []
+        # ordem com tipoprocesso eh unico
+#        list = Tbfase.objects.filter( ordem= int(pos), tbtipoprocesso__id = tipoprocesso  )
+#        if list:
+#            messages.add_message(request_form,messages.WARNING,'Numero da ordem usado por outra fase desse tipo de processo')
+#            warning = False
+#        list = []
+        # nome com tipoprocesso eh unico
+#        list = Tbfase.objects.filter( nmfase__icontains = nome, tbtipoprocesso__id = tipoprocesso  )
+#        if list:
+#            messages.add_message(request_form,messages.WARNING,'Informe outro nome da fase')
+#            warning = False
+    
     return warning
