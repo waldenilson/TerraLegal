@@ -18,8 +18,9 @@
 		{% csrf_token %}
 		<div style="width:100%;font-size:12px;text-align:left">
 				<table>
-					<tr> <td class="colunaTabela" style="width:54px"> <label >Titulo:</label> </td><td><input name="cdtitulo" size=8 value="{{titulo.cdtitulo}}"/> </td>
-				    <td><select name="tbtipotitulo" style="width:150px">
+				<tr>
+				<td class="colunaTabela"> <label>Tipo: </label></td>
+				<td><select name="tbtipotitulo" style="width:150px">
 						{% for obj in tipotitulo %}
 							{% if obj.id == titulo.tbtipotitulo.id %}
 								<option selected="selected" value="{{ obj.id }}">{{obj.cdtipo}} - {{obj.dstipo}}</option>
@@ -29,13 +30,9 @@
 						{% endfor %}f
 					</select>		
 				   	</td>
-				   	</tr>
-				</table>
-				<table>				   	
-				   	<tr><td class="colunaTabela"> <label>Processo:</label></td><td><input name="tbprocessobase" size=17 value="{{processo.nrprocesso}}" style="width:150px" id="processo"/></td></tr>
-				   	<tr><td class="colunaTabela"> <label>Nome:</label></td>	<td><input readonly=readonly name="nmrequerente" size=17 value="{{rural.nmrequerente}}" style="width:300px" id="processo"/></td></tr>
-				   	<tr><td class="colunaTabela"> <label>CPF:</label></td>	<td><input readonly=readonly name="nrcpfrequerente" size=17 value="{{rural.nrcpfrequerente}}" style="width:120px" id="processo"/></td></tr>
-				   	<tr> <td class="colunaTabela"> <label>Status: </label></td>
+				 	</tr>
+				 	  	
+					<tr> <td class="colunaTabela"> <label>Status: </label></td>
 				   	<td><select name="tbstatustitulo" style="width:150px">
 				   		{% for obj in statustitulo %}
 							{% if obj.id == titulo.tbstatustitulo.id %}
@@ -45,7 +42,22 @@
 							{% endif %}
 						{% endfor %}f
 					</select>		
-				   	</td>
+				   	</td></tr>
+					<tr> <td class="colunaTabela" style="width:54px"> <label >Titulo:</label> </td><td><input name="cdtitulo" size=8 value="{{titulo.cdtitulo}}"/> </td>
+				    
+				   	</tr>
+				</table>
+				<table>				   	
+				   	<tr><td class="colunaTabela"> <label>Processo:</label></td><td><input name="tbprocessobase" size=17 value="{{processo.nrprocesso}}" style="width:150px" id="processo"/></td></tr>
+				   	<tr><td class="colunaTabela"> <label>Nome:</label></td>
+				   		<td><div name="nmrequerente" size=17  style="width:300px">{{rural.nmrequerente}}</div></td></tr>
+				   	<tr><td class="colunaTabela"> <label>CPF:</label></td><td>
+				   		<div name="nrcpfrequerente" size=17style="width:120px" id="cpf">{{rural.nrcpfrequerente}}</div></td></tr>				 
+				   	<tr><td class="colunaTabela"><label>Endereco:</label></td><td>{{processo.nmendereco|default:'-'}}</td></tr>
+					<tr><td class="colunaTabela"><label>Contato:</label></td><td>{{processo.nmcontato|default:'-'}}</td></tr>
+				   	<tr><td class="colunaTabela"> <label>Gleba:</label> </td><td> {{ rural.tbprocessobase.tbgleba.nmgleba }} </td> </tr>
+					<tr> <td class="colunaTabela"> <label>Municipio:</label> </td><td> {{ rural.tbprocessobase.tbmunicipio.nome_mun }} </td> </tr>
+		
 		</table>		   	
 	</div>
 		<br/>
@@ -88,12 +100,10 @@
 </div>
 <div id="tabs-3">
 {% if processo %}
-	<table style="width:40%">
+	<table style="width:60%">
 		<tr><td class="colunaTabela"> <label>Numero:</label> </td><td> {{ rural.tbprocessobase.nrprocesso }} </td>
 		<td> <a href="/sicop/restrito/processo/edicao/{{processo.id}}" title="Nova Gleba"> <img src="{% static "img/search.png"%}" width="18" /> </a></td>
 		</tr>
-		<tr> <td class="colunaTabela"> <label>Gleba:</label> </td><td> {{ rural.tbprocessobase.tbgleba.nmgleba }} </td> </tr>
-		<tr> <td class="colunaTabela"> <label>Municipio:</label> </td><td> {{ rural.tbprocessobase.tbmunicipio.nome_mun }} </td> </tr>
 		<tr> <td class="colunaTabela"> <label>CPF Requerente:</label> </td><td> {{ rural.nrcpfrequerente }} </td> </tr>
 		<tr> <td class="colunaTabela"> <label>Nome Requerente:</label> </td><td> {{ rural.nmrequerente }} </td> </tr>
 		{% if processo.nrcpfconjuge %}
@@ -102,9 +112,7 @@
 		{% endif %}
 		<tr><td class="colunaTabela"><label>Caixa:</label></td><td> {{ rural.tbprocessobase.tbcaixa.nmlocalarquivo }} </td> </tr>
 		<tr><td class="colunaTabela"><label>Situacao:</label></td><td>{{ rural.tbprocessobase.tbsituacaoprocesso.nmsituacao }} </td> </tr>
-		<tr><td class="colunaTabela"><label>Endereco:</label></td><td>{{processo.nmendereco|default:''}}</td></tr>
-		<tr><td class="colunaTabela"><label>Contato:</label></td><td>{{processo.nmcontato|default:''}}</td></tr>
-				   	</tr>
+		
 	</table>
 {% else %}
 	Nenhum Processo ligado a este titulo

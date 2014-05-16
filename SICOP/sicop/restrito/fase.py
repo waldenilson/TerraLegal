@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext, Context
 from sicop.models import Tbcaixa, Tbtipocaixa, AuthUser, Tbprocessobase,\
     Tbpecastecnicas, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano, Tbdivisao,\
-    Tbfase, Tbtipoprocesso, Tbchecklist, Tbchecklistprocessobase
+    Tbfase, Tbtipoprocesso
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from sicop.forms import FormCaixa
@@ -36,12 +36,12 @@ import django
 from django.core.files import storage
 from django.db.models import  Q
 
-nome_relatorio      = "relatorio_etapa"
-response_consulta  = "/sicop/restrito/etapa/consulta/"
-titulo_relatorio    = "Relatorio Etapas"
-planilha_relatorio  = "Etapas"
+nome_relatorio      = "relatorio_fase"
+response_consulta  = "/sicop/restrito/fase/consulta/"
+titulo_relatorio    = "Relatorio Fases"
+planilha_relatorio  = "Fases"
 
-@permission_required('sicop.etapa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.fase_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
     if request.method == "POST":
         nome = request.POST['nmfase']
@@ -55,9 +55,9 @@ def consulta(request):
     
 #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session[nome_relatorio] = lista
-    return render_to_response('sicop/restrito/etapa/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/fase/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
-@permission_required('sicop.etapa_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.fase_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
     tipoprocesso = Tbtipoprocesso.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('id')
        
@@ -68,8 +68,7 @@ def cadastro(request):
                               nmfase = request.POST['nmfase'],
                               tbtipoprocesso = Tbtipoprocesso.objects.get(pk = request.POST['tbtipoprocesso']),
                               dsfase = request.POST['dsfase'],
-                              ordem = request.POST['ordem'],
-                              blativo = True
+                              ordem = request.POST['ordem']
                               )
             f_fase.save()
             if next == "/":
@@ -79,18 +78,14 @@ def cadastro(request):
     return render_to_response('sicop/restrito/fase/cadastro.html',{"tipoprocesso":tipoprocesso}, context_instance = RequestContext(request))
 
 
-@permission_required('sicop.etapa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.fase_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     instance = get_object_or_404(Tbfase, id=id)
     tipoprocesso = Tbtipoprocesso.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('id')
-    
-    ativo = False
-    if request.POST.get('blativo',False):
-        ativo = True
-
+       
     if request.method == "POST":
         
-        if not request.user.has_perm('sicop.etapa_edicao'):
+        if not request.user.has_perm('sicop.fase_edicao'):
             return HttpResponseRedirect('/excecoes/permissao_negada/') 
 
         next = request.GET.get('next', '/')
@@ -100,41 +95,16 @@ def edicao(request, id):
                               nmfase = request.POST['nmfase'],
                               tbtipoprocesso = Tbtipoprocesso.objects.get(pk = request.POST['tbtipoprocesso']),
                               dsfase = request.POST['dsfase'],
-                              ordem = request.POST['ordem'],
-                              blativo = ativo
+                              ordem = request.POST['ordem']
                               )
             f_fase.save()
             if next == "/":
-                return HttpResponseRedirect("/sicop/restrito/etapa/edicao/"+str(id)+"/")
+                return HttpResponseRedirect("/sicop/restrito/fase/edicao/"+str(id)+"/")
             else:    
                 return HttpResponseRedirect(next)
-    return render_to_response('sicop/restrito/etapa/edicao.html',{"fase":instance,"tipoprocesso":tipoprocesso}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/fase/edicao.html',{"fase":instance,"tipoprocesso":tipoprocesso}, context_instance = RequestContext(request))
 
-
-@permission_required('sicop.etapa_checklist', login_url='/excecoes/permissao_negada/', raise_exception=True)
-def checklist(request, processo,etapa):    
-    obj_processo = Tbprocessobase.objects.get( pk = processo )
-    obj_etapa = Tbfase.objects.get( pk = etapa )
-    
-    checklist = Tbchecklist.objects.filter( tbfase__id = etapa ).order_by('nmchecklist')
-    procChecklist = Tbchecklistprocessobase.objects.filter( tbprocessobase__id = processo )
-
-    result = {}
-    for obj in checklist:
-        achou = False
-        for obj2 in procChecklist:
-            if obj.id == obj2.tbchecklist.id:
-                result.setdefault(obj.nmchecklist,True)
-                achou = True
-                break
-        if not achou:
-            result.setdefault(obj.nmchecklist, False)
-    result = sorted(result.items())
-
-    
-    return render_to_response('sicop/restrito/etapa/checklist.html',{"processo":obj_processo,"etapa":obj_etapa,'result':result}, context_instance = RequestContext(request))
-
-@permission_required('sicop.etapa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.fase_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_pdf(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session[nome_relatorio]
@@ -151,7 +121,7 @@ def relatorio_pdf(request):
     else:
         return HttpResponseRedirect(response_consulta)
 
-@permission_required('sicop.etapa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.fase_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_ods(request):
 
     # montar objeto lista com os campos a mostrar no relatorio/pdf
@@ -186,7 +156,7 @@ def relatorio_ods(request):
     else:
         return HttpResponseRedirect( response_consulta )
 
-@permission_required('sicop.etapa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.fase_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_csv(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session[nome_relatorio]
