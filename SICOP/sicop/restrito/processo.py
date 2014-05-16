@@ -8,7 +8,7 @@ from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
     Tbcontrato, Tbsituacaoprocesso, Tbsituacaogeo, Tbpecastecnicas, AuthUser,\
     AuthUserGroups, Tbmovimentacao, Tbprocessosanexos, Tbpendencia,\
     Tbclassificacaoprocesso, Tbtipopendencia, Tbstatuspendencia, Tbpregao,\
-    Tbdivisao
+    Tbdivisao,  Tbtitulo, Tbstatustitulo, Tbtipotitulo
 from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
 from sicop.restrito import processo_rural
@@ -25,6 +25,8 @@ from django.contrib.auth.models import Permission
 from sicop import admin
 from django.db.models import Q
 from operator import  itemgetter, attrgetter
+from django.core.exceptions import ObjectDoesNotExist
+
 
 nome_relatorio      = "relatorio_processo"
 response_consulta  = "/sicop/restrito/processo/consulta/"
@@ -489,6 +491,8 @@ def edicao(request, id):
     base = get_object_or_404(Tbprocessobase, id=id)
     carregarTbAuxProcesso(request, base.tbcaixa.tbtipocaixa.nmtipocaixa)
     carregarTbAuxFuncoesProcesso(request, base)
+    statustitulo = Tbstatustitulo.objects.all()
+    tipotitulo  = Tbtipotitulo.objects.all()
     
     # municipios da divisao do usuario logado E municipios associados a DIVISAO que criou o processo
     municipio = Tbmunicipio.objects.all().filter( 
@@ -505,11 +509,6 @@ def edicao(request, id):
     #if base.auth_user.tbdivisao.id == AuthUser.objects.get( pk = request.user.id ).tbdivisao.id:
     #mudar para: se o processo estah numa CAIXA que pertenca a divisao do usuario logado OU estiver numa caixa de entrada OU
     # a classe do usuario eh maior que a classe da divisao a qual pertence o processo OU a divisao do usuario eh a divisao do processo
-    #print "Divisao do usuario:" + str(AuthUser.objects.get( pk = request.user.id ).tbdivisao.id)
-    #print "Divisao do processo " + str(base.tbdivisao.nmdivisao)
-    #print "UF do usuario "+ str(request.session['uf'])
-    #print "Divisao da Caixa  " + str(base.tbcaixa.tbdivisao.nmdivisao)
-    #print "Uf da caixa "+ str(base.tbcaixa.tbdivisao.tbuf.nmuf)
     
     #adiciona a lista de glebas, aquelas que estao associada a divisao do processo, pois o processo pode ser,
     #por exemplo da SRFA02 e esteja tramitado para a SRFA01.
@@ -518,8 +517,6 @@ def edicao(request, id):
     if base.tbcaixa.tbdivisao.id !=  AuthUser.objects.get( pk = request.user.id ).tbdivisao.id:
         for obj in Tbgleba.objects.all().filter(tbuf__id = base.tbcaixa.tbdivisao.tbuf.id):
             gleba.append(obj)
-    
-    #sorted(gleba,key=attrgetter('nmgleba'))
     
     if base.tbcaixa.tbdivisao.id == AuthUser.objects.get( pk = request.user.id ).tbdivisao.id or base.tbcaixa.tbtipocaixa.nmtipocaixa=="ENT" or AuthUser.objects.get( pk = request.user.id ).tbdivisao.nrclasse > base.tbdivisao.nrclasse or AuthUser.objects.get( pk = request.user.id ).tbdivisao.id == base.tbdivisao.id:
         #caixasdestino = Tbcaixa.objects.all().order_by("nmlocalarquivo")
@@ -532,6 +529,10 @@ def edicao(request, id):
         if tipo == "tbprocessorural":
             rural = Tbprocessorural.objects.get( tbprocessobase = id )
             peca = Tbpecastecnicas.objects.all().filter( nrcpfrequerente = rural.nrcpfrequerente.replace('.','').replace('-','') )
+            #try:
+            #    titulo = Tbtitulo.objects.get(tbprocessobase = id)
+            #except ObjectDoesNotExist:
+            #    titulo = []
             #if peca:
             #    peca = peca[0] 
             # caixas que podem ser tramitadas
@@ -544,7 +545,8 @@ def edicao(request, id):
                                       {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
-                                       'base':base,'rural':rural,'peca':peca}, context_instance = RequestContext(request))
+                                       'base':base,'rural':rural,'peca':peca,'statustitulo':statustitulo,
+                                       'tipotitulo':tipotitulo}, context_instance = RequestContext(request))
         else:
             if tipo == "tbprocessourbano":
                 urbano = Tbprocessourbano.objects.get( tbprocessobase = id )

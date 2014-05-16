@@ -357,10 +357,10 @@ Divisão: {{ request.session.divisao }} | <a href="/logout/">Sair do Sistema</a>
 	<li><a href="/sicop/restrito/livro/consulta/">Consulta</a></li>
 	{% endif %}
 	{% if perms.sicop.livro_consulta %}
-	<li><a href="/sicop/restrito/livro/titulados_entregues/">Titulados entregues</a></li>
+	<li><a href="/sicop/restrito/livro/titulos_entregues/">Titulados entregues</a></li>
 	{% endif %}
 	{% if perms.sicop.livro_consulta %}
-	<li><a href="/sicop/restrito/livro/consulta/">Titulados não entregues</a></li>
+	<li><a href="/sicop/restrito/livro/titulos_nao_entregues/">Titulados não entregues</a></li>
 	{% endif %}
 </ul>
 </li>

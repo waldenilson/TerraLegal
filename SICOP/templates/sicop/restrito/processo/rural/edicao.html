@@ -22,16 +22,53 @@
 {% endif %}
 
 	<li><a href="#tabs-5">PECA TECNICA</a></li>
+ 
+{% if base.tbclassificacaoprocesso.id == 1 %}
+	<li><a href="#tabs-6">TITULO</a></li>
+{% endif %}
 </ul>
 
 <div id="tabs-1">
 <form method="post" action="/sicop/restrito/processo/rural/edicao/{{ rural.id }}/">
 	{% csrf_token %}
+	{% if base.tbtitulo %}
+		<div style="width:100%;font-size:12px;text-align:left">
+				<table>
+					<tr>
+					<td class="colunaTabela" style="width:54px"> <label >Titulo:</label> </td><td><input name="cdtitulo" size=8 value="{{base.tbtitulo.cdtitulo}}"/> </td>
+				    <td><select name="tbtipotitulo"  style="width:150px">
+						{% for obj in tipotitulo %}
+							{% if obj.id == base.tbtitulo.tbtipotitulo.id %}
+								<option selected="selected" value="{{ obj.id }}">{{obj.cdtipo}} - {{obj.dstipo}}</option>
+							{% else %}
+								<option value="{{ obj.id }}">{{obj.cdtipo}} - {{obj.dstipo}}</option>
+							{% endif %}
+						{% endfor %}
+					</select>		
+				   	</td>
+				   	
+				   	<td class="colunaTabela"> <label>Status: </label></td>
+				   	<td><select name="tbstatustitulo" style="width:150px">
+				   		{% for obj in statustitulo %}
+							{% if obj.id == base.tbtitulo.tbstatustitulo.id %}
+								<option selected="selected" value="{{ obj.id }}">{{obj.sttitulo}}</option>
+							{% else %}
+								<option value="{{ obj.id }}">{{obj.sttitulo}}</option>
+							{% endif %}
+						{% endfor %}
+					</select>		
+				   	</td>
+				   	</tr>
+		</table>		   	
+	</div>
+{% endif %}
+
 	<div style="width: 100%; font-size: 12px; text-align: left">
 		<table>
 			<tr> 
-				<td class="colunaTabela"> <label>Processo:</label> </td>
-				<td class="colunaTabela"> {{ base.nrprocesso }} </td> 
+				<!-- td class="colunaTabela"> <label>Processo:</label> </td><td class="colunaTabela"> {{ base.nrprocesso }} </td-->
+				<tr><td class="colunaTabela"> <label>Processo:</label></td><td><input readonly=readonly name="tbprocessobase" size=17 value="{{base.nrprocesso}}" style="width:150px" id="processo"/></td></tr>
+				   	 
 			</tr>
 				<tr> 
 					<td class="colunaTabela"> <label>Gleba:</label> </td>
@@ -299,10 +336,6 @@
 	{% else %}
 		<a  style="padding-top: 20px" colspan="6">	Nenhuma Peca Tecnica ligada a este processo</a>
 	{% endif %}</br></br>
-
-
-
 </div>
-
 </div>
 {% endblock %}

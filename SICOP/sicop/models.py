@@ -241,6 +241,7 @@ class Tbprocessobase(models.Model):
     tbdivisao = models.ForeignKey('Tbdivisao')
     nmendereco = models.TextField(blank=True)
     nmcontato = models.TextField(blank=True)
+    tbtitulo = models.ForeignKey('Tbtitulo',null=True)
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbprocessobase'
@@ -413,7 +414,7 @@ class Tbtipotitulo(models.Model):
         
 class Tbtitulo(models.Model):
     cdtitulo = models.CharField(max_length=8)
-    tbprocessobase = models.ForeignKey(Tbprocessobase,blank=True)
+    #tbprocessobase = models.ForeignKey(Tbprocessobase,blank=True)
     tbstatustitulo = models.ForeignKey(Tbstatustitulo,blank=True)
     tbtipotitulo = models.ForeignKey(Tbtipotitulo,blank=True)
     id = models.AutoField(primary_key=True)
