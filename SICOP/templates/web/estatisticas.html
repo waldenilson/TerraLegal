@@ -240,6 +240,14 @@ href="{% static "css/bootstrap/bootstrap-responsive.min.css" %}" />
                <svg style="height:350px;width:500px"></svg>
        	</div>
 	</div>
+	<div class="span8">
+       	<div class="" id="chart_titulos" style="" >
+           	 <h4>Titulos</h4>
+               <svg style="height:350px;width:500px"></svg>
+       	</div>
+	</div>
+	
+	
      
     <div class="span8">
         <div class="" id="chart_pend" style="" >
@@ -393,6 +401,41 @@ function TiposQtd() {
 
 
 //Fim
+
+//TITULOS
+nv.addGraph(function() {
+   var chart = nv.models.pieChart()
+      .x(function(d) { return d.label })
+      .y(function(d) { return d.value })
+      .showLabels(false)
+      .donut(true)
+      .color(['green', 'orange', 'yellow','gray'])
+      .width(400).height(360)
+      .showLegend(true);
+  	  ;
+   d3.select("#chart_titulos svg")
+       .datum(TiposTit())
+       .transition().duration(500)
+       .call(chart);
+   
+
+   return chart;
+ });
+ 
+function TiposTit() {
+  return [
+  {
+    key: "titulos",
+    values: {{qtd_titulo_registro|safe}}
+  }
+  ];
+}
+
+
+//Fim
+
+
+
 
 //TIPOS DE pendencias
 nv.addGraph(function() {

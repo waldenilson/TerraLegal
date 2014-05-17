@@ -23,6 +23,12 @@ sql_tipo_processo = """ select t.nome, count(*)
                 having count(*) > 0
                 """
                 
+sql_titulo = """select s.sttitulo, count(*)
+from  tbtitulo as t , tbstatustitulo as s
+where t.tbstatustitulo_id = s.id
+group by s.sttitulo
+having count(*) > 0"""
+                
                 
 sql_pend = """ select count(*) from tbpendencia where tbstatuspendencia_id = 2"""
 
@@ -100,6 +106,10 @@ def estatisticas(request):
     qtd_tipos = [{"label": k, "value": v} for k, v in qtd_tipos_proc]
     qtd_tipos = json.dumps(qtd_tipos, cls=DjangoJSONEncoder)
     
+    cursor.execute(sql_titulo)
+    qtd_titulos = cursor.fetchall()
+    qtd_titulo_registro = [{"label": k, "value": v} for k, v in qtd_titulos]
+    qtd_titulo_registro = json.dumps(qtd_titulo_registro, cls=DjangoJSONEncoder)
     
     cursor.execute(sql_pend_chart)
     qtd_pend_chart = cursor.fetchall()
@@ -131,6 +141,7 @@ def estatisticas(request):
     return render(request, "web/estatisticas.html", {'qtd_processos': qtd_processos,'qtd_pecas':qtd_pecas,
                                                      'qtd_mov':qtd_mov,'qtd_tipos':qtd_tipos,'qtd_pend':qtd_pend,
                                                      'tramitados_por_dia': tramitados_por_dia,'qtd_bat':qtd_bat,
-                                                     'qtd_pend_c':qtd_pend_c,'qtd_cadastro':qtd_cadastro
+                                                     'qtd_pend_c':qtd_pend_c,'qtd_cadastro':qtd_cadastro,
+                                                     'qtd_titulo_registro':qtd_titulo_registro
                                                      })
 
