@@ -8,6 +8,7 @@
 {% block formulario %}
 
 <div id="tabs" style="color:black;width:100%;font-size:11px">
+{% ifnotequal request.session.processo_saida "unico"  %}
  <ul>
 	<li><a href="#tabs-1">EDICAO PROCESSO RURAL</a></li>
 
@@ -28,11 +29,20 @@
 {% endif %}
 </ul>
 
+{% else %}
+{% endifnotequal%}
 <div id="tabs-1">
 <form method="post" action="/sicop/restrito/processo/rural/edicao/{{ rural.id }}/">
 	{% csrf_token %}
 	{% if base.tbtitulo %}
-		<div style="width:100%;font-size:12px;text-align:left">
+				<div style="width:100%;font-size:12px;text-align:left">
+				<table border="1" style="width:100%;text-align: left">
+				<tbody>
+					<tr style="text-align: left;font-weight:bold;color:green">
+					<td class="colunaTabela" colspan="2">TITULO<hr/></td>
+					<td class="colunaTabela"> </td></tr>
+				</tbody>
+				</table>
 				<table>
 					<tr>
 					<td class="colunaTabela" style="width:54px"> <label >Titulo:</label> </td><td><input name="cdtitulo" size=8 value="{{base.tbtitulo.cdtitulo}}"/> </td>
@@ -64,9 +74,18 @@
 {% endif %}
 
 	<div style="width: 100%; font-size: 12px; text-align: left">
+	
+	<table border="1" style="width:100%;text-align: left">
+		<tbody>
+		<tr style="text-align: left;font-weight:bold;color:green">
+			<td class="colunaTabela" colspan="2">PROCESSO<hr/></td>
+			<td class="colunaTabela"> </td>
+		</tr>
+		</tbody>
+	</table>
+	
 		<table>
 			<tr> 
-				<!-- td class="colunaTabela"> <label>Processo:</label> </td><td class="colunaTabela"> {{ base.nrprocesso }} </td-->
 				<tr><td class="colunaTabela"> <label>Processo:</label></td><td><input readonly=readonly name="tbprocessobase" size=17 value="{{base.nrprocesso}}" style="width:150px" id="processo"/></td></tr>
 				   	 
 			</tr>
@@ -101,11 +120,11 @@
 						</td>
 				</tr>
 				<tr> <td class="colunaTabela"> <label>Nome do Requerente:</label> </td>
-					<td> <input size="35" value="{{ rural.nmrequerente }}" name="nmrequerente" /> </td> </tr>
+					<td> <input size="80" value="{{ rural.nmrequerente }}" name="nmrequerente" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>CPF do Requerente:</label> </td>
 					<td> <input size="15" value="{{ rural.nrcpfrequerente }}" id="cpf" name="nrcpfrequerente" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Nome do Conjuge:</label> </td>
-					<td> <input size="35" value="{{ rural.nmconjuge }}" name="nmconjuge" /> </td> </tr>
+					<td> <input size="80" value="{{ rural.nmconjuge }}" name="nmconjuge" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>CPF do Conjuge:</label> </td>
 					<td> <input size="15" value="{{ rural.nrcpfconjuge }}" id="cpf2" name="nrcpfconjuge" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
@@ -136,10 +155,12 @@
 							<a href="/sicop/restrito/situacao_processo/cadastro/?next=/sicop/restrito/processo/rural/cadastro/" title="Nova Situacao"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 						</td>
 				</tr>
-				<tr> <td class="colunaTabela"> <label>Endereco:</label> </td>
-					<td> <textarea value="{{ base.nmendereco|default:''}}" name="nmendereco" style="width: 200px"></textarea></td> </tr>
 				<tr> <td class="colunaTabela"> <label>Contato:</label> </td>
 					<td> <input value="{{ base.nmcontato|default:''}}" name="nmcontato" style="width: 250px"/> </td> </tr>
+				</table>
+				<table>
+				<tr> <td class="colunaTabela"> <label>Endereco:</label> </td></tr>
+				<tr><td class="colunaTabela"> <input value="{{ base.nmendereco|default:''}}" name="nmendereco" style="width: 500px"></textarea></td> </tr>
 				
 				
 		</table>
@@ -160,6 +181,14 @@
 <div id="tabs-2">
 <form method="post" action="/sicop/restrito/processo/tramitacao/{{ base.id }}/">
 	{% csrf_token %}
+	<table border="1" style="width:123%;text-align: left">
+		<tbody>
+		<tr style="text-align: left;font-weight:bold;color:green">
+			<td class="colunaTabela" colspan="2">TRAMITACAO<hr/></td>
+			<td class="colunaTabela"> </td>
+		</tr>
+		</tbody>
+	</table>
 	<table style="width:100%">
 		<tr>
 		   	<td class="colunaTabelaConsulta" >
@@ -209,6 +238,15 @@
 <div id="tabs-3">
 <form method="post" action="/sicop/restrito/processo/pendencia/{{ base.id }}/">
 	{% csrf_token %}
+	</br>
+	<table border="1" style="width:125%;text-align: left">
+		<tbody>
+		<tr style="text-align: left;font-weight:bold;color:green">
+			<td class="colunaTabela" colspan="2">PENDENCIA<hr/></td>
+			<td class="colunaTabela"> </td>
+		</tr>
+		</tbody>
+	</table>
 	<table style="width:100%">
 		<tr> 
 		   	<td class="colunaTabelaConsulta">
@@ -234,10 +272,10 @@
 			<thead style="background: #e5e5e5; color: black">
 				<tr>
 					<th class="colunaTabelaConsulta" style="width: 8%">Detalhes</th>
-					<th class="colunaTabelaConsulta" style="width: 15%">Tipo</th>
-					<th class="colunaTabelaConsulta" style="width: 26%">Status</th>
+					<th class="colunaTabelaConsulta" style="width: 20%">Tipo</th>
+					<th class="colunaTabelaConsulta" style="width: 10%">Status</th>
 					<th class="colunaTabelaConsulta" style="width: 26%">Descricao</th>
-					<th class="colunaTabelaConsulta" style="width: 25%">Usuario</th>
+					<th class="colunaTabelaConsulta" style="width: 15%">Usuario</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -270,6 +308,16 @@
 <div id="tabs-4">
 <form method="post" action="/sicop/restrito/processo/anexo/{{ base.id }}/">
 	{% csrf_token %}
+	</br>
+	<table border="1" style="width:115%;text-align: left">
+		<tbody>
+		<tr style="text-align: left;font-weight:bold;color:green">
+			<td class="colunaTabela" colspan="2">PROCESSOS ANEXOS<hr/></td>
+			<td class="colunaTabela"> </td>
+		</tr>
+		</tbody>
+	</table>
+	
 	<table style="width:100%">
 		<tr> 
 		   	<td class="colunaTabelaConsulta">
@@ -279,7 +327,7 @@
 		</tr>
 	</table>
 </form>
-	<div style="overflow:auto;height:500px">
+	<div style="overflow:auto">
 		<table class="csstable">
 			<tbody>
 				<tr>
@@ -314,6 +362,17 @@
 
 <div id="tabs-5">
 {% if peca%}
+
+</br>
+	<table border="1" style="width:118%;text-align: left">
+		<tbody>
+		<tr style="text-align: left;font-weight:bold;color:green">
+			<td class="colunaTabela" colspan="2">PECAS TECNICAS<hr/></td>
+			<td class="colunaTabela"> </td>
+		</tr>
+		</tbody>
+	</table>
+	
 <table class="csstable">
 		<tbody>
 			<tr>
@@ -334,7 +393,7 @@
 		</body>
 	</table>
 	{% else %}
-		<a  style="padding-top: 20px" colspan="6">	Nenhuma Peca Tecnica ligada a este processo</a>
+		<a  style="padding-top: 20px" colspan="6">	PROCESSO NAO POSSUI PECA TECNICA ASSOCIADA</a>
 	{% endif %}</br></br>
 </div>
 </div>

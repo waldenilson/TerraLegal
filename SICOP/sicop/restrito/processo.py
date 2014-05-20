@@ -42,10 +42,10 @@ def consulta(request):
     #lista = Tbprocessobase.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by( "dtcadastrosistema" )
     if request.method == "POST":
         # consulta generica de processos
-        numero = request.POST['numero']
+        numero = request.POST['numero'].replace('.','').replace('/','').replace('-','')
         
         # consulta de processo rural e clausula
-        cpf = request.POST['cpf']
+        cpf = request.POST['cpf'].replace('.','').replace('/','').replace('-','')
         requerente = request.POST['requerente']
         
         # consulta de processo urbano
@@ -54,6 +54,8 @@ def consulta(request):
         p_rural = []
         p_clausula = []
         p_urbano = []
+        #consulta titulo
+        titulo = request.POST['cdtitulo']
         #as queries abaixo verificam dentre outras coisas, se o  processo que deseja consultar pertene a divisao do
         #usuario logado, neste caso , mesmo que nao esteja no escopo de sua divisao, o usuario logado pode 
         #acessar o processo.Mas o usuario logado nao pode tramitar este processo. Somente aquele que detem o 
@@ -138,11 +140,31 @@ def consulta(request):
         else:
             if len(municipio) > 0 and len(municipio) < 3:
                 messages.add_message(request,messages.WARNING,'Informe no minimo 3 caracteres no campo Municipio.')
-        
+       
+        if len(titulo) >= 3:
+            if request.user.has_perm('sicop.livro_consulta'):
+                p_titulo = Tbprocessorural.objects.all().filter(
+                         Q(tbprocessobase__tbtitulo__cdtitulo__icontains = titulo, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural', tbprocessobase__tbdivisao__id__in=request.session['divisoes'])|
+                         Q(tbprocessobase__tbtitulo__cdtitulo__icontains = titulo, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural', tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id))
+            lista = []
+            for obj in p_titulo:
+                lista.append( obj )
+        else:
+            if len(titulo) > 0 and len(titulo) < 3:
+                messages.add_message(request,messages.WARNING,'Informe no minimo 3 caracteres no campo Titulo.')
+                
+        #para exibir o espelho quando o resultado for apenas 1 registro
+        request.session['processo_saida'] = ''
+        for obj in lista:
+            if len(lista) == 1:
+                request.session['processo_saida'] = 'unico'
+                edicao(request,obj.tbprocessobase.id) 
+                 
+                
     # gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_processo'] = lista
     
-            
+    
     return render_to_response('sicop/restrito/processo/consulta.html',{'lista':lista}, context_instance = RequestContext(request))
 
 @permission_required('sicop.processo_tramitar', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -649,7 +671,7 @@ def relatorio_ods(request):
     
     if lista:
         ods = ODS()
-        sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, ods)
+        sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, len(lista), ods)
         
         # subtitle
         sheet.getCell(0, 1).setAlignHorizontal('center').stringValue( 'Numero' ).setFontSize('14pt')

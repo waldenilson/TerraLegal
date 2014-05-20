@@ -38,8 +38,6 @@ def consulta(request):
         nrprocesso = request.POST['nrprocesso'].replace('.','').replace('/','').replace('-','')
         requerente = request.POST['nmrequerente']
         cpf = request.POST['nrcpfrequerente']
-        
-        print nrprocesso
         #lista = Tbtitulo.objects.all().filter( cdtitulo__icontains=cdtitulo,tbprocessobase__nrprocesso__icontains=nrprocesso )
         lista = Tbprocessorural.objects.all().filter(tbprocessobase__tbtitulo__cdtitulo__icontains=cdtitulo,
                                                      tbprocessobase__nrprocesso__icontains=nrprocesso,
@@ -59,10 +57,8 @@ def cadastro(request):
     if request.method == "POST":
         next = request.GET.get('next', '/')
         if validarProcesso(request):
-            print request.POST['tbprocessobase']
             processobase = Tbprocessobase.objects.get( nrprocesso = 
                     request.POST['tbprocessobase'].replace('.','').replace('/','').replace('-',''))
-            print processobase.nrprocesso
             #cria o registro do titulo
             f_titulo = Tbtitulo(
                             cdtitulo = request.POST['cdtitulo'],
@@ -70,8 +66,6 @@ def cadastro(request):
                             tbtipotitulo    = Tbtipotitulo.objects.get(id = request.POST['tbtipotitulo'])
                         )
             f_titulo.save()
-            print f_titulo.cdtitulo
-            print f_titulo.id
             titulo = Tbtitulo.objects.get(pk=f_titulo.id)
             #associa o titulo ao processo
             f_processobase = Tbprocessobase(
@@ -116,12 +110,7 @@ def edicao(request, id):#id eh do processo rural
         rural_novo = Tbprocessorural.objects.get(tbprocessobase__nrprocesso=processobase_novo.nrprocesso)
         titulo = Tbtitulo.objects.get(pk = processobase.tbtitulo.id)
         
-        print 'base bd: ' + str(processobase.nrprocesso)
-        print 'base novo: ' + str(request.POST['tbprocessobase'])
-        print 'processo novo:' + str(processobase_novo.id) + ' ' +str(processobase_novo.nrprocesso)
-        
         if validacao(request):
-            print 'passou'
             #rural = Tbprocessorural.objects.get( tbprocessobase = processobase.id)
             peca = Tbpecastecnicas.objects.all().filter( nrcpfrequerente = rural.nrcpfrequerente)
             #altera os dados do titulo
@@ -132,10 +121,8 @@ def edicao(request, id):#id eh do processo rural
                 id = titulo.id
                 )
             f_titulo.save()
-            print f_titulo.cdtitulo
             #verifica se usuario digitou processo para alterar o titulo
             if processobase.nrprocesso <> processobase_novo.nrprocesso:
-                print "mudou"
                 #associa o titulo ao processo digitado
                 f_processobase = Tbprocessobase(
                             id = processobase_novo.id,
@@ -251,9 +238,7 @@ def titulos_nao_entregues(request):
 def relatorio_ods(request):
     # montar objeto lista com os campos a mostrar no relatorio
     lista = request.session[nome_relatorio]
-    print 'ods '+ str(nome_relatorio)
     if lista:
-        print len(lista)
         ods = ODS()
         sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, len(lista),  ods)
         
