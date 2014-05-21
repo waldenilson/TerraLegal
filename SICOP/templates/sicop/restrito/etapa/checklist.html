@@ -1,0 +1,57 @@
+{% extends "base/cadastro_base.html" %} 
+{% load staticfiles %} 
+{% block breadcumbs %}
+	Acesso Restrito | Etapa | CheckList
+{% endblock %}
+
+{% block formulario %}
+<div id="tabs" style="color:black;width:100%;font-size:11px">
+<ul>
+	<li><a href="#tabs-1">CHECKLISTS DA ETAPA</a></li>
+</ul>
+<div id="tabs-1">		
+	<form method="post" action=".">
+		{% csrf_token %}
+		<div style="width:100%;font-size:12px;text-align:left">
+				<table>
+				   <tr> <td class="colunaTabela"> <label>Processo:</label> </td><td>{{processo.nrprocesso}}</tr>
+				   <tr> <td class="colunaTabela"> <label>Etapa:</label> </td><td>{{etapa.nmfase}}</tr>
+				   <tr>
+				   	<td class="colunaTabela" colspan="2">				   	
+						<table style="width:100%">
+							<tbody>
+								{% for k,v in result %}
+										<tr>
+											<td class="colunaTabelaConsulta" style="width:5%">
+												{% if v %}
+													<input checked="checked" name="{{ k }}" type="checkbox" />
+												{% else %}
+													<input name="{{ k }}" type="checkbox" />
+												{% endif %}
+											</td>
+											<td class="colunaTabelaConsulta" style="width:95%">{{ k }}</td>
+										</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+				   	</td>
+				   </tr>
+				</table>
+		</div>
+		<br />
+		
+		<table style="width:100%">
+			<tr>
+				<td class="colunaTabela" style="text-align:left"> 
+					<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
+					<input type="submit" class="button_green" value="SALVAR" />
+				</td>
+			</tr>
+		</table>
+
+		<br/>
+		
+	</form>
+</div>
+</div>
+{% endblock %}
