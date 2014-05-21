@@ -253,10 +253,6 @@ return false;
 }
 
 </script>
-<script src="http://tinymce.cachefly.net/4.0/tinymce.min.js"></script>
-<script>
-</script>
-
 </head>
 
 
@@ -451,8 +447,11 @@ Divisão: {{ request.session.divisao }} | <a href="/logout/">Sair do Sistema</a>
 {% if perms.sicop.situacao_processo_consulta %}
 <li><a href="/sicop/restrito/situacao_processo/consulta/">Situação Processo</a></li>
 {% endif %}
-{% if perms.sicop.situacao_processo_consulta %}
-<li><a href="/sicop/restrito/fase/consulta/">Fases do Processo</a></li>
+{% if perms.sicop.etapa_consulta %}
+<li><a href="/sicop/restrito/etapa/consulta/">Etapas do Processo</a></li>
+{% endif %}
+{% if perms.sicop.checklist_consulta %}
+<li><a href="/sicop/restrito/checklist/consulta/">Checklists das Etapas</a></li>
 {% endif %}
 {% if perms.sicop.situacao_geo_consulta %}
 <li><a href="/sicop/restrito/situacao_geo/consulta/">Situação Geo</a></li>
