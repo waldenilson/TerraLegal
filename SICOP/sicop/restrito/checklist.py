@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext, Context
 from sicop.models import Tbcaixa, Tbtipocaixa, AuthUser, Tbprocessobase,\
     Tbpecastecnicas, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano, Tbdivisao,\
-    Tbfase, Tbtipoprocesso, Tbchecklist
+    Tbetapa, Tbtipoprocesso, Tbchecklist
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from sicop.forms import FormCaixa
@@ -59,14 +59,14 @@ def consulta(request):
 
 @permission_required('sicop.checklist_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
-    fase = Tbfase.objects.all().order_by('id')
+    fase = Tbetapa.objects.all().order_by('id')
        
     if request.method == "POST":
         next = request.GET.get('next', '/')
         if validacao(request):
             f_checklist = Tbchecklist(
                               nmchecklist = request.POST['nmchecklist'],
-                              tbfase = Tbfase.objects.get(pk = request.POST['tbfase']),
+                              tbfase = Tbetapa.objects.get(pk = request.POST['tbfase']),
                               dschecklist = request.POST['dschecklist']
                               )
             f_checklist.save()
@@ -80,7 +80,7 @@ def cadastro(request):
 @permission_required('sicop.checklist_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     instance = get_object_or_404(Tbchecklist, id=id)
-    fase = Tbfase.objects.all().order_by('id')
+    fase = Tbetapa.objects.all().order_by('id')
        
     if request.method == "POST":
         
@@ -92,7 +92,7 @@ def edicao(request, id):
             f_checklist = Tbchecklist(
                               id = instance.id,
                               nmchecklist = request.POST['nmchecklist'],
-                              tbfase = Tbfase.objects.get(pk = request.POST['tbfase']),
+                              tbetapa = Tbetapa.objects.get(pk = request.POST['tbfase']),
                               dschecklist = request.POST['dschecklist']
                               )
             f_checklist.save()

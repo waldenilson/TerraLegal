@@ -8,7 +8,7 @@ from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
     Tbcontrato, Tbsituacaoprocesso, Tbsituacaogeo, Tbpecastecnicas, AuthUser,\
     AuthUserGroups, Tbmovimentacao, Tbprocessosanexos, Tbpendencia,\
     Tbclassificacaoprocesso, Tbtipopendencia, Tbstatuspendencia, Tbpregao,\
-    Tbdivisao,  Tbtitulo, Tbstatustitulo, Tbtipotitulo, Tbfase
+    Tbdivisao,  Tbtitulo, Tbstatustitulo, Tbtipotitulo, Tbetapa
 from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
 from sicop.restrito import processo_rural
@@ -547,13 +547,13 @@ def edicao(request, id):
                 Q(tbtipocaixa__nmtipocaixa__icontains='ENT')
                 ).order_by('nmlocalarquivo')
 
-        fases = []
+        etapas = []
 
         
         if tipo == "tbprocessorural":
             rural = Tbprocessorural.objects.get( tbprocessobase = id )
             peca = Tbpecastecnicas.objects.all().filter( nrcpfrequerente = rural.nrcpfrequerente.replace('.','').replace('-','') )
-            fases = Tbfase.objects.filter( tbtipoprocesso__id = rural.tbprocessobase.tbtipoprocesso.id, blativo = True ).order_by('ordem')
+            etapas = Tbetapa.objects.filter( tbtipoprocesso__id = rural.tbprocessobase.tbtipoprocesso.id, blativo = True ).order_by('ordem')
             #try:
             #    titulo = Tbtitulo.objects.get(tbprocessobase = id)
             #except ObjectDoesNotExist:
@@ -567,7 +567,7 @@ def edicao(request, id):
                     tram.append( obj )
                     
             return render_to_response('sicop/restrito/processo/rural/edicao.html',
-                                      {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'fases':fases,
+                                      {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'fases':etapas,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
                                        'base':base,'rural':rural,'peca':peca,'statustitulo':statustitulo,
@@ -578,7 +578,7 @@ def edicao(request, id):
                 pregao = Tbpregao.objects.all().order_by('nrpregao')
                 dtaberturaprocesso = formatDataToText( urbano.dtaberturaprocesso )
                 dttitulacao = formatDataToText( urbano.dttitulacao )
-                fases = Tbfase.objects.filter( tbtipoprocesso__id = urbano.tbprocessobase.tbtipoprocesso.id, blativo = True ).order_by('ordem')
+                fases = Tbetapa.objects.filter( tbtipoprocesso__id = urbano.tbprocessobase.tbtipoprocesso.id, blativo = True ).order_by('ordem')
                 # caixas que podem ser tramitadas
                 tram = []
                 for obj in caixasdestino:
@@ -594,7 +594,7 @@ def edicao(request, id):
                 if tipo == "tbprocessoclausula":
                     clausula = Tbprocessoclausula.objects.get( tbprocessobase = id )
                     dttitulacao = formatDataToText( clausula.dttitulacao )
-                    fases = Tbfase.objects.filter( tbtipoprocesso__id = clausula.tbprocessobase.tbtipoprocesso.id, blativo = True ).order_by('ordem')
+                    fases = Tbetapa.objects.filter( tbtipoprocesso__id = clausula.tbprocessobase.tbtipoprocesso.id, blativo = True ).order_by('ordem')
                     # caixas que podem ser tramitadas
                 
                     tram = []

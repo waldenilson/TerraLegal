@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext, Context
 from sicop.models import Tbcaixa, Tbtipocaixa, AuthUser, Tbprocessobase,\
     Tbpecastecnicas, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano, Tbdivisao,\
-    Tbfase, Tbtipoprocesso, Tbchecklist, Tbchecklistprocessobase
+    Tbetapa, Tbtipoprocesso, Tbchecklist, Tbchecklistprocessobase
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from sicop.forms import FormCaixa
@@ -46,10 +46,10 @@ def consulta(request):
     if request.method == "POST":
         nome = request.POST['nmfase']
         #lista = Tbcaixa.objects.all().filter( nmlocalarquivo__icontains=nome, tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-        lista = Tbfase.objects.filter( nmfase__icontains=nome )
+        lista = Tbetapa.objects.filter( nmfase__icontains=nome )
     else:
         #lista = Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-        lista = Tbfase.objects.all()
+        lista = Tbetapa.objects.all()
         
     lista = lista.order_by( 'nmfase' )
     
@@ -64,7 +64,7 @@ def cadastro(request):
     if request.method == "POST":
         next = request.GET.get('next', '/')
         if validacao(request):
-            f_fase = Tbfase(
+            f_fase = Tbetapa(
                               nmfase = request.POST['nmfase'],
                               tbtipoprocesso = Tbtipoprocesso.objects.get(pk = request.POST['tbtipoprocesso']),
                               dsfase = request.POST['dsfase'],
@@ -81,7 +81,7 @@ def cadastro(request):
 
 @permission_required('sicop.etapa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
-    instance = get_object_or_404(Tbfase, id=id)
+    instance = get_object_or_404(Tbetapa, id=id)
     tipoprocesso = Tbtipoprocesso.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('id')
     
     ativo = False
@@ -95,7 +95,7 @@ def edicao(request, id):
 
         next = request.GET.get('next', '/')
         if validacao(request):
-            f_fase = Tbfase(
+            f_fase = Tbetapa(
                               id = instance.id,
                               nmfase = request.POST['nmfase'],
                               tbtipoprocesso = Tbtipoprocesso.objects.get(pk = request.POST['tbtipoprocesso']),
@@ -114,7 +114,7 @@ def edicao(request, id):
 @permission_required('sicop.etapa_checklist', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def checklist(request, processo,etapa):    
     obj_processo = Tbprocessobase.objects.get( pk = processo )
-    obj_etapa = Tbfase.objects.get( pk = etapa )
+    obj_etapa = Tbetapa.objects.get( pk = etapa )
     
     checklist = Tbchecklist.objects.filter( tbfase__id = etapa ).order_by('nmchecklist')
     procChecklist = Tbchecklistprocessobase.objects.filter( tbprocessobase__id = processo )
