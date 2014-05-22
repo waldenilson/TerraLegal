@@ -33,6 +33,64 @@
 				   </tr>
 				   <tr> <td class="colunaTabela"> <label>Descricao:</label> </td><td> <textarea rows="4" cols="40" name="dsfase"></textarea></td> </tr>				   
 				</table>
+
+				<br />
+				<table class="csstable"  style="width:100%">
+					<tbody>
+						<tr>
+							<td class="colunaTabelaConsulta" style="width:5%"> </td>
+							<td class="colunaTabelaConsulta" style="width:95%">Etapas Anteriores</td>
+						</tr>
+						{% if grupo %}
+							{% for k,v in result %}
+								<tr>
+									<td class="colunaTabelaConsulta">
+										<input name="{{ k }}" type="checkbox" />
+									</td>
+									<td class="colunaTabelaConsulta">{{ k }}</td>
+								</tr>
+							{% endfor %}
+						{% endif %}
+					</tbody>
+				</table>
+
+				<br />
+				<table class="csstable"  style="width:100%">
+					<tbody>
+						<tr>
+							<td class="colunaTabelaConsulta" style="width:5%"> </td>
+							<td class="colunaTabelaConsulta" style="width:95%">Etapas Posteriores</td>
+						</tr>
+						{% if grupo %}
+							{% for k,v in result %}
+								<tr>
+									<td class="colunaTabelaConsulta">
+										<input name="{{ k }}" type="checkbox" />
+									</td>
+									<td class="colunaTabelaConsulta">{{ k }}</td>
+								</tr>
+							{% endfor %}
+						{% endif %}
+					</tbody>
+				</table>
+
+				<br />
+				<table class="csstable"  style="width:100%">
+					<tbody>
+					   <tr> <td class="colunaTabela"> <label>Próxima Etapa desejada:</label> </td>
+					   	<td>
+					   		<select name="etapadesejada"  style="width:150px">
+								<option value="">-- Selecione a etapa --</option>
+								{% for obj in tipoprocesso %}
+									<option value="{{ obj.id }}">{{obj.nome}}</option>
+								{% endfor %}
+							</select>		
+					   	</td>
+					   </tr>
+					</tbody>
+				</table>
+				<br/>
+				
 		</div>
 		<br />
 		<table style="width:100%">
