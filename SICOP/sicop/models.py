@@ -546,7 +546,6 @@ class Tbdocumentobmp(models.Model):
 class Tbetapa(models.Model):
     nmfase = models.CharField(max_length=80, blank=True)
     tbtipoprocesso = models.ForeignKey(Tbtipoprocesso, null=True, blank=True)
-    ordem = models.IntegerField(null=False)
     dsfase = models.TextField(blank=True)
     id = models.AutoField(primary_key=True)
     blativo = models.BooleanField()
