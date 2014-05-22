@@ -24,122 +24,142 @@
 </ul>
 
 <div id="tabs-1">
-<form method="post" action="/sicop/restrito/processo/clausula/edicao/{{ clausula.id }}/">
-	{% csrf_token %}
-	<div style="width: 100%; font-size: 12px; text-align: left">
-		<table>
-				<tr> <td class="colunaTabela"> <label>N do Processo:</label> </td>
-					<td> {{ base.nrprocesso }} </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Nome do Titulado:</label> </td>
-					<td> <input value="{{ clausula.nmrequerente }}" size="35" name="nmrequerente" /> </td> </tr>
-				<tr> <td class="colunaTabela"> <label>CPF do Titulado:</label> </td>
-					<td> <input size="15" value="{{ clausula.nrcpfrequerente }}" id="cpf" name="nrcpfrequerente" /> </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Nome do Interessado:</label> </td>
-					<td> <input size="35" value="{{ clausula.nminteressado }}" name="nminteressado" /> </td> </tr>
-				<tr> <td class="colunaTabela"> <label>CPF do Interessado:</label> </td>
-					<td> <input size="15" id="cpf2" value="{{ clausula.nrcpfinteressado }}" name="nrcpfinteressado" /> </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
-				   		<td>
-				   			{{ base.tbcaixa.nmlocalarquivo }}
-						</td>
-				</tr>
-				<tr> <td class="colunaTabela"> <label>Gleba:</label> </td>
-				   		<td>
-				   			<select name="tbgleba" style="width: 200px">
-				   				<option value="">-- Selecione uma Gleba --</option>
-								{% for obj in gleba %}
-									{% if obj.id == base.tbgleba.id %}
-										<option selected="selected" value="{{ obj.id }}">{{ obj.nmgleba }}</option>
-									{% else %}
-										<option value="{{ obj.id }}">{{ obj.nmgleba }}</option>
-									{% endif %}
-								{% endfor %}
-							</select>
-						</td>
-					<td>
-						<a href="/sicop/restrito/gleba/cadastro/?next=/sicop/restrito/processo/clausula/cadastro/" title="Nova Gleba"> <img src="{% static "img/add.png" %}" width="24" /> </a>
-					</td>
-				</tr>
-				<tr> <td class="colunaTabela"> <label>Municipio:</label> </td>
-				   		<td>
-				   			<select name="tbmunicipio" style="width: 200px">
-								<option value="">-- Selecione um Municipio --</option>
-								{% for obj in municipio %}
-									{% if obj.id == base.tbmunicipio.id %}
-										<option selected="selected" value="{{ obj.id }}">{{ obj.nome_mun }}</option>
-									{% else %}
-										<option value="{{ obj.id }}">{{ obj.nome_mun }}</option>
-									{% endif %}
-								{% endfor %}
-							</select>
-						</td>
-				</tr>
-				<tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input value="{{ clausula.nrarea|default:'' }}" onkeypress="return SomenteNumero(event, this);" size="15" name="nrarea" /> </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Por Procuracao:</label> </td>
-				<td>
-					{% if clausula.stprocuracao == True %} 
-						<input checked="checked" type="checkbox" name="stprocuracao" />
-					{% else %}
-						<input type="checkbox" name="stprocuracao" />
-					{% endif %} 
-				</td> </tr>
-
-				<tr> <td class="colunaTabela"> <label>Certidao quitacao:</label> </td>
-				<td>
-					{% if clausula.stcertquitacao == True %} 
-						<input checked="checked" type="checkbox" name="stcertquitacao" />
-					{% else %}
-						<input type="checkbox" name="stcertquitacao" />
-					{% endif %} 
-				</td> </tr>
-
-				<tr> <td class="colunaTabela"> <label>Certidao liberacao:</label> </td>
-				<td>
-					{% if clausula.stcertliberacao == True %} 
-						<input checked="checked" type="checkbox" name="stcertliberacao" />
-					{% else %}
-						<input type="checkbox" name="stcertliberacao" />
-					{% endif %} 
-				</td> </tr>
-
-			{% if base.tbclassificacaoprocesso.id == 2 %}
-				<tr> <td class="colunaTabela"> <label>Classificacao:</label> </td>
-				   		<td>
-				   			{{ base.tbclassificacaoprocesso.nmclassificacao }}
-						</td>
-				</tr>
-			{% endif %}
-				<tr> <td class="colunaTabela"> <label>Situacao:</label> </td>
-				   		<td>
-				   			<select name="tbsituacaoprocesso" style="width: 200px">
-								<option value="">-- Selecione uma Situacao --</option>
-								{% for obj in situacaoprocesso %}
-									{% if obj.id == base.tbsituacaoprocesso.id %}
-										<option selected="selected" value="{{ obj.id }}">{{ obj.nmsituacao }}</option>
-									{% else %}
-										<option value="{{ obj.id }}">{{ obj.nmsituacao }}</option>
-									{% endif %}
-								{% endfor %}
-							</select>
-						</td>
-					<td>
-						<a href="/sicop/restrito/situacao_processo/cadastro/?next=/sicop/restrito/processo/clausula/cadastro/" title="Nova Situacao"> <img src="{% static "img/add.png" %}" width="24" /> </a>
-					</td>
-				</tr>
-				<tr> <td class="colunaTabela"> <label>Data Titulacao:</label> </td><td> <input value="{{ dttitulacao }}" size="9" id="date" name="dttitulacao" /> </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Observacao:</label> </td><td> <textarea rows="4" cols="40" name="dsobs">{{ clausula.dsobs }}</textarea></td> </tr>
-		</table>
-	</div>
-	<br />
 	<table style="width:100%">
-		<tr>
-			<td class="colunaTabela" style="text-align:left"> 
-				<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
-				<input type="submit" class="button_green" value="SALVAR" />
-			</td>
-		</tr>
+		<tbody>
+			<tr>
+				<td>					
+					
+					<form method="post" action="/sicop/restrito/processo/clausula/edicao/{{ clausula.id }}/">
+						{% csrf_token %}
+						<div style="width: 100%; font-size: 12px; text-align: left">
+							<table>
+									<tr> <td class="colunaTabela"> <label>N do Processo:</label> </td>
+										<td> {{ base.nrprocesso }} </td> </tr>
+									<tr> <td class="colunaTabela"> <label>Nome do Titulado:</label> </td>
+										<td> <input value="{{ clausula.nmrequerente }}" size="35" name="nmrequerente" /> </td> </tr>
+									<tr> <td class="colunaTabela"> <label>CPF do Titulado:</label> </td>
+										<td> <input size="15" value="{{ clausula.nrcpfrequerente }}" id="cpf" name="nrcpfrequerente" /> </td> </tr>
+									<tr> <td class="colunaTabela"> <label>Nome do Interessado:</label> </td>
+										<td> <input size="35" value="{{ clausula.nminteressado }}" name="nminteressado" /> </td> </tr>
+									<tr> <td class="colunaTabela"> <label>CPF do Interessado:</label> </td>
+										<td> <input size="15" id="cpf2" value="{{ clausula.nrcpfinteressado }}" name="nrcpfinteressado" /> </td> </tr>
+									<tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
+									   		<td>
+									   			{{ base.tbcaixa.nmlocalarquivo }}
+											</td>
+									</tr>
+									<tr> <td class="colunaTabela"> <label>Gleba:</label> </td>
+									   		<td>
+									   			<select name="tbgleba" style="width: 200px">
+									   				<option value="">-- Selecione uma Gleba --</option>
+													{% for obj in gleba %}
+														{% if obj.id == base.tbgleba.id %}
+															<option selected="selected" value="{{ obj.id }}">{{ obj.nmgleba }}</option>
+														{% else %}
+															<option value="{{ obj.id }}">{{ obj.nmgleba }}</option>
+														{% endif %}
+													{% endfor %}
+												</select>
+											</td>
+										<td>
+											<a href="/sicop/restrito/gleba/cadastro/?next=/sicop/restrito/processo/clausula/cadastro/" title="Nova Gleba"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+										</td>
+									</tr>
+									<tr> <td class="colunaTabela"> <label>Municipio:</label> </td>
+									   		<td>
+									   			<select name="tbmunicipio" style="width: 200px">
+													<option value="">-- Selecione um Municipio --</option>
+													{% for obj in municipio %}
+														{% if obj.id == base.tbmunicipio.id %}
+															<option selected="selected" value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+														{% else %}
+															<option value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+														{% endif %}
+													{% endfor %}
+												</select>
+											</td>
+									</tr>
+									<tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input value="{{ clausula.nrarea|default:'' }}" onkeypress="return SomenteNumero(event, this);" size="15" name="nrarea" /> </td> </tr>
+									<tr> <td class="colunaTabela"> <label>Por Procuracao:</label> </td>
+									<td>
+										{% if clausula.stprocuracao == True %} 
+											<input checked="checked" type="checkbox" name="stprocuracao" />
+										{% else %}
+											<input type="checkbox" name="stprocuracao" />
+										{% endif %} 
+									</td> </tr>
+					
+									<tr> <td class="colunaTabela"> <label>Certidao quitacao:</label> </td>
+									<td>
+										{% if clausula.stcertquitacao == True %} 
+											<input checked="checked" type="checkbox" name="stcertquitacao" />
+										{% else %}
+											<input type="checkbox" name="stcertquitacao" />
+										{% endif %} 
+									</td> </tr>
+					
+									<tr> <td class="colunaTabela"> <label>Certidao liberacao:</label> </td>
+									<td>
+										{% if clausula.stcertliberacao == True %} 
+											<input checked="checked" type="checkbox" name="stcertliberacao" />
+										{% else %}
+											<input type="checkbox" name="stcertliberacao" />
+										{% endif %} 
+									</td> </tr>
+					
+								{% if base.tbclassificacaoprocesso.id == 2 %}
+									<tr> <td class="colunaTabela"> <label>Classificacao:</label> </td>
+									   		<td>
+									   			{{ base.tbclassificacaoprocesso.nmclassificacao }}
+											</td>
+									</tr>
+								{% endif %}
+									<tr> <td class="colunaTabela"> <label>Situacao:</label> </td>
+									   		<td>
+									   			<select name="tbsituacaoprocesso" style="width: 200px">
+													<option value="">-- Selecione uma Situacao --</option>
+													{% for obj in situacaoprocesso %}
+														{% if obj.id == base.tbsituacaoprocesso.id %}
+															<option selected="selected" value="{{ obj.id }}">{{ obj.nmsituacao }}</option>
+														{% else %}
+															<option value="{{ obj.id }}">{{ obj.nmsituacao }}</option>
+														{% endif %}
+													{% endfor %}
+												</select>
+											</td>
+										<td>
+											<a href="/sicop/restrito/situacao_processo/cadastro/?next=/sicop/restrito/processo/clausula/cadastro/" title="Nova Situacao"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+										</td>
+									</tr>
+									<tr> <td class="colunaTabela"> <label>Data Titulacao:</label> </td><td> <input value="{{ dttitulacao }}" size="9" id="date" name="dttitulacao" /> </td> </tr>
+									<tr> <td class="colunaTabela"> <label>Observacao:</label> </td><td> <textarea rows="4" cols="40" name="dsobs">{{ clausula.dsobs }}</textarea></td> </tr>
+							</table>
+						</div>
+						<br />
+						<table style="width:100%">
+							<tr>
+								<td class="colunaTabela" style="text-align:left"> 
+									<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
+									<input type="submit" class="button_green" value="SALVAR" />
+								</td>
+							</tr>
+						</table>
+					</form>
+				</td>
+				<td style="text-align:right">
+					{% if fases %}
+						<div style="width:100%;text-align:center">
+							{% for fase in fases %}
+								<input type="button" class="bt_grey" value="{{ fase.nmfase }}" title="{{ fase.dsfase }}" />
+								<br/><br/>
+							{% endfor %}
+						</div>
+					{% endif %}
+				</td>
+			</tr>
+		</tbody>
 	</table>
-</form>
+
 </div>
 {% if base.tbclassificacaoprocesso.id == 1 %}
 <div id="tabs-2">
