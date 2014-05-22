@@ -8,7 +8,7 @@ from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
     Tbcontrato, Tbsituacaoprocesso, Tbsituacaogeo, Tbpecastecnicas, AuthUser,\
     AuthUserGroups, Tbmovimentacao, Tbprocessosanexos, Tbpendencia,\
     Tbclassificacaoprocesso, Tbtipopendencia, Tbstatuspendencia, Tbpregao,\
-    Tbdivisao,  Tbtitulo, Tbstatustitulo, Tbtipotitulo
+    Tbdivisao,  Tbtitulo, Tbstatustitulo, Tbtipotitulo, Tbfase
 from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
 from sicop.restrito import processo_rural
@@ -546,11 +546,14 @@ def edicao(request, id):
                 Q(tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id)|
                 Q(tbtipocaixa__nmtipocaixa__icontains='ENT')
                 ).order_by('nmlocalarquivo')
-        
+
+        fases = []
+
         
         if tipo == "tbprocessorural":
             rural = Tbprocessorural.objects.get( tbprocessobase = id )
             peca = Tbpecastecnicas.objects.all().filter( nrcpfrequerente = rural.nrcpfrequerente.replace('.','').replace('-','') )
+            fases = Tbfase.objects.filter( tbtipoprocesso__id = rural.tbprocessobase.tbtipoprocesso.id, blativo = True ).order_by('ordem')
             #try:
             #    titulo = Tbtitulo.objects.get(tbprocessobase = id)
             #except ObjectDoesNotExist:
@@ -564,7 +567,7 @@ def edicao(request, id):
                     tram.append( obj )
                     
             return render_to_response('sicop/restrito/processo/rural/edicao.html',
-                                      {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
+                                      {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'fases':fases,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
                                        'base':base,'rural':rural,'peca':peca,'statustitulo':statustitulo,
@@ -575,6 +578,7 @@ def edicao(request, id):
                 pregao = Tbpregao.objects.all().order_by('nrpregao')
                 dtaberturaprocesso = formatDataToText( urbano.dtaberturaprocesso )
                 dttitulacao = formatDataToText( urbano.dttitulacao )
+                fases = Tbfase.objects.filter( tbtipoprocesso__id = urbano.tbprocessobase.tbtipoprocesso.id, blativo = True ).order_by('ordem')
                 # caixas que podem ser tramitadas
                 tram = []
                 for obj in caixasdestino:
@@ -582,7 +586,7 @@ def edicao(request, id):
                         tram.append( obj )
                 return render_to_response('sicop/restrito/processo/urbano/edicao.html',
                                           {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'situacaogeo':situacaogeo,
-                                       'caixa':caixa,'municipio':municipio,'contrato':contrato,'pregao':pregao,
+                                       'caixa':caixa,'municipio':municipio,'contrato':contrato,'fases':fases,'pregao':pregao,
                                        'base':base,'urbano':urbano,'anexado':anexado,'pendencia':pendencia,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'dtaberturaprocesso':dtaberturaprocesso,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
@@ -590,6 +594,7 @@ def edicao(request, id):
                 if tipo == "tbprocessoclausula":
                     clausula = Tbprocessoclausula.objects.get( tbprocessobase = id )
                     dttitulacao = formatDataToText( clausula.dttitulacao )
+                    fases = Tbfase.objects.filter( tbtipoprocesso__id = clausula.tbprocessobase.tbtipoprocesso.id, blativo = True ).order_by('ordem')
                     # caixas que podem ser tramitadas
                 
                     tram = []
@@ -597,7 +602,7 @@ def edicao(request, id):
                         if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'RES' or obj.tbtipocaixa.nmtipocaixa == 'FT' or obj.tbtipocaixa.nmtipocaixa == 'ENT' :
                             tram.append( obj )
                     return render_to_response('sicop/restrito/processo/clausula/edicao.html',
-                                              {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
+                                              {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'fases':fases,
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))

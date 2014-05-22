@@ -33,12 +33,12 @@ having count(*) > 0"""
 sql_pend = """ select count(*) from tbpendencia where tbstatuspendencia_id = 2"""
 
 sql_pend_chart = """ 
-                select tipo.dspendencia, count(*)
-                from tbpendencia  as p,  tbstatuspendencia as s, tbtipopendencia as tipo
-                where p.tbstatuspendencia_id = 2 and
-                p.tbtipopendencia_id = tipo.id
-                group by tipo.dspendencia, p.tbstatuspendencia_id
-                having count(*) > 0
+                select tipo.dspendencia , count(*) from tbpendencia pend, tbtipopendencia as tipo
+                where pend.tbstatuspendencia_id = 2
+                and pend.tbtipopendencia_id = tipo.id
+
+                group by tbtipopendencia_id, tipo.dspendencia
+                order by 1
                 """
 
 sql_mov_dia = """ select date_trunc('day',dtmovimentacao) , 

@@ -79,7 +79,7 @@ def cadastro(request):
                         dtcadastrosistema = processobase.dtcadastrosistema,
                         auth_user = AuthUser.objects.get( pk = request.user.id ),
                         tbdivisao = processobase.tbdivisao,
-                        tbclassificacaoprocesso = processobase.Tbclassificacaoprocesso,
+                        tbclassificacaoprocesso = processobase.tbclassificacaoprocesso,
                         nmendereco = processobase.nmendereco,
                         nmcontato = processobase.nmcontato,
                         tbtitulo = Tbtitulo.objects.get(pk=f_titulo.id) 
