@@ -151,7 +151,7 @@ def relatorio_ods(request):
     
     if lista:
         ods = ODS()
-        sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, ods)
+        sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, len(lista), ods)
         
         # subtitle
         sheet.getCell(0, 1).setAlignHorizontal('center').stringValue( 'Nome' ).setFontSize('14pt')

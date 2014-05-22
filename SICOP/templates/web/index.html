@@ -1,3 +1,63 @@
+<<<<<<< HEAD
+{% extends "base/base.html" %} 
+{% load staticfiles %}
+
+{% block breadcumbs %}
+	Inicio
+{% endblock %}
+
+{% block titulo %}
+	Inicio
+{% endblock %}
+
+{% block index %}
+
+<!--========================================================================== Content Part 1 =====================================================================================-->
+<meta charset="utf-8" />
+<div class="wrapper">
+
+	<div class="grids">
+	
+		<div id="accordion" style="color:black;width:100%;font-size:11px">
+			<h3>
+				{% block subtitulo %}
+					INICIO
+				{% endblock %}
+			</h3>
+		
+			<div class="grids top">
+
+			<p style="text-align: justify; font-weight:bold; color:green;font-size:16px">Sistema desenvolvido pela SRFA02,
+				vinculada ao Terra Legal com o objetivo de controlar todos os
+				processos de regularização fundiária, liberação de cláusulas
+				resolutivas, recebimento e conferência de peças técnicas de imóveis
+				integrantes da região definida como a Amazônia Legal.</p>					
+				
+				<div style="margin-top:50px;width:100%;text-align:center">
+
+					<div style="width:140px;height:160px;text-align:center;float:left;margin:5px">
+						<a href="/sicop/restrito/processo/consulta/">
+							<img src="{% static "img/processo.png" %}" style="margin-top:6px" width="128px" height="128px" />	
+						</a>
+							<div style="margin-top:5px;background:#ddd;font-weight:bold">PROCESSO</div>
+					</div>
+
+				</div>
+				
+			</div>	
+				
+				
+		</div>
+
+	</div>
+	<!--end of grids-->
+
+</div>
+<!--end of wrapper-->
+
+
+{% endblock %}
+=======
 {% extends "base/base.html" %} 
 {% load staticfiles %}
 
@@ -56,3 +116,4 @@
 
 
 {% endblock %}
+>>>>>>> branch 'master' of https://github.com/waldenilson/TerraLegal.git

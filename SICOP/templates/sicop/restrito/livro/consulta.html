@@ -71,7 +71,6 @@
 		<table class="csstable"  style="width:100%">
 			<tbody>
 				<tr>
-						<td class="colunaTabelaConsulta" style="width:5%">ID</td>
 						<td class="colunaTabelaConsulta" style="width:15%">Processo</td>
 						<td class="colunaTabelaConsulta" style="width:10%">Titulo</td>
 						<td class="colunaTabelaConsulta" style="width:20%">Nome</td>
@@ -81,7 +80,6 @@
 				{% if lista %}
 					{% for obj in lista %}
 						<tr onclick="editarID('/sicop/restrito/livro/edicao/{{ obj.id }}');">
-							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbtitulo.id }}</td>							
 							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.nrprocesso }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbtitulo.cdtitulo }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.nmrequerente }}</td>
