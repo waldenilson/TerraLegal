@@ -32,183 +32,11 @@
 {% else %}
 {% endifnotequal%}
 <div id="tabs-1">
-<form method="post" action="/sicop/restrito/processo/rural/edicao/{{ rural.id }}/">
-	{% csrf_token %}
-	{% if base.tbtitulo %}
-				<div style="width:100%;font-size:12px;text-align:left">
-				<table>
-				<tbody>
-					<tr >
-					<td class="titulo_secao" colspan="2">TITULO<hr/></td>
-					<td class="colunaTabela"> </td></tr>
-				</tbody>
-				</table>
-				<table>
-					<tr>
-					<td class="colunaTabela" style="width:54px"> <label >Titulo:</label> </td><td><input name="cdtitulo" size=8 value="{{base.tbtitulo.cdtitulo}}"/> </td>
-				    <td><select name="tbtipotitulo"  style="width:150px">
-						{% for obj in tipotitulo %}
-							{% if obj.id == base.tbtitulo.tbtipotitulo.id %}
-								<option selected="selected" value="{{ obj.id }}">{{obj.cdtipo}} - {{obj.dstipo}}</option>
-							{% else %}
-								<option value="{{ obj.id }}">{{obj.cdtipo}} - {{obj.dstipo}}</option>
-							{% endif %}
-						{% endfor %}
-					</select>		
-				   	</td>
-				   	
-				   	<td class="colunaTabela"> <label>Status: </label></td>
-				   	<td><select name="tbstatustitulo" style="width:150px">
-				   		{% for obj in statustitulo %}
-							{% if obj.id == base.tbtitulo.tbstatustitulo.id %}
-								<option selected="selected" value="{{ obj.id }}">{{obj.sttitulo}}</option>
-							{% else %}
-								<option value="{{ obj.id }}">{{obj.sttitulo}}</option>
-							{% endif %}
-						{% endfor %}
-					</select>		
-				   	</td>
-				   	</tr>
-		</table>		   	
-	</div>
-{% endif %}
-
-	<div style="width: 100%; font-size: 12px; text-align: left">
-	
-	<table>
 	<table style="width:100%">
 		<tbody>
-		<tr >
-			<td class="titulo_secao" colspan="2">PROCESSO<hr/></td>
-			<td class="colunaTabela"> </td>
-		</tr>
-		</tbody>
-	</table>
-	
-		<table>
-			<tr> 
-				<tr><td class="colunaTabela"> <label>Processo:</label></td><td><input readonly=readonly name="tbprocessobase" size=17 value="{{base.nrprocesso}}" style="width:150px" id="processo"/></td></tr>
-				   	 
-			</tr>
-				<tr> 
-					<td class="colunaTabela"> <label>Gleba:</label> </td>
-				   	<td>
-				   		<select name="tbgleba" style="width: 200px">
-				   			{% for obj in gleba %}
-								{% if obj.id == base.tbgleba.id %}
-									<option selected="selected" value="{{ obj.id }}">{{ obj.nmgleba }}</option>
-								{% else %}
-									<option value="{{ obj.id }}">{{ obj.nmgleba }}</option>
 			<tr>
 				<td>
-					<form method="post" action="/sicop/restrito/processo/rural/edicao/{{ rural.id }}/">
-						{% csrf_token %}
-						{% if base.tbtitulo %}
-									<div style="width:100%;font-size:12px;text-align:left">
-									<table border="1" style="width:100%;text-align: left">
-									<tbody>
-										<tr style="text-align: left;font-weight:bold;color:green">
-										<td class="colunaTabela" colspan="2">TITULO<hr/></td>
-										<td class="colunaTabela"> </td></tr>
-									</tbody>
-									</table>
-									<table>
-										<tr>
-										<td class="colunaTabela" style="width:54px"> <label >Titulo:</label> </td><td><input name="cdtitulo" size=8 value="{{base.tbtitulo.cdtitulo}}"/> </td>
-									    <td><select name="tbtipotitulo"  style="width:150px">
-											{% for obj in tipotitulo %}
-												{% if obj.id == base.tbtitulo.tbtipotitulo.id %}
-													<option selected="selected" value="{{ obj.id }}">{{obj.cdtipo}} - {{obj.dstipo}}</option>
-												{% else %}
-													<option value="{{ obj.id }}">{{obj.cdtipo}} - {{obj.dstipo}}</option>
-												{% endif %}
-											{% endfor %}
-										</select>		
-									   	</td>
-									   	
-									   	<td class="colunaTabela"> <label>Status: </label></td>
-									   	<td><select name="tbstatustitulo" style="width:150px">
-									   		{% for obj in statustitulo %}
-												{% if obj.id == base.tbtitulo.tbstatustitulo.id %}
-													<option selected="selected" value="{{ obj.id }}">{{obj.sttitulo}}</option>
-												{% else %}
-													<option value="{{ obj.id }}">{{obj.sttitulo}}</option>
-												{% endif %}
-											{% endfor %}
-										</select>		
-									   	</td>
-									   	</tr>
-							</table>		   	
-						</div>
-					{% endif %}
-					
-						<div style="width: 100%; font-size: 12px; text-align: left">
-						
-						<table border="1" style="width:100%;text-align: left">
-							<tbody>
-							<tr style="text-align: left;font-weight:bold;color:green">
-								<td class="colunaTabela" colspan="2">PROCESSO<hr/></td>
-								<td class="colunaTabela"> </td>
-							</tr>
-							</tbody>
-						</table>
-						
-							<table>
-								<tr> 
-									<tr><td class="colunaTabela"> <label>Processo:</label></td><td><input readonly=readonly name="tbprocessobase" size=17 value="{{base.nrprocesso}}" style="width:150px" id="processo"/></td></tr>
-									   	 
-								</tr>
-									<tr> 
-										<td class="colunaTabela"> <label>Gleba:</label> </td>
-									   	<td>
-									   		<select name="tbgleba" style="width: 200px">
-									   			{% for obj in gleba %}
-													{% if obj.id == base.tbgleba.id %}
-														<option selected="selected" value="{{ obj.id }}">{{ obj.nmgleba }}</option>
-													{% else %}
-														<option value="{{ obj.id }}">{{ obj.nmgleba }}</option>
-													{% endif %}
-												{% endfor %}
-											</select>
-										</td>
-										<td>
-											<a href="/sicop/restrito/gleba/cadastro/?next=/sicop/restrito/processo/rural/cadastro/" title="Nova Gleba"> <img src="{% static "img/add.png" %}" width="24" /> </a>
-										</td>
-									</tr>
-									<tr> <td class="colunaTabela"> <label>Municipio:</label> </td>
-									   		<td>
-									   			<select name="tbmunicipio" style="width: 200px">
-													{% for obj in municipio %}
-														{% if obj.id == base.tbmunicipio.id %}
-															<option selected="selected" value="{{ obj.id }}">{{ obj.nome_mun }}</option>
-														{% else %}
-															<option value="{{ obj.id }}">{{ obj.nome_mun }}</option>
-														{% endif %}
-													{% endfor %}
-												</select>
-											</td>
-									</tr>
-									<tr> <td class="colunaTabela"> <label>Nome do Requerente:</label> </td>
-										<td> <input size="40" value="{{ rural.nmrequerente }}" name="nmrequerente" /> </td> </tr>
-									<tr> <td class="colunaTabela"> <label>CPF do Requerente:</label> </td>
-										<td> <input size="15" value="{{ rural.nrcpfrequerente }}" id="cpf" name="nrcpfrequerente" /> </td> </tr>
-									<tr> <td class="colunaTabela"> <label>Nome do Conjuge:</label> </td>
-										<td> <input size="40" value="{{ rural.nmconjuge }}" name="nmconjuge" /> </td> </tr>
-									<tr> <td class="colunaTabela"> <label>CPF do Conjuge:</label> </td>
-										<td> <input size="15" value="{{ rural.nrcpfconjuge }}" id="cpf2" name="nrcpfconjuge" /> </td> </tr>
-									<tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
-									   		<td>
-									   			{{ base.tbcaixa.nmlocalarquivo }}
-											</td>
-									</tr>
-								{% if base.tbclassificacaoprocesso.id == 2 %}
-									<tr> <td class="colunaTabela"> <label>Classificacao:</label> </td>
-									   		<td>
-									   			{{ base.tbclassificacaoprocesso.nmclassificacao }}
-											</td>
-									</tr>
-			<tr>
-				<td>
+
 					<form method="post" action="/sicop/restrito/processo/rural/edicao/{{ rural.id }}/">
 						{% csrf_token %}
 						{% if base.tbtitulo %}
@@ -316,6 +144,51 @@
 											</td>
 									</tr>
 								{% endif %}
+									<tr> <td class="colunaTabela"> <label>Situacao:</label> </td>
+									   		<td>
+									   			<select name="tbsituacaoprocesso" style="width: 200px">
+													{% for obj in situacaoprocesso %}
+														{% if obj.id == base.tbsituacaoprocesso.id %}
+															<option selected="selected" value="{{ obj.id }}">{{ obj.nmsituacao }}</option>
+														{% else %}
+															<option value="{{ obj.id }}">{{ obj.nmsituacao }}</option>
+														{% endif %}
+													{% endfor %}
+												</select>
+											</td>
+											<td>
+												<a href="/sicop/restrito/situacao_processo/cadastro/?next=/sicop/restrito/processo/rural/cadastro/" title="Nova Situacao"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+											</td>
+									</tr>
+									<tr> <td class="colunaTabela"> <label>Contato:</label> </td>
+										<td> <input value="{{ base.nmcontato|default:''}}" name="nmcontato" style="width: 250px"/> </td> </tr>
+									</table>
+									<table>
+									<tr> <td class="colunaTabela"> <label>Endereco:</label> </td></tr>
+									<tr><td class="colunaTabela"> <input value="{{ base.nmendereco|default:''}}" name="nmendereco" size="40" /></td> </tr>
+									
+									
+							</table>
+						</div>
+						<br />
+						<table style="width:100%">
+							<tr>
+								<td class="colunaTabela" style="text-align:left"> 
+									<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
+									<input type="submit" class="button_green" value="SALVAR" />
+								</td>
+							</tr>
+						</table>
+					</form>
+
+				</td>
+				<td style="text-align:right">
+					{% if fases %}
+						<div style="width:100%;text-align:center">
+							{% for fase in fases %}
+								<input onclick="editarID('/sicop/restrito/etapa/checklist/{{ rural.tbprocessobase.id }}/{{ fase.id }}');" 
+									type="button" class="bt_grey" value="{{ fase.nmfase }}" title="{{ fase.dsfase }}" />
+								<br/><br/>
 							{% endfor %}
 						</div>
 					{% endif %}
@@ -330,10 +203,10 @@
 <div id="tabs-2">
 <form method="post" action="/sicop/restrito/processo/tramitacao/{{ base.id }}/">
 	{% csrf_token %}
-	<table>
+	<table border="1" style="width:123%;text-align: left">
 		<tbody>
-		<tr >
-			<td class="titulo_secao" colspan="2">TRAMITACAO<hr/></td>
+		<tr style="text-align: left;font-weight:bold;color:green">
+			<td class="colunaTabela" colspan="2">TRAMITACAO<hr/></td>
 			<td class="colunaTabela"> </td>
 		</tr>
 		</tbody>
@@ -388,10 +261,10 @@
 <form method="post" action="/sicop/restrito/processo/pendencia/{{ base.id }}/">
 	{% csrf_token %}
 	</br>
-	<table>
+	<table border="1" style="width:125%;text-align: left">
 		<tbody>
-		<tr >
-			<td class="titulo_secao" colspan="2">PENDENCIA<hr/></td>
+		<tr style="text-align: left;font-weight:bold;color:green">
+			<td class="colunaTabela" colspan="2">PENDENCIA<hr/></td>
 			<td class="colunaTabela"> </td>
 		</tr>
 		</tbody>
@@ -458,10 +331,10 @@
 <form method="post" action="/sicop/restrito/processo/anexo/{{ base.id }}/">
 	{% csrf_token %}
 	</br>
-	<table>
+	<table border="1" style="width:115%;text-align: left">
 		<tbody>
-		<tr >
-			<td class="titulo_secao" colspan="2">PROCESSOS ANEXOS<hr/></td>
+		<tr style="text-align: left;font-weight:bold;color:green">
+			<td class="colunaTabela" colspan="2">PROCESSOS ANEXOS<hr/></td>
 			<td class="colunaTabela"> </td>
 		</tr>
 		</tbody>
@@ -513,10 +386,10 @@
 {% if peca%}
 
 </br>
-	<table>
+	<table border="1" style="width:118%;text-align: left">
 		<tbody>
-		<tr>
-			<td class="titulo_secao" colspan="2">PECAS TECNICAS<hr/></td>
+		<tr style="text-align: left;font-weight:bold;color:green">
+			<td class="colunaTabela" colspan="2">PECAS TECNICAS<hr/></td>
 			<td class="colunaTabela"> </td>
 		</tr>
 		</tbody>
