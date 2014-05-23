@@ -114,23 +114,6 @@
 											</td>
 									</tr>
 								{% endif %}
-									<tr> <td class="colunaTabela"> <label>Situacao:</label> </td>
-									   		<td>
-									   			<select name="tbsituacaoprocesso" style="width: 200px">
-													<option value="">-- Selecione uma Situacao --</option>
-													{% for obj in situacaoprocesso %}
-														{% if obj.id == base.tbsituacaoprocesso.id %}
-															<option selected="selected" value="{{ obj.id }}">{{ obj.nmsituacao }}</option>
-														{% else %}
-															<option value="{{ obj.id }}">{{ obj.nmsituacao }}</option>
-														{% endif %}
-													{% endfor %}
-												</select>
-											</td>
-										<td>
-											<a href="/sicop/restrito/situacao_processo/cadastro/?next=/sicop/restrito/processo/clausula/cadastro/" title="Nova Situacao"> <img src="{% static "img/add.png" %}" width="24" /> </a>
-										</td>
-									</tr>
 									<tr> <td class="colunaTabela"> <label>Data Titulacao:</label> </td><td> <input value="{{ dttitulacao }}" size="9" id="date" name="dttitulacao" /> </td> </tr>
 									<tr> <td class="colunaTabela"> <label>Observacao:</label> </td><td> <textarea rows="4" cols="40" name="dsobs">{{ clausula.dsobs }}</textarea></td> </tr>
 							</table>
@@ -150,7 +133,27 @@
 					{% if fases %}
 						<div style="width:100%;text-align:center">
 							{% for fase in fases %}
-								<input type="button" class="bt_grey" value="{{ fase.nmfase }}" title="{{ fase.dsfase }}" />
+								<input 
+									type="button"
+									{% if etapa_atual %}
+										{% if etapa_atual.tbetapa.id == fase.id %}
+											{% if perms.sicop.etapa_atual_checklist_consulta %}
+												onclick="editarID('/sicop/restrito/etapa/checklist/{{ rural.tbprocessobase.id }}/{{ fase.id }}');" 
+											{% endif %}
+											class="bt_blue"
+										{% else %}
+											{% if perms.sicop.etapa_checklist_consulta %}
+												onclick="editarID('/sicop/restrito/etapa/checklist/{{ rural.tbprocessobase.id }}/{{ fase.id }}');" 
+											{% endif %}
+											class="bt_grey"
+										{% endif %}
+									{% else %}
+										{% if perms.sicop.etapa_checklist_consulta %}
+											onclick="editarID('/sicop/restrito/etapa/checklist/{{ rural.tbprocessobase.id }}/{{ fase.id }}');" 
+										{% endif %}
+										class="bt_grey"
+									{% endif %}
+									value="{{ fase.nmfase }}" title="{{ fase.dsfase }}" />
 								<br/><br/>
 							{% endfor %}
 						</div>

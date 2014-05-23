@@ -36,6 +36,20 @@
 						</table>
 				   	</td>
 				   </tr>
+				   {% if perms.sicop.etapa_checklist_posterior %}
+					   <tr> <td class="colunaTabela"> <label>Próxima Etapa:</label> </td>
+					   	<td>
+					   		<select name="etapaposterior"  style="width:250px">
+								<option value="">-- SELECIONE PARA MUDAR DE ETAPA --</option>
+								{% for obj in posteriores %}
+									<option value="{{ obj.tbposterior.id }}">{{obj.tbposterior.nmfase}} - {{obj.tbposterior.tbtipoprocesso.nome}}</option>
+								{% endfor %}
+							</select>		
+					   	</td>						
+					   </tr>
+					{% else %}
+						<input name="etapaposterior" value="" type="hidden" />
+				   {% endif %}
 				</table>
 		</div>
 		<br />

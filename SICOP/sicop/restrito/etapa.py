@@ -5,7 +5,7 @@ from django.template.context import RequestContext, Context
 from sicop.models import Tbcaixa, Tbtipocaixa, AuthUser, Tbprocessobase,\
     Tbpecastecnicas, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano, Tbdivisao,\
     Tbetapa, Tbtipoprocesso, Tbchecklist, Tbchecklistprocessobase,\
-    Tbetapaanterior, Tbetapaposterior
+    Tbetapaanterior, Tbetapaposterior, Tbtransicao
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from sicop.forms import FormCaixa
@@ -36,6 +36,7 @@ from django.core.files.base import File
 import django
 from django.core.files import storage
 from django.db.models import  Q
+import datetime
 
 nome_relatorio      = "relatorio_etapa"
 response_consulta  = "/sicop/restrito/etapa/consulta/"
@@ -209,14 +210,16 @@ def edicao(request, id):
     return render_to_response('sicop/restrito/etapa/edicao.html',{"fase":instance,'etapas':etapas,"tipoprocesso":tipoprocesso,'anteriores':anteriores,'posteriores':posteriores,'etapadesejada':etapadesejada}, context_instance = RequestContext(request))
 
 
-@permission_required('sicop.etapa_checklist', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.etapa_checklist_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def checklist(request, processo,etapa):    
     obj_processo = Tbprocessobase.objects.get( pk = processo )
     obj_etapa = Tbetapa.objects.get( pk = etapa )
     
-    checklist = Tbchecklist.objects.filter( tbfase__id = etapa ).order_by('nmchecklist')
+    checklist = Tbchecklist.objects.filter( tbetapa__id = etapa ).order_by('nmchecklist')
     procChecklist = Tbchecklistprocessobase.objects.filter( tbprocessobase__id = processo )
-
+    
+    posteriores = Tbetapaposterior.objects.filter( tbetapa__id = etapa )
+    
     result = {}
     for obj in checklist:
         achou = False
@@ -228,9 +231,71 @@ def checklist(request, processo,etapa):
         if not achou:
             result.setdefault(obj.nmchecklist, False)
     result = sorted(result.items())
-
     
-    return render_to_response('sicop/restrito/etapa/checklist.html',{"processo":obj_processo,"etapa":obj_etapa,'result':result}, context_instance = RequestContext(request))
+    if request.method == "POST":
+        
+        if not request.user.has_perm('sicop.etapa_checklist_edicao'):
+            return HttpResponseRedirect('/excecoes/permissao_negada/') 
+
+        checked = 0
+        
+        # verificando os grupos do usuario
+        for obj in checklist:
+            if request.POST.get(obj.nmchecklist, False):
+                checked += 1
+                #verificar se esse grupo ja esta ligado ao usuario
+                res = Tbchecklistprocessobase.objects.filter( tbprocessobase__id = processo, tbchecklist__id = obj.id )
+                if not res:
+                    # inserir ao authusergroups
+                    ug = Tbchecklistprocessobase( tbprocessobase = Tbprocessobase.objects.get( pk = processo ),
+                                          tbchecklist = Tbchecklist.objects.get( pk = obj.id ) )
+                    ug.save()
+                    #print obj.name + ' nao esta ligado a este usuario'
+            else:
+                #verificar se esse grupo foi desligado do usuario
+                res = Tbchecklistprocessobase.objects.filter( tbprocessobase__id = processo, tbchecklist__id = obj.id )
+                if res:
+                    # excluir do authusergroups
+                    for aug in res:
+                        aug.delete()
+                    #print obj.name + ' desmarcou deste usuario'        
+
+        
+        # se todos os checklists foram marcados
+        if checked == len(checklist):
+            etapas_posterior = Tbetapaposterior.objects.all().filter( tbetapa_id = etapa )
+            etapa_posterior = None
+            if len(etapas_posterior) == 1:
+                etapa_posterior = etapas_posterior[0]
+            else:
+                for et in etapas_posterior:
+                    if et.blsequencia:
+                        etapa_posterior = et
+                        break
+            
+            transicao = Tbtransicao(
+                         tbprocessobase = Tbprocessobase.objects.get( pk = processo ) ,
+                         tbetapa = etapa_posterior.tbposterior,
+                         dttransicao = datetime.datetime.now()
+                        )
+            
+            transicao.save()
+            
+        # se o usuario selecionou alguma etapa posterior para forcar a sequencia do processo 
+        else:
+            if request.POST['etapaposterior'] != '':
+                transicao = Tbtransicao(
+                             tbprocessobase = Tbprocessobase.objects.get( pk = processo ) ,
+                             tbetapa = Tbetapa.objects.get( pk = request.POST['etapaposterior'] ),
+                             dttransicao = datetime.datetime.now()
+                            )
+                
+                transicao.save()
+                
+                        
+        return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(processo))
+
+    return render_to_response('sicop/restrito/etapa/checklist.html',{"processo":obj_processo,"etapa":obj_etapa,'result':result,'posteriores':posteriores}, context_instance = RequestContext(request))
 
 @permission_required('sicop.etapa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_pdf(request):
