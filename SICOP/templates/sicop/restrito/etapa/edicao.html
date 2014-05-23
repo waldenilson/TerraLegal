@@ -102,7 +102,11 @@
 					   		<select name="etapadesejada"  style="width:250px">
 								<option value="">-- Selecione a etapa --</option>
 								{% for obj in etapas %}
-									<option value="{{ obj.id }}">{{obj.nmfase}} - {{obj.tbtipoprocesso.nome}}</option>
+									{% if obj.id == etapadesejada.tbposterior.id %}
+										<option selected="selected" value="{{ obj.id }}">{{obj.nmfase}} - {{obj.tbtipoprocesso.nome}}</option>
+									{% else %}
+										<option value="{{ obj.id }}">{{obj.nmfase}} - {{obj.tbtipoprocesso.nome}}</option>
+									{% endif %}
 								{% endfor %}
 							</select>		
 					   	</td>

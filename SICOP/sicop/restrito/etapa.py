@@ -119,7 +119,11 @@ def edicao(request, id):
             posteriores.setdefault(obj, False)
     posteriores = sorted(posteriores.items())
     
-        
+    etapadesejada = None
+    for et in etapasPosteriores:
+        if et.blsequencia:
+            etapadesejada = et
+            break
 
     if request.method == "POST":
         
@@ -171,7 +175,7 @@ def edicao(request, id):
             #atribuir false posteriores
             posteriores = Tbetapaposterior.objects.all().filter( tbetapa__id = instance.id ).order_by('id')
             for pos in posteriores:
-                if request.POST['etapadesejada'] == pos.tbposterior:
+                if request.POST['etapadesejada'] == str(pos.tbposterior.id):
                     posterior = Tbetapaposterior(
                                                  id = pos.id,
                                                  tbetapa = pos.tbetapa,
@@ -202,7 +206,7 @@ def edicao(request, id):
                 return HttpResponseRedirect("/sicop/restrito/etapa/edicao/"+str(id)+"/")
             else:    
                 return HttpResponseRedirect(next)
-    return render_to_response('sicop/restrito/etapa/edicao.html',{"fase":instance,'etapas':etapas,"tipoprocesso":tipoprocesso,'anteriores':anteriores,'posteriores':posteriores}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/etapa/edicao.html',{"fase":instance,'etapas':etapas,"tipoprocesso":tipoprocesso,'anteriores':anteriores,'posteriores':posteriores,'etapadesejada':etapadesejada}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.etapa_checklist', login_url='/excecoes/permissao_negada/', raise_exception=True)
