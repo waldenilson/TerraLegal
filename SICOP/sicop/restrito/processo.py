@@ -553,7 +553,7 @@ def edicao(request, id):
         if tipo == "tbprocessorural":
             rural = Tbprocessorural.objects.get( tbprocessobase = id )
             peca = Tbpecastecnicas.objects.all().filter( nrcpfrequerente = rural.nrcpfrequerente.replace('.','').replace('-','') )
-            etapas = Tbetapa.objects.filter( tbtipoprocesso__id = rural.tbprocessobase.tbtipoprocesso.id, blativo = True ).order_by('ordem')
+            etapas = Tbetapa.objects.filter( tbtipoprocesso__id = rural.tbprocessobase.tbtipoprocesso.id, blativo = True )
             #try:
             #    titulo = Tbtitulo.objects.get(tbprocessobase = id)
             #except ObjectDoesNotExist:
@@ -578,7 +578,7 @@ def edicao(request, id):
                 pregao = Tbpregao.objects.all().order_by('nrpregao')
                 dtaberturaprocesso = formatDataToText( urbano.dtaberturaprocesso )
                 dttitulacao = formatDataToText( urbano.dttitulacao )
-                fases = Tbetapa.objects.filter( tbtipoprocesso__id = urbano.tbprocessobase.tbtipoprocesso.id, blativo = True ).order_by('ordem')
+                fases = Tbetapa.objects.filter( tbtipoprocesso__id = urbano.tbprocessobase.tbtipoprocesso.id, blativo = True )
                 # caixas que podem ser tramitadas
                 tram = []
                 for obj in caixasdestino:
@@ -594,7 +594,7 @@ def edicao(request, id):
                 if tipo == "tbprocessoclausula":
                     clausula = Tbprocessoclausula.objects.get( tbprocessobase = id )
                     dttitulacao = formatDataToText( clausula.dttitulacao )
-                    fases = Tbetapa.objects.filter( tbtipoprocesso__id = clausula.tbprocessobase.tbtipoprocesso.id, blativo = True ).order_by('ordem')
+                    fases = Tbetapa.objects.filter( tbtipoprocesso__id = clausula.tbprocessobase.tbtipoprocesso.id, blativo = True )
                     # caixas que podem ser tramitadas
                 
                     tram = []

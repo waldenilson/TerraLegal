@@ -171,7 +171,7 @@ INSTALLED_APPS = (
     'odslib',
     'webodt',
     'lxml',
-    'calculos',
+    #'calculos',
     #'livrofundiario',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',

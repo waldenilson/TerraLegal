@@ -4,7 +4,8 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext, Context
 from sicop.models import Tbcaixa, Tbtipocaixa, AuthUser, Tbprocessobase,\
     Tbpecastecnicas, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano, Tbdivisao,\
-    Tbetapa, Tbtipoprocesso, Tbchecklist, Tbchecklistprocessobase
+    Tbetapa, Tbtipoprocesso, Tbchecklist, Tbchecklistprocessobase,\
+    Tbetapaanterior, Tbetapaposterior
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from sicop.forms import FormCaixa
@@ -63,7 +64,7 @@ def cadastro(request):
        
     if request.method == "POST":
         next = request.GET.get('next', '/')
-        if validacao(request):
+        if validacao(request, False):
             f_fase = Tbetapa(
                               nmfase = request.POST['nmfase'],
                               tbtipoprocesso = Tbtipoprocesso.objects.get(pk = request.POST['tbtipoprocesso']),
@@ -76,25 +77,118 @@ def cadastro(request):
                 return HttpResponseRedirect(response_consulta)
             else:    
                 return HttpResponseRedirect(next)
-    return render_to_response('sicop/restrito/fase/cadastro.html',{"tipoprocesso":tipoprocesso}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/etapa/cadastro.html',{"tipoprocesso":tipoprocesso}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.etapa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     instance = get_object_or_404(Tbetapa, id=id)
     tipoprocesso = Tbtipoprocesso.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('id')
+
+    etapas = Tbetapa.objects.exclude( id = instance.id ).order_by('id')
+    etapasAnteriores = Tbetapaanterior.objects.all().filter( tbetapa__id = instance.id ).order_by('id')
+    etapasPosteriores = Tbetapaposterior.objects.all().filter( tbetapa__id = instance.id ).order_by('id')
+    
     
     ativo = False
     if request.POST.get('blativo',False):
         ativo = True
+        
+    #montando anteriores e posteriores
+    anteriores = {}
+    for obj in etapas:
+        achou = False
+        for obj2 in etapasAnteriores:
+            if obj.id == obj2.tbanterior.id:
+                anteriores.setdefault(obj, True)
+                achou = True
+                break
+        if not achou:
+            anteriores.setdefault(obj, False)
+    anteriores = sorted(anteriores.items())
+
+    posteriores = {}
+    for obj in etapas:
+        achou = False
+        for obj2 in etapasPosteriores:
+            if obj.id == obj2.tbposterior.id:
+                posteriores.setdefault(obj, True)
+                achou = True
+                break
+        if not achou:
+            posteriores.setdefault(obj, False)
+    posteriores = sorted(posteriores.items())
+    
+        
 
     if request.method == "POST":
         
         if not request.user.has_perm('sicop.etapa_edicao'):
             return HttpResponseRedirect('/excecoes/permissao_negada/') 
 
+        # verificando as etapas anteriores
+        for obj in etapas:
+            if request.POST.get(str(obj.id)+'-anterior', False):
+                print obj
+                #verificar se esse grupo ja esta ligado ao usuario
+                res = Tbetapaanterior.objects.filter( tbanterior__id = obj.id, tbetapa__id = instance.id )
+                if not res:
+                    # inserir ao authusergroups
+                    et = Tbetapaanterior( tbetapa = Tbetapa.objects.get( pk = instance.id ),
+                                          tbanterior = Tbetapa.objects.get( pk = obj.id ) )
+                    et.save()
+                    #print obj.name + ' nao esta ligado a este usuario'
+            else:
+                #verificar se esse grupo foi desligado do usuario
+                res = Tbetapaanterior.objects.filter( tbanterior__id = obj.id, tbetapa__id = instance.id )
+                if res:
+                    # excluir do authusergroups
+                    for et in res:
+                        et.delete()
+
+        # verificando as etapas posteriores
+        for obj in etapas:
+            if request.POST.get(str(obj.id)+'-posterior', False):
+                #verificar se esse grupo ja esta ligado ao usuario
+                res = Tbetapaposterior.objects.filter( tbposterior__id = obj.id, tbetapa__id = instance.id )
+                if not res:
+                    # inserir ao authusergroups
+                    et = Tbetapaposterior( tbetapa = Tbetapa.objects.get( pk = instance.id ),
+                                          tbposterior = Tbetapa.objects.get( pk = obj.id ), blsequencia = False )
+                    et.save()
+                    #print obj.name + ' nao esta ligado a este usuario'
+            else:
+                #verificar se esse grupo foi desligado do usuario
+                res = Tbetapaposterior.objects.filter( tbposterior__id = obj.id, tbetapa__id = instance.id )
+                if res:
+                    # excluir do authusergroups
+                    for et in res:
+                        et.delete()
+        
         next = request.GET.get('next', '/')
-        if validacao(request):
+        if validacao(request, True):
+            
+            #atribuir false posteriores
+            posteriores = Tbetapaposterior.objects.all().filter( tbetapa__id = instance.id ).order_by('id')
+            for pos in posteriores:
+                if request.POST['etapadesejada'] == pos.tbposterior:
+                    posterior = Tbetapaposterior(
+                                                 id = pos.id,
+                                                 tbetapa = pos.tbetapa,
+                                                 tbposterior = pos.tbposterior,
+                                                 blsequencia = True
+                                                 )
+                    posterior.save()
+                    
+                else:
+                    posterior = Tbetapaposterior(
+                                                 id = pos.id,
+                                                 tbetapa = pos.tbetapa,
+                                                 tbposterior = pos.tbposterior,
+                                                 blsequencia = False
+                                                 )
+                    posterior.save()
+            
             f_fase = Tbetapa(
                               id = instance.id,
                               nmfase = request.POST['nmfase'],
@@ -108,7 +202,7 @@ def edicao(request, id):
                 return HttpResponseRedirect("/sicop/restrito/etapa/edicao/"+str(id)+"/")
             else:    
                 return HttpResponseRedirect(next)
-    return render_to_response('sicop/restrito/etapa/edicao.html',{"fase":instance,"tipoprocesso":tipoprocesso}, context_instance = RequestContext(request))
+    return render_to_response('sicop/restrito/etapa/edicao.html',{"fase":instance,'etapas':etapas,"tipoprocesso":tipoprocesso,'anteriores':anteriores,'posteriores':posteriores}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.etapa_checklist', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -201,15 +295,22 @@ def relatorio_csv(request):
         return HttpResponseRedirect( response_consulta )
 
 
-def validacao(request_form):
+def validacao(request_form, edicao):
     warning = True
 #    nome = request_form.POST['nmfase']
 #    pos = request_form.POST['ordem']
     tipoprocesso = request_form.POST['tbtipoprocesso']
+    if edicao:
+        seqdesejada = request_form.POST['etapadesejada']
     
     if tipoprocesso == '':
         messages.add_message(request_form,messages.WARNING,'Informe um tipo de processo')
         warning = False
+
+    if edicao:
+        if seqdesejada == '':
+            messages.add_message(request_form,messages.WARNING,'Informe a Proxima etapa na sequencia desejada')
+            warning = False
 #    else:
 #        list = []
         # ordem com tipoprocesso eh unico

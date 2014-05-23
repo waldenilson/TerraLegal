@@ -547,8 +547,9 @@ class Tbetapa(models.Model):
     nmfase = models.CharField(max_length=80, blank=True)
     tbtipoprocesso = models.ForeignKey(Tbtipoprocesso, null=True, blank=True)
     dsfase = models.TextField(blank=True)
-    id = models.AutoField(primary_key=True)
     blativo = models.BooleanField()
+    ordem = models.IntegerField()
+    id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbetapa'
 
@@ -569,7 +570,7 @@ class Tbchecklistprocessobase(models.Model):
 
 class Tbtransicao(models.Model):
     tbprocessobase = models.ForeignKey(Tbprocessobase, null=True, blank=True)
-    tbfase = models.ForeignKey(Tbetapa, null=True, blank=True)
+    tbetapa = models.ForeignKey(Tbetapa, null=True, blank=True)
     dttransicao = models.DateTimeField( null=False )
     id = models.AutoField(primary_key=True)
     class Meta:
@@ -577,14 +578,14 @@ class Tbtransicao(models.Model):
 
 class Tbetapaanterior(models.Model):
     tbetapa = models.ForeignKey(Tbetapa, null=True, blank=True)
-    tbanterior = models.ForeignKey(Tbetapa, null=True, blank=True)
+    tbanterior = models.ForeignKey(Tbetapa, db_column='tbanterior', related_name='tbanterior')
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbetapaanterior'
 
 class Tbetapaposterior(models.Model):
     tbetapa = models.ForeignKey(Tbetapa, null=True, blank=True)
-    tbposterior = models.ForeignKey(Tbetapa, null=True, blank=True)
+    tbposterior = models.ForeignKey(Tbetapa, db_column='tbposterior', related_name='tbposterior')
     blsequencia = models.BooleanField( null=False )
     id = models.AutoField(primary_key=True)
     class Meta:

@@ -17,7 +17,7 @@
 		{% csrf_token %}
 		<div style="width:100%;font-size:12px;text-align:left">
 				<table>
-				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td><input required="required" name="nmfase"/></td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td><input size="40" required="required" name="nmfase"/></td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Tipo Processo:</label> </td>
 				   	<td>
 				   		<select name="tbtipoprocesso"  style="width:150px">
@@ -28,75 +28,18 @@
 						</select>		
 				   	</td>
 				   	<td>
-						<a href="/sicop/restrito/tipo_processo/cadastro/?next=/sicop/restrito/fase/cadastro/" title="Novo Tipo Processo"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+						<a href="/sicop/restrito/tipo_processo/cadastro/?next=/sicop/restrito/etapa/cadastro/" title="Novo Tipo Processo"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>						
 				   </tr>
+				   <tr> <td class="colunaTabela"> <label>Ordem:</label> </td><td><input onkeypress="return SomenteNumeroOK(event, this);" required="required" name="ordem"/></td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Descricao:</label> </td><td> <textarea rows="4" cols="40" name="dsfase"></textarea></td> </tr>				   
-				</table>
-
-				<br />
-				<table class="csstable"  style="width:100%">
-					<tbody>
-						<tr>
-							<td class="colunaTabelaConsulta" style="width:5%"> </td>
-							<td class="colunaTabelaConsulta" style="width:95%">Etapas Anteriores</td>
-						</tr>
-						{% if grupo %}
-							{% for k,v in result %}
-								<tr>
-									<td class="colunaTabelaConsulta">
-										<input name="{{ k }}" type="checkbox" />
-									</td>
-									<td class="colunaTabelaConsulta">{{ k }}</td>
-								</tr>
-							{% endfor %}
-						{% endif %}
-					</tbody>
-				</table>
-
-				<br />
-				<table class="csstable"  style="width:100%">
-					<tbody>
-						<tr>
-							<td class="colunaTabelaConsulta" style="width:5%"> </td>
-							<td class="colunaTabelaConsulta" style="width:95%">Etapas Posteriores</td>
-						</tr>
-						{% if grupo %}
-							{% for k,v in result %}
-								<tr>
-									<td class="colunaTabelaConsulta">
-										<input name="{{ k }}" type="checkbox" />
-									</td>
-									<td class="colunaTabelaConsulta">{{ k }}</td>
-								</tr>
-							{% endfor %}
-						{% endif %}
-					</tbody>
-				</table>
-
-				<br />
-				<table class="csstable"  style="width:100%">
-					<tbody>
-					   <tr> <td class="colunaTabela"> <label>Próxima Etapa desejada:</label> </td>
-					   	<td>
-					   		<select name="etapadesejada"  style="width:150px">
-								<option value="">-- Selecione a etapa --</option>
-								{% for obj in tipoprocesso %}
-									<option value="{{ obj.id }}">{{obj.nome}}</option>
-								{% endfor %}
-							</select>		
-					   	</td>
-					   </tr>
-					</tbody>
-				</table>
-				<br/>
-				
+				</table>				
 		</div>
 		<br />
 		<table style="width:100%">
 			<tr>
 				<td class="colunaTabela" style="text-align:left"> 
-					<a href="/sicop/restrito/fase/consulta/" style="margin-right: 10px"><input type="button" class="button_yellow" value="CONSULTAR" /></a>
+					<a href="/sicop/restrito/etapa/consulta/" style="margin-right: 10px"><input type="button" class="button_yellow" value="CONSULTAR" /></a>
 					<input type="submit" class="button_green" value="SALVAR" />
 				</td>
 			</tr>
