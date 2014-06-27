@@ -148,9 +148,9 @@ TEMPLATE_DIRS = (
     # 'C:/DEVELOPER/django/',
     # os.path.abspath(os.path.join(ABSOLUTE_PROJECT_ROOT, 'staticfiles/')),
     abspath(join(dirname(__file__), '../templates')),
+    #abspath(join(dirname(__file__), '../calculo/templates')),
     # ABSOLUTE_TEMPLATES_PATH,
-)
-
+) 
 WEBODT_TEMPLATE_PATH = abspath(join(dirname(__file__), '../staticfiles/doc/template'))
 WEBODT_TMP_DIR = abspath(join(dirname(__file__), '../staticfiles/doc/tmp'))
 CSV_PATH_DIR = abspath(join(dirname(__file__), '../staticfiles/csv'))
@@ -171,7 +171,7 @@ INSTALLED_APPS = (
     'odslib',
     'webodt',
     'lxml',
-    #'calculos',
+    'calculo',
     #'livrofundiario',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',

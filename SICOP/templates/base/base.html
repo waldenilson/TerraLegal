@@ -494,6 +494,21 @@ Divisão: {{ request.session.divisao }} | <a href="/logout/">Sair do Sistema</a>
 </li>
 {% endif %}
 
+{% if perms.sicop.calculo %}
+	<li><a href="#">Calculos</a>
+	<ul>
+		{% if perms.sicop.calculo_portaria23 %}
+			<li><a href="/calculo/portaria23/">Portaria 23</a></li>
+		{% endif %}
+		{% if perms.sicop.calculo_portaria80 %}
+			<li><a href="/calculo/portaria80/">Portaria 80</a></li>
+		{% endif %}
+	
+	</ul>
+	</li>
+{% endif %}
+
+
 {% if perms.sicop.municipio_consulta %}
 	<li><a href="#">Município</a>
 	<ul>
@@ -503,18 +518,6 @@ Divisão: {{ request.session.divisao }} | <a href="/logout/">Sair do Sistema</a>
 	</ul>
 	</li>
 {% endif %}
-
-{% if perms.sicop.calculo_portaria80 %}
-	<li><a href="#">Calculo GRU</a>
-	<ul>
-		{% if perms.sicop.calculo_portaria80 %}
-			<li><a href="/sicop/restrito/portaria80/calculo/">Portaria 80</a></li>
-		{% endif %}
-	</ul>
-	</li>
-{% endif %}
-
-
 
 
 </ul><!-- MENU -->

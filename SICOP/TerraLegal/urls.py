@@ -1,4 +1,4 @@
-#teste commit eduardo 20130828
+        #teste commit eduardo 20130828
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 from django.conf.urls import patterns, url, include
@@ -262,7 +262,6 @@ urlpatterns = patterns('',
 
     # ACESSO RESTRITO SICOP MUNICIPIO
     
-    
     url(r'^sicop/restrito/municipio/consulta/', 'sicop.restrito.municipio.consulta'),
     url(r'^sicop/restrito/municipio/edicao/(?P<id>\d+)/', 'sicop.restrito.municipio.edicao'),
    
@@ -277,9 +276,8 @@ urlpatterns = patterns('',
    url(r'^sicop/restrito/livro/titulos_nao_entregues/','sicop.restrito.livro.titulos_nao_entregues'),
    url(r'^sicop/restrito/livro/relatorio/ods', 'sicop.restrito.livro.relatorio_ods'),
    
-   url(r'^sicop/restrito/municipio/consulta/', 'sicop.restrito.municipio.consulta'),
-   url(r'^sicop/restrito/municipio/edicao/(?P<id>\d+)/', 'sicop.restrito.municipio.edicao'),
-   
+   url(r'^calculo/portaria23', 'calculo.views.consulta'),
+   url(r'^calculo/processo/(?P<id>\d+)/', 'calculo.views.emissao'),
    
     # ACESSO RESTRITO SICOP RELATORIO
     url(r'^sicop/restrito/relatorio/processo_peca', 'sicop.restrito.relatorio.processo_peca'),
