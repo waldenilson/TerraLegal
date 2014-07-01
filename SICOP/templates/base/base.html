@@ -494,10 +494,10 @@ Divisão: {{ request.session.divisao }} | <a href="/logout/">Sair do Sistema</a>
 </li>
 {% endif %}
 
-{% if perms.sicop.calculo %}
+{% if perms.sicop.titulo_calculo_portaria23 %}
 	<li><a href="#">Calculos</a>
 	<ul>
-		{% if perms.sicop.calculo_portaria23 %}
+		{% if perms.sicop.titulo_calculo_portaria23 %}
 			<li><a href="/calculo/portaria23/">Portaria 23</a></li>
 		{% endif %}
 		{% if perms.sicop.calculo_portaria80 %}

@@ -28,7 +28,9 @@ nome_relatorio      = "relatorio_portaria80"
 response_consulta  = "/sicop/restrito/portaria80/calculo/"
 titulo_relatorio    = "Calculo Portaria 80 - Clausulas Resolutivas"
 
+@permission_required('sicop.titulo_calculo_portaria23', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
+    p_extrato = []
     if request.method == "POST":
         numero = request.POST['numero'].replace('.','').replace('/','').replace('-','')
         cpf = request.POST['cpf'].replace('.','').replace('/','').replace('-','')
@@ -36,8 +38,7 @@ def consulta(request):
         titulo = request.POST['cdtitulo']
         
         p_extrato = []
-        if request.user.has_perm('sicop.titulo_calculo_consulta'):
-            p_extrato = Tbextrato.objects.all().filter(numero_processo__icontains = numero,cpf_req__icontains = cpf,
+        p_extrato = Tbextrato.objects.all().filter(numero_processo__icontains = numero,cpf_req__icontains = cpf,
                                 nome_req__icontains = requerente, id_req__icontains = titulo,  situacao_processo__icontains = 'Titulado')
         
         
@@ -48,9 +49,8 @@ def consulta(request):
 def emissao(request,id):
     instance = get_object_or_404(Tbextrato, id=id)
     hoje = date.today()
-    prestacao = (instance.valor_imovel/17).quantize(Decimal('1.00'))
+    prestacao = (float(instance.valor_imovel)/17.0)
     vencimento = instance.data_vencimento_primeira_prestacao
-    vencimento_segunda = vencimento.replace(vencimento.year + 1)
     titulado = vencimento.replace(vencimento.year - 3)
     '''calculo do indice de correcao / encargos depende do valor e tamanho da area'''
     area = instance.area_medida
