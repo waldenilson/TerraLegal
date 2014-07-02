@@ -115,7 +115,7 @@
 				</tr>					    
 				{% if ferias %}
 					{% for obj in ferias %}
-						<tr onclick="editarID('/EditarFerias/{{ obj.id }}');" >
+						<tr onclick="editarID('/servidor/ferias/edicao/{{ obj.id }}');" >
 						    	<td class="colunaTabelaConsulta" align="left" >{{ obj.nrAno }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.stSituacao.dsSituacao  }}</td>
 						</tr>

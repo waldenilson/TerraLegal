@@ -22,11 +22,6 @@ from django.shortcuts import render_to_response
 import random
 import time
 
-nome_relatorio = "relatorio_servidor"
-response_consulta = "/ConsultarServidor/"
-titulo_relatorio = "Relatorio Servidores"
-planilha_relatorio = "Servidores"
-
     
 @permission_required('servidor.servidor_cadastro_ferias', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastroferias(request,id): #id se refere ao servidor
@@ -80,7 +75,7 @@ def cadastroferias(request,id): #id se refere ao servidor
                     )
             f_ferias.save()
             #colocar aqui uma chamada para as ferias cadastradas do servido
-            return HttpResponseRedirect("/ConsultarServidor/")
+            return HttpResponseRedirect("/servidor/consulta/")
     else:
             return render_to_response('controle/servidor/cadastroFerias.html',{'servidor':servidor,'ferias':ferias,'situacao':situacao}, context_instance = RequestContext(request))
 
@@ -157,75 +152,10 @@ def edicaoferias(request, id): #esse id se refere as ferias
                         
                         )
             f_ferias.save()
-            return HttpResponseRedirect("/EditarServidor/"+str(servidor.id)+"/")
+            return HttpResponseRedirect("/servidor/edicao/"+str(servidor.id)+"/")
     return render_to_response('controle/servidor/edicaoFerias.html',{'ferias':ferias,'servidor':servidor,'dtInicio1':dtInicio1,'dtInicio2':dtInicio2,'dtInicio3':dtInicio3,'situacao':situacao,'dtFim1':dtFim1,'dtFim2':dtFim2,'dtFim3':dtFim3},context_instance = RequestContext(request))
 
 
-@permission_required('servidor.servidor_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
-def relatorio_pdf(request):
-    # montar objeto lista com os campos a mostrar no relatorio/pdf
-    lista = request.session[nome_relatorio]
-    if lista:
-        response = HttpResponse(mimetype='application/pdf')
-        doc = relatorio_pdf_base_header(response, nome_relatorio)
-        elements=[]
-        
-        dados = relatorio_pdf_base_header_title(titulo_relatorio)
-        dados.append( ('NOME','CARGO') )
-        for obj in lista:
-            dados.append( ( obj.nmservidor , obj.nmcargo ) )
-        return relatorio_pdf_base(response, doc, elements, dados)
-    else:
-        return HttpResponseRedirect(response_consulta)
-
-@permission_required('servidor.servidor_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
-def relatorio_ods(request):
-
-    # montar objeto lista com os campos a mostrar no relatorio/pdf
-    lista = request.session[nome_relatorio]
-    
-    if lista:
-        ods = ODS()
-        sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, ods)
-        
-        # subtitle
-        sheet.getCell(0, 1).setAlignHorizontal('center').stringValue( 'Nome' ).setFontSize('14pt')
-        sheet.getCell(1, 1).setAlignHorizontal('center').stringValue( 'Cargo' ).setFontSize('14pt')
-        sheet.getRow(1).setHeight('20pt')
-        
-    #TRECHO PERSONALIZADO DE CADA CONSULTA
-        #DADOS
-        x = 0
-        for obj in lista:
-            sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.nmservidor)
-            sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.nmcargo)
-            x += 1
-        
-    #TRECHO PERSONALIZADO DE CADA CONSULTA
-       
-        relatorio_ods_base(ods, planilha_relatorio)
-        # generating response
-        response = HttpResponse(mimetype=ods.mimetype.toString())
-        response['Content-Disposition'] = 'attachment; filename='+nome_relatorio+'.ods'
-        ods.save(response)
-    
-        return response
-    else:
-        return HttpResponseRedirect( response_consulta )
-
-@permission_required('servidor.servidor_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
-def relatorio_csv(request):
-    # montar objeto lista com os campos a mostrar no relatorio/pdf
-    lista = request.session[nome_relatorio]
-    if lista:
-        response = HttpResponse(content_type='text/csv')
-        writer = relatorio_csv_base(response, nome_relatorio)
-        writer.writerow(['Nome', 'Cargo'])
-        for obj in lista:
-            writer.writerow([obj.nmservidor, obj.nmcargo])
-        return response
-    else:
-        return HttpResponseRedirect( response_consulta )
 
 def validacao(request_form):
     warning = True

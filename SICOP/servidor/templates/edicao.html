@@ -56,7 +56,7 @@
 				</tr>					    
 				
 					{% for obj in ferias %}
-						<tr onclick="editarID('/EditarFerias/{{ obj.id }}');">
+						<tr onclick="editarID('/servidor/ferias/edicao/{{ obj.id }}');">
 							<td class="colunaTabelaConsulta" align="left" >{{ obj.nrAno }}</td>
 							<!-- td class="colunaTabelaConsulta">{{ obj.stSituacao.dsSituacao }}</td-->
 							<td></td>
@@ -69,7 +69,7 @@
 		{% endif %}</br></br>
 		<tr>	<td class="colunaTabela" style="text-align:left"> 
 		<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
-		<a href="/CadastroFerias/{{ servidor.id }}/"> <input class="button_green" value="NOVO PEDIDO" type="button" /> </a>
+		<a href="/servidor/ferias/cadastro/{{ servidor.id }}/"> <input class="button_green" value="NOVO PEDIDO" type="button" /> </a>
 		</td></tr>
 </form>
 </div>
@@ -97,7 +97,7 @@
 		</br></br>
 		<tr>	<td class="colunaTabela" style="text-align:left"> 
 		<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
-		<!--a href="/CadastroFerias/{{ servidor.id }}/"> <input class="button_green" value="NOVO PEDIDO" type="button" /> </a-->
+		<!--a href="/servidor/ferias/cadastro/{{ servidor.id }}/"> <input class="button_green" value="NOVO PEDIDO" type="button" /> </a-->
 		</td></tr>
 	
 </form>

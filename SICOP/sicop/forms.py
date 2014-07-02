@@ -5,8 +5,8 @@ from sicop.models import Tbpecastecnicas, Tbprocessobase, Tbtipopendencia,\
     Tbtipocaixa, Tbcaixa, Tbsubarea, Tbgleba, Tbcontrato, Tbstatuspendencia,\
     Tbclassificacaoprocesso,\
     Tbtipoprocesso, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano,\
-    Tbsituacaoprocesso, Tbsituacaogeo , Tbservidor, AuthGroup, Tbdivisao,\
-    Tbpendencia, Tbferias, Tbmunicipio, Tbstatustitulo, Tbtitulo
+    Tbsituacaoprocesso, Tbsituacaogeo, AuthGroup, Tbdivisao,\
+    Tbpendencia, Tbmunicipio, Tbstatustitulo, Tbtitulo
 
 
 class FormPecasTecnicas(forms.ModelForm):
@@ -14,19 +14,6 @@ class FormPecasTecnicas(forms.ModelForm):
         model = Tbpecastecnicas
         fields = ('tbcaixa','tbcontrato','nrentrega','nrcpfrequerente','nmrequerente','tbgleba','stpecatecnica',
                   'stanexadoprocesso','stenviadobrasilia','nrarea','nrperimetro','dsobservacao')
-
-class FormServidor(forms.ModelForm):
-    class Meta:
-        model = Tbservidor
-        fields = ('nmservidor','nmunidade','nmlotacao','cdsiape','nrcpf',
-                  'dsportariacargo','dsportaria','nmcargo','nrtelefone1','nrtelefone2',
-                  'email','dsatividades')
-        
-class FormFerias(forms.ModelForm):
-    class Meta:
-        model = Tbferias
-        fields = ('nrAno','dtInicio1','nrDias1','dtInicio2','nrDias2','dtInicio3',
-                  'nrDias3','stAntecipa','stDecimoTerceiro','stSituacao1')
 
 # ----PROCESSOS----------------------------------------------------------------------------------------------------------------------
 class FormProcessoBase(models.ModelForm):

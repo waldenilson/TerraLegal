@@ -1,8 +1,6 @@
-        #teste commit eduardo 20130828
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 from django.conf.urls import patterns, url, include
-from TerraLegal import settings
 admin.autodiscover()
 
 handler404 = 'web.views_excecoes.pagina_nao_encontrada'
@@ -78,7 +76,6 @@ urlpatterns = patterns('',
     url(r'^sicop/restrito/processo/relatorio/ods/', 'sicop.restrito.processo.relatorio_ods'),
     url(r'^sicop/restrito/processo/relatorio/csv/', 'sicop.restrito.processo.relatorio_csv'),
     url(r'^sicop/restrito/processo/desanexar/(?P<id_anexo>\d+)/', 'sicop.restrito.processo.desanexar'),
-    
 
     # ACESSO RESTRITO SICOP PENDENCIA
     url(r'^sicop/restrito/pendencia/edicao/(?P<pendencia>\d+)/', 'sicop.restrito.pendencia.edicao'),
@@ -276,8 +273,8 @@ urlpatterns = patterns('',
    url(r'^sicop/restrito/livro/titulos_nao_entregues/','sicop.restrito.livro.titulos_nao_entregues'),
    url(r'^sicop/restrito/livro/relatorio/ods', 'sicop.restrito.livro.relatorio_ods'),
    
-   url(r'^calculo/portaria23', 'calculo.views.consulta'),
-   url(r'^calculo/processo/(?P<id>\d+)/', 'calculo.views.emissao'),
+   url(r'^calculo/',include('calculo.urls',namespace='calculo')),
+   url(r'^servidor/',include('servidor.urls',namespace='servidor')),
    
     # ACESSO RESTRITO SICOP RELATORIO
     url(r'^sicop/restrito/relatorio/processo_peca', 'sicop.restrito.relatorio.processo_peca'),
@@ -286,26 +283,12 @@ urlpatterns = patterns('',
     url(r'^sicop/restrito/relatorio/peca_rejeitada', 'sicop.restrito.relatorio.peca_rejeitada'),
     url(r'^sicop/restrito/relatorio/peca_sem_processo', 'sicop.restrito.relatorio.peca_sem_processo'),
     url(r'^sicop/restrito/relatorio/peca_validada', 'sicop.restrito.relatorio.peca_validada'),
-    
     #END------------------------------SICOP---------------------------------------------------------------------------------
-    
-    #INIT------------------------------CONTROLE---------------------------------------------------------------------------------
-    # ACESSO SISTEMAS DE CONTROLE
-    url(r'^servidor/$', 'servidor.views.inicio'),
-    url(r'^ConsultarServidor/', 'servidor.restrito.servidor.consulta'),
-    url(r'^servidor/restrito/servidor/cadastro/', 'servidor.restrito.servidor.cadastro'),
-    url(r'^EditarServidor/(?P<id>\d+)/', 'servidor.restrito.servidor.edicao'),
-    url(r'^servidor/restrito/servidor/relatorio/pdf/', 'servidor.restrito.servidor.relatorio_pdf'),
-    url(r'^servidor/restrito/servidor/relatorio/ods/', 'servidor.restrito.servidor.relatorio_ods'),
-    url(r'^servidor/restrito/servidor/relatorio/csv/', 'servidor.restrito.servidor.relatorio_csv'),
-    # ACESSO CONTROLE DE FERIAS
-    url(r'^EditarFerias/(?P<id>\d+)/', 'servidor.restrito.ferias.edicaoferias'),
-    url(r'^CadastroFerias/(?P<id>\d+)/', 'servidor.restrito.ferias.cadastroferias'),
+   
     # ACESSO RESTRITO TABELA SITUACAO 
     url(r'^sicop/restrito/situacao/consulta/', 'sicop.restrito.situacao.consulta'),
     url(r'^sicop/restrito/situacao/edicao/(?P<id>\d+)/','sicop.restrito.situacao.edicao'),
     url(r'^sicop/restrito/situacao/cadastro/', 'sicop.restrito.situacao.cadastro'),
-    
     #END------------------------------CONTROLE---------------------------------------------------------------------------------
         
     # CONTROLE AUTENTICACAO

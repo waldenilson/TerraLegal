@@ -20,7 +20,7 @@ from datetime import timedelta
 from sicop.restrito.processo import formatDataToText
 
 nome_relatorio = "relatorio_servidor"
-response_consulta = "/ConsultarServidor/"
+response_consulta = "/consulta/"
 titulo_relatorio = "Relatorio Servidores"
 planilha_relatorio = "Servidores"
 
@@ -71,7 +71,7 @@ def cadastro(request):
                     dtnascimento = dtnascimento
                     )
             f_servidor.save()
-            return HttpResponseRedirect("/ConsultarServidor/")
+            return HttpResponseRedirect("/servidor/consulta/")
     return render_to_response('controle/servidor/cadastro.html',{'divisao':divisao}, context_instance = RequestContext(request))
 
 @permission_required('servidor.servidor_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -109,7 +109,7 @@ def edicao(request, id):
                     
                     )
             f_servidor.save()
-            return HttpResponseRedirect("/EditarServidor/"+str(id)+"/")
+            return HttpResponseRedirect("/servidor/edicao/"+str(id)+"/")
     return render_to_response('controle/servidor/edicao.html',
                               {"servidor":instance , "ferias":ferias, "situacaoferias":situacaoferias ,"documentos":documentos,"dtnascimento":dtnascimento},context_instance = RequestContext(request))
 

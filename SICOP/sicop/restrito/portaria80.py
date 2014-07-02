@@ -132,7 +132,7 @@ def calculo(request):
                             }
             
             request.session[nome_relatorio] = dicionarios
-            return render_to_response('sicop/restrito/portaria80/calculo.html' ,dicionarios, context_instance = RequestContext(request))
+            return render_to_response('calculos/portaria80/calculo.html' ,dicionarios, context_instance = RequestContext(request))
         
             
             
@@ -142,7 +142,7 @@ def calculo(request):
     
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_municipio'] = lista
-    return render_to_response('sicop/restrito/portaria80/calculo.html' ,dicionarios, context_instance = RequestContext(request))
+    return render_to_response('calculos/portaria80/calculo.html' ,dicionarios, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.calculo_portaria80', login_url='/excecoes/permissao_negada/', raise_exception=True)

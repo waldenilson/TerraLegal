@@ -56,9 +56,9 @@
 				</tr>					    
 				{% if lista %}
 					{% for obj in lista %}
-						<tr onclick="editarID('/EditarServidor/{{ obj.id }}');">
+						<tr onclick="editarID('/servidor/edicao/{{ obj.id }}');">
 						     
-							<!-- td class="colunaTabelaConsulta"> <a href="/EditarServidor/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td--> 
+							<!-- td class="colunaTabelaConsulta"> <a href="/servidor/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td--> 
 							<!-- td class="colunaTabelaConsulta" align="left" >{{ obj.nmservidor }}</td-->
 							
 							<td class="colunaTabelaConsulta" align="left" >{{ obj.nmservidor }}</td>

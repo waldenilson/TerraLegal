@@ -1,28 +1,10 @@
-from django.contrib.auth.decorators import login_required, permission_required,\
-    user_passes_test
+from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from calculo.models import Tbextrato
-from django.http.response import HttpResponseRedirect, HttpResponse
-from django.contrib import messages
-from sicop.admin import verificar_permissao_grupo
-from sicop.relatorio_base import relatorio_pdf_base_header,\
-    relatorio_pdf_base_header_title, relatorio_pdf_base,\
-    relatorio_ods_base_header, relatorio_ods_base, relatorio_csv_base
-from odslib import ODS
-import webodt
-
-from webodt.shortcuts import render_to
-from webodt import shortcuts
-from TerraLegal import settings
-from decimal import *
-import os
-
-import time
-import datetime
-from datetime import timedelta, date
+from decimal import Decimal
+from datetime import date
 from sicop.restrito.processo import formatDataToText
-import csv
 
 nome_relatorio      = "relatorio_portaria80"
 response_consulta  = "/sicop/restrito/portaria80/calculo/"
@@ -36,18 +18,16 @@ def consulta(request):
         cpf = request.POST['cpf'].replace('.','').replace('/','').replace('-','')
         requerente = request.POST['requerente']
         titulo = request.POST['cdtitulo']
-        
         p_extrato = []
         p_extrato = Tbextrato.objects.all().filter(numero_processo__icontains = numero,cpf_req__icontains = cpf,
                                 nome_req__icontains = requerente, id_req__icontains = titulo,  situacao_processo__icontains = 'Titulado')
-        
         
     '''gravando na sessao o resultado da consulta preparando para o relatorio/pdf'''
     return render_to_response('portaria23/consulta.html',{'lista':p_extrato}, context_instance = RequestContext(request))
 
 @permission_required('sicop.titulo_calculo_portaria23', login_url='/excecoes/permissao_negada/', raise_exception=True)
-def emissao(request,id):
-    instance = get_object_or_404(Tbextrato, id=id)
+def emissao(request,ident):
+    instance = get_object_or_404(Tbextrato, id=ident)
     hoje = date.today()
     prestacao = (float(instance.valor_imovel)/17.0)
     vencimento = instance.data_vencimento_primeira_prestacao
@@ -82,7 +62,6 @@ def emissao(request,id):
     correcao = "{0:.2f}".format(correcao)
     principal_corrigido = "{0:.2f}".format(principal_corrigido)
     ordem = 1
-    if request.method == "POST":
-        '''definir'''
+
     return render_to_response('portaria23/calculo.html' ,locals(), context_instance = RequestContext(request))
 
