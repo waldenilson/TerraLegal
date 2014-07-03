@@ -2,8 +2,9 @@ from django.contrib.auth.decorators import login_required, permission_required,\
     user_passes_test
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
-from sicop.forms import FormStatusTitulo
-from sicop.models import Tbstatustitulo, AuthUser
+from livro.forms import FormStatusTitulo
+from livro.models import Tbstatustitulo
+from sicop.models import AuthUser
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from sicop.admin import verificar_permissao_grupo

@@ -211,6 +211,12 @@ class Tbpregao(models.Model):
     class Meta:
         db_table = 'tbpregao'
 
+class Tbsituacao(models.Model):
+    cdTabela = models.CharField(max_length=30)
+    dsSituacao = models.CharField(max_length=50)
+    class Meta:
+        db_table = 'tbsituacao'
+
 
 class Tbprocessobase(models.Model):
     nrprocesso = models.CharField(max_length=17, blank=True)
@@ -225,7 +231,7 @@ class Tbprocessobase(models.Model):
     tbdivisao = models.ForeignKey('Tbdivisao')
     nmendereco = models.TextField(blank=True)
     nmcontato = models.TextField(blank=True)
-    tbtitulo = models.ForeignKey('Tbtitulo',null=True)
+    tbtitulo = models.ForeignKey('livro.Tbtitulo',null=True)
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbprocessobase'
@@ -312,12 +318,6 @@ class Tbstatuspendencia(models.Model):
     class Meta:
         db_table = 'tbstatuspendencia'
         
-class Tbstatustitulo(models.Model):
-    id = models.AutoField(primary_key=True)
-    sttitulo = models.CharField(max_length=30)
-    class Meta:
-        db_table = 'tbstatustitulo'
-
 class Tbsubarea(models.Model):
     cdsubarea = models.CharField(max_length=10, blank=True)
     nmsubarea = models.CharField(max_length=80, blank=True)
@@ -362,22 +362,6 @@ class Tbtipodocumento(models.Model):
     class Meta:
         db_table = 'tbtipodocumento'
         
-class Tbtipotitulo(models.Model):
-    cdtipo = models.CharField(max_length=10, blank=True)
-    dstipo = models.CharField(max_length=50, blank=True)
-    id = models.AutoField(primary_key=True)
-    class Meta:
-        db_table = 'tbtipotitulo'
-        
-class Tbtitulo(models.Model):
-    cdtitulo = models.CharField(max_length=8)
-    #tbprocessobase = models.ForeignKey(Tbprocessobase,blank=True)
-    tbstatustitulo = models.ForeignKey(Tbstatustitulo,blank=True)
-    tbtipotitulo = models.ForeignKey(Tbtipotitulo,blank=True)
-    id = models.AutoField(primary_key=True)
-    class Meta:
-        db_table = 'tbtitulo'
-    
 class Tbuf(models.Model):
     sigla = models.CharField(max_length=2, blank=True)
     nmuf = models.CharField(max_length=50, blank=True)

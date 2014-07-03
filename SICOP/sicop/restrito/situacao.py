@@ -17,7 +17,9 @@ nome_relatorio      = "relatorio_tipo_situacao"
 response_consulta  = "/sicop/restrito/tipo_caixa/consulta/"
 titulo_relatorio    = "Relatorio dos Tipos de Caixa"
 planilha_relatorio  = "Tipos de Caixa"
-
+'''
+definir o que faz esse modulo
+'''
 
 @permission_required('sicop.tipo_situacao_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):

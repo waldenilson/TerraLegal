@@ -151,6 +151,8 @@ TEMPLATE_DIRS = (
     #abspath(join(dirname(__file__), '../calculo/templates')),
     # ABSOLUTE_TEMPLATES_PATH,
 ) 
+
+print abspath(join(dirname(__file__), '../templates'))
 WEBODT_TEMPLATE_PATH = abspath(join(dirname(__file__), '../staticfiles/doc/template'))
 WEBODT_TMP_DIR = abspath(join(dirname(__file__), '../staticfiles/doc/tmp'))
 CSV_PATH_DIR = abspath(join(dirname(__file__), '../staticfiles/csv'))
@@ -172,7 +174,7 @@ INSTALLED_APPS = (
     'webodt',
     'lxml',
     'calculo',
-    #'livrofundiario',
+    'livro',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )

@@ -7,14 +7,6 @@ Created on 01/07/2014
 from __future__ import unicode_literals
 from django.db import models
 
-class Tbsituacao(models.Model):
-    cdTabela = models.CharField(max_length=30)
-    dsSituacao = models.CharField(max_length=50)
-    class Meta:
-        db_table = 'tbsituacao'
-    
-
-
 class Tbservidor(models.Model):
     nmservidor = models.CharField(max_length=100)
     nmunidade = models.CharField(max_length=100)
@@ -41,13 +33,13 @@ class Tbferias(models.Model):
     nrAno = models.IntegerField()
     dtInicio1 = models.DateField()
     nrDias1 = models.IntegerField()
-    stSituacao1 = models.ForeignKey('Tbsituacao',related_name='situacao_p1')
+    stSituacao1 = models.ForeignKey('sicop.Tbsituacao',related_name='situacao_p1')
     dtInicio2 = models.DateTimeField(null=True,blank=True)
     nrDias2 = models.IntegerField(null=True,blank=True)
-    stSituacao2 = models.ForeignKey('Tbsituacao',related_name='situacao_p2')
+    stSituacao2 = models.ForeignKey('sicop.Tbsituacao',related_name='situacao_p2')
     dtInicio3 = models.DateField(null=True,blank=True)
     nrDias3 = models.IntegerField(null=True,blank=True)
-    stSituacao3 = models.ForeignKey('Tbsituacao',related_name='situacao_p3')
+    stSituacao3 = models.ForeignKey('sicop.Tbsituacao',related_name='situacao_p3')
     stAntecipa = models.NullBooleanField()
     stDecimoTerceiro = models.NullBooleanField()
     dsObservacao = models.TextField(blank=True)

@@ -66,7 +66,7 @@ def cadastro(request):
         if validacao(request):
             f_checklist = Tbchecklist(
                               nmchecklist = request.POST['nmchecklist'],
-                              tbfase = Tbetapa.objects.get(pk = request.POST['tbfase']),
+                              tbetapa = Tbetapa.objects.get(pk = request.POST['tbfase']),
                               dschecklist = request.POST['dschecklist']
                               )
             f_checklist.save()

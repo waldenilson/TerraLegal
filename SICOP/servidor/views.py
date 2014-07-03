@@ -8,8 +8,8 @@ from django.template.context import RequestContext
 from django.contrib import messages
 
 
-from sicop.models import  AuthUser, Tbdivisao, Tbdocumentoservidor
-from servidor.models import Tbferias, Tbsituacao, Tbservidor
+from sicop.models import  AuthUser, Tbdivisao, Tbdocumentoservidor, Tbsituacao
+from servidor.models import Tbferias, Tbservidor
 
 from django.http.response import HttpResponse
 from sicop.relatorio_base import relatorio_pdf_base_header,\

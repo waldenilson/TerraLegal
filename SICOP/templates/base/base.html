@@ -347,16 +347,16 @@ Divisão: {{ request.session.divisao }} | <a href="/logout/">Sair do Sistema</a>
 
 {% if perms.sicop.livro_consulta %}
 
-<li><a href="/sicop/restrito/livro/consulta/">Livro fundiário</a>
+<li><a href="/livro/consulta/">Livro fundiário</a>
 <ul>
 	{% if perms.sicop.livro_consulta %}
-	<li><a href="/sicop/restrito/livro/consulta/">Consulta</a></li>
+	<li><a href="/livro/consulta/">Consulta</a></li>
 	{% endif %}
 	{% if perms.sicop.livro_consulta %}
-	<li><a href="/sicop/restrito/livro/titulos_entregues/">Titulados entregues</a></li>
+	<li><a href="/livro/titulos_entregues/">Titulados entregues</a></li>
 	{% endif %}
 	{% if perms.sicop.livro_consulta %}
-	<li><a href="/sicop/restrito/livro/titulos_nao_entregues/">Titulados não entregues</a></li>
+	<li><a href="/livro/titulos_nao_entregues/">Titulados não entregues</a></li>
 	{% endif %}
 </ul>
 </li>

@@ -1,7 +1,8 @@
 from django.contrib.auth.decorators import permission_required
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response
 from django.template.context import RequestContext
-from sicop.models import Tbtitulo, Tbstatustitulo, Tbtipotitulo,AuthUser, Tbprocessobase, Tbprocessorural,Tbdivisao, Tbpecastecnicas,Tbclassificacaoprocesso
+from livro.models import Tbtitulo, Tbstatustitulo, Tbtipotitulo
+from sicop.models import AuthUser, Tbprocessobase, Tbprocessorural,Tbdivisao, Tbpecastecnicas
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from sicop.relatorio_base import relatorio_ods_base_header, relatorio_ods_base, relatorio_csv_base,\
@@ -16,7 +17,7 @@ from django.db.models import Q
 from TerraLegal import settings
 
 nome_relatorio      = "relatorio_livro"
-response_consulta  = "/sicop/restrito/livro/consulta/"
+response_consulta  = "/livro/consulta/"
 titulo_relatorio    = "Relatorio Livro Fundiario"
 planilha_relatorio  = "Livro Fundiario"
 
@@ -46,8 +47,8 @@ def consulta(request):
         lista = lista.order_by('tbprocessobase.nrprocesso')
         
         request.session[nome_relatorio] = lista
-        return render_to_response('sicop/restrito/livro/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
-    return render_to_response('sicop/restrito/livro/consulta.html',context_instance = RequestContext(request))
+        return render_to_response('livro/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('livro/consulta.html',context_instance = RequestContext(request))
 
 @permission_required('sicop.livro_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
@@ -90,7 +91,7 @@ def cadastro(request):
                 return HttpResponseRedirect(response_consulta)
             else:    
                 return HttpResponseRedirect(next)
-    return render_to_response('sicop/restrito/livro/cadastro.html',{"statustitulo":statustitulo,"tipotitulo":tipotitulo}, context_instance = RequestContext(request))
+    return render_to_response('livro/cadastro.html',{"statustitulo":statustitulo,"tipotitulo":tipotitulo}, context_instance = RequestContext(request))
 
 @permission_required('sicop.livro_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):#id eh do processo rural
@@ -160,7 +161,7 @@ def edicao(request, id):#id eh do processo rural
                             tbtitulo = None
                             )
                 f_processobase.save()
-            return HttpResponseRedirect("/sicop/restrito/livro/edicao/"+str(rural_novo.id)+"/")
+            return HttpResponseRedirect("/livro/edicao/"+str(rural_novo.id)+"/")
     else:
         #titulo = get_object_or_404(Tbtitulo, id=id)
         #divisao = titulo.tbprocessobase.tbdivisao.id
@@ -176,17 +177,17 @@ def edicao(request, id):#id eh do processo rural
         if processobase.tbdivisao.id <> AuthUser.objects.get(pk = request.user.id).tbdivisao.id:
             return HttpResponseRedirect('/excecoes/permissao_negada/')
         
-    return render_to_response('sicop/restrito/livro/edicao.html', {"titulo":titulo,"statustitulo":statustitulo,"tipotitulo":tipotitulo,"processo":processobase,"peca":peca,"rural":rural}, context_instance = RequestContext(request))
+    return render_to_response('livro/edicao.html', {"titulo":titulo,"statustitulo":statustitulo,"tipotitulo":tipotitulo,"processo":processobase,"peca":peca,"rural":rural}, context_instance = RequestContext(request))
 
 @permission_required('sicop.livro_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def titulos_entregues(request):
     global nome_relatorio     # = "relatorio_livro_entregues"
-    global response_consulta  #= "/sicop/restrito/livro/consulta_entregues/"
+    global response_consulta  #= "/livro/consulta_entregues/"
     global titulo_relatorio   # = "Relatorio Livro Fundiario - Titulos entregues"
     global planilha_relatorio # = "Livro Fundiario - Entregues"
    
     nome_relatorio      = "relatorio_livro_entregues"
-    response_consulta  = "/sicop/restrito/livro/consulta_entregues/"
+    response_consulta  = "/livro/consulta_entregues/"
     titulo_relatorio    = "Relatorio Livro Fundiario - Titulos entregues"
     planilha_relatorio  = "Livro Fundiario - Entregues"
 
@@ -204,17 +205,17 @@ def titulos_entregues(request):
         lista = Tbprocessorural.objects.all().filter(tbprocessobase__tbtitulo__tbstatustitulo__id__exact = 1)
     #lista = lista.order_by('tbprocessobase.tbtitulo')
     request.session[nome_relatorio] = lista
-    return render_to_response('sicop/restrito/livro/consulta_entregues.html' ,{'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('livro/consulta_entregues.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @permission_required('sicop.livro_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def titulos_nao_entregues(request):
     global nome_relatorio #      = "relatorio_livro_nao_entregues"
-    global response_consulta  #= "/sicop/restrito/livro/consulta_nao_entregues/"
+    global response_consulta  #= "/livro/consulta_nao_entregues/"
     global titulo_relatorio   # = "Relatorio Livro Fundiario - Titulos nao entregues"
     global planilha_relatorio # = "Livro Fundiario - Nao entregues"
 
     nome_relatorio      = "relatorio_livro_nao_entregues"
-    response_consulta  = "/sicop/restrito/livro/consulta_nao_entregues/"
+    response_consulta   = "/livro/consulta_nao_entregues/"
     titulo_relatorio    = "Relatorio Livro Fundiario - Titulos nao entregues"
     planilha_relatorio  = "Livro Fundiario - Nao entregues"
 
@@ -231,7 +232,7 @@ def titulos_nao_entregues(request):
         lista = Tbprocessorural.objects.all().filter(tbprocessobase__tbtitulo__tbstatustitulo__id__exact = 2)
     #lista = lista.order_by('tbprocessobase.tbtitulo')
     request.session[nome_relatorio] = lista
-    return render_to_response('sicop/restrito/livro/consulta_nao_entregues.html' ,{'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('livro/consulta_nao_entregues.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
     
 @permission_required('sicop.livro_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)

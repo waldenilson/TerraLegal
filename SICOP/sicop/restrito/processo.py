@@ -8,7 +8,8 @@ from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
     Tbcontrato, Tbsituacaoprocesso, Tbsituacaogeo, Tbpecastecnicas, AuthUser,\
     AuthUserGroups, Tbmovimentacao, Tbprocessosanexos, Tbpendencia,\
     Tbclassificacaoprocesso, Tbtipopendencia, Tbstatuspendencia, Tbpregao,\
-    Tbdivisao,  Tbtitulo, Tbstatustitulo, Tbtipotitulo, Tbetapa, Tbtransicao
+    Tbdivisao,   Tbetapa, Tbtransicao
+from livro.models import Tbtitulo, Tbstatustitulo, Tbtipotitulo 
 from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
 from sicop.restrito import processo_rural

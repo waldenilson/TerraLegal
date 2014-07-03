@@ -266,13 +266,7 @@ urlpatterns = patterns('',
    url(r'^sicop/restrito/status_titulo/cadastro/', 'sicop.restrito.status_titulo.cadastro'),
    url(r'^sicop/restrito/status_titulo/edicao/(?P<id>\d+)/', 'sicop.restrito.status_titulo.edicao'),
    
-   url(r'^sicop/restrito/livro/consulta/', 'sicop.restrito.livro.consulta'),
-   url(r'^sicop/restrito/livro/cadastro/', 'sicop.restrito.livro.cadastro'),
-   url(r'^sicop/restrito/livro/edicao/(?P<id>\d+)/', 'sicop.restrito.livro.edicao'),
-   url(r'^sicop/restrito/livro/titulos_entregues/','sicop.restrito.livro.titulos_entregues'),
-   url(r'^sicop/restrito/livro/titulos_nao_entregues/','sicop.restrito.livro.titulos_nao_entregues'),
-   url(r'^sicop/restrito/livro/relatorio/ods', 'sicop.restrito.livro.relatorio_ods'),
-   
+   url(r'^livro/',include('livro.urls',namespace='livro')),
    url(r'^calculo/',include('calculo.urls',namespace='calculo')),
    url(r'^servidor/',include('servidor.urls',namespace='servidor')),
    
