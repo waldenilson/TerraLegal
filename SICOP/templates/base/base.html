@@ -325,13 +325,6 @@ Divisão: {{ request.session.divisao }} | <a href="/logout/">Sair do Sistema</a>
 <span>Início</span>
 </a>
 </li>
-{% if not user.is_active %}
-<li>
-<a href="/login/" title="">
-<span>Sistema</span>
-</a>
-</li>
-{% endif %}
 <li>
 <a href="/web/equipe/" title="">
 <span>Equipe</span>

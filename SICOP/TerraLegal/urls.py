@@ -287,7 +287,7 @@ urlpatterns = patterns('',
         
     # CONTROLE AUTENTICACAO
     url(r'^login/', 'django.contrib.auth.views.login', {"template_name":"base/login.html"}),
-    url(r'^logout/', 'django.contrib.auth.views.logout_then_login', {"login_url":"/login/"}),
+    url(r'^logout/', 'django.contrib.auth.views.logout_then_login', {"login_url":"/"}),
     url(r'^sicop/admin/', include(admin.site.urls)),
     
 )
