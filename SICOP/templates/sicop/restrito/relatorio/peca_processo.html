@@ -1,0 +1,54 @@
+{% extends "base/consulta_base.html" %} 
+{% load staticfiles %}
+
+{% block breadcumbs %}
+	Acesso Restrito | Relatorio | Processo x Peca
+{% endblock %}
+
+{% block subtitulo %}
+	
+	PECAS COM PROCESSO
+	
+{% endblock %}
+
+{% block consulta %}
+	
+	<br/><br/>
+	<div style="width:100%;font-size:12px;text-align:center">
+			<form method="post" action="">
+				{% csrf_token %}
+				<div style="width:100%;font-size:12px;text-align:left">
+					<table>
+					   <tr> 
+					   		<td class="colunaTabela"> <label>Ordenar Por:</label> </td>
+					   		<td>
+					   			<select name="ordenacao" style="width:150px">
+										<option value="nmrequerente">REQUERENTE</option>
+										<option value="tbprocessobase__tbcaixa__nmlocalarquivo">CAIXA</option>
+										<option value="tbprocessobase__nrprocesso">NUMERO</option>
+										<option value="tbprocessobase__tbgleba__nmgleba">GLEBA</option>
+										<option value="tbprocessobase__tbmunicipio_nome_mun">MUNICIPIO</option>
+								</select>
+							</td>
+						</tr>
+					</table>				
+				
+				</div>
+				<br/><br />
+				<table style="width:100%">
+					<tr>
+						<td class="colunaTabela" style="text-align:left"> 
+							<a href="javascript:history.back()" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
+							<input type="submit" class="button_green" value="GERAR RELATORIO" />
+						</td>
+					</tr>
+				</table>
+			</form>
+	</div>
+	
+{% endblock %}
+
+
+{% block resultado %}
+
+{% endblock %}

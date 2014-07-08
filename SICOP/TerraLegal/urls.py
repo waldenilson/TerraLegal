@@ -272,6 +272,7 @@ urlpatterns = patterns('',
    
     # ACESSO RESTRITO SICOP RELATORIO
     url(r'^sicop/restrito/relatorio/processo_peca', 'sicop.restrito.relatorio.processo_peca'),
+    url(r'^sicop/restrito/relatorio/peca_processo', 'sicop.restrito.relatorio.peca_processo'),
     url(r'^sicop/restrito/relatorio/peca_gleba', 'sicop.restrito.relatorio.peca_gleba'),
     url(r'^sicop/restrito/relatorio/peca_nao_aprovada', 'sicop.restrito.relatorio.peca_nao_aprovada'),
     url(r'^sicop/restrito/relatorio/peca_rejeitada', 'sicop.restrito.relatorio.peca_rejeitada'),
@@ -286,8 +287,8 @@ urlpatterns = patterns('',
     #END------------------------------CONTROLE---------------------------------------------------------------------------------
         
     # CONTROLE AUTENTICACAO
-    url(r'^login/', 'django.contrib.auth.views.login', {"template_name":"web/index.html"}),
-    url(r'^logout/', 'django.contrib.auth.views.logout_then_login', {"login_url":"/"}),
+    url(r'^login/', 'django.contrib.auth.views.login', {"template_name":"base/login.html"}),
+    url(r'^logout/', 'django.contrib.auth.views.logout_then_login', {"login_url":"/login/"}),
     url(r'^sicop/admin/', include(admin.site.urls)),
     
 )
