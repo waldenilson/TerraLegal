@@ -65,15 +65,15 @@ def consulta(request):
             if request.user.has_perm('sicop.processo_rural_consulta'):
                 p_rural = Tbprocessorural.objects.filter( 
                     Q(tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural',tbprocessobase__tbdivisao__id__in=request.session['divisoes'])| #= AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-                    Q(tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural',tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id))
+                    Q(tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural',tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id)).order_by('nmrequerente')
             if request.user.has_perm('sicop.processo_clausula_consulta'):
                 p_clausula = Tbprocessoclausula.objects.filter( 
                     Q(tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessoclausula',tbprocessobase__tbdivisao__id__in=request.session['divisoes'])| # = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-                    Q(tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessoclausula',tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id))
+                    Q(tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessoclausula',tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id)).order_by('nmrequerente')
             if request.user.has_perm('sicop.processo_urbano_consulta'):
                 p_urbano = Tbprocessourbano.objects.filter( 
                     Q(tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessourbano',tbprocessobase__tbdivisao__id__in=request.session['divisoes'])|
-                    Q(tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessourbano',tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id)) # = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+                    Q(tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessourbano',tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id)).order_by('nmpovoado') # = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
             lista = []
             for obj in p_rural:
                 lista.append( obj )
@@ -89,11 +89,11 @@ def consulta(request):
             if request.user.has_perm('sicop.processo_rural_consulta'):
                 p_rural = Tbprocessorural.objects.filter( 
                     Q(nrcpfrequerente__contains = cpf, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural', tbprocessobase__tbdivisao__id__in=request.session['divisoes'])|
-                    Q(nrcpfrequerente__contains = cpf, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural', tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id))#__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+                    Q(nrcpfrequerente__contains = cpf, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural', tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id)).order_by('nmrequerente')#__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
             if request.user.has_perm('sicop.processo_clausula_consulta'):
                 p_clausula = Tbprocessoclausula.objects.filter( 
                     Q(nrcpfrequerente__contains = cpf, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessoclausula',tbprocessobase__tbdivisao__id__in=request.session['divisoes'])|
-                    Q(nrcpfrequerente__contains = cpf, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessoclausula',tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id))# = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+                    Q(nrcpfrequerente__contains = cpf, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessoclausula',tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id)).order_by('nmrequerente')# = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
             lista = []
             for obj in p_rural:
                 lista.append( obj )
@@ -107,11 +107,11 @@ def consulta(request):
             if request.user.has_perm('sicop.processo_rural_consulta'):
                 p_rural = Tbprocessorural.objects.filter( 
                     Q(nmrequerente__icontains = requerente, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural', tbprocessobase__tbdivisao__id__in=request.session['divisoes'])|
-                    Q(nmrequerente__icontains = requerente, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural',tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id))# = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+                    Q(nmrequerente__icontains = requerente, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural',tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id)).order_by('nmrequerente')# = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
             if request.user.has_perm('sicop.processo_clausula_consulta'):
                 p_clausula = Tbprocessoclausula.objects.filter( 
                     Q(nmrequerente__icontains = requerente, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessoclausula', tbprocessobase__tbdivisao__id__in=request.session['divisoes'])|
-                    Q(nmrequerente__icontains = requerente, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessoclausula',tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id))# = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+                    Q(nmrequerente__icontains = requerente, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessoclausula',tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id)).order_by('nmrequerente')# = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
             lista = []
             for obj in p_rural:
                 lista.append( obj )
@@ -125,7 +125,7 @@ def consulta(request):
             if request.user.has_perm('sicop.processo_urbano_consulta'):
                 p_urbano = Tbprocessourbano.objects.filter( 
                     Q(nrcnpj__contains = cnpj, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessourbano', tbprocessobase__tbdivisao__id__in=request.session['divisoes'])|
-                    Q(nrcnpj__contains = cnpj, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessourbano', tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id)) # = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ) 
+                    Q(nrcnpj__contains = cnpj, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessourbano', tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id)).order_by('nmpovoado') # = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ) 
             lista = []
             for obj in p_urbano:
                 lista.append( obj )
@@ -134,7 +134,7 @@ def consulta(request):
             if request.user.has_perm('sicop.processo_urbano_consulta'):
                 p_urbano = Tbprocessourbano.objects.filter( 
                     Q(tbprocessobase__tbmunicipio__nome_mun__icontains = municipio, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessourbano', tbprocessobase__tbdivisao__id__in=request.session['divisoes'])|
-                    Q(tbprocessobase__tbmunicipio__nome_mun__icontains = municipio, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessourbano', tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id))# = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ) 
+                    Q(tbprocessobase__tbmunicipio__nome_mun__icontains = municipio, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessourbano', tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id)).order_by('nmpovoado')# = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ) 
             lista = []
             for obj in p_urbano:
                 lista.append( obj ) 
@@ -146,7 +146,7 @@ def consulta(request):
             if request.user.has_perm('sicop.livro_consulta'):
                 p_titulo = Tbprocessorural.objects.all().filter(
                          Q(tbprocessobase__tbtitulo__cdtitulo__icontains = titulo, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural', tbprocessobase__tbdivisao__id__in=request.session['divisoes'])|
-                         Q(tbprocessobase__tbtitulo__cdtitulo__icontains = titulo, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural', tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id))
+                         Q(tbprocessobase__tbtitulo__cdtitulo__icontains = titulo, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural', tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id)).order_by('nmrequerente')
             lista = []
             for obj in p_titulo:
                 lista.append( obj )
