@@ -297,17 +297,14 @@ Usuário:
 Divisão: {{ request.session.divisao }} | <a href="/logout/">Sair do Sistema</a>
 {% else %}
 
-							<div style="width:100%;text-align:center">
-								<form action="/login/" method="post">
-									{% csrf_token %}
-										<table>
-											<tr><td class="colunaTabela" style="padding-right: 3px; padding-bottom: 7px">{{ login_form.username.label_tag }}:</td><td>{{ login_form.username }}</td></tr>
-											<tr><td class="colunaTabela">{{ login_form.password.label_tag }}:</td><td>{{ login_form.password }}</td></tr>
-											<tr><td class="colunaTabela"><button class="button_green" type="submit">Entrar</button></td></tr>
-										</table>
-								</form>
-							</div>
-
+	<div style="width:100%;text-align:center;margin-top:-5px">
+		<form action="/login/" method="post">
+			{% csrf_token %}
+			{{ login_form.username.label_tag }}:<input id="id_username" size="20" maxlength="254" name="username" type="text" />
+			{{ login_form.password.label_tag }}:<input id="id_password" size="12" name="password" type="password" />
+			<button class="utton_green" type="submit">ENTRAR</button>
+		</form>
+	</div>
 
 {% endif %}
 </div>
