@@ -32,50 +32,92 @@
 				resolutivas, recebimento e conferencia de pecas tecnicas de imoveis
 				integrantes da regiao definida como a amazonia Legal.</p>					
 
+			{% if user.is_active %}
 
-<!-- 				
+ 				
 	 			<div style="margin-top:50px;width:100%;text-align:center">
 
+					{% if perms.sicop.processo_consulta %}
 						<a href="/sicop/restrito/processo/consulta/">
-							<img src="{% static "img/processo.png" %}" style="margin-top:6px" width="128px" height="128px" />	
+							<img src="{% static "img/processo.png" %}" title="PROCESSO" style="margin-top:6px" width="128px" height="128px" />	
 						</a>
+					{% endif %}
 
+					{% if perms.sicop.peca_tecnica_consulta %}
 						<a href="/sicop/restrito/peca_tecnica/consulta/">
-							<img src="{% static "img/processo.png" %}" style="margin-top:6px;margin-left:40px" width="128px" height="128px" />	
+							<img src="{% static "img/peca.png" %}" title="PEÇA TÉCNICA" style="margin-top:6px;margin-left:80px" width="128px" height="128px" />	
 						</a>
+					{% endif %}
 
+					{% if perms.sicop.livro_consulta %}
 						<a href="/livro/consulta/">
-							<img src="{% static "img/processo.png" %}" style="margin-top:6px;margin-left:40px" width="128px" height="128px" />	
+							<img src="{% static "img/livro.png" %}" title="LIVRO FUNDIÁRIO" style="margin-top:6px;margin-left:80px" width="128px" height="128px" />	
 						</a>
+					{% endif %}
+					
+				</div>
 
+	 			<div style="margin-top:50px;width:100%;text-align:center">
+
+					{% if perms.servidor.servidor_consulta %}
 						<a href="/servidor/consulta/">
-							<img src="{% static "img/processo.png" %}" style="margin-top:6px;margin-left:40px" width="128px" height="128px" />	
+							<img src="{% static "img/servidor.png" %}" title="SERVIDOR" style="margin-top:6px" width="128px" height="128px" />	
 						</a>
+					{% endif %}
+
+					{% if perms.sicop.documento_consulta %}
+						<a href="/sicop/restrito/documento/consulta/">
+							<img src="{% static "img/documento.png" %}" title="DOCUMENTO" style="margin-top:6px;margin-left:80px" width="128px" height="128px" />	
+						</a>
+					{% endif %}
+
+					{% if perms.sicop.titulo_calculo_portaria23 %}
+						<a href="/calculo/portaria23/">
+							<img src="{% static "img/calculo.png" %}" title="CÁLCULO" style="margin-top:6px;margin-left:80px" width="128px" height="128px" />	
+						</a>
+					{% endif %}						
 
 				</div>
 
  				
  				<div style="margin-top:50px;width:100%;text-align:center">
 
-						<a href="/sicop/restrito/documento/consulta/">
-							<img src="{% static "img/processo.png" %}" style="margin-top:6px" width="128px" height="128px" />	
+					{% if perms.sicop.relatorio_processo_peca_consulta %}
+						<a href="/sicop/restrito/relatorio/processo_peca/">
+							<img src="{% static "img/relatorio.png" %}" title="RELATÓRIO" style="margin-top:6px" width="128px" height="128px" />	
 						</a>
-
-						<a href="/calculo/portaria23/">
-							<img src="{% static "img/processo.png" %}" style="margin-top:6px;margin-left:40px" width="128px" height="128px" />	
-						</a>
+					{% endif %}
 
 						<a href="/web/estatisticas/">
-							<img src="{% static "img/processo.png" %}" style="margin-top:6px;margin-left:40px" width="128px" height="128px" />	
+							<img src="{% static "img/estatistica.png" %}" title="ESTATÍSTICA" style="margin-top:6px;margin-left:80px" width="128px" height="128px" />	
 						</a>
 
-						<a href="/sicop/restrito/relatorio/processo_peca/">
-							<img src="{% static "img/processo.png" %}" style="margin-top:6px;margin-left:40px" width="128px" height="128px" />	
+						<a href="/web/equipe">
+							<img src="{% static "img/equipe.png" %}" title="EQUIPE" style="margin-top:6px;margin-left:80px" width="128px" height="128px" />	
 						</a>
 
 				</div>
--->
+
+			{% else %}
+
+ 				<div style="margin-top:50px;width:100%;text-align:center">
+
+						<a href="/web/equipe">
+							<img src="{% static "img/equipe.png" %}" title="EQUIPE" style="margin-top:6px" width="128px" height="128px" />	
+						</a>
+						<a href="/web/organizacao">
+							<img src="{% static "img/organizacao.png" %}" title="ORGANIZAÇÃO" style="margin-top:6px;margin-left:80px" width="128px" height="128px" />	
+						</a>
+						<a href="/web/estatisticas">
+							<img src="{% static "img/estatistica.png" %}" title="ESTATÍSTICA" style="margin-top:6px;margin-left:80px" width="128px" height="128px" />	
+						</a>
 				
+				</div>
+
+			{% endif %}				
+
+
+
 			</div>	
 				
 				
