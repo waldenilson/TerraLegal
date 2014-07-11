@@ -201,7 +201,7 @@ def edicao(request, id):
                               dsfase = request.POST['dsfase'],
                               ordem = request.POST['ordem'],
                               blativo = ativo
-                              )
+                            )
             f_fase.save()
             if next == "/":
                 return HttpResponseRedirect("/sicop/restrito/etapa/edicao/"+str(id)+"/")
@@ -225,11 +225,11 @@ def checklist(request, processo,etapa):
         achou = False
         for obj2 in procChecklist:
             if obj.id == obj2.tbchecklist.id:
-                result.setdefault(obj.nmchecklist,True)
+                result.setdefault(obj,True)
                 achou = True
                 break
         if not achou:
-            result.setdefault(obj.nmchecklist, False)
+            result.setdefault(obj, False)
     result = sorted(result.items())
     
     if request.method == "POST":

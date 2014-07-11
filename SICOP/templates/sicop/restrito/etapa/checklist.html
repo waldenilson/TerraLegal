@@ -24,12 +24,20 @@
 										<tr>
 											<td class="colunaTabelaConsulta" style="width:5%">
 												{% if v %}
-													<input checked="checked" name="{{ k }}" type="checkbox" />
+													<input checked="checked" name="{{ k.nmchecklist }}" type="checkbox" />
 												{% else %}
-													<input name="{{ k }}" type="checkbox" />
+													<input name="{{ k.nmchecklist }}" type="checkbox" />
 												{% endif %}
 											</td>
-											<td class="colunaTabelaConsulta" style="width:95%">{{ k }}</td>
+											<td class="colunaTabelaConsulta" style="width:95%">
+											
+												{{ k.nmchecklist }}
+
+												{% if k.blobrigatorio %}
+													&nbsp;( Obrigatorio )
+												{% endif %}
+											
+											</td>
 										</tr>
 								{% endfor %}
 							</tbody>
