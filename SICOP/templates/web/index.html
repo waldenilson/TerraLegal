@@ -26,93 +26,99 @@
 		
 			<div class="grids top">
 
-			<p style="text-align: justify;">Sistema desenvolvido pela SRFA02,
-				vinculada ao Terra Legal com o objetivo de controlar todos os
-				processos de regularizacao fundiaria, liberacao de clausulas
-				resolutivas, recebimento e conferencia de pecas tecnicas de imoveis
-				integrantes da regiao definida como a amazonia Legal.</p>					
-
 			{% if user.is_active %}
 
- 				
-	 			<div style="margin-top:50px;width:100%;text-align:center">
 
-					{% if perms.sicop.processo_consulta %}
-						<a href="/sicop/restrito/processo/consulta/">
-							<img src="{% static "img/processo.png" %}" title="PROCESSO" style="margin-top:6px" width="128px" height="128px" />	
-						</a>
-					{% endif %}
+				<table style="width:100%;text-align:center;color:green;margin-top:20px">
+					<tbody>
+						<tr>
+							{% if perms.sicop.processo_consulta %}
+								<td> <a href="/sicop/restrito/processo/consulta"> <img src="{% static "img/processo.png" %}" title="PROCESSO" /> </a> </td>
+							{% endif %}
+							{% if perms.sicop.peca_tecnica_consulta %}
+								<td> <a href="/sicop/restrito/peca_tecnica/consulta"> <img src="{% static "img/peca.png" %}" title="PEÇA TÉCNICA" /> </a> </td>
+							{% endif %}
+							{% if perms.sicop.livro_consulta %}
+								<td> <a href="/livro/consulta"> <img src="{% static "img/livro.png" %}" title="LIVRO FUNDIÁRIO" /> </a> </td>
+							{% endif %}
+						</tr>
+						<tr>
+							{% if perms.sicop.processo_consulta %}
+								<td><div style="font-size:16px;font-weight:bold">Processo</div></td>
+							{% endif %}
+							{% if perms.sicop.peca_tecnica_consulta %}
+								<td><div style="font-size:16px;font-weight:bold">Peça Técnica</div></td>
+							{% endif %}
+							{% if perms.sicop.livro_consulta %}
+								<td><div style="font-size:16px;font-weight:bold">Livro Fundiário</div></td>
+							{% endif %}
+						</tr>
+					</tbody>
+				</table>
 
-					{% if perms.sicop.peca_tecnica_consulta %}
-						<a href="/sicop/restrito/peca_tecnica/consulta/">
-							<img src="{% static "img/peca.png" %}" title="PEÇA TÉCNICA" style="margin-top:6px;margin-left:80px" width="128px" height="128px" />	
-						</a>
-					{% endif %}
+				<table style="width:100%;text-align:center;color:green;margin-top:50px">
+					<tbody>
+						<tr>
+							{% if perms.servidor.servidor_consulta %}
+								<td> <a href="/servidor/consulta"> <img src="{% static "img/servidor.png" %}" title="SERVIDOR" /> </a> </td>
+							{% endif %}
+							{% if perms.sicop.documento_consulta %}
+								<td> <a href="/sicop/restrito/documento/consulta"> <img src="{% static "img/documento.png" %}" title="DOCUMENTO" /> </a> </td>
+							{% endif %}
+							{% if perms.sicop.titulo_calculo_portaria23 %}
+								<td> <a href="/calculo/portaria23"> <img src="{% static "img/calculo.png" %}" title="CÁLCULO" /> </a> </td>
+							{% endif %}
+						</tr>
+						<tr>
+							{% if perms.servidor.servidor_consulta %}
+								<td><div style="font-size:16px;font-weight:bold">Servidor</div></td>
+							{% endif %}
+							{% if perms.sicop.documento_consulta %}
+								<td><div style="font-size:16px;font-weight:bold">Documento</div></td>
+							{% endif %}
+							{% if perms.sicop.titulo_calculo_portaria23 %}
+								<td><div style="font-size:16px;font-weight:bold">Cálculo</div></td>
+							{% endif %}
+						</tr>
+					</tbody>
+				</table>
 
-					{% if perms.sicop.livro_consulta %}
-						<a href="/livro/consulta/">
-							<img src="{% static "img/livro.png" %}" title="LIVRO FUNDIÁRIO" style="margin-top:6px;margin-left:80px" width="128px" height="128px" />	
-						</a>
-					{% endif %}
-					
-				</div>
-
-	 			<div style="margin-top:50px;width:100%;text-align:center">
-
-					{% if perms.servidor.servidor_consulta %}
-						<a href="/servidor/consulta/">
-							<img src="{% static "img/servidor.png" %}" title="SERVIDOR" style="margin-top:6px" width="128px" height="128px" />	
-						</a>
-					{% endif %}
-
-					{% if perms.sicop.documento_consulta %}
-						<a href="/sicop/restrito/documento/consulta/">
-							<img src="{% static "img/documento.png" %}" title="DOCUMENTO" style="margin-top:6px;margin-left:80px" width="128px" height="128px" />	
-						</a>
-					{% endif %}
-
-					{% if perms.sicop.titulo_calculo_portaria23 %}
-						<a href="/calculo/portaria23/">
-							<img src="{% static "img/calculo.png" %}" title="CÁLCULO" style="margin-top:6px;margin-left:80px" width="128px" height="128px" />	
-						</a>
-					{% endif %}						
-
-				</div>
-
- 				
- 				<div style="margin-top:50px;width:100%;text-align:center">
-
-					{% if perms.sicop.relatorio_processo_peca_consulta %}
-						<a href="/sicop/restrito/relatorio/processo_peca/">
-							<img src="{% static "img/relatorio.png" %}" title="RELATÓRIO" style="margin-top:6px" width="128px" height="128px" />	
-						</a>
-					{% endif %}
-
-						<a href="/web/estatisticas/">
-							<img src="{% static "img/estatistica.png" %}" title="ESTATÍSTICA" style="margin-top:6px;margin-left:80px" width="128px" height="128px" />	
-						</a>
-
-						<a href="/web/equipe">
-							<img src="{% static "img/equipe.png" %}" title="EQUIPE" style="margin-top:6px;margin-left:80px" width="128px" height="128px" />	
-						</a>
-
-				</div>
+				<table style="width:100%;text-align:center;color:green;margin-top:50px">
+					<tbody>
+						<tr>
+							{% if perms.sicop.relatorio_processo_peca_consulta %}
+								<td> <a href="/sicop/restrito/relatorio/processo_peca"> <img src="{% static "img/relatorio.png" %}" title="RELATÓRIO" /> </a> </td>
+							{% endif %}
+							<td> <a href="/web/estatisticas"> <img src="{% static "img/estatistica.png" %}" title="ESTATÍSTICA" /> </a> </td>
+							<td> <a href="/web/equipe"> <img src="{% static "img/equipe.png" %}" title="EQUIPE" /> </a> </td>
+						</tr>
+						<tr>
+							{% if perms.sicop.relatorio_processo_peca_consulta %}
+								<td><div style="font-size:16px;font-weight:bold">Relatório</div></td>
+							{% endif %}
+							<td><div style="font-size:16px;font-weight:bold">Estatística</div></td>
+							<td><div style="font-size:16px;font-weight:bold">Equipe</div></td>
+						</tr>
+					</tbody>
+				</table>
 
 			{% else %}
 
- 				<div style="margin-top:50px;width:100%;text-align:center">
+				<table style="width:100%;text-align:center;color:green;margin-top:20px">
+					<tbody>
+						<tr>
+							<td> <a href="/web/equipe"> <img src="{% static "img/equipe.png" %}" title="EQUIPE" /> </a> </td>
+							<td> <a href="/web/organizacao"> <img src="{% static "img/organizacao.png" %}" title="ORGANIZAÇÃO" /> </a> </td>
+							<td> <a href="/web/estatisticas"> <img src="{% static "img/estatistica.png" %}" title="ESTATÍSTICA" /> </a> </td>
+						</tr>
+						<tr>
+							<td><div style="font-size:16px;font-weight:bold">Equipe</div></td>
+							<td><div style="font-size:16px;font-weight:bold">Organização</div></td>
+							<td><div style="font-size:16px;font-weight:bold">Estatística</div></td>
+						</tr>
+					</tbody>
+				</table>
 
-						<a href="/web/equipe">
-							<img src="{% static "img/equipe.png" %}" title="EQUIPE" style="margin-top:6px" width="128px" height="128px" />	
-						</a>
-						<a href="/web/organizacao">
-							<img src="{% static "img/organizacao.png" %}" title="ORGANIZAÇÃO" style="margin-top:6px;margin-left:80px" width="128px" height="128px" />	
-						</a>
-						<a href="/web/estatisticas">
-							<img src="{% static "img/estatistica.png" %}" title="ESTATÍSTICA" style="margin-top:6px;margin-left:80px" width="128px" height="128px" />	
-						</a>
-				
-				</div>
 
 			{% endif %}				
 
