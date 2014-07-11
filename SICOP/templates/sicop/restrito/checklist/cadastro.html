@@ -18,10 +18,10 @@
 		<div style="width:100%;font-size:12px;text-align:left">
 				<table>
 				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td><input required="required" name="nmchecklist"/></td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Fase do Processo:</label> </td>
+				   <tr> <td class="colunaTabela"> <label>Etapa do Processo:</label> </td>
 				   	<td>
 				   		<select name="tbfase"  style="width:200px">
-							<option value="">-- Selecione uma Fase --</option>
+							<option value="">-- Selecione uma Etapa --</option>
 							{% for obj in fase %}
 								<option value="{{ obj.id }}">{{obj.nmfase}} - {{obj.tbtipoprocesso.nome}}</option>
 							{% endfor %}
@@ -32,6 +32,7 @@
 					</td>						
 				   </tr>
 				   <tr> <td class="colunaTabela"> <label>Descricao:</label> </td><td> <textarea rows="4" cols="40" name="dschecklist"></textarea></td> </tr>				   
+				   <tr> <td class="colunaTabela"> <label>Obrigatorio:</label> </td><td> <input type="checkbox" name="blobrigatorio" /> </td> </tr>
 				</table>
 		</div>
 		<br />

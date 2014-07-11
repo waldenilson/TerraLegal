@@ -33,6 +33,14 @@
 					</td>						
 				   </tr>
 				   <tr> <td class="colunaTabela"> <label>Descricao:</label> </td><td> <textarea rows="4" cols="40" name="dschecklist">{{checklist.dschecklist}}</textarea></td> </tr>				   
+				   <tr> <td class="colunaTabela"> <label>Obrigatorio:</label> </td>
+				   <td>
+				   		{% if checklist.blobrigatorio == True %} 
+							<input checked="checked" type="checkbox" name="blobrigatorio" />
+						{% else %}
+							<input type="checkbox" name="blobrigatorio" />
+						{% endif %}
+				   </td> </tr>
 				</table>
 		</div>
 		<br />

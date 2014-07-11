@@ -498,6 +498,7 @@ class Tbchecklist(models.Model):
     nmchecklist = models.CharField(max_length=80, blank=True)
     tbetapa = models.ForeignKey(Tbetapa, null=True, blank=True)
     dschecklist = models.TextField(blank=True)
+    blobrigatorio = models.BooleanField()
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbchecklist'

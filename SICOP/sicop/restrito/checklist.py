@@ -60,6 +60,11 @@ def consulta(request):
 @permission_required('sicop.checklist_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
     fase = Tbetapa.objects.all().order_by('id')
+    
+    obrigatorio = False
+    if request.POST.get('blobrigatorio',False):
+        obrigatorio = True
+
        
     if request.method == "POST":
         next = request.GET.get('next', '/')
@@ -67,7 +72,8 @@ def cadastro(request):
             f_checklist = Tbchecklist(
                               nmchecklist = request.POST['nmchecklist'],
                               tbetapa = Tbetapa.objects.get(pk = request.POST['tbfase']),
-                              dschecklist = request.POST['dschecklist']
+                              dschecklist = request.POST['dschecklist'],
+                              blobrigatorio = obrigatorio
                               )
             f_checklist.save()
             if next == "/":
@@ -81,6 +87,10 @@ def cadastro(request):
 def edicao(request, id):
     instance = get_object_or_404(Tbchecklist, id=id)
     fase = Tbetapa.objects.all().order_by('id')
+
+    obrigatorio = False
+    if request.POST.get('blobrigatorio',False):
+        obrigatorio = True
        
     if request.method == "POST":
         
@@ -93,7 +103,8 @@ def edicao(request, id):
                               id = instance.id,
                               nmchecklist = request.POST['nmchecklist'],
                               tbetapa = Tbetapa.objects.get(pk = request.POST['tbfase']),
-                              dschecklist = request.POST['dschecklist']
+                              dschecklist = request.POST['dschecklist'],
+                              blobrigatorio = obrigatorio
                               )
             f_checklist.save()
             if next == "/":

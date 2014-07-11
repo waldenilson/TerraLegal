@@ -25,6 +25,34 @@ href="{% static "css/new/resourcesecom.css" %}" />
 <link rel="stylesheet" type="text/css" media="all"
 href="{% static "css/new/style.css" %}" />
 
+<link rel="stylesheet" type="text/css" media="screen"
+href="{% static "css/jquery-te-1.4.0.css" %}" />
+
+<link rel="stylesheet" type="text/css" media="screen"
+href="{% static "css/estatisticas.css" %}" />
+
+<!-- link rel="stylesheet" type="text/css" media="screen"
+href="{% static "css/bootstrap/bootstrap.css" %}" />
+<link rel="stylesheet" type="text/css" media="screen"
+href="{% static "css/bootstrap/bootstrap.min.css" %}" />
+<link rel="stylesheet" type="text/css" media="screen"
+href="{% static "css/bootstrap/bootstrap-responsive.css" %}" /-->
+<link rel="stylesheet" type="text/css" media="screen"
+href="{% static "css/bootstrap/bootstrap-responsive.min.css" %}" />
+
+<link rel="stylesheet" type="text/css" media="screen"
+href="{% static "css/nv.d3.css" %}" />
+
+<link rel="stylesheet" href="{% static "css/jquery-ui.css" %}" />
+
+<script src="{% static "js/jquery-1.9.1.js" %}"></script>
+<script src="{% static "js/jquery-ui.js" %}"></script>
+<script src="{% static "js/jquery-te-1.4.0.min.js" %}"></script>
+
+<script src="{% static "js/d3.min.js" %}"></script>
+<script src="{% static "js/nv.d3.min.js" %}"></script>
+
+
 <style media="all" type="text/css">
 #barra-brasil {
 	height: 32px;
@@ -277,7 +305,7 @@ div#wrapper-barra-brasil {
 
 									<dd class="portletItem lastItem">
 
-										<ul class="navTree navTreeLevel0">
+										<ul id="menu" class="avTree navTeeLevel0">
 											<li
 												class="navTreeItem visualNoMarker navTreeFolderish section-cidadania-e-justica">
 
@@ -288,6 +316,18 @@ div#wrapper-barra-brasil {
 													<span>Cidadania e Justiça</span>
 											</a>
 
+											</li>
+											
+											<li>
+											<a href="/" title="">
+											<span>Início</span>
+											</a>
+											</li>
+											
+											<li>
+											<a href="/web/equipe/" title="">
+											<span>Equipe</span>
+											</a>
 											</li>
 
 										</ul>
@@ -303,11 +343,7 @@ div#wrapper-barra-brasil {
 					<!-- Conteudo -->
 					<div id="portal-column-content" class="cell width-3:4 position-1:4">
            
-						<div class="tile verde" data-tile="@@standaloneheader/b1f480a340d646ceaf25b9c8f07d3e69" id="b1f480a340d646ceaf25b9c8f07d3e69">
-							<div class="outstanding-header">
-								<h4 class="outstanding-title">Esporte</h4>
-							</div>
-						</div>		
+							{% block index %} {% endblock %}
 									
 					</div>
 
