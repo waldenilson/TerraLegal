@@ -26,8 +26,8 @@ def consulta(request):
     return render_to_response('portaria23/consulta.html',{'lista':p_extrato}, context_instance = RequestContext(request))
 
 @permission_required('sicop.titulo_calculo_portaria23', login_url='/excecoes/permissao_negada/', raise_exception=True)
-def emissao(request,ident):
-    instance = get_object_or_404(Tbextrato, id=ident)
+def emissao(request,id):
+    instance = get_object_or_404(Tbextrato, id=id)
     hoje = date.today()
     prestacao = (float(instance.valor_imovel)/17.0)
     vencimento = instance.data_vencimento_primeira_prestacao
