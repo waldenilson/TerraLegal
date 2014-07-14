@@ -87,8 +87,8 @@ def edicao(request, id):
     tipoprocesso = Tbtipoprocesso.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('id')
 
     etapas = Tbetapa.objects.exclude( id = instance.id ).order_by('id')
-    etapasAnteriores = Tbetapaanterior.objects.all().filter( tbetapa__id = instance.id ).order_by('id')
-    etapasPosteriores = Tbetapaposterior.objects.all().filter( tbetapa__id = instance.id ).order_by('id')
+    etapasAnteriores = Tbetapaanterior.objects.filter( tbetapa__id = instance.id ).order_by('id')
+    etapasPosteriores = Tbetapaposterior.objects.filter( tbetapa__id = instance.id ).order_by('id')
     
     
     ativo = False
@@ -377,21 +377,19 @@ def validacao(request_form, edicao):
         warning = False
 
     if edicao:
-        if seqdesejada == '':
-            messages.add_message(request_form,messages.WARNING,'Informe a Proxima etapa na sequencia desejada')
-            warning = False
-#    else:
-#        list = []
-        # ordem com tipoprocesso eh unico
-#        list = Tbfase.objects.filter( ordem= int(pos), tbtipoprocesso__id = tipoprocesso  )
-#        if list:
-#            messages.add_message(request_form,messages.WARNING,'Numero da ordem usado por outra fase desse tipo de processo')
-#            warning = False
-#        list = []
-        # nome com tipoprocesso eh unico
-#        list = Tbfase.objects.filter( nmfase__icontains = nome, tbtipoprocesso__id = tipoprocesso  )
-#        if list:
-#            messages.add_message(request_form,messages.WARNING,'Informe outro nome da fase')
-#            warning = False
-    
+        # verifica se a ordem desta etapa é a ultima. se sim, nao necessita informar uma proxima etapa.
+        ordem = request_form.POST['ordem']
+        tem_etapa_posterior = False
+        result = Tbetapa.objects.order_by('-ordem')
+        for r in result:
+            tem_etapa_posterior = False
+            if int(ordem) < r.ordem:
+                tem_etapa_posterior = True
+                break
+        
+        if tem_etapa_posterior:
+            if seqdesejada == '':
+                messages.add_message(request_form,messages.WARNING,'Informe a Proxima etapa na sequencia desejada')
+                warning = False
+
     return warning

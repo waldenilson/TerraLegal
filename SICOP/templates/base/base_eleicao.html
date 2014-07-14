@@ -1,373 +1,106 @@
 {% load staticfiles %}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-br" lang="pt-br">
-
+<!doctype html>
+<html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title> Portal terra legal maranhao </title>
 
-<meta charset="utf-8" />
-<title>Portal Maranhão - Terra Legal : Sistema do Terra Legal Maranhão</title>
 
 <link rel="stylesheet" type="text/css" media="screen"
-href="{% static "css/new/reset-cachekey-c6c75c2f6ad0c420a646126f30bc0d88.css" %}" />
+href="{% static "css/new/styles.css" %}" />
 
-<link rel="stylesheet" type="text/css" media="screen"
-href="{% static "css/new/base-cachekey-a6dd74c74d3649075e7ca6a0b1252fa7.css" %}" />
-
-<link rel="stylesheet" type="text/css" media="screen"
-href="{% static "css/new/resourcesecom.css" %}" />
-
-<title>Portal Brasil — Portal Brasil</title>
-
-<link rel="shortcut icon"
-	href="http://www.brasil.gov.br/++theme++tema-verde-sem-rodape/img/favicon.ico"
-	type="image/x-icon">
-
-<link rel="stylesheet" type="text/css" media="all"
-href="{% static "css/new/style.css" %}" />
-
-<link rel="stylesheet" type="text/css" media="screen"
-href="{% static "css/jquery-te-1.4.0.css" %}" />
-
-<link rel="stylesheet" type="text/css" media="screen"
-href="{% static "css/estatisticas.css" %}" />
-
-<!-- link rel="stylesheet" type="text/css" media="screen"
-href="{% static "css/bootstrap/bootstrap.css" %}" />
-<link rel="stylesheet" type="text/css" media="screen"
-href="{% static "css/bootstrap/bootstrap.min.css" %}" />
-<link rel="stylesheet" type="text/css" media="screen"
-href="{% static "css/bootstrap/bootstrap-responsive.css" %}" /-->
-<link rel="stylesheet" type="text/css" media="screen"
-href="{% static "css/bootstrap/bootstrap-responsive.min.css" %}" />
-
-<link rel="stylesheet" type="text/css" media="screen"
-href="{% static "css/nv.d3.css" %}" />
-
-<link rel="stylesheet" href="{% static "css/jquery-ui.css" %}" />
-
-<script src="{% static "js/jquery-1.9.1.js" %}"></script>
-<script src="{% static "js/jquery-ui.js" %}"></script>
-<script src="{% static "js/jquery-te-1.4.0.min.js" %}"></script>
-
-<script src="{% static "js/d3.min.js" %}"></script>
-<script src="{% static "js/nv.d3.min.js" %}"></script>
-
-
-<style media="all" type="text/css">
-#barra-brasil {
-	height: 32px;
-	background: #FCCA00;
-	font-weight: bold;
-	font-size: 13px;
-	line-height: 32px;
-	font-family: "Open Sans", Arial, Helvetica, sans-serif;
-	border-bottom: 1px solid #d3a725
-}
-
-#barra-brasil div,#barra-brasil a,#barra-brasil ul,#barra-brasil li {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font-family: inherit;
-	vertical-align: baseline;
-	line-height: 32px
-}
-
-#barra-brasil ul {
-	list-style: none
-}
-
-#barra-brasil a {
-	text-decoration: none
-}
-
-@font-face {
-	font-family: "Open Sans";
-	font-style: normal;
-	font-weight: 700;
-	src: local("Open Sans Bold"), local("OpenSans-Bold"),
-		url("//barra.brasil.gov.br/static/opensans-bold.woff") format("woff")
-}
-
-div#wrapper-barra-brasil {
-	position: relative;
-	overflow: hidden;
-	margin: 0 auto;
-	width: 100%;
-	max-width: 960px
-}
-
-#barra-brasil .brasil-flag {
-	float: left;
-	padding: 7px 0 6px;
-	width: 116px;
-	height: 19px;
-	border-right: 1px solid #d3a725
-}
-
-#barra-brasil .brasil-flag .link-barra {
-	display: block;
-	padding-left: 42px;
-	width: 43px;
-	background:
-		url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAATCAIAAAABJ4pRAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABINJREFUeNqUVFtsFFUYPrfdmdnLbLe021baQqWUtdJKL5QiASPiNVqC0TYqUWLShJQmRH3RqPHFRKJvQqIPQNSAAcMDptGEiKjYpLZIkSqGXqjdFlppd3vb7c7Ozpxz/M+2wZD44snszOzJnP//vv///g9XnNiXtNISI1gYq4eUEu4CC7SyiLpJgtSOIJKg/1ySB3x+NmsvJLNpgVUwlAu08iIkzi2pUhHIAa/q1L9p7l6YWmmHEOSBWJD6LixwJ7DDAKR06c6imQOVYxoRyEV4BR3JBYfvqNqBtILrSGNEKgoCsVxWDMmxgAOADeDjQsP+oHbo1egk7B+Mju/vq7kwVYhohsAxoiogiIM5hBaSUIBFfS21WRcOSwUHOwgTqoJR+O0pv31u56XmUKrvt4o/RyNrjVRHw40iLdU9Hck4DPBQxOQKK/XQqQa7nGNb8UICSUoE4y4rCyweqh164b7Jk12N737x2NjtfMAeCDit268e7jj7yOqfX++p+ebvQk5coAB8BQIMroqaf7xt3p4TUATgxj0Y0wOVN96uHomE3I+Ob37zSJvUHURshjySIZ4JPLhp+IcPj3h1eSZ2zxu/R8cXDeThuSLJkGZSY/fGjGOrenG9xlz8vPnK/g0xEwprl52PH9ryUGRLk1lfXWqGCcE0lUqOjxeHVy01141V+5Mvlk+lOLmcAOwC6OpMo8FnqlOCh2j2taqRE1sHKk2LuFJq6NveumNd9f0Dt2IjC1aGVKwzdz1cUryaxSasW9Oo/dFfoaEB6jxdOl2Xt3BtwYw7Xh/VmQNNcNHj5fH3N40CQgnNAAUQMjgh+y/dpIblN9j14fHuHqEFvPUP5L3Svp4mHNtGmgbaVF1oWZNIi8GXextALUpEhLqnJ0o3f9fcEw9iD3RFCaUiMmvmG/lhI50VBQX6ujX5ju3+dHHm1Mmb9dGsxyRKSwylHNLRt2HvL42O4C5IhsLsgEII74+Hd1zY+s5AdMklguMnmkaLwn9RGgr7dSfLk5ZreGhJUdD0+oz0ZxSOMNQ1VdB4fscnw5VCiOUBpb7d91vcklBJJpDwXpwOn50qKdXs2tLZpoqJU99XxVPBbMayXRnOK/Dp5p5tZzpbu0cT+sErG9/6o2rW9iLKQbOget2jQbgay3UIJrlhlJSK6Yz3dKx4dD74Ut3Ivu2X5xe8CSvopdm1kdh7e7/sfO7Ho4PlrT0NvTMhTISaaRhUoImITr244Njz8WwSVKOMhBI1hdIBMQuXlARShxuvPbt+3k0gx9GMsDVp0c7emq8nSiSFjzkVlCuKfHl+Q0aQai21Gb4E7SA59wDWGLLBg+Kk6/lqrKw/4dtWOLfKn/74+r2t3fVX5/IwcyExIBAKFFWOhskyWVx4tG3GmUfKCFRbOHYBNjiC6hBkBTrQRl+mSLeHZkOYOXeMRxIFCb6SME5gYJiGvH7MPn0q5wBCgqkgF4xBEVfdhksTyMmNpFT/chJQJQbkgitE8o73gRe4HsRYe/RJy86IFYtU1pVzSqxC/J8F5fMz/z8CDAAkCSSg0qSX5AAAAABJRU5ErkJggg==")
-		8px center no-repeat;
-	text-transform: uppercase;
-	line-height: 19px
-}
-
-#barra-brasil .acesso-info {
-	float: left;
-	padding: 0 13px;
-	border-right: 1px solid #d3a725
-}
-
-#barra-brasil .copa-counter {
-	position: absolute;
-	top: 0;
-	left: 343px;
-	padding: 0;
-	color: #138542;
-	width: 210px;
-	text-align: center
-}
-
-#barra-brasil .copa-counter>span {
-	margin: 0 2px 0 1px
-}
-
-#barra-brasil .copa-counter span span {
-	background:
-		url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAWCAYAAADJqhx8AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABZ0RVh0Q3JlYXRpb24gVGltZQAwMi8yNy8xNHAjaMgAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzQGstOgAAAAXElEQVQ4je3UsRlAQBAF4d9+14cS6EKqBE3JlaAVJQg0oAIBCjgCgpt85m20VYxdiwmNPBYMCTPqTNk1OMdD+aaOFzIogRKAFNv+7QUl8JfA+sJfA73zQeayoD8A1xcLB3KMhwsAAAAASUVORK5CYII=")
-		no-repeat;
-	color: #FCCA00;
-	display: inline-block;
-	width: 16px;
-	height: 22px;
-	margin-left: 1px;
-	text-align: center;
-	line-height: 22px
-}
-
-#barra-brasil .portal-copa {
-	float: left;
-	padding: 0 13px;
-	color: #138542;
-	border-right: 1px solid #d3a725
-}
-
-#barra-brasil .list {
-	position: absolute;
-	top: 0;
-	right: 0;
-	border-left: 1px solid #d3a725
-}
-
-#barra-brasil .list-item {
-	display: inline-block;
-	padding: 0 15px 0 14px;
-	height: 32px;
-	float: left;
-	border-right: 1px solid #d3a725
-}
-
-#barra-brasil .link-barra {
-	color: #138542
-}
-
-@media screen and (max-width: 870px) {
-	#barra-brasil .list {
-		top: -100px
-	}
-	#barra-brasil .copa-counter,#barra-brasil .portal-copa {
-		display: none
-	}
-}
-
-@media screen and (min-width: 960px) {
-	#wrapper-barra-brasil {
-		width: 960px
-	}
-}
-</style>
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
 
 </head>
-<body data-twttr-rendered="true" dir="ltr"
-	class="template-view portaltype-collective-cover-content site-brasil section-capa userrole-anonymous">
+
+<body>
 	
-	<div id="barra-brasil">
-		<div id="wrapper-barra-brasil">
-			<div class="brasil-flag">
-				<a href="http://brasil.gov.br/" class="link-barra">Brasil</a>
-			</div>
-			<span class="acesso-info"><a
-				href="http://brasil.gov.br/barra#acesso-informacao"
-				class="link-barra">Acesso à informação</a></span><span class="copa-counter"><a
-				href="http://www.copa2014.gov.br/" class="link-barra"><span
-					id="counter-barra-brasil"></span></a></span>
-			<ul class="list">
-				<li class="list-item first"><a
-					href="http://brasil.gov.br/barra#participe" class="link-barra">Participe</a></li>
-				<li class="list-item"><a href="http://www.servicos.gov.br/"
-					class="link-barra">Serviços</a></li>
-				<li class="list-item"><a
-					href="http://www.planalto.gov.br/legislacao" class="link-barra">Legislação</a></li>
-				<li class="list-item last last-item"><a
-					href="http://brasil.gov.br/barra#orgaos-atuacao-canais"
-					class="link-barra">Canais</a></li>
+		<div id="barra-brasil" style="background:#7F7F7F; height: 20px; padding:0 0 0 10px;display:block;"> 
+			<ul id="menu-barra-temp" style="list-style:none;">
+				<li style="display:inline; float:left;padding-right:10px; margin-right:10px; border-right:1px solid #EDEDED"><a href="http://brasil.gov.br" style="font-family:sans,sans-serif; text-decoration:none; color:white;">Portal do Governo Brasileiro</a></li> 
+				<li><a style="font-family:sans,sans-serif; text-decoration:none; color:white;" href="http://epwg.governoeletronico.gov.br/barra/atualize.html">Atualize sua Barra de Governo</a></li>
 			</ul>
 		</div>
-	</div>
-	<div id="wrapper">
 
-		<!-- HEADER -->
+		<div id="sitename">
+			<div class="width" style="height:120px">
+				<h1 style="margin-top:15px"><a href="#"> Portal Terra Legal - Maranhão </a></h1>
 
-		<div id="header" role="banner">
-
-			<div>
-				
-				<ul id="portal-siteactions">
-
-					<li id="siteaction-contraste"><a href="#"
-						title="Alto Contraste" accesskey="6">Alto Contraste</a></li>
-
+				<nav>
+					{% if user.is_active %}
+						<div style="color:white;font-weight:bold;font-size:14px;text-align:right">
+							Usuário:
+							<a href="/sicop/restrito/usuario/edicao/usuario/{{user.id}}/">
+							{% filter force_escape %} {% firstof user.get_short_name user.get_username %} {% endfilter %}
+							</a>
+							<br/>
+							Divisão: {{ request.session.divisao }} | <a href="/logout/">Sair do Sistema</a>
+						</div>
+					{% else %}
+					
+						<div style="text-align:left;margin-top:-20px">
+							<form action="/login/" method="post">
+								{% csrf_token %}
+								<input placeholder="Usuário" id="id_username" size="20" maxlength="254" name="username" type="text" />
+								<br />
+								<input style="margin-top:5px" placeholder="Senha" id="id_password" size="12" name="password" type="password" />
+								<br/>
+								<button class="button_yellow" style="margin-top:5px" type="submit">ENTRAR</button>
+							</form>
+						</div>
+					{% endif %}					
+				</nav>
+	
+				<div class="clear"></div>
+			</div>
+		</div>
+	
+		<section id="body" class="width clear">
+		
+			<div style="background:#eee;width:100%;font-size:14px">
+				<div class="article-info" style="margin:10px">Você está aqui: {% block breadcumbs %} {% endblock %}</div>
+			</div>
+			
+			<aside id="sidebar" class="column-left">
+				<ul>
+                	<li>
+						<h4>Menu</h4>
+                        <ul class="blocklist">
+                            <li><a href="examples.html">Página Inicial</a></li>
+                            <li><a href="examples.html">Organização</a></li>
+                            <li><a href="examples.html">Estatísticas</a></li>
+                            <li><a href="examples.html">Equipe</a></li>
+<!--                             <li class="selected-item"><a href="#">Processo</a></li> -->
+                        </ul>
+					</li>	
 				</ul>
+			</aside>
+			<section id="content" class="column-right">
+                		
+	    <article>
+						
+			<h2> {% block titulo %} {% endblock %} </h2>
+			<div class="article-info">{% block subtitulo %} {% endblock %} </div>
+		
+			{% block index %} {% endblock %}
+		
+		</article>
+	
+		</section>
 
-				<div id="logo">
-					<a id="portal-logo" title="" href="http://www.brasil.gov.br/">
-						<span id="portal-title-1"></span>
-						<h1 id="portal-title" class="corto">Portal Terra Legal</h1> <span
-						id="portal-description"></span>
-					</a>
-				</div>
-
-				<div id="portal-searchbox">
-
-				
-
-				</div>
-
-
+	</section>
+	
+		<footer class="clear">
+			<div  class="width">
+				<p class="left">&copy; 2014 Portal Terra Legal Maranhão - Revisao 526 </p>
+				<p class="right">Desenvolvido em Software Livre</p>
 			</div>
-		</div>
+		</footer>
+	
+	<script src="http://barra.brasil.gov.br/barra.js" type="text/javascript"></script>
 
-		<!-- content -->
-
-		<div id="main" role="main">
-			<div id="portal-features">
-
-				<div id="featured-content">
-					<div class="row" data-layout-type="row">
-
-
-						<div class="cell width-16 position-0 " data-panel="">
-
-							<div>
-
-							</div>
-
-						</div>
-
-					</div>
-				</div>
-			</div>
-			<div id="plone-content">
-
-				<div id="portal-columns" class="row">
-
-					<div id="viewlet-above-content">
-						<div id="portal-breadcrumbs">
-
-							<span id="breadcrumbs-you-are-here">Você está aqui:</span> <span
-								id="breadcrumbs-home"> 
-								{% block breadcumbs %} {% endblock %}
-							</span>
-
-						</div>
-
-					</div>
-
-					<!-- Column 1 -->
-					<div id="navigation">
-						<div id="portal-column-one" class="cell width-1:4 position-0">
-
-
-							<div class="portletWrapper first-item"
-								id="portletwrapper-706c6f6e652e6c656674636f6c756d6e0a636f6e746578740a2f636c69656e7465732f62726173696c2f62726173696c0a61706f696f"
-								data-portlethash="706c6f6e652e6c656674636f6c756d6e0a636f6e746578740a2f636c69656e7465732f62726173696c2f62726173696c0a61706f696f">
-							</div>
-
-							<div class="portletWrapper"
-								id="portletwrapper-706c6f6e652e6c656674636f6c756d6e0a636f6e746578740a2f636c69656e7465732f62726173696c2f62726173696c0a617373756e746f73"
-								data-portlethash="706c6f6e652e6c656674636f6c756d6e0a636f6e746578740a2f636c69656e7465732f62726173696c2f62726173696c0a617373756e746f73">
-								<dl class="portlet portletNavigationTree">
-
-									<dd class="portletItem lastItem">
-
-										<ul id="menu" class="avTree navTeeLevel0">
-											<li
-												class="navTreeItem visualNoMarker navTreeFolderish section-cidadania-e-justica">
-
-												<a href="http://www.brasil.gov.br/cidadania-e-justica"
-												title=""
-												class="state-published navTreeFolderish contenttype-folder">
-
-													<span>Cidadania e Justiça</span>
-											</a>
-
-											</li>
-											
-											<li>
-											<a href="/" title="">
-											<span>Início</span>
-											</a>
-											</li>
-											
-											<li>
-											<a href="/web/equipe/" title="">
-											<span>Equipe</span>
-											</a>
-											</li>
-
-										</ul>
-										<span class="portletBottomLeft"></span> <span
-											class="portletBottomRight"></span>
-									</dd>
-								</dl>
-							</div>
-
-						</div>
-					</div>
-
-					<!-- Conteudo -->
-					<div id="portal-column-content" class="cell width-3:4 position-1:4">
-           
-							{% block index %} {% endblock %}
-									
-					</div>
-
-				</div>
-
-			</div>
-
-			<div class="clear"></div>
-
-		</div>
-
-		<!-- Footer -->
-		<div id="footer" role="contentinfo">
-			<a name="afooter" id="afooter"></a>
-
-			<div class="clear"></div>
-			<div class="footer-logos">
-				<div>
-					© 2014 Sistema de Controle de Processos do Terra Legal - Revisao 524
-				</div>
-			</div>
-		</div>
-
-		<!-- /Footer-->
-	</div>
 </body>
 </html>
