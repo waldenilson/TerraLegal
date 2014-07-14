@@ -117,6 +117,24 @@
 									<tr> <td class="colunaTabela"> <label>Data Titulacao:</label> </td><td> <input value="{{ dttitulacao }}" size="9" id="date" name="dttitulacao" /> </td> </tr>
 									<tr> <td class="colunaTabela"> <label>Observacao:</label> </td><td> <textarea rows="4" cols="40" name="dsobs">{{ clausula.dsobs }}</textarea></td> </tr>
 							</table>
+						
+						   {% if perms.sicop.etapa_checklist_posterior %}
+								{% if fases %}
+									<div style="margin-bottom:5px;width:98%;font-weight:bold;color: green">
+										PROXIMA ETAPA<hr/>
+									</div>
+									<select name="etapaposterior"  style="width:250px">
+										<option value="">-- SELECIONE PARA MUDAR DE ETAPA --</option>
+										{% for obj in posteriores %}
+											<option value="{{ obj.tbposterior.id }}">{{obj.tbposterior.nmfase}}</option>
+										{% endfor %}
+									</select>
+								{% endif %}		
+							{% else %}
+								<input name="etapaposterior" value="" type="hidden" />
+				   			{% endif %}
+						
+						
 						</div>
 						<br />
 						<table style="width:100%">

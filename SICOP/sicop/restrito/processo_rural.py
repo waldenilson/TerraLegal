@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.models import Tbtipoprocesso, Tbcaixa, Tbgleba, Tbmunicipio, AuthUser,\
     AuthGroup, Tbprocessobase, Tbprocessorural, Tbclassificacaoprocesso, Tbsituacaoprocesso,\
-    Tbpecastecnicas, Tbmovimentacao, Tbdivisao
+    Tbpecastecnicas, Tbmovimentacao, Tbdivisao, Tbtransicao, Tbetapa
 from sicop.forms import FormProcessoRural, FormProcessoBase
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect
@@ -117,6 +117,17 @@ def edicao(request, id):
                                        blconjuge = tem_conjuge
                                        )
             f_rural.save()
+            
+            #mudanca de etapa do processo / apenas quem possue permissao            
+            if request.user.has_perm('sicop.etapa_checklist_posterior'):
+                if request.POST['etapaposterior'] != '':
+                    transicao = Tbtransicao(
+                                     tbprocessobase = Tbprocessobase.objects.get( pk = base.id ) ,
+                                     tbetapa = Tbetapa.objects.get( pk = request.POST['etapaposterior'] ),
+                                     dttransicao = datetime.datetime.now()
+                                    )                    
+                    transicao.save()
+            
             
             return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(base.id)+"/")
     

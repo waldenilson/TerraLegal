@@ -8,7 +8,7 @@ from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
     Tbcontrato, Tbsituacaoprocesso, Tbsituacaogeo, Tbpecastecnicas, AuthUser,\
     AuthUserGroups, Tbmovimentacao, Tbprocessosanexos, Tbpendencia,\
     Tbclassificacaoprocesso, Tbtipopendencia, Tbstatuspendencia, Tbpregao,\
-    Tbdivisao,   Tbetapa, Tbtransicao
+    Tbdivisao,   Tbetapa, Tbtransicao, Tbetapaposterior
 from livro.models import Tbtitulo, Tbstatustitulo, Tbtipotitulo 
 from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
@@ -549,7 +549,12 @@ def edicao(request, id):
                 ).order_by('nmlocalarquivo')
 
         etapas = []
-
+        
+        # localizando processo principal apartir do anexo
+        processo_principal = []        
+        if base.tbclassificacaoprocesso.id == 2:
+            obj = Tbprocessosanexos.objects.filter( tbprocessobase_id_anexo = id )[0]
+            processo_principal = obj.tbprocessobase
         
         if tipo == "tbprocessorural":
             rural = Tbprocessorural.objects.get( tbprocessobase = id )
@@ -565,19 +570,23 @@ def edicao(request, id):
             tram = []
             
             etapa_atual = None
+            posteriores = {}
             transicao = Tbtransicao.objects.filter( tbprocessobase__id = rural.tbprocessobase.id ).order_by('-dttransicao')
             if transicao:
                 etapa_atual = transicao[0]                
+                posteriores = Tbetapaposterior.objects.filter( tbetapa__id = etapa_atual.tbetapa.id )
+    
             
             for obj in caixasdestino:
                 if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'PAD' or obj.tbtipocaixa.nmtipocaixa == 'FT' or obj.tbtipocaixa.nmtipocaixa == 'ENT' :
                     tram.append( obj )
                     
+            
             return render_to_response('sicop/restrito/processo/rural/edicao.html',
                                       {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'fases':etapas,'etapa_atual':etapa_atual,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
-                                       'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
-                                       'base':base,'rural':rural,'peca':peca,'statustitulo':statustitulo,
+                                       'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,'processo_principal':processo_principal,
+                                       'base':base,'rural':rural,'peca':peca,'statustitulo':statustitulo,'posteriores':posteriores,
                                        'tipotitulo':tipotitulo}, context_instance = RequestContext(request))
         else:
             if tipo == "tbprocessourbano":
@@ -594,7 +603,7 @@ def edicao(request, id):
                 return render_to_response('sicop/restrito/processo/urbano/edicao.html',
                                           {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'situacaogeo':situacaogeo,
                                        'caixa':caixa,'municipio':municipio,'contrato':contrato,'fases':fases,'pregao':pregao,
-                                       'base':base,'urbano':urbano,'anexado':anexado,'pendencia':pendencia,
+                                       'base':base,'urbano':urbano,'anexado':anexado,'pendencia':pendencia,'processo_principal':processo_principal,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'dtaberturaprocesso':dtaberturaprocesso,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
             else:
@@ -610,7 +619,7 @@ def edicao(request, id):
                             tram.append( obj )
                     return render_to_response('sicop/restrito/processo/clausula/edicao.html',
                                               {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'fases':fases,
-                                       'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
+                                       'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,'processo_principal':processo_principal,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
         

@@ -144,6 +144,23 @@
 									</tr>
 								{% endif %}
 							</table>
+							
+						   {% if perms.sicop.etapa_checklist_posterior %}
+								{% if fases %}
+									<div style="margin-bottom:5px;width:98%;font-weight:bold;color: green">
+										PROXIMA ETAPA<hr/>
+									</div>
+									<select name="etapaposterior"  style="width:250px">
+										<option value="">-- SELECIONE PARA MUDAR DE ETAPA --</option>
+										{% for obj in posteriores %}
+											<option value="{{ obj.tbposterior.id }}">{{obj.tbposterior.nmfase}}</option>
+										{% endfor %}
+									</select>
+								{% endif %}		
+							{% else %}
+								<input name="etapaposterior" value="" type="hidden" />
+				   			{% endif %}
+														
 						</div>
 						<br />
 						<table style="width:100%">

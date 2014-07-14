@@ -263,7 +263,7 @@ def checklist(request, processo,etapa):
         
         # se todos os checklists foram marcados
         if checked == len(checklist):
-            etapas_posterior = Tbetapaposterior.objects.all().filter( tbetapa_id = etapa )
+            etapas_posterior = Tbetapaposterior.objects.filter( tbetapa_id = etapa )
             etapa_posterior = None
             if len(etapas_posterior) == 1:
                 etapa_posterior = etapas_posterior[0]
@@ -377,7 +377,7 @@ def validacao(request_form, edicao):
         warning = False
 
     if edicao:
-        # verifica se a ordem desta etapa é a ultima. se sim, nao necessita informar uma proxima etapa.
+        # verifica se a ordem desta etapa eh a ultima. se sim, nao necessita informar uma proxima etapa.
         ordem = request_form.POST['ordem']
         tem_etapa_posterior = False
         result = Tbetapa.objects.order_by('-ordem')
