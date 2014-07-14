@@ -31,6 +31,11 @@
 						<a href="/sicop/restrito/tipo_caixa/cadastro/?next=/sicop/restrito/caixa/cadastro/" title="Novo Tipo"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>						
 				   </tr>
+
+				   <tr> <td class="colunaTabela"> <label>Ativo:</label> </td>
+				   <td>
+				   		{{ form.blativo }}
+				   </td> </tr>
 				   
 				   <tr><td class="colunaTabela"> <label>Divisao:</label> </td><td class="colunaTabela">
 				   		<input readonly="readonly" type="hidden" name="tbdivisao" value="{{divisao.id}}"/>{{divisao.nmdivisao}}
