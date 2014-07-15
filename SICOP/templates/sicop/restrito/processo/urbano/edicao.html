@@ -182,18 +182,18 @@
 									type="button"
 									{% if etapa_atual %}
 										{% if etapa_atual.tbetapa.id == fase.id %}
-											{% if perms.sicop.etapa_atual_checklist_consulta %}
+											{% if perms.sicop.processo_edicao %}
 												onclick="editarID('/sicop/restrito/etapa/checklist/{{ rural.tbprocessobase.id }}/{{ fase.id }}');" 
 											{% endif %}
 											class="bt_blue"
 										{% else %}
-											{% if perms.sicop.etapa_checklist_consulta %}
+											{% if perms.sicop.etapa_checklist_edicao %}
 												onclick="editarID('/sicop/restrito/etapa/checklist/{{ rural.tbprocessobase.id }}/{{ fase.id }}');" 
 											{% endif %}
 											class="bt_grey"
 										{% endif %}
 									{% else %}
-										{% if perms.sicop.etapa_checklist_consulta %}
+										{% if perms.sicop.etapa_checklist_edicao %}
 											onclick="editarID('/sicop/restrito/etapa/checklist/{{ rural.tbprocessobase.id }}/{{ fase.id }}');" 
 										{% endif %}
 										class="bt_grey"

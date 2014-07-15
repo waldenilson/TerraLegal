@@ -8,7 +8,8 @@ from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
     Tbcontrato, Tbsituacaoprocesso, Tbsituacaogeo, Tbpecastecnicas, AuthUser,\
     AuthUserGroups, Tbmovimentacao, Tbprocessosanexos, Tbpendencia,\
     Tbclassificacaoprocesso, Tbtipopendencia, Tbstatuspendencia, Tbpregao,\
-    Tbdivisao,   Tbetapa, Tbtransicao, Tbetapaposterior
+    Tbdivisao,   Tbetapa, Tbtransicao, Tbetapaposterior, Tbchecklistprocessobase,\
+    Tbchecklist
 from livro.models import Tbtitulo, Tbstatustitulo, Tbtipotitulo 
 from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
@@ -878,4 +879,3 @@ def validarDesAnexo(request_form, base, processoanexo):
         if base.tbdivisao != divisao:
             messages.add_message(request_form, messages.WARNING, 'O processo a desanexar existe,mas pertence a outra divisao.')
     return warning
-

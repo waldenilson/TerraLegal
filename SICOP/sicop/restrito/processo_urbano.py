@@ -4,7 +4,7 @@ from django.template.context import RequestContext
 from sicop.models import Tbtipoprocesso, Tbprocessobase, Tbgleba, Tbmunicipio,\
     Tbcaixa, AuthUser, Tbprocessourbano, Tbsituacaoprocesso, Tbcontrato,\
     Tbsituacaogeo, Tbmovimentacao, Tbclassificacaoprocesso, Tbpregao, Tbdivisao,\
-    Tbtransicao, Tbetapa
+    Tbtransicao, Tbetapa, Tbchecklist, Tbchecklistprocessobase
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect
 import datetime
@@ -170,8 +170,18 @@ def edicao(request, id):
             f_urbano.save()
 
             #mudanca de etapa do processo / apenas quem possue permissao            
-            if request.user.has_perm('sicop.etapa_checklist_posterior'):
+            if request.user.has_perm('sicop.etapa_checklist_edicao'):
                 if request.POST['etapaposterior'] != '':
+
+                    #salva todos os checklists obrigatorios
+                    etapa_atual = transicao = Tbtransicao.objects.filter( tbprocessobase__id = urbano.tbprocessobase.id ).order_by('-dttransicao')[0]
+                    checks_obrigatorios = Tbchecklist.objects.filter( tbetapa = etapa_atual.tbetapa, blobrigatorio = True )
+                    for obj in checks_obrigatorios:
+                        if not Tbchecklistprocessobase.objects.filter( tbchecklist__id = obj.id, tbprocessobase__id = base.id ):
+                            cp = Tbchecklistprocessobase( tbprocessobase = Tbprocessobase.objects.get( pk = base.id ),
+                                          tbchecklist = Tbchecklist.objects.get( pk = obj.id ) )
+                            cp.save()
+
                     transicao = Tbtransicao(
                                      tbprocessobase = Tbprocessobase.objects.get( pk = base.id ) ,
                                      tbetapa = Tbetapa.objects.get( pk = request.POST['etapaposterior'] ),

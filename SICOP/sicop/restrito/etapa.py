@@ -210,7 +210,7 @@ def edicao(request, id):
     return render_to_response('sicop/restrito/etapa/edicao.html',{"fase":instance,'etapas':etapas,"tipoprocesso":tipoprocesso,'anteriores':anteriores,'posteriores':posteriores,'etapadesejada':etapadesejada}, context_instance = RequestContext(request))
 
 
-@permission_required('sicop.etapa_checklist_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.processo_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def checklist(request, processo,etapa):    
     obj_processo = Tbprocessobase.objects.get( pk = processo )
     obj_etapa = Tbetapa.objects.get( pk = etapa )
@@ -237,29 +237,21 @@ def checklist(request, processo,etapa):
         if not request.user.has_perm('sicop.etapa_checklist_edicao'):
             return HttpResponseRedirect('/excecoes/permissao_negada/') 
 
-        checked = 0
-        
-        # verificando os grupos do usuario
+        checked = 0        
+        # cadastra os checklists selecionados e exclui aqueles que foram desmarcados
         for obj in checklist:
             if request.POST.get(obj.nmchecklist, False):
                 checked += 1
-                #verificar se esse grupo ja esta ligado ao usuario
                 res = Tbchecklistprocessobase.objects.filter( tbprocessobase__id = processo, tbchecklist__id = obj.id )
                 if not res:
-                    # inserir ao authusergroups
                     ug = Tbchecklistprocessobase( tbprocessobase = Tbprocessobase.objects.get( pk = processo ),
                                           tbchecklist = Tbchecklist.objects.get( pk = obj.id ) )
                     ug.save()
-                    #print obj.name + ' nao esta ligado a este usuario'
             else:
-                #verificar se esse grupo foi desligado do usuario
                 res = Tbchecklistprocessobase.objects.filter( tbprocessobase__id = processo, tbchecklist__id = obj.id )
                 if res:
-                    # excluir do authusergroups
                     for aug in res:
                         aug.delete()
-                    #print obj.name + ' desmarcou deste usuario'        
-
         
         # se todos os checklists foram marcados
         if checked == len(checklist):

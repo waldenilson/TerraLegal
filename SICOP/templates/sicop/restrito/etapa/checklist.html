@@ -44,7 +44,7 @@
 						</table>
 				   	</td>
 				   </tr>
-				   {% if perms.sicop.etapa_checklist_posterior %}
+					{% if perms.sicop.etapa_checklist_edicao %}
 					   <tr> <td class="colunaTabela"> <label>Próxima Etapa:</label> </td>
 					   	<td>
 					   		<select name="etapaposterior"  style="width:250px">
@@ -66,7 +66,9 @@
 			<tr>
 				<td class="colunaTabela" style="text-align:left"> 
 					<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
-					<input type="submit" class="button_green" value="SALVAR" />
+					{% if perms.sicop.etapa_checklist_edicao %}
+						<input type="submit" class="button_green" value="SALVAR" />
+					{% endif %}
 				</td>
 			</tr>
 		</table>
