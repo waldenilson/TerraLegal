@@ -144,6 +144,23 @@
 									</tr>
 								{% endif %}
 							</table>
+							
+						   {% if perms.sicop.etapa_checklist_posterior %}
+								{% if fases %}
+									<div style="margin-bottom:5px;width:98%;font-weight:bold;color: green">
+										PROXIMA ETAPA<hr/>
+									</div>
+									<select name="etapaposterior"  style="width:250px">
+										<option value="">-- SELECIONE PARA MUDAR DE ETAPA --</option>
+										{% for obj in posteriores %}
+											<option value="{{ obj.tbposterior.id }}">{{obj.tbposterior.nmfase}}</option>
+										{% endfor %}
+									</select>
+								{% endif %}		
+							{% else %}
+								<input name="etapaposterior" value="" type="hidden" />
+				   			{% endif %}
+														
 						</div>
 						<br />
 						<table style="width:100%">
@@ -152,6 +169,13 @@
 									<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
 									<input type="submit" class="button_green" value="SALVAR" />
 								</td>
+								{% if perms.sicop.etapa_checklist_edicao %}
+									<td class="colunaTabela" style="text-align:right"> 
+										<a href="/sicop/restrito/etapa/restaurar/{{ base.id }}/" style="margin-right: 10px">
+											<input type="button" class="button_green" value="VOLTAR ETAPA" />
+										</a>
+									</td>
+								{% endif %}
 							</tr>
 						</table>	
 					</form>
@@ -165,18 +189,18 @@
 									type="button"
 									{% if etapa_atual %}
 										{% if etapa_atual.tbetapa.id == fase.id %}
-											{% if perms.sicop.etapa_atual_checklist_consulta %}
+											{% if perms.sicop.processo_edicao %}
 												onclick="editarID('/sicop/restrito/etapa/checklist/{{ rural.tbprocessobase.id }}/{{ fase.id }}');" 
 											{% endif %}
 											class="bt_blue"
 										{% else %}
-											{% if perms.sicop.etapa_checklist_consulta %}
+											{% if perms.sicop.etapa_checklist_edicao %}
 												onclick="editarID('/sicop/restrito/etapa/checklist/{{ rural.tbprocessobase.id }}/{{ fase.id }}');" 
 											{% endif %}
 											class="bt_grey"
 										{% endif %}
 									{% else %}
-										{% if perms.sicop.etapa_checklist_consulta %}
+										{% if perms.sicop.etapa_checklist_edicao %}
 											onclick="editarID('/sicop/restrito/etapa/checklist/{{ rural.tbprocessobase.id }}/{{ fase.id }}');" 
 										{% endif %}
 										class="bt_grey"

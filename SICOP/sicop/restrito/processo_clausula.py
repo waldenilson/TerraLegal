@@ -3,7 +3,8 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.models import Tbtipoprocesso, Tbmunicipio, Tbgleba, Tbcaixa,\
     Tbprocessobase, AuthUser, Tbprocessoclausula, Tbclassificacaoprocesso,\
-    Tbsituacaoprocesso, Tbmovimentacao, Tbdivisao
+    Tbsituacaoprocesso, Tbmovimentacao, Tbdivisao, Tbtransicao, Tbetapa,\
+    Tbchecklist, Tbchecklistprocessobase
 from sicop.forms import FormProcessoClausula
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect
@@ -141,6 +142,27 @@ def edicao(request, id):
                                        stcertliberacao = liberacao
                                        )
             f_clausula.save()
+            
+            #mudanca de etapa do processo / apenas quem possue permissao            
+            if request.user.has_perm('sicop.etapa_checklist_edicao'):
+                if request.POST['etapaposterior'] != '':
+
+                                        #salva todos os checklists obrigatorios
+                    etapa_atual = transicao = Tbtransicao.objects.filter( tbprocessobase__id = clausula.tbprocessobase.id ).order_by('-dttransicao')[0]
+                    checks_obrigatorios = Tbchecklist.objects.filter( tbetapa = etapa_atual.tbetapa, blobrigatorio = True )
+                    for obj in checks_obrigatorios:
+                        if not Tbchecklistprocessobase.objects.filter( tbchecklist__id = obj.id, tbprocessobase__id = base.id ):
+                            cp = Tbchecklistprocessobase( tbprocessobase = Tbprocessobase.objects.get( pk = base.id ),
+                                          tbchecklist = Tbchecklist.objects.get( pk = obj.id ) )
+                            cp.save()
+
+                    transicao = Tbtransicao(
+                                     tbprocessobase = Tbprocessobase.objects.get( pk = base.id ) ,
+                                     tbetapa = Tbetapa.objects.get( pk = request.POST['etapaposterior'] ),
+                                     dttransicao = datetime.datetime.now()
+                                    )                    
+                    transicao.save()
+
             
             return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(base.id)+"/")
         

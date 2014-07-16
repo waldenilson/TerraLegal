@@ -12,6 +12,10 @@ from odslib import ODS
 from django.shortcuts import render_to_response
 from django.db.models import Q
 
+def lista(request):
+    return render_to_response('sicop/restrito/relatorio/lista.html',{}, context_instance = RequestContext(request))
+    
+
 #PROCESSOS QUE TEM PECA TECNICA
 @permission_required('sicop.processo_peca_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def processo_peca(request):
@@ -73,7 +77,6 @@ def processo_peca(request):
         return response
 
     return render_to_response('sicop/restrito/relatorio/processo_peca.html',{}, context_instance = RequestContext(request))
-
 
 @permission_required('sicop.peca_sem_processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def peca_processo(request):
@@ -137,8 +140,6 @@ def peca_processo(request):
         return response
 
     return render_to_response('sicop/restrito/relatorio/peca_processo.html',{}, context_instance = RequestContext(request))
-
-
 
 @permission_required('sicop.peca_gleba_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def peca_gleba(request):

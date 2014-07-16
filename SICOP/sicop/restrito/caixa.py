@@ -63,13 +63,18 @@ def consulta(request):
 def cadastro(request):
     tipocaixa = Tbtipocaixa.objects.all()#.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmtipocaixa')
        
+    ativo = False
+    if request.POST.get('blativo',False):
+        ativo = True
+
     if request.method == "POST":
         next = request.GET.get('next', '/')
         if validacao(request):
             f_caixa = Tbcaixa(
                               nmlocalarquivo = request.POST['nmlocalarquivo'],
                               tbtipocaixa = Tbtipocaixa.objects.get(pk = request.POST['tbtipocaixa']),
-                              tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
+                              tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao,
+                              blativo = ativo
                               )
             f_caixa.save()
             if next == "/":
@@ -83,6 +88,11 @@ def edicao(request, id):
     tipocaixa = Tbtipocaixa.objects.all()#.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmtipocaixa')
     instance = get_object_or_404(Tbcaixa, id=id)
     divisao = Tbdivisao.objects.get(pk = Tbcaixa.objects.get(pk = id).tbdivisao_id)
+    
+    ativo = False
+    if request.POST.get('blativo',False):
+        ativo = True
+    
     if request.method == "POST":
 
         if not request.user.has_perm('sicop.caixa_edicao'):
@@ -91,6 +101,7 @@ def edicao(request, id):
         form = FormCaixa(request.POST,request.FILES,instance=instance)
         if validacao(request):
             if form.is_valid():
+                form.blativo = ativo
                 form.save()
                 return HttpResponseRedirect("/sicop/restrito/caixa/edicao/"+str(id)+"/")
     else:

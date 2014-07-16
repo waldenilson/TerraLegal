@@ -8,7 +8,8 @@ from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
     Tbcontrato, Tbsituacaoprocesso, Tbsituacaogeo, Tbpecastecnicas, AuthUser,\
     AuthUserGroups, Tbmovimentacao, Tbprocessosanexos, Tbpendencia,\
     Tbclassificacaoprocesso, Tbtipopendencia, Tbstatuspendencia, Tbpregao,\
-    Tbdivisao,   Tbetapa, Tbtransicao
+    Tbdivisao,   Tbetapa, Tbtransicao, Tbetapaposterior, Tbchecklistprocessobase,\
+    Tbchecklist
 from livro.models import Tbtitulo, Tbstatustitulo, Tbtipotitulo 
 from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
@@ -33,7 +34,6 @@ nome_relatorio      = "relatorio_processo"
 response_consulta  = "/sicop/restrito/processo/consulta/"
 titulo_relatorio    = "Relatorio Processos"
 planilha_relatorio  = "Processos"
-
 
 @permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
@@ -433,7 +433,6 @@ def anexar(request, base):
                                        'movimentacao':movimentacao,'caixadestino':caixadestino,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))      
 
-
 @permission_required('sicop.processo_desanexar', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def desanexar(request,id_anexo):
     id_processo_anexo =  get_object_or_404(Tbprocessosanexos, tbprocessobase_id_anexo=id_anexo)
@@ -508,7 +507,6 @@ def desanexar(request,id_anexo):
                                    'movimentacao':movimentacao,'caixadestino':caixadestino,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                    'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))      
 
-
 @permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     base = get_object_or_404(Tbprocessobase, id=id)
@@ -549,7 +547,12 @@ def edicao(request, id):
                 ).order_by('nmlocalarquivo')
 
         etapas = []
-
+        
+        # localizando processo principal apartir do anexo
+        processo_principal = []        
+        if base.tbclassificacaoprocesso.id == 2:
+            obj = Tbprocessosanexos.objects.filter( tbprocessobase_id_anexo = id )[0]
+            processo_principal = obj.tbprocessobase
         
         if tipo == "tbprocessorural":
             rural = Tbprocessorural.objects.get( tbprocessobase = id )
@@ -565,19 +568,23 @@ def edicao(request, id):
             tram = []
             
             etapa_atual = None
+            posteriores = {}
             transicao = Tbtransicao.objects.filter( tbprocessobase__id = rural.tbprocessobase.id ).order_by('-dttransicao')
             if transicao:
                 etapa_atual = transicao[0]                
+                posteriores = Tbetapaposterior.objects.filter( tbetapa__id = etapa_atual.tbetapa.id )
+    
             
             for obj in caixasdestino:
                 if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'PAD' or obj.tbtipocaixa.nmtipocaixa == 'FT' or obj.tbtipocaixa.nmtipocaixa == 'ENT' :
                     tram.append( obj )
                     
+            
             return render_to_response('sicop/restrito/processo/rural/edicao.html',
                                       {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'fases':etapas,'etapa_atual':etapa_atual,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
-                                       'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
-                                       'base':base,'rural':rural,'peca':peca,'statustitulo':statustitulo,
+                                       'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,'processo_principal':processo_principal,
+                                       'base':base,'rural':rural,'peca':peca,'statustitulo':statustitulo,'posteriores':posteriores,
                                        'tipotitulo':tipotitulo}, context_instance = RequestContext(request))
         else:
             if tipo == "tbprocessourbano":
@@ -594,7 +601,7 @@ def edicao(request, id):
                 return render_to_response('sicop/restrito/processo/urbano/edicao.html',
                                           {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'situacaogeo':situacaogeo,
                                        'caixa':caixa,'municipio':municipio,'contrato':contrato,'fases':fases,'pregao':pregao,
-                                       'base':base,'urbano':urbano,'anexado':anexado,'pendencia':pendencia,
+                                       'base':base,'urbano':urbano,'anexado':anexado,'pendencia':pendencia,'processo_principal':processo_principal,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'dtaberturaprocesso':dtaberturaprocesso,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
             else:
@@ -610,7 +617,7 @@ def edicao(request, id):
                             tram.append( obj )
                     return render_to_response('sicop/restrito/processo/clausula/edicao.html',
                                               {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'fases':fases,
-                                       'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
+                                       'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,'processo_principal':processo_principal,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
         
@@ -869,4 +876,3 @@ def validarDesAnexo(request_form, base, processoanexo):
         if base.tbdivisao != divisao:
             messages.add_message(request_form, messages.WARNING, 'O processo a desanexar existe,mas pertence a outra divisao.')
     return warning
-
