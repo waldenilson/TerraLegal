@@ -453,13 +453,13 @@ Divisão: {{ request.session.divisao }} | <a href="/logout/">Sair do Sistema</a>
 <li><a href="/sicop/restrito/classificacao_processo/consulta/">Classificação Processo</a></li>
 {% endif %}
 {% if perms.sicop.situacao_processo_consulta %}
-<li><a href="/sicop/restrito/situacao_processo/consulta/">Situação Processo</a></li>
+<li><a href="/sicop/restrito/situacao_processo/consulta/">Situação Processo</a> <hr/> </li>
 {% endif %}
 {% if perms.sicop.etapa_consulta %}
 <li><a href="/sicop/restrito/etapa/consulta/">Etapas do Processo</a></li>
 {% endif %}
 {% if perms.sicop.checklist_consulta %}
-<li><a href="/sicop/restrito/checklist/consulta/">Checklists das Etapas</a></li>
+<li><a href="/sicop/restrito/checklist/consulta/">Checklists das Etapas</a> <hr/> </li>
 {% endif %}
 {% if perms.sicop.situacao_geo_consulta %}
 <li><a href="/sicop/restrito/situacao_geo/consulta/">Situação Geo</a></li>
@@ -471,7 +471,7 @@ Divisão: {{ request.session.divisao }} | <a href="/logout/">Sair do Sistema</a>
 <li><a href="/sicop/restrito/status_pendencia/consulta/">Status Pendência</a></li>
 {% endif %}
 {% if perms.sicop.situacao_consulta %}
-<li><a href="/sicop/restrito/situacao/consulta/">Tipo Situacao</a></li>
+<li><a href="/sicop/restrito/situacao/consulta/">Tipo Situação</a></li>
 {% endif %}
 {% if perms.sicop.status_titulo_consulta %}
 <li><a href="/sicop/restrito/status_titulo/consulta/">Status titulo</a></li>
@@ -509,7 +509,7 @@ Divisão: {{ request.session.divisao }} | <a href="/logout/">Sair do Sistema</a>
 			<li><a href="/calculo/portaria23/">Portaria 23</a></li>
 		{% endif %}
 		{% if perms.sicop.calculo_portaria80 %}
-			<li><a href="/calculo/portaria80/">Portaria 80</a></li>
+			<li><a href="#">Portaria 80</a></li>
 		{% endif %}
 	
 	</ul>

@@ -31,17 +31,12 @@
 						<input class="button_yellow" style="margin-right: 10px" type="submit" value="PESQUISAR" />
 						<a href="/sicop/restrito/documento/cadastro/"> <input class="button_green" value="NOVO" type="button" /> </a>
 					</td>
-					<td class="colunaTabela" style="text-align:right"> 
-						<a href="/sicop/restrito/documento/relatorio/pdf/"> <img width="36" alt="PDF" src="{% static "img/pdf.png" %}" /> </a>
-						<a href="/sicop/restrito/documento/relatorio/ods/"> <img width="36" alt="ODS" src="{% static "img/ods.png" %}" /> </a>
-						<a href="/sicop/restrito/documento/relatorio/csv/"> <img width="36" alt="CSV" src="{% static "img/csv.png" %}" /> </a>
-					</td>
 				</tr>
 				<tr>
 					<td class="colunaTabela" style="text-align:left"> 
 						<div>Memorando: Azul | Oficio: Verde | VR: Amarelo</div>
 					</td>
-					<td class="colunaTabela" style="text-align:right"> 
+					<td class="colunaTabela" style="text-align:left"> 
 						<div>Total de registros: {{ request.session.relatorio_documento|length }}</div>
 					</td>
 				</tr>
