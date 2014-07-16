@@ -377,7 +377,7 @@ def validacao(request_form, edicao):
         warning = False
 
     if edicao:
-        # verifica se a ordem desta etapa é a ultima. se sim, nao necessita informar uma proxima etapa.
+        # verifica se a ordem desta etapa a ultima. se sim, nao necessita informar uma proxima etapa.
         ordem = request_form.POST['ordem']
         tem_etapa_posterior = False
         result = Tbetapa.objects.order_by('-ordem')
