@@ -419,7 +419,7 @@ Divisão: {{ request.session.divisao }} | <a href="/logout/">Sair do Sistema</a>
 {% endif %}
 
 {% if perms.sicop.relatorio_processo_peca_consulta or perms.sicop.relatorio_peca_nao_aprovada_consulta or perms.sicop.relatorio_peca_rejeitada_consulta or perms.sicop.relatorio_peca_validada_consulta or perms.sicop.relatorio_peca_gleba_consulta or perms.sicop.relatorio_peca_sem_processo_consulta %}
-<li><hr/><a href="#">Relatório</a>
+<li><hr/><a href="/sicop/restrito/relatorio/lista/">Relatório</a>
 <ul style="width: 250px">
 {% if perms.sicop.relatorio_processo_peca_consulta %}
 <li><a href="/sicop/restrito/relatorio/processo_peca/">Processos com peças técnicas</a></li>

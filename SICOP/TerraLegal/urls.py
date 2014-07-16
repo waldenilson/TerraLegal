@@ -271,6 +271,7 @@ urlpatterns = patterns('',
    url(r'^servidor/',include('servidor.urls',namespace='servidor')),
    
     # ACESSO RESTRITO SICOP RELATORIO
+    url(r'^sicop/restrito/relatorio/lista', 'sicop.restrito.relatorio.lista'),
     url(r'^sicop/restrito/relatorio/processo_peca', 'sicop.restrito.relatorio.processo_peca'),
     url(r'^sicop/restrito/relatorio/peca_processo', 'sicop.restrito.relatorio.peca_processo'),
     url(r'^sicop/restrito/relatorio/peca_gleba', 'sicop.restrito.relatorio.peca_gleba'),
