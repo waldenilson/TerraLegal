@@ -142,6 +142,7 @@ urlpatterns = patterns('',
     url(r'^sicop/restrito/etapa/relatorio/ods/', 'sicop.restrito.etapa.relatorio_ods'),
     url(r'^sicop/restrito/etapa/relatorio/csv/', 'sicop.restrito.etapa.relatorio_csv'),
     url(r'^sicop/restrito/etapa/checklist/(?P<processo>\d+)/(?P<etapa>\d+)/', 'sicop.restrito.etapa.checklist'),
+    url(r'^sicop/restrito/etapa/restaurar/(?P<processo>\d+)/', 'sicop.restrito.etapa.restaurar_etapa'),
 
     # ACESSO RESTRITO SICOP CHECKLIST
     url(r'^sicop/restrito/checklist/consulta/', 'sicop.restrito.checklist.consulta'),

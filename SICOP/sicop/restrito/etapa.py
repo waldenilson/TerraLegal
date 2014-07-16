@@ -210,6 +210,17 @@ def edicao(request, id):
     return render_to_response('sicop/restrito/etapa/edicao.html',{"fase":instance,'etapas':etapas,"tipoprocesso":tipoprocesso,'anteriores':anteriores,'posteriores':posteriores,'etapadesejada':etapadesejada}, context_instance = RequestContext(request))
 
 
+@permission_required('sicop.etapa_checklist_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def restaurar_etapa(request, processo):
+    #excluir a ultima transicao de etapas desse processo
+    res = Tbtransicao.objects.filter( tbprocessobase = processo ).order_by('-id')
+    if res:
+        obj = res[0]
+        obj.delete()
+    
+    return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(processo))
+
+
 @permission_required('sicop.processo_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def checklist(request, processo,etapa):    
     obj_processo = Tbprocessobase.objects.get( pk = processo )

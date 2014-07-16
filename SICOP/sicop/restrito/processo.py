@@ -35,7 +35,6 @@ response_consulta  = "/sicop/restrito/processo/consulta/"
 titulo_relatorio    = "Relatorio Processos"
 planilha_relatorio  = "Processos"
 
-
 @permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
         
@@ -434,7 +433,6 @@ def anexar(request, base):
                                        'movimentacao':movimentacao,'caixadestino':caixadestino,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))      
 
-
 @permission_required('sicop.processo_desanexar', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def desanexar(request,id_anexo):
     id_processo_anexo =  get_object_or_404(Tbprocessosanexos, tbprocessobase_id_anexo=id_anexo)
@@ -508,7 +506,6 @@ def desanexar(request,id_anexo):
                                    'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
                                    'movimentacao':movimentacao,'caixadestino':caixadestino,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                    'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))      
-
 
 @permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
