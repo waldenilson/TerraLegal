@@ -43,6 +43,11 @@ response_consulta = "/sicop/restrito/etapa/consulta/"
 titulo_relatorio = "Relatorio Etapas"
 planilha_relatorio = "Etapas"
 
+@permission_required('sicop.etapa_checklist_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def restaurar(request, processo):
+    return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(processo)+"/")
+    
+
 @permission_required('sicop.etapa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
     if request.method == "POST":
