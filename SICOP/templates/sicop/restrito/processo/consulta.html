@@ -16,7 +16,7 @@
 		<form name="form" method="post" action="">
 			{% csrf_token %}
 			
-			<table border="1" style="width:100%;text-align: left">
+			<table style="width:100%;text-align: left">
 				<tbody>
 					<tr> 
 						<td style="width:10%;text-align:left" class="colunaTabela"> <label>Processo:</label> </td>
@@ -79,7 +79,7 @@
 {% endblock %}
 
 {% block resultado %}
-		<div style="overflow:auto;height:500px">	
+		<div style="overflow:auto;max-height:500px">	
 			<table class="csstable">
 			<tbody>
 				<tr>

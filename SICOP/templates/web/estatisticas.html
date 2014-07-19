@@ -9,26 +9,19 @@ Estatisticas
 {% endblock %}
 
 {% block style %}
-<link rel="stylesheet" href="{{ STATIC_URL }}css/nv.d3.css">
 
-<link rel="stylesheet" type="text/css" media="screen"
-href="{% static "css/bootstrap/bootstrap.css" %}" />
-<link rel="stylesheet" type="text/css" media="screen"
-href="{% static "css/bootstrap/bootstrap.min.css" %}" />
-<!-- link rel="stylesheet" type="text/css" media="screen"
-href="{% static "css/bootstrap/bootstrap-responsive.css" %}" /-->
-<link rel="stylesheet" type="text/css" media="screen"
-href="{% static "css/bootstrap/bootstrap-responsive.min.css" %}" />
-
-<link rel="stylesheet" type="text/css" media="screen"
-href="{% static "css/estatisticas.css" %}" />
 
 {% endblock style %}
 
 {% block index %}
 
 <div class="span12">
-<h2>Estatisticas - Maranhao</h2>
+			<h3>
+				{% block subtitulo %}
+					Estatísticas - Maranhão
+				{% endblock %}
+			</h3>
+
 <div class="row-fluid">
     <div class="span12">
         <div class="span2">
@@ -41,20 +34,20 @@ href="{% static "css/estatisticas.css" %}" />
         <div class="span2">
             <div class="stat-box medium-blue">
             <span class="count">{{ qtd_pecas}}</span>
-            <span class="stat-text">Pecas Tecnicas</span>
+            <span class="stat-text">Peças Técnicas</span>
             </div>
         </div>
         
         <div class="span2">
             <div class="stat-box medium-blue">
             <span class="count">{{qtd_mov}}</span>
-            <span class="stat-text">Tramitacoes</span>
+            <span class="stat-text">Tramitações</span>
             </div>
         </div>
         <div class="span2">
             <div class="stat-box medium-blue">
             <span class="count">{{qtd_pend}}</span>
-            <span class="stat-text">Pendencias</span>
+            <span class="stat-text">Pendências</span>
             </div>
         </div>
         

@@ -1,0 +1,214 @@
+					
+					<ul id="menu" style="font-size:15px">
+					<li>
+					<a href="/" title="">
+					<span>Página Inicial</span>
+					</a>
+					</li>
+					
+					<li>
+					<a href="/web/equipe/" title="">
+					<span>Equipe</span>
+					</a>
+					</li>
+					
+					<li>
+					<a href="/web/organizacao/" title="">
+					<span>Organizacao</span>
+					</a>
+					</li>
+					<li>
+					<a href="/web/estatisticas/" title="">
+					<span>Estatisticas</span>
+					</a>
+					</li>
+					
+					
+					{% if perms.sicop.processo_consulta %}
+					<li><hr /><a href="/sicop/restrito/processo/consulta/">Processo</a> </li>
+					{% endif %}
+					
+					{% if perms.sicop.peca_tecnica_consulta %}
+					<li> <a href="/sicop/restrito/peca_tecnica/consulta/">Peça Técnica</a> </li>
+					{% endif %}
+					
+					
+					{% if perms.sicop.livro_consulta %}
+					
+					<li><a href="/livro/consulta/">Livro fundiário</a>
+					<ul>
+						{% if perms.sicop.livro_consulta %}
+						<li><a href="/livro/consulta/">Consulta</a></li>
+						{% endif %}
+						{% if perms.sicop.livro_consulta %}
+						<li><a href="/livro/titulos_entregues/">Titulados entregues</a></li>
+						{% endif %}
+						{% if perms.sicop.livro_consulta %}
+						<li><a href="/livro/titulos_nao_entregues/">Titulados não entregues</a></li>
+						{% endif %}
+					</ul>
+					</li>
+					{% endif %}
+					
+					{% if perms.sicop.caixa_consulta or perms.sicop.tipo_caixa_consulta %}
+					<li><hr/> <a href="#">Caixa</a>
+					<ul>
+					{% if perms.sicop.caixa_consulta %}
+					<li><a href="/sicop/restrito/caixa/consulta/">Controle</a></li>
+					{% endif %}
+					{% if perms.sicop.tipo_caixa_consulta %}
+					<li><a href="/sicop/restrito/tipo_caixa/consulta/">Tipo Caixa</a></li>
+					{% endif %}
+					</ul>
+					</li>
+					{% endif %}
+					
+					{% if perms.sicop.gleba_consulta or perms.sicop.sub_area_consulta %}
+					<li><a href="#">Gleba</a>
+					<ul>
+					{% if perms.sicop.gleba_consulta %}
+					<li><a href="/sicop/restrito/gleba/consulta/">Controle</a></li>
+					{% endif %}
+					{% if perms.sicop.sub_area_consulta %}
+					<li><a href="/sicop/restrito/sub_area/consulta/">Sub Área</a></li>
+					{% endif %}
+					</ul>
+					</li>
+					{% endif %}
+					
+					{% if perms.sicop.contrato_consulta %}
+					<li><a href="/sicop/restrito/contrato/consulta/">Contrato</a></li>
+					{% endif %}
+					
+					{% if perms.sicop.pregao_consulta %}
+					<li><a href="/sicop/restrito/pregao/consulta/">Pregão</a></li>
+					{% endif %}
+					
+					{% if perms.servidor.servidor_consulta %}
+					<li><a href="/servidor/consulta/">Servidor</a></li>
+					{% endif %}
+					
+					{% if perms.servidor.documento_consulta or perms.servidor.tipo_documento_consulta %}
+					<li><a href="#">Documento</a>
+					<ul>
+					{% if perms.servidor.documento_consulta %}
+					<li><a href="/sicop/restrito/documento/consulta/">Controle (Beta)</a></li>
+					{% endif %}
+					{% if perms.servidor.tipo_documento_consulta %}
+					<li><a href="/sicop/restrito/tipo_documento/consulta/">Tipo Documento</a></li>
+					{% endif %}
+					</ul>
+					</li>
+					{% endif %}
+					
+					{% if perms.sicop.relatorio_processo_peca_consulta or perms.sicop.relatorio_peca_nao_aprovada_consulta or perms.sicop.relatorio_peca_rejeitada_consulta or perms.sicop.relatorio_peca_validada_consulta or perms.sicop.relatorio_peca_gleba_consulta or perms.sicop.relatorio_peca_sem_processo_consulta %}
+					<li><hr/><a href="/sicop/restrito/relatorio/lista/">Relatório</a>
+					<ul style="width: 250px">
+					{% if perms.sicop.relatorio_processo_peca_consulta %}
+					<li><a href="/sicop/restrito/relatorio/processo_peca/">Processos com peças técnicas</a></li>
+					{% endif %}
+					{% if perms.sicop.relatorio_processo_peca_consulta %}
+					<li><a href="/sicop/restrito/relatorio/peca_processo/">Peças técnicas com processo</a></li>
+					{% endif %}
+					{% if perms.sicop.relatorio_peca_nao_aprovada_consulta %}
+					<li><a href="/sicop/restrito/relatorio/peca_nao_aprovada/">Peças técnicas não aprovadas</a></li>
+					{% endif %}
+					{% if perms.sicop.relatorio_peca_rejeitada_consulta %}
+					<li><a href="/sicop/restrito/relatorio/peca_rejeitada/">Peças técnicas rejeitadas</a></li>
+					{% endif %}
+					{% if perms.sicop.relatorio_peca_validada_consulta %}
+					<li><a href="/sicop/restrito/relatorio/peca_validada/">Peças técnicas validadas</a></li>
+					{% endif %}
+					{% if perms.sicop.relatorio_peca_sem_processo_consulta %}
+					<li><a href="/sicop/restrito/relatorio/peca_sem_processo/">Peças técnicas sem processo</a></li>
+					{% endif %}
+					</ul>
+					</li>
+					{% endif %}
+					
+					{% if perms.sicop.tipo_processo_consulta or perms.sicop.classificacao_processo_consulta or perms.sicop.situacao_processo_consulta or perms.sicop.situacao_geo_consulta or perms.sicop.tipo_pendencia_consulta or perms.sicop.status_pendencia_consulta or perms.sicop.status_titulo_consulta%}
+					<li><a href="#">Configuração</a>
+					<ul>
+					{% if perms.sicop.tipo_processo_consulta %}
+					<li><a href="/sicop/restrito/tipo_processo/consulta/">Tipo Processo</a></li>
+					{% endif %}
+					{% if perms.sicop.classificacao_processo_consulta %}
+					<li><a href="/sicop/restrito/classificacao_processo/consulta/">Classificação Processo</a></li>
+					{% endif %}
+					{% if perms.sicop.situacao_processo_consulta %}
+					<li><a href="/sicop/restrito/situacao_processo/consulta/">Situação Processo</a> <hr/> </li>
+					{% endif %}
+					{% if perms.sicop.etapa_consulta %}
+					<li><a href="/sicop/restrito/etapa/consulta/">Etapas do Processo</a></li>
+					{% endif %}
+					{% if perms.sicop.checklist_consulta %}
+					<li><a href="/sicop/restrito/checklist/consulta/">Checklists das Etapas</a> <hr/> </li>
+					{% endif %}
+					{% if perms.sicop.situacao_geo_consulta %}
+					<li><a href="/sicop/restrito/situacao_geo/consulta/">Situação Geo</a></li>
+					{% endif %}
+					{% if perms.sicop.tipo_pendencia_consulta %}
+					<li><a href="/sicop/restrito/tipo_pendencia/consulta/">Tipo Pendência</a></li>
+					{% endif %}
+					{% if perms.sicop.status_pendencia_consulta %}
+					<li><a href="/sicop/restrito/status_pendencia/consulta/">Status Pendência</a></li>
+					{% endif %}
+					{% if perms.sicop.situacao_consulta %}
+					<li><a href="/sicop/restrito/situacao/consulta/">Tipo Situação</a></li>
+					{% endif %}
+					{% if perms.sicop.status_titulo_consulta %}
+					<li><a href="/sicop/restrito/status_titulo/consulta/">Status titulo</a></li>
+					{% endif %}
+					
+					
+					
+					</ul>
+					</li>
+					{% endif %}
+					
+					{% if perms.sicop.usuario_consulta or perms.sicop.grupo_consulta or perms.sicop.divisao_consulta %}
+					<li><a href="#">Usuário</a>
+					<ul>
+					{% if perms.sicop.usuario_consulta %}
+					<li><a href="/sicop/restrito/usuario/consulta/">Controle</a></li>
+					{% endif %}
+					{% if perms.sicop.grupo_consulta %}
+					<li><a href="/sicop/restrito/grupo/consulta/">Grupo</a></li>
+					{% endif %}
+					{% if perms.sicop.permissao_consulta %}
+					<li><a href="/sicop/restrito/permissao/consulta/">Permissão</a></li>
+					{% endif %}
+					{% if perms.sicop.divisao_consulta %}
+					<li><a href="/sicop/restrito/divisao/consulta/">Divisão</a></li>
+					{% endif %}
+					</ul>
+					</li>
+					{% endif %}
+					
+					{% if perms.sicop.titulo_calculo_portaria23 %}
+						<li><a href="#">Calculos</a>
+						<ul>
+							{% if perms.sicop.titulo_calculo_portaria23 %}
+								<li><a href="/calculo/portaria23/">Portaria 23</a></li>
+							{% endif %}
+							{% if perms.sicop.calculo_portaria80 %}
+								<li><a href="#">Portaria 80</a></li>
+							{% endif %}
+						
+						</ul>
+						</li>
+					{% endif %}
+					
+					
+					{% if perms.sicop.municipio_consulta %}
+						<li><a href="#">Município</a>
+						<ul>
+							{% if perms.sicop.municipio_consulta %}
+								<li><a href="/sicop/restrito/municipio/consulta/">Controle</a></li>
+							{% endif %}
+						</ul>
+						</li>
+					{% endif %}
+					
+					
+					</ul>
