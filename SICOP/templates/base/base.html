@@ -6,10 +6,11 @@
 		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
 		
 		<title> {% block subtitulo %} {% endblock %} : SICOP - Portal Terra Legal </title>
-		
+		<link rel="icon" type="image/jpg" href="{% static "img/favicon.jpg" %}" />
+      
 		<link rel="stylesheet" type="text/css" media="screen" href="{% static "css/new/styles.css" %}" />
 		<link rel="stylesheet" type="text/css" media="screen" href="{% static "css/bootstrap/bootstrap-responsive.min.css" %}" />
-		<link rel="stylesheet" href="{% static "css/jquery-ui.css" %}" />
+		<link rel="stylesheet" type="text/css" media="screen" href="{% static "css/jquery-ui.css" %}" />
 		<link rel="stylesheet" type="text/css" media="screen" href="{% static "css/estatisticas.css" %}" />
 		<link rel="stylesheet" type="text/css" media="screen" href="{% static "css/nv.d3.css" %}" />
 		
@@ -79,8 +80,8 @@
 				</aside>
 				<section id="content" class="column-right">
 	                		
-		    <article style="margin-top: -10px">
-							
+		    <article style="margin-top: -10px;z-index:1;position:relative;">
+				<div style="width:100%;height:100%;z-index:-1;opacity:0.08;position: absolute;background: url('{% static 'img/slide_1.jpg' %}') no-repeat center center" ></div>			
 				{% block index %} {% endblock %}
 			
 			</article>
@@ -91,8 +92,18 @@
 		
 			<footer class="clear">
 				<div  class="width">
-					<p class="left">&copy; 2014 SICOP - Portal Terra Legal - Revisão 526 </p>
-					<p class="right">Desenvolvido em Software Livre</p>
+					<p class="left">
+						<img width="24px" src="{% static "img/terra-legal.png" %}" title="Terra Legal" alt="Terra Legal" />	
+						<br/>
+						&copy; 2014 SICOP - Portal Terra Legal - Revisão 526
+					</p>
+						<p class="right">
+							<img width="24px" src="{% static "img/python.png" %}" title="Python" alt="Python" />	
+							<img width="24px" src="{% static "img/django.png" %}" title="Django" alt="Django" />	
+							<img width="24px" src="{% static "img/postgresql.png" %}" title="PostgreSQL" alt="PostgreSQL" />	
+							<br/>
+							Desenvolvido em Software Livre
+						</p>
 				</div>
 			</footer>
 		
