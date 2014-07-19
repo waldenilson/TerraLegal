@@ -154,14 +154,9 @@ def consulta(request):
             if len(titulo) > 0 and len(titulo) < 3:
                 messages.add_message(request,messages.WARNING,'Informe no minimo 3 caracteres no campo Titulo.')
                 
-        #para exibir o espelho quando o resultado for apenas 1 registro
-        request.session['processo_saida'] = ''
-        for obj in lista:
-            if len(lista) == 1:
-                request.session['processo_saida'] = 'unico'
-                edicao(request,obj.tbprocessobase.id) 
-                 
-                
+    #para exibir o espelho quando o resultado for apenas 1 registro
+    if len(lista) == 1: return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(lista[0].tbprocessobase.id))
+                             
     # gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_processo'] = lista
     
