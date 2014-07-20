@@ -159,8 +159,7 @@ def consulta(request):
                              
     # gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_processo'] = lista
-    
-    
+        
     return render_to_response('sicop/restrito/processo/consulta.html',{'lista':lista}, context_instance = RequestContext(request))
 
 @permission_required('sicop.processo_tramitar', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -658,6 +657,37 @@ def cadastro(request):
     carregarTbAuxProcesso(request, 'PAD')   
     return render_to_response('sicop/restrito/processo/cadastro.html',{'gleba':gleba,'caixa':caixa,'municipio':municipio,'situacaoprocesso':situacaoprocesso,
             'tipoprocesso':tipoprocesso,'processo':escolha,'div_processo':div_processo}, context_instance = RequestContext(request))
+
+
+@permission_required('sicop.processo_tramitacao_massa', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def ativar_tramitacao_massa(request):
+    
+    if 'tramitacao_massa_ativado' not in request.session:
+        request.session['tramitacao_massa_ativado'] = True
+        request.session['tramitacao_massa'] = []
+    else:
+        if request.session['tramitacao_massa_ativado']:
+            request.session['tramitacao_massa_ativado'] = False
+        else:
+            request.session['tramitacao_massa_ativado'] = True
+            request.session['tramitacao_massa'] = []
+            
+    return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
+
+@permission_required('sicop.processo_tramitacao_massa', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def add_tramitacao_massa(request, base):
+    
+    if not request.session['tramitacao_massa']:
+        list = []
+        list.append( int(base) )
+        request.session['tramitacao_massa'] = list
+    else:
+        list = request.session['tramitacao_massa']
+        list.append( int(base) )
+        request.session['tramitacao_massa'] = list
+        print request.session['tramitacao_massa']
+        
+    return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
 
 
 @permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
