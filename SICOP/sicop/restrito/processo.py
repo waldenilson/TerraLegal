@@ -258,7 +258,7 @@ def tramitar(request, base):
                 dttitulacao = formatDataToText( urbano.dttitulacao )
                 # caixas que podem ser tramitadas
                 tram = []
-                for obj in Tbcaixa.objects.all():
+                for obj in Tbcaixa.objects.filter(tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id):
                     if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'URB':
                         tram.append( obj )               
                 return render_to_response('sicop/restrito/processo/urbano/edicao.html',
@@ -273,7 +273,7 @@ def tramitar(request, base):
                     dttitulacao = formatDataToText( clausula.dttitulacao )
                     # caixas que podem ser tramitadas
                     tram = []
-                    for obj in Tbcaixa.objects.all():
+                    for obj in Tbcaixa.objects.filter(tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id):
                         if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'URB':
                             tram.append( obj )
                     return render_to_response('sicop/restrito/processo/clausula/edicao.html',
@@ -676,18 +676,113 @@ def ativar_tramitacao_massa(request):
 
 @permission_required('sicop.processo_tramitacao_massa', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def add_tramitacao_massa(request, base):
+
+    obj = get_object_or_404(Tbprocessobase,id=base)
+    processo = None
+    if obj.tbtipoprocesso.tabela == 'tbprocessorural':
+        processo = get_object_or_404(Tbprocessorural,tbprocessobase__id=base)                
+    elif obj.tbtipoprocesso.tabela == 'tbprocessoclausula':
+        processo = get_object_or_404(Tbprocessoclausula,tbprocessobase__id=base)
+    if obj.tbtipoprocesso.tabela == 'tbprocessourbano':
+        processo = get_object_or_404(Tbprocessourbano,tbprocessobase__id=base)
     
     if not request.session['tramitacao_massa']:
-        list = []
-        list.append( int(base) )
-        request.session['tramitacao_massa'] = list
+        lista = []
+        lista.append( processo )
+        request.session['tramitacao_massa'] = lista
     else:
-        list = request.session['tramitacao_massa']
-        list.append( int(base) )
-        request.session['tramitacao_massa'] = list
+        lista = request.session['tramitacao_massa']
+        lista.append( processo )
+        request.session['tramitacao_massa'] = lista
         print request.session['tramitacao_massa']
         
     return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
+
+@permission_required('sicop.processo_tramitacao_massa', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def rem_tramitacao_massa(request, base):
+
+    obj = get_object_or_404(Tbprocessobase,id=base)
+    processo = None
+    if obj.tbtipoprocesso.tabela == 'tbprocessorural':
+        processo = get_object_or_404(Tbprocessorural,tbprocessobase__id=base)                
+    elif obj.tbtipoprocesso.tabela == 'tbprocessoclausula':
+        processo = get_object_or_404(Tbprocessoclausula,tbprocessobase__id=base)
+    if obj.tbtipoprocesso.tabela == 'tbprocessourbano':
+        processo = get_object_or_404(Tbprocessourbano,tbprocessobase__id=base)
+    
+    
+    lista = request.session['tramitacao_massa']
+    lista.remove( processo )
+    request.session['tramitacao_massa'] = lista
+        
+    return HttpResponseRedirect("/sicop/restrito/processo/lista_tramitacao_massa/")
+
+@permission_required('sicop.processo_tramitacao_massa', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def executar_tramitacao_massa(request):
+    
+    lista = request.session['tramitacao_massa']
+
+    if request.method != "POST":
+        print lista
+    else:
+        for obj in lista:
+            base = obj.tbprocessobase
+            
+            caixadestino = request.POST['tbcaixadestino']
+            caixaorigem  = base.tbcaixa
+            if validarTramitacao(request, base, caixaorigem, caixadestino):
+                # atualizar processobase com caixa tramitada
+                f_base = Tbprocessobase (
+                                        id = base.id,
+                                        nrprocesso = base.nrprocesso,
+                                        tbgleba = base.tbgleba,
+                                        tbmunicipio = base.tbmunicipio,
+                                        tbcaixa = Tbcaixa.objects.get( pk = caixadestino),
+                                        tbtipoprocesso = base.tbtipoprocesso,
+                                        tbsituacaoprocesso = base.tbsituacaoprocesso,
+                                        dtcadastrosistema = base.dtcadastrosistema,
+                                        auth_user = base.auth_user,
+                                        tbdivisao = base.tbdivisao,
+                                        tbclassificacaoprocesso = base.tbclassificacaoprocesso,
+                                        nmendereco = base.nmendereco,
+                                        nmcontato = base.nmcontato
+                                        )
+                f_base.save()
+                # criar registro da movimentacao
+                f_movimentacao = Tbmovimentacao(
+                                               tbprocessobase = base,
+                                               tbcaixa_id = Tbcaixa.objects.get( pk = caixadestino).id,
+                                               tbcaixa_id_origem = caixaorigem,
+                                               auth_user = AuthUser.objects.get( pk = request.user.id ),
+                                               dtmovimentacao = datetime.datetime.now()
+                                               )
+                f_movimentacao.save()
+                
+                #OBS ao tramitar o processo todos os processos anexados serao tramitados ( classificado como anexo )
+                anexado = Tbprocessosanexos.objects.all().filter( tbprocessobase = base.id )
+                for nx in anexado:
+                    proc_anexado = nx.tbprocessobase_id_anexo
+                    f_base = Tbprocessobase (
+                                            id = proc_anexado.id,
+                                            nrprocesso = proc_anexado.nrprocesso,
+                                            tbgleba = proc_anexado.tbgleba,
+                                            tbmunicipio = proc_anexado.tbmunicipio,
+                                            tbcaixa = Tbcaixa.objects.get( pk = caixadestino),
+                                            tbtipoprocesso = proc_anexado.tbtipoprocesso,
+                                            tbsituacaoprocesso = proc_anexado.tbsituacaoprocesso,
+                                            dtcadastrosistema = proc_anexado.dtcadastrosistema,
+                                            auth_user = proc_anexado.auth_user,
+                                            tbdivisao = proc_anexado.tbdivisao,
+                                            tbclassificacaoprocesso = proc_anexado.tbclassificacaoprocesso,
+                                            nmendereco = base.nmendereco,
+                                            nmcontato = base.nmcontato
+                                            )
+                    f_base.save()
+
+        ativar_tramitacao_massa(request)
+        HttpResponseRedirect("/sicop/restrito/processo/consulta")
+        
+    return render_to_response('sicop/restrito/processo/lista_tramitacao_massa.html',{'caixadestino':Tbcaixa.objects.filter(tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id).order_by('nmlocalarquivo'),'lista':lista}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
