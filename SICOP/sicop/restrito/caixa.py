@@ -54,6 +54,7 @@ def consulta(request):
                 Q(tbtipocaixa__nmtipocaixa__icontains='ENT')
                 )
     lista = lista.order_by( 'nmlocalarquivo' )
+
     
 #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session[nome_relatorio] = lista

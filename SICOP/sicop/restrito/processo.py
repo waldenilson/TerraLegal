@@ -162,7 +162,11 @@ def consulta(request):
             edicao(request,obj.tbprocessobase.id)
      
     #para exibir o espelho quando o resultado for apenas 1 registro
-    if len(lista) == 1: return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(lista[0].tbprocessobase.id))
+    if len(lista) == 1: 
+        if 'tramitacao_massa_ativado' in request.session and request.session['tramitacao_massa_ativado']:
+                add_tramitacao_massa(request, lista[0].tbprocessobase.id)
+        else:
+            return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(lista[0].tbprocessobase.id))
                              
     # gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_processo'] = lista
@@ -695,11 +699,13 @@ def add_tramitacao_massa(request, base):
     
     if not request.session['tramitacao_massa']:
         lista = []
-        lista.append( processo )
+        if processo.tbprocessobase.tbclassificacaoprocesso.id == 1:
+            lista.append( processo )
         request.session['tramitacao_massa'] = lista
     else:
         lista = request.session['tramitacao_massa']
-        lista.append( processo )
+        if processo.tbprocessobase.tbclassificacaoprocesso.id == 1:
+            lista.append( processo )
         request.session['tramitacao_massa'] = lista
         print request.session['tramitacao_massa']
         
