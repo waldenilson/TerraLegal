@@ -40,42 +40,37 @@
 					<form method="post" action="/sicop/restrito/processo/rural/edicao/{{ rural.id }}/">
 						{% csrf_token %}
 						{% if base.tbtitulo %}
-									<div style="width:100%;font-size:12px;text-align:left">
-									<table border="1" style="width:100%;text-align: left">
-									<tbody>
-										<tr style="text-align: left;font-weight:bold;color:green">
-										<td class="colunaTabela" colspan="2">TITULO<hr/></td>
-										<td class="colunaTabela"> </td></tr>
-									</tbody>
-									</table>
+									<div style="margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
+										TITULO<hr/>
+									</div>
 									<table>
 										<tr>
-										<td class="colunaTabela" style="width:54px"> <label >Titulo:</label> </td><td><input name="cdtitulo" size=8 value="{{base.tbtitulo.cdtitulo}}"/> </td>
-									    <td><select name="tbtipotitulo"  style="width:150px">
-											{% for obj in tipotitulo %}
-												{% if obj.id == base.tbtitulo.tbtipotitulo.id %}
-													<option selected="selected" value="{{ obj.id }}">{{obj.cdtipo}} - {{obj.dstipo}}</option>
-												{% else %}
-													<option value="{{ obj.id }}">{{obj.cdtipo}} - {{obj.dstipo}}</option>
-												{% endif %}
-											{% endfor %}
-										</select>		
-									   	</td>
-									   	
-									   	<td class="colunaTabela"> <label>Status: </label></td>
-									   	<td><select name="tbstatustitulo" style="width:150px">
-									   		{% for obj in statustitulo %}
-												{% if obj.id == base.tbtitulo.tbstatustitulo.id %}
-													<option selected="selected" value="{{ obj.id }}">{{obj.sttitulo}}</option>
-												{% else %}
-													<option value="{{ obj.id }}">{{obj.sttitulo}}</option>
-												{% endif %}
-											{% endfor %}
-										</select>		
-									   	</td>
+										
+											<td class="colunaTabela"> 
+												Titulo: 
+												<input style="margin-right:5px;" name="cdtitulo" size=8 value="{{base.tbtitulo.cdtitulo}}"/>
+												<select name="tbtipotitulo"  style="margin-right:10px;width:120px">
+													{% for obj in tipotitulo %}
+														{% if obj.id == base.tbtitulo.tbtipotitulo.id %}
+															<option selected="selected" value="{{ obj.id }}">{{obj.cdtipo}} - {{obj.dstipo}}</option>
+														{% else %}
+															<option value="{{ obj.id }}">{{obj.cdtipo}} - {{obj.dstipo}}</option>
+														{% endif %}
+													{% endfor %}
+												</select>
+												Status:
+												<select name="tbstatustitulo" style="width:120px">
+											   		{% for obj in statustitulo %}
+														{% if obj.id == base.tbtitulo.tbstatustitulo.id %}
+															<option selected="selected" value="{{ obj.id }}">{{obj.sttitulo}}</option>
+														{% else %}
+															<option value="{{ obj.id }}">{{obj.sttitulo}}</option>
+														{% endif %}
+													{% endfor %}
+												</select>		
+											</td>
 									   	</tr>
 							</table>		   	
-						</div>
 					{% endif %}
 					
 						<div style="width: 100%; font-size: 12px; text-align: left">
@@ -148,14 +143,15 @@
 									   			{{ base.tbcaixa.nmlocalarquivo }}
 											</td>
 									</tr>
-									<tr> <td class="colunaTabela"> <label>Contato:</label> </td>
-										<td> <input value="{{ base.nmcontato|default:''}}" name="nmcontato" style="width: 250px"/> </td> </tr>
+									<tr> 
+										<td class="colunaTabela"> <label>Contato:</label> </td>
+										<td> <input value="{{ base.nmcontato|default:''}}" name="nmcontato" style="width: 250px"/> </td> 
+									</tr>
+									<tr> 
+										<td class="colunaTabela"> <label>Endereço:</label> </td>
+										<td> <input value="{{ base.nmendereco|default:''}}" name="nmendereco" size="40" /> </td> 
+									</tr>
 									</table>
-									<table>
-									<tr> <td class="colunaTabela"> <label>Endereco:</label> </td></tr>
-									<tr><td class="colunaTabela"> <input value="{{ base.nmendereco|default:''}}" name="nmendereco" size="40" /></td> </tr>
-									
-							</table>
 		
 						   {% if perms.sicop.etapa_checklist_posterior %}
 								{% if fases %}
@@ -294,14 +290,14 @@
 	<table style="width:100%">
 		<tr> 
 		   	<td class="colunaTabelaConsulta">
-		   		<select name="tbtipopendencia" style="width: 200px">
+		   		<select name="tbtipopendencia" style="width: 150px">
 		   			<option value="">-- Selecione --</option>
 		   			{% for obj in tipopendencia %}
 						<option value="{{ obj.id }}">{{ obj.dspendencia }}</option>
 					{% endfor %}
 				</select>
 				<input placeholder="Descricao" size="30" required="required" name="dspendencia" />
-		   		<select name="tbstatuspendencia" style="width: 200px">
+		   		<select name="tbstatuspendencia" style="width: 150px">
 		   		<option value="">-- Selecione --</option>
 		   			{% for obj in statuspendencia %}
 						<option value="{{ obj.id }}">{{ obj.dspendencia }}</option>
