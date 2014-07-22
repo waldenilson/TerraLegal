@@ -155,6 +155,13 @@ def consulta(request):
                 messages.add_message(request,messages.WARNING,'Informe no minimo 3 caracteres no campo Titulo.')
                 
     #para exibir o espelho quando o resultado for apenas 1 registro
+    request.session['processo_saida'] = ''
+    for obj in lista:
+        if len(lista) == 1:
+            request.session['processo_saida'] = 'unico'
+            edicao(request,obj.tbprocessobase.id)
+     
+    #para exibir o espelho quando o resultado for apenas 1 registro
     if len(lista) == 1: return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(lista[0].tbprocessobase.id))
                              
     # gravando na sessao o resultado da consulta preparando para o relatorio/pdf
@@ -671,7 +678,7 @@ def ativar_tramitacao_massa(request):
         else:
             request.session['tramitacao_massa_ativado'] = True
             request.session['tramitacao_massa'] = []
-            
+     
     return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
 
 @permission_required('sicop.processo_tramitacao_massa', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -783,7 +790,6 @@ def executar_tramitacao_massa(request):
         HttpResponseRedirect("/sicop/restrito/processo/consulta")
         
     return render_to_response('sicop/restrito/processo/lista_tramitacao_massa.html',{'caixadestino':Tbcaixa.objects.filter(tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id).order_by('nmlocalarquivo'),'lista':lista}, context_instance = RequestContext(request))
-
 
 @permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_pdf(request):

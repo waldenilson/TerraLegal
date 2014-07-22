@@ -80,14 +80,9 @@
 					
 						<div style="width: 100%; font-size: 12px; text-align: left">
 						
-						<table border="1" style="width:100%;text-align: left">
-							<tbody>
-							<tr style="text-align: left;font-weight:bold;color:green">
-								<td class="colunaTabela" colspan="2">PROCESSO<hr/></td>
-								<td class="colunaTabela"> </td>
-							</tr>
-							</tbody>
-						</table>
+									<div style="margin-bottom:5px;width:98%;font-weight:bold;color: green">
+										PROCESSO<hr/>
+									</div>
 						
 							<table>
 								<tr> 
@@ -164,7 +159,7 @@
 		
 						   {% if perms.sicop.etapa_checklist_posterior %}
 								{% if fases %}
-									<div style="margin-bottom:5px;width:98%;font-weight:bold;color: green">
+									<div style="margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
 										PROXIMA ETAPA<hr/>
 									</div>
 									<select name="etapaposterior"  style="width:250px">
@@ -238,14 +233,11 @@
 <div id="tabs-2">
 <form method="post" action="/sicop/restrito/processo/tramitacao/{{ base.id }}/">
 	{% csrf_token %}
-	<table border="1" style="width:123%;text-align: left">
-		<tbody>
-		<tr style="text-align: left;font-weight:bold;color:green">
-			<td class="colunaTabela" colspan="2">TRAMITACAO<hr/></td>
-			<td class="colunaTabela"> </td>
-		</tr>
-		</tbody>
-	</table>
+
+	<div style="margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
+		TRAMITAÇÃO<hr/>
+	</div>
+
 	<table style="width:100%">
 		<tr>
 		   	<td class="colunaTabelaConsulta" >
@@ -295,15 +287,10 @@
 <div id="tabs-3">
 <form method="post" action="/sicop/restrito/processo/pendencia/{{ base.id }}/">
 	{% csrf_token %}
-	</br>
-	<table border="1" style="width:125%;text-align: left">
-		<tbody>
-		<tr style="text-align: left;font-weight:bold;color:green">
-			<td class="colunaTabela" colspan="2">PENDENCIA<hr/></td>
-			<td class="colunaTabela"> </td>
-		</tr>
-		</tbody>
-	</table>
+	<div style="margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
+		PENDÊNCIA<hr/>
+	</div>
+	
 	<table style="width:100%">
 		<tr> 
 		   	<td class="colunaTabelaConsulta">
@@ -365,15 +352,9 @@
 <div id="tabs-4">
 <form method="post" action="/sicop/restrito/processo/anexo/{{ base.id }}/">
 	{% csrf_token %}
-	</br>
-	<table border="1" style="width:115%;text-align: left">
-		<tbody>
-		<tr style="text-align: left;font-weight:bold;color:green">
-			<td class="colunaTabela" colspan="2">PROCESSOS ANEXOS<hr/></td>
-			<td class="colunaTabela"> </td>
-		</tr>
-		</tbody>
-	</table>
+	<div style="margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
+		ANEXOS<hr/>
+	</div>
 	
 	<table style="width:100%">
 		<tr> 
@@ -420,15 +401,9 @@
 <div id="tabs-5">
 {% if peca%}
 
-</br>
-	<table border="1" style="width:118%;text-align: left">
-		<tbody>
-		<tr style="text-align: left;font-weight:bold;color:green">
-			<td class="colunaTabela" colspan="2">PECAS TECNICAS<hr/></td>
-			<td class="colunaTabela"> </td>
-		</tr>
-		</tbody>
-	</table>
+	<div style="margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
+		PEÇAS TÉCNICAS<hr/>
+	</div>
 	
 <table class="csstable">
 		<tbody>
