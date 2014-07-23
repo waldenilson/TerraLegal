@@ -114,8 +114,14 @@
 											</td>
 									</tr>
 								{% endif %}
-									<tr> <td class="colunaTabela"> <label>Data Titulacao:</label> </td><td> <input value="{{ dttitulacao }}" size="9" id="date" name="dttitulacao" /> </td> </tr>
-									<tr> <td class="colunaTabela"> <label>Observacao:</label> </td><td> <textarea rows="4" cols="40" name="dsobs">{{ clausula.dsobs }}</textarea></td> </tr>
+									<tr> 
+										<td class="colunaTabela"> <label>Data Titulacao:</label> </td>
+										<td> <input value="{{ dttitulacao }}" size="9" id="date" name="dttitulacao" /> </td> 
+									</tr>
+									<tr> 
+										<td class="colunaTabela"> <label>Observacao:</label> </td>
+										<td> <textarea rows="4" cols="30" name="dsobs">{{ clausula.dsobs }}</textarea></td> 
+									</tr>
 							</table>
 						
 						   {% if perms.sicop.etapa_checklist_posterior %}
@@ -154,7 +160,7 @@
 						</table>
 					</form>
 				</td>
-				<td style="text-align:right">
+				<td style="vertical-align: top">
 					{% if fases %}
 						<div style="width:100%;text-align:center">
 							{% for fase in fases %}

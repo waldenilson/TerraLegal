@@ -1,5 +1,4 @@
-from django.contrib.auth.decorators import login_required, permission_required,\
-    user_passes_test
+from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext, Context
 from sicop.models import Tbcaixa, Tbtipocaixa, AuthUser, Tbprocessobase,\

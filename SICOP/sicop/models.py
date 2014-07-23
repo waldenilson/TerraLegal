@@ -485,6 +485,12 @@ class Tbdocumentobmp(models.Model):
     class Meta:
         db_table = 'tbdocumentobmp'
 
+
+
+'''
+    Models FLuxo do processo
+'''
+
 class Tbetapa(models.Model):
     nmfase = models.CharField(max_length=80, blank=True)
     tbtipoprocesso = models.ForeignKey(Tbtipoprocesso, null=True, blank=True)
