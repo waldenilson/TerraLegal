@@ -143,41 +143,14 @@
 											</td>
 									</tr>
 								{% endif %}
+									<tr>
+										<td colspan="2" class="colunaTabela" style="text-align:left;margin-top:20px"> 
+											<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
+											<input type="submit" class="button_green" value="SALVAR" />
+										</td>
+									</tr>
 							</table>
-							
-						   {% if perms.sicop.etapa_checklist_posterior %}
-								{% if fases %}
-									<div style="margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
-										PROXIMA ETAPA<hr/>
-									</div>
-									<select name="etapaposterior"  style="width:250px">
-										<option value="">-- SELECIONE PARA MUDAR DE ETAPA --</option>
-										{% for obj in posteriores %}
-											<option value="{{ obj.tbposterior.id }}">{{obj.tbposterior.nmfase}}</option>
-										{% endfor %}
-									</select>
-								{% endif %}		
-							{% else %}
-								<input name="etapaposterior" value="" type="hidden" />
-				   			{% endif %}
-														
 						</div>
-						<br />
-						<table style="width:100%">
-							<tr>
-								<td class="colunaTabela" style="text-align:left"> 
-									<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
-									<input type="submit" class="button_green" value="SALVAR" />
-								</td>
-								{% if perms.sicop.etapa_checklist_edicao %}
-									<td class="colunaTabela" style="text-align:right"> 
-										<a href="/sicop/restrito/etapa/restaurar/{{ base.id }}/" style="margin-right: 10px">
-											<input disabled="disabled" type="button" class="butto_green" value="VOLTAR ETAPA" />
-										</a>
-									</td>
-								{% endif %}
-							</tr>
-						</table>	
 					</form>
 
 				</td>
@@ -208,7 +181,26 @@
 									value="{{ fase.nmfase }}" title="{{ fase.dsfase }}" />
 								<br/><br/>
 							{% endfor %}
+  						    
+  						    {% if perms.sicop.etapa_checklist_posterior %}
+									{% if fases %}
+										<hr /><br/>
+										<select name="etapaposterior"  style="width:170px">
+											<option value="">-- MUDAR DE ETAPA --</option>
+											{% for obj in posteriores %}
+												<option value="{{ obj.tbposterior.id }}">{{obj.tbposterior.nmfase}}</option>
+											{% endfor %}
+										</select>
+										<a href="javascript:history.back();" style="margin-left: 5px"><input type="button" class="butto_green" value="OK" /></a>
+										<br/><br/>
+										<a href="javascript:history.back();" style="margin-left: 5px"><input type="button" class="butto_green" value="VOLTAR PARA A ETAPA ANTERIOR" /></a>
+									{% endif %}		
+								{% else %}
+									<input name="etapaposterior" value="" type="hidden" />
+				   			{% endif %}
+		
 						</div>
+						
 					{% endif %}
 				</td>			
 			</tr>
