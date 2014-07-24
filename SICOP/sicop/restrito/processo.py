@@ -704,10 +704,17 @@ def add_tramitacao_massa(request, base):
         request.session['tramitacao_massa'] = lista
     else:
         lista = request.session['tramitacao_massa']
-        if processo.tbprocessobase.tbclassificacaoprocesso.id == 1:
-            lista.append( processo )
-        request.session['tramitacao_massa'] = lista
-        print request.session['tramitacao_massa']
+        achou = False
+        
+        for o in lista:
+            if o.tbprocessobase.id == processo.tbprocessobase.id:
+                achou = True
+                break 
+        
+        if not achou:
+            if processo.tbprocessobase.tbclassificacaoprocesso.id == 1:
+                lista.append( processo )
+            request.session['tramitacao_massa'] = lista
         
     return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
 
