@@ -28,13 +28,13 @@ def inicio(request):
         # gravando na sessao a divisao do usuario logado
         request.session['divisao'] = AuthUser.objects.get( pk = request.user.id ).tbdivisao.nmdivisao +" - "+AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.nmuf
         verificaDivisaoUsuario(request) 
-    return render(request, "web/index.html")
+    return render(request, "index.html")
 
 def terra_legal(request):
-    return render(request, "web/terra_legal.html")
+    return render(request, "terra_legal.html")
 
 def equipe(request):        
-    return render(request, "web/equipe.html")
+    return render(request, "equipe.html")
 
 def processo_rural(request):
     return render_to_response('web/processo_rural.html',{},
@@ -45,5 +45,5 @@ def regularizacao_urbana(request):
                               context_instance = RequestContext(request))
     
 def organizacao(request):        
-    return render(request, "web/organizacao.html")
+    return render(request, "organizacao.html")
     

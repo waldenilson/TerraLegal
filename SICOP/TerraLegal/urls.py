@@ -11,8 +11,14 @@ urlpatterns = patterns('',
     
     # DAJAXICE AJAX DO PROJETO
     #url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
-    
+    url(r'^livro/',include('livro.urls',namespace='livro')),
+    url(r'^calculo/',include('calculo.urls',namespace='calculo')),
+    url(r'^servidor/',include('servidor.urls',namespace='servidor')),
+    url(r'^web/',include('web.urls',namespace='web')),
+
+
     # ACESSO AO PUBLICO
+
     url(r'^$', 'web.views_publicas.inicio'),
     url(r'^web/terra_legal/', 'web.views_publicas.terra_legal'),
     url(r'^web/equipe/', 'web.views_publicas.equipe'),
@@ -270,10 +276,6 @@ urlpatterns = patterns('',
    url(r'^sicop/restrito/status_titulo/consulta/', 'sicop.restrito.status_titulo.consulta'),
    url(r'^sicop/restrito/status_titulo/cadastro/', 'sicop.restrito.status_titulo.cadastro'),
    url(r'^sicop/restrito/status_titulo/edicao/(?P<id>\d+)/', 'sicop.restrito.status_titulo.edicao'),
-   
-   url(r'^livro/',include('livro.urls',namespace='livro')),
-   url(r'^calculo/',include('calculo.urls',namespace='calculo')),
-   url(r'^servidor/',include('servidor.urls',namespace='servidor')),
    
     # ACESSO RESTRITO SICOP RELATORIO
     url(r'^sicop/restrito/relatorio/lista', 'sicop.restrito.relatorio.lista'),

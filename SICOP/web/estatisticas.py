@@ -138,7 +138,7 @@ def estatisticas(request):
                {"label" : qtd_verifica_1[0] ,"value" : teste}, 
                {"label" : qtd_verifica_2[0] ,"value" : -teste2} 
               ]
-    return render(request, "web/estatisticas.html", {'qtd_processos': qtd_processos,'qtd_pecas':qtd_pecas,
+    return render(request, "estatisticas.html", {'qtd_processos': qtd_processos,'qtd_pecas':qtd_pecas,
                                                      'qtd_mov':qtd_mov,'qtd_tipos':qtd_tipos,'qtd_pend':qtd_pend,
                                                      'tramitados_por_dia': tramitados_por_dia,'qtd_bat':qtd_bat,
                                                      'qtd_pend_c':qtd_pend_c,'qtd_cadastro':qtd_cadastro,
