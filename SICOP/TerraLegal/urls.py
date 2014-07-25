@@ -286,6 +286,7 @@ urlpatterns = patterns('',
     url(r'^sicop/restrito/relatorio/peca_rejeitada', 'sicop.restrito.relatorio.peca_rejeitada'),
     url(r'^sicop/restrito/relatorio/peca_sem_processo', 'sicop.restrito.relatorio.peca_sem_processo'),
     url(r'^sicop/restrito/relatorio/peca_validada', 'sicop.restrito.relatorio.peca_validada'),
+    url(r'^sicop/restrito/relatorio/peca', 'sicop.restrito.relatorio.pecas'),
     #END------------------------------SICOP---------------------------------------------------------------------------------
    
     # ACESSO RESTRITO TABELA SITUACAO 
