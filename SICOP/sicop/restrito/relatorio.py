@@ -17,7 +17,7 @@ def lista(request):
     
 
 #PROCESSOS QUE TEM PECA TECNICA
-@permission_required('sicop.processo_peca_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.relatorio_processo_peca_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def processo_peca(request):
 
     if request.method == "POST":
@@ -78,7 +78,7 @@ def processo_peca(request):
 
     return render_to_response('sicop/restrito/relatorio/processo_peca.html',{}, context_instance = RequestContext(request))
 
-@permission_required('sicop.peca_sem_processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.relatorio_peca_sem_processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def peca_processo(request):
 
     if request.method == "POST":
@@ -141,7 +141,7 @@ def peca_processo(request):
 
     return render_to_response('sicop/restrito/relatorio/peca_processo.html',{}, context_instance = RequestContext(request))
 
-@permission_required('sicop.peca_gleba_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.relatorio_peca_gleba_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def peca_gleba(request):
     
     #buscar as pecas agrupadas por glebas
@@ -171,7 +171,7 @@ def peca_gleba(request):
 
 #PECAS TECNICAS NAO APROVADAS
 
-@permission_required('sicop.peca_nao_aprovada_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.relatorio_peca_nao_aprovada_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def peca_nao_aprovada(request):
     
     if request.method == "POST":
@@ -231,7 +231,7 @@ def peca_nao_aprovada(request):
         
 #PECAS TECNICAS REJEITADAS
 
-@permission_required('sicop.peca_rejeitada_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.relatorio_peca_rejeitada_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def peca_rejeitada(request):
 
     if request.method == "POST":
@@ -291,7 +291,7 @@ def peca_rejeitada(request):
         
 #PECAS TECNICAS SEM PROCESSO
 
-@permission_required('sicop.peca_sem_processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.relatorio_peca_sem_processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def peca_sem_processo(request):
 
     if request.method == "POST":
@@ -357,7 +357,7 @@ def peca_sem_processo(request):
 
 #PROCESSO SEM PECA CONCLUIR
 
-@permission_required('sicop.processo_sem_peca_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.relatorio_processo_sem_peca_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def processo_sem_peca(request):
 
     if request.method == "POST":
@@ -439,7 +439,7 @@ def processo_sem_peca(request):
 
 #PECAS TECNICAS VALIDADAS
 
-@permission_required('sicop.peca_validada_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.relatorio_peca_validada_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def peca_validada(request):
 
     if request.method == "POST":
