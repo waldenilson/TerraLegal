@@ -2,12 +2,12 @@
 {% load staticfiles %} 
 
 {% block breadcumbs %}
-	Acesso Restrito | Processo | Tramitação em Massa
+	Acesso Restrito | Processo | Tramitação em Lote
 {% endblock %}
 
 {% block subtitulo %}
 	
-	TRAMITAÇÃO EM MASSA
+	TRAMITAÇÃO EM LOTE
 	
 {% endblock %}
 
@@ -30,7 +30,7 @@
 						<input class="button_green" style="margin-left: 10px" type="submit" value="EXECUTAR" />
 					</td>
 					<td class="colunaTabela" style="text-align:right;font-weight:bold"> 
-						TRAMITAÇÃO EM MASSA: 
+						TRAMITAÇÃO EM LOTE: 
 						{% if request.session.tramitacao_massa_ativado %}
 							<a href="#"> {{ request.session.tramitacao_massa|length }} Selecionado(s) </a>
 							&nbsp;|&nbsp;
