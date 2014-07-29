@@ -1,3 +1,4 @@
+# coding: utf-8
 from django.contrib.auth.decorators import login_required, user_passes_test,\
     permission_required
 from django.shortcuts import render_to_response, get_object_or_404
@@ -118,6 +119,7 @@ def cadastro(request):
                                    stassentamento = assentamento                               
                                    )
             peca.save()
+            messages.add_message(request,messages.INFO,'Informações Cadastradas.')
             return HttpResponseRedirect("/sicop/restrito/peca_tecnica/consulta/") 
     
     return render_to_response('sicop/restrito/peca_tecnica/cadastro.html',{'caixa':caixa,'contrato':contrato,'gleba':gleba,'municipio':municipio}, context_instance = RequestContext(request))
@@ -185,6 +187,7 @@ def edicao(request, id):
     
                                    )
             peca.save()
+            messages.add_message(request,messages.INFO,'Informações Editadas.')
             return HttpResponseRedirect("/sicop/restrito/peca_tecnica/edicao/"+str(peca_obj.id)+"/")
 
     processo = Tbprocessorural.objects.all().filter( nrcpfrequerente = peca_obj.nrcpfrequerente.replace('.','').replace('-','') )

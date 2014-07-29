@@ -26,187 +26,186 @@
 
 
 <div id="tabs-1">
-	<table style="width:100%">
-		<tbody>
-			<tr>
-				<td>
-					
-					<form method="post" action="/sicop/restrito/processo/urbano/edicao/{{ urbano.id }}/">
-						{% csrf_token %}
-						<div style="width: 100%; font-size: 12px; text-align: left">
-							<table>
-									<tr> <td class="colunaTabela"> <label>N do Processo:</label> </td>
-										<td> {{ base.nrprocesso }} </td> </tr>
-									<tr> <td class="colunaTabela"> <label>CNPJ:</label> </td>
-										<td> <input size="18" value="{{ urbano.nrcnpj }}" id="cnpj" name="nrcnpj" /> </td> </tr>
-									<tr> <td class="colunaTabela" title="Bairro / Distrito / Povoado / Vila"> <label>Bairro/Dist./Pov./Vila:</label> </td>
-										<td> <input value="{{ urbano.nmpovoado }}" name="nmpovoado" /> </td> </tr>
-									<tr> <td class="colunaTabela"> <label>Contrato:</label> </td>
-									   		<td>
-									   			<select name="tbcontrato" style="width: 200px">
-									   				{% for obj in contrato %}
-														{% if obj.id == urbano.tbcontrato.id %}
-															<option selected="selected" value="{{ obj.id }}">{{ obj.nrcontrato }}</option>
-														{% else %}
-															<option value="{{ obj.id }}">{{ obj.nrcontrato }}</option>
-														{% endif %}
-													{% endfor %}
-												</select>
-											</td>
-										<td>
-											<a href="/sicop/restrito/contrato/cadastro/?next=/sicop/restrito/processo/urbano/cadastro/" title="Novo Contrato"> <img src="{% static "img/add.png" %}" width="24" /> </a>
-										</td>						
-									</tr>
-									<tr> <td class="colunaTabela"> <label>Situacao GEO:</label> </td>
-									   		<td>
-									   			<select name="tbsituacaogeo" style="width: 200px">
-									   				{% for obj in situacaogeo %}
-														{% if obj.id == urbano.tbsituacaogeo.id %}
-															<option selected="selected" value="{{ obj.id }}">{{ obj.nmsituacaogeo }}</option>
-														{% else %}
-															<option value="{{ obj.id }}">{{ obj.nmsituacaogeo }}</option>
-														{% endif %}
-													{% endfor %}
-												</select>
-											</td>
-										<td>
-											<a href="/sicop/restrito/situacao_geo/cadastro/?next=/sicop/restrito/processo/urbano/cadastro/" title="Nova Situacao GEO"> <img src="{% static "img/add.png" %}" width="24" /> </a>
-										</td>						
-									</tr>
-									<tr> <td class="colunaTabela"> <label>Area:</label> </td>
-										<td> <input onkeypress="return SomenteNumero(event, this);" value="{{ urbano.nrarea|default:'' }}" name="nrarea" /> </td> </tr>
-									<tr> <td class="colunaTabela"> <label>Perimetro:</label> </td>
-										<td> <input onkeypress="return SomenteNumero(event, this);" value="{{ urbano.nrperimetro|default:'' }}" name="nrperimetro" /> </td> </tr>
-									<tr> <td class="colunaTabela"> <label>Numero de Habitantes:</label> </td>
-										<td> <input value="{{ urbano.nrhabitantes|default:'' }}" onkeypress="return SomenteNumeroOK(event, this);" name="nrhabitantes" /> </td> </tr>
-									<tr> <td class="colunaTabela"> <label>Numero de Domicilios:</label> </td>
-										<td> <input value="{{ urbano.nrdomicilios|default:'' }}" onkeypress="return SomenteNumeroOK(event, this);" name="nrdomicilios" /> </td> </tr>
-									<tr> <td class="colunaTabela"> <label>Pregao:</label> </td>
-									   		<td>
-									   			<select name="tbpregao" style="width: 200px">
-									   				<option value="">-- Selecione o Pregao --</option>
-													{% for obj in pregao %}
-														{% if obj.id == urbano.tbpregao.id %}
-															<option selected="selected" value="{{ obj.id }}">{{ obj.nrpregao }}</option>
-														{% else %}
-															<option value="{{ obj.id }}">{{ obj.nrpregao }}</option>
-														{% endif %}
-													{% endfor %}
-												</select>
-											</td>
-										<td>
-											<a href="/sicop/restrito/pregao/cadastro/?next=/sicop/restrito/processo/urbano/cadastro/" title="Novo Pregao"> <img src="{% static "img/add.png" %}" width="24" /> </a>
-										</td>						
-									</tr>
-									<tr> <td class="colunaTabela"> <label>Gleba:</label> </td>
-									   		<td>
-									   			<select name="tbgleba" style="width: 200px">
-									   				{% for obj in gleba %}
-														{% if obj.id == base.tbgleba.id %}
-															<option selected="selected" value="{{ obj.id }}">{{ obj.nmgleba }}</option>
-														{% else %}
-															<option value="{{ obj.id }}">{{ obj.nmgleba }}</option>
-														{% endif %}
-													{% endfor %}
-												</select>
-											</td>
-										<td>
-											<a href="/sicop/restrito/gleba/cadastro/?next=/sicop/restrito/processo/urbano/cadastro/" title="Nova Gleba"> <img src="{% static "img/add.png" %}" width="24" /> </a>
-										</td>
-									</tr>
-									<tr> <td class="colunaTabela"> <label>Municipio:</label> </td>
-									   		<td>
-									   			<select name="tbmunicipio" style="width: 200px">
-													{% for obj in municipio %}
-														{% if obj.id == base.tbmunicipio.id %}
-															<option selected="selected" value="{{ obj.id }}">{{ obj.nome_mun }}</option>
-														{% else %}
-															<option value="{{ obj.id }}">{{ obj.nome_mun }}</option>
-														{% endif %}
-													{% endfor %}
-												</select>
-											</td>
-									</tr>
-									<tr> <td class="colunaTabela"> <label>Projeto Assentamento:</label> </td>
-										<td> <input name="dsprojetoassentamento" value="{{ urbano.dsprojetoassentamento }}" /> </td> </tr>
-									<tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
-									   		<td>
-									   			{{ base.tbcaixa.nmlocalarquivo }}
-											</td>
-									</tr>
-									<tr> <td class="colunaTabela"> <label>Data Abertura:</label> </td><td> <input size="9" value="{{ dtaberturaprocesso }}" id="date" name="dtaberturaprocesso" /> </td> </tr>
-									<tr> <td class="colunaTabela"> <label>Data Titulacao:</label> </td><td> <input size="9" value="{{ dttitulacao }}" id="date2" name="dttitulacao" /> </td> </tr>
-								{% if base.tbclassificacaoprocesso.id == 2 %}
-									<tr> <td class="colunaTabela"> <label>Classificacao:</label> </td>
-									   		<td>
-									   			{{ base.tbclassificacaoprocesso.nmclassificacao }}
-											</td>
-									</tr>
-								{% endif %}
-									<tr>
-										<td colspan="2" class="colunaTabela" style="text-align:left;margin-top:20px"> 
-											<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
-											<input type="submit" class="button_green" value="SALVAR" />
-										</td>
-									</tr>
-							</table>
-						</div>
-					</form>
+	<form method="post" action="/sicop/restrito/processo/urbano/edicao/{{ urbano.id }}/">
+	{% csrf_token %}
 
-				</td>
-				<td style="vertical-align:top">
-					{% if fases %}
-						<div style="width:100%;text-align:center">
-							{% for fase in fases %}
-								<input 
-									type="button"
-									{% if etapa_atual %}
-										{% if etapa_atual.tbetapa.id == fase.id %}
-											{% if perms.sicop.processo_edicao %}
-												onclick="editarID('/sicop/restrito/etapa/checklist/{{ urbano.tbprocessobase.id }}/{{ fase.id }}');" 
+		<table style="width:100%">
+			<tbody>
+				<tr>
+					<td>
+						
+							<div style="width: 100%; font-size: 12px; text-align: left">
+								<table>
+										<tr> <td class="colunaTabela"> <label>N do Processo:</label> </td>
+											<td> {{ base.nrprocesso }} </td> </tr>
+										<tr> <td class="colunaTabela"> <label>CNPJ:</label> </td>
+											<td> <input size="18" value="{{ urbano.nrcnpj }}" id="cnpj" name="nrcnpj" /> </td> </tr>
+										<tr> <td class="colunaTabela" title="Bairro / Distrito / Povoado / Vila"> <label>Bairro/Dist./Pov./Vila:</label> </td>
+											<td> <input value="{{ urbano.nmpovoado }}" name="nmpovoado" /> </td> </tr>
+										<tr> <td class="colunaTabela"> <label>Contrato:</label> </td>
+										   		<td>
+										   			<select name="tbcontrato" style="width: 200px">
+										   				{% for obj in contrato %}
+															{% if obj.id == urbano.tbcontrato.id %}
+																<option selected="selected" value="{{ obj.id }}">{{ obj.nrcontrato }}</option>
+															{% else %}
+																<option value="{{ obj.id }}">{{ obj.nrcontrato }}</option>
+															{% endif %}
+														{% endfor %}
+													</select>
+												</td>
+											<td>
+												<a href="/sicop/restrito/contrato/cadastro/?next=/sicop/restrito/processo/urbano/cadastro/" title="Novo Contrato"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+											</td>						
+										</tr>
+										<tr> <td class="colunaTabela"> <label>Situacao GEO:</label> </td>
+										   		<td>
+										   			<select name="tbsituacaogeo" style="width: 200px">
+										   				{% for obj in situacaogeo %}
+															{% if obj.id == urbano.tbsituacaogeo.id %}
+																<option selected="selected" value="{{ obj.id }}">{{ obj.nmsituacaogeo }}</option>
+															{% else %}
+																<option value="{{ obj.id }}">{{ obj.nmsituacaogeo }}</option>
+															{% endif %}
+														{% endfor %}
+													</select>
+												</td>
+											<td>
+												<a href="/sicop/restrito/situacao_geo/cadastro/?next=/sicop/restrito/processo/urbano/cadastro/" title="Nova Situacao GEO"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+											</td>						
+										</tr>
+										<tr> <td class="colunaTabela"> <label>Area:</label> </td>
+											<td> <input onkeypress="return SomenteNumero(event, this);" value="{{ urbano.nrarea|default:'' }}" name="nrarea" /> </td> </tr>
+										<tr> <td class="colunaTabela"> <label>Perimetro:</label> </td>
+											<td> <input onkeypress="return SomenteNumero(event, this);" value="{{ urbano.nrperimetro|default:'' }}" name="nrperimetro" /> </td> </tr>
+										<tr> <td class="colunaTabela"> <label>Numero de Habitantes:</label> </td>
+											<td> <input value="{{ urbano.nrhabitantes|default:'' }}" onkeypress="return SomenteNumeroOK(event, this);" name="nrhabitantes" /> </td> </tr>
+										<tr> <td class="colunaTabela"> <label>Numero de Domicilios:</label> </td>
+											<td> <input value="{{ urbano.nrdomicilios|default:'' }}" onkeypress="return SomenteNumeroOK(event, this);" name="nrdomicilios" /> </td> </tr>
+										<tr> <td class="colunaTabela"> <label>Pregao:</label> </td>
+										   		<td>
+										   			<select name="tbpregao" style="width: 200px">
+										   				<option value="">-- Selecione o Pregao --</option>
+														{% for obj in pregao %}
+															{% if obj.id == urbano.tbpregao.id %}
+																<option selected="selected" value="{{ obj.id }}">{{ obj.nrpregao }}</option>
+															{% else %}
+																<option value="{{ obj.id }}">{{ obj.nrpregao }}</option>
+															{% endif %}
+														{% endfor %}
+													</select>
+												</td>
+											<td>
+												<a href="/sicop/restrito/pregao/cadastro/?next=/sicop/restrito/processo/urbano/cadastro/" title="Novo Pregao"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+											</td>						
+										</tr>
+										<tr> <td class="colunaTabela"> <label>Gleba:</label> </td>
+										   		<td>
+										   			<select name="tbgleba" style="width: 200px">
+										   				{% for obj in gleba %}
+															{% if obj.id == base.tbgleba.id %}
+																<option selected="selected" value="{{ obj.id }}">{{ obj.nmgleba }}</option>
+															{% else %}
+																<option value="{{ obj.id }}">{{ obj.nmgleba }}</option>
+															{% endif %}
+														{% endfor %}
+													</select>
+												</td>
+											<td>
+												<a href="/sicop/restrito/gleba/cadastro/?next=/sicop/restrito/processo/urbano/cadastro/" title="Nova Gleba"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+											</td>
+										</tr>
+										<tr> <td class="colunaTabela"> <label>Municipio:</label> </td>
+										   		<td>
+										   			<select name="tbmunicipio" style="width: 200px">
+														{% for obj in municipio %}
+															{% if obj.id == base.tbmunicipio.id %}
+																<option selected="selected" value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+															{% else %}
+																<option value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+															{% endif %}
+														{% endfor %}
+													</select>
+												</td>
+										</tr>
+										<tr> <td class="colunaTabela"> <label>Projeto Assentamento:</label> </td>
+											<td> <input name="dsprojetoassentamento" value="{{ urbano.dsprojetoassentamento }}" /> </td> </tr>
+										<tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
+										   		<td>
+										   			{{ base.tbcaixa.nmlocalarquivo }}
+												</td>
+										</tr>
+										<tr> <td class="colunaTabela"> <label>Data Abertura:</label> </td><td> <input size="9" value="{{ dtaberturaprocesso }}" id="date" name="dtaberturaprocesso" /> </td> </tr>
+										<tr> <td class="colunaTabela"> <label>Data Titulacao:</label> </td><td> <input size="9" value="{{ dttitulacao }}" id="date2" name="dttitulacao" /> </td> </tr>
+									{% if base.tbclassificacaoprocesso.id == 2 %}
+										<tr> <td class="colunaTabela"> <label>Classificacao:</label> </td>
+										   		<td>
+										   			{{ base.tbclassificacaoprocesso.nmclassificacao }}
+												</td>
+										</tr>
+									{% endif %}
+										<tr>
+											<td colspan="2" class="colunaTabela" style="text-align:left;margin-top:20px"> 
+												<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
+												<input type="submit" class="button_green" value="SALVAR" />
+											</td>
+										</tr>
+								</table>
+							</div>
+	
+					</td>
+					<td style="vertical-align:top">
+						{% if fases %}
+							<div style="width:100%;text-align:center">
+								{% for fase in fases %}
+									<input 
+										type="button"
+										{% if etapa_atual %}
+											{% if etapa_atual.tbetapa.id == fase.id %}
+												{% if perms.sicop.processo_edicao %}
+													onclick="editarID('/sicop/restrito/etapa/checklist/{{ urbano.tbprocessobase.id }}/{{ fase.id }}');" 
+												{% endif %}
+												class="bt_blue"
+											{% else %}
+												{% if perms.sicop.etapa_checklist_edicao %}
+													onclick="editarID('/sicop/restrito/etapa/checklist/{{ urbano.tbprocessobase.id }}/{{ fase.id }}');" 
+												{% endif %}
+												class="bt_grey"
 											{% endif %}
-											class="bt_blue"
 										{% else %}
 											{% if perms.sicop.etapa_checklist_edicao %}
 												onclick="editarID('/sicop/restrito/etapa/checklist/{{ urbano.tbprocessobase.id }}/{{ fase.id }}');" 
 											{% endif %}
 											class="bt_grey"
 										{% endif %}
-									{% else %}
-										{% if perms.sicop.etapa_checklist_edicao %}
-											onclick="editarID('/sicop/restrito/etapa/checklist/{{ urbano.tbprocessobase.id }}/{{ fase.id }}');" 
-										{% endif %}
-										class="bt_grey"
-									{% endif %}
-									value="{{ fase.nmfase }}" title="{{ fase.dsfase }}" />
-								<br/><br/>
-							{% endfor %}
-  						    
-  						    {% if perms.sicop.etapa_checklist_posterior %}
-									{% if fases %}
-										<hr /><br/>
-										<select name="etapaposterior"  style="width:170px">
-											<option value="">-- MUDAR DE ETAPA --</option>
-											{% for obj in posteriores %}
-												<option value="{{ obj.tbposterior.id }}">{{obj.tbposterior.nmfase}}</option>
-											{% endfor %}
-										</select>
-										<a href="javascript:history.back();" style="margin-left: 5px"><input type="button" class="butto_green" value="OK" /></a>
-										<br/><br/>
-										<a href="javascript:history.back();" style="margin-left: 5px"><input type="button" class="butto_green" value="VOLTAR PARA A ETAPA ANTERIOR" /></a>
-									{% endif %}		
+										value="{{ fase.nmfase }}" title="{{ fase.dsfase }}" />
+									<br/><br/>
+								{% endfor %}
+	  						    
+	  						    {% if perms.sicop.etapa_checklist_posterior %}
+											<hr /><br/>
+											<select name="etapaposterior"  style="width:170px">
+												<option value="">-- MUDAR DE ETAPA --</option>
+												{% for obj in posteriores %}
+													<option value="{{ obj.tbposterior.id }}">{{obj.tbposterior.nmfase}}</option>
+												{% endfor %}
+											</select>
+											<input type="submit" class="butto_green" value="OK" style="margin-left: 5px" />
+											<br/><br/>
+											<a href="javascript:history.back();" style="margin-left: 5px"><input type="button" class="butto_green" value="VOLTAR PARA A ETAPA ANTERIOR" /></a>
 								{% else %}
-									<input name="etapaposterior" value="" type="hidden" />
-				   			{% endif %}
-		
-						</div>
-						
-					{% endif %}
-				</td>			
-			</tr>
-		</tbody>
-	</table>
-
+										<input name="etapaposterior" value="" type="hidden" />
+					   			{% endif %}
+			
+							</div>
+							
+						{% endif %}
+					</td>			
+				</tr>
+			</tbody>
+		</table>
+	
+	</form>
 </div>
 {% if base.tbclassificacaoprocesso.id == 1 %}
 <div id="tabs-2">

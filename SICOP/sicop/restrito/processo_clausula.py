@@ -1,3 +1,4 @@
+# coding: utf-8
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
@@ -71,6 +72,7 @@ def cadastro(request):
                                        stcertliberacao = liberacao
                                        )
             f_clausula.save()
+            messages.add_message(request,messages.INFO,'Informações Cadastradas.')
             
             return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
     
@@ -163,6 +165,7 @@ def edicao(request, id):
                                     )                    
                     transicao.save()
 
+            messages.add_message(request,messages.INFO,'Informações Editadas.')
             
             return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(base.id)+"/")
         
