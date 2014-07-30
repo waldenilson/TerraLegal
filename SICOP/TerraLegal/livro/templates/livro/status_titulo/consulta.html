@@ -17,7 +17,7 @@
 			<table style="width:100%">
 				<tr>
 					<td class="colunaTabela" style="text-align:left"> 
-						<a href="/sicop/restrito/status_titulo/cadastro/"> <input class="button_green" value="NOVO" type="button" /> </a>
+						<a href="/livro/status_titulo/cadastro/"> <input class="button_green" value="NOVO" type="button" /> </a>
 					</td>
 				</tr>
 				<tr>
@@ -38,7 +38,7 @@
 					</tr>
 				{% if lista %}
 					{% for obj in lista %}
-						<tr onclick="editarID('/sicop/restrito/status_titulo/edicao/{{ obj.id }}');">
+						<tr onclick="editarID('/livro/status_titulo/edicao/{{ obj.id }}');">
 							<td class="colunaTabelaConsulta">{{ obj.stTitulo }}</td>
 						</tr>
 					{% endfor %}

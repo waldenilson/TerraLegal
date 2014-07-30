@@ -3,34 +3,30 @@ from django.contrib import admin
 from django.conf.urls import patterns, url, include
 admin.autodiscover()
 
-handler404 = 'web.views_excecoes.pagina_nao_encontrada'
-handler403 = 'web.views_excecoes.permissao_negada'
-handler500 = 'web.views_excecoes.erro_servidor'
+project = 'TerraLegal'
+
+handler404 = project+'.web.views_excecoes.pagina_nao_encontrada'
+handler403 = project+'.web.views_excecoes.permissao_negada'
+handler500 = project+'.web.views_excecoes.erro_servidor'
 
 urlpatterns = patterns('',
     
     # DAJAXICE AJAX DO PROJETO
     #url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
-    url(r'^livro/',include('livro.urls',namespace='livro')),
+    url(r'^livro/',include(project+'.livro.urls',namespace='livro')),
     url(r'^calculo/',include('calculo.urls',namespace='calculo')),
     url(r'^servidor/',include('servidor.urls',namespace='servidor')),
-    url(r'^web/',include('web.urls',namespace='web')),
+    url(r'^web/',include(project+'.web.urls',namespace='web')),
 
 
     # ACESSO AO PUBLICO
-
-    url(r'^$', 'web.views_publicas.inicio'),
-    url(r'^web/terra_legal/', 'web.views_publicas.terra_legal'),
-    url(r'^web/equipe/', 'web.views_publicas.equipe'),
-    url(r'^web/processo_rural/', 'web.views_publicas.processo_rural'),
-    url(r'^web/regularizacao_urbana/', 'web.views_publicas.regularizacao_urbana'),
-    url(r'^web/organizacao/', 'web.views_publicas.organizacao'),
-    url(r'^web/estatisticas/', 'web.estatisticas.estatisticas'),
+    url(r'^$', project+'.web.views_publicas.inicio'),
+    url(r'^web/estatisticas/', project+'.web.estatisticas.estatisticas'),
     
     #INIT------------------------------SICOP---------------------------------------------------------------------------------
     
     # PERMISSAO NEGADA
-    url(r'^excecoes/permissao_negada/', 'web.views_excecoes.permissao_negada'),   
+    url(r'^excecoes/permissao_negada/', project+'.web.views_excecoes.permissao_negada'),   
     
     # ACESSO RESTRITO SICOP PROCESSO
 
@@ -273,10 +269,6 @@ urlpatterns = patterns('',
     url(r'^sicop/restrito/municipio/consulta/', 'sicop.restrito.municipio.consulta'),
     url(r'^sicop/restrito/municipio/edicao/(?P<id>\d+)/', 'sicop.restrito.municipio.edicao'),
    
-   url(r'^sicop/restrito/status_titulo/consulta/', 'sicop.restrito.status_titulo.consulta'),
-   url(r'^sicop/restrito/status_titulo/cadastro/', 'sicop.restrito.status_titulo.cadastro'),
-   url(r'^sicop/restrito/status_titulo/edicao/(?P<id>\d+)/', 'sicop.restrito.status_titulo.edicao'),
-   
     # ACESSO RESTRITO SICOP RELATORIO
     url(r'^sicop/restrito/relatorio/lista', 'sicop.restrito.relatorio.lista'),
     url(r'^sicop/restrito/relatorio/processo_peca', 'sicop.restrito.relatorio.processo_peca'),
@@ -296,7 +288,7 @@ urlpatterns = patterns('',
     #END------------------------------CONTROLE---------------------------------------------------------------------------------
         
     # CONTROLE AUTENTICACAO
-    url(r'^login/', 'django.contrib.auth.views.login', {"template_name":"web/index.html"}),
+    url(r'^login/', 'django.contrib.auth.views.login', {"template_name":"index.html"}),
     url(r'^logout/', 'django.contrib.auth.views.logout_then_login', {"login_url":"/"}),
     url(r'^sicop/admin/', include(admin.site.urls)),
     

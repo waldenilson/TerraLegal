@@ -2,8 +2,7 @@ from django.contrib.auth.decorators import login_required, permission_required,\
     user_passes_test
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
-from livro.forms import FormStatusTitulo
-from livro.models import Tbstatustitulo
+from TerraLegal.livro.models import Tbstatustitulo
 from sicop.models import AuthUser
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
@@ -29,7 +28,7 @@ def consulta(request):
     lista = lista.order_by( 'id' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_status_titulo'] = lista
-    return render_to_response('sicop/restrito/status_titulo/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('livro/status_titulo/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @permission_required('sicop.status_titulo_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
@@ -39,8 +38,8 @@ def cadastro(request):
                                                 nome = request.POST['nome'],
                                             )
             f_statustitulo.save()
-            return HttpResponseRedirect("/sicop/restrito/status_titulo/consulta/") 
-    return render_to_response('sicop/restrito/status_titulo/cadastro.html', context_instance = RequestContext(request))
+            return HttpResponseRedirect("/livro/status_titulo/consulta/") 
+    return render_to_response('livro/status_titulo/cadastro.html', context_instance = RequestContext(request))
 
 @permission_required('sicop.status_titulo_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
@@ -53,11 +52,11 @@ def edicao(request, id):
         if validacao(request):
             f_statustitulo = Tbstatustitulo(
                                                 id = instance.id,
-                                                stTitulo = request.POST['nome'],
+                                                sttitulo = request.POST['nome'],
                                                 )
             f_statustitulo.save()
-            return HttpResponseRedirect("/sicop/restrito/status_titulo/edicao/"+str(id)+"/")
-    return render_to_response('sicop/restrito/status_titulo/edicao.html', {"statustitulo":instance}, context_instance = RequestContext(request))
+            return HttpResponseRedirect("/livro/status_titulo/edicao/"+str(id)+"/")
+    return render_to_response('livro/status_titulo/edicao.html', {"statustitulo":instance}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.tipo_processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -129,7 +128,7 @@ def relatorio_csv(request):
 def validacao(request_form):
     warning = True
     if request_form.POST['nome'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe o nome do tipo processo')
+        messages.add_message(request_form,messages.WARNING,'Informe o nome do status do titulo')
         warning = False
   
     return warning

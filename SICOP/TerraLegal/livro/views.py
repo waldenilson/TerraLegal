@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
-from livro.models import Tbtitulo, Tbstatustitulo, Tbtipotitulo
+from TerraLegal.livro.models import Tbtitulo, Tbstatustitulo, Tbtipotitulo
 from sicop.models import AuthUser, Tbprocessobase, Tbprocessorural,Tbdivisao, Tbpecastecnicas
 from django.http import HttpResponseRedirect
 from django.contrib import messages
