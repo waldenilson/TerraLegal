@@ -10,7 +10,7 @@ from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
     Tbclassificacaoprocesso, Tbtipopendencia, Tbstatuspendencia, Tbpregao,\
     Tbdivisao,   Tbetapa, Tbtransicao, Tbetapaposterior, Tbchecklistprocessobase,\
     Tbchecklist
-from livro.models import Tbtitulo, Tbstatustitulo, Tbtipotitulo 
+from TerraLegal.livro.models import Tbtitulo, Tbstatustitulo, Tbtipotitulo 
 from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
 from sicop.restrito import processo_rural
