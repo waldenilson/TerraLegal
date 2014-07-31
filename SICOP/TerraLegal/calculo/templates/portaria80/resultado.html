@@ -1,0 +1,68 @@
+{% extends "base/consulta_base.html" %} 
+{% load staticfiles %} 
+
+{% block breadcumbs %}
+	Acesso Restrito | Calculo Portaria 80
+{% endblock %}
+
+{% block subtitulo %}
+	
+	CALCULO PORTARIA 80
+		
+{% endblock %}
+
+{% block consulta %}
+		<form action="." method="post">
+			{% csrf_token %}
+			<table style="width:80%;text-align: left">
+				   	<tr><td class="colunaTabela"><label>Area do Imovel:</label> </td><td> <input style="width:50px" name="nrarea" value="{{nrarea}}" /> </td></tr>
+				   	<tr><td class="colunaTabela"><label>Parcelas:</label> </td><td> <input style="width:20px" name="nrparcelas" value="{{nrparcelas}}" /> </td></tr>
+				   	<tr><td class="colunaTabela"><label>Parcelas pagas :</label> </td><td> <input style="width:20px" name="parcelaspagas" value="{{nrparcelaspagas}}"/> </td></tr>
+					<tr><td class="colunaTabela"><label>Municipio :</label> </td><td><input name="nmmunicipio"  value="{{nmmunicipio}}" style="width:200px"></td>
+						<td class="colunaTabela"><label>Terra nua:</label></td><td><input style="width:50px" value="{{vlterranua}}" /></td>
+						<td class="colunaTabela"><label>Modulo fiscal:</label></td><td>{{nrmodulo}}</td>
+					</tr>
+				</table>
+				<table style="width:70%;text-align: left">
+				   	<tr><td class="colunaTabela"> <label>Fator de distancia :</label> </td><td><input name="fdis"  style="width:40px" value={{fdis}}></td>
+						<td class="colunaTabela"> <label>Fator de acesso :</label> </td><td><input name="fcon"  style="width:40px" value={{fcon}}></td>
+						<td class="colunaTabela"> <label>Fator de ancianidade:</label></td><td><input name="fanc"  style="width:40px" value={{fanc}}></td>
+					</tr>
+				</table>
+				<table style="width:50%;text-align: left">
+					<tr><td class="colunaTabela" style="width:90px"> <label>Anos: </label></td>
+						<td> <input name="anosocupa" style="width:30px" value={{anosocupa}}> </td>
+					</tr>
+				</table>
+			<br />
+			
+			
+			
+			<table style="width:100%">
+				<tr>
+					<td class="colunaTabela" style="text-align:left"> 
+						<input class="button_yellow" style="margin-right: 10px" type="submit" value="NOVO CALCULO" />
+					</td>
+					<td class="colunaTabela" style="text-align:right"> 
+						<a href="/sicop/restrito/municipio/relatorio/pdf/"> <img width="36" alt="PDF" src="{% static "img/pdf.png" %}" /> </a>
+						<a href="/sicop/restrito/municipio/relatorio/ods/"> <img width="36" alt="ODS" src="{% static "img/ods.png" %}" /> </a>
+						<a href="/sicop/restrito/municipio/relatorio/csv/"> <img width="36" alt="CSV" src="{% static "img/csv.png" %}" /> </a>
+					</td>
+				</tr>				
+			</table>
+			<table class="csstable">
+			<tbody>
+			<tr><td class="colunaTabrelaConsulta" style="width:20%">Valores do calculo</td></tr>
+			<tr><td class="colunaTabelaConsulta">{{nrmodulosarea}}</td></tr>
+			
+			</tbody>
+			</table>
+
+
+		</form>
+{% endblock %}
+
+
+{% block resultado %}
+		
+{% endblock %}

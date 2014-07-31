@@ -1,0 +1,127 @@
+{% extends "base/consulta_base.html" %} 
+{% load staticfiles %} 
+
+{% block breadcumbs %}
+	Acesso Restrito | Calculo Portaria 80
+{% endblock %}
+
+{% block subtitulo %}
+	
+	CALCULO PORTARIA 80
+		
+{% endblock %}
+
+{% block consulta %}
+		<form action="." method="post">
+			{% csrf_token %}
+			<table style="width:50%;text-align: left">
+				   	<tr><td class="colunaTabela"> <label>Area do Imovel:</label> </td><td> <input onkeypress="return SomenteNumero(event,this);" size="15" name="nrarea" value="{{nrarea}}" /> </td></tr>
+				   	<tr><td class="colunaTabela"> <label>Parcelas:</label> </td><td> <input onkeypress="return SomenteNumero(event,this);" size="10" name="nrparcelas"  value="{{nrparcelas}}" /> </td></tr>
+				   	<tr><td class="colunaTabela"> <label>Parcelas pagas :</label> </td><td> <input onkeypress="return SomenteNumero(event,this);" size="10" name="nrparcelaspagas" value="{{nrparcelaspagas}}" /> </td></tr>
+					
+					
+					<tr><td class="colunaTabela"> <label>Municipio :</label> </td>
+						<td><select name="municipio" style="width:200px">
+							{% for item in lista %}
+								{% if municipio.id = item.id %} 
+									<option selected="selected" value="{{ item.id }}">{{item.nome_mun}}</option>
+								{% else %}
+									<option value="{{item.id}}"> {{item.nome_mun}} </option>
+								{% endif %}
+							{% endfor %}
+						</select></td></tr>
+
+					
+				   	<tr><td class="colunaTabela"> <label>Fator de distancia :</label> </td>
+						<td><select name="fdis"  style="width:200px">
+							{% for item_dis in l_fdis %}
+								{% if item_dis.valor = fdis %}
+									<option selected="selected" value="{{ item_dis.valor }}">{{item_dis.descricao}}-{{item_dis.valor}}</option> 
+								{% else %}
+									<option value="{{ item_dis.valor }}">{{item_dis.descricao}}-{{item_dis.valor}}</option>
+								{% endif %}
+							{% endfor %}
+						</select></td></tr>
+
+
+					<tr><td class="colunaTabela"> <label>Fator de acesso :</label> </td>					
+						<td><select name="fcon"  style="width:120px">	
+							{% for item_con in l_fcon %}
+								{% if item_con.valor = fcon %}
+									<option selected="selected" value="{{ item_con.valor }}">{{item_con.descricao}}-{{item_con.valor}}</option> 
+								{% else %}
+									<option value="{{ item_con.valor }}">{{item_con.descricao}}-{{item_con.valor}}</option>
+								{% endif %}
+							{% endfor %}
+						</select></td></tr>
+
+
+					<tr><td class="colunaTabela"> <label>Fator de ancianidade:</label> </td>					
+						<td><select name="fanc"  style="width:200px">
+							{% for item_anc in l_fanc %}
+								{% if item_anc.id = fanc %}
+									<option  selected="selected" value="{{ item_anc.id }}">{{item_anc.descricao}}-{{item_anc.y}} {{item_anc.x}}</option>
+								{% else %}
+									<option value="{{ item_anc.id }}">{{item_anc.descricao}}-{{item_anc.y}} {{item_anc.x}}</option>
+								{% endif %}
+							{% endfor %}
+						</select></td></tr>
+						
+					<tr><td class="colunaTabela"><label>Anos:</label></td>
+						<td> <input onkeypress="return SomenteNumero(event,this);" size="2" name="anosocupa" value="{{anosocupa}}" /> </td></tr>
+					</tr>
+				</table>
+			
+			
+			<table style="width:40%">
+				<tr>
+					<td class="colunaTabela" style="text-align:left"> 
+						<input class="button_yellow" style="margin-right: 10px" type="submit" value="CALCULAR" />
+					</td>
+					<td class="colunaTabela" style="text-align:right"> 
+						<a href="/sicop/restrito/portaria80/relatorio/pdf/"> <img width="36" alt="PDF" src="{% static "img/pdf.png" %}" /> </a>
+						<!-- a href="/sicop/restrito/usuario/relatorio/ods/"> <img width="36" alt="ODS" src="{% static "img/ods.png" %}" /> </a>
+						<a href="/sicop/restrito/usuario/relatorio/csv/"> <img width="36" alt="CSV" src="{% static "img/csv.png" %}" /> </a-->
+					</td>
+					
+				</tr>
+			</table>
+					
+			<table class="csstable" style="width:40%">
+			<tbody>
+			<tr><td class="colunaTabelaConsulta" >Resultado</td>
+				<td class="colunaTabelaConsulta" >Valor</td></tr>
+			
+			<tr><td class="colunaTabelaConsulta" >VALOR DA TERRA:</td>
+				<td class="colunaTabelaConsulta">{{vlimovel}}</td>
+			</tr>
+			
+			<tr><td class="colunaTabelaConsulta" >Numero de modulos do municipio:</td>
+				<td class="colunaTabelaConsulta" >{{nrmodulo}}</td>
+			</tr>
+			
+			<tr><td class="colunaTabelaConsulta" >Modulos da area:</td>
+				<td class="colunaTabelaConsulta" >{{nrmodulosarea}}</td>
+			</tr>
+			<tr><td class="colunaTabelaConsulta" >Valor terra nua:</td>
+				<td class="colunaTabelaConsulta" >{{vlterranua}}</td>
+			</tr>
+			
+			<tr><td class="colunaTabelaConsulta" >Valor terra por hectare:</td>
+				<td class="colunaTabelaConsulta" >{{vlterranuaporha}}</td>
+			</tr>
+			<tr><td class="colunaTabelaConsulta" >Area a pagar:</td>
+				<td class="colunaTabelaConsulta" >{{areaapagar}}</td>
+			</tr>
+			</tbody>
+			
+			</table>
+			</br></br>	
+			
+		</form>
+{% endblock %}
+
+
+{% block resultado %}
+		
+{% endblock %}
