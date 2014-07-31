@@ -127,6 +127,7 @@ def edicao(request, id):
     pecas = Tbpecastecnicas.objects.all().filter( tbcaixa__id = id )    
     conteudo = ""
     if len(processos) > 0:
+        request.session['processos-caixa'] = processos
         conteudo = str(len(processos))+" Processo(s)"
     if pecas.count() > 0:
         conteudo += str(pecas.count())+" Peca(s) Tecnica(s)"
@@ -158,35 +159,49 @@ def relatorio_pdf(request):
 @permission_required('sicop.caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_ods(request):
 
-    # montar objeto lista com os campos a mostrar no relatorio/pdf
-    lista = request.session[nome_relatorio]
+    processos = request.session['processos-caixa']
     
-    if lista:
+    if processos:
+        #GERACAO
+        nome_relatorio = "relatorio-processos-caixa"
+        titulo_relatorio    = "RELATORIO DOS PROCESSOS DA CAIXA "+processos[0].tbprocessobase.tbcaixa.nmlocalarquivo
+        planilha_relatorio  = "Processos da Caixa"
         ods = ODS()
-        sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, len(lista), ods)
+        sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, len(processos), ods)
         
-        # subtitle
-        sheet.getCell(0, 1).setAlignHorizontal('center').stringValue( 'Nome' ).setFontSize('14pt')
-        sheet.getCell(1, 1).setAlignHorizontal('center').stringValue( 'Tipo' ).setFontSize('14pt')
+        # TITULOS DAS COLUNAS
+        sheet.getCell(0, 6).setAlignHorizontal('center').stringValue( 'Processo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(1, 6).setAlignHorizontal('center').stringValue( 'Requerente' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'CPF' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'Municipio' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(4, 6).setAlignHorizontal('center').stringValue( 'Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getRow(1).setHeight('20pt')
+        sheet.getRow(2).setHeight('20pt')
+        sheet.getRow(6).setHeight('20pt')
         
-    #TRECHO PERSONALIZADO DE CADA CONSULTA
-        #DADOS
-        x = 0
-        for obj in lista:
-            sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.nmlocalarquivo)
-            sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.tbtipocaixa.nmtipocaixa)    
+        sheet.getColumn(0).setWidth("2in")
+        sheet.getColumn(1).setWidth("5in")
+        sheet.getColumn(2).setWidth("2in")
+        sheet.getColumn(3).setWidth("2.5in")
+        sheet.getColumn(4).setWidth("2.5in")
+            
+        #DADOS DA CONSULTA
+        x = 5
+        for obj in processos:
+            sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.nrprocesso)
+            sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.nmrequerente)    
+            sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue(obj.nrcpfrequerente)
+            sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbmunicipio.nome_mun)
+            sheet.getCell(4, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbgleba.nmgleba)
             x += 1
-        
-    #TRECHO PERSONALIZADO DE CADA CONSULTA     
-       
+            
+        #GERACAO DO DOCUMENTO  
         relatorio_ods_base(ods, planilha_relatorio)
-        # generating response
         response = HttpResponse(mimetype=ods.mimetype.toString())
         response['Content-Disposition'] = 'attachment; filename='+nome_relatorio+'.ods'
         ods.save(response)
-    
         return response
+
     else:
         return HttpResponseRedirect( response_consulta )
 

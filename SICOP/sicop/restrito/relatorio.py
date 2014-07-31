@@ -14,7 +14,6 @@ from django.db.models import Q
 
 def lista(request):
     return render_to_response('sicop/restrito/relatorio/lista.html',{}, context_instance = RequestContext(request))
-    
 
 #PROCESSOS QUE TEM PECA TECNICA
 @permission_required('sicop.relatorio_processo_peca_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
