@@ -5,18 +5,19 @@ admin.autodiscover()
 
 project = 'TerraLegal'
 
-handler404 = project+'.web.views_excecoes.pagina_nao_encontrada'
-handler403 = project+'.web.views_excecoes.permissao_negada'
-handler500 = project+'.web.views_excecoes.erro_servidor'
+handler404 = project+'.core.views_excecoes.pagina_nao_encontrada'
+handler403 = project+'.core.views_excecoes.permissao_negada'
+handler500 = project+'.core.views_excecoes.erro_servidor'
 
 urlpatterns = patterns('',
     
     # DAJAXICE AJAX DO PROJETO
     #url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
     url(r'^livro/',include(project+'.livro.urls',namespace='livro')),
-    url(r'^calculo/',include('calculo.urls',namespace='calculo')),
+    url(r'^calculo/',include(project+'.calculo.urls',namespace='calculo')),
     url(r'^servidor/',include('servidor.urls',namespace='servidor')),
     url(r'^web/',include(project+'.web.urls',namespace='web')),
+    url(r'^core/excecao/',include(project+'.core.urls',namespace='core')),
 
 
     # ACESSO AO PUBLICO
@@ -24,9 +25,6 @@ urlpatterns = patterns('',
     url(r'^web/estatisticas/', project+'.web.estatisticas.estatisticas'),
     
     #INIT------------------------------SICOP---------------------------------------------------------------------------------
-    
-    # PERMISSAO NEGADA
-    url(r'^excecoes/permissao_negada/', project+'.web.views_excecoes.permissao_negada'),   
     
     # ACESSO RESTRITO SICOP PROCESSO
 

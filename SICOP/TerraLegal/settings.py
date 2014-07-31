@@ -1,6 +1,5 @@
 # Django settings for SICOP project.
 from os.path import abspath, join, dirname
-import os
 
 DEBUG = False
 
@@ -173,7 +172,7 @@ INSTALLED_APPS = (
     'odslib',
     'webodt',
     'lxml',
-    'calculo',
+    'TerraLegal.calculo',
     'TerraLegal.livro',
     'TerraLegal.web',
     # Uncomment the next line to enable admin documentation:
