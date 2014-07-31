@@ -60,7 +60,7 @@ def cadastro(request):
                                        blconjuge = tem_conjuge
                                        )
             f_rural.save()
-            messages.add_message(request,messages.INFO,'Informações Cadastradas.')            
+            messages.add_message(request,messages.INFO,'Informações salvas com sucesso.')            
             return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
         
     return render_to_response('sicop/restrito/processo/cadastro.html',
@@ -141,7 +141,7 @@ def edicao(request, id):
                                     )                    
                     transicao.save()
                                
-            messages.add_message(request,messages.INFO,'Informações Editadas.')
+            messages.add_message(request,messages.INFO,'Informações salvas com sucesso.')
             
             return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(base.id)+"/")
     

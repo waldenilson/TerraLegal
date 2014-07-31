@@ -8,13 +8,26 @@
 	{% block mensagem %}
 		
 		{% if messages %}
-			<div id="dialog-modal" title="MENSAGENS">
-				<ul class="messages" style="color:red">
-				    {% for message in messages %}
-				    	<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-				    {% endfor %}
-				</ul>
-			</div>
+		<div id="dialog-modal" title="Aviso(s)">
+			<ul class="messages">
+			    {% for message in messages %}
+			    	<li{% if message.tags %} 
+			    		style="color: 
+							{% if message.level == 20 %} 
+								blue
+							{% endif %}
+							{% if message.level == 30 %} 
+								orange
+							{% endif %}
+							{% if message.level == 40 %} 
+								red
+							{% endif %}
+							; font-size: 15px"
+			    		class="{{ message.tags }}"{% endif %}> {{ message }}</li>
+			    {% endfor %}
+			</ul>
+			<div style="text-align:center"> <a onclick="$('#dialog-modal').dialog('close')" class="button_green">OK</a> </div>
+		</div>
 		{% endif %}
 	
 	{% endblock %}

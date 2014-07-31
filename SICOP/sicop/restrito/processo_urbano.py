@@ -83,7 +83,7 @@ def cadastro(request):
                                        dttitulacao = datatitulacao,
                                        )
             f_urbano.save()
-            messages.add_message(request,messages.INFO,'Informações Cadastradas.')
+            messages.add_message(request,messages.INFO,'Informações salvas com sucesso.')
             
             return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
            
@@ -191,7 +191,7 @@ def edicao(request, id):
                                     )                    
                     transicao.save()
 
-            messages.add_message(request,messages.INFO,'Informações Editadas.')
+            messages.add_message(request,messages.INFO,'Informações salvas com sucesso.')
             
             return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(base.id)+"/")
            

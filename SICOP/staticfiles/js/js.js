@@ -10,8 +10,8 @@ $(function() {
 $( "#accordion" ).accordion();
 });
 $(function() {
-$( "#dialog-modal" ).dialog({
-modal: true
+	$( "#dialog-modal" ).dialog({
+		modal: true
 });
 });
 $(function() {
