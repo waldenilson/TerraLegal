@@ -149,8 +149,10 @@
 									</tr>
 									<tr> 
 										<td class="colunaTabela"> <label>Endereço:</label> </td>
-										<td> <input value="{{ base.nmendereco|default:''}}" name="nmendereco" size="40" /> </td> 
+										<td> <textarea name="nmendereco" rows="4" cols="50">
+											{{base.nmendereco|default:''}}</textarea></td> 
 									</tr>
+									
 									</table>
 		
 						   {% if perms.sicop.etapa_checklist_posterior %}
