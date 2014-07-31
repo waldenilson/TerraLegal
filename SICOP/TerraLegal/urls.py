@@ -17,7 +17,7 @@ urlpatterns = patterns('',
     url(r'^calculo/',include(project+'.calculo.urls',namespace='calculo')),
     url(r'^servidor/',include('servidor.urls',namespace='servidor')),
     url(r'^web/',include(project+'.web.urls',namespace='web')),
-    url(r'^core/excecao/',include(project+'.core.urls',namespace='core')),
+    url(r'^core/',include(project+'.core.urls',namespace='core')),
 
 
     # ACESSO AO PUBLICO

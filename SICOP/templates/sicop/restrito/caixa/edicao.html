@@ -58,9 +58,9 @@
 					<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
 					<input type="submit" class="button_green" value="SALVAR" />
 				</td>
-		<td class="colunaTabela" style="text-align:right"> 
+						<td class="colunaTabela" style="text-align:right"> 
 						<!-- a href="/sicop/restrito/processo/relatorio/pdf/"> <img width="36" alt="PDF" src="{% static "img/pdf.png" %}" /> </a-->
-						<!-- a href="/sicop/restrito/caixa/relatorio/ods/"> <img width="36" alt="ODS" src="{% static "img/ods.png" %}" /> </a-->
+<!-- 						<a href="/sicop/restrito/caixa/relatorio/ods/"> <img width="36" alt="ODS" src="{% static "img/ods.png" %}" /> </a> -->
 						<!--a href="/sicop/restrito/processo/relatorio/csv/"> <img width="36" alt="CSV" src="{% static "img/csv.png" %}" /> </a-->
 						</td>
 			</tr>
@@ -68,8 +68,10 @@
 		</table>
 		
 		{% if processos %}
+		<div style="text-align:right">
+			<a href="/sicop/restrito/caixa/relatorio/ods/"> <img width="36" alt="ODS" src="{% static "img/ods.png" %}" /> </a>					
+		</div>		
 		PROCESSOS:<br/>
-		
 		<table class="csstable">
 			<tbody>
 				<tr>

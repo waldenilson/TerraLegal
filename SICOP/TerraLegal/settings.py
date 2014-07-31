@@ -167,14 +167,15 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-    'sicop',
-    'servidor',
     'odslib',
     'webodt',
     'lxml',
+    'sicop',
+    'servidor',
     'TerraLegal.calculo',
     'TerraLegal.livro',
     'TerraLegal.web',
+    'TerraLegal.core',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )

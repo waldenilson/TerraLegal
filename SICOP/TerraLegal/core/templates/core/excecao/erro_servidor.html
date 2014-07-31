@@ -1,19 +1,21 @@
 {% extends "base/acesso_restrito.html" %} 
 
 {% block breadcumbs %}
-	Acesso Negado
+	Erro no Sistema
 {% endblock %}
 
-{% block conteudo %}
+{% block index %}
 
 <!--========================================================================== Content Part 1 =====================================================================================-->
 
 <div class="wrapper">
 
-	<div class="grids">
+	<div>
 
 		<!--end of grid-10-->
-		Voce nao tem permissao para acessar a funcionalidade requerida !
+		Ocorreu um erro no sistema:<br/>
+		Tipo: {{ type }}<br />
+		Valor: {{ value }}
 	</div>
 	<!--end of grids-->
 
