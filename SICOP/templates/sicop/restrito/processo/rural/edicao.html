@@ -15,9 +15,9 @@
 {% if base.tbclassificacaoprocesso.id == 1 %}
 	<li><a href="#tabs-2">TRAMITACOES</a></li>
 {% endif %}
-
+{% if pendencia %}
 	<li><a href="#tabs-3">PENDENCIAS</a></li>
-
+{% endif %}
 {% if base.tbclassificacaoprocesso.id == 1 %}
 	<li><a href="#tabs-4">ANEXOS</a></li>
 {% endif %}
@@ -248,16 +248,14 @@
 		</tr>
 	</table>
 </form>
-		<table style="width: 100%; text-align: center">
-			<thead style="background: #e5e5e5; color: black">
-				<tr>
-					<th class="colunaTabelaConsulta" style="width: 15%">Data</th>
-					<th class="colunaTabelaConsulta" style="width: 26%">Origem</th>
-					<th class="colunaTabelaConsulta" style="width: 26%">Destino</th>
-					<th class="colunaTabelaConsulta" style="width: 25%">Usuario</th>
-				</tr>
-			</thead>
+		<table class="csstable">
 			<tbody>
+				<tr>
+					<td class="colunaTabelaConsulta" style="width: 15%">Data</td>
+					<td class="colunaTabelaConsulta" style="width: 26%">Origem</td>
+					<td class="colunaTabelaConsulta" style="width: 26%">Destino</td>
+					<td class="colunaTabelaConsulta" style="width: 25%">Usuario</td>
+				</tr>
 				{% if movimentacao %} 
 				{% for mov in movimentacao %}
 				<tr>
@@ -280,6 +278,7 @@
 	</div>
 {% endif %}
 
+{% if pendencia %}
 <div id="tabs-3">
 <form method="post" action="/sicop/restrito/processo/pendencia/{{ base.id }}/">
 	{% csrf_token %}
@@ -308,25 +307,18 @@
 		</tr>
 	</table>
 </form>
-		<table style="width: 100%; text-align: center">
-			<thead style="background: #e5e5e5; color: black">
-				<tr>
-					<th class="colunaTabelaConsulta" style="width: 8%">Detalhes</th>
-					<th class="colunaTabelaConsulta" style="width: 20%">Tipo</th>
-					<th class="colunaTabelaConsulta" style="width: 10%">Status</th>
-					<th class="colunaTabelaConsulta" style="width: 26%">Descricao</th>
-					<th class="colunaTabelaConsulta" style="width: 15%">Usuario</th>
-				</tr>
-			</thead>
+
+		<table class="csstable">
 			<tbody>
+				<tr>
+					<td class="colunaTabelaConsulta" style="width: 30%">Tipo</td>
+					<td class="colunaTabelaConsulta" style="width: 15%">Status</td>
+					<td class="colunaTabelaConsulta" style="width: 35%">Descricao</td>
+					<td class="colunaTabelaConsulta" style="width: 20%">Usuario</td>
+				</tr>
 				{% if pendencia %}
 				   		{% for pen in pendencia %}
-							<tr>
-								<td class="colunaTabelaConsulta">
-									<a	href="/sicop/restrito/pendencia/edicao/{{ pen.id }}"> 
-										<img width="16" src="{% static "img/search.png" %}" />
-									</a>
-								</td>
+							<tr onclick="editarID('/sicop/restrito/pendencia/edicao/{{ pen.id }}');">
 								<td class="colunaTabelaConsulta">{{	pen.tbtipopendencia.dspendencia }}</td>
 								<td class="colunaTabelaConsulta">{{	pen.tbstatuspendencia.dspendencia }}</td>
 								<td class="colunaTabelaConsulta">{{ pen.dsdescricao }}</td>
@@ -342,7 +334,8 @@
 			</tbody>
 		</table>
 
-	</div>
+</div>
+{% endif %}
 
 {% if base.tbclassificacaoprocesso.id == 1 %}
 <div id="tabs-4">
@@ -365,23 +358,23 @@
 		<table class="csstable">
 			<tbody>
 				<tr>
-					<td class="colunaTabelaConsulta" style="width: 5%">Desanexar</th>
-					<td class="colunaTabelaConsulta" style="width: 15%">Data do	anexo</th>
-					<td class="colunaTabelaConsulta" style="width: 30%">Processo anexado</th>
-					<td class="colunaTabelaConsulta" style="width: 25%">Usuario</th>
+					<td class="colunaTabelaConsulta" style="width: 5%">Desanexar</td>
+					<td class="colunaTabelaConsulta" style="width: 15%">Data do	anexo</td>
+					<td class="colunaTabelaConsulta" style="width: 30%">Processo anexado</td>
+					<td class="colunaTabelaConsulta" style="width: 25%">Usuario</td>
 				</tr>
 				{% if anexado %} 
 				{% for anexo in anexado %}
 					<tr>
-					<td class="colunaTabelaConsulta">
-						<a	href="/sicop/restrito/processo/desanexar/{{ anexo.tbprocessobase_id_anexo.id}}"	onclick="return confirm('Deseja mesmo desanexar os processos ?');" > 
-							<img width="22" src="{% static "img/desanexar.jpg" %}" />
-						</a>
-					</td>
-					<td class="colunaTabelaConsulta">{{ anexo.dtanexado.day }}/{{ anexo.dtanexado.month }}/{{ anexo.dtanexado.year }}</td>
-					<td class="colunaTabelaConsulta" onclick="editarID('/sicop/restrito/processo/edicao/{{ anexo.tbprocessobase_id_anexo.id}}');" >{{ anexo.tbprocessobase_id_anexo.nrprocesso }}</td>
-					<td class="colunaTabelaConsulta">{{	anexo.tbprocessobase_id_anexo.auth_user.first_name }}</td>
-				</tr>
+						<td class="colunaTabelaConsulta">
+							<a	href="/sicop/restrito/processo/desanexar/{{ anexo.tbprocessobase_id_anexo.id}}"	onclick="return confirm('Deseja mesmo desanexar os processos ?');" > 
+								<img width="22" src="{% static "img/desanexar.jpg" %}" />
+							</a>
+						</td>
+						<td class="colunaTabelaConsulta">{{ anexo.dtanexado.day }}/{{ anexo.dtanexado.month }}/{{ anexo.dtanexado.year }}</td>
+						<td class="colunaTabelaConsulta" onclick="editarID('/sicop/restrito/processo/edicao/{{ anexo.tbprocessobase_id_anexo.id}}');" >{{ anexo.tbprocessobase_id_anexo.nrprocesso }}</td>
+						<td class="colunaTabelaConsulta">{{	anexo.tbprocessobase_id_anexo.auth_user.first_name }}</td>
+					</tr>
 				{% endfor %} 
 				{% else %}
 				<tr>
@@ -422,7 +415,7 @@
 	</table>
 	{% else %}
 		<a  style="padding-top: 20px" colspan="6">	PROCESSO NAO POSSUI PECA TECNICA ASSOCIADA</a>
-	{% endif %}</br></br>
+	{% endif %}<br/>
 </div>
 </div>
 {% endblock %}

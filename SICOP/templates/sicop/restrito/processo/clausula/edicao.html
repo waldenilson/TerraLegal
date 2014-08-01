@@ -213,16 +213,14 @@
 		</tr>
 	</table>
 </form>
-		<table style="width: 100%; text-align: center">
-			<thead style="background: #e5e5e5; color: black">
-				<tr>
-					<th class="colunaTabelaConsulta" style="width: 15%">Data</th>
-					<th class="colunaTabelaConsulta" style="width: 26%">Origem</th>
-					<th class="colunaTabelaConsulta" style="width: 26%">Destino</th>
-					<th class="colunaTabelaConsulta" style="width: 25%">Usuario</th>
-				</tr>
-			</thead>
+		<table class="csstable">
 			<tbody>
+				<tr>
+					<td class="colunaTabelaConsulta" style="width: 15%">Data</td>
+					<td class="colunaTabelaConsulta" style="width: 26%">Origem</td>
+					<td class="colunaTabelaConsulta" style="width: 26%">Destino</td>
+					<td class="colunaTabelaConsulta" style="width: 25%">Usuario</td>
+				</tr>
 				{% if movimentacao %} {% for mov in movimentacao %}
 				<tr>
 					<td class="colunaTabelaConsulta">{{ mov.dtmovimentacao.day }}/{{ mov.dtmovimentacao.month }}/{{ mov.dtmovimentacao.year }}</td>
@@ -264,25 +262,17 @@
 		</tr>
 	</table>
 </form>
-		<table style="width: 100%; text-align: center">
-			<thead style="background: #e5e5e5; color: black">
-				<tr>
-					<th class="colunaTabelaConsulta" style="width: 8%">Detalhes</th>
-					<th class="colunaTabelaConsulta" style="width: 15%">Tipo</th>
-					<th class="colunaTabelaConsulta" style="width: 26%">Status</th>
-					<th class="colunaTabelaConsulta" style="width: 26%">Descricao</th>
-					<th class="colunaTabelaConsulta" style="width: 25%">Usuario</th>
-				</tr>
-			</thead>
+		<table class="csstable">
 			<tbody>
+				<tr>
+					<td class="colunaTabelaConsulta" style="width: 30%">Tipo</td>
+					<td class="colunaTabelaConsulta" style="width: 15%">Status</td>
+					<td class="colunaTabelaConsulta" style="width: 35%">Descricao</td>
+					<td class="colunaTabelaConsulta" style="width: 20%">Usuario</td>
+				</tr>
 				{% if pendencia %}
 				   		{% for pen in pendencia %}
-							<tr>
-								<td class="colunaTabelaConsulta">
-									<a	href="/sicop/restrito/pendencia/edicao/{{ pen.id }}"> 
-										<img width="16" src="{% static "img/search.png" %}" />
-									</a>
-								</td>
+							<tr onclick="editarID('/sicop/restrito/pendencia/edicao/{{ pen.id }}');" >
 								<td class="colunaTabelaConsulta">{{	pen.tbtipopendencia.dspendencia }}</td>
 								<td class="colunaTabelaConsulta">{{	pen.tbstatuspendencia.dspendencia }}</td>
 								<td class="colunaTabelaConsulta">{{ pen.dsdescricao }}</td>
@@ -313,21 +303,25 @@
 		</tr>
 	</table>
 </form>
-		<table style="width: 100%; text-align: center">
-			<thead style="background: #e5e5e5; color: black">
-				<tr>
-					<th class="colunaTabelaConsulta" style="width: 15%">Data do	anexo</th>
-					<th class="colunaTabelaConsulta" style="width: 30%">Processo anexado</th>
-					<th class="colunaTabelaConsulta" style="width: 25%">Usuario</th>
-				</tr>
-			</thead>
+		<table class="csstable">
 			<tbody>
-				{% if anexado %} {% for anexo in anexado %}
 				<tr>
-					<td class="colunaTabelaConsulta">{{ anexo.dtanexado.day }}/{{ anexo.dtanexado.month }}/{{ anexo.dtanexado.year }}</td>
-					<td class="colunaTabelaConsulta">{{ anexo.tbprocessobase_id_anexo.nrprocesso }}</td>
-					<td class="colunaTabelaConsulta">{{	anexo.auth_user.first_name }}</td>
+					<td class="colunaTabelaConsulta" style="width: 5%">Desanexar</td>
+					<td class="colunaTabelaConsulta" style="width: 15%">Data do	anexo</td>
+					<td class="colunaTabelaConsulta" style="width: 30%">Processo anexado</td>
+					<td class="colunaTabelaConsulta" style="width: 25%">Usuario</td>
 				</tr>
+				{% if anexado %} {% for anexo in anexado %}
+					<tr>
+						<td class="colunaTabelaConsulta">
+							<a	href="/sicop/restrito/processo/desanexar/{{ anexo.tbprocessobase_id_anexo.id}}"	onclick="return confirm('Deseja mesmo desanexar os processos ?');" > 
+								<img width="22" src="{% static "img/desanexar.jpg" %}" />
+							</a>
+						</td>
+						<td class="colunaTabelaConsulta">{{ anexo.dtanexado.day }}/{{ anexo.dtanexado.month }}/{{ anexo.dtanexado.year }}</td>
+						<td class="colunaTabelaConsulta" onclick="editarID('/sicop/restrito/processo/edicao/{{ anexo.tbprocessobase_id_anexo.id}}');" >{{ anexo.tbprocessobase_id_anexo.nrprocesso }}</td>
+						<td class="colunaTabelaConsulta">{{	anexo.tbprocessobase_id_anexo.auth_user.first_name }}</td>
+					</tr>
 				{% endfor %} {% else %}
 				<tr>
 					<td style="padding-top: 20px" colspan="6">Nenhum Anexo</td>
