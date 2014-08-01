@@ -36,8 +36,51 @@ titulo_relatorio    = "Relatorio Processos"
 planilha_relatorio  = "Processos"
 
 @permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def consultaprocesso(request):
+    numero =  request.POST['processo_base'].replace('.','').replace('/','').replace('-','')
+    if not numero:
+        messages.add_message(request,messages.WARNING,'Processo nao preenchido corretamente')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))    
+
+
+    print "processoconsulta" + str(numero)
+
+    if request.user.has_perm('sicop.processo_rural_consulta'):
+            p_rural = Tbprocessorural.objects.filter( 
+                Q(tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural',tbprocessobase__tbdivisao__id__in=request.session['divisoes'])| 
+                Q(tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural',tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id)).order_by('nmrequerente')
+    if request.user.has_perm('sicop.processo_clausula_consulta'):
+            p_clausula = Tbprocessoclausula.objects.filter( 
+                Q(tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessoclausula',tbprocessobase__tbdivisao__id__in=request.session['divisoes'])| # = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+                Q(tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessoclausula',tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id)).order_by('nmrequerente')
+    if request.user.has_perm('sicop.processo_urbano_consulta'):
+            p_urbano = Tbprocessourbano.objects.filter( 
+                    Q(tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessourbano',tbprocessobase__tbdivisao__id__in=request.session['divisoes'])|
+                    Q(tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessourbano',tbprocessobase__tbcaixa__tbdivisao__id = AuthUser.objects.get(pk=request.user.id).tbdivisao.id)).order_by('nmpovoado') # = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+    lista = []
+    for obj in p_rural:
+       lista.append( obj )
+    for obj in p_clausula:
+        lista.append( obj )
+    for obj in p_urbano:
+        lista.append( obj )
+    if not lista:
+        messages.add_message(request,messages.WARNING,'Processo nao encontrado')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))    
+
+    
+    for obj in lista:
+        print "obj: " + str(obj.tbprocessobase.nrprocesso)
+        request.session['processo_saida'] = 'unico'
+        return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(obj.tbprocessobase.id)+"/")
+        #edicao(request,obj.tbprocessobase.id)
+        #usar http_redirect alguma coisa assim passando a url do edicao  e o id
+
+    return render_to_response('sicop/restrito/processo/rural/edicao.html',
+                              context_instance = RequestContext(request))   
+
+@permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
-        
     # carrega os processos da divisao do usuario logado
     lista = []
     #lista = Tbprocessobase.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by( "dtcadastrosistema" )
@@ -520,6 +563,7 @@ def edicao(request, id):
     statustitulo = Tbstatustitulo.objects.all()
     tipotitulo  = Tbtipotitulo.objects.all()
     
+    print "edicao " + str(base.nrprocesso)
     # municipios da divisao do usuario logado E municipios associados a DIVISAO que criou o processo
     municipio = Tbmunicipio.objects.all().filter( 
         Q(codigo_uf__in=request.session['uf'])| 

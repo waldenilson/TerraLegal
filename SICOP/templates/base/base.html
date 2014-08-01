@@ -66,13 +66,30 @@
 					<div class="clear"></div>
 				</div>
 			</div>
-		
 			<section id="body" class="width clear">
-			
 				<div style="background:#eee;width:100%;font-size:14px">
-					<div class="article-info" style="margin:10px">Você está aqui: {% block breadcumbs %} {% endblock %}</div>
+					<div class="article-info" style="margin:10px">
+					<table border="0">
+						<tr>
+						<td>
+						Você está aqui: {% block breadcumbs %} {% endblock %}
+						</td>
+					
+					<form method="post" action="/sicop/restrito/processo/consultaProcesso/">
+						{% csrf_token %}
+						<td align="right">
+						<input name="processo_base" size=17 style="width:150px" id="processo_base" />
+								<!--a href="/sicop/restrito/processo/consultaProcesso/"><img width="16" src="{% static "img/search.png" %}" /></a-->
+						<input type="submit" value="pesquisa" />
+						</td>
+						</td>
+					</tr>
+					</form>
+					</table>
+					</div>
+
 				</div>
-				
+		
 				<aside id="sidebar" class="column-left">
 					
 					{% include "base/menu.html" %}
