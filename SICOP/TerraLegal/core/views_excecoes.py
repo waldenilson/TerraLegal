@@ -12,7 +12,7 @@ def permissao_negada(request):
 def erro_servidor(request):
     
     #t = loader.get_template(template_name) # You need to create a 500.html template.
-    ltype,lvalue = sys.exc_info()
+    ltype, ltraceback,lvalue = sys.exc_info()
     sys.exc_clear() #for fun, and to point out I only -think- this hasn't happened at 
                     #this point in the process already
 
