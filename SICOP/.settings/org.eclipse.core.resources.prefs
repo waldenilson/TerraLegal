@@ -1,8 +1,9 @@
 eclipse.preferences.version=1
+encoding//TerraLegal/calculo/urls.py=utf-8
+encoding//TerraLegal/core/urls.py=utf-8
 encoding//TerraLegal/livro/urls.py=utf-8
 encoding//TerraLegal/web/estatisticas.py=utf-8
 encoding//TerraLegal/web/urls.py=utf-8
-encoding//calculo/urls.py=utf-8
 encoding//servidor/urls.py=utf-8
 encoding//sicop/restrito/documento.py=UTF-8
 encoding//sicop/restrito/documento_memorando.py=UTF-8
@@ -14,4 +15,4 @@ encoding//sicop/restrito/processo_clausula.py=utf-8
 encoding//sicop/restrito/processo_rural.py=utf-8
 encoding//sicop/restrito/processo_urbano.py=utf-8
 encoding//sicop/restrito/relatorio.py=UTF-8
-encoding//templates/fabfile.py=utf-8
+encoding//staticfiles/sistema/fabfile.py=utf-8

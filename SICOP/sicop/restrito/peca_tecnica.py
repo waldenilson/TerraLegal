@@ -119,7 +119,7 @@ def cadastro(request):
                                    stassentamento = assentamento                               
                                    )
             peca.save()
-            messages.add_message(request,messages.INFO,'Informações Cadastradas.')
+            messages.add_message(request,messages.INFO,'Informações salvas com sucesso.')
             return HttpResponseRedirect("/sicop/restrito/peca_tecnica/consulta/") 
     
     return render_to_response('sicop/restrito/peca_tecnica/cadastro.html',{'caixa':caixa,'contrato':contrato,'gleba':gleba,'municipio':municipio}, context_instance = RequestContext(request))
@@ -187,7 +187,7 @@ def edicao(request, id):
     
                                    )
             peca.save()
-            messages.add_message(request,messages.INFO,'Informações Editadas.')
+            messages.add_message(request,messages.INFO,'Informações salvas com sucesso.')
             return HttpResponseRedirect("/sicop/restrito/peca_tecnica/edicao/"+str(peca_obj.id)+"/")
 
     processo = Tbprocessorural.objects.all().filter( nrcpfrequerente = peca_obj.nrcpfrequerente.replace('.','').replace('-','') )

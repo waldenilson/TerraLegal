@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
-from calculo.models import Tbextrato
+from TerraLegal.calculo.models import Tbextrato
 from decimal import Decimal
 from datetime import date
 from sicop.restrito.processo import formatDataToText
