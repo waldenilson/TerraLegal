@@ -15,9 +15,9 @@
 {% if base.tbclassificacaoprocesso.id == 1 %}
 	<li><a href="#tabs-2">TRAMITACOES</a></li>
 {% endif %}
-{% if pendencia %}
+
 	<li><a href="#tabs-3">PENDENCIAS</a></li>
-{% endif %}
+
 {% if base.tbclassificacaoprocesso.id == 1 %}
 	<li><a href="#tabs-4">ANEXOS</a></li>
 {% endif %}
@@ -280,7 +280,7 @@
 	</div>
 {% endif %}
 
-{% if pendencia %}
+
 <div id="tabs-3">
 <form method="post" action="/sicop/restrito/processo/pendencia/{{ base.id }}/">
 	{% csrf_token %}
@@ -337,7 +337,6 @@
 		</table>
 
 </div>
-{% endif %}
 
 {% if base.tbclassificacaoprocesso.id == 1 %}
 <div id="tabs-4">
