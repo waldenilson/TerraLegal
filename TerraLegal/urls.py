@@ -15,7 +15,7 @@ urlpatterns = patterns('',
     #url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
     url(r'^livro/',include(project+'.livro.urls',namespace='livro')),
     url(r'^calculo/',include(project+'.calculo.urls',namespace='calculo')),
-    url(r'^servidor/',include('servidor.urls',namespace='servidor')),
+    url(r'^servidor/',include(project+'.servidor.urls',namespace='servidor')),
     url(r'^web/',include(project+'.web.urls',namespace='web')),
     url(r'^core/',include(project+'.core.urls',namespace='core')),
 

@@ -2,7 +2,7 @@
 
 from django.conf.urls import patterns, url
 
-urlpatterns = patterns('servidor.views',  
+urlpatterns = patterns('TerraLegal.servidor.views',  
     url(r'^$', 'inicio'),
     url(r'^consulta/', 'consulta'),
     url(r'^cadastro/', 'cadastro'),
