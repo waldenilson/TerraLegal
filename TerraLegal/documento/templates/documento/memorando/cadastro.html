@@ -6,7 +6,7 @@
 	<li><a href="#tabs-2">SERVIDORES</a></li>
 </ul>
 
-	<form name="form_cadastro" method="post" action="/sicop/restrito/documento/rme/cadastro/">
+	<form name="form_cadastro" method="post" action="/documento/memorando/cadastro/">
 			{% csrf_token %}
 
 			<div id="tabs-1">
@@ -17,17 +17,27 @@
 						<td> <input size="21" name="nmdocumento" id="documento" /> </td> 
 					</tr>
 					<tr> 
-						<td class="colunaTabela"> <label>Periodo:</label> </td>
-						<td> <input id="id_myDate" size="10" name="dtperiodo" /> </td> 
+						<td class="colunaTabela"> <label>Numero do SISDOC:</label> </td>
+						<td> <input size="15" name="nrsisdoc" /> </td> 
+					</tr>
+					<tr> 
+						<td class="colunaTabela"> <label>Sufixo do SISDOC:</label> </td>
+						<td> <input size="8" name="nrsufixosisdoc" /> </td> 
 					</tr>
 					<tr> 
 						<td class="colunaTabela"> <label>Data:</label> </td>
-						<td> <input id="id_myDate2" size="10" name="dtdocumento" /> </td> 
+						<td> <input id="id_myDate" size="9" name="dtdocumento" /> </td> 
 					</tr>
-					<tr> <td class="colunaTabela"> <label>Nr. Ordem:</label> </td>
-						<td> <input size="4" name="nrordem" /> </td> </tr>
-					<tr> <td class="colunaTabela"> <label>Solicitante:</label> </td>
-						<td> <input size="30" name="solicitante" /> </td> </tr>
+					<tr> <td class="colunaTabela"> <label>Assunto:</label> </td>
+						<td> <input size="40" name="nmassunto" /> </td> </tr>
+					<tr> <td class="colunaTabela"> <label>Local:</label> </td>
+						<td> <input size="20" name="nmlocal" /> </td> </tr>
+					<tr> <td class="colunaTabela"> <label>Remetente:</label> </td>
+						<td> <input size="35" name="nmremetente" /> </td> </tr>
+					<tr> <td class="colunaTabela"> <label>Destinatario:</label> </td>
+						<td> <input size="35" name="nmdestinatario" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Documento Circular:</label> </td><td> <input type="checkbox" name="blcircular" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Mensagem:</label> </td><td> <textarea rows="6" id="mensagem" cols="50" name="nmmensagem"></textarea></td> </tr>
 				</table>
 			
 			</div>
@@ -58,7 +68,7 @@
 		<table style="width:100%">
 			<tr>
 				<td class="colunaTabela" style="text-align:left"> 
-					<a href="/sicop/restrito/documento/consulta/" style="margin-right: 10px"><input type="button" class="button_yellow" value="CONSULTAR" /></a>
+					<a href="/documento/consulta/" style="margin-right: 10px"><input type="button" class="button_yellow" value="CONSULTAR" /></a>
 					<input type="submit" class="button_green" value="SALVAR" />
 				</td>
 			</tr>

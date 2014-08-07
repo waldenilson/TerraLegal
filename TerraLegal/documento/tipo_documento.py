@@ -3,7 +3,8 @@ from django.contrib.auth.decorators import login_required, permission_required,\
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from sicop.forms import FormTipoProcesso
-from sicop.models import Tbtipoprocesso, AuthUser, Tbtipodocumento
+from sicop.models import Tbtipoprocesso, AuthUser
+from TerraLegal.documento.models import Tbtipodocumento
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from sicop.admin import verificar_permissao_grupo
@@ -28,7 +29,7 @@ def consulta(request):
     lista = lista.order_by( 'id' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_tipo_documento'] = lista
-    return render_to_response('sicop/restrito/tipo_documento/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('tipo_documento/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @permission_required('servidor.tipo_documento_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
@@ -42,8 +43,8 @@ def cadastro(request):
                                                 tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                             )
             f_tipodocumento.save()
-            return HttpResponseRedirect("/sicop/restrito/tipo_documento/consulta/") 
-    return render_to_response('sicop/restrito/tipo_documento/cadastro.html', context_instance = RequestContext(request))
+            return HttpResponseRedirect("/documento/tipo/consulta/") 
+    return render_to_response('tipo_documento/cadastro.html', context_instance = RequestContext(request))
 
 @permission_required('servidor.tipo_documento_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
@@ -63,8 +64,8 @@ def edicao(request, id):
                                                 tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                             )
             f_tipodocumento.save()
-            return HttpResponseRedirect("/sicop/restrito/tipo_documento/edicao/"+str(id)+"/")
-    return render_to_response('sicop/restrito/tipo_documento/edicao.html', {"tipodocumento":instance}, context_instance = RequestContext(request))
+            return HttpResponseRedirect("/documento/tipo/edicao/"+str(id)+"/")
+    return render_to_response('tipo_documento/edicao.html', {"tipodocumento":instance}, context_instance = RequestContext(request))
 
 
 @permission_required('servidor.tipo_documento_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)

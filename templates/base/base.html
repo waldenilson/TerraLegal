@@ -36,11 +36,11 @@
 	
 			<div id="sitename">
 				<div class="width" style="height:120px">
-					<h1 style="margin-top:15px"><a href="#"> SICOP - Portal Terra Legal </a></h1>
+					<h1 style="margin-top:15px"><a href="/"> SICOP - Portal Terra Legal </a></h1>
 	
 					<nav>
 						{% if user.is_active %}
-							<div style="color:white;font-weight:bold;font-size:14px;text-align:right">
+							<div style="color:white;font-weight:bold;font-size:12px;text-align:right">
 								Usuário:
 								<a href="/sicop/restrito/usuario/edicao/usuario/{{user.id}}/">
 								{% filter force_escape %} {% firstof user.get_short_name user.get_username %} {% endfilter %}

@@ -29,7 +29,7 @@
 				<tr>
 					<td class="colunaTabela" style="text-align:left"> 
 						<input class="button_yellow" style="margin-right: 10px" type="submit" value="PESQUISAR" />
-						<a href="/sicop/restrito/documento/cadastro/"> <input class="button_green" value="NOVO" type="button" /> </a>
+						<a href="/documento/cadastro/"> <input class="button_green" value="NOVO" type="button" /> </a>
 					</td>
 				</tr>
 				<tr>
@@ -53,7 +53,7 @@
 					<td class="colunaTabelaConsulta" style="width:10%">Data do cadastro</td>
 				{% if lista %}
 					{% for obj in lista %}
-						<tr onclick="editarID('/sicop/restrito/documento/edicao/{{ obj.id }}');"
+						<tr onclick="editarID('/documento/edicao/{{ obj.id }}');"
 							style="background: {{ obj.tbtipodocumento.coridentificacao }}">
 							<td class="colunaTabelaConsulta">{{ obj.id }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.nmdocumento }}</td>

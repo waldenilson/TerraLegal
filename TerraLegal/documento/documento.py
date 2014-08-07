@@ -10,8 +10,9 @@ from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
     Tbprocessoclausula, Tbprocessobase, Tbcaixa, Tbgleba, Tbmunicipio,\
     Tbcontrato, Tbsituacaoprocesso, Tbsituacaogeo, Tbpecastecnicas, AuthUser,\
     AuthUserGroups, Tbmovimentacao, Tbprocessosanexos, Tbpendencia,\
-    Tbclassificacaoprocesso, Tbtipopendencia, Tbstatuspendencia, Tbpregao,\
-    Tbdocumentomemorando, Tbdocumentobase, Tbtipodocumento, Tbservidor,\
+    Tbclassificacaoprocesso, Tbtipopendencia, Tbstatuspendencia, Tbpregao, Tbservidor
+
+from TerraLegal.documento.models import Tbdocumentomemorando, Tbdocumentobase, Tbtipodocumento,\
     Tbdocumentoservidor, Tbdocumentooficio, Tbdocumentovr, Tbdocumentorme,\
     Tbdocumentomaterialrme
 from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
@@ -59,7 +60,7 @@ def consulta(request):
     # gravando na sessao a divisao do usuario logado
     request.session['divisao'] = AuthUser.objects.get( pk = request.user.id ).tbdivisao.nmdivisao +" - "+AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.nmuf
         
-    return render_to_response('sicop/restrito/documento/consulta.html',{'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('documento/consulta.html',{'lista':lista}, context_instance = RequestContext(request))
 
 @permission_required('servidor.documento_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
@@ -89,7 +90,7 @@ def edicao(request, id):
             
             memorando = Tbdocumentomemorando.objects.get( tbdocumentobase = id )
                 
-            return render_to_response('sicop/restrito/documento/memorando/edicao.html',
+            return render_to_response('documento/memorando/edicao.html',
                                       {'result':result,'servidor':servidor,'docservidor':docservidor,
                                        'base':base,'data_documento':data_documento,'memorando':memorando,'servidor':servidor}, context_instance = RequestContext(request))
 
@@ -97,7 +98,7 @@ def edicao(request, id):
                      
             oficio = Tbdocumentooficio.objects.get( tbdocumentobase = id )
             
-            return render_to_response('sicop/restrito/documento/oficio/edicao.html',
+            return render_to_response('documento/oficio/edicao.html',
                                       {'result':result,'servidor':servidor,'docservidor':docservidor,
                                        'base':base,'data_documento':data_documento,'oficio':oficio,'servidor':servidor}, context_instance = RequestContext(request))
 
@@ -108,7 +109,7 @@ def edicao(request, id):
             datasolicitante = formatDataToText( vr.dtsolicitante )
             dataautorizado = formatDataToText( vr.dtautorizado )
             
-            return render_to_response('sicop/restrito/documento/requisicao_viatura/edicao.html',
+            return render_to_response('documento/requisicao_viatura/edicao.html',
                                       {'result':result,'servidor':servidor,'docservidor':docservidor,
                                        'base':base,'datainicio':datainicio,'datasolicitante':datasolicitante,'dataautorizado':dataautorizado,'vr':vr,'servidor':servidor}, context_instance = RequestContext(request))
 
@@ -118,12 +119,12 @@ def edicao(request, id):
             dtperiodo = formatDataToText(rme.dtperiodo)
             material = Tbdocumentomaterialrme.objects.filter( tbdocumentorme = rme.id ).order_by('especificacao')
             
-            return render_to_response('sicop/restrito/documento/rme/edicao.html',
+            return render_to_response('documento/rme/edicao.html',
                                       {'result':result,'servidor':servidor,'docservidor':docservidor,'dtperiodo':dtperiodo,
                                        'base':base,'material':material,'data_documento':data_documento,'rme':rme,'servidor':servidor}, context_instance = RequestContext(request))
 
         
-    return HttpResponseRedirect("/sicop/restrito/documento/consulta/")
+    return HttpResponseRedirect("documento/consulta/")
     
 @permission_required('servidor.documento_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
@@ -151,13 +152,13 @@ def cadastro(request):
         elif escolha == "tbdocumentorme":
             div_documento = "rme"
 
-            return render_to_response('sicop/restrito/documento/cadastro.html',
+            return render_to_response('documento/cadastro.html',
                     {'tipodocumento':tipodocumento,'documento':escolha,
                     'div_documento':div_documento,'servidor':servidor},
                     context_instance = RequestContext(request));  
 
         
-    return render_to_response('sicop/restrito/documento/cadastro.html',{
+    return render_to_response('documento/cadastro.html',{
         'tipodocumento':tipodocumento,'documento':escolha,'result':result,
         'div_documento':div_documento,'servidor':servidor}, context_instance = RequestContext(request))
 

@@ -171,6 +171,7 @@ INSTALLED_APPS = (
     'webodt',
     'lxml',
     'sicop',
+    'TerraLegal.documento',
     'TerraLegal.servidor',
     'TerraLegal.calculo',
     'TerraLegal.livro',

@@ -6,8 +6,11 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext, Context
 from sicop.models import Tbtipoprocesso, Tbcaixa, Tbgleba, Tbmunicipio, AuthUser,\
     AuthGroup, Tbprocessobase, Tbprocessorural, Tbclassificacaoprocesso, Tbsituacaoprocesso,\
-    Tbpecastecnicas, Tbmovimentacao, Tbtipodocumento, Tbdocumentobase,\
-    Tbdocumentomemorando, Tbservidor, Tbdocumentoservidor
+    Tbpecastecnicas, Tbmovimentacao, Tbservidor
+
+from TerraLegal.documento.models import Tbtipodocumento, Tbdocumentobase,\
+    Tbdocumentomemorando, Tbdocumentoservidor
+
 from sicop.forms import FormProcessoRural, FormProcessoBase
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect, HttpResponse
@@ -27,7 +30,7 @@ from sicop.admin import mes_do_ano_texto
 
 @permission_required('servidor.documento_memorando_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
-    return render_to_response('sicop/restrito/documento/memorando/consulta.html',{}, context_instance = RequestContext(request))    
+    return render_to_response('documento/memorando/consulta.html',{}, context_instance = RequestContext(request))    
     
 @permission_required('servidor.documento_memorando_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
@@ -77,9 +80,9 @@ def cadastro(request):
                                               tbservidor = Tbservidor.objects.get( pk = obj.id ) )
                     ug.save()
     
-            return HttpResponseRedirect("/sicop/restrito/documento/consulta/")
+            return HttpResponseRedirect("/documento/consulta/")
         
-    return render_to_response('sicop/restrito/documento/cadastro.html',
+    return render_to_response('documento/cadastro.html',
         {'tipodocumento':tipodocumento, 'documento':escolha, 'div_documento':div_documento}, context_instance = RequestContext(request))    
 
 @permission_required('servidor.documento_memorando_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -154,9 +157,9 @@ def edicao(request, id):
                                        )
         f_memorando.save()
             
-        return HttpResponseRedirect("/sicop/restrito/documento/edicao/"+str(base.id)+"/")
+        return HttpResponseRedirect("/documento/edicao/"+str(base.id)+"/")
     
-    return render_to_response('sicop/restrito/documento/memorando/edicao.html',
+    return render_to_response('documento/memorando/edicao.html',
                               {'base':base,'memorando':memorando},
                                context_instance = RequestContext(request))   
 

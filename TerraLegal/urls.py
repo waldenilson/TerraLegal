@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     url(r'^livro/',include(project+'.livro.urls',namespace='livro')),
     url(r'^calculo/',include(project+'.calculo.urls',namespace='calculo')),
     url(r'^servidor/',include(project+'.servidor.urls',namespace='servidor')),
+    url(r'^documento/',include(project+'.documento.urls',namespace='documento')),
     url(r'^web/',include(project+'.web.urls',namespace='web')),
     url(r'^core/',include(project+'.core.urls',namespace='core')),
 
@@ -27,44 +28,7 @@ urlpatterns = patterns('',
     #INIT------------------------------SICOP---------------------------------------------------------------------------------
     
     # ACESSO RESTRITO SICOP PROCESSO
-
-    # ESCOLHA DO TIPO DE DOCUMENTO
-    url(r'^sicop/restrito/documento/consulta/', 'sicop.restrito.documento.consulta'),   
-    url(r'^sicop/restrito/documento/cadastro/', 'sicop.restrito.documento.cadastro'),
-    url(r'^sicop/restrito/documento/edicao/(?P<id>\d+)/', 'sicop.restrito.documento.edicao'),
-
-    # ESCOLHA DO TIPO DE DOCUMENTO
-    url(r'^sicop/restrito/tipo_documento/consulta/', 'sicop.restrito.tipo_documento.consulta'),   
-    url(r'^sicop/restrito/tipo_documento/cadastro/', 'sicop.restrito.tipo_documento.cadastro'),
-    url(r'^sicop/restrito/tipo_documento/edicao/(?P<id>\d+)/', 'sicop.restrito.tipo_documento.edicao'),
-    
-    # DOCUMENTO MEMORANDO
-    url(r'^sicop/restrito/documento/memorando/consulta/', 'sicop.restrito.documento_memorando.consulta'),
-    url(r'^sicop/restrito/documento/memorando/cadastro/', 'sicop.restrito.documento_memorando.cadastro'),
-    url(r'^sicop/restrito/documento/memorando/edicao/(?P<id>\d+)/', 'sicop.restrito.documento_memorando.edicao'),
-    url(r'^sicop/restrito/documento/memorando/criacao/(?P<id>\d+)/', 'sicop.restrito.documento_memorando.criacao'),
-
-    # DOCUMENTO OFICIO
-    url(r'^sicop/restrito/documento/oficio/consulta/', 'sicop.restrito.documento_oficio.consulta'),
-    url(r'^sicop/restrito/documento/oficio/cadastro/', 'sicop.restrito.documento_oficio.cadastro'),
-    url(r'^sicop/restrito/documento/oficio/edicao/(?P<id>\d+)/', 'sicop.restrito.documento_oficio.edicao'),
-    url(r'^sicop/restrito/documento/oficio/criacao/(?P<id>\d+)/', 'sicop.restrito.documento_oficio.criacao'),
-    
-    # DOCUMENTO REQUISICAO DE VIATURA
-    url(r'^sicop/restrito/documento/requisicao_viatura/consulta/', 'sicop.restrito.documento_requisicao_viatura.consulta'),
-    url(r'^sicop/restrito/documento/requisicao_viatura/cadastro/', 'sicop.restrito.documento_requisicao_viatura.cadastro'),
-    url(r'^sicop/restrito/documento/requisicao_viatura/edicao/(?P<id>\d+)/', 'sicop.restrito.documento_requisicao_viatura.edicao'),
-    url(r'^sicop/restrito/documento/requisicao_viatura/criacao/(?P<id>\d+)/', 'sicop.restrito.documento_requisicao_viatura.criacao'),
-    
-    # DOCUMENTO RME
-    url(r'^sicop/restrito/documento/rme/consulta/', 'sicop.restrito.documento_rme.consulta'),
-    url(r'^sicop/restrito/documento/rme/cadastro/', 'sicop.restrito.documento_rme.cadastro'),
-    url(r'^sicop/restrito/documento/rme/edicao/(?P<id>\d+)/', 'sicop.restrito.documento_rme.edicao'),
-    url(r'^sicop/restrito/documento/rme/criacao/(?P<id>\d+)/', 'sicop.restrito.documento_rme.criacao'),
-    url(r'^sicop/restrito/documento/rme/material/(?P<doc>\d+)/', 'sicop.restrito.documento_rme.criar_material'),
-    url(r'^sicop/restrito/documento/rme/material/edicao/(?P<materialrme>\d+)/', 'sicop.restrito.materialrme.edicao'),
-       
-        
+            
     # ESCOLHA DO TIPO DE PROCESSO
     url(r'^sicop/restrito/processo/consulta/', 'sicop.restrito.processo.consulta'),   
     url(r'^sicop/restrito/processo/cadastro/', 'sicop.restrito.processo.cadastro'),
@@ -181,14 +145,6 @@ urlpatterns = patterns('',
     url(r'^sicop/restrito/tipo_processo/relatorio/pdf/', 'sicop.restrito.tipo_processo.relatorio_pdf'),
     url(r'^sicop/restrito/tipo_processo/relatorio/ods/', 'sicop.restrito.tipo_processo.relatorio_ods'),
     url(r'^sicop/restrito/tipo_processo/relatorio/csv/', 'sicop.restrito.tipo_processo.relatorio_csv'),
-
-    # ACESSO RESTRITO SICOP TIPO DOCUMENTO
-    url(r'^sicop/restrito/tipo_documento/consulta/', 'sicop.restrito.tipo_documento.consulta'),
-    url(r'^sicop/restrito/tipo_documento/cadastro/', 'sicop.restrito.tipo_documento.cadastro'),
-    url(r'^sicop/restrito/tipo_documento/edicao/(?P<id>\d+)/', 'sicop.restrito.tipo_documento.edicao'),
-    url(r'^sicop/restrito/tipo_documento/relatorio/pdf/', 'sicop.restrito.tipo_documento.relatorio_pdf'),
-    url(r'^sicop/restrito/tipo_documento/relatorio/ods/', 'sicop.restrito.tipo_documento.relatorio_ods'),
-    url(r'^sicop/restrito/tipo_documento/relatorio/csv/', 'sicop.restrito.tipo_documento.relatorio_csv'),
 
     # ACESSO RESTRITO SICOP TIPO PENDENCIA
     url(r'^sicop/restrito/tipo_pendencia/consulta/', 'sicop.restrito.tipo_pendencia.consulta'),

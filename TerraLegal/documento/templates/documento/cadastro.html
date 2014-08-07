@@ -7,7 +7,7 @@
 
 {% block formulario %}
 
-		<form name="form" method="post" action="/sicop/restrito/documento/cadastro/">
+		<form name="form" method="post" action="/documento/cadastro/">
 			{% csrf_token %}
 			<table>
 				 <tr>
@@ -29,11 +29,11 @@
 			</table>
 		</form>
 		<br />
-			{% if div_documento == 'memorando' %} {% include "sicop/restrito/documento/memorando/cadastro.html" %} {% endif %}
-			{% if div_documento == 'oficio' %} {% include "sicop/restrito/documento/oficio/cadastro.html" %} {% endif %}
-			{% if div_documento == 'requisicao_viatura' %} {% include "sicop/restrito/documento/requisicao_viatura/cadastro.html" %} {% endif %}
-			{% if div_documento == 'rme' %} {% include "sicop/restrito/documento/rme/cadastro.html" %} {% endif %}
-			{% if div_documento == 'bmp' %} {% include "sicop/restrito/documento/bmp/cadastro.html" %} {% endif %}
-			{% if div_documento == 'tru' %} {% include "sicop/restrito/documento/tru/cadastro.html" %} {% endif %}
+			{% if div_documento == 'memorando' %} {% include "documento/memorando/cadastro.html" %} {% endif %}
+			{% if div_documento == 'oficio' %} {% include "documento/oficio/cadastro.html" %} {% endif %}
+			{% if div_documento == 'requisicao_viatura' %} {% include "documento/requisicao_viatura/cadastro.html" %} {% endif %}
+			{% if div_documento == 'rme' %} {% include "documento/rme/cadastro.html" %} {% endif %}
+			{% if div_documento == 'bmp' %} {% include "documento/bmp/cadastro.html" %} {% endif %}
+			{% if div_documento == 'tru' %} {% include "documento/tru/cadastro.html" %} {% endif %}
 
 {% endblock %}

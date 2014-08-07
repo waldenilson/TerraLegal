@@ -14,7 +14,7 @@
 	<li><a href="#tabs-2">SERVIDORES</a></li>
 </ul>
 
-<form method="post" action="/sicop/restrito/documento/oficio/edicao/{{ oficio.id }}/">
+<form method="post" action="/documento/oficio/edicao/{{ oficio.id }}/">
 	{% csrf_token %}
 
 <div id="tabs-1">
@@ -104,7 +104,7 @@
 			<td class="colunaTabela" style="text-align:left"> 
 				<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
 				<input type="submit" class="button_green" value="SALVAR" />
-				<a href="/sicop/restrito/documento/oficio/criacao/{{ oficio.id }}" style="margin-left: 10px"><input type="button" class="button_green" value="GERAR DOCUMENTO" /></a>
+				<a href="/documento/oficio/criacao/{{ oficio.id }}" style="margin-left: 10px"><input type="button" class="button_green" value="GERAR DOCUMENTO" /></a>
 			</td>
 		</tr>
 	</table>

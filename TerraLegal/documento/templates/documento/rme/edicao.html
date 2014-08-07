@@ -15,7 +15,7 @@
 	<li><a href="#tabs-3">SERVIDORES</a></li>
 </ul>
 
-<form method="post" action="/sicop/restrito/documento/rme/edicao/{{ rme.id }}/">
+<form method="post" action="/documento/rme/edicao/{{ rme.id }}/">
 	{% csrf_token %}
 
 <div id="tabs-1">
@@ -43,7 +43,7 @@
 				<td class="colunaTabela" style="text-align:left"> 
 					<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
 					<input type="submit" class="button_green" value="SALVAR" />
-					<a href="/sicop/restrito/documento/rme/criacao/{{ rme.id }}" style="margin-left: 10px"><input type="button" class="button_green" value="GERAR DOCUMENTO" /></a>
+					<a href="/documento/rme/criacao/{{ rme.id }}" style="margin-left: 10px"><input type="button" class="button_green" value="GERAR DOCUMENTO" /></a>
 				</td>
 			</tr>
 		</table>
@@ -81,7 +81,7 @@
 </form>
 
 <div id="tabs-2">
-	<form method="post" action="/sicop/restrito/documento/rme/material/{{ rme.id }}/">
+	<form method="post" action="/documento/rme/material/{{ rme.id }}/">
 		{% csrf_token %}
 		<table style="width:100%">
 			<tr> 
@@ -108,7 +108,7 @@
 				   		{% for m in material %}
 							<tr>
 								<td class="colunaTabelaConsulta">
-									<a	href="/sicop/restrito/documento/rme/material/edicao/{{ m.id }}"> 
+									<a	href="/documento/rme/material/edicao/{{ m.id }}"> 
 										<img width="16" src="{% static "img/search.png" %}" />
 									</a>
 								</td>
