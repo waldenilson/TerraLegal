@@ -112,9 +112,9 @@ def edicao(request, id):
 #retornar o conteudo da caixa de acordo com o tipocaixa
 #processos = Tbprocessobase.objects.all().filter( tbcaixa__id = id )   
 
-    p_rural = Tbprocessorural.objects.all().filter( tbprocessobase__tbcaixa__id = id )
-    p_clausula = Tbprocessoclausula.objects.all().filter( tbprocessobase__tbcaixa__id = id )
-    p_urbano = Tbprocessourbano.objects.all().filter( tbprocessobase__tbcaixa__id = id )
+    p_rural = Tbprocessorural.objects.all().filter( tbprocessobase__tbcaixa__id = id, tbprocessobase__tbclassificacaoprocesso__id = 1 )
+    p_clausula = Tbprocessoclausula.objects.all().filter( tbprocessobase__tbcaixa__id = id, tbprocessobase__tbclassificacaoprocesso__id = 1 )
+    p_urbano = Tbprocessourbano.objects.all().filter( tbprocessobase__tbcaixa__id = id, tbprocessobase__tbclassificacaoprocesso__id = 1 )
     processos = []
     for obj in p_rural:
         processos.append( obj )
