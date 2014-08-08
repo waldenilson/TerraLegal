@@ -1,0 +1,75 @@
+{% extends "core/base/cadastro.html" %} 
+{% load staticfiles %} 
+{% block breadcumbs %}
+	Acesso Restrito | Grupo | Edicao
+{% endblock %}
+
+{% block formulario %}
+<div id="tabs" style="color:black;width:100%;font-size:11px">
+<ul>
+	<li><a href="#tabs-1">EDITAR GRUPO</a></li>
+</ul>
+<div id="tabs-1">		
+	
+	<form method="post" action=".">
+		{% csrf_token %}
+		<div style="width:100%;font-size:12px;text-align:left">
+				<table>
+				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td> <input name="nome" value="{{ grupo.name }}" /> </td> </tr>
+				</table>
+		</div>
+		
+		<br />
+			<div style="width:100%;font-size:18px;text-align:left">
+				Permissoes
+			</div>
+		<br />
+		
+	{% for obj in content %}	
+		<table style="width:100%">
+			<tbody>
+				<tr>
+					<td class="colunaTabelaConsulta" style="width:100%;font-size:16px">{{ obj.name }}</td>
+				</tr>
+				<tr> 
+					<td class="colunaTabelaConsulta">
+						<table style="width:100%">
+							<tbody>
+								{% for k,v in result %}
+									{% if k.content_type.id == obj.id %}
+										<tr>
+											<td class="colunaTabelaConsulta" style="width:5%">
+												{% if v %}
+													<input checked="checked" name="{{ k.name }}" type="checkbox" />
+												{% else %}
+													<input name="{{ k.name }}" type="checkbox" />
+												{% endif %}
+											</td>
+											<td class="colunaTabelaConsulta" style="width:95%">{{ k.name }}</td>
+										</tr>
+									{% endif %}
+								{% endfor %}
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<br/>
+	{% endfor %}
+		
+		
+		
+		
+		<table style="width:100%">
+			<tr>
+				<td class="colunaTabela" style="text-align:left"> 
+					<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
+					<input type="submit" class="button_green" value="SALVAR" />
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+</div>
+{% endblock %}

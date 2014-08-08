@@ -8,8 +8,9 @@ from django.template.context import RequestContext
 from django.contrib import messages
 
 
-from sicop.models import  AuthUser, Tbdivisao, Tbdocumentoservidor, Tbsituacao
+from sicop.models import  AuthUser, Tbdivisao, Tbsituacao
 from TerraLegal.servidor.models import Tbferias, Tbservidor
+from TerraLegal.documento.models import Tbdocumentoservidor
 
 from django.http.response import HttpResponse
 from sicop.relatorio_base import relatorio_pdf_base_header,\

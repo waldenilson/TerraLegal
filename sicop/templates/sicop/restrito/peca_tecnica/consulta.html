@@ -1,0 +1,72 @@
+{% extends "core/base/consulta.html" %} 
+{% load staticfiles %} 
+
+{% block breadcumbs %}
+	Acesso Restrito | Peca Tecnica
+{% endblock %}
+
+{% block subtitulo %}
+	
+	CONSULTAR PECA TECNICA
+	
+{% endblock %}
+
+{% block consulta %}
+	
+		<form action="." method="post">
+			{% csrf_token %}
+			<table border="1" style="width:100%;text-align: left">
+				<tbody>
+				   <tr> 
+				   		<td style="text-align:right" class="colunaTabela"> <label>CPF:</label> </td><td> <input style="width:90%" name="cpf" /> </td>
+				   		<td style="text-align:right" class="colunaTabela"> <label>Requerente:</label> </td><td> <input style="width:90%" name="requerente" /> </td>
+				   		<td style="text-align:right" class="colunaTabela"> <label>Entrega:</label> </td><td> <input style="width:90%" name="entrega" /> </td>
+				   </tr>
+				</tbody>
+			</table>
+			<br />
+			<table style="width:100%">
+				<tr>
+					<td class="colunaTabela" style="text-align:left"> 
+						<input class="button_yellow" style="margin-right: 10px" type="submit" value="PESQUISAR" />
+						<a href="/sicop/restrito/peca_tecnica/cadastro/"> <input class="button_green" value="NOVO" type="button" /> </a>
+					</td>
+				</tr>
+				<tr>
+					<td class="colunaTabela" colspan="2" style="text-align:left"> 
+						<div>Total de registros: {{ request.session.relatorio_peca_tecnica|length }}</div>
+					</td>
+				</tr>
+			</table>
+		</form>
+{% endblock %}
+
+{% block resultado %}
+		
+		<table class="csstable">
+			<tbody>
+				<tr>
+					<td class="colunaTabelaConsulta" style="width:25%">Nome</td>
+					<td class="colunaTabelaConsulta" style="width:10%">CPF</td>
+					<td class="colunaTabelaConsulta" style="width:15%">Gleba</td>
+					<td class="colunaTabelaConsulta" style="width:10%">Contrato</td>
+					<td class="colunaTabelaConsulta" style="width:8%">Entrega</td>
+					<td class="colunaTabelaConsulta" style="width:15%">Pasta</td>
+				</tr>
+				{% if lista %}
+					{% for obj in lista %}
+						<tr onclick="editarID('/sicop/restrito/peca_tecnica/edicao/{{ obj.id }}');">
+							<td class="colunaTabelaConsulta">{{ obj.nmrequerente }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.nrcpfrequerente }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbgleba.nmgleba }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbcontrato.nrcontrato }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.nrentrega }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbcaixa.nmlocalarquivo }}</td>
+						</tr>
+					{% endfor %}
+				{% else %}
+					<tr> <td style="padding-top: 20px" colspan="6"> Nenhuma Peca Tecnica Encontrada </td> </tr>
+				{% endif %}
+			</tbody>
+		</table>
+{% endblock %}

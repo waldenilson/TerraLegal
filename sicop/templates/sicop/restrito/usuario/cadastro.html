@@ -1,0 +1,77 @@
+{% extends "core/base/cadastro.html" %} 
+{% load staticfiles %} 
+
+{% block breadcumbs %}
+	Acesso Restrito | Usuario | Cadastro
+{% endblock %}
+
+{% block formulario %}
+<div id="tabs" style="color:black;width:100%;font-size:11px">
+<ul>
+	<li><a href="#tabs-1">CADASTRAR USUARIO</a></li>
+</ul>
+<div id="tabs-1">		
+		
+	<form method="post" action=".">
+		{% csrf_token %}
+		<div style="width:100%;font-size:12px;text-align:left">
+				<table>
+				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td> <input size="35" name="first_name" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Sobrenome:</label> </td><td> <input  name="last_name" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Email:</label> </td><td> <input name="email" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Login:</label> </td><td> <input name="username" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Senha:</label> </td><td> <input type="password" size="12" name="password" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Ativo:</label> </td><td> <input type="checkbox" name="is_active" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Divisao:</label> </td>
+				   		<td>
+				   			<select style="width: 200px" name="tbdivisao">
+				   				<option value="">-- Selecione a Divisao --</option>
+								{% for obj in divisao %}
+									<option value="{{ obj.id }}">{{ obj.nmdivisao }}</option>
+								{% endfor %}
+							</select>
+						</td>
+					<td>
+						<a href="/sicop/restrito/divisao/cadastro/?next=/sicop/restrito/usuario/cadastro/" title="Nova Divisao"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+					</td>						
+				  </tr>
+				   
+				</table>
+		</div>
+		
+		<br />
+		<table class="csstable"  style="width:100%">
+			<tbody>
+				<tr>
+					<td class="colunaTabelaConsulta" style="width:5%"> </td>
+					<td class="colunaTabelaConsulta" style="width:95%">Grupos</td>
+				</tr>
+				{% if grupo %}
+					{% for k,v in result %}
+						<tr>
+							<td class="colunaTabelaConsulta">
+								<input name="{{ k }}" type="checkbox" />
+							</td>
+							<td class="colunaTabelaConsulta">{{ k }}</td>
+						</tr>
+					{% endfor %}
+				{% else %}
+					<tr> <td style="padding-top: 20px" colspan="6"> Cadastre Grupos de Usuario </td> </tr>
+				{% endif %}
+			</tbody>
+		</table>
+		<br/>
+				
+		
+		<table style="width:100%">
+			<tr>
+				<td class="colunaTabela" style="text-align:left"> 
+					<a href="/sicop/restrito/usuario/consulta/" style="margin-right: 10px"><input type="button" class="button_yellow" value="CONSULTAR" /></a>
+					<input type="submit" class="button_green" value="SALVAR" />
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+</div>
+{% endblock %}
