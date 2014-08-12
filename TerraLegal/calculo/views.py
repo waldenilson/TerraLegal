@@ -51,7 +51,7 @@ def emissao(request,id):
     principal_corrigido = float(prestacao) + correcao
     '''caso tenha vencido, incide juros de 1% ao mes sobre o valor corrigido'''
     if hoje > vencimento:
-        dias_juros = hoje - vencimento
+        dias_juros = hoje - vencimento + 1
         juros = (float(dias_juros.days)/30)* (1.0/100.0) * principal_corrigido  
         principal_corrigido = (juros + principal_corrigido)
         juros = "{0:.2f}".format(juros)
