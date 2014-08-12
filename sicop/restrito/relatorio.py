@@ -366,7 +366,7 @@ def peca_sem_processo(request):
 
 #PROCESSO SEM PECA CONCLUIR
 
-@permission_required('sicop.relatorio_processo_sem_peca_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.relatorio_processo_peca_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def processo_sem_peca(request):
 
     if request.method == "POST":
@@ -384,7 +384,7 @@ def processo_sem_peca(request):
         #GERACAO
         nome_relatorio = "relatorio-processos-sem-peca"
         titulo_relatorio    = "RELATORIO DOS PROCESSOS SEM PECAS TECNICAS"
-        planilha_relatorio  = "Processos com peca"
+        planilha_relatorio  = "Processos sem peca"
         ods = ODS()
         sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, len(p_rural_com_peca), ods)
         
@@ -426,6 +426,84 @@ def processo_sem_peca(request):
         return response
 
     return render_to_response('sicop/restrito/relatorio/processo_sem_peca.html',{}, context_instance = RequestContext(request))
+
+
+    #buscar as pecas tecnicas que nao estao ligadas a um processo
+    pecas = Tbpecastecnicas.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+    pecas_sem_proc = []
+    
+    for p in pecas:
+        if not Tbprocessorural.objects.filter( nrcpfrequerente = p.nrcpfrequerente ):
+            pecas_sem_proc.append(p)
+    
+    context = dict(        
+                    titulo='Relatório das Peças Técnicas sem processo',
+                    total=len(pecas_sem_proc),
+                    lista=pecas_sem_proc
+                )
+    
+    return render_to_response('relatorio/pecas-sem-processo.odt',dictionary=context,format='odt',filename='relatorio-pecas-sem-processo.odt')
+
+
+@permission_required('sicop.relatorio_processo_peca_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def processos(request):
+
+    if request.method == "POST":
+        p_rural = []
+        #CONSULTA ORDENADA E/OU BASEADA EM FILTROS DE PESQUISA
+        consulta = Tbprocessorural.objects.filter( tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        p_rural_com_peca = []
+        p_rural = consulta.order_by( request.POST['ordenacao'] )
+            
+        for r in p_rural:
+            p_rural_com_peca.append( r )
+                
+
+        #GERACAO
+        nome_relatorio = "relatorio-todos-processos-rurais"
+        titulo_relatorio    = "RELATORIO DOS PROCESSOS RURAIS"
+        planilha_relatorio  = "Processos Rurais"
+        ods = ODS()
+        sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, len(p_rural_com_peca), ods)
+        
+        # TITULOS DAS COLUNAS
+        sheet.getCell(0, 6).setAlignHorizontal('center').stringValue( 'Processo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(1, 6).setAlignHorizontal('center').stringValue( 'Requerente' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'CPF' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'Caixa' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(4, 6).setAlignHorizontal('center').stringValue( 'Municipio' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(5, 6).setAlignHorizontal('center').stringValue( 'Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getRow(1).setHeight('20pt')
+        sheet.getRow(2).setHeight('20pt')
+        sheet.getRow(6).setHeight('20pt')
+        
+        sheet.getColumn(0).setWidth("2in")
+        sheet.getColumn(1).setWidth("5in")
+        sheet.getColumn(2).setWidth("2in")
+        sheet.getColumn(3).setWidth("4in")
+        sheet.getColumn(4).setWidth("2.5in")
+        sheet.getColumn(5).setWidth("2.5in")
+        
+            
+        #DADOS DA CONSULTA
+        x = 5
+        for obj in p_rural_com_peca:
+            sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.nrprocesso)
+            sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.nmrequerente)    
+            sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue(obj.nrcpfrequerente)
+            sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbcaixa.nmlocalarquivo)
+            sheet.getCell(4, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbmunicipio.nome_mun)
+            sheet.getCell(5, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbgleba.nmgleba)
+            x += 1
+            
+        #GERACAO DO DOCUMENTO  
+        relatorio_ods_base(ods, planilha_relatorio)
+        response = HttpResponse(mimetype=ods.mimetype.toString())
+        response['Content-Disposition'] = 'attachment; filename='+nome_relatorio+'.ods'
+        ods.save(response)
+        return response
+
+    return render_to_response('sicop/restrito/relatorio/processos.html',{}, context_instance = RequestContext(request))
 
 
     #buscar as pecas tecnicas que nao estao ligadas a um processo

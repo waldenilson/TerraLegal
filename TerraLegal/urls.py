@@ -227,7 +227,9 @@ urlpatterns = patterns('',
    
     # ACESSO RESTRITO SICOP RELATORIO
     url(r'^sicop/restrito/relatorio/lista', 'sicop.restrito.relatorio.lista'),
+    url(r'^sicop/restrito/relatorio/processos', 'sicop.restrito.relatorio.processos'),
     url(r'^sicop/restrito/relatorio/processo_peca', 'sicop.restrito.relatorio.processo_peca'),
+    url(r'^sicop/restrito/relatorio/processo_sem_peca', 'sicop.restrito.relatorio.processo_sem_peca'),
     url(r'^sicop/restrito/relatorio/peca_processo', 'sicop.restrito.relatorio.peca_processo'),
     url(r'^sicop/restrito/relatorio/peca_gleba', 'sicop.restrito.relatorio.peca_gleba'),
     url(r'^sicop/restrito/relatorio/peca_nao_aprovada', 'sicop.restrito.relatorio.peca_nao_aprovada'),

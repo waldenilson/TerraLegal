@@ -105,7 +105,13 @@
 					<li><hr/><a href="/sicop/restrito/relatorio/lista/">Relatório</a>
 					<ul style="width: 250px">
 					{% if perms.sicop.relatorio_processo_peca_consulta %}
+					<li><a href="/sicop/restrito/relatorio/processos/">Todos os Processos Rurais</a></li>
+					{% endif %}
+					{% if perms.sicop.relatorio_processo_peca_consulta %}
 					<li><a href="/sicop/restrito/relatorio/processo_peca/">Processos com peças técnicas</a></li>
+					{% endif %}
+					{% if perms.sicop.relatorio_processo_peca_consulta %}
+					<li><a href="/sicop/restrito/relatorio/processo_sem_peca/">Processos sem peças técnicas</a></li>
 					{% endif %}
 					{% if perms.sicop.relatorio_processo_peca_consulta %}
 					<li><a href="/sicop/restrito/relatorio/peca_processo/">Peças técnicas com processo</a></li>

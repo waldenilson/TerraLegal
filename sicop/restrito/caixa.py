@@ -175,6 +175,7 @@ def relatorio_ods(request):
         sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'CPF' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'Municipio' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getCell(4, 6).setAlignHorizontal('center').stringValue( 'Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(5, 6).setAlignHorizontal('center').stringValue( 'Tipo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getRow(1).setHeight('20pt')
         sheet.getRow(2).setHeight('20pt')
         sheet.getRow(6).setHeight('20pt')
@@ -184,16 +185,22 @@ def relatorio_ods(request):
         sheet.getColumn(2).setWidth("2in")
         sheet.getColumn(3).setWidth("2.5in")
         sheet.getColumn(4).setWidth("2.5in")
+        sheet.getColumn(5).setWidth("2.5in")
             
         #DADOS DA CONSULTA
         x = 5
         for obj in processos:
             sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.nrprocesso)
-            sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.nmrequerente)    
-            sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue(obj.nrcpfrequerente)
             sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbmunicipio.nome_mun)
             sheet.getCell(4, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbgleba.nmgleba)
-            x += 1
+            sheet.getCell(5, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbtipoprocesso.nome)
+            if obj.tbprocessobase.tbtipoprocesso.tabela == 'tbprocessourbano':
+                sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.nmpovoado)    
+                sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue(obj.nrcnpj)
+            else:
+                sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.nmrequerente)    
+                sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue(obj.nrcpfrequerente)
+                x += 1
             
         #GERACAO DO DOCUMENTO  
         relatorio_ods_base(ods, planilha_relatorio)
