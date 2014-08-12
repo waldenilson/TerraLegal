@@ -28,10 +28,11 @@
 				   	<tr><td class="colunaTabela"> <label>UF: </label> </td><td>{{ instance.uf_imovel }}</td></tr> 
 				   	<tr><td class="colunaTabela"> <label>Denominação: </label> </td><td>{{ instance.nome_imovel }}</td></tr> 
 					<tr><td class="colunaTabela"> <label>Município: </label> </td><td>{{ instance.nome_municipio }}</td></tr> 
-				   	<tr><td class="colunaTabela"> <label>Área do imóvel: </label></td><td>{{ instance.area_total_imovel }}</td></tr>
+				   	<tr><td class="colunaTabela"> <label>Área do imóvel: </label></td><td>{{ instance.area_total_imovel }} ha</td></tr>
 				   	<tr><td class="colunaTabela"> <label>Módulos fiscais: </label> </td><td>{{ instance.tamanho_modulos_fiscais}}</td> </tr>
-				   	<tr><td class="colunaTabela"> <label>Valor do imóvel: </label> </td><td>{{ valor_imovel }}</td></tr> 
+				   	<tr><td class="colunaTabela"> <label>Valor do imóvel: </label> </td><td>R$ {{ valor_imovel }}</td></tr> 
 				   	<tr><td class="colunaTabela"> <label>Valor da prestação: </label>  </td><td>R$ {{prestacao}}</td></tr>
+				   	<tr><td class="colunaTabela"> <label>Indice: </label>  </td><td>{{indice}}% aa </td></tr>
 				   	
 				   	
 			</table>
