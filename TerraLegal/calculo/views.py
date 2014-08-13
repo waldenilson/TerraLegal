@@ -63,13 +63,23 @@ def emissao(request,id):
         juros = "{0:.2f}".format(juros)
 
     #principal_corrigido = principal_corrigido.quantize(Decimal('1,00'))    
+    
+    NossaEscola = False
+    if request.method == "POST":
+        if request.POST.get('stNossaEscola',False):
+            principal_corrigido = principal_corrigido / 2
+            desconto = "{0:.2f}".format(principal_corrigido) 
+            NossaEscola = True
+
     prestacao = "{0:.2f}".format(prestacao)
     titulado = formatDataToText(titulado)
     vencimento = formatDataToText(vencimento)
     correcao = "{0:.2f}".format(correcao)
     principal_corrigido = "{0:.2f}".format(principal_corrigido)
+
+
     ordem = 1
     indice = indice * 100
-
+    
     return render_to_response('portaria23/calculo.html' ,locals(), context_instance = RequestContext(request))
 

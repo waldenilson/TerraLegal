@@ -15,24 +15,42 @@
 		<form action="." method="post">
 			{% csrf_token %}
 			<meta charset="utf-8" />	
-			<table style="width:50%;text-align: left">
-					<tr><td class="colunaTabela" colspan="2" >IDENTIFICAÇÃO DO MUTUÁRIO</td></tr>
+			<table style="width:90%;text-align: left ">
+					<tr><td class="colunaTabela" colspan="2" style="font-weight:bold" >IDENTIFICAÇÃO DO TITULADO</td></tr>
 					
 					<tr><td class="colunaTabela"> <label>Processo: </label> </td><td>{{ instance.numero_processo }}</td></tr> 
 				   	<tr><td class="colunaTabela"> <label>Nome: </label> </td><td>{{ instance.nome_req}}</td></tr>
 				   	<tr><td class="colunaTabela"> <label>CPF: </label> </td><td>{{ instance.cpf_req }}</td> </tr>
 				   	
-				   	<tr><td class="colunaTabela" colspan="2">IDENTIFICAÇÃO DO IMÓVEL</td></tr>
+				   	<tr><td class="colunaTabela" colspan="2" style="font-weight:bold">IDENTIFICAÇÃO DO IMÓVEL</td></tr>
 				   	<tr><td class="colunaTabela"> <label>Título: </label> </td><td>{{ instance.id_req}}</td></tr>
 				   	<tr><td class="colunaTabela"> <label>Data emissão: </label> </td><td>{{titulado}}</td></tr>
-				   	<tr><td class="colunaTabela"> <label>UF: </label> </td><td>{{ instance.uf_imovel }}</td></tr> 
 				   	<tr><td class="colunaTabela"> <label>Denominação: </label> </td><td>{{ instance.nome_imovel }}</td></tr> 
-					<tr><td class="colunaTabela"> <label>Município: </label> </td><td>{{ instance.nome_municipio }}</td></tr> 
+					<tr><td class="colunaTabela"> <label>Município: </label> </td><td>{{ instance.nome_municipio }}</td></tr>
+				   	<tr><td class="colunaTabela"> <label>UF: </label> </td><td>{{ instance.uf_imovel }}</td></tr>
+
+
+				   	<tr><td class="colunaTabela" colspan="2" style="font-weight:bold">DADOS DO IMÓVEL</td></tr>
 				   	<tr><td class="colunaTabela"> <label>Área do imóvel: </label></td><td>{{ instance.area_total_imovel }} ha</td></tr>
 				   	<tr><td class="colunaTabela"> <label>Módulos fiscais: </label> </td><td>{{ instance.tamanho_modulos_fiscais}}</td> </tr>
 				   	<tr><td class="colunaTabela"> <label>Valor do imóvel: </label> </td><td>R$ {{ valor_imovel }}</td></tr> 
 				   	<tr><td class="colunaTabela"> <label>Valor da prestação: </label>  </td><td>R$ {{prestacao}}</td></tr>
 				   	<tr><td class="colunaTabela"> <label>Indice: </label>  </td><td>{{indice}}% aa </td></tr>
+				   	<td class="colunaTabela"> <label>Nossa Escola:</label> </td>
+				   	<form method="post" action="/calculo/processo/{{ id }}/">
+						{% csrf_token %}
+
+						{% if NossaEscola == True %}
+							<td><input  type="checkbox" name="stNossaEscola" checked="checked" /></td> 
+						{% else %}
+							<td><input  type="checkbox" name="stNossaEscola"/></td> 
+						{% endif %}
+						
+						<td><input class="button_yellow" style="margin-right: 8px" type="submit" value="ATUALIZAR"/></td>
+
+						<td><input class="button_yellow" style="margin-right: 8px" type="submit" value="CALCULAR GRU"/></td>
+				   	</form>
+
 				   	
 				   	
 			</table>

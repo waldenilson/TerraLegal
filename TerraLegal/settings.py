@@ -5,7 +5,6 @@ DEBUG = False
 
 TEMPLATE_DEBUG = DEBUG
 #import socket
-#print socket.gethostname()
 
 DEBUG = TEMPLATE_DEBUG = True
 DATABASES = {
@@ -152,12 +151,10 @@ TEMPLATE_DIRS = (
     # ABSOLUTE_TEMPLATES_PATH,
 ) 
 
-print abspath(join(dirname(__file__), '../templates'))
 WEBODT_TEMPLATE_PATH = abspath(join(dirname(__file__), '../staticfiles/doc/template'))
 WEBODT_TMP_DIR = abspath(join(dirname(__file__), '../staticfiles/doc/tmp'))
 CSV_PATH_DIR = abspath(join(dirname(__file__), '../staticfiles/csv'))
 
-#print CSV_PATH_DIR
 
 INSTALLED_APPS = (
     'django.contrib.auth',
