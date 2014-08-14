@@ -42,9 +42,6 @@ def consultaprocesso(request):
         messages.add_message(request,messages.WARNING,'Processo nao preenchido corretamente')
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))    
 
-
-    print "processoconsulta" + str(numero)
-
     if request.user.has_perm('sicop.processo_rural_consulta'):
             p_rural = Tbprocessorural.objects.filter( 
                 Q(tbprocessobase__nrprocesso__contains = numero, tbprocessobase__tbtipoprocesso__tabela = 'tbprocessorural',tbprocessobase__tbdivisao__id__in=request.session['divisoes'])| 
@@ -70,7 +67,6 @@ def consultaprocesso(request):
 
     
     for obj in lista:
-        print "obj: " + str(obj.tbprocessobase.nrprocesso)
         request.session['processo_saida'] = 'unico'
         return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(obj.tbprocessobase.id)+"/")
         #edicao(request,obj.tbprocessobase.id)
@@ -563,7 +559,6 @@ def edicao(request, id):
     statustitulo = Tbstatustitulo.objects.all()
     tipotitulo  = Tbtipotitulo.objects.all()
     
-    print "edicao " + str(base.nrprocesso)
     # municipios da divisao do usuario logado E municipios associados a DIVISAO que criou o processo
     municipio = Tbmunicipio.objects.all().filter( 
         Q(codigo_uf__in=request.session['uf'])| 

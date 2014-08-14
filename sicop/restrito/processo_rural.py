@@ -72,7 +72,8 @@ def edicao(request, id):
     carregarTbAuxProcesso(request)    
     rural = get_object_or_404(Tbprocessorural, id=id)
     base  = get_object_or_404(Tbprocessobase, id=rural.tbprocessobase.id)
-    
+    #titulo = get_object_or_404(TbTitulo,id=base.tbtitulo)
+
     # movimentacoes deste processo
     movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase = id ).order_by( "-dtmovimentacao" )
     # caixa destino
@@ -104,7 +105,8 @@ def edicao(request, id):
                                     tbclassificacaoprocesso = base.tbclassificacaoprocesso,
                                     tbdivisao = base.tbdivisao,
                                     nmendereco = request.POST['nmendereco'],
-                                    nmcontato = request.POST['nmcontato']
+                                    nmcontato = request.POST['nmcontato'],
+                                    tbtitulo = base.tbtitulo
                                     )
             f_base.save()
             

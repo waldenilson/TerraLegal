@@ -39,39 +39,7 @@
 
 					<form method="post" action="/sicop/restrito/processo/rural/edicao/{{ rural.id }}/">
 						{% csrf_token %}
-						{% if base.tbtitulo %}
-									<div style="margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
-										TITULO<hr/>
-									</div>
-									<table>
-										<tr>
-										
-											<td class="colunaTabela"> 
-												Titulo: 
-												<input style="margin-right:5px;" name="cdtitulo" size=8 value="{{base.tbtitulo.cdtitulo}}"/>
-												<select name="tbtipotitulo"  style="margin-right:10px;width:120px">
-													{% for obj in tipotitulo %}
-														{% if obj.id == base.tbtitulo.tbtipotitulo.id %}
-															<option selected="selected" value="{{ obj.id }}">{{obj.cdtipo}} - {{obj.dstipo}}</option>
-														{% else %}
-															<option value="{{ obj.id }}">{{obj.cdtipo}} - {{obj.dstipo}}</option>
-														{% endif %}
-													{% endfor %}
-												</select>
-												Status:
-												<select name="tbstatustitulo" style="width:120px">
-											   		{% for obj in statustitulo %}
-														{% if obj.id == base.tbtitulo.tbstatustitulo.id %}
-															<option selected="selected" value="{{ obj.id }}">{{obj.sttitulo}}</option>
-														{% else %}
-															<option value="{{ obj.id }}">{{obj.sttitulo}}</option>
-														{% endif %}
-													{% endfor %}
-												</select>		
-											</td>
-									   	</tr>
-							</table>		   	
-					{% endif %}
+						
 					
 						<div style="width: 100%; font-size: 12px; text-align: left">
 						
@@ -418,5 +386,39 @@
 		<a  style="padding-top: 20px" colspan="6">	PROCESSO NAO POSSUI PECA TECNICA ASSOCIADA</a>
 	{% endif %}<br/>
 </div>
+
+<div id="tabs-6">
+	{% if base.tbtitulo %}
+		<div style="margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
+			TITULO<hr/>
+		</div>
+		<table>
+			<tr>
+				<td class="colunaTabela"> 
+					Titulo: 
+					<input style="margin-right:5px;" name="cdtitulo" size=8 value="{{base.tbtitulo.cdtitulo}}" disabled/>
+					<select name="tbtipotitulo"  style="margin-right:10px;width:160px" disabled >
+						{% for obj in tipotitulo %}
+							{% if obj.id == base.tbtitulo.tbtipotitulo.id %}
+								<option selected="selected" value="{{ obj.id }}">{{obj.cdtipo}} - {{obj.dstipo}}</option>
+							{% else %}
+								<option value="{{ obj.id }}">{{obj.cdtipo}} - {{obj.dstipo}}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+					Status:
+					<select name="tbstatustitulo" style="width:120px" disabled>
+				   		{% for obj in statustitulo %}
+							{% if obj.id == base.tbtitulo.tbstatustitulo.id %}
+								<option selected="selected" value="{{ obj.id }}">{{obj.sttitulo}}</option>
+							{% else %}
+								<option value="{{ obj.id }}">{{obj.sttitulo}}</option>
+							{% endif %}
+						{% endfor %}
+					</select>		
+				</td>
+		   	</tr>
+		</table>		   	
+	{% endif %}
 </div>
 {% endblock %}
