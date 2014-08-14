@@ -842,10 +842,8 @@ def executar_tramitacao_massa(request):
                                             nmcontato = base.nmcontato
                                             )
                     f_base.save()
+        return ativar_tramitacao_massa(request)
 
-        ativar_tramitacao_massa(request)
-        HttpResponseRedirect("/sicop/restrito/processo/consulta")
-        
     return render_to_response('sicop/restrito/processo/lista_tramitacao_massa.html',{'caixadestino':Tbcaixa.objects.filter(tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id).order_by('nmlocalarquivo'),'lista':lista}, context_instance = RequestContext(request))
 
 @permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
