@@ -131,7 +131,7 @@ urlpatterns = patterns('',
     url(r'^sicop/restrito/sub_area/relatorio/csv/', 'sicop.restrito.sub_area.relatorio_csv'),
 
     # ACESSO RESTRITO SICOP TIPO CAIXA
-    url(r'^sicop/restrito/tipo_caixa/consulta/', 'sicop.restrito.tipo_caixa.consulta'),
+    url(r'^sicop/restrito/tipo_caixa/consulta/', 'sicop.restrito.tipo_caixa.consulta', name='tipo_caixa-consulta'),
     url(r'^sicop/restrito/tipo_caixa/cadastro/', 'sicop.restrito.tipo_caixa.cadastro'),
     url(r'^sicop/restrito/tipo_caixa/edicao/(?P<id>\d+)/', 'sicop.restrito.tipo_caixa.edicao'),
     url(r'^sicop/restrito/tipo_caixa/relatorio/pdf/', 'sicop.restrito.tipo_caixa.relatorio_pdf'),
