@@ -1,11 +1,10 @@
-
 # -*- coding: UTF-8 -*-
-
 from django.template.context import RequestContext
 from sicop.models import Tbpecastecnicas, \
-    Tbprocessorural, AuthUser, Tbmunicipio, Tbprocessoclausula
+    Tbprocessorural, AuthUser, Tbmunicipio, Tbprocessoclausula, Tbpendencia
 from sicop.relatorio_base import relatorio_ods_base_header,\
     relatorio_ods_base
+from django.db.models import Q
 from django.contrib.auth.decorators import permission_required
 from django.http.response import HttpResponse
 from odslib import ODS
@@ -41,31 +40,47 @@ def processo_peca(request):
         # TITULOS DAS COLUNAS
         sheet.getCell(0, 6).setAlignHorizontal('center').stringValue( 'Processo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getCell(1, 6).setAlignHorizontal('center').stringValue( 'Requerente' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
-        sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'CPF' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
-        sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'Caixa' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
-        sheet.getCell(4, 6).setAlignHorizontal('center').stringValue( 'Municipio' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
-        sheet.getCell(5, 6).setAlignHorizontal('center').stringValue( 'Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'Contato' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'Endereco' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(4, 6).setAlignHorizontal('center').stringValue( 'Conjuge' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(5, 6).setAlignHorizontal('center').stringValue( 'CPF' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(6, 6).setAlignHorizontal('center').stringValue( 'Caixa' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(7, 6).setAlignHorizontal('center').stringValue( 'Municipio' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(8, 6).setAlignHorizontal('center').stringValue( 'Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(9, 6).setAlignHorizontal('center').stringValue( 'Qtd. Pendencias' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getRow(1).setHeight('20pt')
         sheet.getRow(2).setHeight('20pt')
         sheet.getRow(6).setHeight('20pt')
         
         sheet.getColumn(0).setWidth("2in")
         sheet.getColumn(1).setWidth("5in")
-        sheet.getColumn(2).setWidth("2in")
-        sheet.getColumn(3).setWidth("4in")
-        sheet.getColumn(4).setWidth("2.5in")
-        sheet.getColumn(5).setWidth("2.5in")
+        sheet.getColumn(2).setWidth("2.5in")
+        sheet.getColumn(3).setWidth("5in")
+        sheet.getColumn(4).setWidth("5in")
+        sheet.getColumn(5).setWidth("2in")
+        sheet.getColumn(6).setWidth("2.5in")
+        sheet.getColumn(7).setWidth("2.5in")
+        sheet.getColumn(8).setWidth("2.5in")
+        sheet.getColumn(9).setWidth("1.5in")
         
-            
         #DADOS DA CONSULTA
         x = 5
         for obj in p_rural_com_peca:
             sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.nrprocesso)
             sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.nmrequerente)    
-            sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue(obj.nrcpfrequerente)
-            sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbcaixa.nmlocalarquivo)
-            sheet.getCell(4, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbmunicipio.nome_mun)
-            sheet.getCell(5, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbgleba.nmgleba)
+            sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.nmcontato)
+            sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.nmendereco)
+            sheet.getCell(4, x+2).setAlignHorizontal('center').stringValue(obj.nmconjuge)
+            sheet.getCell(5, x+2).setAlignHorizontal('center').stringValue(obj.nrcpfrequerente)
+            sheet.getCell(6, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbcaixa.nmlocalarquivo)
+            sheet.getCell(7, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbmunicipio.nome_mun)
+            sheet.getCell(8, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbgleba.nmgleba)
+            # buscar todas as pendencias do processo, que nao estao sanadas
+            pendencias = Tbpendencia.objects.filter( 
+               Q(tbprocessobase__id = obj.tbprocessobase.id, tbstatuspendencia__id = 2) |
+               Q(tbprocessobase__id = obj.tbprocessobase.id, tbstatuspendencia__id = 3)
+              ) 
+            sheet.getCell(9, x+2).setAlignHorizontal('center').stringValue( len(pendencias) )
             x += 1
             
         #GERACAO DO DOCUMENTO  
@@ -391,20 +406,28 @@ def processo_sem_peca(request):
         # TITULOS DAS COLUNAS
         sheet.getCell(0, 6).setAlignHorizontal('center').stringValue( 'Processo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getCell(1, 6).setAlignHorizontal('center').stringValue( 'Requerente' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
-        sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'CPF' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
-        sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'Caixa' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
-        sheet.getCell(4, 6).setAlignHorizontal('center').stringValue( 'Municipio' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
-        sheet.getCell(5, 6).setAlignHorizontal('center').stringValue( 'Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'Contato' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'Endereco' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(4, 6).setAlignHorizontal('center').stringValue( 'Conjuge' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(5, 6).setAlignHorizontal('center').stringValue( 'CPF' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(6, 6).setAlignHorizontal('center').stringValue( 'Caixa' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(7, 6).setAlignHorizontal('center').stringValue( 'Municipio' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(8, 6).setAlignHorizontal('center').stringValue( 'Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(9, 6).setAlignHorizontal('center').stringValue( 'Qtd. Pendencias' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getRow(1).setHeight('20pt')
         sheet.getRow(2).setHeight('20pt')
         sheet.getRow(6).setHeight('20pt')
         
         sheet.getColumn(0).setWidth("2in")
         sheet.getColumn(1).setWidth("5in")
-        sheet.getColumn(2).setWidth("2in")
-        sheet.getColumn(3).setWidth("4in")
-        sheet.getColumn(4).setWidth("2.5in")
-        sheet.getColumn(5).setWidth("2.5in")
+        sheet.getColumn(2).setWidth("2.5in")
+        sheet.getColumn(3).setWidth("5in")
+        sheet.getColumn(4).setWidth("5in")
+        sheet.getColumn(5).setWidth("2in")
+        sheet.getColumn(6).setWidth("2.5in")
+        sheet.getColumn(7).setWidth("2.5in")
+        sheet.getColumn(8).setWidth("2.5in")
+        sheet.getColumn(9).setWidth("1.5in")
         
             
         #DADOS DA CONSULTA
@@ -412,10 +435,19 @@ def processo_sem_peca(request):
         for obj in p_rural_com_peca:
             sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.nrprocesso)
             sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.nmrequerente)    
-            sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue(obj.nrcpfrequerente)
-            sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbcaixa.nmlocalarquivo)
-            sheet.getCell(4, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbmunicipio.nome_mun)
-            sheet.getCell(5, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbgleba.nmgleba)
+            sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.nmcontato)
+            sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.nmendereco)
+            sheet.getCell(4, x+2).setAlignHorizontal('center').stringValue(obj.nmconjuge)
+            sheet.getCell(5, x+2).setAlignHorizontal('center').stringValue(obj.nrcpfrequerente)
+            sheet.getCell(6, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbcaixa.nmlocalarquivo)
+            sheet.getCell(7, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbmunicipio.nome_mun)
+            sheet.getCell(8, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbgleba.nmgleba)
+            # buscar todas as pendencias do processo, que nao estao sanadas
+            pendencias = Tbpendencia.objects.filter( 
+               Q(tbprocessobase__id = obj.tbprocessobase.id, tbstatuspendencia__id = 2) |
+               Q(tbprocessobase__id = obj.tbprocessobase.id, tbstatuspendencia__id = 3)
+              ) 
+            sheet.getCell(9, x+2).setAlignHorizontal('center').stringValue( len(pendencias) )
             x += 1
             
         #GERACAO DO DOCUMENTO  
@@ -469,20 +501,28 @@ def processos(request):
         # TITULOS DAS COLUNAS
         sheet.getCell(0, 6).setAlignHorizontal('center').stringValue( 'Processo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getCell(1, 6).setAlignHorizontal('center').stringValue( 'Requerente' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
-        sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'CPF' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
-        sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'Caixa' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
-        sheet.getCell(4, 6).setAlignHorizontal('center').stringValue( 'Municipio' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
-        sheet.getCell(5, 6).setAlignHorizontal('center').stringValue( 'Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'Contato' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'Endereco' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(4, 6).setAlignHorizontal('center').stringValue( 'Conjuge' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(5, 6).setAlignHorizontal('center').stringValue( 'CPF' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(6, 6).setAlignHorizontal('center').stringValue( 'Caixa' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(7, 6).setAlignHorizontal('center').stringValue( 'Municipio' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(8, 6).setAlignHorizontal('center').stringValue( 'Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(9, 6).setAlignHorizontal('center').stringValue( 'Qtd. Pendencias' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getRow(1).setHeight('20pt')
         sheet.getRow(2).setHeight('20pt')
         sheet.getRow(6).setHeight('20pt')
         
         sheet.getColumn(0).setWidth("2in")
         sheet.getColumn(1).setWidth("5in")
-        sheet.getColumn(2).setWidth("2in")
-        sheet.getColumn(3).setWidth("4in")
-        sheet.getColumn(4).setWidth("2.5in")
-        sheet.getColumn(5).setWidth("2.5in")
+        sheet.getColumn(2).setWidth("2.5in")
+        sheet.getColumn(3).setWidth("5in")
+        sheet.getColumn(4).setWidth("5in")
+        sheet.getColumn(5).setWidth("2in")
+        sheet.getColumn(6).setWidth("2.5in")
+        sheet.getColumn(7).setWidth("2.5in")
+        sheet.getColumn(8).setWidth("2.5in")
+        sheet.getColumn(9).setWidth("1.5in")
         
             
         #DADOS DA CONSULTA
@@ -490,10 +530,19 @@ def processos(request):
         for obj in p_rural_com_peca:
             sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.nrprocesso)
             sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.nmrequerente)    
-            sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue(obj.nrcpfrequerente)
-            sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbcaixa.nmlocalarquivo)
-            sheet.getCell(4, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbmunicipio.nome_mun)
-            sheet.getCell(5, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbgleba.nmgleba)
+            sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.nmcontato)
+            sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.nmendereco)
+            sheet.getCell(4, x+2).setAlignHorizontal('center').stringValue(obj.nmconjuge)
+            sheet.getCell(5, x+2).setAlignHorizontal('center').stringValue(obj.nrcpfrequerente)
+            sheet.getCell(6, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbcaixa.nmlocalarquivo)
+            sheet.getCell(7, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbmunicipio.nome_mun)
+            sheet.getCell(8, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbgleba.nmgleba)
+            # buscar todas as pendencias do processo, que nao estao sanadas
+            pendencias = Tbpendencia.objects.filter( 
+               Q(tbprocessobase__id = obj.tbprocessobase.id, tbstatuspendencia__id = 2) |
+               Q(tbprocessobase__id = obj.tbprocessobase.id, tbstatuspendencia__id = 3)
+              ) 
+            sheet.getCell(9, x+2).setAlignHorizontal('center').stringValue( len(pendencias) )
             x += 1
             
         #GERACAO DO DOCUMENTO  
