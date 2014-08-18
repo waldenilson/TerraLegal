@@ -49,7 +49,15 @@ def emissao(request,id):
                 if valor_imovel > 100000:
                     indice = 4.0/100
 
+    NossaEscola = False
+    if request.method == "POST":
+        if request.POST.get('stNossaEscola',False):
+            prestacao_com_desconto = float(prestacao) / 2
+            desconto = "{0:.2f}".format(prestacao_com_desconto) 
+            prestacao_com_desconto = "{0:.2f}".format(prestacao_com_desconto)
+            NossaEscola = True
 
+    
     '''se ainda nao tiver vencido ha incidencia de  correcao'''
     dias_correcao = hoje - titulado  
     correcao = float(prestacao)*((float(dias_correcao.days)/360.) * indice)
@@ -64,13 +72,7 @@ def emissao(request,id):
 
     #principal_corrigido = principal_corrigido.quantize(Decimal('1,00'))    
     
-    NossaEscola = False
-    if request.method == "POST":
-        if request.POST.get('stNossaEscola',False):
-            principal_corrigido = principal_corrigido / 2
-            desconto = "{0:.2f}".format(principal_corrigido) 
-            NossaEscola = True
-
+    
     prestacao = "{0:.2f}".format(prestacao)
     titulado = formatDataToText(titulado)
     vencimento = formatDataToText(vencimento)
