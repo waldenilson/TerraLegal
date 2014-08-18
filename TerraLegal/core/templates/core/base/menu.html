@@ -67,21 +67,21 @@
 					<li><a href="#">Gleba</a>
 					<ul>
 					{% if perms.sicop.gleba_consulta %}
-					<li><a href="/sicop/restrito/gleba/consulta/">Controle</a></li>
+					<li><a href="/sicop/gleba/consulta/">Controle</a></li>
 					{% endif %}
 					{% if perms.sicop.sub_area_consulta %}
-					<li><a href="/sicop/restrito/sub_area/consulta/">Sub Área</a></li>
+					<li><a href="/sicop/sub_area/consulta/">Sub Área</a></li>
 					{% endif %}
 					</ul>
 					</li>
 					{% endif %}
 					
 					{% if perms.sicop.contrato_consulta %}
-					<li><a href="/sicop/restrito/contrato/consulta/">Contrato</a></li>
+					<li><a href="/sicop/contrato/consulta/">Contrato</a></li>
 					{% endif %}
 					
 					{% if perms.sicop.pregao_consulta %}
-					<li><a href="/sicop/restrito/pregao/consulta/">Pregão</a></li>
+					<li><a href="/sicop/pregao/consulta/">Pregão</a></li>
 					{% endif %}
 					
 					{% if perms.servidor.servidor_consulta %}

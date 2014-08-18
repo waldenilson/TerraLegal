@@ -13,7 +13,7 @@ from sicop.relatorio_base import relatorio_pdf_base_header,\
 from odslib import ODS
 
 nome_relatorio      = "relatorio_contrato"
-response_consulta  = "/sicop/restrito/contrato/consulta/"
+response_consulta  = "/sicop/contrato/consulta/"
 titulo_relatorio    = "Relatorio dos Contratos"
 planilha_relatorio  = "Contratos"
 
@@ -28,7 +28,7 @@ def consulta(request):
     lista = lista.order_by( 'id' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_contrato'] = lista
-    return render_to_response('sicop/restrito/contrato/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('sicop/contrato/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @permission_required('sicop.contrato_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
@@ -42,10 +42,10 @@ def cadastro(request):
                                     )
             f_contrato.save()
             if next == "/":
-                return HttpResponseRedirect("/sicop/restrito/contrato/consulta/")
+                return HttpResponseRedirect("/sicop/contrato/consulta/")
             else:    
                 return HttpResponseRedirect( next ) 
-    return render_to_response('sicop/restrito/contrato/cadastro.html',
+    return render_to_response('sicop/contrato/cadastro.html',
                                context_instance = RequestContext(request))
 
 @permission_required('sicop.contrato_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -64,8 +64,8 @@ def edicao(request, id):
                                         tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                     )
             f_contrato.save()
-            return HttpResponseRedirect("/sicop/restrito/contrato/edicao/"+str(id)+"/")
-    return render_to_response('sicop/restrito/contrato/edicao.html', {"contrato":instance}, context_instance = RequestContext(request))
+            return HttpResponseRedirect("/sicop/contrato/edicao/"+str(id)+"/")
+    return render_to_response('sicop/contrato/edicao.html', {"contrato":instance}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.contrato_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)

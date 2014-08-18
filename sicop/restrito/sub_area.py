@@ -14,7 +14,7 @@ from sicop.relatorio_base import relatorio_csv_base, relatorio_ods_base,\
 from odslib import ODS
 
 nome_relatorio      = "relatorio_sub_area"
-response_consulta  = "/sicop/restrito/sub_area/consulta/"
+response_consulta  = "/sicop/sub_area/consulta/"
 titulo_relatorio    = "Relatorio Sub Areas"
 planilha_relatorio  = "Sub Areas"
 
@@ -29,7 +29,7 @@ def consulta(request):
     lista = lista.order_by( 'id' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_sub_area'] = lista
-    return render_to_response('sicop/restrito/sub_area/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('sicop/sub_area/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
     
 @permission_required('sicop.sub_area_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -43,10 +43,10 @@ def cadastro(request):
                                       )
             f_subarea.save()
             if next == "/":
-                return HttpResponseRedirect("/sicop/restrito/sub_area/consulta/")
+                return HttpResponseRedirect("/sicop/sub_area/consulta/")
             else:    
                 return HttpResponseRedirect( next ) 
-    return render_to_response('sicop/restrito/sub_area/cadastro.html',{}, context_instance = RequestContext(request))
+    return render_to_response('sicop/sub_area/cadastro.html',{}, context_instance = RequestContext(request))
 
 @permission_required('sicop.sub_area_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
@@ -63,8 +63,8 @@ def edicao(request, id):
                                         tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                       )
             f_subarea.save()
-            return HttpResponseRedirect("/sicop/restrito/sub_area/edicao/"+str(id)+"/")
-    return render_to_response('sicop/restrito/sub_area/edicao.html', {"subarea":instance}, context_instance = RequestContext(request))
+            return HttpResponseRedirect("/sicop/sub_area/edicao/"+str(id)+"/")
+    return render_to_response('sicop/sub_area/edicao.html', {"subarea":instance}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.sub_area_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)

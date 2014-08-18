@@ -14,7 +14,7 @@ from odslib import ODS
 import unicodedata
 
 nome_relatorio      = "relatorio_gleba"
-response_consulta  = "/sicop/restrito/gleba/consulta/"
+response_consulta  = "/sicop/gleba/consulta/"
 titulo_relatorio    = "Relatorio Glebas"
 planilha_relatorio  = "Glebas"
 
@@ -32,7 +32,7 @@ def consulta(request):
     
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_gleba'] = lista
-    return render_to_response('sicop/restrito/gleba/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('sicop/gleba/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @permission_required('sicop.gleba_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
@@ -49,10 +49,10 @@ def cadastro(request):
                               )
             f_gleba.save()
             if next == "/":
-                return HttpResponseRedirect("/sicop/restrito/gleba/consulta/")
+                return HttpResponseRedirect("/sicop/gleba/consulta/")
             else:    
                 return HttpResponseRedirect( next ) 
-    return render_to_response('sicop/restrito/gleba/cadastro.html',{"uf":uf,'subarea':subarea,'ufdiv':ufdiv}, context_instance = RequestContext(request))
+    return render_to_response('sicop/gleba/cadastro.html',{"uf":uf,'subarea':subarea,'ufdiv':ufdiv}, context_instance = RequestContext(request))
 
 @permission_required('sicop.gleba_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
@@ -67,10 +67,10 @@ def edicao(request, id):
         if validacao(request):
             if form.is_valid():
                 form.save()
-                return HttpResponseRedirect("/sicop/restrito/gleba/edicao/"+str(id)+"/")
+                return HttpResponseRedirect("/sicop/gleba/edicao/"+str(id)+"/")
     else:
         form = FormGleba(instance=instance) 
-    return render_to_response('sicop/restrito/gleba/edicao.html', {"form":form,'subarea':subarea,'uf':uf}, context_instance = RequestContext(request))
+    return render_to_response('sicop/gleba/edicao.html', {"form":form,'subarea':subarea,'uf':uf}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.gleba_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
