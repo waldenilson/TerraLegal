@@ -49,26 +49,32 @@ def emissao(request,id):
                 if valor_imovel > 100000:
                     indice = 4.0/100
 
+    desconto = 0
     NossaEscola = False
     if request.method == "POST":
         if request.POST.get('stNossaEscola',False):
-            prestacao_com_desconto = float(prestacao) / 2
-            desconto = "{0:.2f}".format(prestacao_com_desconto) 
-            prestacao_com_desconto = "{0:.2f}".format(prestacao_com_desconto)
+            desconto_1 = float(prestacao) / 2
+            #desconto = "{0:.2f}".format(desconto) 
+            #prestacao_com_desconto = "{0:.2f}".format(prestacao_com_desconto)
+            desconto = desconto + desconto_1
             NossaEscola = True
 
     
     '''se ainda nao tiver vencido ha incidencia de  correcao'''
+    
+    prestacao_com_desconto = prestacao - desconto
     dias_correcao = hoje - titulado  
-    correcao = float(prestacao)*((float(dias_correcao.days)/360.) * indice)
-    principal_corrigido = float(prestacao) + correcao
+    correcao = float(prestacao_com_desconto)*((float(dias_correcao.days)/360.) * indice)
+    principal_corrigido = float(prestacao_com_desconto) + correcao
    
     '''caso tenha vencido, incide juros de 1% ao mes sobre o valor corrigido'''
+    juros = 0 
     if hoje > vencimento:
         dias_juros = hoje - vencimento
         juros = ((float(dias_juros.days)+1)/30)* (1.0/100.0) * principal_corrigido  
-        principal_corrigido = (juros + principal_corrigido)
-        juros = "{0:.2f}".format(juros)
+        #principal_corrigido_juros = (juros + principal_corrigido)
+        #juros = "{0:.2f}".format(juros)
+    principal_corrigido_juros = principal_corrigido + juros
 
     #principal_corrigido = principal_corrigido.quantize(Decimal('1,00'))    
     
@@ -77,8 +83,9 @@ def emissao(request,id):
     titulado = formatDataToText(titulado)
     vencimento = formatDataToText(vencimento)
     correcao = "{0:.2f}".format(correcao)
-    principal_corrigido = "{0:.2f}".format(principal_corrigido)
-
+    principal_corrigido_juros = "{0:.2f}".format(principal_corrigido_juros)
+    desconto = "{0:.2f}".format(desconto)
+    juros = "{0:.2f}".format(juros)
 
     ordem = 1
     indice = indice * 100

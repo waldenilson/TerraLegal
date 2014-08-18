@@ -36,6 +36,9 @@
 				   	<tr><td class="colunaTabela"> <label>Valor do imóvel: </label> </td><td>R$ {{ valor_imovel }}</td></tr> 
 				   	<tr><td class="colunaTabela"> <label>Valor da prestação: </label>  </td><td>R$ {{prestacao}}</td></tr>
 				   	<tr><td class="colunaTabela"> <label>Indice: </label>  </td><td>{{indice}}% aa </td></tr>
+				   	
+				   	
+				   	{% if instance.tamanho_modulos_fiscais < 4 %}
 				   	<td class="colunaTabela"> <label>Nossa Escola:</label> </td>
 				   	<form method="post" action="/calculo/processo/{{ id }}/">
 						{% csrf_token %}
@@ -47,12 +50,10 @@
 						{% endif %}
 						
 						<td><input class="button_yellow" style="margin-right: 8px" type="submit" value="ATUALIZAR"/></td>
-
-						<td><input class="button_yellow" style="margin-right: 8px" type="submit" value="CALCULAR GRU"/></td>
+					{% endif %}	
 				   	</form>
-
-				   	
-				   	
+				   	<td><input class="button_yellow" style="margin-right: 8px" type="submit" value="CALCULAR GRU"/></td>
+		   	
 			</table>
 			
 			<!-- table style="width:40%">
@@ -73,9 +74,9 @@
 					<td class="colunaTabelaConsulta" >Parcela</td>
 					<td class="colunaTabelaConsulta" >Vencimento</td>
 					<td class="colunaTabelaConsulta" >Prestação</td>	
+					<td class="colunaTabelaConsulta" >Desconto</td>
 					<td class="colunaTabelaConsulta" >Correção</td>
 					<td class="colunaTabelaConsulta" >Juros</td>
-					<td class="colunaTabelaConsulta" >Desconto</td>
 					<td class="colunaTabelaConsulta" >Prestação corrigida</td>
 					
 					
@@ -83,11 +84,11 @@
 			<tr>	
 				<td class="colunaTabelaConsulta">{{ordem}}</td>
 				<td class="colunaTabelaConsulta">{{vencimento}}</td>
-				<td class="colunaTabelaConsulta">{{prestacao_com_desconto}}</td>
+				<td class="colunaTabelaConsulta">{{prestacao}}</td>
+				<td class="colunaTabelaConsulta">{{desconto}}</td>
 				<td class="colunaTabelaConsulta">{{correcao}}</td>
 				<td class="colunaTabelaConsulta">{{juros}}</td>
-				<td class="colunaTabelaConsulta">{{desconto}}</td>
-				<td class="colunaTabelaConsulta">{{principal_corrigido}}</td>
+				<td class="colunaTabelaConsulta">{{principal_corrigido_juros}}</td>
 				
 				
 				
