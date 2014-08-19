@@ -200,6 +200,7 @@ class Tbpendencia(models.Model):
     dtpendencia = models.DateTimeField(null=True, blank=True)
     auth_user = models.ForeignKey(AuthUser)
     tbstatuspendencia = models.ForeignKey('Tbstatuspendencia')
+    dsparecer = models.TextField()
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbpendencia'

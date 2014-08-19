@@ -22,7 +22,8 @@ def edicao(request, pendencia):
                                        dsdescricao = request.POST['dsdescricao'],
                                        dtpendencia = instance.dtpendencia,
                                        tbtipopendencia = Tbtipopendencia.objects.get( pk = request.POST['tbtipopendencia'] ),
-                                       tbstatuspendencia = Tbstatuspendencia.objects.get( pk = request.POST['tbstatuspendencia'] ) 
+                                       tbstatuspendencia = Tbstatuspendencia.objects.get( pk = request.POST['tbstatuspendencia'] ), 
+                                       dsparecer = request.POST['dsparecer'],
                                       )
             f_pendencia.save()
             return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(instance.tbprocessobase.id)+"/")
