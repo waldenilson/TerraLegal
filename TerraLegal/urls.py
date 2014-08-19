@@ -155,21 +155,21 @@ urlpatterns = patterns('',
     url(r'^sicop/restrito/tipo_pendencia/relatorio/csv/', 'sicop.restrito.tipo_pendencia.relatorio_csv'),
 
     # ACESSO RESTRITO SICOP SITUACAO PROCESSO
-    url(r'^sicop/restrito/situacao_processo/consulta/', 'sicop.restrito.situacao_processo.consulta'),
-    url(r'^sicop/restrito/situacao_processo/cadastro/', 'sicop.restrito.situacao_processo.cadastro'),
-    url(r'^sicop/restrito/situacao_processo/edicao/(?P<id>\d+)/', 'sicop.restrito.situacao_processo.edicao'),
-    url(r'^sicop/restrito/situacao_processo/relatorio/pdf/', 'sicop.restrito.situacao_processo.relatorio_pdf'),
-    url(r'^sicop/restrito/situacao_processo/relatorio/ods/', 'sicop.restrito.situacao_processo.relatorio_ods'),
-    url(r'^sicop/restrito/situacao_processo/relatorio/csv/', 'sicop.restrito.situacao_processo.relatorio_csv'),
+    url(r'^sicop/situacao_processo/consulta/', 'sicop.restrito.situacao_processo.consulta'),
+    url(r'^sicop/situacao_processo/cadastro/', 'sicop.restrito.situacao_processo.cadastro'),
+    url(r'^sicop/situacao_processo/edicao/(?P<id>\d+)/', 'sicop.restrito.situacao_processo.edicao'),
+    url(r'^sicop/situacao_processo/relatorio/pdf/', 'sicop.restrito.situacao_processo.relatorio_pdf'),
+    url(r'^sicop/situacao_processo/relatorio/ods/', 'sicop.restrito.situacao_processo.relatorio_ods'),
+    url(r'^sicop/situacao_processo/relatorio/csv/', 'sicop.restrito.situacao_processo.relatorio_csv'),
 
 
     # ACESSO RESTRITO SICOP SITUACAO GEO
-    url(r'^sicop/restrito/situacao_geo/consulta/', 'sicop.restrito.situacao_geo.consulta'),
-    url(r'^sicop/restrito/situacao_geo/cadastro/', 'sicop.restrito.situacao_geo.cadastro'),
-    url(r'^sicop/restrito/situacao_geo/edicao/(?P<id>\d+)/', 'sicop.restrito.situacao_geo.edicao'),
-    url(r'^sicop/restrito/situacao_geo/relatorio/pdf/', 'sicop.restrito.situacao_geo.relatorio_pdf'),
-    url(r'^sicop/restrito/situacao_geo/relatorio/ods/', 'sicop.restrito.situacao_geo.relatorio_ods'),
-    url(r'^sicop/restrito/situacao_geo/relatorio/csv/', 'sicop.restrito.situacao_geo.relatorio_csv'),
+    url(r'^sicop/situacao_geo/consulta/', 'sicop.restrito.situacao_geo.consulta'),
+    url(r'^sicop/situacao_geo/cadastro/', 'sicop.restrito.situacao_geo.cadastro'),
+    url(r'^sicop/situacao_geo/edicao/(?P<id>\d+)/', 'sicop.restrito.situacao_geo.edicao'),
+    url(r'^sicop/situacao_geo/relatorio/pdf/', 'sicop.restrito.situacao_geo.relatorio_pdf'),
+    url(r'^sicop/situacao_geo/relatorio/ods/', 'sicop.restrito.situacao_geo.relatorio_ods'),
+    url(r'^sicop/situacao_geo/relatorio/csv/', 'sicop.restrito.situacao_geo.relatorio_csv'),
 
     # ACESSO RESTRITO SICOP CLASSIFICACAO PROCESSO
     url(r'^sicop/restrito/classificacao_processo/consulta/', 'sicop.restrito.classificacao_processo.consulta'),
@@ -180,12 +180,12 @@ urlpatterns = patterns('',
     url(r'^sicop/restrito/classificacao_processo/relatorio/csv/', 'sicop.restrito.classificacao_processo.relatorio_csv'),
 
     # ACESSO RESTRITO SICOP STATUS PENDENCIA
-    url(r'^sicop/restrito/status_pendencia/consulta/', 'sicop.restrito.status_pendencia.consulta'),
-    url(r'^sicop/restrito/status_pendencia/cadastro/', 'sicop.restrito.status_pendencia.cadastro'),
-    url(r'^sicop/restrito/status_pendencia/edicao/(?P<id>\d+)/', 'sicop.restrito.status_pendencia.edicao'),
-    url(r'^sicop/restrito/status_pendencia/relatorio/pdf/', 'sicop.restrito.status_pendencia.relatorio_pdf'),
-    url(r'^sicop/restrito/status_pendencia/relatorio/ods/', 'sicop.restrito.status_pendencia.relatorio_ods'),
-    url(r'^sicop/restrito/status_pendencia/relatorio/csv/', 'sicop.restrito.status_pendencia.relatorio_csv'),
+    url(r'^sicop/status_pendencia/consulta/', 'sicop.restrito.status_pendencia.consulta'),
+    url(r'^sicop/status_pendencia/cadastro/', 'sicop.restrito.status_pendencia.cadastro'),
+    url(r'^sicop/status_pendencia/edicao/(?P<id>\d+)/', 'sicop.restrito.status_pendencia.edicao'),
+    url(r'^sicop/status_pendencia/relatorio/pdf/', 'sicop.restrito.status_pendencia.relatorio_pdf'),
+    url(r'^sicop/status_pendencia/relatorio/ods/', 'sicop.restrito.status_pendencia.relatorio_ods'),
+    url(r'^sicop/status_pendencia/relatorio/csv/', 'sicop.restrito.status_pendencia.relatorio_csv'),
 
    # ACESSO RESTRITO SICOP DIVISAO
     url(r'^sicop/restrito/divisao/consulta/', 'sicop.restrito.divisao.consulta'),
@@ -240,9 +240,9 @@ urlpatterns = patterns('',
     #END------------------------------SICOP---------------------------------------------------------------------------------
    
     # ACESSO RESTRITO TABELA SITUACAO 
-    url(r'^sicop/restrito/situacao/consulta/', 'sicop.restrito.situacao.consulta'),
-    url(r'^sicop/restrito/situacao/edicao/(?P<id>\d+)/','sicop.restrito.situacao.edicao'),
-    url(r'^sicop/restrito/situacao/cadastro/', 'sicop.restrito.situacao.cadastro'),
+    url(r'^sicop/situacao/consulta/', 'sicop.restrito.situacao.consulta'),
+    url(r'^sicop/situacao/edicao/(?P<id>\d+)/','sicop.restrito.situacao.edicao'),
+    url(r'^sicop/situacao/cadastro/', 'sicop.restrito.situacao.cadastro'),
     #END------------------------------CONTROLE---------------------------------------------------------------------------------
         
     # CONTROLE AUTENTICACAO

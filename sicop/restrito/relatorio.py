@@ -48,6 +48,8 @@ def processo_peca(request):
         sheet.getCell(7, 6).setAlignHorizontal('center').stringValue( 'Municipio' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getCell(8, 6).setAlignHorizontal('center').stringValue( 'Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getCell(9, 6).setAlignHorizontal('center').stringValue( 'Qtd. Pendencias' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(10, 6).setAlignHorizontal('center').stringValue( 'Pendentes' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(11, 6).setAlignHorizontal('center').stringValue( 'Notificadas' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getRow(1).setHeight('20pt')
         sheet.getRow(2).setHeight('20pt')
         sheet.getRow(6).setHeight('20pt')
@@ -61,7 +63,10 @@ def processo_peca(request):
         sheet.getColumn(6).setWidth("2.5in")
         sheet.getColumn(7).setWidth("2.5in")
         sheet.getColumn(8).setWidth("2.5in")
-        sheet.getColumn(9).setWidth("1.5in")
+        sheet.getColumn(9).setWidth("2in")
+        sheet.getColumn(9).setWidth("2in")
+        sheet.getColumn(10).setWidth("2in")
+        sheet.getColumn(11).setWidth("2in")
         
         #DADOS DA CONSULTA
         x = 5
@@ -76,11 +81,24 @@ def processo_peca(request):
             sheet.getCell(7, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbmunicipio.nome_mun)
             sheet.getCell(8, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbgleba.nmgleba)
             # buscar todas as pendencias do processo, que nao estao sanadas
-            pendencias = Tbpendencia.objects.filter( 
-               Q(tbprocessobase__id = obj.tbprocessobase.id, tbstatuspendencia__id = 2) |
+            pendencias_pendente = Tbpendencia.objects.filter( 
+               Q(tbprocessobase__id = obj.tbprocessobase.id, tbstatuspendencia__id = 2)
+              ) 
+            pendencias_notificado = Tbpendencia.objects.filter( 
                Q(tbprocessobase__id = obj.tbprocessobase.id, tbstatuspendencia__id = 3)
               ) 
-            sheet.getCell(9, x+2).setAlignHorizontal('center').stringValue( len(pendencias) )
+            sheet.getCell(9, x+2).setAlignHorizontal('center').stringValue( len(pendencias_pendente) + len(pendencias_notificado) )
+            # buscando as descricoes das pendencias pendentes
+            desc_pendencias = ''
+            for pend in pendencias_pendente:
+                desc_pendencias += pend.tbtipopendencia.dspendencia + ' : ' + pend.dsdescricao + ' | '
+            sheet.getCell(10, x+2).setAlignHorizontal('center').stringValue( desc_pendencias )
+            
+            # buscando as descricoes das pendencias  notificadas
+            desc_pendencias = ''
+            for pend in pendencias_notificado:
+                desc_pendencias += pend.tbtipopendencia.dspendencia + ' : ' + pend.dsdescricao + ' | '
+            sheet.getCell(11, x+2).setAlignHorizontal('center').stringValue( desc_pendencias )
             x += 1
             
         #GERACAO DO DOCUMENTO  
@@ -169,9 +187,8 @@ def peca_gleba(request):
     #buscando as glebas que tem pecas
     for obj in pecas:
         glebas.append( obj.tbgleba )
-    
     #todas as pecas
-#    pecas = Tbpecastecnicas.objects.all()
+    #    pecas = Tbpecastecnicas.objects.all()
     for g in glebas:
         print 'Gleba: '+str(g.nmgleba)
         qtd = 0
@@ -414,6 +431,8 @@ def processo_sem_peca(request):
         sheet.getCell(7, 6).setAlignHorizontal('center').stringValue( 'Municipio' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getCell(8, 6).setAlignHorizontal('center').stringValue( 'Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getCell(9, 6).setAlignHorizontal('center').stringValue( 'Qtd. Pendencias' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(10, 6).setAlignHorizontal('center').stringValue( 'Pendentes' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(11, 6).setAlignHorizontal('center').stringValue( 'Notificadas' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getRow(1).setHeight('20pt')
         sheet.getRow(2).setHeight('20pt')
         sheet.getRow(6).setHeight('20pt')
@@ -428,6 +447,8 @@ def processo_sem_peca(request):
         sheet.getColumn(7).setWidth("2.5in")
         sheet.getColumn(8).setWidth("2.5in")
         sheet.getColumn(9).setWidth("1.5in")
+        sheet.getColumn(10).setWidth("2in")
+        sheet.getColumn(11).setWidth("2in")
         
             
         #DADOS DA CONSULTA
@@ -443,11 +464,24 @@ def processo_sem_peca(request):
             sheet.getCell(7, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbmunicipio.nome_mun)
             sheet.getCell(8, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbgleba.nmgleba)
             # buscar todas as pendencias do processo, que nao estao sanadas
-            pendencias = Tbpendencia.objects.filter( 
-               Q(tbprocessobase__id = obj.tbprocessobase.id, tbstatuspendencia__id = 2) |
+            pendencias_pendente = Tbpendencia.objects.filter( 
+               Q(tbprocessobase__id = obj.tbprocessobase.id, tbstatuspendencia__id = 2)
+              ) 
+            pendencias_notificado = Tbpendencia.objects.filter( 
                Q(tbprocessobase__id = obj.tbprocessobase.id, tbstatuspendencia__id = 3)
               ) 
-            sheet.getCell(9, x+2).setAlignHorizontal('center').stringValue( len(pendencias) )
+            sheet.getCell(9, x+2).setAlignHorizontal('center').stringValue( len(pendencias_pendente) + len(pendencias_notificado) )
+            # buscando as descricoes das pendencias pendentes
+            desc_pendencias = ''
+            for pend in pendencias_pendente:
+                desc_pendencias += pend.tbtipopendencia.dspendencia + ' : ' + pend.dsdescricao + ' | '
+            sheet.getCell(10, x+2).setAlignHorizontal('center').stringValue( desc_pendencias )
+            
+            # buscando as descricoes das pendencias  notificadas
+            desc_pendencias = ''
+            for pend in pendencias_notificado:
+                desc_pendencias += pend.tbtipopendencia.dspendencia + ' : ' + pend.dsdescricao + ' | '
+            sheet.getCell(11, x+2).setAlignHorizontal('center').stringValue( desc_pendencias )
             x += 1
             
         #GERACAO DO DOCUMENTO  
@@ -509,6 +543,8 @@ def processos(request):
         sheet.getCell(7, 6).setAlignHorizontal('center').stringValue( 'Municipio' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getCell(8, 6).setAlignHorizontal('center').stringValue( 'Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getCell(9, 6).setAlignHorizontal('center').stringValue( 'Qtd. Pendencias' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(10, 6).setAlignHorizontal('center').stringValue( 'Pendentes' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(11, 6).setAlignHorizontal('center').stringValue( 'Notificadas' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getRow(1).setHeight('20pt')
         sheet.getRow(2).setHeight('20pt')
         sheet.getRow(6).setHeight('20pt')
@@ -523,6 +559,8 @@ def processos(request):
         sheet.getColumn(7).setWidth("2.5in")
         sheet.getColumn(8).setWidth("2.5in")
         sheet.getColumn(9).setWidth("1.5in")
+        sheet.getColumn(10).setWidth("2in")
+        sheet.getColumn(11).setWidth("2in")
         
             
         #DADOS DA CONSULTA
@@ -538,11 +576,24 @@ def processos(request):
             sheet.getCell(7, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbmunicipio.nome_mun)
             sheet.getCell(8, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbgleba.nmgleba)
             # buscar todas as pendencias do processo, que nao estao sanadas
-            pendencias = Tbpendencia.objects.filter( 
-               Q(tbprocessobase__id = obj.tbprocessobase.id, tbstatuspendencia__id = 2) |
+            pendencias_pendente = Tbpendencia.objects.filter( 
+               Q(tbprocessobase__id = obj.tbprocessobase.id, tbstatuspendencia__id = 2)
+              ) 
+            pendencias_notificado = Tbpendencia.objects.filter( 
                Q(tbprocessobase__id = obj.tbprocessobase.id, tbstatuspendencia__id = 3)
               ) 
-            sheet.getCell(9, x+2).setAlignHorizontal('center').stringValue( len(pendencias) )
+            sheet.getCell(9, x+2).setAlignHorizontal('center').stringValue( len(pendencias_pendente) + len(pendencias_notificado) )
+            # buscando as descricoes das pendencias pendentes
+            desc_pendencias = ''
+            for pend in pendencias_pendente:
+                desc_pendencias += pend.tbtipopendencia.dspendencia + ' : ' + pend.dsdescricao + ' | '
+            sheet.getCell(10, x+2).setAlignHorizontal('center').stringValue( desc_pendencias )
+            
+            # buscando as descricoes das pendencias  notificadas
+            desc_pendencias = ''
+            for pend in pendencias_notificado:
+                desc_pendencias += pend.tbtipopendencia.dspendencia + ' : ' + pend.dsdescricao + ' | '
+            sheet.getCell(11, x+2).setAlignHorizontal('center').stringValue( desc_pendencias )
             x += 1
             
         #GERACAO DO DOCUMENTO  

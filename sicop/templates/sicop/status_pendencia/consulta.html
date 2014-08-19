@@ -2,12 +2,12 @@
 {% load staticfiles %} 
 
 {% block breadcumbs %}
-	Acesso Restrito | Situacao Geo
+	Acesso Restrito | Status Pendencia
 {% endblock %}
 
 {% block subtitulo %}
 	
-	CONSULTAR SITUACAO GEO
+	CONSULTAR STATUS PENDENCIA
 	
 {% endblock %}
 
@@ -17,7 +17,7 @@
 			<table style="width:100%;text-align: left">
 				<tbody>
 				   <tr> 
-				   		<td class="colunaTabela"> <label>Nome:</label> </td><td> <input style="width:100%" name="nmsituacaogeo" /> </td>
+				   		<td class="colunaTabela"> <label>Nome:</label> </td><td> <input style="width:100%" name="dspendencia" /> </td>
 				   </tr>
 				</tbody>
 			</table>
@@ -26,12 +26,12 @@
 				<tr>
 					<td class="colunaTabela" style="text-align:left"> 
 						<input class="button_yellow" style="margin-right: 10px" type="submit" value="PESQUISAR" />
-						<a href="/sicop/restrito/situacao_geo/cadastro/"> <input class="button_green" value="NOVO" type="button" /> </a>
+						<a href="/sicop/status_pendencia/cadastro/"> <input class="button_green" value="NOVO" type="button" /> </a>
 					</td>
 				</tr>
 				<tr>
 					<td class="colunaTabela" colspan="2" style="text-align:left"> 
-						<div>Total de registros: {{ request.session.relatorio_situacao_geo|length }}</div>
+						<div>Total de registros: {{ request.session.relatorio_status_pendencia|length }}</div>
 					</td>
 				</tr>
 			</table>
@@ -47,12 +47,12 @@
 				</tr>
 				{% if lista %}
 					{% for obj in lista %}
-						<tr onclick="editarID('/sicop/restrito/situacao_geo/edicao/{{ obj.id }}');">
-							<td class="colunaTabelaConsulta">{{ obj.nmsituacaogeo }}</td>
+						<tr onclick="editarID('/sicop/status_pendencia/edicao/{{ obj.id }}');">
+							<td class="colunaTabelaConsulta">{{ obj.dspendencia }}</td>
 						</tr>
 					{% endfor %}
 				{% else %}
-					<tr> <td style="padding-top: 20px" colspan="6"> Nenhuma Situacao Processo Encontrada </td> </tr>
+					<tr> <td style="padding-top: 20px" colspan="6"> Nenhum Status Pendencia Encontrado </td> </tr>
 				{% endif %}
 			</tbody>
 			

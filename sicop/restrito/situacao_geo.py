@@ -13,7 +13,7 @@ from sicop.relatorio_base import relatorio_csv_base, relatorio_ods_base,\
 from odslib import ODS
 
 nome_relatorio      = "relatorio_situacao_geo"
-response_consulta  = "/sicop/restrito/situacao_geo/consulta/"
+response_consulta  = "/sicop/situacao_geo/consulta/"
 titulo_relatorio    = "Relatorio das Situacoes GEO"
 planilha_relatorio  = "Situacoes GEO"
 
@@ -28,7 +28,7 @@ def consulta(request):
     lista = lista.order_by( 'id' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_situacao_geo'] = lista
-    return render_to_response('sicop/restrito/situacao_geo/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('sicop/situacao_geo/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @permission_required('sicop.situacao_geo_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
@@ -42,10 +42,10 @@ def cadastro(request):
                                             )
             f_situacaogeo.save()
             if next == "/":
-                return HttpResponseRedirect("/sicop/restrito/situacao_geo/consulta/")
+                return HttpResponseRedirect("/sicop/situacao_geo/consulta/")
             else:    
                 return HttpResponseRedirect( next ) 
-    return render_to_response('sicop/restrito/situacao_geo/cadastro.html', context_instance = RequestContext(request))
+    return render_to_response('sicop/situacao_geo/cadastro.html', context_instance = RequestContext(request))
 
 @permission_required('sicop.situacao_geo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
@@ -63,8 +63,8 @@ def edicao(request, id):
                                                 tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                             )
             f_situacaogeo.save()
-            return HttpResponseRedirect("/sicop/restrito/situacao_geo/edicao/"+str(id)+"/")
-    return render_to_response('sicop/restrito/situacao_geo/edicao.html', {"situacaogeo":instance}, context_instance = RequestContext(request))
+            return HttpResponseRedirect("/sicop/situacao_geo/edicao/"+str(id)+"/")
+    return render_to_response('sicop/situacao_geo/edicao.html', {"situacaogeo":instance}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.situacao_geo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)

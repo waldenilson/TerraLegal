@@ -13,7 +13,7 @@ from sicop.relatorio_base import relatorio_csv_base, relatorio_ods_base,\
 from odslib import ODS
 
 nome_relatorio      = "relatorio_status_pendencia"
-response_consulta  = "/sicop/restrito/status_pendencia/consulta/"
+response_consulta  = "/sicop/status_pendencia/consulta/"
 titulo_relatorio    = "Relatorio Status das Pendencias"
 planilha_relatorio  = "Status das Pendencias"
 
@@ -28,7 +28,7 @@ def consulta(request):
     lista = lista.order_by( 'id' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session[nome_relatorio] = lista
-    return render_to_response('sicop/restrito/status_pendencia/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('sicop/status_pendencia/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @permission_required('sicop.status_pendencia_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
@@ -39,8 +39,8 @@ def cadastro(request):
                                         tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                       )
             f_statuspendencia.save()
-            return HttpResponseRedirect("/sicop/restrito/status_pendencia/consulta/") 
-    return render_to_response('sicop/restrito/status_pendencia/cadastro.html',{}, context_instance = RequestContext(request))
+            return HttpResponseRedirect("/sicop/status_pendencia/consulta/") 
+    return render_to_response('sicop/status_pendencia/cadastro.html',{}, context_instance = RequestContext(request))
 
 @permission_required('sicop.status_pendencia_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
@@ -57,8 +57,8 @@ def edicao(request, id):
                                         tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                       )
             f_statuspendencia.save()
-            return HttpResponseRedirect("/sicop/restrito/status_pendencia/edicao/"+str(id)+"/")
-    return render_to_response('sicop/restrito/status_pendencia/edicao.html', {"statuspendencia":instance}, context_instance = RequestContext(request))
+            return HttpResponseRedirect("/sicop/status_pendencia/edicao/"+str(id)+"/")
+    return render_to_response('sicop/status_pendencia/edicao.html', {"statuspendencia":instance}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.status_pendencia_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
