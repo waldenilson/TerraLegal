@@ -13,7 +13,7 @@ from sicop.relatorio_base import relatorio_csv_base, relatorio_ods_base,\
 from odslib import ODS
 
 nome_relatorio      = "relatorio_tipo_pendencia"
-response_consulta  = "/sicop/restrito/tipo_pendencia/consulta/"
+response_consulta  = "/sicop/tipo_pendencia/consulta/"
 titulo_relatorio    = "Relatorio dos Tipos das Pendencias"
 planilha_relatorio  = "Tipos das Pendencias"
 
@@ -28,7 +28,7 @@ def consulta(request):
     lista = lista.order_by( 'id' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_tipo_pendencia'] = lista
-    return render_to_response('sicop/restrito/tipo_pendencia/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('sicop/tipo_pendencia/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @permission_required('sicop.tipo_pendencia_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
@@ -41,8 +41,8 @@ def cadastro(request):
                                         tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                       )
             f_tipopendencia.save()
-            return HttpResponseRedirect("/sicop/restrito/tipo_pendencia/consulta/") 
-    return render_to_response('sicop/restrito/tipo_pendencia/cadastro.html',{'tipoprocesso':tipoprocesso}, context_instance = RequestContext(request))
+            return HttpResponseRedirect("/sicop/tipo_pendencia/consulta/") 
+    return render_to_response('sicop/tipo_pendencia/cadastro.html',{'tipoprocesso':tipoprocesso}, context_instance = RequestContext(request))
 
 @permission_required('sicop.tipo_pendencia_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
@@ -61,8 +61,8 @@ def edicao(request, id):
                                         tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                       )
             f_tipopendencia.save()
-            return HttpResponseRedirect("/sicop/restrito/tipo_pendencia/edicao/"+str(id)+"/")
-    return render_to_response('sicop/restrito/tipo_pendencia/edicao.html', {"tipopendencia":instance,'tipoprocesso':tipoprocesso}, context_instance = RequestContext(request))
+            return HttpResponseRedirect("/sicop/tipo_pendencia/edicao/"+str(id)+"/")
+    return render_to_response('sicop/tipo_pendencia/edicao.html', {"tipopendencia":instance,'tipoprocesso':tipoprocesso}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.tipo_pendencia_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)

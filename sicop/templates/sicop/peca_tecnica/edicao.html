@@ -1,0 +1,165 @@
+{% extends "core/base/cadastro.html" %} 
+{% load staticfiles %} 
+{% block breadcumbs %}
+	Acesso Restrito | Peca Tecnica | Edicao
+{% endblock %}
+
+{% block formulario %}
+<div id="tabs" style="color:black;width:100%;font-size:11px">
+<ul>
+	<li><a href="#tabs-1">EDITAR PECA TECNICA</a></li>
+	<li><a href="#tabs-2">PROCESSO</a></li>
+</ul>
+<div id="tabs-1">
+	<form method="post" action=".">
+		{% csrf_token %}
+		<div style="width:100%;font-size:12px;text-align:left">
+				<table>
+				    <tr> <td class="colunaTabela"> <label>Contrato:</label> </td>
+				   		<td>
+				   			<select id="id_tbcontrato" style="width: 200px" name="tbcontrato">
+								{% for obj in contrato %}
+									{% if obj.id == peca.tbcontrato.id %}
+										<option selected="selected" value="{{ obj.id }}">{{ obj.nrcontrato }}</option>
+									{% else %}
+										<option value="{{ obj.id }}">{{ obj.nrcontrato }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						</td>
+					<td>
+						<a href="/sicop/contrato/cadastro/?next=/sicop/peca_tecnica/edicao/{{ peca.id }}/" title="Novo Contrato"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+					</td>						
+				   </tr>
+				   <tr> <td class="colunaTabela"> <label>Entrega:</label> </td><td> <input value="{{ peca.nrentrega|default:'' }}" name="nrentrega" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>CPF do Requerente:</label> </td><td> <input  size="15" id="cpf" value="{{ peca.nrcpfrequerente }}" name="nrcpfrequerente" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Nome do Requerente:</label> </td><td> <input size="35" value="{{ peca.nmrequerente }}" name="nmrequerente" /> </td> </tr>
+					
+					<tr> <td class="colunaTabela"> <label>Pasta:</label> </td>
+				   		<td>
+				   			<select id="id_tbcaixa" style="width: 200px" name="tbcaixa">
+				   				{% for obj in caixa %}
+									{% if obj.id == peca.tbcaixa.id %}
+										<option selected="selected" value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
+									{% else %}
+										<option value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						</td>
+					<td>
+						<a href="/sicop/caixa/cadastro/?next=/sicop/peca_tecnica/edicao/{{ peca.id }}/" title="Novo Caixa"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+					</td>						
+				   	</tr>
+				   	<tr> <td class="colunaTabela"> <label>Gleba:</label> </td>
+				   		<td>
+				   			<select id="id_tbgleba" style="width: 200px" name="tbgleba">
+								{% for obj in gleba %}
+									{% if obj.id == peca.tbgleba.id %}
+										<option selected="selected" value="{{ obj.id }}">{{ obj.nmgleba }}</option>
+									{% else %}
+										<option value="{{ obj.id }}">{{ obj.nmgleba }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						</td>
+					<td>
+						<a href="/sicop/gleba/cadastro/?next=/sicop/peca_tecnica/edicao/{{ peca.id }}/" title="Novo Gleba"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+					</td>						
+				   	</tr>
+				   	
+				   	<tr> <td class="colunaTabela"> <label>Municipio:</label> </td>
+				   		<td>
+				   			<select name="tbmunicipio" style="width: 200px">
+				   			<option value="">-- Selecione um Municipio --</option>
+								{% for obj in municipio %}
+									{% if obj.id == peca.tbmunicipio.id %}
+										<option selected="selected" value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+									{% else %}
+										<option value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						</td>
+				</tr>
+				   
+				   <tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input onkeypress="return SomenteNumero(event,this)"  size="15" value="{{ peca.nrarea|default:'' }}" name="nrarea" /> </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Perimetro:</label> </td><td> <input onkeypress="return SomenteNumero(event,this)" id="perimetro"  size="15" value="{{ peca.nrperimetro|default:'' }}" name="nrperimetro" /> </td> </tr>
+				   
+				   <tr>
+				   </table>
+				   <table> 
+				   <td class="colunaTabela"> <label>Anexado ao processo:</label> </td>
+				   <td>
+				   	{% if peca.stanexadoprocesso == True %} 
+						<input checked="checked" type="checkbox" name="stanexadoprocesso" />
+					{% else %}
+						<input type="checkbox" name="stanexadoprocesso" />
+					{% endif %} 
+				   </td> 
+				   
+				   <td class="colunaTabela"> <label>Lote de assentamento:</label> </td>
+				   <td>
+				   	{% if peca.stassentamento == True %} 
+						<input checked="checked" type="checkbox" name="stassentamento" />
+					{% else %}
+						<input type="checkbox" name="stassentamento" />
+					{% endif %} 
+				   </td>
+				   </tr>
+				   <tr> <td class="colunaTabela"> <label>Enviado Brasilia:</label> </td>
+				   <td>
+				    {% if peca.stenviadobrasilia == True %} 
+						<input checked="checked" type="checkbox" name="stenviadobrasilia" />
+					{% else %}
+						<input type="checkbox" name="stenviadobrasilia" />
+					{% endif %} 				   
+				   </td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Peca Tecnica Aprovada:</label> </td>
+				   <td>
+				   	{% if peca.stpecatecnica == True %} 
+						<input checked="checked" type="checkbox" name="stpecatecnica" />
+					{% else %}
+						<input type="checkbox" name="stpecatecnica" />
+					{% endif %} 				   
+				   </td> </tr>	
+				   </table>
+				   <table>   
+				   <tr> <td class="colunaTabela"> <label>Observacao:</label> </td><td> <textarea rows="4" cols="40" name="dsobservacao">{{ peca.dsobservacao }}</textarea> </td> </tr>
+				
+				</table>
+		</div>
+		<br />
+		<table style="width:100%">
+			<tr>
+				<td class="colunaTabela" style="text-align:left"> 
+					<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
+					<input type="submit" class="button_green" value="SALVAR" />
+				</td>
+			</tr>
+		</table>
+	</form>
+	<br/>
+</div>
+<div id="tabs-2">
+{% if processo %}
+	<table style="width:100%">
+		<tr> <td class="colunaTabela"> <label>Numero:</label> </td><td> {{ processo.tbprocessobase.nrprocesso }} </td> </tr>
+		<tr> <td class="colunaTabela"> <label>Gleba:</label> </td><td> {{ processo.tbprocessobase.tbgleba.nmgleba }} </td> </tr>
+		<tr> <td class="colunaTabela"> <label>Municipio:</label> </td><td> {{ processo.tbprocessobase.tbmunicipio.nome_mun }} </td> </tr>
+		<tr> <td class="colunaTabela"> <label>CPF Requerente:</label> </td><td> {{ processo.nrcpfrequerente }} </td> </tr>
+		<tr> <td class="colunaTabela"> <label>Nome Requerente:</label> </td><td> {{ processo.nmrequerente }} </td> </tr>
+		{% if processo.nrcpfconjuge %}
+			<tr> <td class="colunaTabela"> <label>CPF Conjuge:</label> </td><td> {{ processo.nrcpfconjuge }} </td> </tr>
+			<tr> <td class="colunaTabela"> <label>Nome Conjuge:</label> </td><td> {{ processo.nmconjuge }} </td> </tr>
+		{% endif %}
+		<tr> <td class="colunaTabela"> <label>Caixa:</label> </td><td> {{ processo.tbprocessobase.tbcaixa.nmlocalarquivo }} </td> </tr>
+		<tr> <td class="colunaTabela"> <label>Situacao:</label> </td><td> {{ processo.tbprocessobase.tbsituacaoprocesso.nmsituacao }} </td> </tr>
+	</table>
+{% else %}
+	Nenhum Processo ligado a esta peca tecnica
+{% endif %}
+</div>
+
+</div>
+{% endblock %}

@@ -13,7 +13,7 @@ from sicop.relatorio_base import relatorio_pdf_base_header,\
 from odslib import ODS
 
 nome_relatorio      = "relatorio_classificacao_processo"
-response_consulta  = "/sicop/restrito/classificacao_processo/consulta/"
+response_consulta  = "/sicop/classificacao_processo/consulta/"
 titulo_relatorio    = "Relatorio das Classificacoes de Processos"
 planilha_relatorio  = "Classificacoes de Processos"
 
@@ -27,7 +27,7 @@ def consulta(request):
     lista = lista.order_by( 'id' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_classificacao_processo'] = lista
-    return render_to_response('sicop/restrito/classificacao_processo/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('sicop/classificacao_processo/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @permission_required('sicop.classificacao_processo_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
@@ -38,8 +38,8 @@ def cadastro(request):
                                                         tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                                       )
             f_classificacao.save()
-            return HttpResponseRedirect("/sicop/restrito/classificacao_processo/consulta/") 
-    return render_to_response('sicop/restrito/classificacao_processo/cadastro.html', context_instance = RequestContext(request))
+            return HttpResponseRedirect("/sicop/classificacao_processo/consulta/") 
+    return render_to_response('sicop/classificacao_processo/cadastro.html', context_instance = RequestContext(request))
 
 @permission_required('sicop.classificacao_processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
@@ -56,8 +56,8 @@ def edicao(request, id):
                                                         tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                                       )
             f_classificacao.save()
-            return HttpResponseRedirect("/sicop/restrito/classificacao_processo/edicao/"+str(id)+"/")
-    return render_to_response('sicop/restrito/classificacao_processo/edicao.html', {"classificacao":instance}, context_instance = RequestContext(request))
+            return HttpResponseRedirect("/sicop/classificacao_processo/edicao/"+str(id)+"/")
+    return render_to_response('sicop/classificacao_processo/edicao.html', {"classificacao":instance}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.classificacao_processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)

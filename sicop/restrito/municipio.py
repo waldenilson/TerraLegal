@@ -18,7 +18,7 @@ import csv
 import unicodedata
 
 nome_relatorio      = "relatorio_municipio"
-response_consulta  = "/sicop/restrito/municipio/consulta/"
+response_consulta  = "/sicop/municipio/consulta/"
 titulo_relatorio    = "Relatorio Municipios"
 planilha_relatorio  = "Municipios"
 
@@ -36,7 +36,7 @@ def consulta(request):
     
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_municipio'] = lista
-    return render_to_response('sicop/restrito/municipio/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('sicop/municipio/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.municipio_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -51,10 +51,10 @@ def edicao(request, id):
         if validacao(request):
             if form.is_valid():
                 form.save()
-                return HttpResponseRedirect("/sicop/restrito/municipio/edicao/"+str(id)+"/")
+                return HttpResponseRedirect("/sicop/municipio/edicao/"+str(id)+"/")
     else:
         form = FormMunicipio(instance=instance) 
-    return render_to_response('sicop/restrito/municipio/edicao.html', {"form":form,'uf':uf}, context_instance = RequestContext(request))
+    return render_to_response('sicop/municipio/edicao.html', {"form":form,'uf':uf}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.gleba_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)

@@ -43,7 +43,7 @@
 						{% if user.is_active %}
 							<div style="color:white;font-weight:bold;font-size:12px;text-align:right">
 								Usuário:
-								<a href="/sicop/restrito/usuario/edicao/usuario/{{user.id}}/">
+								<a href="/sicop/usuario/edicao/usuario/{{user.id}}/">
 								{% filter force_escape %} {% firstof user.get_short_name user.get_username %} {% endfilter %}
 								</a>
 								<br/>
@@ -76,11 +76,11 @@
 						Você está aqui: {% block breadcumbs %} {% endblock %}
 						</td>
 					
-					<form method="post" action="/sicop/restrito/processo/consultaProcesso/">
+					<form method="post" action="/sicop/processo/consultaProcesso/">
 						{% csrf_token %}
 						<td align="right">
 						<input name="processo_base" size=17 style="width:150px" id="processo_base" />
-								<!--a href="/sicop/restrito/processo/consultaProcesso/"><img width="16" src="{% static "img/search.png" %}" /></a-->
+								<!--a href="/sicop/processo/consultaProcesso/"><img width="16" src="{% static "img/search.png" %}" /></a-->
 						<input type="submit" value="pesquisa" />
 						</td>
 						</td>

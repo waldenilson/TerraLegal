@@ -20,7 +20,7 @@ from odslib import ODS
 from sicop.admin import verificar_permissao_grupo
 
 nome_relatorio      = "relatorio_usuario"
-response_consulta  = "/sicop/restrito/usuario/consulta/"
+response_consulta  = "/sicop/usuario/consulta/"
 titulo_relatorio    = "Relatorio Usuarios"
 planilha_relatorio  = "Usuarios"
 
@@ -48,7 +48,7 @@ def consulta(request):
     lista = lista.order_by( 'username' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_usuario'] = lista
-    return render_to_response('sicop/restrito/usuario/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('sicop/usuario/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @permission_required('sicop.usuario_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
@@ -94,9 +94,9 @@ def cadastro(request):
                                           group = AuthGroup.objects.get( pk = obj.id ) )
                     ug.save()
             
-            return HttpResponseRedirect("/sicop/restrito/usuario/consulta/") 
+            return HttpResponseRedirect("/sicop/usuario/consulta/") 
     
-    return render_to_response('sicop/restrito/usuario/cadastro.html',{'divisao':divisao,'result':result,'grupo':grupo}, context_instance = RequestContext(request))
+    return render_to_response('sicop/usuario/cadastro.html',{'divisao':divisao,'result':result,'grupo':grupo}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.usuario_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -172,9 +172,9 @@ def edicao(request, id):
                                    date_joined = user_obj.date_joined
                                    )
             usuario.save()
-            return HttpResponseRedirect("/sicop/restrito/usuario/edicao/"+str(id)+"/")
+            return HttpResponseRedirect("/sicop/usuario/edicao/"+str(id)+"/")
     
-    return render_to_response('sicop/restrito/usuario/edicao.html', 
+    return render_to_response('sicop/usuario/edicao.html', 
                               {'result':result,'grupo':grupo,'usergrupo':userGrupo,'user_obj':user_obj,'divisao':divisao}, context_instance = RequestContext(request))
 
 
@@ -252,12 +252,12 @@ def edicao_usuario_logado(request, id):
                                        date_joined = user_obj.date_joined
                                        )
                 usuario.save()
-                return HttpResponseRedirect("/sicop/restrito/usuario/edicao/usuario/"+str(id)+"/")
+                return HttpResponseRedirect("/sicop/usuario/edicao/usuario/"+str(id)+"/")
         
-        return render_to_response('sicop/restrito/usuario/edicao.html', 
+        return render_to_response('sicop/usuario/edicao.html', 
                                   {'result':result,'grupo':grupo,'usergrupo':userGrupo,'user_obj':user_obj,'divisao':divisao}, context_instance = RequestContext(request))
     else:
-        return HttpResponseRedirect("/sicop/restrito/usuario/edicao/"+str(id)+"/")
+        return HttpResponseRedirect("/sicop/usuario/edicao/"+str(id)+"/")
 
 
 @permission_required('sicop.usuario_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)

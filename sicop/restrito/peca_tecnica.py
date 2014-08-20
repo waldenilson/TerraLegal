@@ -19,7 +19,7 @@ from django.db.models import  Q
 
 
 nome_relatorio      = "relatorio_peca_tecnica"
-response_consulta  = "/sicop/restrito/peca_tecnica/consulta/"
+response_consulta  = "/sicop/peca_tecnica/consulta/"
 titulo_relatorio    = "Relatorio Pecas Tecnicas"
 planilha_relatorio  = "Pecas Tecnicas"
 
@@ -60,7 +60,7 @@ def consulta(request):
 #    lista = lista.order_by( 'id' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_peca_tecnica'] = lista
-    return render_to_response('sicop/restrito/peca_tecnica/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('sicop/peca_tecnica/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @permission_required('sicop.peca_tecnica_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
@@ -120,9 +120,9 @@ def cadastro(request):
                                    )
             peca.save()
             messages.add_message(request,messages.INFO,'Informações salvas com sucesso.')
-            return HttpResponseRedirect("/sicop/restrito/peca_tecnica/consulta/") 
+            return HttpResponseRedirect("/sicop/peca_tecnica/consulta/") 
     
-    return render_to_response('sicop/restrito/peca_tecnica/cadastro.html',{'caixa':caixa,'contrato':contrato,'gleba':gleba,'municipio':municipio}, context_instance = RequestContext(request))
+    return render_to_response('sicop/peca_tecnica/cadastro.html',{'caixa':caixa,'contrato':contrato,'gleba':gleba,'municipio':municipio}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.peca_tecnica_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -188,13 +188,13 @@ def edicao(request, id):
                                    )
             peca.save()
             messages.add_message(request,messages.INFO,'Informações salvas com sucesso.')
-            return HttpResponseRedirect("/sicop/restrito/peca_tecnica/edicao/"+str(peca_obj.id)+"/")
+            return HttpResponseRedirect("/sicop/peca_tecnica/edicao/"+str(peca_obj.id)+"/")
 
     processo = Tbprocessorural.objects.all().filter( nrcpfrequerente = peca_obj.nrcpfrequerente.replace('.','').replace('-','') )
     if processo:
         processo = processo[0] 
 
-    return render_to_response('sicop/restrito/peca_tecnica/edicao.html',
+    return render_to_response('sicop/peca_tecnica/edicao.html',
                               {'peca':peca_obj,'processo':processo,'caixa':caixa,'contrato':contrato,'gleba':gleba,'municipio':municipio}, 
                             context_instance = RequestContext(request))
 

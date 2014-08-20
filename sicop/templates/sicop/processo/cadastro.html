@@ -1,0 +1,43 @@
+{% extends "core/base/cadastro.html" %} 
+{% load staticfiles %} 
+
+{% block breadcumbs %}
+	Acesso Restrito | Processo | Cadastro
+{% endblock %}
+
+
+{% block formulario %}
+<div id="tabs" style="color:black;width:100%;font-size:11px">
+ <ul>
+	<li><a href="#tabs-1">CADASTRAR PROCESSO</a></li>
+</ul>
+<div id="tabs-1">
+		<form name="form" method="post" action="/sicop/processo/cadastro/">
+			{% csrf_token %}
+			<table>
+				 <tr>
+				 		<td class="colunaTabela">
+				 			<label>Selecione o Tipo:</label>
+				 		</td>
+				 		<td >
+				   			<select name="escolha" onchange="proc();">
+								{% for obj in tipoprocesso %}
+									{% if obj.tabela == processo %}
+										<option selected="selected" value="{{ obj.tabela }}">{{ obj.nome }}</option>
+									{% else %}
+										<option value="{{ obj.tabela }}">{{ obj.nome }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						</td>
+				   	</tr>
+			</table>
+		</form>
+		<br />
+
+			{% if div_processo == 'rural' %} {% include "sicop/processo/rural/cadastro.html" %} {% endif %}
+			{% if div_processo == 'urbano' %} {% include "sicop/processo/urbano/cadastro.html" %} {% endif %}
+			{% if div_processo == 'clausula' %} {% include "sicop/processo/clausula/cadastro.html" %} {% endif %}
+</div>	
+</div>			
+{% endblock %}

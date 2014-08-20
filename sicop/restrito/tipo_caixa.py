@@ -14,7 +14,7 @@ from sicop.relatorio_base import relatorio_csv_base, relatorio_ods_base,\
 from odslib import ODS
 
 nome_relatorio      = "relatorio_tipo_caixa"
-response_consulta  = "/sicop/restrito/tipo_caixa/consulta/"
+response_consulta  = "/sicop/tipo_caixa/consulta/"
 titulo_relatorio    = "Relatorio dos Tipos de Caixa"
 planilha_relatorio  = "Tipos de Caixa"
 
@@ -29,7 +29,7 @@ def consulta(request):
     lista = lista.order_by( 'nmtipocaixa' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_tipo_caixa'] = lista
-    return render_to_response('sicop/restrito/tipo_caixa/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('sicop/tipo_caixa/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
     
 @permission_required('sicop.tipo_caixa_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -44,10 +44,10 @@ def cadastro(request):
                                       )
             f_tipocaixa.save()
             if next == "/":
-                return HttpResponseRedirect("/sicop/restrito/tipo_caixa/consulta/")
+                return HttpResponseRedirect("/sicop/tipo_caixa/consulta/")
             else:    
                 return HttpResponseRedirect( next ) 
-    return render_to_response('sicop/restrito/tipo_caixa/cadastro.html',{}, context_instance = RequestContext(request))
+    return render_to_response('sicop/tipo_caixa/cadastro.html',{}, context_instance = RequestContext(request))
 
 @permission_required('sicop.tipo_caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
@@ -65,8 +65,8 @@ def edicao(request, id):
                                         #tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                       )
             f_tipocaixa.save()
-            return HttpResponseRedirect("/sicop/restrito/tipo_caixa/edicao/"+str(id)+"/")
-    return render_to_response('sicop/restrito/tipo_caixa/edicao.html', {"tipocaixa":instance}, context_instance = RequestContext(request))
+            return HttpResponseRedirect("/sicop/tipo_caixa/edicao/"+str(id)+"/")
+    return render_to_response('sicop/tipo_caixa/edicao.html', {"tipocaixa":instance}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.tipo_caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)

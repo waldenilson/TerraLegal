@@ -37,7 +37,7 @@ from django.core.files import storage
 from django.db.models import  Q
 
 nome_relatorio      = "relatorio_permissao"
-response_consulta  = "/sicop/restrito/permissao/consulta/"
+response_consulta  = "/sicop/permissao/consulta/"
 titulo_relatorio    = "Relatorio Permissoes"
 planilha_relatorio  = "Permissoes"
 
@@ -51,7 +51,7 @@ def consulta(request):
     
 #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session[nome_relatorio] = lista
-    return render_to_response('sicop/restrito/permissao/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('sicop/permissao/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @permission_required('sicop.permissao_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
@@ -70,7 +70,7 @@ def cadastro(request):
                 return HttpResponseRedirect(response_consulta)
             else:    
                 return HttpResponseRedirect(next)
-    return render_to_response('sicop/restrito/permissao/cadastro.html',{"content":content}, context_instance = RequestContext(request))
+    return render_to_response('sicop/permissao/cadastro.html',{"content":content}, context_instance = RequestContext(request))
 
 @permission_required('sicop.permissao_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
@@ -90,9 +90,9 @@ def edicao(request, id):
                               )
             f_permissao.save()
  
-        return HttpResponseRedirect("/sicop/restrito/permissao/edicao/"+str(id)+"/")
+        return HttpResponseRedirect("/sicop/permissao/edicao/"+str(id)+"/")
     
-    return render_to_response('sicop/restrito/permissao/edicao.html', {"permissao":instance,"content":content}, context_instance = RequestContext(request))
+    return render_to_response('sicop/permissao/edicao.html', {"permissao":instance,"content":content}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.permissao_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)

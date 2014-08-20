@@ -38,13 +38,13 @@ from django.db.models import Q
 import datetime
 
 nome_relatorio = "relatorio_etapa"
-response_consulta = "/sicop/restrito/etapa/consulta/"
+response_consulta = "/sicop/etapa/consulta/"
 titulo_relatorio = "Relatorio Etapas"
 planilha_relatorio = "Etapas"
 
 @permission_required('sicop.etapa_checklist_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def restaurar(request, processo):
-    return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(processo)+"/")
+    return HttpResponseRedirect("/sicop/processo/edicao/"+str(processo)+"/")
     
 
 @permission_required('sicop.etapa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -61,7 +61,7 @@ def consulta(request):
     
 #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session[nome_relatorio] = lista
-    return render_to_response('sicop/restrito/etapa/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('sicop/etapa/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @permission_required('sicop.etapa_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
@@ -82,7 +82,7 @@ def cadastro(request):
                 return HttpResponseRedirect(response_consulta)
             else:
                 return HttpResponseRedirect(next)
-    return render_to_response('sicop/restrito/etapa/cadastro.html',{"tipoprocesso":tipoprocesso}, context_instance = RequestContext(request))
+    return render_to_response('sicop/etapa/cadastro.html',{"tipoprocesso":tipoprocesso}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.etapa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -208,10 +208,10 @@ def edicao(request, id):
                             )
             f_fase.save()
             if next == "/":
-                return HttpResponseRedirect("/sicop/restrito/etapa/edicao/"+str(id)+"/")
+                return HttpResponseRedirect("/sicop/etapa/edicao/"+str(id)+"/")
             else:
                 return HttpResponseRedirect(next)
-    return render_to_response('sicop/restrito/etapa/edicao.html',{"fase":instance,'etapas':etapas,"tipoprocesso":tipoprocesso,'anteriores':anteriores,'posteriores':posteriores,'etapadesejada':etapadesejada}, context_instance = RequestContext(request))
+    return render_to_response('sicop/etapa/edicao.html',{"fase":instance,'etapas':etapas,"tipoprocesso":tipoprocesso,'anteriores':anteriores,'posteriores':posteriores,'etapadesejada':etapadesejada}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.etapa_checklist_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -297,9 +297,9 @@ def checklist(request, processo,etapa):
                 transicao.save()
                 
                         
-        return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(processo))
+        return HttpResponseRedirect("/sicop/processo/edicao/"+str(processo))
 
-    return render_to_response('sicop/restrito/etapa/checklist.html',{"processo":obj_processo,"etapa":obj_etapa,'result':result,'posteriores':posteriores}, context_instance = RequestContext(request))
+    return render_to_response('sicop/etapa/checklist.html',{"processo":obj_processo,"etapa":obj_etapa,'result':result,'posteriores':posteriores}, context_instance = RequestContext(request))
 
 @permission_required('sicop.etapa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_pdf(request):

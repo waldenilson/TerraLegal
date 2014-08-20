@@ -14,7 +14,7 @@ from django.db.models import  Q
 
 @permission_required('sicop.processo_rural_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
-    return render_to_response('sicop/restrito/processo/rural/consulta.html',{}, context_instance = RequestContext(request))    
+    return render_to_response('sicop/processo/rural/consulta.html',{}, context_instance = RequestContext(request))    
     
 @permission_required('sicop.processo_rural_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
@@ -61,9 +61,9 @@ def cadastro(request):
                                        )
             f_rural.save()
             messages.add_message(request,messages.INFO,'Informações salvas com sucesso.')            
-            return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
+            return HttpResponseRedirect("/sicop/processo/consulta/")
         
-    return render_to_response('sicop/restrito/processo/cadastro.html',
+    return render_to_response('sicop/processo/cadastro.html',
         {'gleba':gleba,'situacaoprocesso':situacaoprocesso,'caixa':caixa,'municipio':municipio,'tipoprocesso':tipoprocesso, 'processo':escolha, 'div_processo':div_processo}, context_instance = RequestContext(request))    
 
 @permission_required('sicop.processo_rural_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -145,9 +145,9 @@ def edicao(request, id):
                                
             messages.add_message(request,messages.INFO,'Informações salvas com sucesso.')
             
-            return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(base.id)+"/")
+            return HttpResponseRedirect("/sicop/processo/edicao/"+str(base.id)+"/")
     
-    return render_to_response('sicop/restrito/processo/rural/edicao.html',
+    return render_to_response('sicop/processo/rural/edicao.html',
                               {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                    'caixa':caixa,'municipio':municipio,
                                    'base':base,'movimentacao':movimentacao,

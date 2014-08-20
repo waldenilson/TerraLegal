@@ -1,0 +1,69 @@
+{% extends "core/base/cadastro.html" %} 
+{% load staticfiles %} 
+{% block breadcumbs %}
+	Acesso Restrito | Pendencia | Edicao
+{% endblock %}
+
+{% block formulario %}
+<div id="tabs" style="color:black;width:100%;font-size:11px">
+<ul>
+	<li><a href="#tabs-1">EDITAR PENDENCIA</a></li>
+</ul>
+<div id="tabs-1">		
+	<form method="post" action="">
+		{% csrf_token %}
+		<div style="width:100%;font-size:12px">
+			<table>
+			   <tr> <td class="colunaTabela"> <label>Descricao:</label> </td><td> <input name="dsdescricao" value="{{ pendencia.dsdescricao }}" style="width: 200px" /> </td> </tr>
+			   <tr> <td class="colunaTabela"> <label>Tipo:</label> </td>
+			   		<td>
+				   		<select name="tbtipopendencia" style="width: 200px">
+				   			{% for obj in tipopendencia %}
+								{% if obj.id == pendencia.tbtipopendencia.id %}
+									<option selected="selected" value="{{ obj.id }}">{{ obj.dspendencia }}</option>
+								{% else %}
+									<option value="{{ obj.id }}">{{ obj.dspendencia }}</option>
+								{% endif %}
+							{% endfor %}
+						</select>
+					</td>
+				<td>
+					<a href="/sicop/tipo_pendencia/cadastro/?next=/sicop/pendencia/edicao/{{ pendencia.id }}/" title="Novo Tipo Pendencia"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+				</td>						
+			   	</tr>
+			   	<tr><td class="colunaTabela"> <label>Status:</label> </td>
+			   		<td>
+				   		<select name="tbstatuspendencia" style="width: 200px">
+				   			{% for obj in statuspendencia %}
+								{% if obj.id == pendencia.tbstatuspendencia.id %}
+									<option selected="selected" value="{{ obj.id }}">{{ obj.dspendencia }}</option>
+								{% else %}
+									<option value="{{ obj.id }}">{{ obj.dspendencia }}</option>
+								{% endif %}
+							{% endfor %}
+						</select>
+					</td>
+					<td>
+						<a href="/sicop/status_pendencia/cadastro/?next=/sicop/pendencia/edicao/{{ pendencia.id }}/" title="Novo Status Pendencia"> <img src="{% static "img/add.png" %}" width="24" /></a>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="colunaTabela" > <label >Parecer:</label> </td>
+					<td> <textarea name="dsparecer" rows="4" cols="60" >{{ pendencia.dsparecer|default:''}}</textarea></td> 
+				</tr>
+			</table>
+		</div>
+		
+		<table style="width:100%">
+			<tr>
+				<td class="colunaTabela" style="text-align:left"> 
+					<a href="/sicop/processo/consulta/" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
+					<input type="submit" class="button_green" value="SALVAR" />
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+</div>
+{% endblock %}

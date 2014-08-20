@@ -36,7 +36,7 @@ from django.core.files import storage
 from django.db.models import  Q
 
 nome_relatorio      = "relatorio_caixa"
-response_consulta  = "/sicop/restrito/caixa/consulta/"
+response_consulta  = "/sicop/caixa/consulta/"
 titulo_relatorio    = "Relatorio Caixas"
 planilha_relatorio  = "Caixas"
 
@@ -58,7 +58,7 @@ def consulta(request):
     
 #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session[nome_relatorio] = lista
-    return render_to_response('sicop/restrito/caixa/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('sicop/caixa/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @permission_required('sicop.caixa_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
@@ -82,7 +82,7 @@ def cadastro(request):
                 return HttpResponseRedirect(response_consulta)
             else:    
                 return HttpResponseRedirect(next)
-    return render_to_response('sicop/restrito/caixa/cadastro.html',{"tipocaixa":tipocaixa}, context_instance = RequestContext(request))
+    return render_to_response('sicop/caixa/cadastro.html',{"tipocaixa":tipocaixa}, context_instance = RequestContext(request))
 
 @permission_required('sicop.caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
@@ -104,7 +104,7 @@ def edicao(request, id):
             if form.is_valid():
                 form.blativo = ativo
                 form.save()
-                return HttpResponseRedirect("/sicop/restrito/caixa/edicao/"+str(id)+"/")
+                return HttpResponseRedirect("/sicop/caixa/edicao/"+str(id)+"/")
     else:
         if divisao.id <> AuthUser.objects.get(pk = request.user.id).tbdivisao.id:
             return HttpResponseRedirect('/excecoes/permissao_negada/')
@@ -136,7 +136,7 @@ def edicao(request, id):
         conteudo = "Caixa Vazia"
     
     
-    return render_to_response('sicop/restrito/caixa/edicao.html', {"form":form,'processos':processos,'pecas':pecas,'conteudo':conteudo,"tipocaixa":tipocaixa,"divisao":divisao}, context_instance = RequestContext(request))
+    return render_to_response('sicop/caixa/edicao.html', {"form":form,'processos':processos,'pecas':pecas,'conteudo':conteudo,"tipocaixa":tipocaixa,"divisao":divisao}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)

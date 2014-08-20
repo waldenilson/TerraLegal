@@ -12,7 +12,7 @@ from django.shortcuts import render_to_response
 from django.db.models import Q
 
 def lista(request):
-    return render_to_response('sicop/restrito/relatorio/lista.html',{}, context_instance = RequestContext(request))
+    return render_to_response('sicop/relatorio/lista.html',{}, context_instance = RequestContext(request))
 
 #PROCESSOS QUE TEM PECA TECNICA
 @permission_required('sicop.relatorio_processo_peca_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -108,7 +108,7 @@ def processo_peca(request):
         ods.save(response)
         return response
 
-    return render_to_response('sicop/restrito/relatorio/processo_peca.html',{}, context_instance = RequestContext(request))
+    return render_to_response('sicop/relatorio/processo_peca.html',{}, context_instance = RequestContext(request))
 
 @permission_required('sicop.relatorio_peca_sem_processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def peca_processo(request):
@@ -176,7 +176,7 @@ def peca_processo(request):
         ods.save(response)
         return response
 
-    return render_to_response('sicop/restrito/relatorio/peca_processo.html',{}, context_instance = RequestContext(request))
+    return render_to_response('sicop/relatorio/peca_processo.html',{}, context_instance = RequestContext(request))
 
 @permission_required('sicop.relatorio_peca_gleba_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def peca_gleba(request):
@@ -263,7 +263,7 @@ def peca_nao_aprovada(request):
         ods.save(response)
         return response
 
-    return render_to_response('sicop/restrito/relatorio/peca_nao_aprovada.html',{}, context_instance = RequestContext(request))
+    return render_to_response('sicop/relatorio/peca_nao_aprovada.html',{}, context_instance = RequestContext(request))
         
 #PECAS TECNICAS REJEITADAS
 
@@ -323,7 +323,7 @@ def peca_rejeitada(request):
         ods.save(response)
         return response
 
-    return render_to_response('sicop/restrito/relatorio/peca_rejeitada.html',{}, context_instance = RequestContext(request))
+    return render_to_response('sicop/relatorio/peca_rejeitada.html',{}, context_instance = RequestContext(request))
         
 #PECAS TECNICAS SEM PROCESSO
 
@@ -393,7 +393,7 @@ def peca_sem_processo(request):
         ods.save(response)
         return response
 
-    return render_to_response('sicop/restrito/relatorio/peca_sem_processo.html',{}, context_instance = RequestContext(request))
+    return render_to_response('sicop/relatorio/peca_sem_processo.html',{}, context_instance = RequestContext(request))
 
 
 #PROCESSO SEM PECA CONCLUIR
@@ -491,7 +491,7 @@ def processo_sem_peca(request):
         ods.save(response)
         return response
 
-    return render_to_response('sicop/restrito/relatorio/processo_sem_peca.html',{}, context_instance = RequestContext(request))
+    return render_to_response('sicop/relatorio/processo_sem_peca.html',{}, context_instance = RequestContext(request))
 
 
     #buscar as pecas tecnicas que nao estao ligadas a um processo
@@ -603,7 +603,7 @@ def processos(request):
         ods.save(response)
         return response
 
-    return render_to_response('sicop/restrito/relatorio/processos.html',{}, context_instance = RequestContext(request))
+    return render_to_response('sicop/relatorio/processos.html',{}, context_instance = RequestContext(request))
 
 
     #buscar as pecas tecnicas que nao estao ligadas a um processo
@@ -680,7 +680,7 @@ def peca_validada(request):
         ods.save(response)
         return response
 
-    return render_to_response('sicop/restrito/relatorio/peca_validada.html',{}, context_instance = RequestContext(request))
+    return render_to_response('sicop/relatorio/peca_validada.html',{}, context_instance = RequestContext(request))
 
 @permission_required('sicop.relatorio_peca_sem_processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def pecas(request):
@@ -743,4 +743,4 @@ def pecas(request):
         ods.save(response)
         return response
 
-    return render_to_response('sicop/restrito/relatorio/pecas.html',{}, context_instance = RequestContext(request))
+    return render_to_response('sicop/relatorio/pecas.html',{}, context_instance = RequestContext(request))

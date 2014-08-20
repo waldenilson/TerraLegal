@@ -1,0 +1,49 @@
+{% extends "core/base/cadastro.html" %} 
+{% load staticfiles %} 
+
+{% block breadcumbs %}
+	Acesso Restrito | Caixa | Cadastro
+{% endblock %}
+
+{% block formulario %}
+<div id="tabs" style="color:black;width:100%;font-size:11px">
+
+<ul>
+	<li><a href="#tabs-1">CADASTRAR CAIXA</a></li>
+</ul>
+
+<div id="tabs-1">		
+	<form method="post" action="">
+		{% csrf_token %}
+		<div style="width:100%;font-size:12px;text-align:left">
+				<table>
+				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td><input required name="nmlocalarquivo"/></td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Tipo Caixa:</label> </td>
+				   	<td>
+				   		<select name="tbtipocaixa"  style="width:150px">
+							<option value="">-- Selecione um Tipo --</option>
+							{% for obj in tipocaixa %}
+								<option value="{{ obj.id }}">{{obj.desctipocaixa}}</option>
+							{% endfor %}
+						</select>		
+				   	</td>
+				   	<td>
+						<a href="/sicop/tipo_caixa/cadastro/?next=/sicop/caixa/cadastro/" title="Novo Tipo"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+					</td>						
+				   </tr>
+				   <tr> <td class="colunaTabela"> <label>Ativo:</label> </td><td> <input type="checkbox" name="blativo" /> </td> </tr>
+				</table>
+		</div>
+		<br />
+		<table style="width:100%">
+			<tr>
+				<td class="colunaTabela" style="text-align:left"> 
+					<a href="/sicop/caixa/consulta/" style="margin-right: 10px"><input type="button" class="button_yellow" value="CONSULTAR" /></a>
+					<input type="submit" class="button_green" value="SALVAR" />
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>	
+</div>
+{% endblock %}

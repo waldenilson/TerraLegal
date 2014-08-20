@@ -14,7 +14,7 @@ from sicop.relatorio_base import relatorio_pdf_base_header,\
 from odslib import ODS
 
 nome_relatorio      = "relatorio_divisao"
-response_consulta  = "/sicop/restrito/divisao/consulta/"
+response_consulta  = "/sicop/divisao/consulta/"
 titulo_relatorio    = "Relatorio Divisao"
 planilha_relatorio  = "Divisoes"
 
@@ -29,7 +29,7 @@ def consulta(request):
     lista = lista.order_by( 'id' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_divisao'] = lista
-    return render_to_response('sicop/restrito/divisao/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('sicop/divisao/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
     
 @permission_required('sicop.divisao_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
@@ -41,12 +41,12 @@ def cadastro(request):
             if form.is_valid():
                 form.save()
                 if next == "/":
-                    return HttpResponseRedirect("/sicop/restrito/divisao/consulta/")
+                    return HttpResponseRedirect("/sicop/divisao/consulta/")
                 else:    
                     return HttpResponseRedirect( next ) 
     else:
         form = FormDivisao()
-    return render_to_response('sicop/restrito/divisao/cadastro.html',{"form":form,"uf":uf,"classe":request.session['classe']}, context_instance = RequestContext(request))
+    return render_to_response('sicop/divisao/cadastro.html',{"form":form,"uf":uf,"classe":request.session['classe']}, context_instance = RequestContext(request))
 
 @permission_required('sicop.divisao_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
@@ -61,10 +61,10 @@ def edicao(request, id):
         if validacao(request):
             if form.is_valid():
                 form.save()
-                return HttpResponseRedirect("/sicop/restrito/divisao/edicao/"+str(id)+"/")
+                return HttpResponseRedirect("/sicop/divisao/edicao/"+str(id)+"/")
     else:
         form = FormDivisao(instance=instance)
-    return render_to_response('sicop/restrito/divisao/edicao.html', {"form":form,"uf":uf,"classe":request.session['classe']}, context_instance = RequestContext(request))
+    return render_to_response('sicop/divisao/edicao.html', {"form":form,"uf":uf,"classe":request.session['classe']}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.divisao_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)

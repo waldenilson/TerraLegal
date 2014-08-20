@@ -37,7 +37,7 @@ from django.core.files import storage
 from django.db.models import  Q
 
 nome_relatorio      = "relatorio_checklist"
-response_consulta  = "/sicop/restrito/checklist/consulta/"
+response_consulta  = "/sicop/checklist/consulta/"
 titulo_relatorio    = "Relatorio Checklist"
 planilha_relatorio  = "Checklist"
 
@@ -55,7 +55,7 @@ def consulta(request):
     
 #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session[nome_relatorio] = lista
-    return render_to_response('sicop/restrito/checklist/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('sicop/checklist/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @permission_required('sicop.checklist_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
@@ -80,7 +80,7 @@ def cadastro(request):
                 return HttpResponseRedirect(response_consulta)
             else:    
                 return HttpResponseRedirect(next)
-    return render_to_response('sicop/restrito/checklist/cadastro.html',{"fase":fase}, context_instance = RequestContext(request))
+    return render_to_response('sicop/checklist/cadastro.html',{"fase":fase}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.checklist_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -108,10 +108,10 @@ def edicao(request, id):
                               )
             f_checklist.save()
             if next == "/":
-                return HttpResponseRedirect("/sicop/restrito/checklist/edicao/"+str(id)+"/")
+                return HttpResponseRedirect("/sicop/checklist/edicao/"+str(id)+"/")
             else:    
                 return HttpResponseRedirect(next)
-    return render_to_response('sicop/restrito/checklist/edicao.html',{"checklist":instance,"fase":fase}, context_instance = RequestContext(request))
+    return render_to_response('sicop/checklist/edicao.html',{"checklist":instance,"fase":fase}, context_instance = RequestContext(request))
 
 @permission_required('sicop.checklist_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_pdf(request):

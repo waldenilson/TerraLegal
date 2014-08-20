@@ -13,7 +13,7 @@ from django.db.models import Q
 
 @permission_required('sicop.processo_urbano_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
-    return render_to_response('sicop/restrito/processo/urbano/consulta.html',{}, context_instance = RequestContext(request))    
+    return render_to_response('sicop/processo/urbano/consulta.html',{}, context_instance = RequestContext(request))    
     
 @permission_required('sicop.processo_urbano_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
@@ -85,9 +85,9 @@ def cadastro(request):
             f_urbano.save()
             messages.add_message(request,messages.INFO,'Informações salvas com sucesso.')
             
-            return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
+            return HttpResponseRedirect("/sicop/processo/consulta/")
            
-    return render_to_response('sicop/restrito/processo/cadastro.html',
+    return render_to_response('sicop/processo/cadastro.html',
         {'tipoprocesso':tipoprocesso,'processo':escolha,'situacaoprocesso':situacaoprocesso, 
          'situacaogeo':situacaogeo,'pregao':pregao,'contrato':contrato,'gleba':gleba,'caixa':caixa,'municipio':municipio,'div_processo':div_processo},
          context_instance = RequestContext(request))     
@@ -193,10 +193,10 @@ def edicao(request, id):
 
             messages.add_message(request,messages.INFO,'Informações salvas com sucesso.')
             
-            return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(base.id)+"/")
+            return HttpResponseRedirect("/sicop/processo/edicao/"+str(base.id)+"/")
            
     
-    return render_to_response('sicop/restrito/processo/urbano/edicao.html',
+    return render_to_response('sicop/processo/urbano/edicao.html',
                                    {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                    'caixa':caixa,'municipio':municipio,'contrato':contrato,'situacaogeo':situacaogeo,
                                    'base':base,'movimentacao':movimentacao,'pregao':pregao,

@@ -31,7 +31,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 
 nome_relatorio      = "relatorio_processo"
-response_consulta  = "/sicop/restrito/processo/consulta/"
+response_consulta  = "/sicop/processo/consulta/"
 titulo_relatorio    = "Relatorio Processos"
 planilha_relatorio  = "Processos"
 
@@ -39,6 +39,9 @@ planilha_relatorio  = "Processos"
 def consultaprocesso(request):
     numero =  request.POST['processo_base'].replace('.','').replace('/','').replace('-','')
     if not numero:
+
+        #Tbmovimentacao.objects.filter( '' ).order_by( 'dtmovimentacao' )
+
         messages.add_message(request,messages.WARNING,'Processo nao preenchido corretamente')
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))    
 
@@ -68,11 +71,11 @@ def consultaprocesso(request):
     
     for obj in lista:
         request.session['processo_saida'] = 'unico'
-        return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(obj.tbprocessobase.id)+"/")
+        return HttpResponseRedirect("/sicop/processo/edicao/"+str(obj.tbprocessobase.id)+"/")
         #edicao(request,obj.tbprocessobase.id)
         #usar http_redirect alguma coisa assim passando a url do edicao  e o id
 
-    return render_to_response('sicop/restrito/processo/rural/edicao.html',
+    return render_to_response('sicop/processo/rural/edicao.html',
                               context_instance = RequestContext(request))   
 
 @permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -205,12 +208,12 @@ def consulta(request):
         if 'tramitacao_massa_ativado' in request.session and request.session['tramitacao_massa_ativado']:
                 add_tramitacao_massa(request, lista[0].tbprocessobase.id)
         else:
-            return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(lista[0].tbprocessobase.id))
+            return HttpResponseRedirect("/sicop/processo/edicao/"+str(lista[0].tbprocessobase.id))
                              
     # gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_processo'] = lista
         
-    return render_to_response('sicop/restrito/processo/consulta.html',{'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('sicop/processo/consulta.html',{'lista':lista}, context_instance = RequestContext(request))
 
 @permission_required('sicop.processo_tramitar', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def tramitar(request, base):
@@ -268,7 +271,7 @@ def tramitar(request, base):
                                         )
                 f_base.save()
                     
-            return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(base.id)+"/")
+            return HttpResponseRedirect("/sicop/processo/edicao/"+str(base.id)+"/")
         #segue abaixo se a validacao da tramitacao nao der certo
         carregarTbAuxProcesso(request, base.tbcaixa.tbtipocaixa.nmtipocaixa)
         carregarTbAuxFuncoesProcesso(request, base)
@@ -295,7 +298,7 @@ def tramitar(request, base):
             for obj in caixasdestino:
                 if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'PAD' or obj.tbtipocaixa.nmtipocaixa == 'FT' or obj.tbtipocaixa.nmtipocaixa == 'ENT' :
                     tram.append( obj )
-            return render_to_response('sicop/restrito/processo/rural/edicao.html',
+            return render_to_response('sicop/processo/rural/edicao.html',
                                       {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
@@ -311,7 +314,7 @@ def tramitar(request, base):
                 for obj in Tbcaixa.objects.filter(tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id):
                     if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'URB':
                         tram.append( obj )               
-                return render_to_response('sicop/restrito/processo/urbano/edicao.html',
+                return render_to_response('sicop/processo/urbano/edicao.html',
                                           {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'situacaogeo':situacaogeo,
                                        'caixa':caixa,'municipio':municipio,'contrato':contrato,
                                        'base':base,'urbano':urbano,'anexado':anexado,'pendencia':pendencia,
@@ -326,7 +329,7 @@ def tramitar(request, base):
                     for obj in Tbcaixa.objects.filter(tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id):
                         if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'URB':
                             tram.append( obj )
-                    return render_to_response('sicop/restrito/processo/clausula/edicao.html',
+                    return render_to_response('sicop/processo/clausula/edicao.html',
                                               {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
@@ -353,7 +356,7 @@ def criar_pendencia(request, base):
                                       )
             f_pendencia.save()
                     
-            return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(base.id)+"/")
+            return HttpResponseRedirect("/sicop/processo/edicao/"+str(base.id)+"/")
         
         carregarTbAuxProcesso(request, base.tbcaixa.tbtipocaixa.nmtipocaixa)
         carregarTbAuxFuncoesProcesso(request, base)
@@ -371,7 +374,7 @@ def criar_pendencia(request, base):
         if tipo == "tbprocessorural":
             rural = Tbprocessorural.objects.get( tbprocessobase = base.id )
             peca = Tbpecastecnicas.objects.all().filter( nrcpfrequerente = rural.nrcpfrequerente.replace('.','').replace('-','') )
-            return render_to_response('sicop/restrito/processo/rural/edicao.html',
+            return render_to_response('sicop/processo/rural/edicao.html',
                                       {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                        'movimentacao':movimentacao,'caixadestino':caixadestino,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
@@ -383,7 +386,7 @@ def criar_pendencia(request, base):
                 dtaberturaprocesso = formatDataToText( urbano.dtaberturaprocesso )
                 dttitulacao = formatDataToText( urbano.dttitulacao )
                 
-                return render_to_response('sicop/restrito/processo/urbano/edicao.html',
+                return render_to_response('sicop/processo/urbano/edicao.html',
                                           {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'situacaogeo':situacaogeo,
                                        'caixa':caixa,'municipio':municipio,'contrato':contrato,
                                        'base':base,'urbano':urbano,'anexado':anexado,'pendencia':pendencia,
@@ -393,7 +396,7 @@ def criar_pendencia(request, base):
                 if tipo == "tbprocessoclausula":
                     clausula = Tbprocessoclausula.objects.get( tbprocessobase = base.id )
                     dttitulacao = formatDataToText( clausula.dttitulacao )
-                    return render_to_response('sicop/restrito/processo/clausula/edicao.html',
+                    return render_to_response('sicop/processo/clausula/edicao.html',
                                               {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
                                        'movimentacao':movimentacao,'caixadestino':caixadestino,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
@@ -431,7 +434,7 @@ def anexar(request, base):
                                     nmcontato = base.nmcontato
                                     )
             f_anexo.save()
-            return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(base.id)+"/")
+            return HttpResponseRedirect("/sicop/processo/edicao/"+str(base.id)+"/")
         
         carregarTbAuxProcesso(request, base.tbcaixa.tbtipocaixa.nmtipocaixa)
         carregarTbAuxFuncoesProcesso(request, base)
@@ -449,7 +452,7 @@ def anexar(request, base):
         if tipo == "tbprocessorural":
             rural = Tbprocessorural.objects.get( tbprocessobase = base.id )
             peca = Tbpecastecnicas.objects.all().filter( nrcpfrequerente = rural.nrcpfrequerente.replace('.','').replace('-','') )
-            return render_to_response('sicop/restrito/processo/rural/edicao.html',
+            return render_to_response('sicop/processo/rural/edicao.html',
                                       {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                        'movimentacao':movimentacao,'caixadestino':caixadestino,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
@@ -461,7 +464,7 @@ def anexar(request, base):
                 dtaberturaprocesso = formatDataToText( urbano.dtaberturaprocesso )
                 dttitulacao = formatDataToText( urbano.dttitulacao )
                 
-                return render_to_response('sicop/restrito/processo/urbano/edicao.html',
+                return render_to_response('sicop/processo/urbano/edicao.html',
                                           {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'situacaogeo':situacaogeo,
                                        'caixa':caixa,'municipio':municipio,'contrato':contrato,
                                        'base':base,'urbano':urbano,'anexado':anexado,'pendencia':pendencia,
@@ -471,7 +474,7 @@ def anexar(request, base):
                 if tipo == "tbprocessoclausula":
                     clausula = Tbprocessoclausula.objects.get( tbprocessobase = base.id )
                     dttitulacao = formatDataToText( clausula.dttitulacao )
-                    return render_to_response('sicop/restrito/processo/clausula/edicao.html',
+                    return render_to_response('sicop/processo/clausula/edicao.html',
                                               {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
                                        'movimentacao':movimentacao,'caixadestino':caixadestino,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
@@ -503,7 +506,7 @@ def desanexar(request,id_anexo):
                                 )
         f_anexo.save()
         messages.add_message(request, messages.WARNING, 'Processo desanexado')
-        return HttpResponseRedirect("/sicop/restrito/processo/edicao/"+str(base.id)+"/")
+        return HttpResponseRedirect("/sicop/processo/edicao/"+str(base.id)+"/")
   
         #se nao passar na validacao
         
@@ -523,7 +526,7 @@ def desanexar(request,id_anexo):
     if tipo == "tbprocessorural":
         rural = Tbprocessorural.objects.get( tbprocessobase = base.id )
         peca = Tbpecastecnicas.objects.all().filter( nrcpfrequerente = rural.nrcpfrequerente.replace('.','').replace('-','') )
-        return render_to_response('sicop/restrito/processo/rural/edicao.html',
+        return render_to_response('sicop/processo/rural/edicao.html',
                                   {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                    'movimentacao':movimentacao,'caixadestino':caixadestino,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                    'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
@@ -535,7 +538,7 @@ def desanexar(request,id_anexo):
             dtaberturaprocesso = formatDataToText( urbano.dtaberturaprocesso )
             dttitulacao = formatDataToText( urbano.dttitulacao )
             
-            return render_to_response('sicop/restrito/processo/urbano/edicao.html',
+            return render_to_response('sicop/processo/urbano/edicao.html',
                                       {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'situacaogeo':situacaogeo,
                                    'caixa':caixa,'municipio':municipio,'contrato':contrato,
                                    'base':base,'urbano':urbano,'anexado':anexado,'pendencia':pendencia,
@@ -545,7 +548,7 @@ def desanexar(request,id_anexo):
             if tipo == "tbprocessoclausula":
                 clausula = Tbprocessoclausula.objects.get( tbprocessobase = base.id )
                 dttitulacao = formatDataToText( clausula.dttitulacao )
-                return render_to_response('sicop/restrito/processo/clausula/edicao.html',
+                return render_to_response('sicop/processo/clausula/edicao.html',
                                           {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                    'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
                                    'movimentacao':movimentacao,'caixadestino':caixadestino,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
@@ -624,7 +627,7 @@ def edicao(request, id):
                     tram.append( obj )
                     
             
-            return render_to_response('sicop/restrito/processo/rural/edicao.html',
+            return render_to_response('sicop/processo/rural/edicao.html',
                                       {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'fases':etapas,'etapa_atual':etapa_atual,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,'processo_principal':processo_principal,
@@ -642,7 +645,7 @@ def edicao(request, id):
                 for obj in caixasdestino:
                     if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'URB' or obj.tbtipocaixa.nmtipocaixa == 'FT' or obj.tbtipocaixa.nmtipocaixa == 'ENT' :
                         tram.append( obj )
-                return render_to_response('sicop/restrito/processo/urbano/edicao.html',
+                return render_to_response('sicop/processo/urbano/edicao.html',
                                           {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'situacaogeo':situacaogeo,
                                        'caixa':caixa,'municipio':municipio,'contrato':contrato,'fases':fases,'pregao':pregao,
                                        'base':base,'urbano':urbano,'anexado':anexado,'pendencia':pendencia,'processo_principal':processo_principal,
@@ -659,13 +662,13 @@ def edicao(request, id):
                     for obj in caixasdestino:
                         if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'RES' or obj.tbtipocaixa.nmtipocaixa == 'FT' or obj.tbtipocaixa.nmtipocaixa == 'ENT' :
                             tram.append( obj )
-                    return render_to_response('sicop/restrito/processo/clausula/edicao.html',
+                    return render_to_response('sicop/processo/clausula/edicao.html',
                                               {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'fases':fases,
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,'processo_principal':processo_principal,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
         
-    return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
+    return HttpResponseRedirect("/sicop/processo/consulta/")
     
 @permission_required('sicop.processo_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
@@ -681,7 +684,7 @@ def cadastro(request):
         if escolha == "tbprocessorural":
             div_processo = "rural"
             carregarTbAuxProcesso(request, 'PAD')
-            return render_to_response('sicop/restrito/processo/cadastro.html',
+            return render_to_response('sicop/processo/cadastro.html',
                     {'tipoprocesso':tipoprocesso,'situacaoprocesso':situacaoprocesso,'gleba':gleba,'caixa':caixa,'municipio':municipio,'processo':escolha,
                     'div_processo':div_processo},
                     context_instance = RequestContext(request));  
@@ -690,7 +693,7 @@ def cadastro(request):
                 div_processo = "urbano"
                 carregarTbAuxProcesso(request, 'URB')
                 pregao = Tbpregao.objects.all().order_by('nrpregao')
-                return render_to_response('sicop/restrito/processo/cadastro.html',
+                return render_to_response('sicop/processo/cadastro.html',
                     {'tipoprocesso':tipoprocesso,'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                      'caixa':caixa,'municipio':municipio,'processo':escolha,'pregao':pregao,
                     'div_processo':div_processo,'contrato':contrato,'situacaogeo':situacaogeo},
@@ -700,12 +703,12 @@ def cadastro(request):
                     div_processo = "clausula"
                     form = FormProcessoClausula()
                     carregarTbAuxProcesso(request, 'RES')
-                    return render_to_response('sicop/restrito/processo/cadastro.html',
+                    return render_to_response('sicop/processo/cadastro.html',
                     {'form':form,'tipoprocesso':tipoprocesso,'situacaoprocesso':situacaoprocesso,'gleba':gleba,'caixa':caixa,'municipio':municipio,'processo':escolha,
                     'div_processo':div_processo},
                     context_instance = RequestContext(request));  
     carregarTbAuxProcesso(request, 'PAD')   
-    return render_to_response('sicop/restrito/processo/cadastro.html',{'gleba':gleba,'caixa':caixa,'municipio':municipio,'situacaoprocesso':situacaoprocesso,
+    return render_to_response('sicop/processo/cadastro.html',{'gleba':gleba,'caixa':caixa,'municipio':municipio,'situacaoprocesso':situacaoprocesso,
             'tipoprocesso':tipoprocesso,'processo':escolha,'div_processo':div_processo}, context_instance = RequestContext(request))
 
 
@@ -722,7 +725,7 @@ def ativar_tramitacao_massa(request):
             request.session['tramitacao_massa_ativado'] = True
             request.session['tramitacao_massa'] = []
      
-    return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
+    return HttpResponseRedirect("/sicop/processo/consulta/")
 
 @permission_required('sicop.processo_tramitacao_massa', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def add_tramitacao_massa(request, base):
@@ -755,7 +758,7 @@ def add_tramitacao_massa(request, base):
                 lista.append( processo )
             request.session['tramitacao_massa'] = lista
         
-    return HttpResponseRedirect("/sicop/restrito/processo/consulta/")
+    return HttpResponseRedirect("/sicop/processo/consulta/")
 
 @permission_required('sicop.processo_tramitacao_massa', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def rem_tramitacao_massa(request, base):
@@ -774,7 +777,7 @@ def rem_tramitacao_massa(request, base):
     lista.remove( processo )
     request.session['tramitacao_massa'] = lista
         
-    return HttpResponseRedirect("/sicop/restrito/processo/lista_tramitacao_massa/")
+    return HttpResponseRedirect("/sicop/processo/lista_tramitacao_massa/")
 
 @permission_required('sicop.processo_tramitacao_massa', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def executar_tramitacao_massa(request):
@@ -839,7 +842,7 @@ def executar_tramitacao_massa(request):
                     f_base.save()
         return ativar_tramitacao_massa(request)
 
-    return render_to_response('sicop/restrito/processo/lista_tramitacao_massa.html',{'caixadestino':Tbcaixa.objects.filter(tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id).order_by('nmlocalarquivo'),'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('sicop/processo/lista_tramitacao_massa.html',{'caixadestino':Tbcaixa.objects.filter(tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id).order_by('nmlocalarquivo'),'lista':lista}, context_instance = RequestContext(request))
 
 @permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_pdf(request):
