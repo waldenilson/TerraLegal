@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from TerraLegal.tramitacao.forms import FormTipoCaixa
 from django.http import HttpResponseRedirect
-from TerraLegal.tramitacao.models import Tbcontratoservidor
+from TerraLegal.tramitacao.models import Tbsituacao
 from django.contrib import messages
 from TerraLegal.tramitacao.admin import verificar_permissao_grupo
 from django.http.response import HttpResponse
@@ -13,61 +13,62 @@ from TerraLegal.tramitacao.relatorio_base import relatorio_csv_base, relatorio_o
     relatorio_pdf_base_header_title, relatorio_pdf_base_header
 from odslib import ODS
 
-nome_relatorio      = "relatorio_tipo_caixa"
-response_consulta  = "/sicop/restrito/tipo_caixa/consulta/"
+nome_relatorio      = "relatorio_tipo_situacao"
+response_consulta  = "/sicop/tipo_caixa/consulta/"
 titulo_relatorio    = "Relatorio dos Tipos de Caixa"
 planilha_relatorio  = "Tipos de Caixa"
+'''
+definir o que faz esse modulo
+'''
 
-
-@permission_required('sicop.tipo_caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.tipo_situacao_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
     if request.method == "POST":
-        nome = request.POST['nmcontrato']
-        lista = Tbcontratoservidor.objects.all()#.filter( nmtipocaixa__icontains=nome, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        nome = request.POST['cdTabela']
+        lista = Tbsituacao.objects.all().filter(cdTabela__icontains=nome)
     else:
-        lista = Tbcontratoservidor.objects.all()
-    lista = lista.order_by( 'nmcontrato' )
+        lista = Tbsituacao.objects.all()
+    lista = lista.order_by( 'cdTabela' )
     
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
-    request.session['relatorio_tipo_caixa'] = lista
-    return render_to_response('controle/servidor/contratoservidor/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
-
+    request.session['relatorio_tipo_situacao'] = lista
+    return render_to_response('sicop/situacao/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
     
-    
-@permission_required('sicop.tipo_caixa_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.tipo_situacao_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
     if request.method == "POST":
         next = request.GET.get('next', '/')    
         if validacao(request):
-            f_tipocaixa = Tbtipocaixa(
-                                        nmtipocaixa = request.POST['nmtipocaixa'],
-                                        desctipocaixa = request.POST['desctipocaixa'],
-                                        tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
-                                      )
-            f_tipocaixa.save()
+            f_situacao = Tbsituacao(cdTabela = request.POST['cdTabela'],
+                                    dsSituacao = request.POST['dsSituacao'],)
+            f_situacao.save()
             if next == "/":
-                return HttpResponseRedirect("/sicop/restrito/tipo_caixa/consulta/")
+                return HttpResponseRedirect("/sicop/situacao/consulta/")
             else:    
                 return HttpResponseRedirect( next ) 
-    return render_to_response('sicop/restrito/tipo_caixa/cadastro.html',{}, context_instance = RequestContext(request))
+    return render_to_response('sicop/situacao/cadastro.html',{}, context_instance = RequestContext(request))
 
-@permission_required('sicop.tipo_caixa_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.tipo_situacao_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
-    instance = get_object_or_404(Tbtipocaixa, id=id)
+    instance = get_object_or_404(Tbsituacao, id=id)
     if request.method == "POST":
+
+        if not request.user.has_perm('sicop.tipo_situacao_edicao'):
+            return HttpResponseRedirect('/excecoes/permissao_negada/') 
+
         if validacao(request):
-            f_tipocaixa = Tbtipocaixa(
+            f_situacao = Tbsituacao(
                                         id = instance.id,
-                                        nmtipocaixa = request.POST['nmtipocaixa'],
-                                        desctipocaixa = request.POST['desctipocaixa'],
-                                        tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
+                                        cdTabela = request.POST['cdTabela'],
+                                        dsSituacao = request.POST['dsSituacao'],
+                                        
                                       )
-            f_tipocaixa.save()
-            return HttpResponseRedirect("/sicop/restrito/tipo_caixa/edicao/"+str(id)+"/")
-    return render_to_response('sicop/restrito/tipo_caixa/edicao.html', {"tipocaixa":instance}, context_instance = RequestContext(request))
+            f_situacao.save()
+            return HttpResponseRedirect("/sicop/situacao/edicao/"+str(id)+"/")
+    return render_to_response('sicop/situacao/edicao.html', {"situacao":instance}, context_instance = RequestContext(request))
 
 
-@permission_required('sicop.tipo_caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.tipo_situacao_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_pdf(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session[nome_relatorio]
@@ -84,7 +85,7 @@ def relatorio_pdf(request):
     else:
         return HttpResponseRedirect(response_consulta)
 
-@permission_required('sicop.tipo_caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.tipo_situacao_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_ods(request):
 
     # montar objeto lista com os campos a mostrar no relatorio/pdf
@@ -119,7 +120,7 @@ def relatorio_ods(request):
     else:
         return HttpResponseRedirect( response_consulta )
 
-@permission_required('sicop.tipo_caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.tipo_situacao_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_csv(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
     lista = request.session[nome_relatorio]
@@ -133,11 +134,14 @@ def relatorio_csv(request):
     else:
         return HttpResponseRedirect( response_consulta )
 
-
-
 def validacao(request_form):
     warning = True
-    if request_form.POST['nmtipocaixa'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe um nome para o tipo caixa')
+    if request_form.POST['cdTabela'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe uma tabela para o tipo')
         warning = False
+    if request_form.POST['dsSituacao'] == '':
+        messages.add_message(request_form,messages.WARNING,'Informe a descricao da situacao da tabela')
+        warning = False
+        
+        
     return warning

@@ -125,7 +125,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-    "sicop.util.processors.login_form",
+    "TerraLegal.tramitacao.util.processors.login_form",
     "django.contrib.auth.context_processors.auth",
     "django.core.context_processors.debug",
     "django.core.context_processors.i18n",
@@ -167,7 +167,7 @@ INSTALLED_APPS = (
     'odslib',
     'webodt',
     'lxml',
-    'sicop',
+    'TerraLegal.tramitacao',
     'TerraLegal.documento',
     'TerraLegal.servidor',
     'TerraLegal.calculo',

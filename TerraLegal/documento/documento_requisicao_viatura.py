@@ -4,11 +4,11 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext, Context
-from sicop.models import Tbtipoprocesso, Tbcaixa, Tbgleba, Tbmunicipio, AuthUser,\
+from TerraLegal.tramitacao.models import Tbtipoprocesso, Tbcaixa, Tbgleba, Tbmunicipio, AuthUser,\
     AuthGroup, Tbprocessobase, Tbprocessorural, Tbclassificacaoprocesso, Tbsituacaoprocesso,\
     Tbpecastecnicas, Tbmovimentacao, Tbtipodocumento, Tbdocumentobase,\
     Tbservidor, Tbdocumentoservidor, Tbdocumentovr
-from sicop.forms import FormProcessoRural, FormProcessoBase
+from TerraLegal.tramitacao.forms import FormProcessoRural, FormProcessoBase
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect, HttpResponse
 import datetime
@@ -23,8 +23,8 @@ from TerraLegal import settings
 from django.core.files.storage import default_storage
 from webodt.shortcuts import render_to
 from webodt import shortcuts
-from sicop.admin import mes_do_ano_texto
-from sicop.restrito.documento import formatDataToText
+from TerraLegal.tramitacao.admin import mes_do_ano_texto
+from TerraLegal.tramitacao.restrito.documento import formatDataToText
 
 @permission_required('servidor.documento_requisicao_viatura_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):

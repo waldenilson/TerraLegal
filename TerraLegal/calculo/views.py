@@ -4,7 +4,7 @@ from django.template.context import RequestContext
 from TerraLegal.calculo.models import Tbextrato
 from decimal import Decimal
 from datetime import date
-from sicop.restrito.processo import formatDataToText
+from TerraLegal.tramitacao.restrito.processo import formatDataToText
 
 nome_relatorio      = "relatorio_portaria80"
 response_consulta  = "/sicop/restrito/portaria80/calculo/"

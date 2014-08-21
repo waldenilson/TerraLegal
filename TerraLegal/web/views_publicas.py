@@ -18,7 +18,7 @@ from reportlab.lib.pagesizes import letter
 import urllib2
 import json
 import pprint
-from sicop.models import AuthUser, Tbdivisao
+from TerraLegal.tramitacao.models import AuthUser, Tbdivisao
 from TerraLegal.core.funcoes import verificaDivisaoUsuario
 
 #from TerraLegal.funcoes import verificaDivisaoUsuario

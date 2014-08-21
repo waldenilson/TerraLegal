@@ -5,19 +5,19 @@ from django.http import HttpResponseRedirect
 from django.template.context import RequestContext
 from django.contrib import messages
 
-from sicop.forms import FormPecasTecnicas, FormServidor,FormFerias
+from TerraLegal.tramitacao.forms import FormPecasTecnicas, FormServidor,FormFerias
 
-from sicop.models import Tbpecastecnicas, Tbgleba, Tbcaixa,Tbcontrato,\
+from TerraLegal.tramitacao.models import Tbpecastecnicas, Tbgleba, Tbcaixa,Tbcontrato,\
     Tbservidor, AuthUser, Tbdivisao, Tbferias, Tbsituacao, Tbdocumentoservidor
-from sicop.admin import verificar_permissao_grupo
+from TerraLegal.tramitacao.admin import verificar_permissao_grupo
 from django.http.response import HttpResponse
-from sicop.relatorio_base import relatorio_pdf_base_header,\
+from TerraLegal.tramitacao.relatorio_base import relatorio_pdf_base_header,\
     relatorio_pdf_base_header_title, relatorio_pdf_base,\
     relatorio_ods_base_header, relatorio_ods_base, relatorio_csv_base
 from odslib import ODS
 import datetime
 from datetime import timedelta
-from sicop.restrito.processo import formatDataToText
+from TerraLegal.tramitacao.restrito.processo import formatDataToText
 
 nome_relatorio = "relatorio_servidor"
 response_consulta = "/consulta/"

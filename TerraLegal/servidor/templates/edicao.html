@@ -83,7 +83,7 @@
 					<td class="colunaTabelaConsulta" style="width:20%">Data</td>
 				</tr>					    
 					{% for obj in documentos %}
-						<tr onclick="editarID('/sicop/restrito/documento/edicao/{{ obj.tbdocumentobase.id}}');">
+						<tr onclick="editarID('/documento/edicao/{{ obj.tbdocumentobase.id}}');">
 						    <td class="colunaTabelaConsulta" align="left" >{{ obj.tbdocumentobase.nmdocumento }}</td>
 							<td class="colunaTabelaConsulta" align="left"><input disabled size=20 value="{{ obj.tbdocumentobase.dtdocumento }}" /></td>
 						</tr>

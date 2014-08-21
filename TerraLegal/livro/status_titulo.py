@@ -3,11 +3,11 @@ from django.contrib.auth.decorators import login_required, permission_required,\
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from TerraLegal.livro.models import Tbstatustitulo
-from sicop.models import AuthUser
+from TerraLegal.tramitacao.models import AuthUser
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
-from sicop.admin import verificar_permissao_grupo
-from sicop.relatorio_base import relatorio_csv_base, relatorio_ods_base,\
+from TerraLegal.tramitacao.admin import verificar_permissao_grupo
+from TerraLegal.tramitacao.relatorio_base import relatorio_csv_base, relatorio_ods_base,\
     relatorio_ods_base_header, relatorio_pdf_base,\
     relatorio_pdf_base_header_title, relatorio_pdf_base_header
 from odslib import ODS

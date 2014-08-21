@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from TerraLegal.tramitacao.forms import FormTipoCaixa
 from django.http import HttpResponseRedirect
-from TerraLegal.tramitacao.models import Tbcontratoservidor
+from TerraLegal.tramitacao.models import Tbtipocaixa, AuthUser
 from django.contrib import messages
 from TerraLegal.tramitacao.admin import verificar_permissao_grupo
 from django.http.response import HttpResponse
@@ -14,7 +14,7 @@ from TerraLegal.tramitacao.relatorio_base import relatorio_csv_base, relatorio_o
 from odslib import ODS
 
 nome_relatorio      = "relatorio_tipo_caixa"
-response_consulta  = "/sicop/restrito/tipo_caixa/consulta/"
+response_consulta  = "/sicop/tipo_caixa/consulta/"
 titulo_relatorio    = "Relatorio dos Tipos de Caixa"
 planilha_relatorio  = "Tipos de Caixa"
 
@@ -22,17 +22,15 @@ planilha_relatorio  = "Tipos de Caixa"
 @permission_required('sicop.tipo_caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
     if request.method == "POST":
-        nome = request.POST['nmcontrato']
-        lista = Tbcontratoservidor.objects.all()#.filter( nmtipocaixa__icontains=nome, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        nome = request.POST['nmtipocaixa']
+        lista = Tbtipocaixa.objects.all().filter( nmtipocaixa__icontains=nome)#, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     else:
-        lista = Tbcontratoservidor.objects.all()
-    lista = lista.order_by( 'nmcontrato' )
-    
+        lista = Tbtipocaixa.objects.all()#.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+    lista = lista.order_by( 'nmtipocaixa' )
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_tipo_caixa'] = lista
-    return render_to_response('controle/servidor/contratoservidor/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('sicop/tipo_caixa/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
-    
     
 @permission_required('sicop.tipo_caixa_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
@@ -42,29 +40,33 @@ def cadastro(request):
             f_tipocaixa = Tbtipocaixa(
                                         nmtipocaixa = request.POST['nmtipocaixa'],
                                         desctipocaixa = request.POST['desctipocaixa'],
-                                        tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
+                                        #tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                       )
             f_tipocaixa.save()
             if next == "/":
-                return HttpResponseRedirect("/sicop/restrito/tipo_caixa/consulta/")
+                return HttpResponseRedirect("/sicop/tipo_caixa/consulta/")
             else:    
                 return HttpResponseRedirect( next ) 
-    return render_to_response('sicop/restrito/tipo_caixa/cadastro.html',{}, context_instance = RequestContext(request))
+    return render_to_response('sicop/tipo_caixa/cadastro.html',{}, context_instance = RequestContext(request))
 
-@permission_required('sicop.tipo_caixa_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.tipo_caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     instance = get_object_or_404(Tbtipocaixa, id=id)
     if request.method == "POST":
+
+        if not request.user.has_perm('sicop.tipo_caixa_edicao'):
+            return HttpResponseRedirect('/excecoes/permissao_negada/') 
+
         if validacao(request):
             f_tipocaixa = Tbtipocaixa(
                                         id = instance.id,
                                         nmtipocaixa = request.POST['nmtipocaixa'],
                                         desctipocaixa = request.POST['desctipocaixa'],
-                                        tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
+                                        #tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                       )
             f_tipocaixa.save()
-            return HttpResponseRedirect("/sicop/restrito/tipo_caixa/edicao/"+str(id)+"/")
-    return render_to_response('sicop/restrito/tipo_caixa/edicao.html', {"tipocaixa":instance}, context_instance = RequestContext(request))
+            return HttpResponseRedirect("/sicop/tipo_caixa/edicao/"+str(id)+"/")
+    return render_to_response('sicop/tipo_caixa/edicao.html', {"tipocaixa":instance}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.tipo_caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)

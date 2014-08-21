@@ -8,19 +8,19 @@ from django.template.context import RequestContext
 from django.contrib import messages
 
 
-from sicop.models import  AuthUser, Tbdivisao, Tbsituacao
+from TerraLegal.tramitacao.models import  AuthUser, Tbdivisao, Tbsituacao
 from TerraLegal.servidor.models import Tbferias, Tbservidor
 from TerraLegal.documento.models import Tbdocumentoservidor
 
 from django.http.response import HttpResponse
-from sicop.relatorio_base import relatorio_pdf_base_header,\
+from TerraLegal.tramitacao.relatorio_base import relatorio_pdf_base_header,\
     relatorio_pdf_base_header_title, relatorio_pdf_base,\
     relatorio_ods_base_header, relatorio_ods_base, relatorio_csv_base
 from odslib import ODS
 import datetime
 from datetime import timedelta
 
-from sicop.restrito.processo import formatDataToText
+from TerraLegal.tramitacao.restrito.processo import formatDataToText
 
 import random
 import time

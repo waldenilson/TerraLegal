@@ -2,10 +2,10 @@ from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from TerraLegal.livro.models import Tbtitulo, Tbstatustitulo, Tbtipotitulo
-from sicop.models import AuthUser, Tbprocessobase, Tbprocessorural,Tbdivisao, Tbpecastecnicas
+from TerraLegal.tramitacao.models import AuthUser, Tbprocessobase, Tbprocessorural,Tbdivisao, Tbpecastecnicas
 from django.http import HttpResponseRedirect
 from django.contrib import messages
-from sicop.relatorio_base import relatorio_ods_base_header, relatorio_ods_base, relatorio_csv_base,\
+from TerraLegal.tramitacao.relatorio_base import relatorio_ods_base_header, relatorio_ods_base, relatorio_csv_base,\
     relatorio_pdf_base_header, relatorio_pdf_base,\
     relatorio_pdf_base_header_title
 from django.http.response import HttpResponse

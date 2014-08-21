@@ -1,8 +1,8 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
-from sicop.forms import FormGleba, FormPendencia
-from sicop.models import Tbgleba, Tbsubarea, Tbpendencia, Tbtipopendencia,\
+from TerraLegal.tramitacao.forms import FormGleba, FormPendencia
+from TerraLegal.tramitacao.models import Tbgleba, Tbsubarea, Tbpendencia, Tbtipopendencia,\
     Tbstatuspendencia, Tbdocumentomaterialrme
 from django.http.response import HttpResponseRedirect
 from django.contrib import messages

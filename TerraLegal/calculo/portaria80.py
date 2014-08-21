@@ -2,12 +2,12 @@ from django.contrib.auth.decorators import login_required, permission_required,\
     user_passes_test
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
-from sicop.forms import FormMunicipio
-from sicop.models import Tbmunicipio, Tbsubarea, AuthUser, Tbdivisao, Tbuf
+from TerraLegal.tramitacao.forms import FormMunicipio
+from TerraLegal.tramitacao.models import Tbmunicipio, Tbsubarea, AuthUser, Tbdivisao, Tbuf
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
-from sicop.admin import verificar_permissao_grupo
-from sicop.relatorio_base import relatorio_pdf_base_header,\
+from TerraLegal.tramitacao.admin import verificar_permissao_grupo
+from TerraLegal.tramitacao.relatorio_base import relatorio_pdf_base_header,\
     relatorio_pdf_base_header_title, relatorio_pdf_base,\
     relatorio_ods_base_header, relatorio_ods_base, relatorio_csv_base
 from odslib import ODS

@@ -4,26 +4,26 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext, Context
 
 from django.http.response import HttpResponseRedirect, HttpResponse
-from sicop.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
+from TerraLegal.tramitacao.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
     Tbprocessoclausula, Tbprocessobase, Tbcaixa, Tbgleba, Tbmunicipio,\
     Tbcontrato, Tbsituacaoprocesso, Tbsituacaogeo, Tbpecastecnicas, AuthUser,\
     AuthUserGroups, Tbmovimentacao, Tbprocessosanexos, Tbpendencia,\
     Tbclassificacaoprocesso, Tbtipopendencia, Tbstatuspendencia, Tbpregao,\
     Tbdivisao
-from sicop.forms import FormProcessoRural, FormProcessoUrbano,\
+from TerraLegal.tramitacao.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
-from sicop.restrito import processo_rural
+from TerraLegal.tramitacao.restrito import processo_rural
 from types import InstanceType
-from sicop.admin import verificar_permissao_grupo
+from TerraLegal.tramitacao.admin import verificar_permissao_grupo
 import datetime
 from django.contrib import messages
 from django.utils import simplejson
-from sicop.relatorio_base import relatorio_csv_base, relatorio_ods_base,\
+from TerraLegal.tramitacao.relatorio_base import relatorio_csv_base, relatorio_ods_base,\
     relatorio_ods_base_header, relatorio_pdf_base,\
     relatorio_pdf_base_header_title, relatorio_pdf_base_header
 
 from django.contrib.auth.models import Permission
-from sicop import admin
+from TerraLegal.tramitacao import admin
 
 def verificaDivisaoUsuario(request):
     classe_divisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao.nrclasse

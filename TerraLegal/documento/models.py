@@ -1,5 +1,5 @@
 from django.db import models
-from sicop.models import Tbdivisao, AuthUser, Tbservidor
+from TerraLegal.tramitacao.models import Tbdivisao, AuthUser, Tbservidor
 
 class Tbtipodocumento(models.Model):
     nmtipodocumento = models.CharField(max_length=80, blank=True)
