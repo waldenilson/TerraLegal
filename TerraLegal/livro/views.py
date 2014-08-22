@@ -54,6 +54,8 @@ def consulta(request):
 def cadastro(request):
     statustitulo = Tbstatustitulo.objects.all()
     tipotitulo  = Tbtipotitulo.objects.all()
+    response_consulta  = "/livro/consulta/"
+
    
     if request.method == "POST":
         next = request.GET.get('next', '/')
