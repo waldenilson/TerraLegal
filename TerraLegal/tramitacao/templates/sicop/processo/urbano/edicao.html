@@ -182,19 +182,22 @@
 									<br/><br/>
 								{% endfor %}
 	  						    
-	  						    {% if perms.sicop.etapa_checklist_posterior %}
-											<hr /><br/>
-											<select name="etapaposterior"  style="width:170px">
-												<option value="">-- MUDAR DE ETAPA --</option>
-												{% for obj in posteriores %}
-													<option value="{{ obj.tbposterior.id }}">{{obj.tbposterior.nmfase}}</option>
-												{% endfor %}
-											</select>
-											<input type="submit" class="butto_green" value="OK" style="margin-left: 5px" />
-											<br/><br/>
-											<a href="javascript:history.back();" style="margin-left: 5px"><input type="button" class="butto_green" value="VOLTAR PARA A ETAPA ANTERIOR" /></a>
+	 						    {% if perms.sicop.etapa_checklist_posterior %}
+									<hr/><br/>
+									<select name="etapaposterior"  style="width:200px;text-align:center">
+										<option value="">-- MUDAR DE ETAPA --</option>
+										{% for obj in posteriores %}
+											<option value="{{ obj.tbposterior.id }}">{{obj.tbposterior.nmfase}}</option>
+										{% endfor %}
+									</select>
+									<br/><br/>
+									{% if perms.sicop.etapa_checklist_edicao %}
+										<a href="/sicop/etapa/restaurar/{{ base.id }}/">
+											<input type="button" style="width:200px" value="VOLTAR ETAPA" />
+										</a>
+									{% endif %}
 								{% else %}
-										<input name="etapaposterior" value="" type="hidden" />
+									<input name="etapaposterior" value="" type="hidden" />
 					   			{% endif %}
 			
 							</div>
