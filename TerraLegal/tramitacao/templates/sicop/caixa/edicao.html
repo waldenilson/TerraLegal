@@ -33,11 +33,13 @@
 					</td>						
 				   </tr>
 
-				   <tr> <td class="colunaTabela"> <label>Ativo:</label> </td>
-				   <td>
-				   		{{ form.blativo }}
-				   </td> </tr>
-				   
+					{% if perms.sicop.caixa_ativar %}
+					   	<tr> 
+					   		<td class="colunaTabela"> <label>Ativo:</label> </td>
+					   		<td> {{ form.blativo }} </td>
+					   	</tr>
+				   {% endif %}
+
 				   <tr><td class="colunaTabela"> <label>Divisao:</label> </td><td class="colunaTabela">
 				   		<input readonly="readonly" type="hidden" name="tbdivisao" value="{{divisao.id}}"/>{{divisao.nmdivisao}}
 				   	</td></tr>

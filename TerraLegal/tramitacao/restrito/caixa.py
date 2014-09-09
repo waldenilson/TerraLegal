@@ -64,10 +64,6 @@ def consulta(request):
 def cadastro(request):
     tipocaixa = Tbtipocaixa.objects.all()#.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmtipocaixa')
        
-    ativo = False
-    if request.POST.get('blativo',False):
-        ativo = True
-
     if request.method == "POST":
         next = request.GET.get('next', '/')
         if validacao(request):
@@ -75,7 +71,7 @@ def cadastro(request):
                               nmlocalarquivo = request.POST['nmlocalarquivo'],
                               tbtipocaixa = Tbtipocaixa.objects.get(pk = request.POST['tbtipocaixa']),
                               tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao,
-                              blativo = ativo
+                              blativo = True
                               )
             f_caixa.save()
             if next == "/":

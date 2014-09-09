@@ -623,7 +623,7 @@ def edicao(request, id):
     
             
             for obj in caixasdestino:
-                if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'PAD' or obj.tbtipocaixa.nmtipocaixa == 'FT' or obj.tbtipocaixa.nmtipocaixa == 'ENT' :
+                if obj.blativo and ( obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'PAD' or obj.tbtipocaixa.nmtipocaixa == 'FT' or obj.tbtipocaixa.nmtipocaixa == 'ENT' ) :
                     tram.append( obj )
                     
             
@@ -643,7 +643,7 @@ def edicao(request, id):
                 # caixas que podem ser tramitadas
                 tram = []
                 for obj in caixasdestino:
-                    if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'URB' or obj.tbtipocaixa.nmtipocaixa == 'FT' or obj.tbtipocaixa.nmtipocaixa == 'ENT' :
+                    if obj.blativo and ( obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'URB' or obj.tbtipocaixa.nmtipocaixa == 'FT' or obj.tbtipocaixa.nmtipocaixa == 'ENT' ) :
                         tram.append( obj )
                 return render_to_response('sicop/processo/urbano/edicao.html',
                                           {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'situacaogeo':situacaogeo,
@@ -660,7 +660,7 @@ def edicao(request, id):
                 
                     tram = []
                     for obj in caixasdestino:
-                        if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'RES' or obj.tbtipocaixa.nmtipocaixa == 'FT' or obj.tbtipocaixa.nmtipocaixa == 'ENT' :
+                        if obj.blativo and ( obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'RES' or obj.tbtipocaixa.nmtipocaixa == 'FT' or obj.tbtipocaixa.nmtipocaixa == 'ENT' ) :
                             tram.append( obj )
                     return render_to_response('sicop/processo/clausula/edicao.html',
                                               {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'fases':fases,
