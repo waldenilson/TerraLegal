@@ -87,6 +87,7 @@
 										<tr> <td class="colunaTabela"> <label>Municipio:</label> </td>
 										   		<td>
 										   			<select name="tbmunicipio" style="width: 200px">
+										   				<option value="">-- Selecione um Municipio --</option>
 														{% for obj in municipio %}
 															{% if obj.id == base.tbmunicipio.id %}
 																<option selected="selected" value="{{ obj.id }}">{{ obj.nome_mun }}</option>
@@ -117,6 +118,20 @@
 										<tr> 
 											<td class="colunaTabela"> <label>Endereço:</label> </td>
 											<td> <textarea name="nmendereco" rows="4" cols="30">{{base.nmendereco|default:''}}</textarea></td> 
+										</tr>
+										<tr> <td class="colunaTabela"> <label>Municipio do domicilio:</label> </td>
+										   		<td>
+										   			<select name="tbmunicipiodomicilio" style="width: 200px">
+										   				<option value="">-- Selecione um Municipio --</option>
+														{% for obj in municipio %}
+															{% if obj.id == base.tbmunicipiodomicilio.id %}
+																<option selected="selected" value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+															{% else %}
+																<option value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+															{% endif %}
+														{% endfor %}
+													</select>
+												</td>
 										</tr>
 										
 										</table>							
@@ -200,7 +215,9 @@
 			<tr>
 			   	<td class="colunaTabelaConsulta" >
 			   		Caixa Destino:
+
 			   		<select name="tbcaixadestino" style="width: 300px">
+			   			<option value="">-- Selecione uma caixa para tramitar --</option>
 			   			{% for obj in caixadestino %}
 							<option value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
 						{% endfor %}

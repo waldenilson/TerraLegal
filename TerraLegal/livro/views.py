@@ -85,7 +85,9 @@ def cadastro(request):
                         tbclassificacaoprocesso = processobase.tbclassificacaoprocesso,
                         nmendereco = processobase.nmendereco,
                         nmcontato = processobase.nmcontato,
-                        tbtitulo = Tbtitulo.objects.get(pk=f_titulo.id) 
+                        tbtitulo = Tbtitulo.objects.get(pk=f_titulo.id),
+                        tbmunicipiodomicilio = processobase.tbmunicipiodomicilio,
+                        
                         )
             f_processobase.save()
             
@@ -141,7 +143,9 @@ def edicao(request, id):#id eh do processo rural
                             tbclassificacaoprocesso = processobase_novo.tbclassificacaoprocesso,
                             nmendereco = processobase_novo.nmendereco,
                             nmcontato = processobase_novo.nmcontato,
-                            tbtitulo = Tbtitulo.objects.get(pk=f_titulo.id) 
+                            tbtitulo = Tbtitulo.objects.get(pk=f_titulo.id),
+                            tbmunicipiodomicilio = processobase.tbmunicipiodomicilio,
+
                             )
                 f_processobase.save()
                 
@@ -160,7 +164,8 @@ def edicao(request, id):#id eh do processo rural
                             tbclassificacaoprocesso = processobase.tbclassificacaoprocesso,
                             nmendereco = processobase.nmendereco,
                             nmcontato = processobase.nmcontato,
-                            tbtitulo = None
+                            tbtitulo = None,
+                            tbmunicipiodomicilio = processobase.tbmunicipiodomicilio,
                             )
                 f_processobase.save()
             return HttpResponseRedirect("/livro/edicao/"+str(rural_novo.id)+"/")

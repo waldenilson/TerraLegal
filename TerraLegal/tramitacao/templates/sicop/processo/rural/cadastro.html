@@ -1,11 +1,11 @@
 {% load staticfiles %} 
 {% block formulario %}
-
+<div id="tabs-1">
 		<form name="form_cadastro" method="post" action="/sicop/processo/rural/cadastro/">
 			{% csrf_token %}
 			<table>
 				<tr> 
-					<td class="colunaTabela"> <label>N do Processo:</label> </td>
+					<td class="colunaTabela"> <label>Processo:</label> </td>
 					<td> <input size="21" name="nrprocesso" id="processo" /> </td> 
 				</tr>
 				<tr> 
@@ -22,7 +22,7 @@
 						<a href="/sicop/gleba/cadastro/?next=/sicop/processo/rural/cadastro/" title="Nova Gleba"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>
 				</tr>
-				<tr> <td class="colunaTabela"> <label>Municipio:</label> </td>
+				<tr> <td class="colunaTabela"> <label>Municipio do Imóvel:</label> </td>
 				   		<td>
 				   			<select name="tbmunicipio" style="width: 200px">
 								<option value="">-- Selecione um Municipio --</option>
@@ -33,11 +33,11 @@
 						</td>
 				</tr>
 				<tr> <td class="colunaTabela"> <label>Nome do Requerente:</label> </td>
-					<td> <input size="35" name="nmrequerente" /> </td> </tr>
+					<td> <input size="55" name="nmrequerente" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>CPF do Requerente:</label> </td>
 					<td> <input size="15" id="cpf" name="nrcpfrequerente" /> </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Nome do Conjuge:</label> </td>
-					<td> <input size="35" name="nmconjuge" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Nome do Cônjuge:</label> </td>
+					<td> <input size="55" name="nmconjuge" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>CPF do Conjuge:</label> </td>
 					<td> <input size="15" id="cpf2" name="nrcpfconjuge" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
@@ -53,7 +53,7 @@
 							<a href="/sicop/caixa/cadastro/?next=/sicop/processo/rural/cadastro/" title="Nova Caixa"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 						</td>
 				</tr>
-				<tr> <td class="colunaTabela"> <label>Situacao:</label> </td>
+				<!--tr> <td class="colunaTabela"> <label>Situacao:</label> </td>
 				   		<td>
 				   			<select name="tbsituacaoprocesso" style="width: 200px">
 								<option value="">-- Selecione uma Situacao --</option>
@@ -65,9 +65,21 @@
 						<td>
 							<a href="/sicop/situacao_processo/cadastro/?next=/sicop/processo/rural/cadastro/" title="Nova Situacao"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 						</td>
-				</tr>
+				</tr-->
+
 				<tr> <td class="colunaTabela"> <label>Endereco:</label> </td>
 					<td> <textarea name="nmendereco" style="width: 200px"></textarea></td></tr>
+
+				<tr> <td class="colunaTabela"> <label>Municipio do domicílio:</label> </td>
+				   		<td>
+				   			<select name="tbmunicipiodomicilio" style="width: 200px">
+								<option value="">-- Selecione um Municipio --</option>
+								{% for obj in municipio %}
+									<option value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+								{% endfor %}
+							</select>
+						</td>
+				</tr>
 				<tr> <td class="colunaTabela"> <label>Contato:</label> </td>
 					<td> <input name="nmcontato" style="width: 250px" /> </td></tr>
 				
@@ -82,5 +94,6 @@
 			</td>
 		</tr>
 	</table>
-</form>			
+</form>
+</div>			
 {% endblock %}

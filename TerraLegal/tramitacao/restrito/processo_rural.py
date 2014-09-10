@@ -40,7 +40,7 @@ def cadastro(request):
                                     tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
                                     tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
                                     tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessorural' ),
-#                                    tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
+#                                   #tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
                                     dtcadastrosistema = datetime.datetime.now(),
                                     auth_user = AuthUser.objects.get( pk = request.user.id ),
                                     tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 ),
@@ -106,7 +106,9 @@ def edicao(request, id):
                                     tbdivisao = base.tbdivisao,
                                     nmendereco = request.POST['nmendereco'],
                                     nmcontato = request.POST['nmcontato'],
-                                    tbtitulo = base.tbtitulo
+                                    tbtitulo = base.tbtitulo,
+                                    tbmunicipiodomicilio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipiodomicilio'] ),
+                                    
                                     )
             f_base.save()
             
@@ -176,10 +178,10 @@ def validacao(request_form, metodo):
         if request_form.POST['tbcaixa'] == '':
             messages.add_message(request_form,messages.WARNING,'Escolha uma caixa')
             warning = False
-    if metodo == "cadastro":        
-        if request_form.POST['tbsituacaoprocesso'] == '':
-            messages.add_message(request_form,messages.WARNING,'Escolha a situacao do processo')
-            warning = False
+    #if metodo == "cadastro":        
+    #    if request_form.POST['tbsituacaoprocesso'] == '':
+    #        messages.add_message(request_form,messages.WARNING,'Escolha a situacao do processo')
+    #        warning = False
     
     # validacao dos dados de conjuge
     if request_form.POST['nmconjuge'] != '' and request_form.POST['nrcpfconjuge'] == '':
