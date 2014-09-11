@@ -68,7 +68,6 @@ def cadastro(request):
 
 @permission_required('sicop.processo_rural_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
-    
     carregarTbAuxProcesso(request)    
     rural = get_object_or_404(Tbprocessorural, id=id)
     base  = get_object_or_404(Tbprocessobase, id=rural.tbprocessobase.id)
@@ -106,8 +105,7 @@ def edicao(request, id):
                                     tbdivisao = base.tbdivisao,
                                     nmendereco = request.POST['nmendereco'],
                                     nmcontato = request.POST['nmcontato'],
-                                    tbtitulo = base.tbtitulo,
-                                    tbmunicipiodomicilio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipiodomicilio'] ),
+                                    tbtitulo = base.tbtitulo
                                     
                                     )
             f_base.save()

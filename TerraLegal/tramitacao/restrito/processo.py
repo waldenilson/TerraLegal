@@ -238,8 +238,7 @@ def tramitar(request, base):
                                     tbclassificacaoprocesso = base.tbclassificacaoprocesso,
                                     nmendereco = base.nmendereco,
                                     nmcontato = base.nmcontato,
-                                    tbtitulo = base.tbtitulo,
-                                    tbmunicipiodomicilio = base.tbmunicipiodomicilio
+                                    tbtitulo = base.tbtitulo
                                     )
             f_base.save()
             # criar registro da movimentacao
@@ -434,8 +433,8 @@ def anexar(request, base):
                                     tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 2 ),
                                     nmendereco = base.nmendereco,
                                     nmcontato = base.nmcontato,
-                                    tbtitulo = base.tbtitulo,
-                                    tbmunicipiodomicilio = base.tbmunicipiodomicilio
+                                    tbtitulo = base.tbtitulo
+                                  
                                     )
             f_anexo.save()
             return HttpResponseRedirect("/sicop/processo/edicao/"+str(base.id)+"/")
@@ -507,8 +506,7 @@ def desanexar(request,id_anexo):
                                 tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 ),
                                 nmendereco = base.nmendereco,
                                 nmcontato = base.nmcontato,
-                                tbtitulo = base.tbtitulo,
-                                tbmunicipiodomicilio = base.tbmunicipiodomicilio
+                                tbtitulo = base.tbtitulo
                                 )
         f_anexo.save()
         messages.add_message(request, messages.WARNING, 'Processo desanexado')
@@ -814,8 +812,7 @@ def executar_tramitacao_massa(request):
                                         tbclassificacaoprocesso = base.tbclassificacaoprocesso,
                                         nmendereco = base.nmendereco,
                                         nmcontato = base.nmcontato,
-                                        tbtitulo = base.tbtitulo,
-                                        tbmunicipiodomicilio = base.tbmunicipiodomicilio
+                                        tbtitulo = base.tbtitulo
                                         )
                 f_base.save()
                 # criar registro da movimentacao

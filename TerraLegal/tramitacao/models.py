@@ -234,7 +234,6 @@ class Tbprocessobase(models.Model):
     nmendereco = models.TextField(blank=True)
     nmcontato = models.TextField(blank=True)
     tbtitulo = models.ForeignKey('livro.Tbtitulo',null=True)
-    tbmunicipiodomicilio = models.ForeignKey(Tbmunicipio, related_name='tbmunicipiodomicilio_id')
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbprocessobase'
