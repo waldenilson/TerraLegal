@@ -44,6 +44,11 @@ planilha_relatorio = "Etapas"
 
 @permission_required('sicop.etapa_checklist_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def restaurar(request, processo):
+    #excluir o ultimo registro de  tbtransicao
+    tran = Tbtransicao.objects.filter( tbprocessobase = processo ).order_by( '-dttransicao' )
+    if len(tran) > 1:
+        tran[0].delete()
+
     return HttpResponseRedirect("/sicop/processo/edicao/"+str(processo)+"/")
     
 
