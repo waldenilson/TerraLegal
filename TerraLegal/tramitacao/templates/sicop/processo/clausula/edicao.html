@@ -33,8 +33,16 @@
 						
 							<div style="width: 100%; font-size: 12px; text-align: left">
 								<table>
-										<tr> <td class="colunaTabela"> <label>N do Processo:</label> </td>
-											<td> {{ base.nrprocesso }} </td> </tr>
+									<tr> 
+										<td class="colunaTabela"> <label>Número:</label></td>
+										<td>
+											{% if perms.sicop.processo_edicao_numero %}
+												<input name="tbprocessobase" size="17" value="{{base.nrprocesso}}" style="width:150px" id="processo"/>
+											{% else %}
+												{{base.nrprocesso}}
+											{% endif %}
+										</td>
+									</tr>
 										<tr> <td class="colunaTabela"> <label>Nome do Titulado:</label> </td>
 											<td> <input value="{{ clausula.nmrequerente }}" size="35" name="nmrequerente" /> </td> </tr>
 										<tr> <td class="colunaTabela"> <label>CPF do Titulado:</label> </td>

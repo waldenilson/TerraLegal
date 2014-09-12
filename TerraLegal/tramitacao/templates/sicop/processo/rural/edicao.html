@@ -48,7 +48,14 @@
 							
 								<table>
 									<tr> 
-										<td class="colunaTabela"> <label>Processo:</label></td><td><input name="tbprocessobase" size=17 value="{{base.nrprocesso}}" style="width:150px" id="processo"/></td>
+										<td class="colunaTabela"> <label>Número:</label></td>
+										<td>
+											{% if perms.sicop.processo_edicao_numero %}
+												<input name="tbprocessobase" size="17" value="{{base.nrprocesso}}" style="width:150px" id="processo"/>
+											{% else %}
+												{{base.nrprocesso}}
+											{% endif %}
+										</td>
 									</tr>
 									{% if base.tbclassificacaoprocesso.id == 2 %}
 										<tr style="color: red;font-weight: bold;"> <td class="colunaTabela" > <label>Classificacao:</label> </td>
