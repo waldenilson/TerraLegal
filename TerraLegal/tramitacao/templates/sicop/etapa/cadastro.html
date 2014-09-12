@@ -20,7 +20,7 @@
 				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td><input size="40" required="required" name="nmfase"/></td> </tr>
 				   <tr> <td class="colunaTabela"> <label>Tipo Processo:</label> </td>
 				   	<td>
-				   		<select name="tbtipoprocesso"  style="width:150px">
+				   		<select name="tbtipoprocesso"  style="width:250px">
 							<option value="">-- Selecione um Tipo --</option>
 							{% for obj in tipoprocesso %}
 								<option value="{{ obj.id }}">{{obj.nome}}</option>

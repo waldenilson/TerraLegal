@@ -48,7 +48,6 @@ def restaurar(request, processo):
     tran = Tbtransicao.objects.filter( tbprocessobase = processo ).order_by( '-dttransicao' )
     if len(tran) > 1:
         tran[0].delete()
-
     return HttpResponseRedirect("/sicop/processo/edicao/"+str(processo)+"/")
     
 
@@ -56,13 +55,16 @@ def restaurar(request, processo):
 def consulta(request):
     if request.method == "POST":
         nome = request.POST['nmfase']
-        #lista = Tbcaixa.objects.all().filter( nmlocalarquivo__icontains=nome, tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-        lista = Tbetapa.objects.filter( nmfase__icontains=nome )
+        lista = Tbetapa.objects.filter( 
+            nmfase__icontains=nome, 
+            tbtipoprocesso__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        #lista = Tbetapa.objects.filter( nmfase__icontains=nome )
     else:
-        #lista = Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-        lista = Tbetapa.objects.all()
+        lista = Tbetapa.objects.filter( 
+            tbtipoprocesso__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        #lista = Tbetapa.objects.all()
         
-    lista = lista.order_by( 'ordem','nmfase' )
+    lista = lista.order_by( 'tbtipoprocesso__nome','ordem', 'nmfase' )
     
 #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session[nome_relatorio] = lista
@@ -96,9 +98,10 @@ def edicao(request, id):
     tipoprocesso = Tbtipoprocesso.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('id')
 
     etapas = Tbetapa.objects.exclude( id = instance.id ).order_by('id')
+    etapas = etapas.filter( tbtipoprocesso__id = instance.tbtipoprocesso.id )
     etapasAnteriores = Tbetapaanterior.objects.filter( tbetapa__id = instance.id ).order_by('id')
     etapasPosteriores = Tbetapaposterior.objects.filter( tbetapa__id = instance.id ).order_by('id')
-    
+    checklists = Tbchecklist.objects.filter( tbetapa__id = instance.id ).order_by('id')
     
     ativo = False
     if request.POST.get('blativo',False):
@@ -216,7 +219,9 @@ def edicao(request, id):
                 return HttpResponseRedirect("/sicop/etapa/edicao/"+str(id)+"/")
             else:
                 return HttpResponseRedirect(next)
-    return render_to_response('sicop/etapa/edicao.html',{"fase":instance,'etapas':etapas,"tipoprocesso":tipoprocesso,'anteriores':anteriores,'posteriores':posteriores,'etapadesejada':etapadesejada}, context_instance = RequestContext(request))
+    return render_to_response('sicop/etapa/edicao.html',
+        {"fase":instance,'etapas':etapas,"tipoprocesso":tipoprocesso,'checklists':checklists,
+        'anteriores':anteriores,'posteriores':posteriores,'etapadesejada':etapadesejada}, context_instance = RequestContext(request))
 
 
 @permission_required('sicop.etapa_checklist_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)

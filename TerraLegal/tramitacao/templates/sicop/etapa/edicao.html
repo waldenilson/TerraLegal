@@ -8,96 +8,49 @@
 <div id="tabs" style="color:black;width:100%;font-size:11px">
 <ul>
 	<li><a href="#tabs-1">EDITAR ETAPA</a></li>
+	<li><a href="#tabs-2">ETAPAS ANTERIORES</a></li>
+	<li><a href="#tabs-3">ETAPAS POSTERIORES</a></li>
+	<li><a href="#tabs-4">CHECKLISTS</a></li>
 </ul>
-<div id="tabs-1">		
+
 	<form method="post" action=".">
 		{% csrf_token %}
-		<div style="width:100%;font-size:12px;text-align:left">
-				<table>
-				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td><input size="40" required="required" name="nmfase" value="{{fase.nmfase}}" /></td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Tipo Processo:</label> </td>
-				   	<td>
-				   		<select name="tbtipoprocesso" style="width:150px">
-							{% for obj in tipoprocesso %}
-								{% if obj.id == fase.tbtipoprocesso.id %}
-									<option selected="selected" value="{{ obj.id }}">{{obj.nome}}</option>
-								{% else %}
-									<option value="{{ obj.id }}">{{obj.nome}}</option>
-								{% endif %}
-							{% endfor %}f
-						</select>		
-				   	</td>
-				   	<td>
-						<a href="/sicop/tipo_processo/cadastro/?next=/sicop/fase/cadastro/" title="Novo Tipo Processo"> <img src="{% static "img/add.png" %}" width="24" /> </a>
-					</td>						
-				   </tr>
-				   <tr> <td class="colunaTabela"> <label>Ordem:</label> </td><td><input onkeypress="return SomenteNumeroOK(event, this);" required="required" name="ordem" value="{{fase.ordem}}" /></td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Descricao:</label> </td><td> <textarea rows="4" cols="40" name="dsfase">{{fase.dsfase}}</textarea></td> </tr>				   
-					<tr>
-						<td class="colunaTabela"> <label>Ativo:</label> </td>
-					    <td>
-						   	{% if fase.blativo == True %} 
-								<input checked="checked" type="checkbox" name="blativo" />
-							{% else %}
-								<input type="checkbox" name="blativo" />
-							{% endif %} 
-					   </td> 
-					</tr>
-				</table>
-		</div>
-		<br />
 		
-				<table style="width:100%">
-					<tbody>
-						<tr>
-							<td class="colunaTabelaConsulta" style="width:5%"> </td>
-							<td class="colunaTabelaConsulta" style="width:95%;font-weight:bold">Etapas Anteriores</td>
-						</tr>
-						{% if anteriores %}
-							{% for k,v in anteriores %}
-								<tr>
-									<td class="colunaTabelaConsulta">
-										{% if v %}
-											<input checked="checked" name="{{ k.id }}-anterior" type="checkbox" />
-										{% else %}
-											<input name="{{ k.id }}-anterior" type="checkbox" />
-										{% endif %}
-									</td>
-									<td class="colunaTabelaConsulta">{{ k.nmfase }} - {{ k.tbtipoprocesso.nome }}</td>
-								</tr>
-							{% endfor %}
-						{% endif %}
-					</tbody>
-				</table>
 
-				<br />
-				<table style="width:100%">
-					<tbody>
+		<div id="tabs-1">		
+			<div style="width:100%;font-size:12px;text-align:left">
+					<table>
+					   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td><input size="40" required="required" name="nmfase" value="{{fase.nmfase}}" /></td> </tr>
+					   <tr> <td class="colunaTabela"> <label>Tipo Processo:</label> </td>
+					   	<td>
+					   		<select name="tbtipoprocesso" style="width:250px">
+								{% for obj in tipoprocesso %}
+									{% if obj.id == fase.tbtipoprocesso.id %}
+										<option selected="selected" value="{{ obj.id }}">{{obj.nome}}</option>
+									{% else %}
+										<option value="{{ obj.id }}">{{obj.nome}}</option>
+									{% endif %}
+								{% endfor %}
+							</select>		
+					   	</td>
+					   	<td>
+							<a href="/sicop/tipo_processo/cadastro/?next=/sicop/fase/cadastro/" title="Novo Tipo Processo"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+						</td>						
+					   </tr>
+					   <tr> <td class="colunaTabela"> <label>Ordem:</label> </td><td><input onkeypress="return SomenteNumeroOK(event, this);" required="required" name="ordem" value="{{fase.ordem}}" /></td> </tr>
+					   <tr> <td class="colunaTabela"> <label>Descricao:</label> </td><td> <textarea rows="4" cols="40" name="dsfase">{{fase.dsfase}}</textarea></td> </tr>				   
 						<tr>
-							<td class="colunaTabelaConsulta" style="width:5%"> </td>
-							<td class="colunaTabelaConsulta" style="width:95%;font-weight:bold">Etapas Posteriores</td>
+							<td class="colunaTabela"> <label>Ativo:</label> </td>
+						    <td>
+							   	{% if fase.blativo == True %} 
+									<input checked="checked" type="checkbox" name="blativo" />
+								{% else %}
+									<input type="checkbox" name="blativo" />
+								{% endif %} 
+						   </td> 
 						</tr>
-						{% if posteriores %}
-							{% for k,v in posteriores %}
-								<tr>
-									<td class="colunaTabelaConsulta">
-										{% if v %}
-											<input checked="checked" name="{{ k.id }}-posterior" type="checkbox" />
-										{% else %}
-											<input name="{{ k.id }}-posterior" type="checkbox" />
-										{% endif %}
-									</td>
-									<td class="colunaTabelaConsulta">{{ k.nmfase }} - {{ k.tbtipoprocesso.nome }}</td>
-								</tr>
-							{% endfor %}
-						{% endif %}
-					</tbody>
-				</table>
 
-				<br />
-				<table>
-					<tbody>
-					   <tr> <td class="colunaTabela"> <label>Próxima Etapa | Sequência desejada:</label> </td>
+					   <tr> <td class="colunaTabela"> <label>Próxima Etapa desejada:</label> </td>
 					   	<td>
 					   		<select name="etapadesejada"  style="width:250px">
 								<option value="">-- Selecione a etapa --</option>
@@ -111,22 +64,82 @@
 							</select>		
 					   	</td>
 					   </tr>
+
+					</table>
+			</div>
+
+		</div>
+
+		<div id="tabs-2">		
+				<table style="width:100%">
+					<tbody>
+						{% if anteriores %}
+							{% for k,v in anteriores %}
+								<tr>
+									<td class="colunaTabelaConsulta">
+										{% if v %}
+											<input checked="checked" name="{{ k.id }}-anterior" type="checkbox" />
+										{% else %}
+											<input name="{{ k.id }}-anterior" type="checkbox" />
+										{% endif %}
+									</td>
+									<td class="colunaTabelaConsulta">{{ k.nmfase }}</td>
+								</tr>
+							{% endfor %}
+						{% endif %}
 					</tbody>
 				</table>
-				<br/>
-				
+
+		</div>
+		
+		<div id="tabs-3">		
+				<table style="width:100%">
+					<tbody>
+						{% if posteriores %}
+							{% for k,v in posteriores %}
+								<tr>
+									<td class="colunaTabelaConsulta">
+										{% if v %}
+											<input checked="checked" name="{{ k.id }}-posterior" type="checkbox" />
+										{% else %}
+											<input name="{{ k.id }}-posterior" type="checkbox" />
+										{% endif %}
+									</td>
+									<td class="colunaTabelaConsulta">{{ k.nmfase }}</td>
+								</tr>
+							{% endfor %}
+						{% endif %}
+					</tbody>
+				</table>
+
+		</div>
+
+		<div id="tabs-4">		
+				<table style="width:100%">
+					<tbody>
+						{% if checklists %}
+							{% for obj in checklists %}
+								<tr>
+									<td class="colunaTabelaConsulta"><a href="/sicop/checklist/edicao/{{obj.id}}"> {{ obj.nmchecklist }} </a> </td>
+								</tr>
+							{% endfor %}
+						{% endif %}
+					</tbody>
+				</table>
+				<br />
+				<a href="/sicop/checklist/cadastro/">Novo CheckList</a>
+		</div>
+
 		<table style="width:100%">
 			<tr>
 				<td class="colunaTabela" style="text-align:left"> 
-					<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
+					<a href="/sicop/etapa/consulta" style="margin-right: 10px"><input type="button" class="button_yellow" value="CONSULTAR" /></a>
 					<input type="submit" class="button_green" value="SALVAR" />
 				</td>
 			</tr>
 		</table>
 
-		<br/>
-		
 	</form>
-</div>
+
 </div>
 {% endblock %}

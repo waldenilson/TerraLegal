@@ -598,6 +598,8 @@ def edicao(request, id):
                 ).order_by('nmlocalarquivo')
 
         etapas = []
+        etapa_atual = None
+        posteriores = {}
         
         # localizando processo principal apartir do anexo
         processo_principal = []        
@@ -605,10 +607,16 @@ def edicao(request, id):
             obj = Tbprocessosanexos.objects.filter( tbprocessobase_id_anexo = id )[0]
             processo_principal = obj.tbprocessobase
         
+
+
         if tipo == "tbprocessorural":
             rural = Tbprocessorural.objects.get( tbprocessobase = id )
             peca = Tbpecastecnicas.objects.all().filter( nrcpfrequerente = rural.nrcpfrequerente.replace('.','').replace('-','') )
             etapas = Tbetapa.objects.filter( tbtipoprocesso__id = rural.tbprocessobase.tbtipoprocesso.id, blativo = True ).order_by('ordem')
+            transicao = Tbtransicao.objects.filter( tbprocessobase__id = rural.tbprocessobase.id ).order_by('-dttransicao')
+            if transicao:
+                etapa_atual = transicao[0]                
+                posteriores = Tbetapaposterior.objects.filter( tbetapa__id = etapa_atual.tbetapa.id )
             #try:
             #    titulo = Tbtitulo.objects.get(tbprocessobase = id)
             #except ObjectDoesNotExist:
@@ -618,12 +626,6 @@ def edicao(request, id):
             # caixas que podem ser tramitadas
             tram = []
             
-            etapa_atual = None
-            posteriores = {}
-            transicao = Tbtransicao.objects.filter( tbprocessobase__id = rural.tbprocessobase.id ).order_by('-dttransicao')
-            if transicao:
-                etapa_atual = transicao[0]                
-                posteriores = Tbetapaposterior.objects.filter( tbetapa__id = etapa_atual.tbetapa.id )
     
             
             for obj in caixasdestino:
@@ -644,14 +646,18 @@ def edicao(request, id):
                 dtaberturaprocesso = formatDataToText( urbano.dtaberturaprocesso )
                 dttitulacao = formatDataToText( urbano.dttitulacao )
                 fases = Tbetapa.objects.filter( tbtipoprocesso__id = urbano.tbprocessobase.tbtipoprocesso.id, blativo = True ).order_by('ordem')
+                transicao = Tbtransicao.objects.filter( tbprocessobase__id = urbano.tbprocessobase.id ).order_by('-dttransicao')
+                if transicao:
+                    etapa_atual = transicao[0]                
+                    posteriores = Tbetapaposterior.objects.filter( tbetapa__id = etapa_atual.tbetapa.id )
                 # caixas que podem ser tramitadas
                 tram = []
                 for obj in caixasdestino:
                     if obj.blativo and ( obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'URB' or obj.tbtipocaixa.nmtipocaixa == 'FT' or obj.tbtipocaixa.nmtipocaixa == 'ENT' ) :
                         tram.append( obj )
                 return render_to_response('sicop/processo/urbano/edicao.html',
-                                          {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'situacaogeo':situacaogeo,
-                                       'caixa':caixa,'municipio':municipio,'contrato':contrato,'fases':fases,'pregao':pregao,
+                                          {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'situacaogeo':situacaogeo,'etapa_atual':etapa_atual,
+                                       'caixa':caixa,'municipio':municipio,'contrato':contrato,'fases':fases,'pregao':pregao,'posteriores':posteriores,
                                        'base':base,'urbano':urbano,'anexado':anexado,'pendencia':pendencia,'processo_principal':processo_principal,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'dtaberturaprocesso':dtaberturaprocesso,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
@@ -660,6 +666,10 @@ def edicao(request, id):
                     clausula = Tbprocessoclausula.objects.get( tbprocessobase = id )
                     dttitulacao = formatDataToText( clausula.dttitulacao )
                     fases = Tbetapa.objects.filter( tbtipoprocesso__id = clausula.tbprocessobase.tbtipoprocesso.id, blativo = True ).order_by('ordem')
+                    transicao = Tbtransicao.objects.filter( tbprocessobase__id = clausula.tbprocessobase.id ).order_by('-dttransicao')
+                    if transicao:
+                        etapa_atual = transicao[0]                
+                        posteriores = Tbetapaposterior.objects.filter( tbetapa__id = etapa_atual.tbetapa.id )
                     # caixas que podem ser tramitadas
                 
                     tram = []
@@ -667,7 +677,7 @@ def edicao(request, id):
                         if obj.blativo and ( obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'RES' or obj.tbtipocaixa.nmtipocaixa == 'FT' or obj.tbtipocaixa.nmtipocaixa == 'ENT' ) :
                             tram.append( obj )
                     return render_to_response('sicop/processo/clausula/edicao.html',
-                                              {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'fases':fases,
+                                              {'situacaoprocesso':situacaoprocesso,'gleba':gleba,'fases':fases,'etapa_atual':etapa_atual,'posteriores':posteriores,
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,'processo_principal':processo_principal,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
