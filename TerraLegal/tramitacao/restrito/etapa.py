@@ -233,7 +233,8 @@ def checklist(request, processo,etapa):
     procChecklist = Tbchecklistprocessobase.objects.filter( tbprocessobase__id = processo )
     
     posteriores = Tbetapaposterior.objects.filter( tbetapa__id = etapa )
-    
+
+
     result = {}
     for obj in checklist:
         achou = False
@@ -247,6 +248,24 @@ def checklist(request, processo,etapa):
     result = sorted(result.items())
     
     if request.method == "POST":
+
+        if request.POST.get('atual',False):
+            
+            transicao = Tbtransicao(
+                tbprocessobase = obj_processo ,
+                tbetapa = obj_etapa,
+                dttransicao = datetime.datetime.now()
+            )
+
+            t = Tbtransicao.objects.all().order_by('-id')
+            if t:
+                if t[0].tbetapa.id != obj_etapa.id or t[0].tbprocessobase.id != obj_processo.id:
+                    transicao.save()
+            else:
+                transicao.save()
+
+            return HttpResponseRedirect("/sicop/processo/edicao/"+str(processo))
+    
         
         if not request.user.has_perm('sicop.etapa_checklist_edicao'):
             return HttpResponseRedirect('/excecoes/permissao_negada/')
@@ -286,14 +305,19 @@ def checklist(request, processo,etapa):
                     if et.blsequencia:
                         etapa_posterior = et
                         break
-            
+
             transicao = Tbtransicao(
                          tbprocessobase = Tbprocessobase.objects.get( pk = processo ) ,
                          tbetapa = etapa_posterior.tbposterior,
                          dttransicao = datetime.datetime.now()
                         )
-            
-            transicao.save()
+
+            # se etapa atual nao for a propria em questao, registra a transicao
+            t = Tbtransicao.objects.all().order_by('-id')
+            if t:
+                if t[0].tbetapa.id != transicao.tbetapa.id or t[0].tbprocessobase.id != transicao.tbprocessobase.id:
+                    if t[0].tbetapa.id != transicao.tbetapa.id:
+                        transicao.save()
             
         # se o usuario selecionou alguma etapa posterior para forcar a sequencia do processo
         else:
@@ -303,8 +327,13 @@ def checklist(request, processo,etapa):
                              tbetapa = Tbetapa.objects.get( pk = request.POST['etapaposterior'] ),
                              dttransicao = datetime.datetime.now()
                             )
-                
-                transicao.save()
+
+                # se etapa atual nao for a propria em questao, registra a transicao
+                t = Tbtransicao.objects.all().order_by('-id')
+                if t:
+                    if t[0].tbetapa.id != transicao.tbetapa.id or t[0].tbprocessobase.id != transicao.tbprocessobase.id:
+                        if t[0].tbetapa.id != transicao.tbetapa.id:
+                            transicao.save()
                 
                         
         return HttpResponseRedirect("/sicop/processo/edicao/"+str(processo))
