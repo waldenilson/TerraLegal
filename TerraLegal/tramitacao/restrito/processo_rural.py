@@ -46,8 +46,13 @@ def cadastro(request):
                                     tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 ),
                                     tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao,
                                     nmendereco = request.POST['nmendereco'],
-                                    nmcontato = request.POST['nmcontato']
+                                    nmcontato = request.POST['nmcontato'],
                                     )
+            try:
+                f_base.tbmunicipiodomicilio = Tbmunicipio.objects.get(pk = request.POST['tbmunicipiodomicilio'])
+            except:
+                f_base.tbmunicipiodomicilio = None
+
             f_base.save()
             
             # cadastrando o registro processo rural
@@ -108,6 +113,10 @@ def edicao(request, id):
                                     tbtitulo = base.tbtitulo
                                     
                                     )
+            try:
+                f_base.tbmunicipiodomicilio = Tbmunicipio.objects.get(pk = request.POST['tbmunicipiodomicilio'])
+            except:
+                f_base.tbmunicipiodomicilio = None
             f_base.save()
             
             # cadastrando o registro processo rural
