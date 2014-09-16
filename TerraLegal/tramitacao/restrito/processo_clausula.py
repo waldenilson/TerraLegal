@@ -115,7 +115,7 @@ def edicao(request, id):
         # cadastrando o registro processo base            
             f_base = Tbprocessobase (
                                     id = base.id,
-                                    nrprocesso = base.nrprocesso,
+                                    nrprocesso = request.POST['tbprocessobase'].replace('.','').replace('-','').replace('/',''),
                                     tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
                                     tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
                                     tbcaixa = base.tbcaixa,
