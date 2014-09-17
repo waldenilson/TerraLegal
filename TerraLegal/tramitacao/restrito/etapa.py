@@ -254,7 +254,8 @@ def checklist(request, processo,etapa):
             transicao = Tbtransicao(
                 tbprocessobase = obj_processo ,
                 tbetapa = obj_etapa,
-                dttransicao = datetime.datetime.now()
+                dttransicao = datetime.datetime.now(),
+                auth_user = AuthUser.objects.get( pk = request.user.id ),
             )
 
             t = Tbtransicao.objects.all().order_by('-id')
@@ -309,7 +310,8 @@ def checklist(request, processo,etapa):
             transicao = Tbtransicao(
                          tbprocessobase = Tbprocessobase.objects.get( pk = processo ) ,
                          tbetapa = etapa_posterior.tbposterior,
-                         dttransicao = datetime.datetime.now()
+                         dttransicao = datetime.datetime.now(),
+                         auth_user = AuthUser.objects.get( pk = request.user.id ),
                         )
 
             # se etapa atual nao for a propria em questao, registra a transicao
@@ -325,7 +327,8 @@ def checklist(request, processo,etapa):
                 transicao = Tbtransicao(
                              tbprocessobase = Tbprocessobase.objects.get( pk = processo ) ,
                              tbetapa = Tbetapa.objects.get( pk = request.POST['etapaposterior'] ),
-                             dttransicao = datetime.datetime.now()
+                             dttransicao = datetime.datetime.now(),
+                             auth_user = AuthUser.objects.get( pk = request.user.id ),
                             )
 
                 # se etapa atual nao for a propria em questao, registra a transicao

@@ -396,6 +396,7 @@ class Tbtransicao(models.Model):
     tbprocessobase = models.ForeignKey(Tbprocessobase, null=True, blank=True)
     tbetapa = models.ForeignKey(Tbetapa, null=True, blank=True)
     dttransicao = models.DateTimeField( null=False )
+    auth_user = models.ForeignKey(AuthUser)
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbtransicao'

@@ -187,7 +187,8 @@ def edicao(request, id):
                     transicao = Tbtransicao(
                                      tbprocessobase = Tbprocessobase.objects.get( pk = base.id ) ,
                                      tbetapa = Tbetapa.objects.get( pk = request.POST['etapaposterior'] ),
-                                     dttransicao = datetime.datetime.now()
+                                     dttransicao = datetime.datetime.now(),
+                                     auth_user = AuthUser.objects.get( pk = request.user.id ),
                                     )                    
                     transicao.save()
 
