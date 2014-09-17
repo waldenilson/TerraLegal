@@ -71,10 +71,10 @@ def cadastro(request):
             except:
                 f_clausula.dttitulacao = None
 
-            try:
-                f_clausula.dtrequerimento = datetime.datetime.strptime( request.POST['dtrequerimento'], "%d/%m/%Y")
-            except:
-                f_clausula.dtrequerimento = None
+            #try:
+            #    f_clausula.dtrequerimento = datetime.datetime.strptime( request.POST['dtrequerimento'], "%d/%m/%Y")
+            #except:
+            #    f_clausula.dtrequerimento = None
 
             f_clausula.save()
 
@@ -149,10 +149,10 @@ def edicao(request, id):
             except:
                 f_clausula.dttitulacao = None
 
-            try:
-                f_clausula.dtrequerimento = datetime.datetime.strptime( request.POST['dtrequerimento'], "%d/%m/%Y")
-            except:
-                f_clausula.dtrequerimento = None
+            #try:
+            #    f_clausula.dtrequerimento = datetime.datetime.strptime( request.POST['dtrequerimento'], "%d/%m/%Y")
+            #except:
+            #    f_clausula.dtrequerimento = None
 
             f_clausula.save()
             
