@@ -104,33 +104,38 @@
 					{% if perms.sicop.relatorio_processo_peca_consulta or perms.sicop.relatorio_peca_nao_aprovada_consulta or perms.sicop.relatorio_peca_rejeitada_consulta or perms.sicop.relatorio_peca_validada_consulta or perms.sicop.relatorio_peca_gleba_consulta or perms.sicop.relatorio_peca_sem_processo_consulta %}
 					<li><hr/><a href="/sicop/relatorio/lista/">Relatório</a>
 					<ul style="width: 250px">
-					{% if perms.sicop.relatorio_processo_peca_consulta %}
-					<li><a href="/sicop/relatorio/processos/">Todos os Processos Rurais</a></li>
-					{% endif %}
-					{% if perms.sicop.relatorio_processo_peca_consulta %}
-					<li><a href="/sicop/relatorio/processo_peca/">Processos com peças técnicas</a></li>
-					{% endif %}
-					{% if perms.sicop.relatorio_processo_peca_consulta %}
-					<li><a href="/sicop/relatorio/processo_sem_peca/">Processos sem peças técnicas</a></li>
-					{% endif %}
-					{% if perms.sicop.relatorio_processo_peca_consulta %}
-					<li><a href="/sicop/relatorio/peca_processo/">Peças técnicas com processo</a></li>
-					{% endif %}
-					{% if perms.sicop.relatorio_peca_nao_aprovada_consulta %}
-					<li><a href="/sicop/relatorio/peca_nao_aprovada/">Peças técnicas não aprovadas</a></li>
-					{% endif %}
-					{% if perms.sicop.relatorio_peca_rejeitada_consulta %}
-					<li><a href="/sicop/relatorio/peca_rejeitada/">Peças técnicas rejeitadas</a></li>
-					{% endif %}
-					{% if perms.sicop.relatorio_peca_validada_consulta %}
-					<li><a href="/sicop/relatorio/peca_validada/">Peças técnicas validadas</a></li>
-					{% endif %}
-					{% if perms.sicop.relatorio_peca_sem_processo_consulta %}
-					<li><a href="/sicop/relatorio/peca_sem_processo/">Peças técnicas sem processo</a></li>
-					{% endif %}
-					{% if perms.sicop.relatorio_peca_sem_processo_consulta %}
-					<li><a href="/sicop/relatorio/pecas/">Todas as Peças técnicas</a></li>
-					{% endif %}
+						<li><a href="#">Processos</a>
+							{% if perms.sicop.relatorio_processo_peca_consulta %}
+								<ul>
+									<li><a href="/sicop/relatorio/processos/">Todos os Processos Rurais</a></li>
+									<li><a href="/sicop/relatorio/processo_peca/">Processos com peças técnicas</a></li>
+									<li><a href="/sicop/relatorio/processo_sem_peca/">Processos sem peças técnicas</a></li>
+								</ul>
+							{% endif %}
+						</li>
+						<li><a href="#">Peças Técnicas</a>
+							<ul>
+								{% if perms.sicop.relatorio_processo_peca_consulta %}
+								<li><a href="/sicop/relatorio/peca_processo/">Peças técnicas com processo</a></li>
+								{% endif %}
+								{% if perms.sicop.relatorio_peca_nao_aprovada_consulta %}
+								<li><a href="/sicop/relatorio/peca_nao_aprovada/">Peças técnicas não aprovadas</a></li>
+								{% endif %}
+								{% if perms.sicop.relatorio_peca_rejeitada_consulta %}
+								<li><a href="/sicop/relatorio/peca_rejeitada/">Peças técnicas rejeitadas</a></li>
+								{% endif %}
+								{% if perms.sicop.relatorio_peca_validada_consulta %}
+								<li><a href="/sicop/relatorio/peca_validada/">Peças técnicas validadas</a></li>
+								{% endif %}
+								{% if perms.sicop.relatorio_peca_sem_processo_consulta %}
+								<li><a href="/sicop/relatorio/peca_sem_processo/">Peças técnicas sem processo</a></li>
+								{% endif %}
+								{% if perms.sicop.relatorio_peca_sem_processo_consulta %}
+								<li><a href="/sicop/relatorio/pecas/">Todas as Peças técnicas</a></li>
+								{% endif %}
+							</ul>
+						</li>
+
 					</ul>
 					</li>
 					{% endif %}
