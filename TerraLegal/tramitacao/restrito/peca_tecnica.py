@@ -31,7 +31,7 @@ def consulta(request):
     lista = []
     if request.method == "POST":
         requerente = request.POST['requerente']
-        cpf = request.POST['cpf']
+        cpf = request.POST['cpf'].replace('.','').replace('/','').replace('-','')
         entrega = request.POST['entrega']
         
         if len(requerente) >= 3:
