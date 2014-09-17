@@ -57,11 +57,11 @@ def consulta(request):
         nome = request.POST['nmfase']
         lista = Tbetapa.objects.filter( 
             nmfase__icontains=nome, 
-            tbtipoprocesso__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+            tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
         #lista = Tbetapa.objects.filter( nmfase__icontains=nome )
     else:
         lista = Tbetapa.objects.filter( 
-            tbtipoprocesso__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+            tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
         #lista = Tbetapa.objects.all()
         
     lista = lista.order_by( 'tbtipoprocesso__nome','ordem', 'nmfase' )
@@ -82,7 +82,8 @@ def cadastro(request):
                               tbtipoprocesso = Tbtipoprocesso.objects.get(pk = request.POST['tbtipoprocesso']),
                               dsfase = request.POST['dsfase'],
                               ordem = request.POST['ordem'],
-                              blativo = True
+                              blativo = True,
+                              tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                               )
             f_fase.save()
             if next == "/":
@@ -212,7 +213,8 @@ def edicao(request, id):
                               tbtipoprocesso = Tbtipoprocesso.objects.get(pk = request.POST['tbtipoprocesso']),
                               dsfase = request.POST['dsfase'],
                               ordem = request.POST['ordem'],
-                              blativo = ativo
+                              blativo = ativo,
+                              tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                             )
             f_fase.save()
             if next == "/":

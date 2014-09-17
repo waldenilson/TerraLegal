@@ -372,6 +372,7 @@ class Tbetapa(models.Model):
     dsfase = models.TextField(blank=True)
     blativo = models.BooleanField()
     ordem = models.IntegerField()
+    tbdivisao = models.ForeignKey('Tbdivisao')
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbetapa'

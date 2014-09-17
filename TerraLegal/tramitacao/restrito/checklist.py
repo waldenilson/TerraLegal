@@ -46,10 +46,10 @@ def consulta(request):
     if request.method == "POST":
         nome = request.POST['nmchecklist']
         #lista = Tbcaixa.objects.all().filter( nmlocalarquivo__icontains=nome, tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-        lista = Tbchecklist.objects.filter( nmchecklist__icontains=nome )
+        lista = Tbchecklist.objects.filter( nmchecklist__icontains=nome, tbetapa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     else:
         #lista = Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-        lista = Tbchecklist.objects.all()
+        lista = Tbchecklist.objects.filter( tbetapa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
         
     lista = lista.order_by( 'nmchecklist' )
     
@@ -59,7 +59,7 @@ def consulta(request):
 
 @permission_required('sicop.checklist_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
-    fase = Tbetapa.objects.all().order_by('id')
+    fase = Tbetapa.objects.filter(tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao).order_by('id')
     
     obrigatorio = False
     if request.POST.get('blobrigatorio',False):
@@ -86,8 +86,8 @@ def cadastro(request):
 @permission_required('sicop.checklist_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
     instance = get_object_or_404(Tbchecklist, id=id)
-    fase = Tbetapa.objects.all().order_by('id')
-
+    fase = Tbetapa.objects.filter(tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao).order_by('id')
+    
     obrigatorio = False
     if request.POST.get('blobrigatorio',False):
         obrigatorio = True
