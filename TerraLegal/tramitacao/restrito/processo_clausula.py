@@ -37,10 +37,6 @@ def cadastro(request):
     
     if request.method == "POST":
 
-        datatitulacao = None
-        if request.POST['dttitulacao']:
-            datatitulacao = datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y")
-
         if validacao(request, "cadastro"):
             # cadastrando o registro processo base            
             f_base = Tbprocessobase (
@@ -64,14 +60,24 @@ def cadastro(request):
                                        nminteressado = request.POST['nminteressado'],
                                        nrcpfinteressado = request.POST['nrcpfinteressado'].replace('.','').replace('-',''),
                                        tbprocessobase = f_base,
-                                       dttitulacao =  datatitulacao,
                                        nrarea = request.POST['nrarea'].replace(',','.'),
                                        stprocuracao = procuracao,
                                        dsobs = request.POST['dsobs'],
                                        stcertquitacao = quitacao,
                                        stcertliberacao = liberacao
                                        )
+            try:
+                f_clausula.dttitulacao = datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y")
+            except:
+                f_clausula.dttitulacao = None
+
+            try:
+                f_clausula.dtrequerimento = datetime.datetime.strptime( request.POST['dtrequerimento'], "%d/%m/%Y")
+            except:
+                f_clausula.dtrequerimento = None
+
             f_clausula.save()
+
             messages.add_message(request,messages.INFO,'Informações salvas com sucesso.')
             
             return HttpResponseRedirect("/sicop/processo/consulta/")
@@ -107,10 +113,6 @@ def edicao(request, id):
         if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'RES' or obj.tbtipocaixa.nmtipocaixa == 'FT':
             caixadestino.append( obj )    
 
-    datatitulacao = None
-    if request.POST['dttitulacao']:
-        datatitulacao = datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y")
-
     if validacao(request, "edicao"):
         # cadastrando o registro processo base            
             f_base = Tbprocessobase (
@@ -136,13 +138,22 @@ def edicao(request, id):
                                        nminteressado = request.POST['nminteressado'],
                                        nrcpfinteressado = request.POST['nrcpfinteressado'].replace('.','').replace('-',''),
                                        tbprocessobase = f_base,
-                                       dttitulacao =  datatitulacao,
                                        nrarea = request.POST['nrarea'].replace(',','.'),
                                        stprocuracao = procuracao,
                                        dsobs = request.POST['dsobs'],
                                        stcertquitacao = quitacao,
                                        stcertliberacao = liberacao
                                        )
+            try:
+                f_clausula.dttitulacao = datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y")
+            except:
+                f_clausula.dttitulacao = None
+
+            try:
+                f_clausula.dtrequerimento = datetime.datetime.strptime( request.POST['dtrequerimento'], "%d/%m/%Y")
+            except:
+                f_clausula.dtrequerimento = None
+
             f_clausula.save()
             
             #mudanca de etapa do processo / apenas quem possue permissao            

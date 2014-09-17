@@ -123,11 +123,15 @@
 										</tr>
 									{% endif %}
 										<tr> 
-											<td class="colunaTabela"> <label>Data Titulacao:</label> </td>
+											<td class="colunaTabela"> <label>Data Requerimento:</label> </td>
+											<td> <input value="{{ dtrequerimento }}" size="9" id="date2" name="dtrequerimento" /> </td> 
+										</tr>
+										<tr> 
+											<td class="colunaTabela"> <label>Data Titulação:</label> </td>
 											<td> <input value="{{ dttitulacao }}" size="9" id="date" name="dttitulacao" /> </td> 
 										</tr>
 										<tr> 
-											<td class="colunaTabela"> <label>Observacao:</label> </td>
+											<td class="colunaTabela"> <label>Observação:</label> </td>
 											<td> <textarea rows="4" cols="30" name="dsobs">{{ clausula.dsobs }}</textarea></td> 
 										</tr>
 								</table>
