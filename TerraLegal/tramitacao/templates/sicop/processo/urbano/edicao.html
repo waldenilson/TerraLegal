@@ -42,7 +42,7 @@
 											{% if perms.sicop.processo_edicao_numero %}
 												<input name="tbprocessobase" size="17" value="{{base.nrprocesso}}" style="width:150px" id="processo"/>
 											{% else %}
-												{{base.nrprocesso}}
+												<input name="tbprocessobase" size="17" value="{{base.nrprocesso}}" style="width:150px" id="processo" readonly/>
 											{% endif %}
 										</td>
 									</tr>
