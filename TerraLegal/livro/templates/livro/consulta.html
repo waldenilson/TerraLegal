@@ -73,17 +73,49 @@
 				<tr>
 						<td class="colunaTabelaConsulta" style="width:15%">Processo</td>
 						<td class="colunaTabelaConsulta" style="width:10%">Titulo</td>
+						<td class="colunaTabelaConsulta" style="width:10%">Tipo</td>
 						<td class="colunaTabelaConsulta" style="width:20%">Nome</td>
 						<td class="colunaTabelaConsulta" style="width:20%">CPF</td>
-						
+						<td class="colunaTabelaConsulta" style="width:20%">Pasta</td>
+
 				</tr>
 				{% if lista %}
 					{% for obj in lista %}
 						<tr onclick="editarID('/livro/edicao/{{ obj.id }}');">
-							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.nrprocesso }}</td>
-							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbtitulo.cdtitulo }}</td>
-							<td class="colunaTabelaConsulta">{{ obj.nmrequerente }}</td>
-							<td class="colunaTabelaConsulta">{{ obj.nrcpfrequerente }}</td>
+						<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.nrprocesso }}</td>
+						<td class="colunaTabelaConsulta">{{ obj.tbtitulo.cdtitulo }}</td>
+						<td class="colunaTabelaConsulta">{{ obj.tbtitulo.tbtipotitulo.dstipo }}</td>
+						{% for obj2 in lista_processo %}
+							{% if obj2.tbprocessobase.id = obj.tbprocessobase.id  %}
+								<td class="colunaTabelaConsulta">{{ obj2.nmrequerente }}</td>
+								<td class="colunaTabelaConsulta">{{ obj2.nrcpfrequerente }}</td>
+							{% endif %}
+						{% endfor %}
+						<td class="colunaTabelaConsulta">{{ obj.tbtitulo.tbcaixa.nmlocalarquivo }}</td>
+
+						</tr>
+					{% endfor %}
+					
+				{% else %}
+					<tr> <td style="padding-top: 20px" colspan="6"> Nenhum titulo encontrado </td> </tr>
+				{% endif %}
+			</tbody>
+		</table>
+		{% if user.is_superuser == True %}
+		<table class="csstable"  style="width:100%">
+			<tbody>
+				<tr>
+						<td class="colunaTabelaConsulta" style="width:10%">Titulo</td>
+						<td class="colunaTabelaConsulta" style="width:20%">Status</td>
+						<td class="colunaTabelaConsulta" style="width:20%">Tipo</td>
+						
+				</tr>
+				{% if lista_titulo %}
+					{% for obj in lista_titulo %}
+						<tr onclick="editarID('/livro/edicao/{{ obj.id }}');">
+							<td class="colunaTabelaConsulta">{{ obj.cdtitulo }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbstatustitulo_id }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.tbtipotitulo_id}}</td>
 							
 						</tr>
 					{% endfor %}
@@ -92,4 +124,5 @@
 				{% endif %}
 			</tbody>
 		</table>
+		{% endif %}
 {% endblock %}

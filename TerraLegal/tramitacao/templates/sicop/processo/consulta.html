@@ -21,8 +21,8 @@
 					<tr> 
 						<td style="width:10%;text-align:left" class="colunaTabela"> <label>Processo:</label> </td>
 						<td class="colunaTabela" colspan="3"> <input style="width:50%" name="numero" /> </td>
-						<td style="width:10%;text-align:left" class="colunaTabela"> <label>Titulo:</label> </td>
-						<td class="colunaTabela" colspan="2"> <input style="width:30%" name="cdtitulo" /> </td>
+						<td style="width:10%;text-align:left" class="colunaTabela"> <label hidden >Titulo:</label> </td>
+						<td class="colunaTabela" colspan="2"> <input hidden style="width:30%" name="cdtitulo" /> </td>
 						
 						
 					</tr>
@@ -107,7 +107,7 @@
 					<td class="colunaTabelaConsulta" style="width:20%">Municipio</td>
 					<td class="colunaTabelaConsulta" style="width:12%">Gleba</td>
 					<td class="colunaTabelaConsulta" style="width:15%">Caixa</td>
-					<td class="colunaTabelaConsulta" style="width:10%">Titulo</td>
+					<td hidden class="colunaTabelaConsulta" style="width:10%">Titulo</td>
 				</tr>
 				{% if lista %}
 				  	{% ifnotequal  consulta 'unico' %}
@@ -148,7 +148,7 @@
 									<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbmunicipio.nome_mun }}</td>
 									<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbgleba.nmgleba }}</td>
 									<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbcaixa.nmlocalarquivo }}</td>
-									<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbtitulo.cdtitulo }}</td-->
+									<td hidden onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbtitulo.cdtitulo }}</td-->
 							</tr>
 						{% endfor %}
 					{% else %}

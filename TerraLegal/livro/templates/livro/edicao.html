@@ -1,4 +1,4 @@
-{% extends "core/base/cadastro.html" %} 
+	{% extends "core/base/cadastro.html" %} 
 {% load staticfiles %} 
 {% block breadcumbs %}
 	Acesso Restrito | Livro Fundiario | Edicao
@@ -40,19 +40,31 @@
 							{% else %}
 								<option value="{{ obj.id }}">{{obj.sttitulo}}</option>
 							{% endif %}
-						{% endfor %}f
+						{% endfor %}
 					</select>		
 				   	</td></tr>
-					<tr> <td class="colunaTabela" style="width:54px"> <label >Titulo:</label> </td><td><input name="cdtitulo" size=8 value="{{titulo.cdtitulo}}"/> </td>
-				    
-				   	</tr>
+					<tr> <td class="colunaTabela" style="width:54px"> <label >Titulo:</label> </td><td><input name="cdtitulo" size=8 value="{{titulo.cdtitulo}}"/> </td></tr>
+					<tr><td class="colunaTabela"> <label>Processo:</label></td><td><input name="tbprocessobase" size=17 value="{{processo.nrprocesso}}" style="width:150px" id="processo"/></td></tr>
+					
+					<tr> <td class="colunaTabela"> <label>Pasta: </label></td>
+					<td> <select name="tbcaixa" style="width: 300px">
+						{% for obj in caixa %}
+							{% if obj.id == titulo.tbcaixa.id %}
+								<option selected="selected" value="{{ obj.id }}">{{obj.nmlocalarquivo}}</option>
+							{% else %}
+								<option value="{{ obj.id }}">{{obj.nmlocalarquivo}}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+					</td></tr>
 				</table>
-				<table>				   	
-				   	<tr><td class="colunaTabela"> <label>Processo:</label></td><td><input name="tbprocessobase" size=17 value="{{processo.nrprocesso}}" style="width:150px" id="processo"/></td></tr>
+				
+				<table>
+					<tr><td class="colunaTabela"> <label>Dados do processo do titulo:</label></td></tr>	
 				   	<tr><td class="colunaTabela"> <label>Nome:</label></td>
 				   		<td><div name="nmrequerente" size=17  style="width:300px">{{rural.nmrequerente}}</div></td></tr>
 				   	<tr><td class="colunaTabela"> <label>CPF:</label></td><td>
-				   		<div name="nrcpfrequerente" size=17style="width:120px" id="cpf">{{rural.nrcpfrequerente}}</div></td></tr>				 
+				   		<div name="nrcpfrequerente" size=17 style="width:120px" id="cpf">{{rural.nrcpfrequerente}}</div></td></tr>				 
 				   	<tr><td class="colunaTabela"><label>Endereco:</label></td><td>{{processo.nmendereco|default:'-'}}</td></tr>
 					<tr><td class="colunaTabela"><label>Contato:</label></td><td>{{processo.nmcontato|default:'-'}}</td></tr>
 				   	<tr><td class="colunaTabela"> <label>Gleba:</label> </td><td> {{ rural.tbprocessobase.tbgleba.nmgleba }} </td> </tr>
