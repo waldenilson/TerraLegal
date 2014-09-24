@@ -10,16 +10,20 @@
 <div id="tabs" style="color:black;width:100%;font-size:11px">
 
  <ul>
-	<li><a href="#tabs-1">EDICAO PROCESSO URBANO</a></li>
+	<li><a href="#tabs-1">EDIÇÃO</a></li>
 	
 {% if base.tbclassificacaoprocesso.id == 1 %}
-	<li><a href="#tabs-2">TRAMITACOES</a></li>
+	<li><a href="#tabs-2">MOVIMENTAÇÔES</a></li>
 {% endif %}
 
-	<li><a href="#tabs-3">PENDENCIAS</a></li>
+	<li><a href="#tabs-3">PENDÊNCIAS</a></li>
 
 {% if base.tbclassificacaoprocesso.id == 1 %}
 	<li><a href="#tabs-4">ANEXOS</a></li>
+{% endif %}
+
+{% if fases %}
+	<li><a href="#tabs-5">FLUXO DO PROCESSO</a></li>
 {% endif %}
 
 </ul>
@@ -143,6 +147,11 @@
 										   			{{ base.tbcaixa.nmlocalarquivo }}
 												</td>
 										</tr>
+										<tr> <td class="colunaTabela"> <label>Etapa Atual:</label> </td>
+										   		<td>
+										   			{{ etapa_atual.tbetapa.nmfase }}
+												</td>
+										</tr>
 										<tr> <td class="colunaTabela"> <label>Data Abertura:</label> </td><td> <input size="9" value="{{ dtaberturaprocesso }}" id="date" name="dtaberturaprocesso" /> </td> </tr>
 										<tr> <td class="colunaTabela"> <label>Data Titulacao:</label> </td><td> <input size="9" value="{{ dttitulacao }}" id="date2" name="dttitulacao" /> </td> </tr>
 									{% if base.tbclassificacaoprocesso.id == 2 %}
@@ -152,6 +161,21 @@
 												</td>
 										</tr>
 									{% endif %}
+			 						    {% if fases and perms.sicop.etapa_checklist_posterior %}
+										<tr>
+											<td class="colunaTabela"> <label>Mudar Etapa:</label> </td>
+											<td>
+												<select name="etapaposterior"  style="width:200px">
+													<option value="">-- Selecione uma etapa --</option>
+													{% for obj in posteriores %}
+														<option value="{{ obj.tbposterior.id }}">{{obj.tbposterior.nmfase}}</option>
+													{% endfor %}
+												</select>
+									   		</td>
+										</tr>
+										{% else %}
+											<input name="etapaposterior" value="" type="hidden" />
+							   			{% endif %}
 										<tr>
 											<td colspan="2" class="colunaTabela" style="text-align:left;margin-top:20px"> 
 												<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
@@ -162,56 +186,6 @@
 							</div>
 	
 					</td>
-					<td style="vertical-align:top">
-						{% if fases %}
-							<div style="width:100%;text-align:center">
-								{% for fase in fases %}
-									<input 
-										type="button"
-										{% if etapa_atual %}
-											{% if etapa_atual.tbetapa.id == fase.id %}
-												{% if perms.sicop.processo_edicao %}
-													onclick="editarID('/sicop/etapa/checklist/{{ urbano.tbprocessobase.id }}/{{ fase.id }}');" 
-												{% endif %}
-												class="bt_blue"
-											{% else %}
-												{% if perms.sicop.etapa_checklist_edicao %}
-													onclick="editarID('/sicop/etapa/checklist/{{ urbano.tbprocessobase.id }}/{{ fase.id }}');" 
-												{% endif %}
-												class="bt_grey"
-											{% endif %}
-										{% else %}
-											{% if perms.sicop.etapa_checklist_edicao %}
-												onclick="editarID('/sicop/etapa/checklist/{{ urbano.tbprocessobase.id }}/{{ fase.id }}');" 
-											{% endif %}
-											class="bt_grey"
-										{% endif %}
-										value="{{ fase.nmfase }}" title="{{ fase.dsfase }}" />
-									<br/><br/>
-								{% endfor %}
-	  						    
-	 						    {% if perms.sicop.etapa_checklist_posterior %}
-									<hr/><br/>
-									<select name="etapaposterior"  style="width:200px;text-align:center">
-										<option value="">-- MUDAR DE ETAPA --</option>
-										{% for obj in posteriores %}
-											<option value="{{ obj.tbposterior.id }}">{{obj.tbposterior.nmfase}}</option>
-										{% endfor %}
-									</select>
-									<br/><br/>
-									{% if perms.sicop.etapa_checklist_edicao %}
-										<a href="/sicop/etapa/restaurar/{{ base.id }}/">
-											<input type="button" style="width:200px" value="VOLTAR ETAPA" />
-										</a>
-									{% endif %}
-								{% else %}
-									<input name="etapaposterior" value="" type="hidden" />
-					   			{% endif %}
-			
-							</div>
-							
-						{% endif %}
-					</td>			
 				</tr>
 			</tbody>
 		</table>
@@ -342,6 +316,73 @@
 		</table>
 	{% endif %}
 </div>
+{% endif %}
+
+{% if fases %}
+	<div id="tabs-5">
+		{% if fluxo %}
+		    {% if perms.sicop.etapa_checklist_posterior %}
+				<div style="width:100%;text-align:right">
+					<a href="/sicop/etapa/restaurar/{{ base.id }}/">
+						<input type="button" style="width:200px" value="VOLTAR ETAPA" />
+					</a>
+				</div>
+			{% endif %}
+
+			<div style="width:100%;text-align:center">
+				{% for obj in fluxo %}
+					<br/><br/>
+					{% for fase in obj %}
+						
+									<input 
+										type="button"
+										{% if etapa_atual %}
+											{% if etapa_atual.tbetapa.id == fase.id %}
+												{% if perms.sicop.processo_edicao %}
+													onclick="editarID('/sicop/etapa/checklist/{{ urbano.tbprocessobase.id }}/{{ fase.id }}');" 
+												{% endif %}
+												class="bt_blue"
+											{% else %}
+												{% if perms.sicop.etapa_checklist_edicao %}
+													onclick="editarID('/sicop/etapa/checklist/{{ urbano.tbprocessobase.id }}/{{ fase.id }}');" 
+												{% endif %}
+												class="bt_grey"
+											{% endif %}
+										{% else %}
+											{% if perms.sicop.etapa_checklist_edicao %}
+												onclick="editarID('/sicop/etapa/checklist/{{ urbano.tbprocessobase.id }}/{{ fase.id }}');" 
+											{% endif %}
+											class="bt_grey"
+										{% endif %}
+										value="{{ fase.nmfase }}" title="{{ fase.dsfase }}" />
+						&nbsp;
+					{% endfor %}
+				{% endfor %}
+			</div>
+		{% endif %}
+
+			<div style="margin-top:20px">
+				{% if transicao %} 	
+						<table class="csstable">
+							<tbody>
+								<tr>
+									<td class="colunaTabelaConsulta" style="width: 15%">Data</td>
+									<td class="colunaTabelaConsulta" style="width: 60%">Etapa do fluxo</td>
+									<td class="colunaTabelaConsulta" style="width: 25%">Usuario</td>
+								</tr>
+								{% for mov in transicao %}
+								<tr>
+									<td class="colunaTabelaConsulta">{{ mov.dttransicao.day }}/{{ mov.dttransicao.month }}/{{ mov.dttransicao.year }}</td>
+									<td class="colunaTabelaConsulta">{{ mov.tbetapa.nmfase }}</td>
+									<td class="colunaTabelaConsulta">{{ mov.auth_user.first_name }}</td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+				{% endif %}
+			</div>
+
+	</div>
 {% endif %}
 
 </div>

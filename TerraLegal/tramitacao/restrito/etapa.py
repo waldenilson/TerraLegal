@@ -75,6 +75,12 @@ def cadastro(request):
     tipoprocesso = Tbtipoprocesso.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('id')
        
     if request.method == "POST":
+
+
+        inicial = False
+        if request.POST.get('blinicial',False):
+            inicial = True
+
         next = request.GET.get('next', '/')
         if validacao(request, False):
             f_fase = Tbetapa(
@@ -83,6 +89,7 @@ def cadastro(request):
                               dsfase = request.POST['dsfase'],
                               ordem = request.POST['ordem'],
                               blativo = True,
+                              blinicial = inicial,
                               tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                               )
             f_fase.save()
@@ -107,7 +114,11 @@ def edicao(request, id):
     ativo = False
     if request.POST.get('blativo',False):
         ativo = True
-        
+    
+    inicial = False
+    if request.POST.get('blinicial',False):
+        inicial = True
+
     #montando anteriores e posteriores
     anteriores = {}
     for obj in etapas:
@@ -214,6 +225,7 @@ def edicao(request, id):
                               dsfase = request.POST['dsfase'],
                               ordem = request.POST['ordem'],
                               blativo = ativo,
+                              blinicial = inicial,
                               tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                             )
             f_fase.save()
@@ -226,8 +238,8 @@ def edicao(request, id):
         'anteriores':anteriores,'posteriores':posteriores,'etapadesejada':etapadesejada}, context_instance = RequestContext(request))
 
 
-@permission_required('sicop.etapa_checklist_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
-def checklist(request, processo,etapa):
+@permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def checklist(request, processo, etapa):
     obj_processo = Tbprocessobase.objects.get( pk = processo )
     obj_etapa = Tbetapa.objects.get( pk = etapa )
     

@@ -20,7 +20,9 @@ def consulta(request):
 def cadastro(request):
     tipoprocesso = Tbtipoprocesso.objects.all()
     
-    carregarTbAuxProcesso(request)    
+    carregarTbAuxProcesso(request)
+    etapaprocesso = Tbetapa.objects.filter( blinicial = True, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ,tbtipoprocesso__id = 1 ).order_by('ordem')
+    
     div_processo = "rural"
     escolha = "tbprocessorural"
     
@@ -65,11 +67,23 @@ def cadastro(request):
                                        blconjuge = tem_conjuge
                                        )
             f_rural.save()
+
+            #escolheu uma etapa inicial
+            if request.POST['etapainicial'] != '':
+                transicao = Tbtransicao(
+                    tbprocessobase = f_base ,
+                    tbetapa = Tbetapa.objects.get( pk = request.POST['etapainicial'] ),
+                    dttransicao = datetime.datetime.now(),
+                    auth_user = AuthUser.objects.get( pk = request.user.id ),
+                )
+                transicao.save()
+           
+
             messages.add_message(request,messages.INFO,'Informações salvas com sucesso.')            
             return HttpResponseRedirect("/sicop/processo/consulta/")
         
     return render_to_response('sicop/processo/cadastro.html',
-        {'gleba':gleba,'situacaoprocesso':situacaoprocesso,'caixa':caixa,'municipio':municipio,'tipoprocesso':tipoprocesso, 'processo':escolha, 'div_processo':div_processo}, context_instance = RequestContext(request))    
+        {'gleba':gleba,'etapaprocesso':etapaprocesso,'caixa':caixa,'municipio':municipio,'tipoprocesso':tipoprocesso, 'processo':escolha, 'div_processo':div_processo}, context_instance = RequestContext(request))    
 
 @permission_required('sicop.processo_rural_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
@@ -79,7 +93,7 @@ def edicao(request, id):
     #titulo = get_object_or_404(TbTitulo,id=base.tbtitulo)
 
     # movimentacoes deste processo
-    movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase = id ).order_by( "-dtmovimentacao" )
+    movimentacao = Tbmovimentacao.objects.filter( tbprocessobase = id ).order_by( "-dtmovimentacao" )
     # caixa destino
     caixadestino = []
     #for obj in Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ):       
@@ -215,13 +229,12 @@ def nrProcessoCadastrado( numero ):
         return False
     
 def carregarTbAuxProcesso(request):
-    global caixa, gleba, situacaoprocesso, municipio
+    global caixa, gleba, municipio
     caixa = []
     #for obj in Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmlocalarquivo'):
     for obj in Tbcaixa.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmlocalarquivo'):
         if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'PAD' or obj.tbtipocaixa.nmtipocaixa == 'FT':
             caixa.append( obj )
     gleba = Tbgleba.objects.all().filter( tbuf__id = Tbdivisao.objects.get( pk = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).tbuf.id ).order_by('nmgleba')
-    situacaoprocesso = Tbsituacaoprocesso.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmsituacao')
     municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
 

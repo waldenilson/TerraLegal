@@ -12,12 +12,14 @@
 <div id="tabs-1">		
 	<form method="post" action=".">
 		{% csrf_token %}
-		<div style="width:100%;font-size:12px;text-align:left">
+		<div style="font-size:12px;text-align:left">
 				<table>
-				   <tr> <td class="colunaTabela"> <label>Processo:</label> </td><td>{{processo.nrprocesso}}</tr>
-				   <tr> <td class="colunaTabela"> <label>Etapa:</label> </td><td>{{etapa.nmfase}}</tr>
+				   <tr> <td class="colunaTabela"> <label>Processo:</label> </td>
+				   		<td><a href="/sicop/processo/edicao/{{processo.id}}">{{processo.nrprocesso}}</a></tr>
+				   <tr> <td class="colunaTabela"> <label>Etapa:</label> </td><td>{{etapa.nmfase}} - {{etapa.tbtipoprocesso.nome}}</tr>
 				   <tr>
-				   	<td class="colunaTabela" colspan="2">				   	
+				   	<td class="colunaTabela" colspan="2">
+				   		<hr/>				   	
 						<table style="width:100%">
 							<tbody>
 								{% for k,v in result %}
@@ -29,12 +31,17 @@
 													<input name="{{ k.nmchecklist }}" type="checkbox" />
 												{% endif %}
 											</td>
-											<td class="colunaTabelaConsulta" style="width:95%">
+											<td class="colunaTabelaConsulta" style="width:55%">
 											
 												{{ k.nmchecklist }}
 
+											</td>
+											<td class="colunaTabelaConsulta" style="width:40%;text-align:left">
+											
 												{% if k.blobrigatorio %}
-													&nbsp;( Obrigatorio )
+													&nbsp;( Obrigatório )
+												{% else %}
+													&nbsp;( Não se aplica )
 												{% endif %}
 											
 											</td>
@@ -56,12 +63,13 @@
 							</select>		
 					   	</td>						
 					   </tr>
-
-					   <tr> <td class="colunaTabela"> <label>Marcar Etapa como atual ?</label> </td>
-					   	<td>
-					   		<input type="checkbox" name="atual" />
-					   	</td>						
-					   </tr>
+					   {% if perms.sicop.etapa_checklist_posterior %}
+							<tr> <td class="colunaTabela"> <label>Marcar Etapa como atual ?</label> </td>
+						   		<td>
+						   			<input type="checkbox" name="atual" />
+						   		</td>						
+						   	</tr>
+						{% endif %}
 					{% else %}
 						<input name="etapaposterior" value="" type="hidden" />
 				   {% endif %}

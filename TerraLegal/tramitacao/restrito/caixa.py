@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required, permission_required,\
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext, Context
 from TerraLegal.tramitacao.models import Tbcaixa, Tbtipocaixa, AuthUser, Tbprocessobase,\
-    Tbpecastecnicas, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano, Tbdivisao
+    Tbpecastecnicas, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano, Tbdivisao, Tbetapa
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from TerraLegal.tramitacao.forms import FormCaixa
@@ -34,6 +34,7 @@ from django.core.files.base import File
 import django
 from django.core.files import storage
 from django.db.models import  Q
+from django.db.models import Count
 
 nome_relatorio      = "relatorio_caixa"
 response_consulta  = "/sicop/caixa/consulta/"
@@ -42,6 +43,18 @@ planilha_relatorio  = "Caixas"
 
 @permission_required('sicop.caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
+
+    ordem = Tbetapa.objects.filter( tbtipoprocesso__id = 1, tbdivisao__id = 1, blativo = True ).values('ordem').annotate(dcount=Count('ordem')).order_by('ordem')
+    fluxo = []
+    for obj in ordem:
+        etapa_ordem = Tbetapa.objects.filter( tbtipoprocesso__id = 1, tbdivisao__id = 1, ordem = obj.get('ordem'), blativo = True ).order_by('ordem','id')
+        ordem = []
+        for obj2 in etapa_ordem:
+            ordem.append( obj2 )
+        fluxo.append( ordem )
+
+    print fluxo
+
     if request.method == "POST":
         nome = request.POST['nmlocalarquivo']
         tipo = request.POST['desctipocaixa']

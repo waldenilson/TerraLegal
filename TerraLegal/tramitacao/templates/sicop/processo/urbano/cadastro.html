@@ -97,18 +97,15 @@
 				</tr>
 				<tr> <td class="colunaTabela"> <label>Data Abertura:</label> </td><td> <input size="9" id="date" name="dtaberturaprocesso" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Data Titulacao:</label> </td><td> <input size="9" id="date2" name="dttitulacao" /> </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Situacao:</label> </td>
+				<tr> <td class="colunaTabela"> <label>Etapa Inicial:</label> </td>
 				   		<td>
-				   			<select name="tbsituacaoprocesso" style="width: 200px">
-								<option value="">-- Selecione uma Situacao --</option>
-								{% for obj in situacaoprocesso %}
-									<option value="{{ obj.id }}">{{ obj.nmsituacao }}</option>
+				   			<select name="etapainicial" style="width: 200px">
+								<option value="">-- Selecione uma etapa --</option>
+								{% for obj in etapaprocesso %}
+									<option value="{{ obj.id }}">{{ obj.nmfase }}</option>
 								{% endfor %}
 							</select>
 						</td>
-					<td>
-						<a href="/sicop/situacao_processo/cadastro/?next=/sicop/processo/urbano/cadastro/" title="Nova Situacao"> <img src="{% static "img/add.png" %}" width="24" /> </a>
-					</td>
 				</tr>
 			</table>
 			<br />

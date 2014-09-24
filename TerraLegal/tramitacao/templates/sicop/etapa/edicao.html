@@ -49,6 +49,16 @@
 								{% endif %} 
 						   </td> 
 						</tr>
+						<tr>
+							<td class="colunaTabela"> <label>Opção no Cadastro:</label> </td>
+						    <td>
+							   	{% if fase.blinicial == True %} 
+									<input checked="checked" type="checkbox" name="blinicial" />
+								{% else %}
+									<input type="checkbox" name="blinicial" />
+								{% endif %} 
+						   </td> 
+						</tr>
 
 					   <tr> <td class="colunaTabela"> <label>Próxima Etapa desejada:</label> </td>
 					   	<td>

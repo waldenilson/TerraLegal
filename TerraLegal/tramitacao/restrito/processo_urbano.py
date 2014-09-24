@@ -21,6 +21,7 @@ def cadastro(request):
     pregao = Tbpregao.objects.all().order_by('nrpregao')
     
     carregarTbAuxProcesso(request)
+    etapaprocesso = Tbetapa.objects.filter( blinicial = True, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ,tbtipoprocesso__id = 3 ).order_by('ordem')
       
     div_processo = "urbano"
     escolha = "tbprocessourbano" 
@@ -83,12 +84,24 @@ def cadastro(request):
                                        dttitulacao = datatitulacao,
                                        )
             f_urbano.save()
+
+            #escolheu uma etapa inicial
+            if request.POST['etapainicial'] != '':
+                transicao = Tbtransicao(
+                    tbprocessobase = f_base ,
+                    tbetapa = Tbetapa.objects.get( pk = request.POST['etapainicial'] ),
+                    dttransicao = datetime.datetime.now(),
+                    auth_user = AuthUser.objects.get( pk = request.user.id ),
+                )
+                transicao.save()
+            
+
             messages.add_message(request,messages.INFO,'Informações salvas com sucesso.')
             
             return HttpResponseRedirect("/sicop/processo/consulta/")
            
     return render_to_response('sicop/processo/cadastro.html',
-        {'tipoprocesso':tipoprocesso,'processo':escolha,'situacaoprocesso':situacaoprocesso, 
+        {'tipoprocesso':tipoprocesso,'processo':escolha,'etapaprocesso':etapaprocesso, 
          'situacaogeo':situacaogeo,'pregao':pregao,'contrato':contrato,'gleba':gleba,'caixa':caixa,'municipio':municipio,'div_processo':div_processo},
          context_instance = RequestContext(request))     
 
@@ -264,13 +277,12 @@ def nrProcessoCadastrado( numero ):
         return False
 
 def carregarTbAuxProcesso(request):
-    global caixa, gleba, situacaoprocesso, municipio, contrato, situacaogeo
+    global caixa, gleba, municipio, contrato, situacaogeo
     caixa = []
     for obj in Tbcaixa.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmlocalarquivo'):
         if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'URB' or obj.tbtipocaixa.nmtipocaixa == 'FT' or obj.tbtipocaixa.nmtipocaixa == 'ENT':
             caixa.append( obj )
     gleba = Tbgleba.objects.all().filter( tbuf__id = Tbdivisao.objects.get( pk = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).tbuf.id ).order_by('nmgleba')
-    situacaoprocesso = Tbsituacaoprocesso.objects.all().order_by('nmsituacao')#filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmsituacao')
     municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
     contrato = Tbcontrato.objects.all().filter( tbdivisao__id__in = request.session['divisoes']).order_by('nrcontrato') #AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nrcontrato')
     situacaogeo = Tbsituacaogeo.objects.all().order_by('nmsituacaogeo')#.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmsituacaogeo')
