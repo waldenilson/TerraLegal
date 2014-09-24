@@ -371,6 +371,7 @@ class Tbetapa(models.Model):
     tbtipoprocesso = models.ForeignKey(Tbtipoprocesso, null=True, blank=True)
     dsfase = models.TextField(blank=True)
     blativo = models.BooleanField()
+    blinicial = models.BooleanField()
     ordem = models.IntegerField()
     tbdivisao = models.ForeignKey('Tbdivisao')
     id = models.AutoField(primary_key=True)

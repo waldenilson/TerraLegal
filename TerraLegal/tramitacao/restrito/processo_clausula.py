@@ -19,9 +19,11 @@ def consulta(request):
 def cadastro(request):
     
     tipoprocesso = Tbtipoprocesso.objects.all()
+    etapaprocesso = Tbetapa.objects.filter( blinicial = True, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ,tbtipoprocesso__id = 2 ).order_by('ordem')
     
     carregarTbAuxProcesso(request)
     
+
     procuracao = False
     if request.POST.get('stprocuracao',False):
         procuracao = True
@@ -71,19 +73,29 @@ def cadastro(request):
             except:
                 f_clausula.dttitulacao = None
 
-            #try:
-            #    f_clausula.dtrequerimento = datetime.datetime.strptime( request.POST['dtrequerimento'], "%d/%m/%Y")
-            #except:
-            #    f_clausula.dtrequerimento = None
+            try:
+                f_clausula.dtrequerimento = datetime.datetime.strptime( request.POST['dtrequerimento'], "%d/%m/%Y")
+            except:
+                f_clausula.dtrequerimento = None
 
             f_clausula.save()
+
+            #escolheu uma etapa inicial
+            if request.POST['etapainicial'] != '':
+                transicao = Tbtransicao(
+                    tbprocessobase = f_base ,
+                    tbetapa = Tbetapa.objects.get( pk = request.POST['etapainicial'] ),
+                    dttransicao = datetime.datetime.now(),
+                    auth_user = AuthUser.objects.get( pk = request.user.id ),
+                )
+                transicao.save()
 
             messages.add_message(request,messages.INFO,'Informações salvas com sucesso.')
             
             return HttpResponseRedirect("/sicop/processo/consulta/")
     
     return render_to_response('sicop/processo/cadastro.html',
-        {'tipoprocesso':tipoprocesso,'situacaoprocesso':situacaoprocesso,'processo':escolha, 'gleba':gleba,'caixa':caixa,'municipio':municipio,'div_processo':div_processo},
+        {'tipoprocesso':tipoprocesso,'etapaprocesso':etapaprocesso,'processo':escolha, 'gleba':gleba,'caixa':caixa,'municipio':municipio,'div_processo':div_processo},
          context_instance = RequestContext(request))     
 
 @permission_required('sicop.processo_clausula_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -149,10 +161,10 @@ def edicao(request, id):
             except:
                 f_clausula.dttitulacao = None
 
-            #try:
-            #    f_clausula.dtrequerimento = datetime.datetime.strptime( request.POST['dtrequerimento'], "%d/%m/%Y")
-            #except:
-            #    f_clausula.dtrequerimento = None
+            try:
+                f_clausula.dtrequerimento = datetime.datetime.strptime( request.POST['dtrequerimento'], "%d/%m/%Y")
+            except:
+                f_clausula.dtrequerimento = None
 
             f_clausula.save()
             
@@ -182,7 +194,7 @@ def edicao(request, id):
             return HttpResponseRedirect("/sicop/processo/edicao/"+str(base.id)+"/")
         
     return render_to_response('sicop/processo/clausula/edicao.html',
-                                          {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
+                                          {'gleba':gleba,
                                    'caixa':caixa,'municipio':municipio,'movimentacao':movimentacao,
                                    'caixadestino':caixadestino,
                                    'base':base,'clausula':clausula}, context_instance = RequestContext(request))    
@@ -237,13 +249,12 @@ def nrProcessoCadastrado( numero ):
         return False
 
 def carregarTbAuxProcesso(request):
-    global caixa, gleba, situacaoprocesso, municipio
+    global caixa, gleba, municipio
     caixa = []
     for obj in Tbcaixa.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmlocalarquivo'):
         if obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'RES' or obj.tbtipocaixa.nmtipocaixa == 'FT':
             caixa.append( obj )
     #gleba = Tbgleba.objects.all().filter( tbuf__id = Tbdivisao.objects.get( pk = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).tbuf.id ).order_by('nmgleba')
     gleba = Tbgleba.objects.all().filter( tbuf__id__in = request.session['uf'])
-    situacaoprocesso = Tbsituacaoprocesso.objects.all().order_by('nmsituacao')#.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('nmsituacao')
     municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
 
