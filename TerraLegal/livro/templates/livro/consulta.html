@@ -79,8 +79,6 @@
 						<td class="colunaTabelaConsulta" style="width:20%">Pasta</td>
 
 				</tr>
-				LISTA:{{ lista|length }} LISTA_PROCESSO:{{ lista_processo|length }}
-				
 				{% if lista %}
 					{% for obj in lista %}
 						<tr onclick="editarID('/livro/edicao/{{ obj.id }}');">
