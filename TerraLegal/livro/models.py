@@ -22,9 +22,23 @@ class Tbstatustitulo(models.Model):
         
 class Tbtitulo(models.Model):
     cdtitulo = models.CharField(max_length=8)
-    #tbprocessobase = models.ForeignKey(Tbprocessobase,blank=True)
     tbstatustitulo = models.ForeignKey(Tbstatustitulo,blank=True)
     tbtipotitulo = models.ForeignKey(Tbtipotitulo,blank=True)
+    auth_user = models.ForeignKey('tramitacao.AuthUser')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    tbcaixa = models.ForeignKey('tramitacao.Tbcaixa')
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbtitulo'
+
+class Tbtituloprocesso(models.Model):
+    tbprocessobase = models.ForeignKey('tramitacao.Tbprocessobase',blank=True)
+    tbtitulo = models.ForeignKey(Tbtitulo,blank=True)
+    auth_user = models.ForeignKey('tramitacao.AuthUser')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    id = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = 'tbtituloprocesso'
+        
