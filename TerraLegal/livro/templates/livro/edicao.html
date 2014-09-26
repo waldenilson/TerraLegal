@@ -48,6 +48,7 @@
 					
 					<tr> <td class="colunaTabela"> <label>Pasta: </label></td>
 					<td> <select name="tbcaixa" style="width: 300px">
+						<option value="">-- Selecione uma caixa --</option>
 						{% for obj in caixa %}
 							{% if obj.id == titulo.tbcaixa.id %}
 								<option selected="selected" value="{{ obj.id }}">{{obj.nmlocalarquivo}}</option>

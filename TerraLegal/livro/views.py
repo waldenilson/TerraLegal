@@ -50,20 +50,12 @@ def consulta(request):
                                                      nrcpfrequerente__icontains = cpf,
                                                      nmrequerente__icontains = requerente)
         lista_processo = lista_processo.order_by('tbprocessobase.nrprocesso')
-        for obj in lista_processo:
-            print "processobase" + str(obj.tbprocessobase.nrprocesso)
-        
         lista = []
         for obj in lista_processo:
             lista.append (Tbtituloprocesso.objects.get(tbtitulo__cdtitulo__icontains=cdtitulo,
                                                                 tbprocessobase__id = obj.tbprocessobase.id))
         
         lista_titulo = Tbtitulo.objects.all().filter(cdtitulo__icontains=cdtitulo)
-            
-
-        for obj in lista:
-            teste = Tbtituloprocesso.objects.get(tbprocessobase__id = obj.tbprocessobase.id)
-            print teste.id
         
         request.session[nome_relatorio] = lista
         return render_to_response('livro/consulta.html' ,{'lista':lista,'lista_titulo':lista_titulo,
@@ -85,8 +77,13 @@ def cadastro(request):
         if validarProcesso(request,'cadastro'):
             processobase = Tbprocessobase.objects.get( nrprocesso = request.POST['tbprocessobase'].replace('.','').replace('/','').replace('-',''))
             #titulo = Tbtitulo.objects.get(cdtitulo = request.POST['cdtitulo'])
-            #cria o registro do titulo
-            f_titulo = Tbtitulo(
+            #cria o registro do titulo caso ele nao exista
+            try:
+                titulo = Tbtitulo.objects.get(  
+                    cdtitulo = request.POST['cdtitulo'],
+                    tbtipotitulo = Tbtipotitulo.objects.get(id = request.POST['tbtipotitulo'])            )
+            except ObjectDoesNotExist:
+                f_titulo = Tbtitulo(
                             cdtitulo        = request.POST['cdtitulo'],
                             tbstatustitulo  = Tbstatustitulo.objects.get(id = request.POST['tbstatustitulo']),
                             tbtipotitulo    = Tbtipotitulo.objects.get(id = request.POST['tbtipotitulo']),
@@ -94,8 +91,9 @@ def cadastro(request):
                             tbcaixa         = Tbcaixa.objects.get (pk = request.POST['tbcaixa'])
                             
                         )
-            f_titulo.save()
-            titulo = Tbtitulo.objects.get(pk=f_titulo.id)
+                f_titulo.save()
+                titulo = Tbtitulo.objects.get(pk=f_titulo.id)
+            
             #associa o titulo ao processo
             f_tituloprocesso = Tbtituloprocesso(
                         tbprocessobase = Tbprocessobase.objects.get(id = processobase.id),        
@@ -386,8 +384,11 @@ def validacao(request_form):
 
 def validarProcesso(request_form,acao):
     global fgexiste 
+    global bltituloexiste
+
     base = request_form.POST['tbprocessobase'].replace('.','').replace('/','').replace('-','')
     warning = True
+
 
     #copiado edicao
     if request_form.POST['tbstatustitulo'] == '':
@@ -415,31 +416,31 @@ def validarProcesso(request_form,acao):
             tbtipotitulo = Tbtipotitulo.objects.get(id = request_form.POST['tbtipotitulo'])
             )
     except ObjectDoesNotExist:
+        bltituloexiste = False
         warning = True
+    else:
+        bltituloexiste = True 
 
-    #verificar ser o titulo estah associado a algum processo
+    #verificar ser o titulo estah associado a algum processo. Pode ser que o titulo exista mas
+    # nao tenha associao com tbtituloprocesso. Nao criar titulo. Criar associacao
     #se for cadastro, verificar  e nao permitir que se cadastre
     #se for edicao, deve permitir a alteracao, que serah uma nova associacao
     try:
-        print acao + " 1"
         tituloprocesso = Tbtituloprocesso.objects.get(tbtitulo__cdtitulo = request_form.POST['cdtitulo'],
                                     tbtitulo__tbtipotitulo__id  = request_form.POST['tbtipotitulo'])
     except:
         warning = True
     else:
         if acao == 'cadastro':
-            print acao + " 2"
             messages.add_message(request_form, messages.WARNING, 'O Titulo ' + request_form.POST['cdtitulo'] + 
                         ' ja associado ao processo '+ str(tituloprocesso.tbprocessobase.nrprocesso))
             warning = False
             return warning
         if acao == 'edicao':
-            print "livro_edicao"
             warning = True
 
     #aqui eh o contrario, verificar se o processo jah estah cadastrado com algum titulo
     try:
-        print acao + " 3"
         tituloprocesso = Tbtituloprocesso.objects.get(tbprocessobase__nrprocesso = base)
     except:
         warning = True
@@ -469,5 +470,10 @@ def validarProcesso(request_form,acao):
         try:
             Tbtitulo.objects.get(tbprocessobase = processo.id) #this raises an ObjectDoesNotExist exception if it doesn't find a user with that username
         except ObjectDoesNotExist:
-            warning = True        
+            warning = True   
+
+    if request_form.POST['tbcaixa'] == '':  
+        messages.add_message(request_form, messages.WARNING, 'Escolha a caixa ou pasta onde o titulo deve ser tramitado')
+        warning = False
+
     return warning
