@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 from django.template.context import RequestContext
 from TerraLegal.tramitacao.models import Tbpecastecnicas, \
-    Tbprocessorural, AuthUser, Tbmunicipio, Tbprocessoclausula, Tbpendencia
+    Tbprocessorural, AuthUser, Tbmunicipio, Tbprocessoclausula, Tbpendencia, Tbetapa, Tbtransicao
 from TerraLegal.tramitacao.relatorio_base import relatorio_ods_base_header,\
     relatorio_ods_base
 from django.db.models import Q
@@ -747,13 +747,39 @@ def pecas(request):
 
 @permission_required('sicop.relatorio_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def etapa_p23(request):
-    return render_to_response('sicop/relatorio/etapa_p23.html',{}, context_instance = RequestContext(request))
+    etapas = Tbetapa.objects.filter( 
+        tbtipoprocesso__id = 1, 
+        tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by( 'ordem', 'nmfase' )
+    if request.method == 'POST':
+        etapa = request.POST['etapa']
+
+        p23 = Tbprocessorural.objects.filter(
+            tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id,
+            tbetapaatual__id = etapa    
+            )
+
+        for obj in p23 :
+            print obj.tbprocessobase.nrprocesso
+
+    return render_to_response('sicop/relatorio/etapa_p23.html',{'etapas':etapas}, context_instance = RequestContext(request))
 
 @permission_required('sicop.relatorio_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def etapa_p80(request):
-    return render_to_response('sicop/relatorio/etapa_p80.html',{}, context_instance = RequestContext(request))
+    etapas = Tbetapa.objects.filter( tbtipoprocesso__id = 2 ).order_by( 'ordem', 'nmfase' )
+    if request.method == 'POST':
+        etapa = request.POST['etapa']
+
+        print etapa
+
+    return render_to_response('sicop/relatorio/etapa_p80.html',{'etapas':etapas}, context_instance = RequestContext(request))
 
 @permission_required('sicop.relatorio_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def etapa_urbano(request):
-    return render_to_response('sicop/relatorio/etapa_urbano.html',{}, context_instance = RequestContext(request))
+    etapas = Tbetapa.objects.filter( tbtipoprocesso__id = 3 ).order_by( 'ordem', 'nmfase' )
+    if request.method == 'POST':
+        etapa = request.POST['etapa']
+
+        print etapa
+
+    return render_to_response('sicop/relatorio/etapa_urbano.html',{'etapas':etapas}, context_instance = RequestContext(request))
 
