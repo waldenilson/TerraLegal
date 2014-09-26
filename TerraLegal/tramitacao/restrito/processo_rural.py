@@ -42,7 +42,6 @@ def cadastro(request):
                                     tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
                                     tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
                                     tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessorural' ),
-#                                   #tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
                                     dtcadastrosistema = datetime.datetime.now(),
                                     auth_user = AuthUser.objects.get( pk = request.user.id ),
                                     tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 ),
@@ -77,7 +76,9 @@ def cadastro(request):
                     auth_user = AuthUser.objects.get( pk = request.user.id ),
                 )
                 transicao.save()
-           
+                
+                f_base.tbetapaatual = transicao.tbetapa
+                f_base.save()           
 
             messages.add_message(request,messages.INFO,'Informações salvas com sucesso.')            
             return HttpResponseRedirect("/sicop/processo/consulta/")
@@ -117,7 +118,7 @@ def edicao(request, id):
                                     tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
                                     tbcaixa = base.tbcaixa,
                                     tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessorural' ),
-#                                    tbsituacaoprocesso = Tbsituacaoprocesso.objects.get( pk = request.POST['tbsituacaoprocesso'] ),
+                                    tbetapaatual = base.tbetapaatual,
                                     dtcadastrosistema = base.dtcadastrosistema,
                                     auth_user = AuthUser.objects.get( pk = request.user.id ),
                                     tbclassificacaoprocesso = base.tbclassificacaoprocesso,
@@ -166,6 +167,9 @@ def edicao(request, id):
                                      auth_user = AuthUser.objects.get( pk = request.user.id ),
                                     )                    
                     transicao.save()
+
+                    f_base.tbetapaatual = transicao.tbetapa
+                    f_base.save()
                                
             messages.add_message(request,messages.INFO,'Informações salvas com sucesso.')
             

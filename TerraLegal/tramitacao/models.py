@@ -227,7 +227,7 @@ class Tbprocessobase(models.Model):
     tbmunicipio = models.ForeignKey(Tbmunicipio)
     auth_user = models.ForeignKey(AuthUser)
     tbtipoprocesso = models.ForeignKey('Tbtipoprocesso')
-    tbsituacaoprocesso = models.ForeignKey('Tbsituacaoprocesso', null=True, blank=True)
+    tbetapaatual = models.ForeignKey('Tbetapa', null=True, blank=True)
     dtcadastrosistema = models.DateTimeField(null=True, blank=True)
     tbclassificacaoprocesso = models.ForeignKey(Tbclassificacaoprocesso, null=True, blank=True)
     tbdivisao = models.ForeignKey('Tbdivisao')
