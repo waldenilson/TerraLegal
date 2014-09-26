@@ -4,6 +4,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext, Context
 from TerraLegal.tramitacao.models import Tbcaixa, Tbtipocaixa, AuthUser, Tbprocessobase,\
     Tbpecastecnicas, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano, Tbdivisao, Tbetapa
+from TerraLegal.livro.models import Tbtituloprocesso
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from TerraLegal.tramitacao.forms import FormCaixa
@@ -131,8 +132,8 @@ def edicao(request, id):
         processos.append( obj )
     for obj in p_urbano:
         processos.append( obj )
-
     
+    titulos = Tbtituloprocesso.objects.all().filter(tbtitulo__tbcaixa__id = id)
     pecas = Tbpecastecnicas.objects.all().filter( tbcaixa__id = id )    
     conteudo = ""
     if len(processos) > 0:
@@ -145,7 +146,9 @@ def edicao(request, id):
         conteudo = "Caixa Vazia"
     
     
-    return render_to_response('sicop/caixa/edicao.html', {"form":form,'processos':processos,'pecas':pecas,'conteudo':conteudo,"tipocaixa":tipocaixa,"divisao":divisao}, context_instance = RequestContext(request))
+    return render_to_response('sicop/caixa/edicao.html', {"form":form,'processos':processos,'pecas':pecas,
+                            'conteudo':conteudo,"tipocaixa":tipocaixa,"divisao":divisao,'titulos':titulos}, 
+                            context_instance = RequestContext(request))
 
 
 @permission_required('sicop.caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)

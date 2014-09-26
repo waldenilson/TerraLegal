@@ -18,7 +18,7 @@ from TerraLegal import settings
 
 nome_relatorio      = "relatorio_livro"
 processos_relatorio = "dados_processos_relatorio"
-response_consulta  = "/livro/consulta/"
+response_consulta   = "/livro/consulta/"
 titulo_relatorio    = "Relatorio Livro Fundiario"
 planilha_relatorio  = "Livro Fundiario"
 
@@ -57,7 +57,9 @@ def consulta(request):
         
         lista_titulo = Tbtitulo.objects.all().filter(cdtitulo__icontains=cdtitulo)
         
-        request.session[nome_relatorio] = lista
+
+        request.session['nome_relatorio'] = lista
+
         return render_to_response('livro/consulta.html' ,{'lista':lista,'lista_titulo':lista_titulo,
                         'lista_processo':lista_processo}, context_instance = RequestContext(request))
     return render_to_response('livro/consulta.html',context_instance = RequestContext(request))
