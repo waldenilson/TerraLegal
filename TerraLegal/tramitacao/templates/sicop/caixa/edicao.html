@@ -129,22 +129,29 @@
 		</table>
 		{% endif %}
 
-		{% if titulos %}
+		{% if tituloprocesso %}
 		<br/> Titulos:<br/>
 		<table class="csstable">
 			<tbody>
 				<tr>
-					<td class="colunaTabelaConsulta" style="width:30%">Titulo</td>
-					<td class="colunaTabelaConsulta" style="width:15%">Processo</td>
-					<!--td class="colunaTabelaConsulta" style="width:20%">Titulado</td>
-					<td class="colunaTabelaConsulta" style="width:10%">Contrato</td>
+					<td class="colunaTabelaConsulta" style="width:15%">Titulo</td>
+					<td class="colunaTabelaConsulta" style="width:20%">Processo</td>
+					<td class="colunaTabelaConsulta" style="width:30%">Titulado</td>
+					<!--td class="colunaTabelaConsulta" style="width:10%">Contrato</td>
 					<td class="colunaTabelaConsulta" style="width:8%">Area</td-->
 				</tr>
-					{% for obj in titulos %}
+					{% for obj in tituloprocesso %}
 						<tr onclick="editarID('/livro/edicao/{{ obj.id }}');">
 							<td class="colunaTabelaConsulta">{{ obj.tbtitulo.cdtitulo }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.nrprocesso }}</td>
-							<!--td class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbprocessorural.nmrequerente }}</td>
+							
+							{% for obj2 in titulorural %}
+								{% if obj.tbprocessobase.id = obj2.tbprocessobase.id %}
+									<td class="colunaTabelaConsulta">{{ obj2.nmrequerente }}</td>
+								{% endif %}
+
+							{% endfor %}
+
 							<!--td class="colunaTabelaConsulta">{{ obj.tbcontrato.nrcontrato }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.nrarea }}</td-->
 						</tr>

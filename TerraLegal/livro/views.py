@@ -34,6 +34,7 @@ def carga(request):
 
 @permission_required('sicop.livro_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
+    request.session['nome_relatorio'] = []
     caixa = []
     for obj in Tbcaixa.objects.all().filter(tbdivisao__id = AuthUser.objects.get(pk = request.user.id ).tbdivisao.id):
         if obj.tbtipocaixa.nmtipocaixa=='TIT':

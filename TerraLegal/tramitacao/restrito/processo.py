@@ -10,7 +10,7 @@ from TerraLegal.tramitacao.models import Tbprocessorural, Tbtipoprocesso, Tbproc
     Tbclassificacaoprocesso, Tbtipopendencia, Tbstatuspendencia, Tbpregao,\
     Tbdivisao,   Tbetapa, Tbtransicao, Tbetapaposterior, Tbchecklistprocessobase,\
     Tbchecklist
-from TerraLegal.livro.models import Tbtitulo, Tbstatustitulo, Tbtipotitulo 
+from TerraLegal.livro.models import Tbtitulo, Tbstatustitulo, Tbtipotitulo , Tbtituloprocesso
 from TerraLegal.tramitacao.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
 from TerraLegal.tramitacao.restrito import processo_rural
@@ -211,11 +211,20 @@ def consulta(request):
                 add_tramitacao_massa(request, lista[0].tbprocessobase.id)
         else:
             return HttpResponseRedirect("/sicop/processo/edicao/"+str(lista[0].tbprocessobase.id))
+    lista_processo_titulo = []
+    if lista:
+        for obj in lista:
+            try:
+                lista_processo_titulo.append (Tbtituloprocesso.objects.get(tbprocessobase__id = obj.tbprocessobase.id))
+            except:
+                a == []
+            else:
+                a == []
                              
     # gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_processo'] = lista
         
-    return render_to_response('sicop/processo/consulta.html',{'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('sicop/processo/consulta.html',{'lista':lista,'lista_processo_titulo':lista_processo_titulo}, context_instance = RequestContext(request))
 
 @permission_required('sicop.processo_tramitar', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def tramitar(request, base):
@@ -583,6 +592,12 @@ def edicao(request, id):
     statustitulo = Tbstatustitulo.objects.all()
     tipotitulo  = Tbtipotitulo.objects.all()
     
+    try :
+        titulo_processo = Tbtituloprocesso.objects.get(tbprocessobase__id = base.id)
+    except:
+        titulo_processo = []
+
+    
     # municipios da divisao do usuario logado E municipios associados a DIVISAO que criou o processo
     municipio = Tbmunicipio.objects.all().filter( 
         Q(codigo_uf__in=request.session['uf'])| 
@@ -623,9 +638,7 @@ def edicao(request, id):
         if base.tbclassificacaoprocesso.id == 2:
             obj = Tbprocessosanexos.objects.filter( tbprocessobase_id_anexo = id )[0]
             processo_principal = obj.tbprocessobase
-        
-
-
+     
         if tipo == "tbprocessorural":
             rural = Tbprocessorural.objects.get( tbprocessobase = id )
             peca = Tbpecastecnicas.objects.all().filter( nrcpfrequerente = rural.nrcpfrequerente.replace('.','').replace('-','') )
@@ -642,20 +655,18 @@ def edicao(request, id):
             #    peca = peca[0] 
             # caixas que podem ser tramitadas
             tram = []
-
             fluxo = def_fluxo(rural.tbprocessobase.tbtipoprocesso.id)
                         
             for obj in caixasdestino:
                 if obj.blativo and ( obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'PAD' or obj.tbtipocaixa.nmtipocaixa == 'FT' or obj.tbtipocaixa.nmtipocaixa == 'ENT' ) :
                     tram.append( obj )
-                    
-            
+    
             return render_to_response('sicop/processo/rural/edicao.html',
                                       {'transicao':transicao,'fluxo':fluxo,'gleba':gleba,'fases':etapas,'etapa_atual':etapa_atual,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,'processo_principal':processo_principal,
                                        'base':base,'rural':rural,'peca':peca,'statustitulo':statustitulo,'posteriores':posteriores,
-                                       'tipotitulo':tipotitulo}, context_instance = RequestContext(request))
+                                       'tipotitulo':tipotitulo,'titulo_processo':titulo_processo}, context_instance = RequestContext(request))
         else:
             if tipo == "tbprocessourbano":
                 urbano = Tbprocessourbano.objects.get( tbprocessobase = id )
@@ -823,7 +834,7 @@ def executar_tramitacao_massa(request):
     lista = request.session['tramitacao_massa']
 
     if request.method != "POST":
-        print lista
+        a == []
     else:
         for obj in lista:
             base = obj.tbprocessobase

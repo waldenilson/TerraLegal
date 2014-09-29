@@ -133,7 +133,10 @@ def edicao(request, id):
     for obj in p_urbano:
         processos.append( obj )
     
-    titulos = Tbtituloprocesso.objects.all().filter(tbtitulo__tbcaixa__id = id)
+    tituloprocesso = Tbtituloprocesso.objects.all().filter(tbtitulo__tbcaixa__id = id)
+    titulorural = []
+    for obj in tituloprocesso:
+        titulorural.append (Tbprocessorural.objects.get(tbprocessobase__id = obj.tbprocessobase.id))
     pecas = Tbpecastecnicas.objects.all().filter( tbcaixa__id = id )    
     conteudo = ""
     if len(processos) > 0:
@@ -144,11 +147,12 @@ def edicao(request, id):
         
     if len(processos) <= 0 and pecas.count() <= 0:
         conteudo = "Caixa Vazia"
-    
+    if tituloprocesso.count() > 0:
+        conteudo = str(tituloprocesso.count())+ " Titulos"    
     
     return render_to_response('sicop/caixa/edicao.html', {"form":form,'processos':processos,'pecas':pecas,
-                            'conteudo':conteudo,"tipocaixa":tipocaixa,"divisao":divisao,'titulos':titulos}, 
-                            context_instance = RequestContext(request))
+                            'conteudo':conteudo,"tipocaixa":tipocaixa,"divisao":divisao,'tituloprocesso':tituloprocesso,
+                            'titulorural':titulorural},context_instance = RequestContext(request))
 
 
 @permission_required('sicop.caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)

@@ -30,7 +30,7 @@
 	<li><a href="#tabs-7">FLUXO DO PROCESSO</a></li>
 {% endif %}
 
-{% if base.tbtitulo %}
+{% if titulo_processo %}
 	<li><a href="#tabs-6">TITULO</a></li>
 {% endif %}
 
@@ -362,38 +362,40 @@
 {% endif %}
 
 
-{% if base.tbtitulo %}
+{% if titulo_processo %}
+{{ titulo_processo|length  }}
 	<div id="tabs-6">
-			<div style="font-size:12px;margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
-				TITULO<hr/>
-			</div>
-			<table>
-				<tr>
-					<td class="colunaTabela"> 
-						Titulo: 
-						<input style="margin-right:5px;" name="cdtitulo" size=8 value="{{base.tbtitulo.cdtitulo}}" disabled/>
-						<select name="tbtipotitulo"  style="margin-right:10px;width:160px" disabled >
-							{% for obj in tipotitulo %}
-								{% if obj.id == base.tbtitulo.tbtipotitulo.id %}
-									<option selected="selected" value="{{ obj.id }}">{{obj.cdtipo}} - {{obj.dstipo}}</option>
-								{% else %}
-									<option value="{{ obj.id }}">{{obj.cdtipo}} - {{obj.dstipo}}</option>
-								{% endif %}
-							{% endfor %}
-						</select>
-						Status:
-						<select name="tbstatustitulo" style="width:120px" disabled>
-					   		{% for obj in statustitulo %}
-								{% if obj.id == base.tbtitulo.tbstatustitulo.id %}
-									<option selected="selected" value="{{ obj.id }}">{{obj.sttitulo}}</option>
-								{% else %}
-									<option value="{{ obj.id }}">{{obj.sttitulo}}</option>
-								{% endif %}
-							{% endfor %}
-						</select>		
-					</td>
-			   	</tr>
-			</table>		   	
+		<div style="font-size:12px;margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
+			TITULO<hr/>
+		</div>
+		<table>
+			<tr>
+				<td class="colunaTabela"> 
+					Titulo: 
+					<input style="margin-right:5px;" name="cdtitulo" size=8 value="{{titulo_processo.tbtitulo.cdtitulo}}" disabled/>
+					<select name="tbtipotitulo"  style="margin-right:10px;width:160px" disabled >
+						{% for obj in tipotitulo %}
+							{% if obj.id == titulo_processo.tbtitulo.tbtipotitulo.id %}
+								<option selected="selected" value="{{ obj.id }}">{{obj.cdtipo}} - {{obj.dstipo}}</option>
+							{% else %}
+								<option value="{{ obj.id }}">{{obj.cdtipo}} - {{obj.dstipo}}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+					Status:
+					<select name="tbstatustitulo" style="width:120px" disabled>
+				   		{% for obj in statustitulo %}
+							{% if obj.id == titulo_processo.tbtitulo.tbstatustitulo.id %}
+								<option selected="selected" value="{{ obj.id }}">{{obj.sttitulo}}</option>
+							{% else %}
+								<option value="{{ obj.id }}">{{obj.sttitulo}}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+							
+				</td>
+		   	</tr>
+		</table>		   	
 	</div>
 {% endif %}
 
