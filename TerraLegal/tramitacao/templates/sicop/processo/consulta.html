@@ -149,13 +149,15 @@
 									<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbgleba.nmgleba }}</td>
 									<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbcaixa.nmlocalarquivo }}</td>
 									
-									{% for obj2 in lista_processo_titulo %}
+									<!--td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta"></td-->
+									<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">
+										{% for obj2 in lista_processo_titulo %}
 										{% if obj2.tbprocessobase.id = obj.tbprocessobase.id  %}
-											<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">{{ obj2.tbtitulo.cdtitulo }}</td>
-										{% else %}
-											<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta"></td>
+											{{ obj2.tbtitulo.cdtitulo }}
 										{% endif %}
-									{% endfor %}
+										{% endfor %}
+									</td>
+
 							</tr>
 						{% endfor %}
 					{% else %}

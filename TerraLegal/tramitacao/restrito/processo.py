@@ -217,9 +217,7 @@ def consulta(request):
             try:
                 lista_processo_titulo.append (Tbtituloprocesso.objects.get(tbprocessobase__id = obj.tbprocessobase.id))
             except:
-                a == []
-            else:
-                a == []
+                pass
                              
     # gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_processo'] = lista
@@ -834,7 +832,7 @@ def executar_tramitacao_massa(request):
     lista = request.session['tramitacao_massa']
 
     if request.method != "POST":
-        a == []
+        pass
     else:
         for obj in lista:
             base = obj.tbprocessobase
