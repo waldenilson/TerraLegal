@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from TerraLegal.calculo.models import Tbextrato
+from TerraLegal.tramitacao.models import Tbmunicipio
 from decimal import Decimal
 from datetime import date
 from TerraLegal.tramitacao.restrito.processo import formatDataToText
@@ -28,6 +29,7 @@ def consulta(request):
 @permission_required('sicop.titulo_calculo_portaria23', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def emissao(request,id):
     instance = get_object_or_404(Tbextrato, id=id)
+    municipio = Tbmunicipio.objects.all()
     hoje = date.today()
     prestacao = (float(instance.valor_imovel)/17.0)
     vencimento = instance.data_vencimento_primeira_prestacao
@@ -92,3 +94,8 @@ def emissao(request,id):
     
     return render_to_response('portaria23/calculo.html' ,locals(), context_instance = RequestContext(request))
 
+
+@permission_required('sicop.titulo_calculo_portaria23', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def digitar(request):
+        
+    return render_to_response('portaria23/calculo.html' ,locals(), context_instance = RequestContext(request))
