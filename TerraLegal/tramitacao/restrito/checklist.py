@@ -59,7 +59,7 @@ def consulta(request):
 
 @permission_required('sicop.checklist_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
-    fase = Tbetapa.objects.filter(tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao).order_by('id')
+    fase = Tbetapa.objects.filter(tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id).order_by('id')
     
     obrigatorio = False
     if request.POST.get('blobrigatorio',False):
