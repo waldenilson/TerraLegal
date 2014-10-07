@@ -47,6 +47,23 @@
 											{% endif %}
 										</td>
 									</tr>
+									{% if base.tbclassificacaoprocesso.id == 2 %}
+										<tr style="color: red;font-weight: bold;"> <td class="colunaTabela" > <label>Classificacao:</label> </td>
+										   		<td>
+										   			{{ base.tbclassificacaoprocesso.nmclassificacao }}
+										   		</td>
+										</tr>
+										<tr style="color: red;font-weight: bold;"> 
+												<td class="colunaTabela" > 
+													<a href="/sicop/processo/edicao/{{ processo_principal.id }}">
+														Processo Principal:
+													</a>
+												</td>
+										   		<td>
+										   			<a href="/sicop/processo/edicao/{{ processo_principal.id }}"> {{ processo_principal.nrprocesso }} </a>
+										   		</td>
+										</tr>
+									{% endif %}
 										<tr> <td class="colunaTabela"> <label>Nome do Titulado:</label> </td>
 											<td> <input value="{{ clausula.nmrequerente }}" size="35" name="nmrequerente" /> </td> </tr>
 										<tr> <td class="colunaTabela"> <label>CPF do Titulado:</label> </td>
@@ -122,15 +139,7 @@
 											{% else %}
 												<input type="checkbox" name="stcertliberacao" />
 											{% endif %} 
-										</td> </tr>
-						
-									{% if base.tbclassificacaoprocesso.id == 2 %}
-										<tr> <td class="colunaTabela"> <label>Classificacao:</label> </td>
-										   		<td>
-										   			{{ base.tbclassificacaoprocesso.nmclassificacao }}
-												</td>
-										</tr>
-									{% endif %}
+										</td> </tr>						
 										<tr> 
 											<td class="colunaTabela"> <label>Data Requerimento:</label> </td>
 											<td> <input value="{{ dtrequerimento }}" size="9" id="date2" name="dtrequerimento" /> </td> 
