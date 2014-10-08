@@ -37,6 +37,9 @@ from django.core.files import storage
 from django.db.models import  Q
 from django.db.models import Count
 
+from webodt import shortcuts
+from django.shortcuts import render_to_response, get_object_or_404
+
 nome_relatorio      = "relatorio_caixa"
 response_consulta  = "/sicop/caixa/consulta/"
 titulo_relatorio    = "Relatorio Caixas"
@@ -122,9 +125,9 @@ def edicao(request, id):
 #retornar o conteudo da caixa de acordo com o tipocaixa
 #processos = Tbprocessobase.objects.all().filter( tbcaixa__id = id )   
 
-    p_rural = Tbprocessorural.objects.all().filter( tbprocessobase__tbcaixa__id = id, tbprocessobase__tbclassificacaoprocesso__id = 1 )
-    p_clausula = Tbprocessoclausula.objects.all().filter( tbprocessobase__tbcaixa__id = id, tbprocessobase__tbclassificacaoprocesso__id = 1 )
-    p_urbano = Tbprocessourbano.objects.all().filter( tbprocessobase__tbcaixa__id = id, tbprocessobase__tbclassificacaoprocesso__id = 1 )
+    p_rural = Tbprocessorural.objects.filter( tbprocessobase__tbcaixa__id = id ).order_by( 'nmrequerente' )
+    p_clausula = Tbprocessoclausula.objects.filter( tbprocessobase__tbcaixa__id = id ).order_by( 'nmrequerente' )
+    p_urbano = Tbprocessourbano.objects.filter( tbprocessobase__tbcaixa__id = id ).order_by( 'nmpovoado' )
     processos = []
     for obj in p_rural:
         processos.append( obj )
@@ -158,19 +161,11 @@ def edicao(request, id):
 @permission_required('sicop.caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_pdf(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
-    lista = request.session[nome_relatorio]
-    if lista:
-        response = HttpResponse(mimetype='application/pdf')
-        doc = relatorio_pdf_base_header(response, nome_relatorio)   
-        elements=[]
-        
-        dados = relatorio_pdf_base_header_title(titulo_relatorio)
-        dados.append( ('NOME','CAIXA') )
-        for obj in lista:
-            dados.append( ( obj.nmlocalarquivo , obj.tbtipocaixa.nmtipocaixa ) )
-        return relatorio_pdf_base(response, doc, elements, dados)
-    else:
-        return HttpResponseRedirect(response_consulta)
+    return shortcuts.render_to_response(
+        'etiqueta-caixa.odt',
+        dictionary=dict( nome = 'AGUARDANDO GEO' ),
+        format='odt',
+        filename='eti-caixa.odt')
 
 @permission_required('sicop.caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_ods(request):
@@ -188,10 +183,11 @@ def relatorio_ods(request):
         # TITULOS DAS COLUNAS
         sheet.getCell(0, 6).setAlignHorizontal('center').stringValue( 'Processo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getCell(1, 6).setAlignHorizontal('center').stringValue( 'Requerente' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
-        sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'CPF' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
-        sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'Municipio' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
-        sheet.getCell(4, 6).setAlignHorizontal('center').stringValue( 'Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
-        sheet.getCell(5, 6).setAlignHorizontal('center').stringValue( 'Tipo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'Principal / Anexo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'CPF' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(4, 6).setAlignHorizontal('center').stringValue( 'Municipio' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(5, 6).setAlignHorizontal('center').stringValue( 'Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(6, 6).setAlignHorizontal('center').stringValue( 'Tipo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getRow(1).setHeight('20pt')
         sheet.getRow(2).setHeight('20pt')
         sheet.getRow(6).setHeight('20pt')
@@ -199,23 +195,29 @@ def relatorio_ods(request):
         sheet.getColumn(0).setWidth("2in")
         sheet.getColumn(1).setWidth("5in")
         sheet.getColumn(2).setWidth("2in")
-        sheet.getColumn(3).setWidth("2.5in")
+        sheet.getColumn(3).setWidth("2in")
         sheet.getColumn(4).setWidth("2.5in")
         sheet.getColumn(5).setWidth("2.5in")
+        sheet.getColumn(6).setWidth("2.5in")
             
         #DADOS DA CONSULTA
         x = 5
         for obj in processos:
             sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.nrprocesso)
-            sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbmunicipio.nome_mun)
-            sheet.getCell(4, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbgleba.nmgleba)
-            sheet.getCell(5, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbtipoprocesso.nome)
+            if obj.tbprocessobase.tbclassificacaoprocesso.id == 2:
+                sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue('ANEXO')
+            else:
+                sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue('')
+            
+            sheet.getCell(4, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbmunicipio.nome_mun)
+            sheet.getCell(5, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbgleba.nmgleba)
+            sheet.getCell(6, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbtipoprocesso.nome)
             if obj.tbprocessobase.tbtipoprocesso.tabela == 'tbprocessourbano':
                 sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.nmpovoado)    
-                sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue(obj.nrcnpj)
+                sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(obj.nrcnpj)
             else:
                 sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.nmrequerente)    
-                sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue(obj.nrcpfrequerente)
+                sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(obj.nrcpfrequerente)
                 x += 1
             
         #GERACAO DO DOCUMENTO  

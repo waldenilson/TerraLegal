@@ -96,7 +96,14 @@
 									{% endif %}
 								{% endif %}
 							{% endif %}
-							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.nrprocesso }}</td>
+							<td class="colunaTabelaConsulta">
+								{{ obj.tbprocessobase.nrprocesso }}
+
+								{% if obj.tbprocessobase.tbclassificacaoprocesso.id == 2 %}
+									&nbsp;<div style="font-weight: bold">(Anexo)</div>
+								{% endif %}
+
+							</td>
 							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbmunicipio.nome_mun }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbgleba.nmgleba }}</td>
 						</tr>
