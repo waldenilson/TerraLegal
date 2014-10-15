@@ -47,13 +47,21 @@
 			<tbody>
 				<tr>
 						<td class="colunaTabelaConsulta" style="width:20%">Nome</td>
-						<td class="colunaTabelaConsulta" style="width:15%">Tipo</td>
+						<td class="colunaTabelaConsulta" style="width:10%">Tipo</td>
+						<td class="colunaTabelaConsulta" style="width:3%">Ativada ?</td>
 				</tr>
 				{% if lista %}
 					{% for obj in lista %}
 						<tr onclick="editarID('/sicop/caixa/edicao/{{ obj.id }}');">
 							<td class="colunaTabelaConsulta">{{ obj.nmlocalarquivo }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.tbtipocaixa.desctipocaixa }}</td>
+							<td class="colunaTabelaConsulta">
+								{% if obj.blativo %}
+									Sim
+								{% else %}
+									Não
+								{% endif %}
+							</td>
 						</tr>
 					{% endfor %}
 				{% else %}
