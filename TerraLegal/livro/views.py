@@ -320,8 +320,15 @@ def relatorio_ods(request):
             sheet.getCell(5,  x+3).setAlignHorizontal('left').stringValue(obj.tbprocessobase.tbmunicipio.nome_mun)
             sheet.getCell(8,  x+3).setAlignHorizontal('left').stringValue(obj.tbprocessobase.nmendereco)
             sheet.getCell(9,  x+3).setAlignHorizontal('left').stringValue(obj.tbprocessobase.nmcontato)
-            sheet.getCell(10, x+3).setAlignHorizontal('left').stringValue(obj.tbprocessobase.tbmunicipiodomicilio.nome_mun)
-            sheet.getCell(11, x+3).setAlignHorizontal('left').stringValue(obj.tbtitulo.tbcaixa.nmlocalarquivo)
+            try:
+                sheet.getCell(10, x+3).setAlignHorizontal('left').stringValue(obj.tbprocessobase.tbmunicipiodomicilio.nome_mun)
+            except:
+                sheet.getCell(10, x+3).setAlignHorizontal('left').stringValue('')
+                
+            try:
+                sheet.getCell(11, x+3).setAlignHorizontal('left').stringValue(obj.tbtitulo.tbcaixa.nmlocalarquivo)
+            except:
+                sheet.getCell(11, x+3).setAlignHorizontal('left').stringValue('')
             
                  
             
