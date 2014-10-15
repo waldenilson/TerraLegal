@@ -38,7 +38,7 @@ MANAGERS = ADMINS
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost','sicop12','sicop.incra.gov.br','www.sicop.incra.gov.br']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -167,6 +167,7 @@ INSTALLED_APPS = (
     'odslib',
     'webodt',
     'lxml',
+#    'xhtml2pdf',
     'TerraLegal.tramitacao',
     'TerraLegal.documento',
     'TerraLegal.servidor',

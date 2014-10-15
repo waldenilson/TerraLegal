@@ -1,3 +1,4 @@
+# -- coding: utf-8 --
 from django.contrib.auth.decorators import login_required, permission_required,\
     user_passes_test
 from django.shortcuts import render_to_response, get_object_or_404
@@ -25,6 +26,12 @@ from TerraLegal.tramitacao.relatorio_base import relatorio_csv_base, relatorio_o
 from django.contrib.auth.models import Permission
 from TerraLegal.tramitacao import admin
 
+from django import http
+from django.template.loader import get_template
+from django.template import Context
+import ho.pisa as pisa
+import cStringIO as StringIO
+
 def verificaDivisaoUsuario(request):
     classe_divisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao.nrclasse
     divisoes = []
@@ -50,3 +57,13 @@ def verificaDivisaoUsuario(request):
     request.session['divisoes'] = id_divisoes
     request.session['uf'] = id_uf_classe
     request.session['classe'] = [1,2,3,4,5,6,7,8,9,10]
+
+def gerar_html2pdf():
+    template = get_template('sicop/2pdf.html')
+    context = Context({'titulo':'O Título do documento'})
+    html  = template.render(context)
+    result = StringIO.StringIO()
+    pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("ISO-8859-1")), result)
+    if not pdf.err:
+        return http.HttpResponse(result.getvalue(), mimetype='application/pdf')
+    return http.HttpResponse('We had some errors<pre>%s</pre>' % cgi.escape(html))
