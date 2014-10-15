@@ -159,14 +159,16 @@ def edicao(request, id):
                                        stcertliberacao = liberacao
                                        )
             try:
+                print request.POST['dtrequerimento']
+                f_clausula.dtrequerimento = datetime.datetime.strptime( request.POST['dtrequerimento'], "%d/%m/%Y")
+            except:
+                f_clausula.dtrequerimento = None
+
+            try:
                 f_clausula.dttitulacao = datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y")
             except:
                 f_clausula.dttitulacao = None
 
-            try:
-                f_clausula.dtrequerimento = datetime.datetime.strptime( request.POST['dtrequerimento'], "%d/%m/%Y")
-            except:
-                f_clausula.dtrequerimento = None
 
             f_clausula.save()
             

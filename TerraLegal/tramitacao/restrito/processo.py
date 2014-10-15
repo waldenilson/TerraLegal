@@ -335,6 +335,7 @@ def tramitar(request, base):
                 if tipo == "tbprocessoclausula":
                     clausula = Tbprocessoclausula.objects.get( tbprocessobase = base.id )
                     dttitulacao = formatDataToText( clausula.dttitulacao )
+                    dtrequerimento = formatDataToText( clausula.dtrequerimento )
                     # caixas que podem ser tramitadas
                     tram = []
                     for obj in Tbcaixa.objects.filter(tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id):
@@ -344,7 +345,7 @@ def tramitar(request, base):
                                               {'gleba':gleba,
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
-                                       'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))      
+                                       'base':base,'clausula':clausula,'dttitulacao':dttitulacao, 'dtrequerimento':dtrequerimento}, context_instance = RequestContext(request))      
 
 @permission_required('sicop.processo_criar_pendencia', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def criar_pendencia(request, base):
@@ -407,11 +408,12 @@ def criar_pendencia(request, base):
                 if tipo == "tbprocessoclausula":
                     clausula = Tbprocessoclausula.objects.get( tbprocessobase = base.id )
                     dttitulacao = formatDataToText( clausula.dttitulacao )
+                    dtrequerimento = formatDataToText( clausula.dtrequerimento )
                     return render_to_response('sicop/processo/clausula/edicao.html',
                                               {'gleba':gleba,
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
                                        'movimentacao':movimentacao,'caixadestino':caixadestino,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
-                                       'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))      
+                                       'base':base,'clausula':clausula,'dttitulacao':dttitulacao,'dtrequerimento':dtrequerimento}, context_instance = RequestContext(request))      
 
 @permission_required('sicop.processo_anexar', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def anexar(request, base):
@@ -488,11 +490,12 @@ def anexar(request, base):
                 if tipo == "tbprocessoclausula":
                     clausula = Tbprocessoclausula.objects.get( tbprocessobase = base.id )
                     dttitulacao = formatDataToText( clausula.dttitulacao )
+                    dtrequerimento = formatDataToText( clausula.dtrequerimento )
                     return render_to_response('sicop/processo/clausula/edicao.html',
                                               {'gleba':gleba,
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
                                        'movimentacao':movimentacao,'caixadestino':caixadestino,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
-                                       'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))      
+                                       'base':base,'clausula':clausula,'dttitulacao':dttitulacao,'dtrequerimento':dtrequerimento}, context_instance = RequestContext(request))      
 
 @permission_required('sicop.processo_desanexar', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def desanexar(request,id_anexo):
@@ -564,11 +567,12 @@ def desanexar(request,id_anexo):
             if tipo == "tbprocessoclausula":
                 clausula = Tbprocessoclausula.objects.get( tbprocessobase = base.id )
                 dttitulacao = formatDataToText( clausula.dttitulacao )
+                dtrequerimento = formatDataToText( clausula.dtrequerimento )
                 return render_to_response('sicop/processo/clausula/edicao.html',
                                           {'gleba':gleba,
                                    'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,
                                    'movimentacao':movimentacao,'caixadestino':caixadestino,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
-                                   'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))      
+                                   'base':base,'clausula':clausula,'dttitulacao':dttitulacao,'dtrequerimento':dtrequerimento}, context_instance = RequestContext(request))      
 
 
 def def_fluxo( tp ):
@@ -692,7 +696,7 @@ def edicao(request, id):
                 if tipo == "tbprocessoclausula":
                     clausula = Tbprocessoclausula.objects.get( tbprocessobase = id )
                     dttitulacao = formatDataToText( clausula.dttitulacao )
-                    #dtrequerimento = formatDataToText( clausula.dtrequerimento )
+                    dtrequerimento = formatDataToText( clausula.dtrequerimento )
                     fases = Tbetapa.objects.filter( tbtipoprocesso__id = clausula.tbprocessobase.tbtipoprocesso.id, blativo = True ).order_by('ordem')
                     transicao = Tbtransicao.objects.filter( tbprocessobase__id = clausula.tbprocessobase.id ).order_by('-dttransicao')
                     if transicao:
@@ -709,7 +713,7 @@ def edicao(request, id):
                                               {'transicao':transicao,'fluxo':fluxo,'gleba':gleba,'fases':fases,'etapa_atual':etapa_atual,'posteriores':posteriores,
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,'processo_principal':processo_principal,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
-                                       'base':base,'clausula':clausula,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
+                                       'base':base,'clausula':clausula,'dttitulacao':dttitulacao,'dtrequerimento':dtrequerimento}, context_instance = RequestContext(request))
         
     return HttpResponseRedirect("/sicop/processo/consulta/")
     
