@@ -239,20 +239,33 @@
 		{% csrf_token %}
 		<table style="width:100%">
 			<tr> 
-			   	<td class="colunaTabelaConsulta">
-			   		<select name="tbtipopendencia" style="width: 150px">
+			   	<td class="colunaTabelaConsulta" colspan="2">
+			   		<select name="tbtipopendencia" style="width: 200px">
+			   			<option value="">-- SELECIONE O TIPO --</option>
 			   			{% for obj in tipopendencia %}
 							<option value="{{ obj.id }}">{{ obj.dspendencia }}</option>
 						{% endfor %}
 					</select>
-					<input placeholder="Descricao" size="30" required="required" name="dspendencia" />
-			   		<select name="tbstatuspendencia" style="width: 150px">
+
+			   		<select name="tbstatuspendencia" style="width: 200px">
+			   		<option value="">-- SELECIONE O STATUS --</option>
 			   			{% for obj in statuspendencia %}
 							<option value="{{ obj.id }}">{{ obj.dspendencia }}</option>
 						{% endfor %}
 					</select>
-					<input type="submit" value="CRIAR PENDENCIA" />
+
 				</td>
+
+			</tr>
+			<tr>
+				<td colspan="2" class="colunaTabelaConsulta">
+					<textarea cols="80" rows="5" name="dspendencia" /></textarea>
+			   	<td>
+			</tr>
+			<tr>
+			   	<td colspan="2" class="colunaTabelaConsulta">
+					<input type="submit" value="CRIAR PENDENCIA" />
+			   	<td>
 			</tr>
 		</table>
 	</form>
@@ -261,16 +274,18 @@
 				<tbody>
 					<tr>
 						<td class="colunaTabelaConsulta" style="width: 30%">Tipo</td>
+						<td class="colunaTabelaConsulta" style="width: 35%">Descrição</td>
 						<td class="colunaTabelaConsulta" style="width: 15%">Status</td>
-						<td class="colunaTabelaConsulta" style="width: 35%">Descricao</td>
-						<td class="colunaTabelaConsulta" style="width: 20%">Usuario</td>
+						<td class="colunaTabelaConsulta" style="width: 20%">Atualizado em</td>
+						<td class="colunaTabelaConsulta" style="width: 20%">Usuário</td>
 					</tr>
 					   		{% for pen in pendencia %}
-								<tr onclick="editarID('/sicop/pendencia/edicao/{{ pen.id }}');" >
+								<tr onclick="editarID('/sicop/pendencia/edicao/{{ pen.id }}');">
 									<td class="colunaTabelaConsulta">{{	pen.tbtipopendencia.dspendencia }}</td>
-									<td class="colunaTabelaConsulta">{{	pen.tbstatuspendencia.dspendencia }}</td>
 									<td class="colunaTabelaConsulta">{{ pen.dsdescricao }}</td>
-									<td class="colunaTabelaConsulta">{{ pen.auth_user.first_name }}</td>
+									<td class="colunaTabelaConsulta">{{	pen.tbstatuspendencia.dspendencia }}</td>
+									<td class="colunaTabelaConsulta">{{ pen.updated_at|date:"d/m/Y h:m" }}</td>
+									<td class="colunaTabelaConsulta">{{ pen.auth_user_updated.first_name }}</td>
 								</tr>
 							{% endfor %}
 				</tbody>

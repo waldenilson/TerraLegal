@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from TerraLegal.tramitacao.forms import FormGleba, FormPendencia
-from TerraLegal.tramitacao.models import Tbgleba, Tbsubarea, Tbpendencia, Tbtipopendencia,\
+from TerraLegal.tramitacao.models import AuthUser, Tbgleba, Tbsubarea, Tbpendencia, Tbtipopendencia,\
     Tbstatuspendencia
 from django.http.response import HttpResponseRedirect
 from django.contrib import messages
@@ -18,6 +18,7 @@ def edicao(request, pendencia):
             f_pendencia = Tbpendencia(
                                        id = instance.id,
                                        auth_user = instance.auth_user,
+                                       auth_user_updated = AuthUser.objects.get( pk = request.user.id ),
                                        tbprocessobase = instance.tbprocessobase,
                                        dsdescricao = request.POST['dsdescricao'],
                                        dtpendencia = instance.dtpendencia,

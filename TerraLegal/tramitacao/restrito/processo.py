@@ -361,6 +361,7 @@ def criar_pendencia(request, base):
             f_pendencia = Tbpendencia(
                                       tbprocessobase = base,
                                       auth_user = AuthUser.objects.get( pk = request.user.id ),
+                                      auth_user_updated = AuthUser.objects.get( pk = request.user.id ),
                                       tbtipopendencia  = Tbtipopendencia.objects.get( pk = request.POST['tbtipopendencia'] ),
                                       tbstatuspendencia = Tbstatuspendencia.objects.get( pk = request.POST['tbstatuspendencia'] ) ,
                                       dsdescricao = descricao,

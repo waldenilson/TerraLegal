@@ -201,6 +201,8 @@ class Tbpendencia(models.Model):
     auth_user = models.ForeignKey(AuthUser)
     tbstatuspendencia = models.ForeignKey('Tbstatuspendencia')
     dsparecer = models.TextField()
+    updated_at = models.DateTimeField(auto_now=True)
+    auth_user_updated = models.ForeignKey(AuthUser, related_name="auth_user_updated")
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbpendencia'
