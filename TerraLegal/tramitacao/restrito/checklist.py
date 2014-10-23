@@ -45,8 +45,9 @@ planilha_relatorio  = "Checklist"
 def consulta(request):
     if request.method == "POST":
         nome = request.POST['nmchecklist']
+        pesquisa_etapa = request.POST['pesquisa_etapa']
         #lista = Tbcaixa.objects.all().filter( nmlocalarquivo__icontains=nome, tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-        lista = Tbchecklist.objects.filter( nmchecklist__icontains=nome, tbetapa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        lista = Tbchecklist.objects.filter( nmchecklist__icontains=nome, tbetapa__nmfase__icontains=pesquisa_etapa, tbetapa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     else:
         #lista = Tbcaixa.objects.all().filter( tbtipocaixa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
         lista = Tbchecklist.objects.filter( tbetapa__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
