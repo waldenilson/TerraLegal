@@ -21,7 +21,7 @@
 	<li><a href="#tabs-4">ANEXOS</a></li>
 {% endif %}
 
-{% if fases %}
+{% if fases and base.tbclassificacaoprocesso.id == 1 %}
 	<li><a href="#tabs-5">FLUXO DO PROCESSO</a></li>
 {% endif %}
 
@@ -79,7 +79,7 @@
 										</tr>
 										<tr> <td class="colunaTabela"> <label>Etapa Atual:</label> </td>
 										   		<td>
-										   			{{ base.tbetapaatual.nmfase }}
+										   			{{ base.tbetapaatual.nmfase }} - {{ base.tbetapaatual.tbtipoprocesso.nome }}
 												</td>
 										</tr>
 										<tr> <td class="colunaTabela"> <label>Gleba:</label> </td>
@@ -114,6 +114,7 @@
 												</td>
 										</tr>
 										<tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input value="{{ clausula.nrarea|default:'' }}" onkeypress="return SomenteNumero(event, this);" size="15" name="nrarea" /> </td> </tr>
+<!--
 										<tr> <td class="colunaTabela"> <label>Por Procuracao:</label> </td>
 										<td>
 											{% if clausula.stprocuracao == True %} 
@@ -140,6 +141,7 @@
 												<input type="checkbox" name="stcertliberacao" />
 											{% endif %} 
 										</td> </tr>						
+-->
 										<tr> 
 											<td class="colunaTabela"> <label>Data Requerimento:</label> </td>
 											<td> <input value="{{ dtrequerimento }}" size="9" id="date2" name="dtrequerimento" /> </td> 
@@ -153,12 +155,33 @@
 											<td> <textarea rows="4" cols="30" name="dsobs">{{ clausula.dsobs }}</textarea></td> 
 										</tr>
 
+										<tr> 
+											<td class="colunaTabela"> <label>Endereço:</label> </td>
+											<td> <textarea name="nmendereco" rows="4" cols="30">{{base.nmendereco|default:''}}</textarea></td> 
+										</tr>
+
+										<tr> <td class="colunaTabela"> <label>Municipio do domicilio:</label> </td>
+										   		<td>
+										   			<select name="tbmunicipiodomicilio" style="width: 200px" value="1">
+										   				<option value="">-- Selecione um Municipio --</option>
+														{% for obj in municipio %}
+															{% if obj.id == base.tbmunicipiodomicilio.id %}
+																<option selected="selected" value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+															{% else %}
+																<option value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+															{% endif %}
+														{% endfor %}
+													</select>
+												</td>
+										</tr>
+
+<!--
 			 						    {% if fases and perms.sicop.etapa_checklist_posterior %}
 										<tr>
 											<td class="colunaTabela"> <label>Mudar Etapa:</label> </td>
 											<td>
 												<select name="etapaposterior"  style="width:200px">
-													<option value="">-- Selecione uma etapa --</option>
+													<option value=""> Selecione uma etapa </option>
 													{% for obj in posteriores %}
 														<option value="{{ obj.tbposterior.id }}">{{obj.tbposterior.nmfase}}</option>
 													{% endfor %}
@@ -168,9 +191,9 @@
 										{% else %}
 											<input name="etapaposterior" value="" type="hidden" />
 							   			{% endif %}
-
+-->
 								</table>
-													
+								<input name="etapaposterior" value="" type="hidden" />
 							</div>
 							<br />
 							<table style="width:100%">
@@ -209,19 +232,17 @@
 			<table class="csstable">
 				<tbody>
 					<tr>
-						<td class="colunaTabelaConsulta" style="width: 15%">Data</td>
-						<td class="colunaTabelaConsulta" style="width: 26%">Origem</td>
-						<td class="colunaTabelaConsulta" style="width: 26%">Destino</td>
-						<td class="colunaTabelaConsulta" style="width: 25%">Usuario</td>
+						<td class="colunaTabelaConsulta" style="width: 30%">Destino</td>
+						<td class="colunaTabelaConsulta" style="width: 5%">Data</td>
+						<td class="colunaTabelaConsulta" style="width: 10%">Usuario</td>
 					</tr>
 					{% for mov in movimentacao %}
 					<tr>
-						<td class="colunaTabelaConsulta">{{ mov.dtmovimentacao.day }}/{{ mov.dtmovimentacao.month }}/{{ mov.dtmovimentacao.year }}</td>
-						<td class="colunaTabelaConsulta">{{	mov.tbcaixa_id_origem.nmlocalarquivo }}</td>
 						<td class="colunaTabelaConsulta">{{ mov.tbcaixa.nmlocalarquivo }}</td>
+						<td class="colunaTabelaConsulta">{{ mov.dtmovimentacao|date:"d/m/Y H:m" }}</td>
 						<td class="colunaTabelaConsulta">{{ mov.auth_user.first_name }}</td>
 					</tr>
-					{% endfor %}
+					{% endfor %} 
 				</tbody>
 			</table>
 	{% endif %}
@@ -329,7 +350,7 @@
 </div>
 {% endif %}
 
-{% if fases %}
+{% if fases and base.tbclassificacaoprocesso.id == 1 %}
 	<div id="tabs-5">
 		{% if fluxo %}
 		    {% if perms.sicop.etapa_checklist_posterior %}

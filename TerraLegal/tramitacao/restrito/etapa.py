@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext, Context
 from TerraLegal.tramitacao.models import Tbcaixa, Tbtipocaixa, AuthUser, Tbprocessobase,\
-    Tbpecastecnicas, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano, Tbdivisao,\
+    Tbpecastecnicas, Tbprocessorural, Tbprocessosanexos, Tbprocessoclausula, Tbprocessourbano, Tbdivisao,\
     Tbetapa, Tbtipoprocesso, Tbchecklist, Tbchecklistprocessobase,\
     Tbetapaanterior, Tbetapaposterior, Tbtransicao
 from django.http import HttpResponseRedirect
@@ -248,7 +248,6 @@ def checklist(request, processo, etapa):
     
     posteriores = Tbetapaposterior.objects.filter( tbetapa__id = etapa )
 
-
     result = {}
     for obj in checklist:
         achou = False
@@ -278,6 +277,41 @@ def checklist(request, processo, etapa):
                     transicao.save()
             else:
                 transicao.save()
+        
+                f_base = Tbprocessobase (
+                    id = obj_processo.id,
+                    nrprocesso = obj_processo.nrprocesso,
+                    tbgleba = obj_processo.tbgleba,
+                    tbmunicipio = obj_processo.tbmunicipio,
+                    tbcaixa = obj_processo.tbcaixa,
+                    tbtipoprocesso = obj_processo.tbtipoprocesso,
+                    dtcadastrosistema = obj_processo.dtcadastrosistema,
+                    tbetapaatual = obj_etapa,
+                    auth_user = obj_processo.auth_user,
+                    tbclassificacaoprocesso = obj_processo.tbclassificacaoprocesso,
+                    tbdivisao = obj_processo.tbdivisao
+                    )
+                f_base.save()
+
+                # tramitando as etapas dos anexos
+                anexado = Tbprocessosanexos.objects.filter( tbprocessobase__id = f_base.id )
+                for nx in anexado:
+                    proc_anexado = nx.tbprocessobase_id_anexo
+                    f_base_anexo = Tbprocessobase (
+                        id = proc_anexado.id,
+                        nrprocesso = proc_anexado.nrprocesso,
+                        tbgleba = proc_anexado.tbgleba,
+                        tbmunicipio = proc_anexado.tbmunicipio,
+                        tbcaixa = proc_anexado.tbcaixa,
+                        tbtipoprocesso = proc_anexado.tbtipoprocesso,
+                        dtcadastrosistema = proc_anexado.dtcadastrosistema,
+                        tbetapaatual = obj_etapa,
+                        auth_user = proc_anexado.auth_user,
+                        tbclassificacaoprocesso = proc_anexado.tbclassificacaoprocesso,
+                        tbdivisao = proc_anexado.tbdivisao
+                        )
+                    f_base_anexo.save()
+
 
             return HttpResponseRedirect("/sicop/processo/edicao/"+str(processo))
     
@@ -328,12 +362,46 @@ def checklist(request, processo, etapa):
                          auth_user = AuthUser.objects.get( pk = request.user.id ),
                         )
 
-            # se etapa atual nao for a propria em questao, registra a transicao
             t = Tbtransicao.objects.all().order_by('-id')
             if t:
                 if t[0].tbetapa.id != transicao.tbetapa.id or t[0].tbprocessobase.id != transicao.tbprocessobase.id:
                     if t[0].tbetapa.id != transicao.tbetapa.id:
                         transicao.save()
+
+                        obj_processo = Tbprocessobase.objects.get( pk = processo )
+                        f_base = Tbprocessobase (
+                            id = obj_processo.id,
+                            nrprocesso = obj_processo.nrprocesso,
+                            tbgleba = obj_processo.tbgleba,
+                            tbmunicipio = obj_processo.tbmunicipio,
+                            tbcaixa = obj_processo.tbcaixa,
+                            tbtipoprocesso = obj_processo.tbtipoprocesso,
+                            dtcadastrosistema = obj_processo.dtcadastrosistema,
+                            tbetapaatual = Tbetapa.objects.get( pk = request.POST['etapaposterior'] ),
+                            auth_user = obj_processo.auth_user,
+                            tbclassificacaoprocesso = obj_processo.tbclassificacaoprocesso,
+                            tbdivisao = obj_processo.tbdivisao
+                            )
+                        f_base.save()
+                        # tramitando as etapas dos anexos
+                        anexado = Tbprocessosanexos.objects.filter( tbprocessobase__id = f_base.id )
+                        for nx in anexado:
+                            proc_anexado = nx.tbprocessobase_id_anexo
+                            f_base_anexo = Tbprocessobase (
+                                id = proc_anexado.id,
+                                nrprocesso = proc_anexado.nrprocesso,
+                                tbgleba = proc_anexado.tbgleba,
+                                tbmunicipio = proc_anexado.tbmunicipio,
+                                tbcaixa = proc_anexado.tbcaixa,
+                                tbtipoprocesso = proc_anexado.tbtipoprocesso,
+                                dtcadastrosistema = proc_anexado.dtcadastrosistema,
+                                tbetapaatual = Tbetapa.objects.get( pk = request.POST['etapaposterior'] ),
+                                auth_user = proc_anexado.auth_user,
+                                tbclassificacaoprocesso = proc_anexado.tbclassificacaoprocesso,
+                                tbdivisao = proc_anexado.tbdivisao
+                                )
+                            f_base_anexo.save()
+
             
         # se o usuario selecionou alguma etapa posterior para forcar a sequencia do processo
         else:
@@ -345,16 +413,47 @@ def checklist(request, processo, etapa):
                              auth_user = AuthUser.objects.get( pk = request.user.id ),
                             )
 
-                # se etapa atual nao for a propria em questao, registra a transicao
                 t = Tbtransicao.objects.all().order_by('-id')
                 if t:
                     if t[0].tbetapa.id != transicao.tbetapa.id or t[0].tbprocessobase.id != transicao.tbprocessobase.id:
                         if t[0].tbetapa.id != transicao.tbetapa.id:
                             transicao.save()
                 
-                        
-        return HttpResponseRedirect("/sicop/processo/edicao/"+str(processo))
+                            obj_processo = Tbprocessobase.objects.get( pk = processo )
+                            f_base = Tbprocessobase (
+                                id = obj_processo.id,
+                                nrprocesso = obj_processo.nrprocesso,
+                                tbgleba = obj_processo.tbgleba,
+                                tbmunicipio = obj_processo.tbmunicipio,
+                                tbcaixa = obj_processo.tbcaixa,
+                                tbtipoprocesso = obj_processo.tbtipoprocesso,
+                                dtcadastrosistema = obj_processo.dtcadastrosistema,
+                                tbetapaatual = Tbetapa.objects.get( pk = request.POST['etapaposterior'] ),
+                                auth_user = obj_processo.auth_user,
+                                tbclassificacaoprocesso = obj_processo.tbclassificacaoprocesso,
+                                tbdivisao = obj_processo.tbdivisao
+                                )
+                            f_base.save()
+                            # tramitando as etapas dos anexos
+                            anexado = Tbprocessosanexos.objects.filter( tbprocessobase__id = f_base.id )
+                            for nx in anexado:
+                                proc_anexado = nx.tbprocessobase_id_anexo
+                                f_base_anexo = Tbprocessobase (
+                                    id = proc_anexado.id,
+                                    nrprocesso = proc_anexado.nrprocesso,
+                                    tbgleba = proc_anexado.tbgleba,
+                                    tbmunicipio = proc_anexado.tbmunicipio,
+                                    tbcaixa = proc_anexado.tbcaixa,
+                                    tbtipoprocesso = proc_anexado.tbtipoprocesso,
+                                    dtcadastrosistema = proc_anexado.dtcadastrosistema,
+                                    tbetapaatual = Tbetapa.objects.get( pk = request.POST['etapaposterior'] ),
+                                    auth_user = proc_anexado.auth_user,
+                                    tbclassificacaoprocesso = proc_anexado.tbclassificacaoprocesso,
+                                    tbdivisao = proc_anexado.tbdivisao
+                                    )
+                                f_base_anexo.save()
 
+        return HttpResponseRedirect("/sicop/processo/edicao/"+str(processo))
     return render_to_response('sicop/etapa/checklist.html',{"processo":obj_processo,"etapa":obj_etapa,'result':result,'posteriores':posteriores}, context_instance = RequestContext(request))
 
 @permission_required('sicop.etapa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
