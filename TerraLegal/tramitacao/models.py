@@ -381,7 +381,7 @@ class Tbetapa(models.Model):
         db_table = 'tbetapa'
 
 class Tbchecklist(models.Model):
-    nmchecklist = models.CharField(max_length=80, blank=True)
+    nmchecklist = models.TextField(blank=True)
     tbetapa = models.ForeignKey(Tbetapa, null=True, blank=True)
     dschecklist = models.TextField(blank=True)
     blobrigatorio = models.BooleanField()
@@ -392,6 +392,7 @@ class Tbchecklist(models.Model):
 class Tbchecklistprocessobase(models.Model):
     tbchecklist = models.ForeignKey(Tbchecklist, null=True, blank=True)
     tbprocessobase = models.ForeignKey(Tbprocessobase, null=True, blank=True)
+    classificacao = models.CharField(max_length=80, blank=True)
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbchecklistprocessobase'

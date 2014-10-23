@@ -65,21 +65,29 @@ def cadastro(request):
     if request.POST.get('blobrigatorio',False):
         obrigatorio = True
 
-       
     if request.method == "POST":
         next = request.GET.get('next', '/')
-        if validacao(request):
-            f_checklist = Tbchecklist(
+
+        f_checklist = Tbchecklist(
                               nmchecklist = request.POST['nmchecklist'],
-                              tbetapa = Tbetapa.objects.get(pk = request.POST['tbfase']),
                               dschecklist = request.POST['dschecklist'],
                               blobrigatorio = obrigatorio
                               )
-            f_checklist.save()
-            if next == "/":
-                return HttpResponseRedirect(response_consulta)
-            else:    
-                return HttpResponseRedirect(next)
+        
+        if request.POST['tbfase'] != '':
+            request.session['etapachecklist'] = request.POST['tbfase']
+
+        try:
+            f_checklist.tbetapa = Tbetapa.objects.get(pk = request.session['etapachecklist'])
+        except:
+            f_checklist.tbetapa = Tbetapa.objects.get(pk = request.POST['tbfase'])
+                              
+        f_checklist.save()
+
+        if next == "/":
+            return HttpResponseRedirect('sicop/checklist/cadastro')
+        else:    
+            return HttpResponseRedirect(next)
     return render_to_response('sicop/checklist/cadastro.html',{"fase":fase}, context_instance = RequestContext(request))
 
 
@@ -182,12 +190,15 @@ def relatorio_csv(request):
 
 def validacao(request_form):
     warning = True
-#    nome = request_form.POST['nmfase']
+    nome = request_form.POST['nmfase']
 #    pos = request_form.POST['ordem']
     fase = request_form.POST['tbfase']
     
     if fase == '':
-        messages.add_message(request_form,messages.WARNING,'Informe uma fase de processo')
+        messages.add_message(request_form,messages.WARNING,'Informe uma etapa para o checklist')
+        warning = False
+    elif nome == '':
+        messages.add_message(request_form,messages.WARNING,'Informe um nome para o checklist.')
         warning = False
 #    else:
 #        list = []
