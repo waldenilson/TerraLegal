@@ -50,8 +50,16 @@ def cadastro(request):
                                     dtcadastrosistema = datetime.datetime.now(),
                                     auth_user = AuthUser.objects.get( pk = request.user.id ),
                                     tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 ),
-                                    tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
+                                    tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao,
+                                    nmendereco = request.POST['nmendereco'],
+                                    nmcontato = request.POST['nmcontato'],                                    
                                     )
+
+            try:
+                f_base.tbmunicipiodomicilio = Tbmunicipio.objects.get(pk = request.POST['tbmunicipiodomicilio'])
+            except:
+                f_base.tbmunicipiodomicilio = None
+
             f_base.save()
             
             # cadastrando o registro processo rural
@@ -140,8 +148,14 @@ def edicao(request, id):
                                     tbetapaatual = base.tbetapaatual,
                                     auth_user = AuthUser.objects.get( pk = request.user.id ),
                                     tbclassificacaoprocesso = base.tbclassificacaoprocesso,
+                                    nmcontato = request.POST['nmcontato'],
+                                    nmendereco = request.POST['nmendereco'],
                                     tbdivisao = base.tbdivisao
                                     )
+            try:
+                f_base.tbmunicipiodomicilio = Tbmunicipio.objects.get(pk = request.POST['tbmunicipiodomicilio'])
+            except:
+                f_base.tbmunicipiodomicilio = None
             f_base.save()
             
             # cadastrando o registro processo clausula
@@ -217,12 +231,6 @@ def validacao(request_form, metodo):
         warning = False
     if request_form.POST['nrcpfrequerente'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe o CPF do titulado')
-        warning = False
-    if request_form.POST['nminteressado'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe o nome do Interessado')
-        warning = False
-    if request_form.POST['nrcpfinteressado'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe o CPF do interessado')
         warning = False
     if metodo == "cadastro":
         if request_form.POST['tbcaixa'] == '':
