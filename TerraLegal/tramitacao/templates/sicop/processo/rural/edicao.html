@@ -215,12 +215,14 @@
 			<table class="csstable">
 				<tbody>
 					<tr>
-						<td class="colunaTabelaConsulta" style="width: 30%">Destino</td>
-						<td class="colunaTabelaConsulta" style="width: 5%">Data</td>
-						<td class="colunaTabelaConsulta" style="width: 10%">Usuario</td>
+						<td class="colunaTabelaConsulta" style="width: 25%">Origem</td>
+						<td class="colunaTabelaConsulta" style="width: 25%">Destino</td>
+						<td class="colunaTabelaConsulta" style="width: 10%">Data</td>
+						<td class="colunaTabelaConsulta" style="width: 15%">Usuario</td>
 					</tr>
 					{% for mov in movimentacao %}
 					<tr>
+						<td class="colunaTabelaConsulta">{{ mov.tbcaixa_id_origem.nmlocalarquivo }}</td>
 						<td class="colunaTabelaConsulta">{{ mov.tbcaixa.nmlocalarquivo }}</td>
 						<td class="colunaTabelaConsulta">{{ mov.dtmovimentacao|date:"d/m/Y H:m" }}</td>
 						<td class="colunaTabelaConsulta">{{ mov.auth_user.first_name }}</td>
