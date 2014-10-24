@@ -191,7 +191,7 @@ def relatorio_csv(request):
 
 def validacao(request_form):
     warning = True
-    nome = request_form.POST['nmfase']
+    nome = request_form.POST['nmchecklist']
 #    pos = request_form.POST['ordem']
     fase = request_form.POST['tbfase']
     
