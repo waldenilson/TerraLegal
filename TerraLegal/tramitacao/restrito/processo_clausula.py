@@ -66,6 +66,7 @@ def cadastro(request):
             f_clausula = Tbprocessoclausula (
                                        nmrequerente = request.POST['nmrequerente'],
                                        nrcpfrequerente = request.POST['nrcpfrequerente'].replace('.','').replace('-',''),
+                                       nmtitulo = request.POST['nmtitulo'],
                                        nminteressado = request.POST['nminteressado'],
                                        nrcpfinteressado = request.POST['nrcpfinteressado'].replace('.','').replace('-',''),
                                        tbprocessobase = f_base,
@@ -163,6 +164,7 @@ def edicao(request, id):
                                        id = clausula.id,
                                        nmrequerente = request.POST['nmrequerente'],
                                        nrcpfrequerente = request.POST['nrcpfrequerente'].replace('.','').replace('-',''),
+                                       nmtitulo = request.POST['nmtitulo'],
                                        nminteressado = request.POST['nminteressado'],
                                        nrcpfinteressado = request.POST['nrcpfinteressado'].replace('.','').replace('-',''),
                                        tbprocessobase = f_base,
