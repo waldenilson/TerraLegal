@@ -10,6 +10,37 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+class Tbcalculotitulo(models.Model):
+    tbextrato = models.ForeignKey('Tbextrato',blank=True)
+    parcela = models.IntegerField()
+    cdrecolhimento = models.CharField(blank=True,max_length=20)
+    nrreferencia = models.CharField(blank=True,max_length=20)
+    dtvencimento = models.DateField()
+    cdug = models.CharField(blank=True,max_length=20)
+    vlprincipal = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    vldesconto = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    vldeducoes = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    vlcorrecao = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    vlmulta = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    vljuros = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    vlacrescimos = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    vltotal = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    auth_user = models.ForeignKey('tramitacao.AuthUser')
+    stpaga  = models.BooleanField(default=False)
+    stgerada  = models.BooleanField(default=False)
+    dtentrega = models.DateField(null=True)
+    dtrequerimento = models.DateField(null=True)
+    dtgeracao = models.DateField(null=True)
+    dtpagamento = models.DateField(null=True)
+
+    
+    id = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = 'tbcalculotitulo'
+
+
+
 class Tbextrato(models.Model):
     id_req = models.TextField(blank=True)
     cpf_req = models.TextField(blank=True)

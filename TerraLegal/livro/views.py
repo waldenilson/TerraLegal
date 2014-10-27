@@ -225,6 +225,7 @@ def titulos_entregues(request):
                                 tbprocessobase__nrprocesso__icontains=nrprocesso,
                                 tbtitulo__tbstatustitulo__id__exact = 1
                                 )
+        lista = lista.order_by( 'tbtitulo.cdtitulo' )
         lista_processo = []
         for obj in lista:
             lista_processo.append (Tbprocessorural.objects.get(
@@ -234,6 +235,7 @@ def titulos_entregues(request):
     else:
         lista = Tbtituloprocesso.objects.all().filter(tbtitulo__tbstatustitulo__id__exact = 1)
         lista_processo = []
+        lista = lista.order_by( 'tbtitulo.cdtitulo' )
         for obj in lista:
             lista_processo.append (Tbprocessorural.objects.get(tbprocessobase__id__icontains = obj.tbprocessobase.id))
        
@@ -266,6 +268,7 @@ def titulos_nao_entregues(request):
                                 tbprocessobase__nrprocesso__icontains=nrprocesso,
                                 tbtitulo__tbstatustitulo__id__exact = 2
                                 )
+        lista = lista.order_by( 'tbtitulo.cdtitulo' )
         lista_processo = []
         for obj in lista:
             lista_processo.append (Tbprocessorural.objects.get(
@@ -274,6 +277,7 @@ def titulos_nao_entregues(request):
                                 nmrequerente__icontains= requerente))
     else:
         lista = Tbtituloprocesso.objects.all().filter(tbtitulo__tbstatustitulo__id__exact = 2)
+        lista = lista.order_by( 'tbtitulo.cdtitulo' )
         lista_processo = []
         for obj in lista:
             lista_processo.append (Tbprocessorural.objects.get(tbprocessobase__id__icontains = obj.tbprocessobase.id))
