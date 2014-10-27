@@ -137,6 +137,7 @@ def edicao(request, id):
         processos.append( obj )
     
     tituloprocesso = Tbtituloprocesso.objects.all().filter(tbtitulo__tbcaixa__id = id)
+    tituloprocesso = tituloprocesso.order_by( 'tbtitulo.cdtitulo' )
     titulorural = []
     for obj in tituloprocesso:
         titulorural.append (Tbprocessorural.objects.get(tbprocessobase__id = obj.tbprocessobase.id))
