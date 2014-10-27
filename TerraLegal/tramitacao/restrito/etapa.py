@@ -247,20 +247,13 @@ def checklist(request, processo, etapa):
     procChecklist = Tbchecklistprocessobase.objects.filter( tbprocessobase__id = processo )
     
     posteriores = Tbetapaposterior.objects.filter( tbetapa__id = etapa )
-
-    result = {}
-    for obj in checklist:
-        achou = False
-        for obj2 in procChecklist:
-            if obj.id == obj2.tbchecklist.id:
-                result.setdefault(obj,True)
-                achou = True
-                break
-        if not achou:
-            result.setdefault(obj, False)
-    result = sorted(result.items())
     
     if request.method == "POST":
+
+
+#        for obj in checklist:
+#            print request.POST[ str(obj.id) + '-classificacao' ]
+
 
         if request.POST.get('atual',False):
             
@@ -319,142 +312,10 @@ def checklist(request, processo, etapa):
         if not request.user.has_perm('sicop.etapa_checklist_edicao'):
             return HttpResponseRedirect('/excecoes/permissao_negada/')
 
-        checked = 0
-        
-        # verificando os grupos do usuario
-        for obj in checklist:
-            if request.POST.get(obj.nmchecklist, False):
-                checked += 1
-                #verificar se esse grupo ja esta ligado ao usuario
-                res = Tbchecklistprocessobase.objects.filter( tbprocessobase__id = processo, tbchecklist__id = obj.id )
-                if not res:
-                    # inserir ao authusergroups
-                    ug = Tbchecklistprocessobase( tbprocessobase = Tbprocessobase.objects.get( pk = processo ),
-                                          tbchecklist = Tbchecklist.objects.get( pk = obj.id ) )
-                    ug.save()
-                    #print obj.name + ' nao esta ligado a este usuario'
-            else:
-                #verificar se esse grupo foi desligado do usuario
-                res = Tbchecklistprocessobase.objects.filter( tbprocessobase__id = processo, tbchecklist__id = obj.id )
-                if res:
-                    # excluir do authusergroups
-                    for aug in res:
-                        aug.delete()
-                    #print obj.name + ' desmarcou deste usuario'
-
-        
-        # se todos os checklists foram marcados
-        if checked == len(checklist):
-            etapas_posterior = Tbetapaposterior.objects.all().filter( tbetapa_id = etapa )
-            etapa_posterior = None
-            if len(etapas_posterior) == 1:
-                etapa_posterior = etapas_posterior[0]
-            else:
-                for et in etapas_posterior:
-                    if et.blsequencia:
-                        etapa_posterior = et
-                        break
-
-            transicao = Tbtransicao(
-                         tbprocessobase = Tbprocessobase.objects.get( pk = processo ) ,
-                         tbetapa = etapa_posterior.tbposterior,
-                         dttransicao = datetime.datetime.now(),
-                         auth_user = AuthUser.objects.get( pk = request.user.id ),
-                        )
-
-            t = Tbtransicao.objects.all().order_by('-id')
-            if t:
-                if t[0].tbetapa.id != transicao.tbetapa.id or t[0].tbprocessobase.id != transicao.tbprocessobase.id:
-                    if t[0].tbetapa.id != transicao.tbetapa.id:
-                        transicao.save()
-
-                        obj_processo = Tbprocessobase.objects.get( pk = processo )
-                        f_base = Tbprocessobase (
-                            id = obj_processo.id,
-                            nrprocesso = obj_processo.nrprocesso,
-                            tbgleba = obj_processo.tbgleba,
-                            tbmunicipio = obj_processo.tbmunicipio,
-                            tbcaixa = obj_processo.tbcaixa,
-                            tbtipoprocesso = obj_processo.tbtipoprocesso,
-                            dtcadastrosistema = obj_processo.dtcadastrosistema,
-                            tbetapaatual = Tbetapa.objects.get( pk = request.POST['etapaposterior'] ),
-                            auth_user = obj_processo.auth_user,
-                            tbclassificacaoprocesso = obj_processo.tbclassificacaoprocesso,
-                            tbdivisao = obj_processo.tbdivisao
-                            )
-                        f_base.save()
-                        # tramitando as etapas dos anexos
-                        anexado = Tbprocessosanexos.objects.filter( tbprocessobase__id = f_base.id )
-                        for nx in anexado:
-                            proc_anexado = nx.tbprocessobase_id_anexo
-                            f_base_anexo = Tbprocessobase (
-                                id = proc_anexado.id,
-                                nrprocesso = proc_anexado.nrprocesso,
-                                tbgleba = proc_anexado.tbgleba,
-                                tbmunicipio = proc_anexado.tbmunicipio,
-                                tbcaixa = proc_anexado.tbcaixa,
-                                tbtipoprocesso = proc_anexado.tbtipoprocesso,
-                                dtcadastrosistema = proc_anexado.dtcadastrosistema,
-                                tbetapaatual = Tbetapa.objects.get( pk = request.POST['etapaposterior'] ),
-                                auth_user = proc_anexado.auth_user,
-                                tbclassificacaoprocesso = proc_anexado.tbclassificacaoprocesso,
-                                tbdivisao = proc_anexado.tbdivisao
-                                )
-                            f_base_anexo.save()
-
-            
-        # se o usuario selecionou alguma etapa posterior para forcar a sequencia do processo
-        else:
-            if request.POST['etapaposterior'] != '':
-                transicao = Tbtransicao(
-                             tbprocessobase = Tbprocessobase.objects.get( pk = processo ) ,
-                             tbetapa = Tbetapa.objects.get( pk = request.POST['etapaposterior'] ),
-                             dttransicao = datetime.datetime.now(),
-                             auth_user = AuthUser.objects.get( pk = request.user.id ),
-                            )
-
-                t = Tbtransicao.objects.all().order_by('-id')
-                if t:
-                    if t[0].tbetapa.id != transicao.tbetapa.id or t[0].tbprocessobase.id != transicao.tbprocessobase.id:
-                        if t[0].tbetapa.id != transicao.tbetapa.id:
-                            transicao.save()
-                
-                            obj_processo = Tbprocessobase.objects.get( pk = processo )
-                            f_base = Tbprocessobase (
-                                id = obj_processo.id,
-                                nrprocesso = obj_processo.nrprocesso,
-                                tbgleba = obj_processo.tbgleba,
-                                tbmunicipio = obj_processo.tbmunicipio,
-                                tbcaixa = obj_processo.tbcaixa,
-                                tbtipoprocesso = obj_processo.tbtipoprocesso,
-                                dtcadastrosistema = obj_processo.dtcadastrosistema,
-                                tbetapaatual = Tbetapa.objects.get( pk = request.POST['etapaposterior'] ),
-                                auth_user = obj_processo.auth_user,
-                                tbclassificacaoprocesso = obj_processo.tbclassificacaoprocesso,
-                                tbdivisao = obj_processo.tbdivisao
-                                )
-                            f_base.save()
-                            # tramitando as etapas dos anexos
-                            anexado = Tbprocessosanexos.objects.filter( tbprocessobase__id = f_base.id )
-                            for nx in anexado:
-                                proc_anexado = nx.tbprocessobase_id_anexo
-                                f_base_anexo = Tbprocessobase (
-                                    id = proc_anexado.id,
-                                    nrprocesso = proc_anexado.nrprocesso,
-                                    tbgleba = proc_anexado.tbgleba,
-                                    tbmunicipio = proc_anexado.tbmunicipio,
-                                    tbcaixa = proc_anexado.tbcaixa,
-                                    tbtipoprocesso = proc_anexado.tbtipoprocesso,
-                                    dtcadastrosistema = proc_anexado.dtcadastrosistema,
-                                    tbetapaatual = Tbetapa.objects.get( pk = request.POST['etapaposterior'] ),
-                                    auth_user = proc_anexado.auth_user,
-                                    tbclassificacaoprocesso = proc_anexado.tbclassificacaoprocesso,
-                                    tbdivisao = proc_anexado.tbdivisao
-                                    )
-                                f_base_anexo.save()
-
         return HttpResponseRedirect("/sicop/processo/edicao/"+str(processo))
-    return render_to_response('sicop/etapa/checklist.html',{"processo":obj_processo,"etapa":obj_etapa,'result':result,'posteriores':posteriores}, context_instance = RequestContext(request))
+    return render_to_response('sicop/etapa/checklist.html',
+        {"processo":obj_processo,'checklist':checklist,"etapa":obj_etapa,
+        'posteriores':posteriores}, context_instance = RequestContext(request))
 
 @permission_required('sicop.etapa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_pdf(request):
