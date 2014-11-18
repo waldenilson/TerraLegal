@@ -183,9 +183,17 @@ def relatorio_ods(request):
         
         # TITULOS DAS COLUNAS
         sheet.getCell(0, 6).setAlignHorizontal('center').stringValue( 'Processo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
-        sheet.getCell(1, 6).setAlignHorizontal('center').stringValue( 'Requerente' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        if processos[0].tbprocessobase.tbtipoprocesso.tabela == 'tbprocessourbano':
+            sheet.getCell(1, 6).setAlignHorizontal('center').stringValue( 'Povoado' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        else:
+            sheet.getCell(1, 6).setAlignHorizontal('center').stringValue( 'Requerente' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'Principal / Anexo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
-        sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'CPF' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        
+        if processos[0].tbprocessobase.tbtipoprocesso.tabela == 'tbprocessourbano':
+            sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'CNPJ' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        else:
+            sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'CPF' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+    
         sheet.getCell(4, 6).setAlignHorizontal('center').stringValue( 'Municipio' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getCell(5, 6).setAlignHorizontal('center').stringValue( 'Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getCell(6, 6).setAlignHorizontal('center').stringValue( 'Tipo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
@@ -216,6 +224,7 @@ def relatorio_ods(request):
             if obj.tbprocessobase.tbtipoprocesso.tabela == 'tbprocessourbano':
                 sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.nmpovoado)    
                 sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(obj.nrcnpj)
+                x += 1
             else:
                 sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.nmrequerente)    
                 sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(obj.nrcpfrequerente)
