@@ -69,23 +69,28 @@
 										<tr> <td class="colunaTabela"> <label>CPF do Titulado:</label> </td>
 											<td> <input size="15" value="{{ clausula.nrcpfrequerente }}" id="cpf" name="nrcpfrequerente" /> </td> </tr>
 
-										<tr> <td class="colunaTabela"> <label>N Titulo:</label> </td>
-											<td> <input size="10" value="{{ clausula.nmtitulo|default:'' }}" id="cpf" name="nmtitulo" /> </td> </tr>
-
 										<tr> <td class="colunaTabela"> <label>Nome do Interessado:</label> </td>
 											<td> <input size="35" value="{{ clausula.nminteressado }}" name="nminteressado" /> </td> </tr>
+
 										<tr> <td class="colunaTabela"> <label>CPF do Interessado:</label> </td>
 											<td> <input size="15" id="cpf2" value="{{ clausula.nrcpfinteressado }}" name="nrcpfinteressado" /> </td> </tr>
-										<tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
-										   		<td>
-										   			{{ base.tbcaixa.nmlocalarquivo }}
-												</td>
+
+										<tr> <td class="colunaTabela"> <label>N do Titulo:</label> </td>
+											<td> <input size="10" value="{{ clausula.nmtitulo|default:'' }}" id="cpf" name="nmtitulo" /> </td> </tr>
+
+										<tr> <td class="colunaTabela"> <label>Tipo do Titulo:</label> </td>
+											<td> <input size="25" value="{{ clausula.tptitulo|default:'' }}" name="tptitulo" /> </td> </tr>
+
+										<tr> 
+											<td class="colunaTabela"> <label>Data de expedição do Titulo:</label> </td>
+											<td> <input value="{{ dttitulacao }}" size="9" id="date" name="dttitulacao" /> </td> 
 										</tr>
-										<tr> <td class="colunaTabela"> <label>Etapa Atual:</label> </td>
-										   		<td>
-										   			{{ base.tbetapaatual.nmfase }} - {{ base.tbetapaatual.tbtipoprocesso.nome }}
-												</td>
-										</tr>
+
+										<tr> <td class="colunaTabela"> <label>Nome do Imóvel:</label> </td>
+											<td> <input size="25" value="{{ clausula.nmimovel|default:'' }}" name="nmimovel" /> </td> </tr>
+
+										<tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input value="{{ clausula.nrarea|default:'' }}" onkeypress="return SomenteNumero(event, this);" size="15" name="nrarea" /> </td> </tr>
+
 										<tr> <td class="colunaTabela"> <label>Gleba:</label> </td>
 										   		<td>
 										   			<select name="tbgleba" style="width: 200px">
@@ -103,6 +108,21 @@
 												<a href="/sicop/gleba/cadastro/?next=/sicop/processo/clausula/cadastro/" title="Nova Gleba"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 											</td>
 										</tr>
+
+										<tr> <td class="colunaTabela"> <label>Lote do Imóvel:</label> </td>
+											<td> <input size="25" value="{{ clausula.nmloteimovel|default:'' }}" name="nmloteimovel" /> </td> </tr>
+
+										<tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
+										   		<td>
+										   			{{ base.tbcaixa.nmlocalarquivo }}
+												</td>
+										</tr>
+										<tr> <td class="colunaTabela"> <label>Etapa Atual:</label> </td>
+										   		<td>
+										   			{{ base.tbetapaatual.nmfase }} - {{ base.tbetapaatual.tbtipoprocesso.nome }}
+												</td>
+										</tr>
+
 										<tr> <td class="colunaTabela"> <label>Municipio:</label> </td>
 										   		<td>
 										   			<select name="tbmunicipio" style="width: 200px">
@@ -117,7 +137,6 @@
 													</select>
 												</td>
 										</tr>
-										<tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input value="{{ clausula.nrarea|default:'' }}" onkeypress="return SomenteNumero(event, this);" size="15" name="nrarea" /> </td> </tr>
 <!--
 										<tr> <td class="colunaTabela"> <label>Por Procuracao:</label> </td>
 										<td>
@@ -150,10 +169,7 @@
 											<td class="colunaTabela"> <label>Data Requerimento:</label> </td>
 											<td> <input value="{{ dtrequerimento }}" size="9" id="date2" name="dtrequerimento" /> </td> 
 										</tr>
-										<tr> 
-											<td class="colunaTabela"> <label>Data Titulação:</label> </td>
-											<td> <input value="{{ dttitulacao }}" size="9" id="date" name="dttitulacao" /> </td> 
-										</tr>
+
 										<tr> 
 											<td class="colunaTabela"> <label>Observação:</label> </td>
 											<td> <textarea rows="4" cols="30" name="dsobs">{{ clausula.dsobs }}</textarea></td> 
