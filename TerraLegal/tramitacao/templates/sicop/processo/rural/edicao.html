@@ -26,7 +26,7 @@
 	<li><a href="#tabs-5">PEÇA TÉCNICA</a></li>
  {% endif %}
 
-{% if fases %}
+{% if fases and base.tbclassificacaoprocesso.id == 1 %}
 	<li><a href="#tabs-7">FLUXO DO PROCESSO</a></li>
 {% endif %}
 
@@ -125,7 +125,7 @@
 										</tr>
 										<tr> <td class="colunaTabela"> <label>Etapa Atual:</label> </td>
 										   		<td>
-										   			{{ base.tbetapaatual.nmfase }}
+										   			{{ base.tbetapaatual.nmfase }} - {{ base.tbetapaatual.tbtipoprocesso.nome }}
 												</td>
 										</tr>
 										<tr> 
@@ -150,13 +150,13 @@
 													</select>
 												</td>
 										</tr>
-
+<!--
 			 						    {% if fases and perms.sicop.etapa_checklist_posterior %}
 										<tr>
 											<td class="colunaTabela"> <label>Mudar Etapa:</label> </td>
 											<td>
 												<select name="etapaposterior"  style="width:200px">
-													<option value="">-- Selecione uma etapa --</option>
+													<option value=""> Selecione uma etapa </option>
 													{% for obj in posteriores %}
 														<option value="{{ obj.tbposterior.id }}">{{obj.tbposterior.nmfase}}</option>
 													{% endfor %}
@@ -166,7 +166,9 @@
 										{% else %}
 											<input name="etapaposterior" value="" type="hidden" />
 							   			{% endif %}										
+-->
 										</table>							
+								<input name="etapaposterior" value="" type="hidden" />
 							</div>
 							<br />
 							<table style="width:100%">
@@ -213,16 +215,16 @@
 			<table class="csstable">
 				<tbody>
 					<tr>
-						<td class="colunaTabelaConsulta" style="width: 15%">Data</td>
-						<td class="colunaTabelaConsulta" style="width: 26%">Origem</td>
-						<td class="colunaTabelaConsulta" style="width: 26%">Destino</td>
-						<td class="colunaTabelaConsulta" style="width: 25%">Usuario</td>
+						<td class="colunaTabelaConsulta" style="width: 25%">Origem</td>
+						<td class="colunaTabelaConsulta" style="width: 25%">Destino</td>
+						<td class="colunaTabelaConsulta" style="width: 10%">Data</td>
+						<td class="colunaTabelaConsulta" style="width: 15%">Usuario</td>
 					</tr>
 					{% for mov in movimentacao %}
 					<tr>
-						<td class="colunaTabelaConsulta">{{ mov.dtmovimentacao.day }}/{{ mov.dtmovimentacao.month }}/{{ mov.dtmovimentacao.year }}</td>
-						<td class="colunaTabelaConsulta">{{	mov.tbcaixa_id_origem.nmlocalarquivo }}</td>
+						<td class="colunaTabelaConsulta">{{ mov.tbcaixa_id_origem.nmlocalarquivo }}</td>
 						<td class="colunaTabelaConsulta">{{ mov.tbcaixa.nmlocalarquivo }}</td>
+						<td class="colunaTabelaConsulta">{{ mov.dtmovimentacao|date:"d/m/Y H:m" }}</td>
 						<td class="colunaTabelaConsulta">{{ mov.auth_user.first_name }}</td>
 					</tr>
 					{% endfor %} 
@@ -289,7 +291,7 @@
 									<td class="colunaTabelaConsulta">{{	pen.tbtipopendencia.dspendencia }}</td>
 									<td class="colunaTabelaConsulta">{{ pen.dsdescricao }}</td>
 									<td class="colunaTabelaConsulta">{{	pen.tbstatuspendencia.dspendencia }}</td>
-									<td class="colunaTabelaConsulta">{{ pen.updated_at|date:"d/m/Y h:m" }}</td>
+									<td class="colunaTabelaConsulta">{{ pen.updated_at|date:"d/m/Y H:m" }}</td>
 									<td class="colunaTabelaConsulta">{{ pen.auth_user_updated.first_name }}</td>
 								</tr>
 							{% endfor %}
@@ -412,7 +414,7 @@
 	</div>
 {% endif %}
 
-{% if fases %}
+{% if fases and base.tbclassificacaoprocesso.id == 1 %}
 	<div id="tabs-7">
 			<div style="font-size:12px;margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
 				FLUXO DO PROCESSO<hr/>

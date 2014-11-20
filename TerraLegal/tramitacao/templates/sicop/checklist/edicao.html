@@ -15,12 +15,14 @@
 		{% csrf_token %}
 		<div style="width:100%;font-size:12px;text-align:left">
 				<table>
-				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td><input required="required" name="nmchecklist" size="40" value="{{checklist.nmchecklist}}" /></td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td>
+				   		<textarea rows="2" cols="40" name="nmchecklist" required >{{checklist.nmchecklist}}</textarea>
+				   	</td> </tr>
 				   <tr> <td class="colunaTabela"> <label> <a href="/sicop/etapa/edicao/{{checklist.tbetapa.id}}/"> Etapa do Processo: </a> </label> </td>
 				   	<td>
-				   		<select name="tbfase" style="width:300px">
+				   		<select name="tbfase" style="width:350px">
 							{% for obj in fase %}
-								{% if obj.id == checklist.tbfase.id %}
+								{% if obj.id == checklist.tbetapa.id %}
 									<option selected="selected" value="{{ obj.id }}">{{obj.nmfase}} - {{obj.tbtipoprocesso.nome}}</option>
 								{% else %}
 									<option value="{{ obj.id }}">{{obj.nmfase}} - {{obj.tbtipoprocesso.nome}}</option>
@@ -32,7 +34,8 @@
 						<a href="/sicop/etapa/cadastro/?next=/sicop/checklist/cadastro/" title="Nova Fase"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>						
 				   </tr>
-				   <tr> <td class="colunaTabela"> <label>Descricao:</label> </td><td> <textarea rows="4" cols="40" name="dschecklist">{{checklist.dschecklist}}</textarea></td> </tr>				   
+				   <tr> <td class="colunaTabela"> <label>Descricao:</label> </td><td> <textarea rows="4" cols="40" name="dschecklist">{{checklist.dschecklist}}</textarea></td> </tr>
+<!--				   
 				   <tr> <td class="colunaTabela"> <label>Obrigatorio:</label> </td>
 				   <td>
 				   		{% if checklist.blobrigatorio == True %} 
@@ -41,6 +44,7 @@
 							<input type="checkbox" name="blobrigatorio" />
 						{% endif %}
 				   </td> </tr>
+-->
 				</table>
 		</div>
 		<br />

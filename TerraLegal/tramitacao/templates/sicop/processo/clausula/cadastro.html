@@ -6,27 +6,32 @@
 			<table>
 				<tr> <td class="colunaTabela"> <label>N do Processo:</label> </td>
 					<td> <input size="21" name="nrprocesso" id="processo" /> </td> </tr>
+
 				<tr> <td class="colunaTabela"> <label>Nome do Titulado:</label> </td>
 					<td> <input size="35" name="nmrequerente" /> </td> </tr>
+
 				<tr> <td class="colunaTabela"> <label>CPF do Titulado:</label> </td>
 					<td> <input size="15" id="cpf" name="nrcpfrequerente" /> </td> </tr>
+
 				<tr> <td class="colunaTabela"> <label>Nome do Interessado:</label> </td>
 					<td> <input size="35" name="nminteressado" /> </td> </tr>
+
 				<tr> <td class="colunaTabela"> <label>CPF do Interessado:</label> </td>
 					<td> <input size="15" id="cpf2" name="nrcpfinteressado" /> </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
-				   		<td>
-				   			<select name="tbcaixa" style="width: 200px">
-								<option value="">-- Selecione uma Caixa --</option>
-								{% for obj in caixa %}
-									<option value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
-								{% endfor %}
-							</select>
-						</td>
-					<td>
-						<a href="/sicop/caixa/cadastro/?next=/sicop/processo/clausula/cadastro/" title="Nova Caixa"> <img src="{% static "img/add.png" %}" width="24" /> </a>
-					</td>
-				</tr>
+
+				<tr> <td class="colunaTabela"> <label>N do Titulo:</label> </td>
+					<td> <input size="10" name="nmtitulo" /> </td> </tr>
+
+				<tr> <td class="colunaTabela"> <label>Tipo do Titulo:</label> </td>
+					<td> <input size="25" name="tptitulo" /> </td> </tr>
+
+				<tr> <td class="colunaTabela"> <label>Data de expedição do Titulação:</label> </td><td> <input id="date2" name="dttitulacao" /> </td> </tr>
+
+				<tr> <td class="colunaTabela"> <label>Nome do Imóvel:</label> </td>
+					<td> <input size="25" name="nmimovel" /> </td> </tr>
+
+				<tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input onkeypress="return SomenteNumero(event, this);" size="15" name="nrarea" /> </td> </tr>
+
 				<tr> <td class="colunaTabela"> <label>Gleba:</label> </td>
 				   		<td>
 				   			<select name="tbgleba" style="width: 200px">
@@ -40,6 +45,24 @@
 						<a href="/sicop/gleba/cadastro/?next=/sicop/processo/clausula/cadastro/" title="Nova Gleba"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>
 				</tr>
+
+				<tr> <td class="colunaTabela"> <label>Lote do Imóvel:</label> </td>
+					<td> <input size="25" name="nmloteimovel" /> </td> </tr>
+
+				<tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
+				   		<td>
+				   			<select name="tbcaixa" style="width: 200px">
+								<option value="">-- Selecione uma Caixa --</option>
+								{% for obj in caixa %}
+									<option value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
+								{% endfor %}
+							</select>
+						</td>
+					<td>
+						<a href="/sicop/caixa/cadastro/?next=/sicop/processo/clausula/cadastro/" title="Nova Caixa"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+					</td>
+				</tr>
+
 				<tr> <td class="colunaTabela"> <label>Municipio:</label> </td>
 				   		<td>
 				   			<select name="tbmunicipio" style="width: 200px">
@@ -50,11 +73,14 @@
 							</select>
 						</td>
 				</tr>
-				<tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input onkeypress="return SomenteNumero(event, this);" size="15" name="nrarea" /> </td> </tr>
+
+<!--
 				<tr> <td class="colunaTabela"> <label>Por Procuracao:</label> </td><td> <input type="checkbox" name="stprocuracao" /> </td> </tr>
+
 				<tr> <td class="colunaTabela"> <label>Certidao liberacao:</label> </td><td> <input type="checkbox" name="stcertliberacao" /> </td> </tr>
+
 				<tr> <td class="colunaTabela"> <label>Certidao quitacao:</label> </td><td> <input type="checkbox" name="stcertquitacao" /> </td> </tr>
-				
+-->			
 				<tr> <td class="colunaTabela"> <label>Etapa Inicial:</label> </td>
 				   		<td>
 				   			<select name="etapainicial" style="width: 200px">
@@ -65,9 +91,27 @@
 							</select>
 						</td>
 				</tr>
+
 				<tr> <td class="colunaTabela"> <label>Data Requerimento:</label> </td><td> <input id="date" name="dtrequerimento" /> </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Data Titulação:</label> </td><td> <input id="date2" name="dttitulacao" /> </td> </tr>
+
 				<tr> <td class="colunaTabela"> <label>Observação:</label> </td><td> <textarea rows="4" cols="40" name="dsobs"></textarea></td> </tr>
+
+				<tr> <td class="colunaTabela"> <label>Endereco:</label> </td>
+					<td> <textarea name="nmendereco" style="width: 200px"></textarea></td></tr>
+
+				<tr> <td class="colunaTabela"> <label>Municipio do domicílio:</label> </td>
+				   		<td>
+				   			<select name="tbmunicipiodomicilio" style="width: 200px">
+								<option value="">-- Selecione um Municipio --</option>
+								{% for obj in municipio %}
+									<option value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+								{% endfor %}
+							</select>
+						</td>
+				</tr>
+				<tr> <td class="colunaTabela"> <label>Contato:</label> </td>
+					<td> <input name="nmcontato" style="width: 250px" /> </td></tr>
+
 			</table>
 			<br />
 			<table style="width:100%">

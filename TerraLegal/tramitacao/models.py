@@ -253,6 +253,10 @@ class Tbprocessoclausula(models.Model):
     stprocuracao = models.BooleanField( blank=True)
     dttitulacao = models.DateTimeField(null=True, blank=True)
     dtrequerimento = models.DateTimeField(null=True, blank=True)
+    nmtitulo = models.CharField(max_length=80, blank=True)
+    tptitulo = models.CharField(max_length=80, blank=True)
+    nmimovel = models.CharField(max_length=80, blank=True)
+    nmloteimovel = models.CharField(max_length=80, blank=True)
     id = models.AutoField(primary_key=True)
     stcertquitacao = models.BooleanField( blank=True)
     stcertliberacao = models.BooleanField( blank=True)
@@ -381,10 +385,10 @@ class Tbetapa(models.Model):
         db_table = 'tbetapa'
 
 class Tbchecklist(models.Model):
-    nmchecklist = models.CharField(max_length=80, blank=True)
+    nmchecklist = models.TextField(blank=True)
     tbetapa = models.ForeignKey(Tbetapa, null=True, blank=True)
     dschecklist = models.TextField(blank=True)
-    blobrigatorio = models.BooleanField()
+    #blobrigatorio = models.BooleanField()
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbchecklist'
@@ -392,6 +396,9 @@ class Tbchecklist(models.Model):
 class Tbchecklistprocessobase(models.Model):
     tbchecklist = models.ForeignKey(Tbchecklist, null=True, blank=True)
     tbprocessobase = models.ForeignKey(Tbprocessobase, null=True, blank=True)
+    #classificacao = models.CharField(max_length=80, blank=True)
+    blnao_obrigatorio = models.BooleanField()
+    created_at = models.DateTimeField(auto_now_add=True)
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbchecklistprocessobase'

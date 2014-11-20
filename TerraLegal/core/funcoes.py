@@ -29,6 +29,7 @@ from TerraLegal.tramitacao import admin
 from django import http
 from django.template.loader import get_template
 from django.template import Context
+
 import ho.pisa as pisa
 import cStringIO as StringIO
 import os
@@ -122,3 +123,13 @@ def generatePDF(request):
     return HttpResponse(pdf, mimetype='application/pdf')
 
 
+
+#def gerar_html2pdf():
+#    template = get_template('sicop/2pdf.html')
+#    context = Context({'titulo':'O Título do documento'})
+#    html  = template.render(context)
+#    result = StringIO.StringIO()
+#    pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("ISO-8859-1")), result)
+#    if not pdf.err:
+#        return http.HttpResponse(result.getvalue(), mimetype='application/pdf')
+#    return http.HttpResponse('We had some errors<pre>%s</pre>' % cgi.escape(html))
