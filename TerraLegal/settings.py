@@ -175,6 +175,7 @@ INSTALLED_APPS = (
     'TerraLegal.livro',
     'TerraLegal.web',
     'TerraLegal.core',
+    'xhtml2pdf',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
