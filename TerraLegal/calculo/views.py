@@ -6,12 +6,20 @@ from TerraLegal.tramitacao.models import Tbmunicipio, AuthUser
 from decimal import Decimal
 from datetime import date
 from TerraLegal.tramitacao.restrito.processo import formatDataToText
+from TerraLegal.core.funcoes import generatePDF
 from django.contrib import messages
 import datetime
 from datetime import timedelta
 import time
 
+from django.http import HttpResponse
+from django.template import loader, Context
+import os
+from django.conf import settings
 
+from xhtml2pdf import pisa
+from django.template.loader import get_template
+from django.template import loader
 
 nome_relatorio      = "relatorio_portaria80"
 response_consulta  = "/sicop/restrito/portaria80/calculo/"
@@ -42,8 +50,9 @@ def consulta(request):
 @permission_required('sicop.titulo_calculo_portaria23', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def emissao(request,id):
     #remove todos os registros para teste
-    calculotitulo = Tbcalculotitulo.objects.all().delete()
+    #calculotitulo = Tbcalculotitulo.objects.all().delete()
             
+    
     global principal_corrigido_multa
     
     principal_corrigido_multa = 0
@@ -59,6 +68,7 @@ def emissao(request,id):
     dtrequerimento = None
     icorrecao = 3.7779 #mudar para indice correto
     
+
     #isenta pagamento para imoveis abaixo de 1 modulos fiscais'''
     isento = False
     if modulos < 1:
@@ -80,8 +90,6 @@ def emissao(request,id):
     if request.method == "GET":
         if modulos > 1:
             messages.add_message(request, messages.INFO, 'O campo data de requerimento deve ser preenchido com a data que o titulado requereu formalmente o calculo')
-    
-    
     imulta = 1.0
     multa = 0 
     juros = 0 
@@ -95,28 +103,25 @@ def emissao(request,id):
         stNossaEscola = False
         if request.POST.get('stNossaEscola',False):
             stNossaEscola = True
+        ijuros = request.POST['ijuros'].replace(',','.')
+        icorrecao = request.POST['icorrecao'].replace(',','.')
         
-
         #verifica se existem GRUs geradas para o processo em questao
         calculotitulo = Tbcalculotitulo.objects.all().filter(tbextrato__numero_processo__icontains = instance.numero_processo).order_by('parcela')
-        for obj in calculotitulo:
-            if request.POST.get(str(obj.id)+'-parcela', False):
-                #as parcelas que forem marcadas devem ser geradas GRU caso nao tenham sido pagas 
-                print "parcela"+ str(obj.parcela)+" marcou. estava " + str(obj.stpaga)
-            else:
-                #parcelas nao marcadas
-                print "parcela"+ str(obj.parcela)+" nao marcou. estava " + str(obj.stpaga)
-    
+        
+    pdf = []
+
     if dtrequerimento:
         if calculotitulo: 
             #se existir, montar uma lista que passe para o template o objeto calculotitulo e um flag para controlar se 
             #gera ou nao a referida GRU de cada parcela
             for obj in calculotitulo:
-                print "aqui 1"
                 #verificar se parcela estah vencida e gerar as correcoes , multas e juros
-                verifica = verificavencimento(request,dtrequerimento,vencimento,ijuros,prestacao,titulado,obj,None,imulta,stNossaEscola)
+                verifica = verificavencimento(request,dtrequerimento,vencimento,ijuros,prestacao,titulado,obj,obj.parcela,imulta,stNossaEscola,instance)
                 #se estiver paga nao gerar nova gru pois senao vai sobrepor o calculo
+                print "obj.stpaga",obj.stpaga, "obj.stgerada",obj.stgerada
                 if obj.stpaga == True and obj.stgerada == True:
+                    print "gerada e paga"
                     pass
                 else:
                     #desconto para essa parcela a referida 
@@ -126,7 +131,7 @@ def emissao(request,id):
                                     cdrecolhimento = obj.cdrecolhimento,
                                     nrreferencia = obj.nrreferencia,
                                     dtvencimento = obj.dtvencimento,
-                                    cdug = "TESTE2", #obj.cdug,
+                                    cdug = obj.cdug,
                                     vlprincipal = prestacao,
                                     vldesconto = verifica['desconto'],
                                     vldeducoes = 0,
@@ -140,19 +145,19 @@ def emissao(request,id):
                                     stpaga  = obj.stpaga,
                                     id = obj.id,
                                     )
-                    f_calculotitulo.save()         
+                    f_calculotitulo.save() 
+                    pdf.append(verifica['data'])
         else:
             #tem que criar os 17 registros iniciais de gru. serao marcadas como nao pagas, nao emitidas 
             #gerar tambem uma lista que passe para o template o objeto calculotitulo e um flag para controlar se 
             #gera ou nao a referida GRU de cada parcela 
-            for i in range(1,18):
-                print "cria parcelas"
-                verifica = verificavencimento(request,dtrequerimento,vencimento,ijuros,prestacao,titulado,None,i,imulta,stNossaEscola)
+            for i in range(1,4):
+                verifica = verificavencimento(request,dtrequerimento,vencimento,ijuros,prestacao,titulado,None,i,imulta,stNossaEscola,instance)
                 f_calculotitulo = Tbcalculotitulo(
                                 tbextrato = Tbextrato.objects.get(id = instance.id),
                                 parcela = i,
                                 cdrecolhimento = "28874-8",
-                                nrreferencia = str(instance.numero_processo[0:5])+str(instance.id_req[2:6])+str()+"0", #mudar quando o titulo vier do sisterleg
+                                nrreferencia = verifica['referencia'],
                                 dtvencimento = vencimento, 
                                 cdug = "373001/37201",
                                 vlprincipal = prestacao,
@@ -167,6 +172,7 @@ def emissao(request,id):
                                 stpaga  = False
                                 )
                 f_calculotitulo.save()
+
                 vencimento = vencimento.replace(vencimento.year + 1)
 
     titulado = formatDataToText(titulado)
@@ -177,10 +183,29 @@ def emissao(request,id):
     
     dtrequerimento = formatDataToText(dtrequerimento)
 
-    print "dtrequerimento " + str(dtrequerimento) + str(type(dtrequerimento))
-
-    
     calculotitulo = Tbcalculotitulo.objects.all().filter(tbextrato__id = instance.id).order_by('parcela')
+
+    #------------------------    
+    if request.method == "POST":
+        # Render html content through html template with context
+        for obj in pdf:
+            if obj <> None:
+                print "pdf 1",obj
+                template = get_template('portaria23/testePDF.html')
+                html  = template.render(Context(obj))
+
+                # Write PDF to file
+                print"antes file"
+                file = open(os.path.join(settings.MEDIA_ROOT, 'test.pdf'), "w+b")
+                pisaStatus = pisa.CreatePDF(html, dest=file,
+                        link_callback = link_callback)
+                print "apos",file
+                # Return PDF document through a Django HTTP response
+                file.seek(0)
+                pdf = file.read()
+                file.close()            # Don't forget to close the file handle
+                return HttpResponse(pdf, mimetype='application/pdf')
+               
     return render_to_response('portaria23/calculo.html' ,locals(), context_instance = RequestContext(request))
 
 
@@ -189,7 +214,7 @@ def digitar(request):
         
     return render_to_response('portaria23/calculo.html' ,locals(), context_instance = RequestContext(request))
 
-def verificavencimento(request,dtrequerimento,dtvencimento,ijuros,prestacao,titulado,obj,numero_parcela,imulta,stNossaEscola):
+def verificavencimento(request,dtrequerimento,dtvencimento,ijuros,prestacao,titulado,obj,numero_parcela,imulta,stNossaEscola,instance):
     ijuros = float(request.POST.get('ijuros').replace(',','.'))
     icorrecao = float(request.POST.get('icorrecao').replace(',','.'))
     correcao = 0
@@ -199,7 +224,11 @@ def verificavencimento(request,dtrequerimento,dtvencimento,ijuros,prestacao,titu
     desconto = 0
     principal_corrigido_desconto = 0
     principal_corrigido_multa = 0
+    dtgeracao = None
+    stgerada =False
+    data = None
     print "--------------PARCELA-----------",numero_parcela
+    
     if dtrequerimento < dtvencimento: # nao vencido
         print "nao vencido"
         if (dtvencimento - dtrequerimento).days < 30:
@@ -254,10 +283,28 @@ def verificavencimento(request,dtrequerimento,dtvencimento,ijuros,prestacao,titu
             print "principal_corrigido ", principal_corrigido
             print "dtvencGRU ",dtvencGRU
             print "multa",multa
-    
+    referencia = str(instance.numero_processo[0:5])+str(instance.id_req[2:6])+str(numero_parcela)+str(0) #mudar qdo titulo vier do sisterleg
     if stNossaEscola:
         desconto = principal_corrigido / 2
         principal_corrigido = desconto
+
+    if request.POST.get(str(obj.id)+'-parcela', False):
+            #a parcela que forem marcadas devem ser geradas GRU caso nao tenham sido pagas 
+            print "parcela"+ str(obj.parcela)+" marcou. Pago = " + str(obj.stpaga)
+            dtgeracao = datetime.date.today()
+            stgerada = True
+            data = {}
+            data['recolhimento'] = "28874-8"
+            data['prestacao'] = "{0:.2f}".format(prestacao)
+            data['cpf'] = instance.cpf_req
+            data['cdug'] = obj.cdug
+            data['nome'] = instance.nome_req
+            data['vencimento'] = dtvencimento
+            data['referencia'] = referencia
+            print "referencia ",referencia
+    else:
+        #parcelas nao marcadas
+        print "parcela"+ str(obj.parcela)+" nao marcou. Pago = " + str(obj.stpaga)
 
     return locals()
 
@@ -277,3 +324,52 @@ def validar(request):
 def imprime(valor,nome):
     print nome + str(valor) + str(type(valor))
     return
+
+# Convert HTML URIs to absolute system paths so xhtml2pdf can access those resources
+# remover !!!!!!!!!!!!!!!!!!!!!!
+def link_callback(uri, rel):
+    # use short variable names
+    sUrl = settings.STATIC_URL      # Typically /static/
+    sRoot = settings.STATIC_ROOT    # Typically /home/userX/project_static/
+    mUrl = settings.MEDIA_URL       # Typically /static/media/
+    mRoot = settings.MEDIA_ROOT     # Typically /home/userX/project_static/media/
+
+    # convert URIs to absolute system paths
+    if uri.startswith(mUrl):
+        path = os.path.join(mRoot, uri.replace(mUrl, ""))
+    elif uri.startswith(sUrl):
+        path = os.path.join(sRoot, uri.replace(sUrl, ""))
+
+    # make sure that file exists
+    if not os.path.isfile(path):
+            raise Exception(
+                    'media URI must start with %s or %s' % \
+                    (sUrl, mUrl))
+    return path
+
+def geraPDF(request,data):
+
+    data = {}
+    data['recolhimento'] = "28874-8"
+    data['farmer'] = 'Old MacDonald'
+    data['animals'] = [('Cow', 'Moo'), ('Goat', 'Baa'), ('Pig', 'Oink')]
+    
+    # Render html content through html template with context
+    t = loader.get_template('portaria23/testePDF.html')
+    c = Context(data)
+    html =  t.render(c)
+    return HttpResponse(html)
+    print "depois do template"
+
+    #html  = template.render(Context(data))
+    # Write PDF to file
+    file = open(os.path.join(settings.MEDIA_ROOT, 'test.pdf'), "w+b")
+    pisaStatus = pisa.CreatePDF(html, dest=file,
+            link_callback = link_callback)
+
+    # Return PDF document through a Django HTTP response
+    file.seek(0)
+    pdf = file.read()
+    file.close()            # Don't forget to close the file handle
+    print "antes do HttpResponse"
+    return HttpResponse(pdf, mimetype='application/pdf')
