@@ -398,6 +398,7 @@ class Tbchecklistprocessobase(models.Model):
     tbprocessobase = models.ForeignKey(Tbprocessobase, null=True, blank=True)
     #classificacao = models.CharField(max_length=80, blank=True)
     blnao_obrigatorio = models.BooleanField()
+    blsanado = models.BooleanField()
     created_at = models.DateTimeField(auto_now_add=True)
     id = models.AutoField(primary_key=True)
     class Meta:

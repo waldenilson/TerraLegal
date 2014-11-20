@@ -22,19 +22,27 @@
 				   		<hr/>				   	
 						<table style="width:100%">
 							<tbody>
-								{% for check in checklist %}
+								{% for k,v in result %}
 										<tr>
-											<td class="colunaTabelaConsulta" style="width:55%">
+											<td class="colunaTabelaConsulta" style="width:5%">
+												{% if v and v.blsanado %}
+													<input checked="checked" name="{{ k.nmchecklist }}" type="checkbox" />
+												{% else %}
+													<input name="{{ k.nmchecklist }}" type="checkbox" />
+												{% endif %}
+											</td>
+											<td class="colunaTabelaConsulta" style="width:75%">
 											
-												{{ check.nmchecklist }}
+												{{ k.nmchecklist }}
 
 											</td>
-											<td class="colunaTabelaConsulta" style="width:40%;text-align:left">
-
-												<input type="radio" name="{{check.id}}-classificacao" value="sanado">&nbsp;Sanado&nbsp;
-												<input type="radio" name="{{check.id}}-classificacao" value="pendente">&nbsp;Pendente&nbsp;
-												<input type="radio" name="{{check.id}}-classificacao" value="não se aplica">&nbsp;Não se aplica
-
+											<td class="colunaTabelaConsulta" style="width:20%;text-align:left">
+												Não se aplica.&nbsp;
+												{% if v and v.blnao_obrigatorio %}
+													<input checked="checked" name="{{ k.id }}" type="checkbox" />
+												{% else %}
+													<input name="{{ k.id }}" type="checkbox" />
+												{% endif %}
 											
 											</td>
 										</tr>
