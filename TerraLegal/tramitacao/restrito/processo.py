@@ -702,8 +702,8 @@ def edicao(request, id):
             else:
                 if tipo == "tbprocessoclausula":
                     clausula = Tbprocessoclausula.objects.get( tbprocessobase = id )
-                    dttitulacao = formatDataToText( clausula.dttitulacao )
-                    dtrequerimento = formatDataToText( clausula.dtrequerimento )
+                    #dttitulacao = formatDataToText( clausula.dttitulacao )
+                    #dtrequerimento = formatDataToText( clausula.dtrequerimento )
                     fases = Tbetapa.objects.filter( tbtipoprocesso__id = clausula.tbprocessobase.tbtipoprocesso.id, blativo = True ).order_by('ordem')
                     transicao = Tbtransicao.objects.filter( tbprocessobase__id = clausula.tbprocessobase.id ).order_by('-dttransicao')
                     if transicao:
@@ -720,7 +720,7 @@ def edicao(request, id):
                                               {'transicao':transicao,'fluxo':fluxo,'gleba':gleba,'fases':fases,'etapa_atual':etapa_atual,'posteriores':posteriores,
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,'processo_principal':processo_principal,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
-                                       'base':base,'clausula':clausula,'dttitulacao':dttitulacao,'dtrequerimento':dtrequerimento}, context_instance = RequestContext(request))
+                                       'base':base,'clausula':clausula}, context_instance = RequestContext(request))
         
     return HttpResponseRedirect("/sicop/processo/consulta/")
     
