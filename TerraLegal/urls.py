@@ -102,6 +102,7 @@ urlpatterns = patterns('',
     url(r'^sicop/caixa/edicao/(?P<id>\d+)/', 'TerraLegal.tramitacao.restrito.caixa.edicao'),
     url(r'^sicop/caixa/relatorio/pdf/', 'TerraLegal.tramitacao.restrito.caixa.relatorio_pdf'),
     url(r'^sicop/caixa/relatorio/ods/', 'TerraLegal.tramitacao.restrito.caixa.relatorio_ods'),
+    url(r'^sicop/caixa/relatorio/titulo/ods/', 'TerraLegal.tramitacao.restrito.caixa.relatorio_titulo_ods'),
     url(r'^sicop/caixa/relatorio/csv/', 'TerraLegal.tramitacao.restrito.caixa.relatorio_csv'),
 
     # ACESSO RESTRITO SICOP ETAPA

@@ -152,6 +152,7 @@ def edicao(request, id):
     if len(processos) <= 0 and pecas.count() <= 0:
         conteudo = "Caixa Vazia"
     if tituloprocesso.count() > 0:
+        request.session['titulos-caixa'] = tituloprocesso
         conteudo = str(tituloprocesso.count())+ " Titulos"    
     
     return render_to_response('sicop/caixa/edicao.html', {"form":form,'processos':processos,'pecas':pecas,
@@ -239,6 +240,61 @@ def relatorio_ods(request):
 
     else:
         return HttpResponseRedirect( response_consulta )
+
+@permission_required('sicop.caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def relatorio_titulo_ods(request):
+
+    titulos = request.session['titulos-caixa']
+    
+    if titulos:
+        #GERACAO
+        nome_relatorio = "relatorio-titulos-caixa"
+        titulo_relatorio    = "RELATORIO DOS TITULOS DA CAIXA "+titulos[0].tbtitulo.tbcaixa.nmlocalarquivo
+        planilha_relatorio  = "Titulos da Caixa"
+        ods = ODS()
+        sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, len(titulos), ods)
+        
+        # TITULOS DAS COLUNAS
+        sheet.getCell(0, 6).setAlignHorizontal('center').stringValue( 'Titulo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(1, 6).setAlignHorizontal('center').stringValue( 'Processo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'Requerente' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'CPF' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(4, 6).setAlignHorizontal('center').stringValue( 'Imovel em' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(5, 6).setAlignHorizontal('center').stringValue( 'Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getRow(1).setHeight('20pt')
+        sheet.getRow(2).setHeight('20pt')
+        sheet.getRow(6).setHeight('20pt')
+        
+        sheet.getColumn(0).setWidth("2in")
+        sheet.getColumn(1).setWidth("2in")
+        sheet.getColumn(2).setWidth("5in")
+        sheet.getColumn(3).setWidth("2in")
+        sheet.getColumn(4).setWidth("5in")
+        sheet.getColumn(5).setWidth("5in")
+            
+        #DADOS DA CONSULTA
+        x = 5
+        for obj in titulos:
+            sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.tbtitulo.cdtitulo)
+            sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.nrprocesso)
+            sheet.getCell(4, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbmunicipio.nome_mun)
+            sheet.getCell(5, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbgleba.nmgleba)
+
+            r = Tbprocessorural.objects.get( tbprocessobase__id = obj.tbprocessobase.id )
+            sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue(r.nmrequerente)    
+            sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(r.nrcpfrequerente)
+            x += 1
+            
+        #GERACAO DO DOCUMENTO  
+        relatorio_ods_base(ods, planilha_relatorio)
+        response = HttpResponse(mimetype=ods.mimetype.toString())
+        response['Content-Disposition'] = 'attachment; filename='+nome_relatorio+'.ods'
+        ods.save(response)
+        return response
+
+    else:
+        return HttpResponseRedirect( response_consulta )
+
 
 @permission_required('sicop.caixa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_csv(request):
