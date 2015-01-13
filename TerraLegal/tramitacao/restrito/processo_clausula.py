@@ -27,9 +27,11 @@ def cadastro(request):
     procuracao = False
     if request.POST.get('stprocuracao',False):
         procuracao = True
+
     liberacao = False
     if request.POST.get('stcertliberacao',False):
         liberacao = True
+
     quitacao = False
     if request.POST.get('stcertquitacao',False):
         quitacao = True
@@ -76,8 +78,10 @@ def cadastro(request):
                                        nrarea = request.POST['nrarea'].replace(',','.'),
                                        stprocuracao = procuracao,
                                        dsobs = request.POST['dsobs'],
+                                       dsprioridade = request.POST['dsprioridade'],
                                        stcertquitacao = quitacao,
-                                       stcertliberacao = liberacao
+                                       stcertliberacao = liberacao,
+                                       blgeoimovel = request.POST.get('blgeoimovel',False)
                                        )
             try:
                 f_clausula.dttitulacao = datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y")
@@ -88,6 +92,11 @@ def cadastro(request):
                 f_clausula.dtrequerimento = datetime.datetime.strptime( request.POST['dtrequerimento'], "%d/%m/%Y")
             except:
                 f_clausula.dtrequerimento = None
+
+            try:
+                f_clausula.dtnascimento = datetime.datetime.strptime( request.POST['dtnascimento'], "%d/%m/%Y")
+            except:
+                f_clausula.dtnascimento = None
 
             f_clausula.save()
 
@@ -177,11 +186,19 @@ def edicao(request, id):
                                        nrarea = request.POST['nrarea'].replace(',','.'),
                                        stprocuracao = procuracao,
                                        dsobs = request.POST['dsobs'],
+                                       dsprioridade = request.POST['dsprioridade'],
                                        stcertquitacao = quitacao,
-                                       stcertliberacao = liberacao
+                                       stcertliberacao = liberacao,
+                                       blgeoimovel = request.POST.get('blgeoimovel',False)
                                        )
+
+            print request.POST['dtnascimento']
             try:
-                print request.POST['dtrequerimento']
+                f_clausula.dtnascimento = request.POST['dtnascimento']#datetime.datetime.strptime( request.POST['dtnascimento'], "%d/%m/%Y")
+            except:
+                f_clausula.dtnascimento = None
+
+            try:
                 f_clausula.dtrequerimento = datetime.datetime.strptime( request.POST['dtrequerimento'], "%d/%m/%Y")
             except:
                 f_clausula.dtrequerimento = None
@@ -190,7 +207,7 @@ def edicao(request, id):
                 f_clausula.dttitulacao = datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y")
             except:
                 f_clausula.dttitulacao = None
-
+            
 
             f_clausula.save()
             
