@@ -7,4 +7,7 @@ urlpatterns = patterns('TerraLegal.calculo.views',
    url(r'^emissao/(?P<id>\d+)/', 'emissao'),
    url(r'^processo/digitar/', 'digitar'),
    url(r'^geraPDF/', 'geraPDF'),
+   url(r'^geraGRU/(?P<id>\d+)/', 'geraGRU'),
+
+
    )
