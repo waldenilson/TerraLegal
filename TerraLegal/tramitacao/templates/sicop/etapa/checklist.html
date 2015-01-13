@@ -46,6 +46,21 @@
 											
 											</td>
 										</tr>
+										{% if k.blcustomtext or k.blcustomdate %}
+											<tr>
+												<td style="padding-left:4em" colspan="3">
+													{% if k.blcustomtext %}
+														{{ k.lbcustomtext }}&nbsp;
+														<input size="20" name="{{k.id}}-nmcustom" value="{{v.nmcustom}}" />&nbsp;
+													{% endif %}
+													{% if k.blcustomdate %}
+														{{ k.lbcustomdate }}
+														<input size="9" name="{{k.id}}-dtcustom" value="{{v.dtcustom|date:'d/m/Y'}}" />
+														&nbsp;<b style="color:red">( Formato: 10/10/2010 )</b>&nbsp;
+													{% endif %}
+												</td>
+											</tr>
+										{% endif %}
 								{% endfor %}
 							</tbody>
 						</table>
@@ -76,7 +91,6 @@
 				</table>
 		</div>
 		<br />
-		
 		<table style="width:100%">
 			<tr>
 				<td class="colunaTabela" style="text-align:left"> 

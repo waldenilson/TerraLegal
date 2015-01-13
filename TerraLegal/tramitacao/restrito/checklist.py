@@ -62,17 +62,16 @@ def consulta(request):
 def cadastro(request):
     fase = Tbetapa.objects.filter(tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id).order_by('id')
     
-    obrigatorio = False
-    if request.POST.get('blobrigatorio',False):
-        obrigatorio = True
-
     if request.method == "POST":
         next = request.GET.get('next', '/')
 
         f_checklist = Tbchecklist(
                               nmchecklist = request.POST['nmchecklist'],
                               dschecklist = request.POST['dschecklist'],
-                              blobrigatorio = obrigatorio
+                              blcustomdate = request.POST.get('blcustomdate',False),
+                              blcustomtext = request.POST.get('blcustomtext',False),
+                              lbcustomdate = request.POST['lbcustomdate'],
+                              lbcustomtext = request.POST['lbcustomtext']
                               )
         
         if request.POST['tbfase'] != '':
@@ -96,11 +95,7 @@ def cadastro(request):
 def edicao(request, id):
     instance = get_object_or_404(Tbchecklist, id=id)
     fase = Tbetapa.objects.filter(tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id).order_by('id')
-    
-    obrigatorio = False
-    if request.POST.get('blobrigatorio',False):
-        obrigatorio = True
-       
+          
     if request.method == "POST":
         
         if not request.user.has_perm('sicop.checklist_edicao'):
@@ -113,7 +108,10 @@ def edicao(request, id):
                               nmchecklist = request.POST['nmchecklist'],
                               tbetapa = Tbetapa.objects.get(pk = request.POST['tbfase']),
                               dschecklist = request.POST['dschecklist'],
-                              blobrigatorio = obrigatorio
+                              blcustomdate = request.POST.get('blcustomdate',False),
+                              blcustomtext = request.POST.get('blcustomtext',False),
+                              lbcustomdate = request.POST['lbcustomdate'],
+                              lbcustomtext = request.POST['lbcustomtext']
                               )
             f_checklist.save()
             if next == "/":

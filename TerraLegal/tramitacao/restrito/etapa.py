@@ -48,6 +48,10 @@ def restaurar(request, processo):
     tran = Tbtransicao.objects.filter( tbprocessobase = processo ).order_by( '-dttransicao' )
     if len(tran) > 1:
         tran[0].delete()
+        print 'etapa: '+tran[1].tbetapa.nmfase
+        proc = Tbprocessobase.objects.get( pk = processo )
+        proc.tbetapaatual = tran[1].tbetapa
+        proc.save()
     return HttpResponseRedirect("/sicop/processo/edicao/"+str(processo)+"/")
     
 
@@ -259,7 +263,11 @@ def checklist(request, processo, etapa):
             result.setdefault(obj, False)
     result = sorted(result.items())
     
+
+
     if request.method == "POST":
+
+
 
         if request.POST.get('atual',False):
             
@@ -282,6 +290,25 @@ def checklist(request, processo, etapa):
             proc.save()
 
             return HttpResponseRedirect("/sicop/processo/edicao/"+str(processo))
+        else:
+            if request.POST['etapaposterior'] != '':
+                transicao = Tbtransicao(
+                             tbprocessobase = Tbprocessobase.objects.get( pk = processo ) ,
+                             tbetapa = Tbetapa.objects.get( pk = request.POST['etapaposterior'] ),
+                             dttransicao = datetime.datetime.now(),
+                             auth_user = AuthUser.objects.get( pk = request.user.id ),
+                            )
+
+                # se etapa atual nao for a propria em questao, registra a transicao
+                t = Tbtransicao.objects.all().order_by('-id')
+                if t:
+                    if t[0].tbetapa.id != transicao.tbetapa.id or t[0].tbprocessobase.id != transicao.tbprocessobase.id:
+                        if t[0].tbetapa.id != transicao.tbetapa.id:
+                            transicao.save()
+                            # altera a etapa atual no processobase
+                            proc = Tbprocessobase.objects.get( pk = processo )
+                            proc.tbetapaatual = Tbetapa.objects.get( pk = request.POST['etapaposterior'] )
+                            proc.save()
     
         
         if not request.user.has_perm('sicop.etapa_checklist_edicao'):
@@ -302,22 +329,45 @@ def checklist(request, processo, etapa):
                 blnao_obrigatorio = True
                 #print 'BL NAO OBRIGATORIO: '+obj.nmchecklist
 
+
+            nmcustom = ''
+            dtcustom = None
+
+            if obj.blcustomtext or obj.blcustomdate:
+                if request.POST.get(str(obj.id)+'-nmcustom', False):
+                    nmcustom = request.POST[str(obj.id)+'-nmcustom']
+                if request.POST.get(str(obj.id)+'-dtcustom', False):
+                    try:
+                        dtcustom = datetime.datetime.strptime( request.POST[str(obj.id)+'-dtcustom'], "%d/%m/%Y")
+                    except:
+                        dtcustom = None
+
             res = Tbchecklistprocessobase.objects.filter( tbprocessobase__id = processo, tbchecklist__id = obj.id )
-            # se o check veio marcado
-            if request.POST.get(obj.nmchecklist, False):
+            # se o check veio marcado ou com campo extra preenchido
+            if request.POST.get(obj.nmchecklist, False) or nmcustom != '' or dtcustom != None:
                 checked += 1
 
                 #verifica se esse check ja esta ligado ao processo
                 if res:
                     cp = res[0]
                     cp.blnao_obrigatorio = blnao_obrigatorio
-                    cp.blsanado = True
+                    if request.POST.get(obj.nmchecklist, False):
+                        cp.blsanado = True
+                    else:
+                        cp.blsanado = False
+                    cp.nmcustom = nmcustom
+                    cp.dtcustom = dtcustom
                     cp.save()
                 else:
                     # inserir ao checkprocesso
                     cp = Tbchecklistprocessobase( tbprocessobase = Tbprocessobase.objects.get( pk = processo ),
-                                          tbchecklist = Tbchecklist.objects.get( pk = obj.id ), blnao_obrigatorio = blnao_obrigatorio )
-                    cp.blsanado = True
+                                          tbchecklist = Tbchecklist.objects.get( pk = obj.id ), blnao_obrigatorio = blnao_obrigatorio, nmcustom = nmcustom, dtcustom = dtcustom )
+                    if request.POST.get(obj.nmchecklist, False):
+                        cp.blsanado = True
+                    else:
+                        cp.blsanado = False
+                    cp.nmcustom = nmcustom
+                    cp.dtcustom = dtcustom
                     cp.save()
 
             # se o check veio desmarcado
@@ -327,10 +377,12 @@ def checklist(request, processo, etapa):
                     for cp in res:
                         cp.blnao_obrigatorio = blnao_obrigatorio
                         cp.blsanado = False
+                        cp.nmcustom = nmcustom
+                        cp.dtcustom = dtcustom
                         cp.save()
                 elif blnao_obrigatorio:
                     cp = Tbchecklistprocessobase( tbprocessobase = Tbprocessobase.objects.get( pk = processo ),
-                                          tbchecklist = Tbchecklist.objects.get( pk = obj.id ), blnao_obrigatorio = blnao_obrigatorio )
+                                          tbchecklist = Tbchecklist.objects.get( pk = obj.id ), blnao_obrigatorio = blnao_obrigatorio, nmcustom = nmcustom, dtcustom = dtcustom )
                     cp.blsanado = False
                     cp.save()
 
@@ -349,47 +401,34 @@ def checklist(request, processo, etapa):
 
         
         # se todos os checklists foram marcados
-        if checked == len(checklist):
-            etapas_posterior = Tbetapaposterior.objects.all().filter( tbetapa_id = etapa )
-            etapa_posterior = None
-            if len(etapas_posterior) == 1:
-                etapa_posterior = etapas_posterior[0]
-            else:
-                for et in etapas_posterior:
-                    if et.blsequencia:
-                        etapa_posterior = et
-                        break
 
-            transicao = Tbtransicao(
-                         tbprocessobase = Tbprocessobase.objects.get( pk = processo ) ,
-                         tbetapa = etapa_posterior.tbposterior,
-                         dttransicao = datetime.datetime.now(),
-                         auth_user = AuthUser.objects.get( pk = request.user.id ),
-                        )
+#        if checked == len(checklist):
+#            etapas_posterior = Tbetapaposterior.objects.all().filter( tbetapa_id = etapa )
+#            etapa_posterior = None
+#            if len(etapas_posterior) == 1:
+#                etapa_posterior = etapas_posterior[0]
+#            else:
+#                for et in etapas_posterior:
+#                    if et.blsequencia:
+#                        etapa_posterior = et
+#                        break
+
+#            transicao = Tbtransicao(
+#                         tbprocessobase = Tbprocessobase.objects.get( pk = processo ) ,
+#                         tbetapa = etapa_posterior.tbposterior,
+#                         dttransicao = datetime.datetime.now(),
+#                         auth_user = AuthUser.objects.get( pk = request.user.id ),
+#                        )
 
             # se etapa atual nao for a propria em questao, registra a transicao
-            t = Tbtransicao.objects.all().order_by('-id')
-            if t:
-                if t[0].tbetapa.id != transicao.tbetapa.id or t[0].tbprocessobase.id != transicao.tbprocessobase.id:
-                    if t[0].tbetapa.id != transicao.tbetapa.id:
-                        transicao.save()
+#            t = Tbtransicao.objects.all().order_by('-id')
+#            if t:
+#                if t[0].tbetapa.id != transicao.tbetapa.id or t[0].tbprocessobase.id != transicao.tbprocessobase.id:
+#                    if t[0].tbetapa.id != transicao.tbetapa.id:
+#                        transicao.save()
             
         # se o usuario selecionou alguma etapa posterior para forcar a sequencia do processo
-        else:
-            if request.POST['etapaposterior'] != '':
-                transicao = Tbtransicao(
-                             tbprocessobase = Tbprocessobase.objects.get( pk = processo ) ,
-                             tbetapa = Tbetapa.objects.get( pk = request.POST['etapaposterior'] ),
-                             dttransicao = datetime.datetime.now(),
-                             auth_user = AuthUser.objects.get( pk = request.user.id ),
-                            )
-
-                # se etapa atual nao for a propria em questao, registra a transicao
-                t = Tbtransicao.objects.all().order_by('-id')
-                if t:
-                    if t[0].tbetapa.id != transicao.tbetapa.id or t[0].tbprocessobase.id != transicao.tbprocessobase.id:
-                        if t[0].tbetapa.id != transicao.tbetapa.id:
-                            transicao.save()
+#        else:
                 
                         
         return HttpResponseRedirect("/sicop/processo/edicao/"+str(processo))

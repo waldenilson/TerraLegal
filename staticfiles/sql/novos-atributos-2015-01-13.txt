@@ -1,0 +1,26 @@
+
+
+
+Tabela tbprocessoclausula:
+
+	nmimovel, texto 80
+	nmloteimovel, texto 80
+	nmtitulo, texto 80
+	tptitulo, texto 80
+	dtrequerimento, timestamp without time zone
+	dtnascimento, texto 20
+	
+Tabela tbchecklistprocessobase:
+
+	blsanado, boolean
+	blnao_obrigatorio, boolean
+	dtcustom, timestamp without time zone
+	nmcustom, texto 120
+
+Tabela tbchecklist:
+
+	retirar o atributo blobrigatorio, boolean
+	blcustomtext, boolean
+	blcustomdate, boolean
+	lbcustomtext, texto 120
+	lbcustomdate, texto 120

@@ -35,16 +35,39 @@
 					</td>						
 				   </tr>
 				   <tr> <td class="colunaTabela"> <label>Descricao:</label> </td><td> <textarea rows="4" cols="40" name="dschecklist">{{checklist.dschecklist}}</textarea></td> </tr>
-<!--				   
-				   <tr> <td class="colunaTabela"> <label>Obrigatorio:</label> </td>
-				   <td>
-				   		{% if checklist.blobrigatorio == True %} 
-							<input checked="checked" type="checkbox" name="blobrigatorio" />
-						{% else %}
-							<input type="checkbox" name="blobrigatorio" />
-						{% endif %}
-				   </td> </tr>
--->
+				   
+				   	<tr> 
+				   		<td class="colunaTabela"> 
+					   		{% if checklist.blcustomdate == True %} 
+								<input checked="checked" type="checkbox" name="blcustomdate" />
+							{% else %}
+								<input type="checkbox" name="blcustomdate" />
+							{% endif %}
+				   			<label>&nbsp;Utilizar campo data</label> 
+				   		</td>
+				   		<td> 
+				   			<label>Título:</label> 
+				   			<input value="{{checklist.lbcustomdate|default:''}}" type="text" name="lbcustomdate" />
+				   		</td>
+				   	</tr>
+
+				   	<tr> 
+				   		<td class="colunaTabela"> 
+					   		{% if checklist.blcustomtext == True %} 
+								<input checked="checked" type="checkbox" name="blcustomtext" />
+							{% else %}
+								<input type="checkbox" name="blcustomtext" />
+							{% endif %}
+				   			<label>&nbsp;Utilizar campo texto</label> 
+				   		</td>
+				   		<td> 
+				   			<label>Título:</label> 
+				   			<input value="{{checklist.lbcustomtext|default:''}}" type="text" name="lbcustomtext" />				   			 
+				   		</td> 
+				   	</tr>
+
+
+
 				</table>
 		</div>
 		<br />

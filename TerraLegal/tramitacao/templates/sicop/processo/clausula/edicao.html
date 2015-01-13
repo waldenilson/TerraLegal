@@ -75,6 +75,29 @@
 										<tr> <td class="colunaTabela"> <label>CPF do Interessado:</label> </td>
 											<td> <input size="15" id="cpf2" value="{{ clausula.nrcpfinteressado }}" name="nrcpfinteressado" /> </td> </tr>
 
+										<tr> 
+											<td class="colunaTabela"> <label>Data de Nasc.:</label> </td>
+											<td> <input value="{{ clausula.dtnascimento }}" size="9" id="date3" name="dtnascimento" /> </td> 
+										</tr>
+
+										<tr> <td class="colunaTabela"> <label>Prioridade:</label> </td>
+										   		<td>
+										   			<select name="dsprioridade" style="width: 200px">
+										   				{% if clausula.dsprioridade == 'TITULADO' %}
+										   					<option selected="selected" value="TITULADO">TITULADO</option>
+										   					<option value="INTERESSADO">INTERESSADO</option>
+										   				{% elif clausula.dsprioridade == 'INTERESSADO' %}
+										   					<option selected="selected" value="INTERESSADO">INTERESSADO</option>
+										   					<option value="TITULADO">TITULADO</option>
+										   				{% else %}
+										   					<option value="">Selecione</option>
+										   					<option value="TITULADO">TITULADO</option>
+										   					<option value="INTERESSADO">INTERESSADO</option>
+										   				{% endif %}
+													</select>
+												</td>
+										</tr>
+
 										<tr> <td class="colunaTabela"> <label>N do Titulo:</label> </td>
 											<td> <input size="10" value="{{ clausula.nmtitulo|default:'' }}" id="cpf" name="nmtitulo" /> </td> </tr>
 
@@ -83,7 +106,7 @@
 
 										<tr> 
 											<td class="colunaTabela"> <label>Data de expedição do Titulo:</label> </td>
-											<td> <input value="{{ dttitulacao }}" size="9" id="date" name="dttitulacao" /> </td> 
+											<td> <input value="{{ clausula.dttitulacao|date:'d/m/Y' }}" size="9" id="date" name="dttitulacao" /> </td> 
 										</tr>
 
 										<tr> <td class="colunaTabela"> <label>Nome do Imóvel:</label> </td>
@@ -112,6 +135,15 @@
 										<tr> <td class="colunaTabela"> <label>Lote do Imóvel:</label> </td>
 											<td> <input size="25" value="{{ clausula.nmloteimovel|default:'' }}" name="nmloteimovel" /> </td> </tr>
 
+										<tr> <td class="colunaTabela"> <label>GEO do Imóvel:</label> </td>
+										<td>
+											{% if clausula.blgeoimovel == True %} 
+												<input checked="checked" type="checkbox" name="blgeoimovel" />
+											{% else %}
+												<input type="checkbox" name="blgeoimovel" />
+											{% endif %} 
+										</td> </tr>
+
 										<tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
 										   		<td>
 										   			{{ base.tbcaixa.nmlocalarquivo }}
@@ -119,7 +151,7 @@
 										</tr>
 										<tr> <td class="colunaTabela"> <label>Etapa Atual:</label> </td>
 										   		<td>
-										   			{{ base.tbetapaatual.nmfase }} - {{ base.tbetapaatual.tbtipoprocesso.nome }}
+										   			{{ base.tbetapaatual.nmfase }}
 												</td>
 										</tr>
 
@@ -137,6 +169,12 @@
 													</select>
 												</td>
 										</tr>
+										<tr> <td class="colunaTabela"> <label>IBGE:</label> </td>
+										   		<td>
+										   			{{ base.tbmunicipio.codigo_mun }}
+												</td>
+										</tr>
+
 <!--
 										<tr> <td class="colunaTabela"> <label>Por Procuracao:</label> </td>
 										<td>
@@ -167,7 +205,7 @@
 -->
 										<tr> 
 											<td class="colunaTabela"> <label>Data Requerimento:</label> </td>
-											<td> <input value="{{ dtrequerimento }}" size="9" id="date2" name="dtrequerimento" /> </td> 
+											<td> <input value="{{ clausula.dtrequerimento|date:'d/m/Y' }}" size="9" id="date2" name="dtrequerimento" /> </td> 
 										</tr>
 
 										<tr> 
