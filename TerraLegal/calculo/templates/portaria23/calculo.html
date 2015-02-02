@@ -13,7 +13,7 @@
 
 {% block consulta %}
 		<body onload="setafoco();">
-		<form action="." method="post" >
+		<form method="post" >
 			{% csrf_token %}
 			<meta charset="utf-8" />
 
@@ -74,18 +74,29 @@
 						{% else %}
 							<td><input  type="checkbox" name="stNossaEscola"/></td> 
 						{% endif %}
-						<td><input class="button_yellow" style="margin-right: 4px" type="submit" value="ATUALIZAR"/></td>
+						<!--td><input class="button_yellow" style="margin-right: 4px" type="submit" value="ATUALIZAR"/></td-->
 					</form>
 				{% endif %}	
-				<td><input class="button_yellow" style="margin-right: 4px" type="submit" value="CALCULAR GRU"/></td>
-		    	<td><input class="button_green" style="margin-right: 4px" type="submit" value="GERAR PDF"/></td>
-		    	
+				<td><input class="button_yellow" style="margin-right: 4px" type="submit" value="ATUALIZAR"/></td>
+		    		
 
-		    	<!--td><a href="/calculo/geraPDF"> <input class="button_green" value="GERAR PDF" type="button" /> </a></td-->
-				
+				<form method="post" action="/calculo/geraGRU/{{ id }}/">
+					<td><input class="button_green" style="margin-right: 4px" type="submit" value="GERAR GRU"/></td>
+		    	</form>
+
+
+		    	<!--teste-->
+		    	
+		    	<form method="post">
+		    		{% csrf_token %}
+  					<button formaction="/calculo/geraGRU/{{ id }}/" type="submit" name="teste" value="valor">Go</button>
+				</form>
+		    	<!--td><a href="/calculo/geraPDF"> <input class="button_green" value="GERAR PDF" type="button" /> </a></td-->				
 				</table>
 
 				<!--a href="/servidor/ferias/cadastro/{{ servidor.id }}/"> <input class="button_green" value="NOVO PEDIDO" type="button" /> </a-->
+
+
 
 
 			{% if dtrequerimento  %}
@@ -93,9 +104,9 @@
 				<table class="csstable" style="width:100%;text-align: left " >
 				<tbody>
 					<tr>
-						<td class="colunaTabelaConsulta" >gerar</td>
+						<td class="colunaTabelaConsulta" >Status GRU</td>
 						<td class="colunaTabelaConsulta" >No.</td>
-						<td class="colunaTabelaConsulta" >Vencimento</td>
+						<td class="colunaTabelaConsulta" >Venc Parcela</td>
 						<td class="colunaTabelaConsulta" >Prestação</td>	
 						<td class="colunaTabelaConsulta" >Juros</td>
 						<td class="colunaTabelaConsulta" >Multa</td>
@@ -108,14 +119,21 @@
 
 					{% if calculotitulo %}
 						{% for obj in calculotitulo %}
+						<!--tr onclick="editarID('/calculo/geraGRU/{{ obj.id }}');"-->
 						<tr>
-						<td class="colunaTabelaConsulta">
+						<td class="colunaTabelaConsulta" >
 							{% if obj.stpaga %}
-								<input disabled checked="checked" name="{{ obj.id }}-parcela" type="checkbox" /> PAGA
+								<input disabled checked="checked" name="{{ obj.id }}-parcela" type="checkbox"/>PAGA
 							{% else %}
-								<input name="{{ obj.id }}-parcela" type="checkbox" />
+								{% if obj.stgerada %}
+									<input disabled checked="checked" name="{{ obj.id }}-parcela" type="checkbox" />GERADA
+								{% else %}
+									<input name="{{ obj.id }}-parcela" type="checkbox" />
+								{% endif %}
 							{% endif %}
 						</td>
+
+
 						<td class="colunaTabelaConsulta"> {{ obj.parcela }} </td>
 						<td class="colunaTabelaConsulta"> {{ obj.dtvencimento|date:"d/m/Y" }} </td>
 						<td class="colunaTabelaConsulta" name="prestacao"> {{ obj.vlprincipal }}</td>
