@@ -1,6 +1,12 @@
 
 
 
+Nova Tabela tbetapaprocessobase:
+	tbetapa
+	tbprocessobase
+	dsparecer, text
+
+
 Tabela tbprocessoclausula:
 	nmimovel, texto 80
 	nmloteimovel, texto 80

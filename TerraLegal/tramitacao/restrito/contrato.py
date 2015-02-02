@@ -11,6 +11,9 @@ from TerraLegal.tramitacao.relatorio_base import relatorio_pdf_base_header,\
     relatorio_pdf_base_header_title, relatorio_pdf_base,\
     relatorio_ods_base_header, relatorio_ods_base, relatorio_csv_base
 from odslib import ODS
+from django.core import serializers
+from math import radians, cos, sin, asin, sqrt
+
 
 nome_relatorio      = "relatorio_contrato"
 response_consulta  = "/sicop/contrato/consulta/"

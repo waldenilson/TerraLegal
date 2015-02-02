@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 from django.template.context import RequestContext
 from TerraLegal.tramitacao.models import Tbpecastecnicas, \
-    Tbprocessorural, AuthUser, Tbmunicipio, Tbprocessoclausula, Tbpendencia, Tbetapa, Tbtransicao
+    Tbprocessorural, Tbprocessourbano, Tbcaixa, AuthUser, Tbmunicipio, Tbprocessoclausula, Tbpendencia, Tbetapa, Tbtransicao
 from TerraLegal.tramitacao.relatorio_base import relatorio_ods_base_header,\
     relatorio_ods_base
 from django.db.models import Q
@@ -10,6 +10,7 @@ from django.http.response import HttpResponse
 from odslib import ODS
 from django.shortcuts import render_to_response
 from django.db.models import Q
+from TerraLegal.livro.models import Tbtituloprocesso
 
 def lista(request):
     return render_to_response('sicop/relatorio/lista.html',{}, context_instance = RequestContext(request))
@@ -750,12 +751,13 @@ def etapa_p23(request):
     etapas = Tbetapa.objects.filter( 
         tbtipoprocesso__id = 1, 
         tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by( 'ordem', 'nmfase' )
+
     if request.method == 'POST':
         etapa = request.POST['etapa']
 
         p23 = Tbprocessorural.objects.filter(
             tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id,
-            tbetapaatual__id = etapa    
+            tbprocessobase__tbetapaatual__id = etapa    
             )
 
         for obj in p23 :
@@ -766,20 +768,105 @@ def etapa_p23(request):
 @permission_required('sicop.relatorio_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def etapa_p80(request):
     etapas = Tbetapa.objects.filter( tbtipoprocesso__id = 2 ).order_by( 'ordem', 'nmfase' )
+
     if request.method == 'POST':
         etapa = request.POST['etapa']
 
-        print etapa
+        p80 = Tbprocessoclausula.objects.filter(
+            tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id,
+            tbprocessobase__tbetapaatual__id = etapa    
+            )
+
+        for obj in p80 :
+            print obj.tbprocessobase.nrprocesso
 
     return render_to_response('sicop/relatorio/etapa_p80.html',{'etapas':etapas}, context_instance = RequestContext(request))
 
 @permission_required('sicop.relatorio_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def etapa_urbano(request):
     etapas = Tbetapa.objects.filter( tbtipoprocesso__id = 3 ).order_by( 'ordem', 'nmfase' )
+
     if request.method == 'POST':
         etapa = request.POST['etapa']
 
-        print etapa
+        urb = Tbprocessourbano.objects.filter(
+            tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id,
+            tbprocessobase__tbetapaatual__id = etapa    
+            )
+
+        for obj in urb :
+            print obj.tbprocessobase.nrprocesso
 
     return render_to_response('sicop/relatorio/etapa_urbano.html',{'etapas':etapas}, context_instance = RequestContext(request))
 
+@permission_required('sicop.relatorio_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def titulos(request):
+
+    caixa = Tbcaixa.objects.filter( blativo = True, tbtipocaixa__nmtipocaixa = 'TIT' ).order_by( 'nmlocalarquivo' )
+
+    if request.method == "POST":
+        
+        ids = []
+        for obj in caixa:
+            if request.POST.get(str(obj.id), False):
+                print obj.nmlocalarquivo
+                ids.append(obj.id)                
+
+        if ids:
+            titulos = Tbtituloprocesso.objects.filter( tbtitulo__tbcaixa__tbtipocaixa__nmtipocaixa = 'TIT', tbtitulo__tbcaixa__pk__in = ids ).order_by( 'tbtitulo__cdtitulo' )
+        else:
+            titulos = Tbtituloprocesso.objects.filter( tbtitulo__tbcaixa__tbtipocaixa__nmtipocaixa = 'TIT' ).order_by( 'tbtitulo__cdtitulo' )
+
+        if titulos:
+            #GERACAO
+            nome_relatorio = "relatorio-titulos"
+            titulo_relatorio    = "RELATORIO DE TITULOS "
+            planilha_relatorio  = "Titulos"
+            ods = ODS()
+            sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, len(titulos), ods)
+            
+            # TITULOS DAS COLUNAS
+            sheet.getCell(0, 6).setAlignHorizontal('center').stringValue( 'Titulo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+            sheet.getCell(1, 6).setAlignHorizontal('center').stringValue( 'Tipo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+            sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'Processo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+            sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'Requerente' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+            sheet.getCell(4, 6).setAlignHorizontal('center').stringValue( 'CPF' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+            sheet.getCell(5, 6).setAlignHorizontal('center').stringValue( 'Imovel em' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+            sheet.getCell(6, 6).setAlignHorizontal('center').stringValue( 'Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+            sheet.getCell(7, 6).setAlignHorizontal('center').stringValue( 'Caixa' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+            sheet.getRow(1).setHeight('20pt')
+            sheet.getRow(2).setHeight('20pt')
+            sheet.getRow(6).setHeight('20pt')
+            
+            sheet.getColumn(0).setWidth("2in")
+            sheet.getColumn(1).setWidth("1.5in")
+            sheet.getColumn(2).setWidth("2in")
+            sheet.getColumn(3).setWidth("4.5in")
+            sheet.getColumn(4).setWidth("2in")
+            sheet.getColumn(5).setWidth("4in")
+            sheet.getColumn(6).setWidth("4in")
+            sheet.getColumn(7).setWidth("4in")
+                
+            #DADOS DA CONSULTA
+            x = 5
+            for obj in titulos:
+                sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.tbtitulo.cdtitulo)
+                sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.tbtitulo.tbtipotitulo.cdtipo)
+                sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.nrprocesso)
+                sheet.getCell(5, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbmunicipio.nome_mun)
+                sheet.getCell(6, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbgleba.nmgleba)
+                sheet.getCell(7, x+2).setAlignHorizontal('center').stringValue( obj.tbtitulo.tbcaixa.nmlocalarquivo )
+
+                r = Tbprocessorural.objects.get( tbprocessobase__id = obj.tbprocessobase.id )
+                sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(r.nmrequerente)    
+                sheet.getCell(4, x+2).setAlignHorizontal('center').stringValue(r.nrcpfrequerente)
+                x += 1
+                
+            #GERACAO DO DOCUMENTO  
+            relatorio_ods_base(ods, planilha_relatorio)
+            response = HttpResponse(mimetype=ods.mimetype.toString())
+            response['Content-Disposition'] = 'attachment; filename='+nome_relatorio+'.ods'
+            ods.save(response)
+            return response
+        
+    return render_to_response('sicop/relatorio/titulos.html',{"caixa":caixa}, context_instance = RequestContext(request))

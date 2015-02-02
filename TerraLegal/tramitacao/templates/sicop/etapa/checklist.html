@@ -13,13 +13,32 @@
 	<form method="post" action=".">
 		{% csrf_token %}
 		<div style="font-size:12px;text-align:left">
+							{% if etapa.id == processo.tbetapaatual.id %}
+								<br/><b>CHECKLISTS PENDENTES</b><br/>
+								<table>
+									{% for check in checkpendentes %}
+										<tr>
+											<td>
+												<b style="color:red">{{ check.nmchecklist }}</b>
+											</td>
+											<td>
+												<a href="/sicop/etapa/checklist/{{processo.id}}/{{check.tbetapa.id}}">{{ check.tbetapa.nmfase }}</a>
+											</td>
+										</tr>
+									{% endfor %}
+								</table>
+								<hr/>
+							{% endif %}
 				<table>
-				   <tr> <td class="colunaTabela"> <label>Processo:</label> </td>
-				   		<td><a href="/sicop/processo/edicao/{{processo.id}}">{{processo.nrprocesso}}</a></tr>
+				   <tr> 
+				   		<td class="colunaTabela"> <label>Processo:</label> </td>
+				   		<td><a href="/sicop/processo/edicao/{{processo.id}}">{{processo.nrprocesso}}</a>
+				   	</tr>
 				   <tr> <td class="colunaTabela"> <label>Etapa:</label> </td><td>{{etapa.nmfase}} - {{etapa.tbtipoprocesso.nome}}</tr>
 				   <tr>
 				   	<td class="colunaTabela" colspan="2">
-				   		<hr/>				   	
+				   		<hr/>				 
+				   		<br/><b>CHECKLISTS</b><br/>  	
 						<table style="width:100%">
 							<tbody>
 								{% for k,v in result %}
@@ -65,6 +84,11 @@
 							</tbody>
 						</table>
 				   	</td>
+				   </tr>
+				   <tr> <td class="colunaTabela"> <label>Parecer:</label> </td>
+					   	<td>
+					   		<textarea rows="4" cols="40" name="dsparecer">{{dsparecer}}</textarea>
+					   	</td>
 				   </tr>
 					{% if perms.sicop.etapa_checklist_edicao %}
 

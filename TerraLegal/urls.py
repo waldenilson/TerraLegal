@@ -26,7 +26,7 @@ urlpatterns = patterns('',
     url(r'^web/estatisticas/', project+'.web.estatisticas.estatisticas'),
     
     #INIT------------------------------SICOP---------------------------------------------------------------------------------
-    
+
     # ACESSO RESTRITO SICOP PROCESSO
             
     # ESCOLHA DO TIPO DE PROCESSO
@@ -242,6 +242,8 @@ urlpatterns = patterns('',
     url(r'^sicop/relatorio/etapa/p23', 'TerraLegal.tramitacao.restrito.relatorio.etapa_p23'),
     url(r'^sicop/relatorio/etapa/p80', 'TerraLegal.tramitacao.restrito.relatorio.etapa_p80'),
     url(r'^sicop/relatorio/etapa/urbano', 'TerraLegal.tramitacao.restrito.relatorio.etapa_urbano'),
+    
+    url(r'^sicop/relatorio/titulo', 'TerraLegal.tramitacao.restrito.relatorio.titulos'),
     
     #END------------------------------SICOP---------------------------------------------------------------------------------
    

@@ -4,7 +4,7 @@ from django.template.context import RequestContext, Context
 from TerraLegal.tramitacao.models import Tbcaixa, Tbtipocaixa, AuthUser, Tbprocessobase,\
     Tbpecastecnicas, Tbprocessorural, Tbprocessosanexos, Tbprocessoclausula, Tbprocessourbano, Tbdivisao,\
     Tbetapa, Tbtipoprocesso, Tbchecklist, Tbchecklistprocessobase,\
-    Tbetapaanterior, Tbetapaposterior, Tbtransicao
+    Tbetapaanterior, Tbetapaposterior, Tbtransicao, Tbprocessobaseetapa
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from TerraLegal.tramitacao.forms import FormCaixa
@@ -246,7 +246,11 @@ def edicao(request, id):
 def checklist(request, processo, etapa):
     obj_processo = Tbprocessobase.objects.get( pk = processo )
     obj_etapa = Tbetapa.objects.get( pk = etapa )
-    
+    processoetapa = Tbprocessobaseetapa.objects.filter(tbprocessobase__id = obj_processo.id, tbetapa__id = obj_etapa.id)
+    dsparecer = ''
+    if processoetapa:
+        dsparecer = processoetapa[0].dsparecer
+
     checklist = Tbchecklist.objects.filter( tbetapa__id = etapa ).order_by('nmchecklist')
     procChecklist = Tbchecklistprocessobase.objects.filter( tbprocessobase__id = processo )
     posteriores = Tbetapaposterior.objects.filter( tbetapa__id = etapa )
@@ -263,16 +267,43 @@ def checklist(request, processo, etapa):
             result.setdefault(obj, False)
     result = sorted(result.items())
     
+    # buscar os checklists pendentes das etapas das transacoes anteriores
+    checkpendentes = []
+    transicao = Tbtransicao.objects.filter( tbprocessobase__id = obj_processo.id ).order_by('-dttransicao')
+    
+    x = 0
+    for tran in transicao:
+      if x!=0:
+        checks = Tbchecklist.objects.filter( tbetapa__id = tran.tbetapa.id )
+        for c in checks:
+            obj = Tbchecklistprocessobase.objects.filter( tbchecklist__id = c.id, tbprocessobase__id = obj_processo.id )
+            if obj:
+                if obj[0].blnao_obrigatorio == False and obj[0].blsanado == False :
+                    print c.nmchecklist
+                    checkpendentes.append( c )
+            else:
+                checkpendentes.append( c )
+      x += 1
 
 
     if request.method == "POST":
-
-
+    
+        processoetapa = Tbprocessobaseetapa.objects.filter(tbprocessobase__id = obj_processo.id, tbetapa__id = obj_etapa.id)
+        if processoetapa:
+            processoetapa[0].dsparecer = request.POST['dsparecer']
+            processoetapa[0].save()
+        else:
+            objpe = Tbprocessobaseetapa(
+                    tbprocessobase = obj_processo,
+                    tbetapa = obj_etapa,
+                    dsparecer = request.POST['dsparecer']
+                )
+            objpe.save()
 
         if request.POST.get('atual',False):
             
             transicao = Tbtransicao(
-                tbprocessobase = obj_processo ,
+                tbprocessobase = obj_processo,
                 tbetapa = obj_etapa,
                 dttransicao = datetime.datetime.now(),
                 auth_user = AuthUser.objects.get( pk = request.user.id ),
@@ -429,11 +460,10 @@ def checklist(request, processo, etapa):
             
         # se o usuario selecionou alguma etapa posterior para forcar a sequencia do processo
 #        else:
-                
-                        
+
         return HttpResponseRedirect("/sicop/processo/edicao/"+str(processo))
 
-    return render_to_response('sicop/etapa/checklist.html',{"processo":obj_processo,"etapa":obj_etapa,'result':result,'posteriores':posteriores}, context_instance = RequestContext(request))
+    return render_to_response('sicop/etapa/checklist.html',{"checkpendentes":checkpendentes,"processo":obj_processo,"etapa":obj_etapa,'result':result,'posteriores':posteriores,'dsparecer':dsparecer}, context_instance = RequestContext(request))
 
 @permission_required('sicop.etapa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_pdf(request):

@@ -83,6 +83,7 @@ def cadastro(request):
                                        stcertliberacao = liberacao,
                                        blgeoimovel = request.POST.get('blgeoimovel',False)
                                        )
+
             try:
                 f_clausula.dttitulacao = datetime.datetime.strptime( request.POST['dttitulacao'], "%d/%m/%Y")
             except:
@@ -163,7 +164,7 @@ def edicao(request, id):
                                     tbclassificacaoprocesso = base.tbclassificacaoprocesso,
                                     nmcontato = request.POST['nmcontato'],
                                     nmendereco = request.POST['nmendereco'],
-                                    tbdivisao = base.tbdivisao
+                                    tbdivisao = base.tbdivisao,
                                     )
             try:
                 f_base.tbmunicipiodomicilio = Tbmunicipio.objects.get(pk = request.POST['tbmunicipiodomicilio'])
@@ -189,7 +190,8 @@ def edicao(request, id):
                                        dsprioridade = request.POST['dsprioridade'],
                                        stcertquitacao = quitacao,
                                        stcertliberacao = liberacao,
-                                       blgeoimovel = request.POST.get('blgeoimovel',False)
+                                       blgeoimovel = request.POST.get('blgeoimovel',False),
+                                       blemprogramacao = request.POST.get('blemprogramacao',False)
                                        )
 
             print request.POST['dtnascimento']

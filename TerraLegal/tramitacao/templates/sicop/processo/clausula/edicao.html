@@ -237,6 +237,15 @@
 											<td> <input value="{{ base.nmcontato|default:''}}" name="nmcontato" style="width: 250px"/> </td> 
 										</tr>
 
+										<tr> <td class="colunaTabela"> <label>Em Programação:</label> </td>
+										<td>
+											{% if clausula.blemprogramacao == True %} 
+												<input checked="checked" type="checkbox" name="blemprogramacao" />
+											{% else %}
+												<input type="checkbox" name="blemprogramacao" />
+											{% endif %} 
+										</td> </tr>
+
 <!--
 			 						    {% if fases and perms.sicop.etapa_checklist_posterior %}
 										<tr>

@@ -105,6 +105,8 @@ class Tbcaixa(models.Model):
     blativo = models.BooleanField()
     class Meta:
         db_table = 'tbcaixa'
+    def __unicode__(self):
+        return self.nmlocalarquivo
 
 class Tbclassificacaoprocesso(models.Model):
     nmclassificacao = models.CharField(max_length=80, blank=True)
@@ -262,6 +264,7 @@ class Tbprocessoclausula(models.Model):
     dsprioridade = models.CharField(max_length=40, blank=True)
     stcertquitacao = models.BooleanField( blank=True)
     stcertliberacao = models.BooleanField( blank=True)
+    blemprogramacao = models.BooleanField( blank=True) 
     id = models.AutoField(primary_key=True)
        
     class Meta:
@@ -386,6 +389,14 @@ class Tbetapa(models.Model):
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbetapa'
+
+class Tbprocessobaseetapa(models.Model):
+    id = models.AutoField(primary_key=True)
+    tbprocessobase = models.ForeignKey(Tbprocessobase, null=True, blank=True)
+    tbetapa = models.ForeignKey(Tbetapa, null=True, blank=True)
+    dsparecer = models.TextField(blank=True)
+    class Meta:
+        db_table = 'tbprocessobaseetapa'
 
 class Tbchecklist(models.Model):
     nmchecklist = models.TextField(blank=True)
