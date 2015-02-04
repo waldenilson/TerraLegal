@@ -89,6 +89,7 @@ def cadastro(request):
         if validacao(request, False):
             f_fase = Tbetapa(
                               nmfase = request.POST['nmfase'],
+                              titulo = request.POST['titulo'],
                               tbtipoprocesso = Tbtipoprocesso.objects.get(pk = request.POST['tbtipoprocesso']),
                               dsfase = request.POST['dsfase'],
                               ordem = request.POST['ordem'],
@@ -225,6 +226,7 @@ def edicao(request, id):
             f_fase = Tbetapa(
                               id = instance.id,
                               nmfase = request.POST['nmfase'],
+                              titulo = request.POST['titulo'],
                               tbtipoprocesso = Tbtipoprocesso.objects.get(pk = request.POST['tbtipoprocesso']),
                               dsfase = request.POST['dsfase'],
                               ordem = request.POST['ordem'],

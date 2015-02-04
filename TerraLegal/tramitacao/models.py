@@ -380,6 +380,7 @@ class Tbuf(models.Model):
 
 class Tbetapa(models.Model):
     nmfase = models.CharField(max_length=80, blank=True)
+    titulo = models.CharField(max_length=120, blank=True)
     tbtipoprocesso = models.ForeignKey(Tbtipoprocesso, null=True, blank=True)
     dsfase = models.TextField(blank=True)
     blativo = models.BooleanField()
@@ -404,6 +405,7 @@ class Tbchecklist(models.Model):
     dschecklist = models.TextField(blank=True)
     blcustomdate = models.BooleanField()
     blcustomtext = models.BooleanField()
+    bl_data_prazo = models.BooleanField()
     lbcustomdate = models.CharField(max_length=80, blank=True)
     lbcustomtext = models.CharField(max_length=80, blank=True)
     id = models.AutoField(primary_key=True)

@@ -716,8 +716,11 @@ def edicao(request, id):
                     for obj in caixasdestino:
                         if obj.blativo and ( obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'RES' or obj.tbtipocaixa.nmtipocaixa == 'FT' or obj.tbtipocaixa.nmtipocaixa == 'ENT' ) :
                             tram.append( obj )
+                    
+                    prazos = prazo_notificacao_clausula( clausula )
+
                     return render_to_response('sicop/processo/clausula/edicao.html',
-                                              {'transicao':transicao,'fluxo':fluxo,'gleba':gleba,'fases':fases,'etapa_atual':etapa_atual,'posteriores':posteriores,
+                                              {'transicao':transicao,'prazos':prazos,'fluxo':fluxo,'gleba':gleba,'fases':fases,'etapa_atual':etapa_atual,'posteriores':posteriores,
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,'processo_principal':processo_principal,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'base':base,'clausula':clausula}, context_instance = RequestContext(request))
@@ -903,7 +906,7 @@ def executar_tramitacao_massa(request):
                     f_base.save()
         return ativar_tramitacao_massa(request)
 
-    return render_to_response('sicop/processo/lista_tramitacao_massa.html',{'caixadestino':Tbcaixa.objects.filter(tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id).order_by('nmlocalarquivo'),'lista':lista}, context_instance = RequestContext(request))
+    return render_to_response('sicop/processo/lista_tramitacao_massa.html',{'caixadestino':Tbcaixa.objects.filter( blativo = True,tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id).order_by('nmlocalarquivo'),'lista':lista}, context_instance = RequestContext(request))
 
 @permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_pdf(request):
@@ -1089,7 +1092,16 @@ def carregarTbAuxFuncoesProcesso(request, base):
     tipopendencia = Tbtipopendencia.objects.all().order_by('dspendencia')#filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('dspendencia')
     statuspendencia = Tbstatuspendencia.objects.all().order_by("dspendencia")#filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by("dspendencia")
 
-
+def prazo_notificacao_clausula( tpproc ):
+    prazos = []
+    if tpproc.tbprocessobase.tbetapaatual is not None:
+        checksprazos = Tbchecklistprocessobase.objects.filter( tbprocessobase__id = tpproc.tbprocessobase.id, tbchecklist__tbetapa__id = tpproc.tbprocessobase.tbetapaatual.id,tbchecklist__bl_data_prazo = True, blnao_obrigatorio = False, blsanado = False )
+        for obj in checksprazos:
+            if obj.dtcustom is not None:
+                dias = (obj.dtcustom - datetime.datetime.now()).days
+                if dias >= 0 and dias <= 15:
+                    prazos.append( dict({'obj':obj,'dias':dias}) )
+    return prazos
 
 def validarDesAnexo(request_form, base, processoanexo):
     global fgexiste 

@@ -2,7 +2,7 @@
 {% load staticfiles %}
  
 {% block breadcumbs %}
-	Acesso Restrito | Processo Clausula Resolutiva | Edicao
+	Acesso Restrito | Processo Clausulas Resolutivas | Edicao
 {% endblock %}
 
 {% block formulario %}
@@ -28,6 +28,19 @@
 </ul>
 
 <div id="tabs-1">
+
+	{% if prazos %}
+		<div style="color:red;font-weight:bold">
+			ALERTA DE NOTIFICAÇÕES<br/>
+			{% for prazo in prazos %}
+				{{ prazo.obj.tbchecklist.nmchecklist }} | Restam: {{ prazo.dias }} dias<br/>
+			{% endfor %}
+		</div>
+		<br/>
+		<hr/>
+	{% endif %}
+
+
 	<form method="post" action="/sicop/processo/clausula/edicao/{{ clausula.id }}/">
 		{% csrf_token %}
 		<table style="width:100%">

@@ -69,6 +69,7 @@ def cadastro(request):
                               nmchecklist = request.POST['nmchecklist'],
                               dschecklist = request.POST['dschecklist'],
                               blcustomdate = request.POST.get('blcustomdate',False),
+                              bl_data_prazo = request.POST.get('bl_data_prazo',False),
                               blcustomtext = request.POST.get('blcustomtext',False),
                               lbcustomdate = request.POST['lbcustomdate'],
                               lbcustomtext = request.POST['lbcustomtext']
@@ -109,6 +110,7 @@ def edicao(request, id):
                               tbetapa = Tbetapa.objects.get(pk = request.POST['tbfase']),
                               dschecklist = request.POST['dschecklist'],
                               blcustomdate = request.POST.get('blcustomdate',False),
+                              bl_data_prazo = request.POST.get('bl_data_prazo',False),
                               blcustomtext = request.POST.get('blcustomtext',False),
                               lbcustomdate = request.POST['lbcustomdate'],
                               lbcustomtext = request.POST['lbcustomtext']

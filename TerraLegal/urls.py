@@ -59,6 +59,7 @@ urlpatterns = patterns('',
     url(r'^sicop/processo/urbano/cadastro/', 'TerraLegal.tramitacao.restrito.processo_urbano.cadastro'),
     url(r'^sicop/processo/urbano/edicao/(?P<id>\d+)/', 'TerraLegal.tramitacao.restrito.processo_urbano.edicao'),
     # PROCESSO CLAUSULA RESOLUTIVA
+    url(r'^sicop/processo/clausula/notificacao/', 'TerraLegal.tramitacao.restrito.processo_clausula.notificacao'),
     url(r'^sicop/processo/clausula/consulta/', 'TerraLegal.tramitacao.restrito.processo_clausula.consulta'),
     url(r'^sicop/processo/clausula/cadastro/', 'TerraLegal.tramitacao.restrito.processo_clausula.cadastro'),
     url(r'^sicop/processo/clausula/edicao/(?P<id>\d+)/', 'TerraLegal.tramitacao.restrito.processo_clausula.edicao'),
@@ -243,6 +244,8 @@ urlpatterns = patterns('',
     url(r'^sicop/relatorio/etapa/p80', 'TerraLegal.tramitacao.restrito.relatorio.etapa_p80'),
     url(r'^sicop/relatorio/etapa/urbano', 'TerraLegal.tramitacao.restrito.relatorio.etapa_urbano'),
     
+    url(r'^sicop/relatorio/em_programacao', 'TerraLegal.tramitacao.restrito.relatorio.em_programacao'),
+    url(r'^sicop/relatorio/prazos_notificacoes_p80', 'TerraLegal.tramitacao.restrito.relatorio.prazos_notificacoes_p80'),
     url(r'^sicop/relatorio/titulo', 'TerraLegal.tramitacao.restrito.relatorio.titulos'),
     
     #END------------------------------SICOP---------------------------------------------------------------------------------

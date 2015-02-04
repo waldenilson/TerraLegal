@@ -12,6 +12,23 @@ from django.http.response import HttpResponseRedirect
 import datetime
 
 @permission_required('sicop.processo_clausula_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def notificacao(request):
+    prazos = []
+    consulta = []
+    checksprazos = Tbchecklistprocessobase.objects.filter( tbchecklist__bl_data_prazo = True, blnao_obrigatorio = False, blsanado = False ).order_by('tbprocessobase')
+    for obj in checksprazos:
+        if obj.dtcustom is not None:
+            dias = (obj.dtcustom - datetime.datetime.now()).days
+            if dias >= 0 and dias <= 15:
+                prazos.append( dict({'obj':obj,'dias':dias}) )        
+    if prazos:
+        for op in prazos:
+            proc = Tbprocessoclausula.objects.filter( tbprocessobase__id = op['obj'].tbprocessobase.id )
+            consulta.append( dict({'proc':proc[0],'check':op['obj'].tbchecklist.nmchecklist,'etapa':op['obj'].tbchecklist.tbetapa.nmfase,'dias':op['dias']}) )
+    return render_to_response('sicop/processo/clausula/prazo_notificacao.html',{'consulta':consulta}, context_instance = RequestContext(request))    
+
+
+@permission_required('sicop.processo_clausula_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
     return render_to_response('sicop/processo/clausula/consulta.html',{}, context_instance = RequestContext(request))    
     
@@ -126,7 +143,7 @@ def cadastro(request):
 def edicao(request, id):
     
     carregarTbAuxProcesso(request)
-    
+ 
     procuracao = False
     if request.POST.get('stprocuracao',False):
         procuracao = True
@@ -139,7 +156,9 @@ def edicao(request, id):
     
     clausula = get_object_or_404(Tbprocessoclausula, id=id)
     base  = get_object_or_404(Tbprocessobase, id=clausula.tbprocessobase.id)
-    
+ 
+
+
         # movimentacoes deste processo
     movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase = id ).order_by( "-dtmovimentacao" )
     
