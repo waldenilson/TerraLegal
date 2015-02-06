@@ -77,35 +77,37 @@
 		<table class="csstable">
 			<tbody>
 				<tr>
-					<td class="colunaTabelaConsulta" style="width:32%"> </td>
-					<td class="colunaTabelaConsulta" style="width:13%">Processo</td>
+					<td class="colunaTabelaConsulta" style="width:30%"> </td>
+					<td class="colunaTabelaConsulta" style="width:10%">Processo</td>
 					<td class="colunaTabelaConsulta" style="width:25%">Municipio</td>
 					<td class="colunaTabelaConsulta" style="width:20%">Gleba</td>
+					<td class="colunaTabelaConsulta" style="width:15%">Dias na Caixa</td>
 				</tr>
-					{% for obj in processos %}
-						<tr onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');"
-							style="background: {{ obj.tbprocessobase.tbtipoprocesso.coridentificacao }}">
-							{% if obj.tbprocessobase.tbtipoprocesso.id == 1 %}
-								<td class="colunaTabelaConsulta">{{ obj.nmrequerente }}</td>
+					{% for obj in dicionario %}
+						<tr onclick="editarID('/sicop/processo/edicao/{{ obj.processo.tbprocessobase.id }}');"
+							style="background: {{ obj.processo.tbprocessobase.tbtipoprocesso.coridentificacao }}">
+							{% if obj.processo.tbprocessobase.tbtipoprocesso.id == 1 %}
+								<td class="colunaTabelaConsulta">{{ obj.processo.nmrequerente }}</td>
 							{% else %}
-								{% if obj.tbprocessobase.tbtipoprocesso.id == 2 %}
-									<td class="colunaTabelaConsulta">{{ obj.nmrequerente }}</td>
+								{% if obj.processo.tbprocessobase.tbtipoprocesso.id == 2 %}
+									<td class="colunaTabelaConsulta">{{ obj.processo.nmrequerente }}</td>
 								{% else %}
-									{% if obj.tbprocessobase.tbtipoprocesso.id == 3 %}
-										<td class="colunaTabelaConsulta">{{ obj.nmpovoado }}</td>
+									{% if obj.processo.tbprocessobase.tbtipoprocesso.id == 3 %}
+										<td class="colunaTabelaConsulta">{{ obj.processo.nmpovoado }}</td>
 									{% endif %}
 								{% endif %}
 							{% endif %}
 							<td class="colunaTabelaConsulta">
-								{{ obj.tbprocessobase.nrprocesso }}
+								{{ obj.processo.tbprocessobase.nrprocesso }}
 
-								{% if obj.tbprocessobase.tbclassificacaoprocesso.id == 2 %}
+								{% if obj.processo.tbprocessobase.tbclassificacaoprocesso.id == 2 %}
 									&nbsp;<div style="font-weight: bold">(Anexo)</div>
 								{% endif %}
 
 							</td>
-							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbmunicipio.nome_mun }}</td>
-							<td class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbgleba.nmgleba }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.processo.tbprocessobase.tbmunicipio.nome_mun }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.processo.tbprocessobase.tbgleba.nmgleba }}</td>
+							<td class="colunaTabelaConsulta">{{ obj.dias }}</td>
 						</tr>
 					{% endfor %}
 			</tbody>

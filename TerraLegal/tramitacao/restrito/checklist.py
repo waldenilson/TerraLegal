@@ -71,10 +71,16 @@ def cadastro(request):
                               blcustomdate = request.POST.get('blcustomdate',False),
                               bl_data_prazo = request.POST.get('bl_data_prazo',False),
                               blcustomtext = request.POST.get('blcustomtext',False),
+                              blprogramacao = request.POST.get('blprogramacao',False),
                               lbcustomdate = request.POST['lbcustomdate'],
                               lbcustomtext = request.POST['lbcustomtext']
                               )
         
+        if request.POST['nrprazo'] == '':
+            f_checklist.nrprazo = 0
+        else:
+            f_checklist = request.POST['nrprazo']
+
         if request.POST['tbfase'] != '':
             request.session['etapachecklist'] = request.POST['tbfase']
 
@@ -112,10 +118,17 @@ def edicao(request, id):
                               blcustomdate = request.POST.get('blcustomdate',False),
                               bl_data_prazo = request.POST.get('bl_data_prazo',False),
                               blcustomtext = request.POST.get('blcustomtext',False),
+                              blprogramacao = request.POST.get('blprogramacao',False),                              
                               lbcustomdate = request.POST['lbcustomdate'],
                               lbcustomtext = request.POST['lbcustomtext']
                               )
+
+            if request.POST['nrprazo'] == '':
+                f_checklist.nrprazo = 0
+            else:
+                f_checklist.nrprazo = request.POST['nrprazo']
             f_checklist.save()
+
             if next == "/":
                 return HttpResponseRedirect("/sicop/checklist/edicao/"+str(id)+"/")
             else:    

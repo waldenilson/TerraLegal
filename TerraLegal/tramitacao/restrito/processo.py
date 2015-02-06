@@ -1093,14 +1093,16 @@ def carregarTbAuxFuncoesProcesso(request, base):
     statuspendencia = Tbstatuspendencia.objects.all().order_by("dspendencia")#filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by("dspendencia")
 
 def prazo_notificacao_clausula( tpproc ):
+    
     prazos = []
     if tpproc.tbprocessobase.tbetapaatual is not None:
         checksprazos = Tbchecklistprocessobase.objects.filter( tbprocessobase__id = tpproc.tbprocessobase.id, tbchecklist__tbetapa__id = tpproc.tbprocessobase.tbetapaatual.id,tbchecklist__bl_data_prazo = True, blnao_obrigatorio = False, blsanado = False )
         for obj in checksprazos:
             if obj.dtcustom is not None:
-                dias = (obj.dtcustom - datetime.datetime.now()).days
-                if dias >= 0 and dias <= 15:
-                    prazos.append( dict({'obj':obj,'dias':dias}) )
+                if obj.tbchecklist.nrprazo is not None:
+                    dias = obj.tbchecklist.nrprazo - (datetime.datetime.now() - obj.dtcustom).days
+                    if dias >= 0 and dias <= 15:
+                        prazos.append( dict({'obj':obj,'dias':dias}) )
     return prazos
 
 def validarDesAnexo(request_form, base, processoanexo):

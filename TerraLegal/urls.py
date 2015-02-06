@@ -244,7 +244,7 @@ urlpatterns = patterns('',
     url(r'^sicop/relatorio/etapa/p80', 'TerraLegal.tramitacao.restrito.relatorio.etapa_p80'),
     url(r'^sicop/relatorio/etapa/urbano', 'TerraLegal.tramitacao.restrito.relatorio.etapa_urbano'),
     
-    url(r'^sicop/relatorio/em_programacao', 'TerraLegal.tramitacao.restrito.relatorio.em_programacao'),
+    url(r'^sicop/relatorio/em_programacao_p80', 'TerraLegal.tramitacao.restrito.relatorio.em_programacao_p80'),
     url(r'^sicop/relatorio/prazos_notificacoes_p80', 'TerraLegal.tramitacao.restrito.relatorio.prazos_notificacoes_p80'),
     url(r'^sicop/relatorio/titulo', 'TerraLegal.tramitacao.restrito.relatorio.titulos'),
     

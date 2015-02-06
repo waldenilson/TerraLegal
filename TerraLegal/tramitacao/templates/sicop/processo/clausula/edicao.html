@@ -188,16 +188,7 @@
 												</td>
 										</tr>
 
-<!--
-										<tr> <td class="colunaTabela"> <label>Por Procuracao:</label> </td>
-										<td>
-											{% if clausula.stprocuracao == True %} 
-												<input checked="checked" type="checkbox" name="stprocuracao" />
-											{% else %}
-												<input type="checkbox" name="stprocuracao" />
-											{% endif %} 
-										</td> </tr>
-						
+<!--						
 										<tr> <td class="colunaTabela"> <label>Certidao quitacao:</label> </td>
 										<td>
 											{% if clausula.stcertquitacao == True %} 
@@ -250,13 +241,10 @@
 											<td> <input value="{{ base.nmcontato|default:''}}" name="nmcontato" style="width: 250px"/> </td> 
 										</tr>
 
-										<tr> <td class="colunaTabela"> <label>Em Programação:</label> </td>
+										<tr> <td class="colunaTabela"> 
+											<label style="color:blue">Processo analisado por mim ?</label> </td>
 										<td>
-											{% if clausula.blemprogramacao == True %} 
-												<input checked="checked" type="checkbox" name="blemprogramacao" />
-											{% else %}
-												<input type="checkbox" name="blemprogramacao" />
-											{% endif %} 
+											<input type="checkbox" name="analisado" />
 										</td> </tr>
 
 <!--

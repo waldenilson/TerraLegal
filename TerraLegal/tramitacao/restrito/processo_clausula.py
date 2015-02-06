@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from TerraLegal.tramitacao.models import Tbtipoprocesso, Tbmunicipio, Tbgleba, Tbcaixa,\
-    Tbprocessobase, AuthUser, Tbprocessoclausula, Tbclassificacaoprocesso,\
+    Tbprocessobase, Tbloganalise, AuthUser, Tbprocessoclausula, Tbclassificacaoprocesso,\
     Tbsituacaoprocesso, Tbmovimentacao, Tbdivisao, Tbtransicao, Tbetapa,\
     Tbchecklist, Tbchecklistprocessobase
 from TerraLegal.tramitacao.forms import FormProcessoClausula
@@ -18,9 +18,10 @@ def notificacao(request):
     checksprazos = Tbchecklistprocessobase.objects.filter( tbchecklist__bl_data_prazo = True, blnao_obrigatorio = False, blsanado = False ).order_by('tbprocessobase')
     for obj in checksprazos:
         if obj.dtcustom is not None:
-            dias = (obj.dtcustom - datetime.datetime.now()).days
-            if dias >= 0 and dias <= 15:
-                prazos.append( dict({'obj':obj,'dias':dias}) )        
+            if obj.tbchecklist.nrprazo is not None:
+                dias = obj.tbchecklist.nrprazo - (datetime.datetime.now() - obj.dtcustom).days
+                if dias >= 0 and dias <= 15:
+                    prazos.append( dict({'obj':obj,'dias':dias}) )        
     if prazos:
         for op in prazos:
             proc = Tbprocessoclausula.objects.filter( tbprocessobase__id = op['obj'].tbprocessobase.id )
@@ -158,7 +159,6 @@ def edicao(request, id):
     base  = get_object_or_404(Tbprocessobase, id=clausula.tbprocessobase.id)
  
 
-
         # movimentacoes deste processo
     movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase = id ).order_by( "-dtmovimentacao" )
     
@@ -209,8 +209,7 @@ def edicao(request, id):
                                        dsprioridade = request.POST['dsprioridade'],
                                        stcertquitacao = quitacao,
                                        stcertliberacao = liberacao,
-                                       blgeoimovel = request.POST.get('blgeoimovel',False),
-                                       blemprogramacao = request.POST.get('blemprogramacao',False)
+                                       blgeoimovel = request.POST.get('blgeoimovel',False)
                                        )
 
             print request.POST['dtnascimento']
@@ -255,6 +254,18 @@ def edicao(request, id):
 
                     f_base.tbetapaatual = transicao.tbetapa
                     f_base.save()
+
+
+            # Se foi marcado que o processo foi analisado; salvar o log de analise
+            if request.POST.get('analisado', False):
+                analise = Tbloganalise(
+                        dtanalise = datetime.datetime.now(),
+                        tbprocessobase = base,
+                        tbetapa = base.tbetapaatual,
+                        tbcaixa = base.tbcaixa,
+                        auth_user = AuthUser.objects.get( pk = request.user.id )
+                )
+                analise.save()
 
             messages.add_message(request,messages.INFO,'Informações salvas com sucesso.')
             

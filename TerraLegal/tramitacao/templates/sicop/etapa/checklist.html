@@ -68,9 +68,17 @@
 										{% if k.blcustomtext or k.blcustomdate %}
 											<tr>
 												<td style="padding-left:4em" colspan="3">
+													{% if k.blprogramacao %}
+														{% if v and v.bl_em_programacao %}
+															<input checked="checked" name="{{ k.id }}-emprogramacao" type="checkbox" />
+														{% else %}
+															<input name="{{ k.id }}-emprogramacao" type="checkbox" />
+														{% endif %}
+														Em Programação&nbsp;|
+													{% endif %}
 													{% if k.blcustomtext %}
 														{{ k.lbcustomtext }}&nbsp;
-														<input size="20" name="{{k.id}}-nmcustom" value="{{v.nmcustom}}" />&nbsp;
+														<input size="10" name="{{k.id}}-nmcustom" value="{{v.nmcustom}}" />&nbsp;|
 													{% endif %}
 													{% if k.blcustomdate %}
 														{{ k.lbcustomdate }}

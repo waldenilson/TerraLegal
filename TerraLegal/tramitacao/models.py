@@ -264,7 +264,6 @@ class Tbprocessoclausula(models.Model):
     dsprioridade = models.CharField(max_length=40, blank=True)
     stcertquitacao = models.BooleanField( blank=True)
     stcertliberacao = models.BooleanField( blank=True)
-    blemprogramacao = models.BooleanField( blank=True) 
     id = models.AutoField(primary_key=True)
        
     class Meta:
@@ -308,7 +307,6 @@ class Tbprocessourbano(models.Model):
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbprocessourbano'
-
 
 class Tbsituacaogeo(models.Model):
     nmsituacaogeo = models.CharField(max_length=80, blank=True)
@@ -408,6 +406,8 @@ class Tbchecklist(models.Model):
     bl_data_prazo = models.BooleanField()
     lbcustomdate = models.CharField(max_length=80, blank=True)
     lbcustomtext = models.CharField(max_length=80, blank=True)
+    nrprazo = models.IntegerField()
+    blprogramacao = models.BooleanField( blank=True) 
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbchecklist'
@@ -420,6 +420,7 @@ class Tbchecklistprocessobase(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     dtcustom = models.DateTimeField(null=True, blank=True)
     nmcustom = models.CharField(max_length=80, blank=True)
+    bl_em_programacao = models.BooleanField( blank=True) 
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbchecklistprocessobase'
@@ -447,4 +448,14 @@ class Tbetapaposterior(models.Model):
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbetapaposterior'
+
+class Tbloganalise(models.Model):
+    tbprocessobase = models.ForeignKey(Tbprocessobase)
+    auth_user = models.ForeignKey(AuthUser)
+    tbetapa = models.ForeignKey(Tbetapa)
+    tbcaixa = models.ForeignKey(Tbcaixa)
+    dtanalise = models.DateTimeField(null=False)
+    id = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = 'tbloganalise'
         

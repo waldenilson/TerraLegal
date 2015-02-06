@@ -75,6 +75,21 @@
 							{% endif %}
 				   			<label>&nbsp;Notificação de prazo</label> 
 				   		</td>
+				   		<td> 
+				   			<label>Tempo (Dias):</label> 
+				   			<input size="5" onkeypress="return SomenteNumeroOK(event, this);" value="{{checklist.nrprazo|default:''}}" type="text" name="nrprazo" />				   			 
+				   		</td> 
+				   	</tr>
+
+				   	<tr> 
+				   		<td class="colunaTabela"> 
+					   		{% if checklist.blprogramacao == True %} 
+								<input checked="checked" type="checkbox" name="blprogramacao" />
+							{% else %}
+								<input type="checkbox" name="blprogramacao" />
+							{% endif %}
+				   			<label>&nbsp;Permitir Programação</label> 
+				   		</td>
 				   	</tr>
 
 				</table>

@@ -810,7 +810,6 @@ def titulos(request):
         ids = []
         for obj in caixa:
             if request.POST.get(str(obj.id), False):
-                print obj.nmlocalarquivo
                 ids.append(obj.id)                
 
         if ids:
@@ -874,12 +873,15 @@ def titulos(request):
 
 
 @permission_required('sicop.relatorio_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
-def em_programacao(request):
+def em_programacao_p80(request):
 
 #    if request.method == "POST":
         #CONSULTA ORDENADA E/OU BASEADA EM FILTROS DE PESQUISA
-        consulta = Tbprocessoclausula.objects.filter( blemprogramacao = True, tbprocessobase__tbclassificacaoprocesso__id = 1, tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-                
+        consulta = []
+        checks = Tbchecklistprocessobase.objects.filter( tbprocessobase__tbtipoprocesso__id = 2, tbprocessobase__tbclassificacaoprocesso__id = 1, tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id, bl_em_programacao = True, tbchecklist__blprogramacao = True, blnao_obrigatorio = False, blsanado = False ).order_by('tbprocessobase')
+        for c in checks:
+            consulta.append( Tbprocessoclausula.objects.filter(tbprocessobase__id = c.tbprocessobase.id)[0] )
+
         #GERACAO
         nome_relatorio = "relatorio-todos-processos-em-programacao"
         titulo_relatorio    = "RELATORIO DOS PROCESSOS EM PROGRAMACAO"
@@ -961,9 +963,10 @@ def prazos_notificacoes_p80(request):
         checksprazos = Tbchecklistprocessobase.objects.filter( tbchecklist__bl_data_prazo = True, blnao_obrigatorio = False, blsanado = False ).order_by('tbprocessobase')
         for obj in checksprazos:
             if obj.dtcustom is not None:
-                dias = (obj.dtcustom - datetime.datetime.now()).days
-                if dias >= 0 and dias <= 15:
-                    prazos.append( dict({'obj':obj,'dias':dias}) )        
+                if obj.tbchecklist.nrprazo is not None:
+                    dias = obj.tbchecklist.nrprazo - (datetime.datetime.now() - obj.dtcustom).days
+                    if dias >= 0 and dias <= 15:
+                        prazos.append( dict({'obj':obj,'dias':dias}) )        
         if prazos:
             for op in prazos:
                 proc = Tbprocessoclausula.objects.filter( tbprocessobase__id = op['obj'].tbprocessobase.id )

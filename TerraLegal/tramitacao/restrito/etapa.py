@@ -281,7 +281,6 @@ def checklist(request, processo, etapa):
             obj = Tbchecklistprocessobase.objects.filter( tbchecklist__id = c.id, tbprocessobase__id = obj_processo.id )
             if obj:
                 if obj[0].blnao_obrigatorio == False and obj[0].blsanado == False :
-                    print c.nmchecklist
                     checkpendentes.append( c )
             else:
                 checkpendentes.append( c )
@@ -365,8 +364,10 @@ def checklist(request, processo, etapa):
 
             nmcustom = ''
             dtcustom = None
+            blemprogramacao = False
 
             if obj.blcustomtext or obj.blcustomdate:
+                blemprogramacao = request.POST.get(str(obj.id)+'-emprogramacao', False)
                 if request.POST.get(str(obj.id)+'-nmcustom', False):
                     nmcustom = request.POST[str(obj.id)+'-nmcustom']
                 if request.POST.get(str(obj.id)+'-dtcustom', False):
@@ -390,6 +391,7 @@ def checklist(request, processo, etapa):
                         cp.blsanado = False
                     cp.nmcustom = nmcustom
                     cp.dtcustom = dtcustom
+                    cp.bl_em_programacao = blemprogramacao
                     cp.save()
                 else:
                     # inserir ao checkprocesso
@@ -401,6 +403,7 @@ def checklist(request, processo, etapa):
                         cp.blsanado = False
                     cp.nmcustom = nmcustom
                     cp.dtcustom = dtcustom
+                    cp.bl_em_programacao = blemprogramacao
                     cp.save()
 
             # se o check veio desmarcado
@@ -412,6 +415,7 @@ def checklist(request, processo, etapa):
                         cp.blsanado = False
                         cp.nmcustom = nmcustom
                         cp.dtcustom = dtcustom
+                        cp.bl_em_programacao = blemprogramacao
                         cp.save()
                 elif blnao_obrigatorio:
                     cp = Tbchecklistprocessobase( tbprocessobase = Tbprocessobase.objects.get( pk = processo ),

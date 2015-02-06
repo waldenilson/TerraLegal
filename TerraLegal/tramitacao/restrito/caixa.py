@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required, permission_required,\
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext, Context
 from TerraLegal.tramitacao.models import Tbcaixa, Tbtipocaixa, AuthUser, Tbprocessobase,\
-    Tbpecastecnicas, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano, Tbdivisao, Tbetapa
+    Tbpecastecnicas, Tbmovimentacao, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano, Tbdivisao, Tbetapa
 from TerraLegal.livro.models import Tbtituloprocesso
 from django.http import HttpResponseRedirect
 from django.contrib import messages
@@ -39,6 +39,7 @@ from django.db.models import Count
 
 from webodt import shortcuts
 from django.shortcuts import render_to_response, get_object_or_404
+import datetime
 
 nome_relatorio      = "relatorio_caixa"
 response_consulta  = "/sicop/caixa/consulta/"
@@ -155,7 +156,17 @@ def edicao(request, id):
         request.session['titulos-caixa'] = tituloprocesso
         conteudo = str(tituloprocesso.count())+ " Titulos"    
     
-    return render_to_response('sicop/caixa/edicao.html', {"form":form,'processos':processos,'pecas':pecas,
+    dicionario = []
+    for proc in processos:
+        movs = Tbmovimentacao.objects.filter( tbprocessobase__id = proc.tbprocessobase.id, tbcaixa__id = instance.id ).order_by('-id')
+        dias = 0
+        try:
+            dias = (datetime.datetime.now() - movs[0].dtmovimentacao).days
+        except:
+            dias = 0
+        dicionario.append( dict({'processo':proc,'dias':dias}) )        
+
+    return render_to_response('sicop/caixa/edicao.html', {"form":form,'dicionario':dicionario,'processos':processos,'pecas':pecas,
                             'conteudo':conteudo,"tipocaixa":tipocaixa,"divisao":divisao,'tituloprocesso':tituloprocesso,
                             'titulorural':titulorural},context_instance = RequestContext(request))
 
