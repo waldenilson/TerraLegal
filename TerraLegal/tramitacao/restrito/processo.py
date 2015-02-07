@@ -675,7 +675,7 @@ def edicao(request, id):
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,'processo_principal':processo_principal,
                                        'base':base,'rural':rural,'peca':peca,'statustitulo':statustitulo,'posteriores':posteriores,
-                                       'tipotitulo':tipotitulo,'titulo_processo':titulo_processo}, context_instance = RequestContext(request))
+                                       'municipiodomicilio':Tbmunicipio.objects.all(),'tipotitulo':tipotitulo,'titulo_processo':titulo_processo}, context_instance = RequestContext(request))
         else:
             if tipo == "tbprocessourbano":
                 urbano = Tbprocessourbano.objects.get( tbprocessobase = id )

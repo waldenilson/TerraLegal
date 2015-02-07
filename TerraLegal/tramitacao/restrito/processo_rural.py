@@ -50,7 +50,9 @@ def cadastro(request):
                                     nmcontato = request.POST['nmcontato'],
                                     )
             try:
-                f_base.tbmunicipiodomicilio = Tbmunicipio.objects.get(pk = request.POST['tbmunicipiodomicilio'])
+                mun = request.POST['tbmunicipiodomicilio'].split(',',1)[0]
+                sigla = request.POST['tbmunicipiodomicilio'].split(',',1)[1]
+                f_base.tbmunicipiodomicilio = Tbmunicipio.objects.filter( nome_mun = mun, uf = sigla )[0]
             except:
                 f_base.tbmunicipiodomicilio = None
 
@@ -84,7 +86,9 @@ def cadastro(request):
             return HttpResponseRedirect("/sicop/processo/consulta/")
         
     return render_to_response('sicop/processo/cadastro.html',
-        {'gleba':gleba,'etapaprocesso':etapaprocesso,'caixa':caixa,'municipio':municipio,'tipoprocesso':tipoprocesso, 'processo':escolha, 'div_processo':div_processo}, context_instance = RequestContext(request))    
+        {'gleba':gleba,'etapaprocesso':etapaprocesso,'caixa':caixa,
+        'municipio':municipio,'municipiodomicilio':Tbmunicipio.objects.all(),'tipoprocesso':tipoprocesso, 
+        'processo':escolha, 'div_processo':div_processo}, context_instance = RequestContext(request))    
 
 @permission_required('sicop.processo_rural_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
@@ -129,9 +133,12 @@ def edicao(request, id):
                                     
                                     )
             try:
-                f_base.tbmunicipiodomicilio = Tbmunicipio.objects.get(pk = request.POST['tbmunicipiodomicilio'])
+                mun = request.POST['tbmunicipiodomicilio'].split(',',1)[0]
+                sigla = request.POST['tbmunicipiodomicilio'].split(',',1)[1]
+                f_base.tbmunicipiodomicilio = Tbmunicipio.objects.filter( nome_mun = mun, uf = sigla )[0]
             except:
-                f_base.tbmunicipiodomicilio = None
+                f_base.tbmunicipiodomicilio = base.tbmunicipiodomicilio
+
             f_base.save()
             
             # cadastrando o registro processo rural
@@ -179,7 +186,7 @@ def edicao(request, id):
                               {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                    'caixa':caixa,'municipio':municipio,
                                    'base':base,'movimentacao':movimentacao,
-                                   'caixadestino':caixadestino,'rural':rural},
+                                   'municipiodomicilio':Tbmunicipio.objects.all(),'caixadestino':caixadestino,'rural':rural},
                                context_instance = RequestContext(request))   
 
 def validacao(request_form, metodo):
