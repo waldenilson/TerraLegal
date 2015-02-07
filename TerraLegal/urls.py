@@ -59,6 +59,7 @@ urlpatterns = patterns('',
     url(r'^sicop/processo/urbano/cadastro/', 'TerraLegal.tramitacao.restrito.processo_urbano.cadastro'),
     url(r'^sicop/processo/urbano/edicao/(?P<id>\d+)/', 'TerraLegal.tramitacao.restrito.processo_urbano.edicao'),
     # PROCESSO CLAUSULA RESOLUTIVA
+    url(r'^sicop/processo/clausula/analise/', 'TerraLegal.tramitacao.restrito.processo_clausula.analise'),
     url(r'^sicop/processo/clausula/notificacao/', 'TerraLegal.tramitacao.restrito.processo_clausula.notificacao'),
     url(r'^sicop/processo/clausula/consulta/', 'TerraLegal.tramitacao.restrito.processo_clausula.consulta'),
     url(r'^sicop/processo/clausula/cadastro/', 'TerraLegal.tramitacao.restrito.processo_clausula.cadastro'),

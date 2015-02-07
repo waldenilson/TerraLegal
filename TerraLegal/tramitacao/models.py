@@ -452,8 +452,8 @@ class Tbetapaposterior(models.Model):
 class Tbloganalise(models.Model):
     tbprocessobase = models.ForeignKey(Tbprocessobase)
     auth_user = models.ForeignKey(AuthUser)
-    tbetapa = models.ForeignKey(Tbetapa)
-    tbcaixa = models.ForeignKey(Tbcaixa)
+    tbetapa = models.ForeignKey(Tbetapa, null=True)
+    tbcaixa = models.ForeignKey(Tbcaixa, null=True)
     dtanalise = models.DateTimeField(null=False)
     id = models.AutoField(primary_key=True)
     class Meta:

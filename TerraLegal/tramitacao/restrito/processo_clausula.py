@@ -28,6 +28,42 @@ def notificacao(request):
             consulta.append( dict({'proc':proc[0],'check':op['obj'].tbchecklist.nmchecklist,'etapa':op['obj'].tbchecklist.tbetapa.nmfase,'dias':op['dias']}) )
     return render_to_response('sicop/processo/clausula/prazo_notificacao.html',{'consulta':consulta}, context_instance = RequestContext(request))    
 
+@permission_required('sicop.processo_clausula_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def analise(request):
+    etapas = Tbetapa.objects.filter( tbtipoprocesso__id = 2 ).order_by( 'ordem', 'nmfase' )
+    consulta = []
+    if request.method == 'POST':
+        etapa = request.POST['etapa']
+
+        res = Tbprocessoclausula.objects.filter(
+            tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id
+            ).order_by('dtnascimento')
+        for obj in res:
+            if obj.dtnascimento is not None:
+                if ((datetime.datetime.now() - datetime.datetime.strptime(obj.dtnascimento,'%d/%m/%Y') ).days)/365 >= 60:
+                    consulta.append( obj )
+
+        res = Tbprocessoclausula.objects.filter(
+            tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id
+            ).order_by('dtrequerimento')
+        for obj in res:
+            if obj.dtnascimento is not None:
+                if ((datetime.datetime.now() - datetime.datetime.strptime(obj.dtnascimento,'%d/%m/%Y') ).days)/365 < 60:
+                    consulta.append( obj )
+            else:
+                consulta.append(obj)
+
+        # criterios de ordenacao:
+        # se idade >= 60:
+        # data de nascimento, data requerimento
+        # data requerimento
+
+        prioridade_idade = []
+        prioridade_requerimento = []
+
+
+
+    return render_to_response('sicop/processo/clausula/analise.html',{'consulta':consulta,'etapas':etapas}, context_instance = RequestContext(request))    
 
 @permission_required('sicop.processo_clausula_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
@@ -159,7 +195,7 @@ def edicao(request, id):
     base  = get_object_or_404(Tbprocessobase, id=clausula.tbprocessobase.id)
  
 
-        # movimentacoes deste processo
+    # movimentacoes deste processo
     movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase = id ).order_by( "-dtmovimentacao" )
     
     # caixa destino
@@ -272,7 +308,7 @@ def edicao(request, id):
             return HttpResponseRedirect("/sicop/processo/edicao/"+str(base.id)+"/")
         
     return render_to_response('sicop/processo/clausula/edicao.html',
-                                          {'gleba':gleba,
+                                          {'gleba':gleba,'analises':Tbloganalise.objects.filter( tbprocessobase__id = base.id ).order_by('dtanalise'),
                                    'caixa':caixa,'municipio':municipio,'movimentacao':movimentacao,
                                    'caixadestino':caixadestino,
                                    'base':base,'clausula':clausula}, context_instance = RequestContext(request))    

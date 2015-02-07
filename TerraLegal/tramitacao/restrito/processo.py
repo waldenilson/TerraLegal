@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from django.http.response import HttpResponseRedirect, HttpResponse
 from TerraLegal.tramitacao.models import Tbprocessorural, Tbtipoprocesso, Tbprocessourbano,\
-    Tbprocessoclausula, Tbprocessobase, Tbcaixa, Tbgleba, Tbmunicipio, Tbuf,\
+    Tbprocessoclausula, Tbprocessobase, Tbloganalise, Tbcaixa, Tbgleba, Tbmunicipio, Tbuf,\
     Tbcontrato, Tbsituacaoprocesso, Tbsituacaogeo, Tbpecastecnicas, AuthUser,\
     AuthUserGroups, Tbmovimentacao, Tbprocessosanexos, Tbpendencia,\
     Tbclassificacaoprocesso, Tbtipopendencia, Tbstatuspendencia, Tbpregao,\
@@ -723,7 +723,7 @@ def edicao(request, id):
                                               {'transicao':transicao,'prazos':prazos,'fluxo':fluxo,'gleba':gleba,'fases':fases,'etapa_atual':etapa_atual,'posteriores':posteriores,
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,'processo_principal':processo_principal,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
-                                       'base':base,'clausula':clausula}, context_instance = RequestContext(request))
+                                       'base':base,'clausula':clausula,'analises':Tbloganalise.objects.filter( tbprocessobase__id = base.id ).order_by('dtanalise')}, context_instance = RequestContext(request))
         
     return HttpResponseRedirect("/sicop/processo/consulta/")
     
