@@ -58,7 +58,7 @@
 										<td class="colunaTabela"> <label>Número:</label></td>
 										<td>
 											{% if perms.sicop.processo_edicao_numero %}
-												<input name="tbprocessobase" size="17" value="{{base.nrprocesso}}" style="width:150px" id="processo"/>
+												<input required="required" name="tbprocessobase" size="17" value="{{base.nrprocesso}}" style="width:150px" id="processo"/>
 											{% else %}
 												<input name="tbprocessobase" size="17" value="{{base.nrprocesso}}" style="width:150px" readonly id="processo"/>
 											{% endif %}
@@ -82,9 +82,9 @@
 										</tr>
 									{% endif %}
 										<tr> <td class="colunaTabela"> <label>Nome do Titulado:</label> </td>
-											<td> <input value="{{ clausula.nmrequerente }}" size="35" name="nmrequerente" /> </td> </tr>
+											<td> <input required="required" value="{{ clausula.nmrequerente }}" size="35" name="nmrequerente" /> </td> </tr>
 										<tr> <td class="colunaTabela"> <label>CPF do Titulado:</label> </td>
-											<td> <input size="15" value="{{ clausula.nrcpfrequerente }}" id="cpf" name="nrcpfrequerente" /> </td> </tr>
+											<td> <input required="required" size="15" value="{{ clausula.nrcpfrequerente }}" id="cpf" name="nrcpfrequerente" /> </td> </tr>
 
 										<tr> <td class="colunaTabela"> <label>Nome do Interessado:</label> </td>
 											<td> <input size="35" value="{{ clausula.nminteressado }}" name="nminteressado" /> </td> </tr>
@@ -129,11 +129,11 @@
 										<tr> <td class="colunaTabela"> <label>Nome do Imóvel:</label> </td>
 											<td> <input size="25" value="{{ clausula.nmimovel|default:'' }}" name="nmimovel" /> </td> </tr>
 
-										<tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input value="{{ clausula.nrarea|default:'' }}" onkeypress="return SomenteNumero(event, this);" size="15" name="nrarea" /> </td> </tr>
+										<tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input value="{{ clausula.nrarea|default:'' }}" onkeypress="return SomenteNumero(event, this);" required="required" size="15" name="nrarea" /> </td> </tr>
 
 										<tr> <td class="colunaTabela"> <label>Gleba:</label> </td>
 										   		<td>
-										   			<select name="tbgleba" style="width: 200px">
+										   			<select required="required" name="tbgleba" style="width: 200px">
 										   				<option value="">-- Selecione uma Gleba --</option>
 														{% for obj in gleba %}
 															{% if obj.id == base.tbgleba.id %}
@@ -174,7 +174,7 @@
 
 										<tr> <td class="colunaTabela"> <label>Municipio:</label> </td>
 										   		<td>
-										   			<select name="tbmunicipio" style="width: 200px">
+										   			<select required="required" name="tbmunicipio" style="width: 200px">
 														<option value="">-- Selecione um Municipio --</option>
 														{% for obj in municipio %}
 															{% if obj.id == base.tbmunicipio.id %}

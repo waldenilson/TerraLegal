@@ -5,14 +5,14 @@
 			{% csrf_token %}
 			<table>
 				<tr> <td class="colunaTabela"> <label>N do Processo:</label> </td>
-					<td> <input size="21" name="nrprocesso" id="processo" /> </td> </tr>
+					<td> <input required="required" size="21" name="nrprocesso" id="processo" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>CNPJ:</label> </td>
-					<td> <input size="18" id="cnpj" name="nrcnpj" /> </td> </tr>
+					<td> <input required="required" size="18" id="cnpj" name="nrcnpj" /> </td> </tr>
 				<tr> <td class="colunaTabela" title="Bairro / Distrito / Povoado / Vila"> <label>Bairro/Dist./Pov./Vila:</label> </td>
-					<td> <input name="nmpovoado" /> </td> </tr>
+					<td> <input required="required" name="nmpovoado" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Contrato:</label> </td>
 				   		<td>
-				   			<select name="tbcontrato" style="width: 200px">
+				   			<select required="required" name="tbcontrato" style="width: 200px">
 				   				<option value="">-- Selecione o Contrato --</option>
 								{% for obj in contrato %}
 									<option value="{{ obj.id }}">{{ obj.nrcontrato }}</option>
@@ -25,7 +25,7 @@
 				</tr>
 				<tr> <td class="colunaTabela"> <label>Situacao GEO:</label> </td>
 				   		<td>
-				   			<select name="tbsituacaogeo" style="width: 200px">
+				   			<select required="required" name="tbsituacaogeo" style="width: 200px">
 				   				<option value="">-- Selecione a situacao GEO --</option>
 				   				{% for obj in situacaogeo %}
 									<option value="{{ obj.id }}">{{ obj.nmsituacaogeo }}</option>
@@ -46,7 +46,7 @@
 					<td> <input onkeypress="return SomenteNumeroOK(event, this);" name="nrdomicilios" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Pregao:</label> </td>
 				   		<td>
-				   			<select name="tbpregao" style="width: 200px">
+				   			<select required="required" name="tbpregao" style="width: 200px">
 				   				<option value="">-- Selecione o Pregao --</option>
 								{% for obj in pregao %}
 									<option value="{{ obj.id }}">{{ obj.nrpregao }}</option>
@@ -59,7 +59,7 @@
 				</tr>
 				<tr> <td class="colunaTabela"> <label>Gleba:</label> </td>
 				   		<td>
-				   			<select name="tbgleba" style="width: 200px">
+				   			<select name="tbgleba" required="required" style="width: 200px">
 				   				<option value="">-- Selecione uma Gleba --</option>
 								{% for obj in gleba %}
 									<option value="{{ obj.id }}">{{ obj.nmgleba }}</option>
@@ -72,7 +72,7 @@
 				</tr>
 				<tr> <td class="colunaTabela"> <label>Municipio:</label> </td>
 				   		<td>
-				   			<select name="tbmunicipio" style="width: 200px">
+				   			<select name="tbmunicipio" required="required" style="width: 200px">
 								<option value="">-- Selecione um Municipio --</option>
 								{% for obj in municipio %}
 									<option value="{{ obj.id }}">{{ obj.nome_mun }}</option>
@@ -84,7 +84,7 @@
 					<td> <input name="dsprojetoassentamento" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
 				   		<td>
-				   			<select name="tbcaixa" style="width: 200px">
+				   			<select name="tbcaixa" required="required" style="width: 200px">
 								<option value="">-- Selecione uma Caixa --</option>
 								{% for obj in caixa %}
 									<option value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
@@ -95,8 +95,8 @@
 						<a href="/sicop/caixa/cadastro/?next=/sicop/processo/urbano/cadastro/" title="Nova Caixa"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>
 				</tr>
-				<tr> <td class="colunaTabela"> <label>Data Abertura:</label> </td><td> <input size="9" id="date" name="dtaberturaprocesso" /> </td> </tr>
-				<tr> <td class="colunaTabela"> <label>Data Titulacao:</label> </td><td> <input size="9" id="date2" name="dttitulacao" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Data Abertura:</label> </td><td> <input required="required" size="9" id="date" name="dtaberturaprocesso" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Data Titulação:</label> </td><td> <input size="9" id="date2" name="dttitulacao" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Etapa Inicial:</label> </td>
 				   		<td>
 				   			<select name="etapainicial" style="width: 200px">

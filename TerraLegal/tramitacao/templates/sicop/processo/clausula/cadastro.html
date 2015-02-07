@@ -5,13 +5,13 @@
 			{% csrf_token %}
 			<table>
 				<tr> <td class="colunaTabela"> <label>N do Processo:</label> </td>
-					<td> <input size="21" name="nrprocesso" id="processo" /> </td> </tr>
+					<td> <input required="required" size="21" name="nrprocesso" id="processo" /> </td> </tr>
 
 				<tr> <td class="colunaTabela"> <label>Nome do Titulado:</label> </td>
-					<td> <input size="35" name="nmrequerente" /> </td> </tr>
+					<td> <input required="required" size="35" name="nmrequerente" /> </td> </tr>
 
 				<tr> <td class="colunaTabela"> <label>CPF do Titulado:</label> </td>
-					<td> <input size="15" id="cpf" name="nrcpfrequerente" /> </td> </tr>
+					<td> <input required="required" size="15" id="cpf" name="nrcpfrequerente" /> </td> </tr>
 
 				<tr> <td class="colunaTabela"> <label>Nome do Interessado:</label> </td>
 					<td> <input size="35" name="nminteressado" /> </td> </tr>
@@ -41,11 +41,11 @@
 				<tr> <td class="colunaTabela"> <label>Nome do Imóvel:</label> </td>
 					<td> <input size="25" name="nmimovel" /> </td> </tr>
 
-				<tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input onkeypress="return SomenteNumero(event, this);" size="15" name="nrarea" /> </td> </tr>
+				<tr> <td class="colunaTabela"> <label>Area:</label> </td><td> <input onkeypress="return SomenteNumero(event, this);" required="required" size="15" name="nrarea" /> </td> </tr>
 
 				<tr> <td class="colunaTabela"> <label>Gleba:</label> </td>
 				   		<td>
-				   			<select name="tbgleba" style="width: 200px">
+				   			<select required="required" name="tbgleba" style="width: 200px">
 				   				<option value="">-- Selecione uma Gleba --</option>
 								{% for obj in gleba %}
 									<option value="{{ obj.id }}">{{ obj.nmgleba }}</option>
@@ -64,7 +64,7 @@
 
 				<tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
 				   		<td>
-				   			<select name="tbcaixa" style="width: 200px">
+				   			<select required="required" name="tbcaixa" style="width: 200px">
 								<option value="">-- Selecione uma Caixa --</option>
 								{% for obj in caixa %}
 									<option value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
@@ -78,7 +78,7 @@
 
 				<tr> <td class="colunaTabela"> <label>Municipio:</label> </td>
 				   		<td>
-				   			<select name="tbmunicipio" style="width: 200px">
+				   			<select required="required" name="tbmunicipio" style="width: 200px">
 								<option value="">-- Selecione um Municipio --</option>
 								{% for obj in municipio %}
 									<option value="{{ obj.id }}">{{ obj.nome_mun }}</option>

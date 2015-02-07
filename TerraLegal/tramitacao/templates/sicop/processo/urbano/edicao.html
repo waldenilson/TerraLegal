@@ -44,19 +44,19 @@
 										<td class="colunaTabela"> <label>Número:</label></td>
 										<td>
 											{% if perms.sicop.processo_edicao_numero %}
-												<input name="tbprocessobase" size="17" value="{{base.nrprocesso}}" style="width:150px" id="processo"/>
+												<input required="required" name="tbprocessobase" size="17" value="{{base.nrprocesso}}" style="width:150px" id="processo"/>
 											{% else %}
 												<input name="tbprocessobase" size="17" value="{{base.nrprocesso}}" style="width:150px" id="processo" readonly/>
 											{% endif %}
 										</td>
 									</tr>
 										<tr> <td class="colunaTabela"> <label>CNPJ:</label> </td>
-											<td> <input size="18" value="{{ urbano.nrcnpj }}" id="cnpj" name="nrcnpj" /> </td> </tr>
+											<td> <input required="required" size="18" value="{{ urbano.nrcnpj }}" id="cnpj" name="nrcnpj" /> </td> </tr>
 										<tr> <td class="colunaTabela" title="Bairro / Distrito / Povoado / Vila"> <label>Bairro/Dist./Pov./Vila:</label> </td>
-											<td> <input value="{{ urbano.nmpovoado }}" name="nmpovoado" /> </td> </tr>
+											<td> <input required="required" value="{{ urbano.nmpovoado }}" name="nmpovoado" /> </td> </tr>
 										<tr> <td class="colunaTabela"> <label>Contrato:</label> </td>
 										   		<td>
-										   			<select name="tbcontrato" style="width: 200px">
+										   			<select required="required" name="tbcontrato" style="width: 200px">
 										   				{% for obj in contrato %}
 															{% if obj.id == urbano.tbcontrato.id %}
 																<option selected="selected" value="{{ obj.id }}">{{ obj.nrcontrato }}</option>
@@ -72,7 +72,7 @@
 										</tr>
 										<tr> <td class="colunaTabela"> <label>Situacao GEO:</label> </td>
 										   		<td>
-										   			<select name="tbsituacaogeo" style="width: 200px">
+										   			<select name="tbsituacaogeo" required="required" style="width: 200px">
 										   				{% for obj in situacaogeo %}
 															{% if obj.id == urbano.tbsituacaogeo.id %}
 																<option selected="selected" value="{{ obj.id }}">{{ obj.nmsituacaogeo }}</option>
@@ -96,7 +96,7 @@
 											<td> <input value="{{ urbano.nrdomicilios|default:'' }}" onkeypress="return SomenteNumeroOK(event, this);" name="nrdomicilios" /> </td> </tr>
 										<tr> <td class="colunaTabela"> <label>Pregao:</label> </td>
 										   		<td>
-										   			<select name="tbpregao" style="width: 200px">
+										   			<select name="tbpregao" style="width: 200px" required="required">
 										   				<option value="">-- Selecione o Pregao --</option>
 														{% for obj in pregao %}
 															{% if obj.id == urbano.tbpregao.id %}
@@ -113,7 +113,7 @@
 										</tr>
 										<tr> <td class="colunaTabela"> <label>Gleba:</label> </td>
 										   		<td>
-										   			<select name="tbgleba" style="width: 200px">
+										   			<select required="required" name="tbgleba" style="width: 200px">
 										   				{% for obj in gleba %}
 															{% if obj.id == base.tbgleba.id %}
 																<option selected="selected" value="{{ obj.id }}">{{ obj.nmgleba }}</option>
@@ -129,7 +129,7 @@
 										</tr>
 										<tr> <td class="colunaTabela"> <label>Municipio:</label> </td>
 										   		<td>
-										   			<select name="tbmunicipio" style="width: 200px">
+										   			<select name="tbmunicipio" required="required" style="width: 200px">
 														{% for obj in municipio %}
 															{% if obj.id == base.tbmunicipio.id %}
 																<option selected="selected" value="{{ obj.id }}">{{ obj.nome_mun }}</option>
@@ -152,8 +152,8 @@
 										   			{{ base.tbetapaatual.nmfase }}
 												</td>
 										</tr>
-										<tr> <td class="colunaTabela"> <label>Data Abertura:</label> </td><td> <input size="9" value="{{ dtaberturaprocesso }}" id="date" name="dtaberturaprocesso" /> </td> </tr>
-										<tr> <td class="colunaTabela"> <label>Data Titulacao:</label> </td><td> <input size="9" value="{{ dttitulacao }}" id="date2" name="dttitulacao" /> </td> </tr>
+										<tr> <td class="colunaTabela"> <label>Data Abertura:</label> </td><td> <input size="9" required="required" value="{{ dtaberturaprocesso }}" id="date" name="dtaberturaprocesso" /> </td> </tr>
+										<tr> <td class="colunaTabela"> <label>Data Titulação:</label> </td><td> <input size="9" value="{{ dttitulacao }}" id="date2" name="dttitulacao" /> </td> </tr>
 									{% if base.tbclassificacaoprocesso.id == 2 %}
 										<tr> <td class="colunaTabela"> <label>Classificacao:</label> </td>
 										   		<td>

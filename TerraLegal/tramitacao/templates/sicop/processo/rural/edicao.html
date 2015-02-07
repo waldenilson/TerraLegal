@@ -56,7 +56,7 @@
 										<td class="colunaTabela"> <label>Número:</label></td>
 										<td>
 											{% if perms.sicop.processo_edicao_numero %}
-												<input name="tbprocessobase" size="17" value="{{base.nrprocesso}}" style="width:150px" id="processo"/>
+												<input required="required" name="tbprocessobase" size="17" value="{{base.nrprocesso}}" style="width:150px" id="processo"/>
 											{% else %}
 												<input name="tbprocessobase" size="17" value="{{base.nrprocesso}}" readonly style="width:150px" id="processo" />
 											{% endif %}
@@ -82,7 +82,7 @@
 										<tr> 
 											<td class="colunaTabela"> <label>Gleba:</label> </td>
 										   	<td>
-										   		<select name="tbgleba" style="width: 200px">
+										   		<select required="required" name="tbgleba" style="width: 200px">
 										   			{% for obj in gleba %}
 														{% if obj.id == base.tbgleba.id %}
 															<option selected="selected" value="{{ obj.id }}">{{ obj.nmgleba }}</option>
@@ -98,7 +98,7 @@
 										</tr>
 										<tr> <td class="colunaTabela"> <label>Municipio:</label> </td>
 										   		<td>
-										   			<select name="tbmunicipio" style="width: 200px">
+										   			<select required="required" name="tbmunicipio" style="width: 200px">
 										   				<option value="">-- Selecione um Municipio --</option>
 														{% for obj in municipio %}
 															{% if obj.id == base.tbmunicipio.id %}
@@ -111,9 +111,9 @@
 												</td>
 										</tr>
 										<tr> <td class="colunaTabela"> <label>Nome do Requerente:</label> </td>
-											<td> <input size="40" value="{{ rural.nmrequerente }}" name="nmrequerente" /> </td> </tr>
+											<td> <input required="required" size="40" value="{{ rural.nmrequerente }}" name="nmrequerente" /> </td> </tr>
 										<tr> <td class="colunaTabela"> <label>CPF do Requerente:</label> </td>
-											<td> <input size="15" value="{{ rural.nrcpfrequerente }}" id="cpf" name="nrcpfrequerente" /> </td> </tr>
+											<td> <input required="required" size="15" value="{{ rural.nrcpfrequerente }}" id="cpf" name="nrcpfrequerente" /> </td> </tr>
 										<tr> <td class="colunaTabela"> <label>Nome do Conjuge:</label> </td>
 											<td> <input size="40" value="{{ rural.nmconjuge }}" name="nmconjuge" /> </td> </tr>
 										<tr> <td class="colunaTabela"> <label>CPF do Conjuge:</label> </td>
@@ -136,20 +136,22 @@
 											<td class="colunaTabela"> <label>Endereço:</label> </td>
 											<td> <textarea name="nmendereco" rows="4" cols="30">{{base.nmendereco|default:''}}</textarea></td> 
 										</tr>
-										<tr> <td class="colunaTabela"> <label>Municipio do domicilio:</label> </td>
+						
+										<tr> <td class="colunaTabela"> <label>Municipio do domicílio:</label> </td>
 										   		<td>
-										   			<select name="tbmunicipiodomicilio" style="width: 200px" value="1">
-										   				<option value="">-- Selecione um Municipio --</option>
-														{% for obj in municipio %}
+													<input size="40" name="tbmunicipiodomicilio" value="{{ base.tbmunicipiodomicilio.nome_mun }},{{base.tbmunicipiodomicilio.uf}}" list="municipios" />
+													<datalist id="municipios">
+														{% for obj in municipiodomicilio %}
 															{% if obj.id == base.tbmunicipiodomicilio.id %}
-																<option selected="selected" value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+																<option selected="selected" value="{{ obj.nome_mun }},{{obj.uf}}"/>
 															{% else %}
-																<option value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+																<option value="{{ obj.nome_mun }},{{obj.uf}}"/>
 															{% endif %}
 														{% endfor %}
-													</select>
+													</datalist>
 												</td>
 										</tr>
+						
 <!--
 			 						    {% if fases and perms.sicop.etapa_checklist_posterior %}
 										<tr>

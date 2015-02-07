@@ -6,12 +6,12 @@
 			<table>
 				<tr> 
 					<td class="colunaTabela"> <label>Processo:</label> </td>
-					<td> <input size="21" name="nrprocesso" id="processo" /> </td> 
+					<td> <input required="required" size="21" name="nrprocesso" id="processo" /> </td> 
 				</tr>
 				<tr> 
 					<td class="colunaTabela"> <label>Gleba:</label> </td>
 				   	<td>
-				   		<select name="tbgleba" style="width: 200px">
+				   		<select required="required" name="tbgleba" style="width: 200px">
 				   			<option value="">-- Selecione uma Gleba --</option>
 							{% for obj in gleba %}
 								<option value="{{ obj.id }}">{{ obj.nmgleba }}</option>
@@ -24,7 +24,7 @@
 				</tr>
 				<tr> <td class="colunaTabela"> <label>Municipio do Imóvel:</label> </td>
 				   		<td>
-				   			<select name="tbmunicipio" style="width: 200px">
+				   			<select required="required" name="tbmunicipio" style="width: 200px">
 								<option value="">-- Selecione um Municipio --</option>
 								{% for obj in municipio %}
 									<option value="{{ obj.id }}">{{ obj.nome_mun }}</option>
@@ -33,16 +33,16 @@
 						</td>
 				</tr>
 				<tr> <td class="colunaTabela"> <label>Nome do Requerente:</label> </td>
-					<td> <input size="55" name="nmrequerente" /> </td> </tr>
+					<td> <input required="required" size="55" name="nmrequerente" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>CPF do Requerente:</label> </td>
-					<td> <input size="15" id="cpf" name="nrcpfrequerente" /> </td> </tr>
+					<td> <input required="required" size="15" id="cpf" name="nrcpfrequerente" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Nome do Cônjuge:</label> </td>
 					<td> <input size="55" name="nmconjuge" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>CPF do Conjuge:</label> </td>
 					<td> <input size="15" id="cpf2" name="nrcpfconjuge" /> </td> </tr>
 				<tr> <td class="colunaTabela"> <label>Caixa:</label> </td>
 				   		<td>
-				   			<select name="tbcaixa" style="width: 200px">
+				   			<select required="required" name="tbcaixa" style="width: 200px">
 								<option value="">-- Selecione uma Caixa --</option>
 								{% for obj in caixa %}
 									<option value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
@@ -68,12 +68,12 @@
 
 				<tr> <td class="colunaTabela"> <label>Municipio do domicílio:</label> </td>
 				   		<td>
-				   			<select name="tbmunicipiodomicilio" style="width: 200px">
-								<option value="">-- Selecione um Municipio --</option>
-								{% for obj in municipio %}
-									<option value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+							<input size="40" name="tbmunicipiodomicilio" list="municipios" />
+							<datalist id="municipios">
+								{% for obj in municipiodomicilio %}
+									<option value="{{ obj.nome_mun }},{{obj.uf}}"/>
 								{% endfor %}
-							</select>
+							</datalist>
 						</td>
 				</tr>
 				<tr> <td class="colunaTabela"> <label>Contato:</label> </td>
