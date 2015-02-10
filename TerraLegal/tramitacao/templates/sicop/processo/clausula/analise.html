@@ -50,12 +50,12 @@
 
 								<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">{{ obj.nmrequerente }}</td>
 								
-								<td onclick="editarID('/sicop/processo/edicao/{{ obj.proc.tbprocessobase.id }}');" class="colunaTabelaConsulta">
-										{{ obj.proc.tbprocessobase.nrprocesso }}
+								<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">
+										{{ obj.tbprocessobase.nrprocesso }}
 									</td>
 
-								<td onclick="editarID('/sicop/processo/edicao/{{ obj.proc.tbprocessobase.id }}');" class="colunaTabelaConsulta">
-										{{ obj.proc.tbprocessobase.tbcaixa.nmlocalarquivo }}
+								<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">
+										{{ obj.tbprocessobase.tbcaixa.nmlocalarquivo }}
 									</td>
 							</tr>
 						{% endfor %}

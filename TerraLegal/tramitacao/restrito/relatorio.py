@@ -192,7 +192,6 @@ def peca_gleba(request):
     #todas as pecas
     #    pecas = Tbpecastecnicas.objects.all()
     for g in glebas:
-        print 'Gleba: '+str(g.nmgleba)
         qtd = 0
         for p in pecas:
             if p.tbgleba.id == g.id:
@@ -939,7 +938,7 @@ def em_programacao_p80(request):
 #    if request.method == "POST":
         #CONSULTA ORDENADA E/OU BASEADA EM FILTROS DE PESQUISA
         consulta = []
-        checks = Tbchecklistprocessobase.objects.filter( tbprocessobase__tbtipoprocesso__id = 2, tbprocessobase__tbclassificacaoprocesso__id = 1, tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id, bl_em_programacao = True, tbchecklist__blprogramacao = True, blnao_obrigatorio = False, blsanado = False ).order_by('tbprocessobase')
+        checks = Tbchecklistprocessobase.objects.filter( tbprocessobase__tbtipoprocesso__id = 2, tbprocessobase__tbclassificacaoprocesso__id = 1, tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id, bl_em_programacao = True, tbchecklist__blprogramacao = True ).order_by('tbprocessobase')
         for c in checks:
             consulta.append( Tbprocessoclausula.objects.filter(tbprocessobase__id = c.tbprocessobase.id)[0] )
 
@@ -1005,6 +1004,8 @@ def em_programacao_p80(request):
                 sheet.getCell(12, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbetapaatual.titulo)
             else:
                 sheet.getCell(12, x+2).setAlignHorizontal('center').stringValue('')
+            x += 1
+        
         #GERACAO DO DOCUMENTO  
         relatorio_ods_base(ods, planilha_relatorio)
         response = HttpResponse(mimetype=ods.mimetype.toString())
@@ -1080,6 +1081,8 @@ def prazos_notificacoes_p80(request):
             sheet.getCell(7, x+2).setAlignHorizontal('center').stringValue(obj['etapa'])
             sheet.getCell(8, x+2).setAlignHorizontal('center').stringValue(obj['check'])
             sheet.getCell(9, x+2).setAlignHorizontal('center').stringValue(obj['dias'])
+            x += 1
+
         #GERACAO DO DOCUMENTO  
         relatorio_ods_base(ods, planilha_relatorio)
         response = HttpResponse(mimetype=ods.mimetype.toString())

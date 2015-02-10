@@ -94,7 +94,7 @@
 
 										<tr> 
 											<td class="colunaTabela"> <label>Data de Nasc.:</label> </td>
-											<td> <input value="{{ clausula.dtnascimento }}" size="9" id="date3" name="dtnascimento" /> </td> 
+											<td> <input value="{{ clausula.dtnascimento|date:'d/m/Y' }}" size="9" id="date3" name="dtnascimento" /> </td> 
 										</tr>
 
 										<tr> <td class="colunaTabela"> <label>Prioridade:</label> </td>

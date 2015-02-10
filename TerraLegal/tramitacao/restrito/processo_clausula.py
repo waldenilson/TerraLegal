@@ -36,32 +36,22 @@ def analise(request):
         etapa = request.POST['etapa']
 
         res = Tbprocessoclausula.objects.filter(
-            tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id
+            tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id, tbprocessobase__tbclassificacaoprocesso__id = 1, tbprocessobase__tbetapaatual__id = etapa
             ).order_by('dtnascimento')
         for obj in res:
             if obj.dtnascimento is not None:
-                if ((datetime.datetime.now() - datetime.datetime.strptime(obj.dtnascimento,'%d/%m/%Y') ).days)/365 >= 60:
+                if ((datetime.datetime.now().date() - obj.dtnascimento ).days)/365 >= 60:
                     consulta.append( obj )
 
         res = Tbprocessoclausula.objects.filter(
-            tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id
+            tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id, tbprocessobase__tbclassificacaoprocesso__id = 1, tbprocessobase__tbetapaatual__id = etapa
             ).order_by('dtrequerimento')
         for obj in res:
             if obj.dtnascimento is not None:
-                if ((datetime.datetime.now() - datetime.datetime.strptime(obj.dtnascimento,'%d/%m/%Y') ).days)/365 < 60:
+                if ((datetime.datetime.now().date() - obj.dtnascimento ).days)/365 < 60:
                     consulta.append( obj )
             else:
                 consulta.append(obj)
-
-        # criterios de ordenacao:
-        # se idade >= 60:
-        # data de nascimento, data requerimento
-        # data requerimento
-
-        prioridade_idade = []
-        prioridade_requerimento = []
-
-
 
     return render_to_response('sicop/processo/clausula/analise.html',{'consulta':consulta,'etapas':etapas}, context_instance = RequestContext(request))    
 
@@ -248,9 +238,8 @@ def edicao(request, id):
                                        blgeoimovel = request.POST.get('blgeoimovel',False)
                                        )
 
-            print request.POST['dtnascimento']
             try:
-                f_clausula.dtnascimento = request.POST['dtnascimento']#datetime.datetime.strptime( request.POST['dtnascimento'], "%d/%m/%Y")
+                f_clausula.dtnascimento = datetime.datetime.strptime( request.POST['dtnascimento'], "%d/%m/%Y")
             except:
                 f_clausula.dtnascimento = None
 
