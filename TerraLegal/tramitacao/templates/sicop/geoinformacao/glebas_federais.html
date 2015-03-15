@@ -1,0 +1,106 @@
+{% extends "core/base/index.html" %} 
+{% load staticfiles %} 
+
+{% block breadcumbs %}
+	Geoinformações | Glebas Federais
+{% endblock %}
+
+{% block titulo %}
+	Glebas Federais
+{% endblock %}
+
+{% block customhead %}		
+
+		<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+		<script>
+
+			var map;
+			var infowindow = new google.maps.InfoWindow();
+
+			$(document).ready(function() {
+			        $(function() {
+
+					    map = new google.maps.Map(document.getElementById('map'), 
+						    {
+						        zoom: 7,
+						        center: new google.maps.LatLng( -3.886436490787712, -45.2685546875 ),
+						        mapTypeId: google.maps.MapTypeId.HYBRID,
+						        streetViewControl: false,
+						        panControl: false 
+						    }
+						);
+
+			        	{% for multipolygon in geo %}
+
+						  var coords = [];
+					        	{% for polygon in multipolygon.geom %}
+						        	{% for linearring in polygon %}
+							        	{% for point in linearring %}
+							        	  coords[coords.length] = new google.maps.LatLng(
+							        	  	'{{point}}'.replace(')','').replace('(','').split(',')[1], 
+							        	  	'{{point}}'.replace(')','').replace('(','').split(',')[0]);
+							        	{% endfor %}
+						        	{% endfor %}
+					        	{% endfor %}
+
+						  // Construct the polygon.
+						  poligono = new google.maps.Polygon({
+						    paths: coords,
+						    strokeColor: 'yellow',
+						    strokeOpacity: 0.8,
+						    strokeWeight: 2,
+						    fillColor: 'yellow',
+						    fillOpacity: 0.35
+						  });
+
+						  google.maps.event.addListener(poligono, 'mouseover', function(event) {
+						  	infowindow.setContent('{{multipolygon.nome3}}');
+						    infowindow.open(map, this);
+						    infowindow.setPosition(
+						    	new google.maps.LatLng( 
+						    		event.latLng.lat(), 
+						    		event.latLng.lng() ));
+						  });
+						  google.maps.event.addListener(poligono, 'mouseout', function() {
+						    infowindow.close();
+						  });
+
+						  poligono.setMap(map);
+
+			        	{% endfor %}
+
+				        });
+			});
+
+		</script>
+
+	<style>
+		#map {width: 660px; height: 450px}
+	</style>
+{% endblock%}
+
+{% block index %}
+
+<!--========================================================================== Content Part 1 =====================================================================================-->
+
+<div>
+
+		<!--end of grid-10-->
+		<div id="accordion" style="color:black;width:100%;font-size:11px">
+			<h3>
+				{% block subtitulo %}
+					GLEBAS PÚBLICAS FEDERAIS DO MARANHÃO ( DADOS DO MINISTÉRIO DO MEIO AMBIENTE )
+				{% endblock %}
+			</h3>
+			
+
+			<div id="map" style="margin:2px"></div>	
+						
+		</div>
+		
+</div>
+<!--end of wrapper-->
+
+
+{% endblock %}

@@ -25,6 +25,10 @@ urlpatterns = patterns('',
     url(r'^$', project+'.web.views_publicas.inicio'),
     url(r'^web/estatisticas/', project+'.web.estatisticas.estatisticas'),
     
+
+    # GEOINFORMACOES
+    url(r'^geo/glebas_federais/', project+'.tramitacao.restrito.geoinformacao.glebas_federais'),
+    
     #INIT------------------------------SICOP---------------------------------------------------------------------------------
 
     # ACESSO RESTRITO SICOP PROCESSO
@@ -60,6 +64,7 @@ urlpatterns = patterns('',
     url(r'^sicop/processo/urbano/edicao/(?P<id>\d+)/', 'TerraLegal.tramitacao.restrito.processo_urbano.edicao'),
     # PROCESSO CLAUSULA RESOLUTIVA
     url(r'^sicop/processo/clausula/analise/', 'TerraLegal.tramitacao.restrito.processo_clausula.analise'),
+    url(r'^sicop/processo/clausula/programacao_p80/', 'TerraLegal.tramitacao.restrito.processo_clausula.programacao_p80'),
     url(r'^sicop/processo/clausula/notificacao/', 'TerraLegal.tramitacao.restrito.processo_clausula.notificacao'),
     url(r'^sicop/processo/clausula/consulta/', 'TerraLegal.tramitacao.restrito.processo_clausula.consulta'),
     url(r'^sicop/processo/clausula/cadastro/', 'TerraLegal.tramitacao.restrito.processo_clausula.cadastro'),
@@ -245,7 +250,7 @@ urlpatterns = patterns('',
     url(r'^sicop/relatorio/etapa/p80', 'TerraLegal.tramitacao.restrito.relatorio.etapa_p80'),
     url(r'^sicop/relatorio/etapa/urbano', 'TerraLegal.tramitacao.restrito.relatorio.etapa_urbano'),
     
-    url(r'^sicop/relatorio/em_programacao_p80', 'TerraLegal.tramitacao.restrito.relatorio.em_programacao_p80'),
+    url(r'^sicop/relatorio/programacao_p80', 'TerraLegal.tramitacao.restrito.relatorio.em_programacao_p80'),
     url(r'^sicop/relatorio/prazos_notificacoes_p80', 'TerraLegal.tramitacao.restrito.relatorio.prazos_notificacoes_p80'),
     url(r'^sicop/relatorio/titulo', 'TerraLegal.tramitacao.restrito.relatorio.titulos'),
     

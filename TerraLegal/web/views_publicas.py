@@ -20,6 +20,7 @@ import json
 import pprint
 from TerraLegal.tramitacao.models import AuthUser, Tbdivisao
 from TerraLegal.core.funcoes import verificaDivisaoUsuario
+from TerraLegal.tramitacao.models import Glebaspublicas
 
 #from TerraLegal.funcoes import verificaDivisaoUsuario
    
@@ -30,9 +31,9 @@ def inicio(request):
         verificaDivisaoUsuario(request) 
     return render(request, "index.html")
 
-def equipe(request):        
-    return render(request, "equipe.html")
-    
+def equipe(request):
+	return render_to_response('equipe.html',{},context_instance = RequestContext(request))   
+
 def organizacao(request):        
     return render(request, "organizacao.html")
     

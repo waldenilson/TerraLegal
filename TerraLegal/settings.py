@@ -9,7 +9,8 @@ TEMPLATE_DEBUG = DEBUG
 DEBUG = TEMPLATE_DEBUG = True
 DATABASES = {
         'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', 
+        #'ENGINE': 'django.db.backends.postgresql_psycopg2', 
+        'ENGINE': 'django.contrib.gis.db.backends.postgis', 
         'NAME': 'dbSicop',                      
         'USER': 'admin',
         'PASSWORD': '123456',
@@ -164,6 +165,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    'django.contrib.gis',
     'odslib',
     'webodt',
     'lxml',

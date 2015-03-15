@@ -18,15 +18,15 @@
 		<script src="{% static "js/jquery-ui.js" %}"></script>
 		<script src="{% static "js/jquery_maskedinput.js" %}"></script>
 		<script src="{% static "js/js.js" %}"></script>
-		
+
+		{% block customhead %} {% endblock %}
+
 		<!--[if lt IE 9]>
 			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 	
 	</head>
-	
 	<body>
-		
 		<!--
 		<div id="barra-brasil" style="background:#7F7F7F; height: 20px; padding:0 0 0 10px;display:block;"> 
 			<ul id="menu-barra-temp" style="list-style:none;">
