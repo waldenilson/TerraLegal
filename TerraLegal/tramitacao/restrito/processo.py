@@ -29,8 +29,7 @@ from django.db.models import Q
 from operator import  itemgetter, attrgetter
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Count
-
-
+from TerraLegal.tramitacao.models import Glebaspublicas
 
 nome_relatorio      = "relatorio_processo"
 response_consulta  = "/sicop/processo/consulta/"
@@ -595,6 +594,7 @@ def def_fluxo( tp ):
 
 @permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
+
     base = get_object_or_404(Tbprocessobase, id=id)
     carregarTbAuxProcesso(request, base.tbcaixa.tbtipocaixa.nmtipocaixa)
     carregarTbAuxFuncoesProcesso(request, base)
