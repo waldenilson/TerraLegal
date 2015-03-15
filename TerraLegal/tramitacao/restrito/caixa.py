@@ -209,6 +209,7 @@ def relatorio_ods(request):
         sheet.getCell(4, 6).setAlignHorizontal('center').stringValue( 'Municipio' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getCell(5, 6).setAlignHorizontal('center').stringValue( 'Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getCell(6, 6).setAlignHorizontal('center').stringValue( 'Tipo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(7, 6).setAlignHorizontal('center').stringValue( 'Ultima Caixa' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getRow(1).setHeight('20pt')
         sheet.getRow(2).setHeight('20pt')
         sheet.getRow(6).setHeight('20pt')
@@ -220,6 +221,7 @@ def relatorio_ods(request):
         sheet.getColumn(4).setWidth("2.5in")
         sheet.getColumn(5).setWidth("2.5in")
         sheet.getColumn(6).setWidth("2.5in")
+        sheet.getColumn(7).setWidth("2.5in")
             
         #DADOS DA CONSULTA
         x = 5
@@ -236,12 +238,16 @@ def relatorio_ods(request):
             if obj.tbprocessobase.tbtipoprocesso.tabela == 'tbprocessourbano':
                 sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.nmpovoado)    
                 sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(obj.nrcnpj)
-                x += 1
             else:
                 sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.nmrequerente)    
                 sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(obj.nrcpfrequerente)
-                x += 1
             
+            mov = Tbmovimentacao.objects.filter( tbprocessobase__id = obj.tbprocessobase.id ).order_by("-id")[:1]
+            if mov:
+                sheet.getCell(7, x+2).setAlignHorizontal('center').stringValue(mov[0].tbcaixa_id_origem.nmlocalarquivo)
+            x += 1
+                
+
         #GERACAO DO DOCUMENTO  
         relatorio_ods_base(ods, planilha_relatorio)
         response = HttpResponse(mimetype=ods.mimetype.toString())
