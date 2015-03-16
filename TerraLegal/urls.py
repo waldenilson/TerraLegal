@@ -28,6 +28,7 @@ urlpatterns = patterns('',
 
     # GEOINFORMACOES
     url(r'^geo/glebas_federais/', project+'.tramitacao.restrito.geoinformacao.glebas_federais'),
+    url(r'^geo/openlayers/', project+'.tramitacao.restrito.geoinformacao.openlayers'),
     
     #INIT------------------------------SICOP---------------------------------------------------------------------------------
 
