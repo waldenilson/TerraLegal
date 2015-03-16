@@ -74,7 +74,7 @@ def consulta(request):
     lista = lista.order_by( 'nmlocalarquivo' )
 
     
-#gravando na sessao o resultado da consulta preparando para o relatorio/pdf
+    #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session[nome_relatorio] = lista
     return render_to_response('sicop/caixa/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
@@ -123,8 +123,8 @@ def edicao(request, id):
         if divisao.id <> AuthUser.objects.get(pk = request.user.id).tbdivisao.id:
             return HttpResponseRedirect('/excecoes/permissao_negada/')
         form = FormCaixa(instance=instance)
-#retornar o conteudo da caixa de acordo com o tipocaixa
-#processos = Tbprocessobase.objects.all().filter( tbcaixa__id = id )   
+    #retornar o conteudo da caixa de acordo com o tipocaixa
+    #processos = Tbprocessobase.objects.all().filter( tbcaixa__id = id )   
 
     p_rural = Tbprocessorural.objects.filter( tbprocessobase__tbcaixa__id = id ).order_by( 'nmrequerente' )
     p_clausula = Tbprocessoclausula.objects.filter( tbprocessobase__tbcaixa__id = id ).order_by( 'nmrequerente' )
@@ -199,17 +199,19 @@ def relatorio_ods(request):
             sheet.getCell(1, 6).setAlignHorizontal('center').stringValue( 'Povoado' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         else:
             sheet.getCell(1, 6).setAlignHorizontal('center').stringValue( 'Requerente' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
-        sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'Principal / Anexo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         
         if processos[0].tbprocessobase.tbtipoprocesso.tabela == 'tbprocessourbano':
-            sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'CNPJ' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+            sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'CNPJ' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         else:
-            sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'CPF' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
-    
-        sheet.getCell(4, 6).setAlignHorizontal('center').stringValue( 'Municipio' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
-        sheet.getCell(5, 6).setAlignHorizontal('center').stringValue( 'Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
-        sheet.getCell(6, 6).setAlignHorizontal('center').stringValue( 'Tipo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
-        sheet.getCell(7, 6).setAlignHorizontal('center').stringValue( 'Ultima Caixa' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+            sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'CPF' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        
+        sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'Principal | Anexo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        
+        sheet.getCell(4, 6).setAlignHorizontal('center').stringValue( 'Tipo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(5, 6).setAlignHorizontal('center').stringValue( 'Imovel / Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(6, 6).setAlignHorizontal('center').stringValue( 'Endereco' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(7, 6).setAlignHorizontal('center').stringValue( 'Contato' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(8, 6).setAlignHorizontal('center').stringValue( 'Ultima Caixa' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getRow(1).setHeight('20pt')
         sheet.getRow(2).setHeight('20pt')
         sheet.getRow(6).setHeight('20pt')
@@ -220,31 +222,47 @@ def relatorio_ods(request):
         sheet.getColumn(3).setWidth("2in")
         sheet.getColumn(4).setWidth("2.5in")
         sheet.getColumn(5).setWidth("2.5in")
-        sheet.getColumn(6).setWidth("2.5in")
-        sheet.getColumn(7).setWidth("2.5in")
+        sheet.getColumn(6).setWidth("3in")
+        sheet.getColumn(7).setWidth("2in")
+        sheet.getColumn(8).setWidth("2.5in")
             
         #DADOS DA CONSULTA
         x = 5
         for obj in processos:
             sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.nrprocesso)
-            if obj.tbprocessobase.tbclassificacaoprocesso.id == 2:
-                sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue('ANEXO')
-            else:
-                sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue('')
-            
-            sheet.getCell(4, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbmunicipio.nome_mun)
-            sheet.getCell(5, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbgleba.nmgleba)
-            sheet.getCell(6, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbtipoprocesso.nome)
+
+            nome = ''
+            cpf = ''
             if obj.tbprocessobase.tbtipoprocesso.tabela == 'tbprocessourbano':
-                sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.nmpovoado)    
-                sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(obj.nrcnpj)
+                nome += obj.nmpovoado    
+                cpf += obj.nrcnpj
+            elif obj.tbprocessobase.tbtipoprocesso.tabela == 'tbprocessorural':
+                nome += obj.nmrequerente    
+                cpf += obj.nrcpfrequerente
             else:
-                sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.nmrequerente)    
-                sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(obj.nrcpfrequerente)
+                if obj.nminteressado:
+                    nome += obj.nminteressado+" (Interessado) "
+                    cpf += obj.nrcpfinteressado+" (Interessado) "
+                if obj.nmrequerente:
+                    cpf += obj.nrcpfrequerente+" (Titulado)"
+                    nome += obj.nmrequerente+" (Titulado)"
+
+            sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(nome)    
+            sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue(cpf)
+
+            if obj.tbprocessobase.tbclassificacaoprocesso.id == 2:
+                sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue('ANEXO')
+            else:
+                sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue('PRINCIPAL')
+            
+            sheet.getCell(4, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbtipoprocesso.nome)
+            sheet.getCell(5, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbmunicipio.nome_mun+" / "+obj.tbprocessobase.tbgleba.nmgleba)
+            sheet.getCell(6, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.nmendereco)
+            sheet.getCell(7, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.nmcontato)
             
             mov = Tbmovimentacao.objects.filter( tbprocessobase__id = obj.tbprocessobase.id ).order_by("-id")[:1]
             if mov:
-                sheet.getCell(7, x+2).setAlignHorizontal('center').stringValue(mov[0].tbcaixa_id_origem.nmlocalarquivo)
+                sheet.getCell(8, x+2).setAlignHorizontal('center').stringValue(mov[0].tbcaixa_id_origem.nmlocalarquivo)
             x += 1
                 
 
