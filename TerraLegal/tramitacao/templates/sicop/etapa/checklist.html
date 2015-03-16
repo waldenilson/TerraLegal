@@ -32,9 +32,9 @@
 				<table>
 				   <tr> 
 				   		<td class="colunaTabela"> <label>Processo:</label> </td>
-				   		<td><a href="/sicop/processo/edicao/{{processo.id}}">{{processo.nrprocesso}}</a>
+				   		<td><a href="/sicop/processo/edicao/{{processo.id}}">{{processo.nrprocesso}} - {{etapa.tbtipoprocesso.nome}}</a>
 				   	</tr>
-				   <tr> <td class="colunaTabela"> <label>Etapa:</label> </td><td>{{etapa.nmfase}} - {{etapa.tbtipoprocesso.nome}}</tr>
+				   <tr> <td class="colunaTabela"> <label>Etapa:</label> </td><td>{{etapa.nmfase}}</tr>
 				   <tr>
 				   	<td class="colunaTabela" colspan="2">
 				   		<hr/>				 
@@ -102,10 +102,10 @@
 
 					   <tr> <td class="colunaTabela"> <label>Próxima Etapa:</label> </td>
 					   	<td>
-					   		<select name="etapaposterior"  style="width:250px">
+					   		<select name="etapaposterior"  style="width:200px">
 								<option value="">-- SELECIONE --</option>
 								{% for obj in posteriores %}
-									<option value="{{ obj.tbposterior.id }}">{{obj.tbposterior.nmfase}} - {{obj.tbposterior.tbtipoprocesso.nome}}</option>
+									<option value="{{ obj.tbposterior.id }}">{{obj.tbposterior.nmfase}}</option>
 								{% endfor %}
 							</select>		
 					   	</td>						
