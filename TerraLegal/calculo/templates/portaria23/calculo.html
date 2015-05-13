@@ -81,6 +81,7 @@
 		    		
 
 				<form method="post" action="/calculo/geraGRU/{{ id }}/">
+					{% csrf_token %}
 					<td><input class="button_green" style="margin-right: 4px" type="submit" value="GERAR GRU"/></td>
 		    	</form>
 

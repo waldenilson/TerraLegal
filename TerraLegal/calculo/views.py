@@ -394,7 +394,7 @@ def geraPDF(request,data):
     return HttpResponse(pdf, mimetype='application/pdf')
 
 #USAR esta view para poder dividir o codigo e usar o botao GERAR GRU para ser direcionado para ca
-def geraGRU(HttpRequest,id):
+def geraGRU(request,id):
     print "geraGRU id",id
     instance = get_object_or_404(Tbextrato, id=id)
     calculotitulo = Tbcalculotitulo.objects.all().filter(tbextrato__numero_processo__icontains = instance.numero_processo).order_by('parcela')
@@ -403,9 +403,9 @@ def geraGRU(HttpRequest,id):
     
     pdf = []
 
-    print "metodo", HttpRequest.method
-    print HttpRequest.path
-    print HttpRequest.POST['teste']     
+#    print "metodo", HttpRequest.method
+#    print HttpRequest.path
+#    print HttpRequest.POST['teste']     
 
     if calculotitulo:
         for obj in calculotitulo:
