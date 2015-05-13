@@ -11,7 +11,7 @@ DATABASES = {
         'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', 
         #'ENGINE': 'django.contrib.gis.db.backends.postgis', 
-        'NAME': 'sicop',                      
+        'NAME': 'dbSicop',                      
         'USER': 'admin',
         'PASSWORD': '123456',
         'HOST': 'localhost',                      

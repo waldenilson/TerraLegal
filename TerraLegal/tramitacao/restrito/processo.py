@@ -35,7 +35,7 @@ from calendar import monthrange
 from datetime import datetime, timedelta
 import csv
 import sqlite3
-from TerraLegal.tramitacao.admin import list_json,export_to_sqlite_android, batimento_processo, buscar_processos_cpfs_abril_sigef, buscar_processos_sem_pecas_sicop_sigef
+from TerraLegal.tramitacao.admin import import_tr,list_json,export_to_sqlite_android, batimento_processo, buscar_processos_cpfs_abril_sigef, buscar_processos_sem_pecas_sicop_sigef
 
 nome_relatorio      = "relatorio_processo"
 response_consulta  = "/sicop/processo/consulta/"
@@ -45,8 +45,9 @@ planilha_relatorio  = "Processos"
 @permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consultaprocesso(request):
 
-    list_json()
+#    list_json()
 #    batimento_processo("/opt/tcu-processos.csv")
+#    import_tr("/opt/tr.csv")
 
     numero =  request.POST['processo_base'].replace('.','').replace('/','').replace('-','')
     if not numero:

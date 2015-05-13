@@ -39,7 +39,13 @@ class Tbcalculotitulo(models.Model):
     class Meta:
         db_table = 'tbcalculotitulo'
 
-
+class TbtrMensal(models.Model):
+    id = models.AutoField(primary_key=True)
+    valor = models.FloatField()
+    mes = models.IntegerField()
+    ano = models.IntegerField()
+    class Meta:
+        db_table = 'tbtr_mensal'
 
 class Tbextrato(models.Model):
     id_req = models.TextField(blank=True)

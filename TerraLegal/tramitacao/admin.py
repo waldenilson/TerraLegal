@@ -70,7 +70,37 @@ def diferenca_mes(d2, d1):
 
 
 def import_tr(csv_):
-    pass
+    trs = []
+    aux = []
+    with open(csv_, 'rb') as csvfile:
+        spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+        for row in spamreader:
+            aux.append(row)
+
+    lines = []
+    for l in aux:
+        #lines.append(l[0])
+        sp = l[0].split('|')
+        
+#        print "ano "+sp[0] + ", mes "+str(1)+", valor "+sp[1]
+        if sp[12] == '-':
+            obj = TbtrMensal( ano = sp[0], mes = 12, valor = None )
+        else:    
+            obj = TbtrMensal( ano = sp[0], mes = 12, valor = sp[12].replace(',','.') )
+        obj.save()
+
+                #obj = TbtrMensal(
+                #        ano = sp[0],
+                #        mes = x,
+                #        valor = s
+                #    )
+                #obj.save()
+        
+
+
+    print len(lines)
+    print lines
+
 
 def batimento_processo(csv_):
     procs = []
