@@ -27,7 +27,7 @@
 				<tr>
 					<td class="colunaTabela" style="text-align:left"> 
 						<input class="button_yellow" style="margin-right: 10px" type="submit" value="PESQUISAR" />
-						<a href="/sicop/calculo/tr_mensal/cadastro/"> <input class="button_green" value="NOVO" type="button" /> </a>
+						<a href="/calculo/tr_mensal/cadastro/"> <input class="button_green" value="NOVO" type="button" /> </a>
 					</td>
 				</tr>
 				<tr>
@@ -53,7 +53,7 @@
 				</tr>
 				{% if lista %}
 					{% for obj in lista %}
-						<tr onclick="editarID('/sicop/calculo/tr_mensal/edicao/{{ obj.id }}');">
+						<tr onclick="editarID('/calculo/tr_mensal/edicao/{{ obj.id }}');">
 							<td class="colunaTabelaConsulta">{{ obj.ano }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.mes }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.valor }}</td>
