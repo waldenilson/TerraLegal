@@ -8,8 +8,8 @@
 # into your database.
 from __future__ import unicode_literals
 
-from django.contrib.gis.db import models
-#from django.db import models
+#from django.contrib.gis.db import models
+from django.db import models
 from TerraLegal.servidor.models import Tbservidor
 
 class AuthGroup(models.Model):
@@ -472,7 +472,7 @@ class Glebaspublicas(models.Model):
     consulta6 = models.CharField(max_length=254, blank=True)
     assent_p7 = models.CharField(max_length=254, blank=True)
     data_dou8 = models.CharField(max_length=254, blank=True)
-    geom = models.MultiPolygonField(srid=4326, null=True, blank=True)
-    objects = models.GeoManager()
+    #geom = models.MultiPolygonField(srid=4326, null=True, blank=True)
+    #objects = models.GeoManager()
     class Meta:
         db_table = 'glebaspublicas'
