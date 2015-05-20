@@ -4,7 +4,7 @@ from django.template.context import RequestContext
 
 def glebas_federais(request):
 	geo = Glebaspublicas.objects.filter( sr4 = '12' )
-	return render_to_response('sicop/geoinformacao/glebas_federais.html',
+	return render_to_response('sicop/geoinformacao/kml.html',
 		{'geo':geo}, context_instance = RequestContext(request))
 
 def openlayers(request):

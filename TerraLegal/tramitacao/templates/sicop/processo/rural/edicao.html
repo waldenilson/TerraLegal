@@ -5,9 +5,53 @@
  Acesso Restrito | Processo Rural | Edicao 
 {% endblock %}
 
+
+{% block customhead %}
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+
+    <script>
+
+    	{% if kmls %}
+		
+			function initialize() {
+
+			  var mapOptions = {
+			    zoom: 11,
+			    mapTypeId: google.maps.MapTypeId.HYBRID,
+			    streetViewControl: false,
+			    panControl: false 
+			  }
+
+			  var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+	     		{% for kml in kmls %}
+
+				  var ctaLayer = new google.maps.KmlLayer({
+				    url: 'https://sigef.incra.gov.br/geo/parcela/kml/{{kml}}'
+				  });
+		
+				  ctaLayer.setMap(map);
+
+				{% endfor %}
+
+			}
+
+			google.maps.event.addDomListener(window, 'load', initialize);
+		
+		{% endif %}
+
+    </script>
+
+{% endblock %}
+
 {% block formulario %}
 
-<div id="map" style="margin-bottom:5px"></div>
+{% if kmls %}
+	<div id="map" style="margin-bottom:5px;width:100%;height:200px" ></div>
+	( Fonte: SIGEF - GEO )
+	<br/><br/>
+{% endif %}
 
 <div id="tabs" style="color:black;width:100%;font-size:11px">
 {% ifnotequal request.session.processo_saida "unico"  %}
@@ -40,9 +84,11 @@
 
 {% else %}
 {% endifnotequal%}
+
 <div id="tabs-1">
 	<form method="post" action="/sicop/processo/rural/edicao/{{ rural.id }}/">
 	{% csrf_token %}
+
 		<table style="width:100%">
 			<tbody>
 				<tr>

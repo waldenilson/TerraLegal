@@ -35,7 +35,10 @@ from calendar import monthrange
 from datetime import datetime, timedelta
 import csv
 import sqlite3
-from TerraLegal.tramitacao.admin import import_tr,list_json,export_to_sqlite_android, batimento_processo, buscar_processos_cpfs_abril_sigef, buscar_processos_sem_pecas_sicop_sigef
+from TerraLegal.tramitacao.admin import reader,import_tr,list_json,export_to_sqlite_android, batimento_processo, buscar_processos_cpfs_abril_sigef, buscar_processos_sem_pecas_sicop_sigef
+import urllib2
+from django.core import serializers
+import json
 
 nome_relatorio      = "relatorio_processo"
 response_consulta  = "/sicop/processo/consulta/"
@@ -47,7 +50,8 @@ def consultaprocesso(request):
 
 #    list_json()
 #    batimento_processo("/opt/tcu-processos.csv")
-#    import_tr("/opt/tr.csv")
+#    reader("/opt/ok.csv")
+#    export_to_sqlite_android('/opt/sicopsqlite.db')
 
     numero =  request.POST['processo_base'].replace('.','').replace('/','').replace('-','')
     if not numero:
@@ -680,9 +684,21 @@ def edicao(request, id):
             for obj in caixasdestino:
                 if obj.blativo and ( obj.tbtipocaixa.nmtipocaixa == 'SER' or obj.tbtipocaixa.nmtipocaixa == 'PAD' or obj.tbtipocaixa.nmtipocaixa == 'FT' or obj.tbtipocaixa.nmtipocaixa == 'ENT' ) :
                     tram.append( obj )
-    
+
+
+            # buscar parcelas do sigef pelo webservice do sigef
+            idkmls = []
+            try:
+                response = urllib2.urlopen('https://sigef.incra.gov.br/api/destinacao/parcelas/?cpf='+rural.nrcpfrequerente)
+                retorno = json.loads(response.read())
+                #jsonparcelas = serializers.serialize('json', html)
+                #print 'pagina: '+str(retorno['parcelas'])
+                for parcela in retorno['parcelas']:
+                    idkmls.append(parcela['id'])
+            except:
+                pass
             return render_to_response('sicop/processo/rural/edicao.html',
-                                      {'transicao':transicao,'fluxo':fluxo,'gleba':gleba,'fases':etapas,'etapa_atual':etapa_atual,
+                                      {'kmls':idkmls,'transicao':transicao,'fluxo':fluxo,'gleba':gleba,'fases':etapas,'etapa_atual':etapa_atual,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,'processo_principal':processo_principal,
                                        'base':base,'rural':rural,'peca':peca,'statustitulo':statustitulo,'posteriores':posteriores,
