@@ -8,7 +8,6 @@
 
 {% block customhead %}
 
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
 
     <script>
 
@@ -49,7 +48,35 @@
 
 {% if kmls %}
 	<div id="map" style="margin-bottom:5px;width:100%;height:200px" ></div>
-	( Fonte: SIGEF - GEO )
+	<table class="csstable">
+	<tbody>
+		<tr>
+			<td>Parcela</td>
+			<td>Imóvel</td>
+			<td>Município</td>
+			<td>Área (ha)</td>
+		</tr>
+		{% for p in parcelas %}
+			<tr>
+				<td>
+					{{p.parcela}}
+				</td>
+				<td>
+					{{p.imovel}}
+				</td>
+				<td>
+					{{p.nome}}
+				</td>
+				<td>
+					{{p.area}}
+				</td>
+			</tr>
+		{% endfor %}
+		</tr>
+	</tbody>
+</table>
+	<br/>
+	( Fonte: SIGEF - GEO ) - Total: {{total_area_sigef}} ha
 	<br/><br/>
 {% endif %}
 

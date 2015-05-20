@@ -688,17 +688,29 @@ def edicao(request, id):
 
             # buscar parcelas do sigef pelo webservice do sigef
             idkmls = []
+            parcelas = []
+            total_area_sigef = 0.0
             try:
                 response = urllib2.urlopen('https://sigef.incra.gov.br/api/destinacao/parcelas/?cpf='+rural.nrcpfrequerente)
                 retorno = json.loads(response.read())
                 #jsonparcelas = serializers.serialize('json', html)
-                #print 'pagina: '+str(retorno['parcelas'])
+                print 'pagina: '+str(retorno['parcelas'])
+                x = 0
                 for parcela in retorno['parcelas']:
+                    x +=1
+                    for mun in parcela['municipios']: 
+                        parc = dict()
+                        parc['parcela'] = 'Parcela '+str(x)
+                        parc['imovel'] = parcela['nome']
+                        parc['area'] = mun['area_parcela']
+                        parc['nome'] = mun['nome'].encode("utf-8")+' / '+mun['uf'].encode("utf-8")
+                        parcelas.append(parc)
+                        total_area_sigef += mun['area_parcela']
                     idkmls.append(parcela['id'])
             except:
                 pass
             return render_to_response('sicop/processo/rural/edicao.html',
-                                      {'kmls':idkmls,'transicao':transicao,'fluxo':fluxo,'gleba':gleba,'fases':etapas,'etapa_atual':etapa_atual,
+                                      {'total_area_sigef':total_area_sigef,'parcelas':parcelas,'kmls':idkmls,'transicao':transicao,'fluxo':fluxo,'gleba':gleba,'fases':etapas,'etapa_atual':etapa_atual,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,'processo_principal':processo_principal,
                                        'base':base,'rural':rural,'peca':peca,'statustitulo':statustitulo,'posteriores':posteriores,
