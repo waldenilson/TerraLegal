@@ -5,7 +5,7 @@ from django.contrib import admin
 from TerraLegal.tramitacao.models import Tbtipocaixa, Tbtipoprocesso, Tbstatuspendencia,\
     Tbpecastecnicas, Tbprocessobase,Tbclassificacaoprocesso, Tbsubarea, Tbcaixa,\
     Tbgleba, Tbcontrato, Tbsituacaoprocesso, Tbtipopendencia, AuthUser,\
-    AuthUserGroups, AuthGroupPermissions
+    AuthUserGroups, AuthGroupPermissions, Tbmovimentacao, Tbprocessosanexos
 from TerraLegal.calculo.models import TbtrMensal
 from django.http.response import HttpResponse
 import csv
@@ -68,6 +68,23 @@ def diferenca_mes(d2, d1):
             break
     return delta
 
+
+def reader(csv_):
+    with open(csv_, 'rb') as csvfile:
+        aux = []
+        spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+        for row in spamreader:
+            aux.append(row)
+
+        lines = []
+        x = 0
+        for l in aux:
+            if l:
+                x += 1
+            lines.append(l)
+
+        print str(x)
+        print len(lines)
 
 def import_tr(csv_):
     trs = []
@@ -267,7 +284,124 @@ def buscar_processos_cpfs_sigef(csv_sigef):
 
 
 def list_json():
-    print serializers.serialize('json',Tbpendencia.objects.filter(tbprocessobase__id = 9908),fields=())
+    pecas = []
+    peca = Tbpecastecnicas.objects.filter(nrcpfrequerente = 47551810625)
+    for p in peca:
+        obj = dict()
+        if p.nrarea:
+            obj['area'] = str(p.nrarea)
+        else:
+            obj['area'] = str('')
+            
+        obj['municipio'] = str(p.tbmunicipio.nome_mun.encode("utf-8"))    
+        obj['gleba'] = str(p.tbgleba.nmgleba.encode("utf-8"))
+        obj['contrato'] = str(p.tbcontrato.nrcontrato.encode("utf-8"))
+        if p.dsobservacao:
+            obj['observacao'] = str(p.dsobservacao.encode("utf-8"))
+        else:
+            obj['observacao'] = str('')    
+        pecas.append(obj)
+
+    print pecas
+
+
+def buscar_pecas(cpf):
+    pecas = []
+    peca = Tbpecastecnicas.objects.filter(nrcpfrequerente = cpf)
+    for p in peca:
+        obj = dict()
+        if p.nrarea:
+            obj['area'] = str(p.nrarea)
+        else:
+            obj['area'] = str('')
+        if p.tbmunicipio:    
+            obj['municipio'] = str(p.tbmunicipio.nome_mun.encode("utf-8"))    
+        else:
+            obj['municipio'] = str('')    
+        if p.tbgleba:
+            obj['gleba'] = str(p.tbgleba.nmgleba.encode("utf-8"))
+        else:
+            obj['gleba'] = str('')
+        if p.tbcontrato:
+            obj['contrato'] = str(p.tbcontrato.nrcontrato.encode("utf-8"))
+        else:
+            obj['contrato'] = str('')
+        if p.dsobservacao:
+            obj['observacao'] = str(p.dsobservacao.encode("utf-8"))
+        else:
+            obj['observacao'] = str('')    
+        pecas.append(obj)
+
+    return str(pecas)
+
+def buscar_anexos(id_processo):
+    anexos = []
+    anexo = Tbprocessosanexos.objects.filter(tbprocessobase__id = id_processo)
+    for a in anexo:
+        obj = dict()
+        obj['processo'] = str(a.tbprocessobase_id_anexo.nrprocesso.encode("utf-8"))
+        obj['tipo'] = str(a.tbprocessobase_id_anexo.tbtipoprocesso.nome.encode("utf-8"))    
+        if a.tbprocessobase_id_anexo.tbtipoprocesso.id == 1:
+            req = Tbprocessorural.objects.filter( tbprocessobase__id = a.tbprocessobase_id_anexo.id )
+            if req:
+                obj['requerente'] = str(req[0].nmrequerente.encode("utf-8"))
+            else:
+                obj['requerente'] = str('')
+        elif a.tbprocesso_id_anexo.tbtipoprocesso.id == 2:
+            req = Tbprocessoclausula.objects.filter( tbprocessobase__id = a.tbprocessobase_id_anexo.id )
+            if req:
+                obj['requerente'] = str(req[0].nmrequerente.encode("utf-8"))
+            else:
+                obj['requerente'] = str('')
+        else:
+            req = Tbprocessourbano.objects.filter( tbprocessobase__id = a.tbprocessobase_id_anexo.id )
+            if req:
+                obj['requerente'] = str(req[0].nmpovoado.encode("utf-8"))
+            else:
+                obj['requerente'] = str('')
+
+        obj['usuario'] = str(a.auth_user.username.encode("utf-8"))
+        obj['data'] = str(a.dtanexado.day)+'/'+str(a.dtanexado.month)+'/'+str(a.dtanexado.year)
+
+        anexos.append(obj)
+
+    return str(anexos)
+
+def buscar_movimentacoes(id_processo):
+    movimentacoes = []
+    mov = Tbmovimentacao.objects.filter(tbprocessobase__id = id_processo)
+    if mov:
+        for m in mov:
+            obj = dict()
+            obj['localizacao'] = str(m.tbcaixa.nmlocalarquivo.encode("utf-8"))
+            obj['origem'] = str(m.tbcaixa_id_origem.nmlocalarquivo.encode("utf-8"))    
+            obj['usuario'] = str(m.auth_user.username.encode("utf-8"))
+            obj['data'] = str(m.dtmovimentacao.day)+'/'+str(m.dtmovimentacao.month)+'/'+str(m.dtmovimentacao.year)
+            movimentacoes.append(obj)
+    else:
+        return ''
+    return str(movimentacoes)
+
+
+def buscar_pendencias(id_processo):
+    pendencias = []
+    pend = Tbpendencia.objects.filter(tbprocessobase__id = id_processo)
+    if pend:
+        for p in pend:
+            obj = dict()
+            obj['descricao'] = str(p.dsdescricao.encode("utf-8"))
+            if p.dsparecer:
+                obj['parecer'] = str(p.dsparecer.encode("utf-8"))
+            else:
+                obj['parecer'] = str('')    
+            obj['tipo'] = str(p.tbtipopendencia.dspendencia.encode("utf-8"))
+            obj['status'] = str(p.tbstatuspendencia.dspendencia.encode("utf-8"))
+            obj['updated'] = str(p.auth_user_updated.username.encode("utf-8"))
+            obj['data'] = str(p.dtpendencia.day)+'/'+str(p.dtpendencia.month)+'/'+str(p.dtpendencia.year)
+            pendencias.append(obj)
+    else:
+        return ''
+    return str(pendencias)
 
 def export_to_sqlite_android(arquivo):
     conn = sqlite3.connect(arquivo)
@@ -310,7 +444,15 @@ def export_to_sqlite_android(arquivo):
         else:
             contato = str(r.tbprocessobase.nmcontato)
 
-        sql = "insert into processo ('id','numero','cadastro_pessoa','nome','subnome','localizacao','gleba','tipo','classificacao','municipio_declarado','endereco','contato') values ("+identificador+",'"+numero+"','"+cadastro_pessoa+"','"+nome+"','"+subnome+"','"+localizacao+"','"+gleba+"','"+tipo+"','"+classificacao+"','"+municipio_declarado+"','"+endereco+"','"+contato+"')"
+        pendencias = buscar_pendencias(r.tbprocessobase.id)
+
+        movimentacoes = buscar_movimentacoes(r.tbprocessobase.id)
+
+        pecas = buscar_pecas(r.tbprocessobase.id)
+
+        anexos = buscar_anexos(r.tbprocessobase.id)
+
+        sql = "insert into processo ('id','numero','cadastro_pessoa','nome','subnome','localizacao','gleba','tipo','classificacao','municipio_declarado','endereco','contato','pendencias','movimentacoes','pecas','anexos') values ("+identificador+",'"+numero+"','"+cadastro_pessoa+"','"+nome+"','"+subnome+"','"+localizacao+"','"+gleba+"','"+tipo+"','"+classificacao+"','"+municipio_declarado+"','"+endereco+"','"+contato+"','"+pendencias+"','"+movimentacoes+"','"+pecas+"','"+anexos+"')"
         print sql
         cursor.execute(sql)
 
@@ -346,7 +488,15 @@ def export_to_sqlite_android(arquivo):
         else:
             contato = str(c.tbprocessobase.nmcontato)
 
-        sql = "insert into processo ('id','numero','cadastro_pessoa','nome','subnome','localizacao','gleba','tipo','classificacao','municipio_declarado','endereco','contato') values ("+identificador+",'"+numero+"','"+cadastro_pessoa+"','"+nome+"','"+subnome+"','"+localizacao+"','"+gleba+"','"+tipo+"','"+classificacao+"','"+municipio_declarado+"','"+endereco+"','"+contato+"')"
+        pendencias = buscar_pendencias(c.tbprocessobase.id)
+
+        movimentacoes = buscar_movimentacoes(c.tbprocessobase.id)
+
+        pecas = buscar_pecas(c.tbprocessobase.id)
+
+        anexos = buscar_anexos(c.tbprocessobase.id)
+        
+        sql = "insert into processo ('id','numero','cadastro_pessoa','nome','subnome','localizacao','gleba','tipo','classificacao','municipio_declarado','endereco','contato','pendencias','movimentacoes','pecas','anexos') values ("+identificador+",'"+numero+"','"+cadastro_pessoa+"','"+nome+"','"+subnome+"','"+localizacao+"','"+gleba+"','"+tipo+"','"+classificacao+"','"+municipio_declarado+"','"+endereco+"','"+contato+"','"+pendencias+"','"+movimentacoes+"','"+pecas+"','"+anexos+"')"
         print sql
         cursor.execute(sql)
 
@@ -382,7 +532,15 @@ def export_to_sqlite_android(arquivo):
         else:
             contato = str(u.tbprocessobase.nmcontato)
 
-        sql = "insert into processo ('id','numero','cadastro_pessoa','nome','subnome','localizacao','gleba','tipo','classificacao','municipio_declarado','endereco','contato') values ("+identificador+",'"+numero+"','"+cadastro_pessoa+"','"+nome+"','"+subnome+"','"+localizacao+"','"+gleba+"','"+tipo+"','"+classificacao+"','"+municipio_declarado+"','"+endereco+"','"+contato+"')"
+        pendencias = buscar_pendencias(u.tbprocessobase.id)
+
+        movimentacoes = buscar_movimentacoes(u.tbprocessobase.id)
+
+        pecas = buscar_pecas(u.tbprocessobase.id)
+
+        anexos = buscar_anexos(u.tbprocessobase.id)
+        
+        sql = "insert into processo ('id','numero','cadastro_pessoa','nome','subnome','localizacao','gleba','tipo','classificacao','municipio_declarado','endereco','contato','pendencias','movimentacoes','pecas','anexos') values ("+identificador+",'"+numero+"','"+cadastro_pessoa+"','"+nome+"','"+subnome+"','"+localizacao+"','"+gleba+"','"+tipo+"','"+classificacao+"','"+municipio_declarado+"','"+endereco+"','"+contato+"','"+pendencias+"','"+movimentacoes+"','"+pecas+"','"+anexos+"')"
         print sql
         cursor.execute(sql)
 
