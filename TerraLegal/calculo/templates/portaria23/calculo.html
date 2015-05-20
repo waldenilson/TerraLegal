@@ -24,19 +24,19 @@
 
 			<table style="width:90%;text-align: left ">
 				
-				<tr><td class="colunaTabela" colspan="3" style="font-weight:bold" >IDENTIFICAÇÃO DO TITULADO</td></tr>
-				<tr><td class="colunaTabela"> <label>Processo: </label> </td><td><input disabled name="processo" value="{{instance.numero_processo}}" id="processo"/></td>
-			   	<td><input disabled name="requerente" style="width:300px" value="{{ instance.nome_req}}"></td></tr>
-			   	<tr><td class="colunaTabela"> <label>CPF: </label></td><td><input  disabled name="cpf" id="cpf" value="{{ instance.cpf_req }}"></td> </tr>
+				<tr><td class="colunaTabela" colspan="3" style="font-weight:bold" >IDENTIFICAÇÃO DO TITULADO (sisterleg - preencher)</td></tr>
+				<tr><td class="colunaTabela"> <label>Processo: </label> </td><td><input name="processo" value="{{instance.numero_processo}}" id="processo"/></td>
+			   	<td><input  name="requerente" style="width:300px" value="{{ instance.nome_req}}"></td></tr>
+			   	<tr><td class="colunaTabela"> <label>CPF: </label></td><td><input   name="cpf" id="cpf" value="{{ instance.cpf_req }}"></td> </tr>
 			</table>
 			<table style="width:90%;text-align: left ">
-			   	<tr><td class="colunaTabela" colspan="2" style="font-weight:bold">IDENTIFICAÇÃO DO IMÓVEL</td></tr>
+			   	<tr><td class="colunaTabela" colspan="3" style="font-weight:bold">IDENTIFICAÇÃO DO IMÓVEL (sisterleg - preencher)</td></tr>
 			   	<tr><td class="colunaTabela"> <label>Título: </label> </td><td><input disabled colspan="2" name="titulo" style="width:100px" value="{{ instance.id_req}}"></td>
-			   		<td><input disabled name="imovel" style="width:300px" value="{{ instance.nome_imovel }}"></td>
-				<tr><td class="colunaTabela"> <label>Município: </label> </td><td><input  disabled name="municipio" style="width:180px" value="{{ instance.nome_municipio }}"></td>
-			   	<td><input disabled name="uf_imovel" style="width:20px" value="{{ instance.uf_imovel }}"></td></tr>
-			   	<tr><td class="colunaTabela"> <label>Área do imóvel: </label></td><td><input disabled name="area" style="width:50px" value="{{ instance.area_total_imovel }}"> ha</td></tr>
-			   	<tr><td class="colunaTabela"> <label>Módulos fiscais: </label> </td><td><input disabled name="tamanho_modulos" style="width:50px" value="{{ instance.tamanho_modulos_fiscais}}"></td> </tr>
+			   		<td><input name="imovel" style="width:300px" value="{{ instance.nome_imovel }}"></td>
+				<tr><td class="colunaTabela"> <label>Município: </label> </td><td><input name="municipio" style="width:180px" value="{{ instance.nome_municipio }}"></td>
+			   	<td><input name="uf_imovel" style="width:20px" value="{{ instance.uf_imovel }}"></td></tr>
+			   	<tr><td class="colunaTabela"> <label>Área do imóvel: </label></td><td><input name="area" style="width:50px" value="{{ instance.area_total_imovel }}"> ha</td></tr>
+			   	<tr><td class="colunaTabela"> <label>Módulos fiscais: </label> </td><td><input name="tamanho_modulos" style="width:50px" value="{{ instance.tamanho_modulos_fiscais}}"></td> </tr>
 			</table>
 
 			<table style="width:35%;text-align: left ">
@@ -59,9 +59,12 @@
 			{% else %}
 				<table style="width:35%;text-align: left ">	   
 					   	<tr><td class="colunaTabela"> <label>Valor da prestação: </label>  </td><td>R$ <input disabled name="prestacao" style="width:50px" value="{{prestacao}}"></td></tr>
-					   	<tr><td class="colunaTabela"> <label>Juros: </label>  </td><td><input name="ijuros" style="width:30px" value="{{ijuros}}">% aa </td></tr>
+					   	
+					   	<!--<tr><td class="colunaTabela"> <label>Juros: </label>  </td><td><input name="ijuros" style="width:30px" value="{{ijuros}}">% aa </td></tr>-->
+					   	
 					   	<tr><td class="colunaTabela"> <label>Multa: </label>  </td><td><input disabled name="imulta" style="width:30px" value="{{imulta}}">% am </td></tr>
-					   	<tr><td class="colunaTabela"> <label>Correção: </label>  </td><td><input name="icorrecao" style="width:50px" value="{{icorrecao}}">% aa </td></tr>
+					   	
+					   	<!--<tr><td class="colunaTabela"> <label>Correção: </label>  </td><td><input name="icorrecao" style="width:50px" value="{{icorrecao}}">% aa </td></tr>-->
 	   			</table>
 
    				<table style="width:90%;text-align: left "> 	
@@ -80,12 +83,6 @@
 				<td><input class="button_yellow" style="margin-right: 4px" type="submit" value="ATUALIZAR"/></td>
 		    		
 
-				<form method="post" action="/calculo/geraGRU/{{ id }}/">
-					{% csrf_token %}
-					<td><input class="button_green" style="margin-right: 4px" type="submit" value="GERAR GRU"/></td>
-		    	</form>
-
-
 		    	<!--teste-->
 		    	
 		    	<form method="post">
@@ -102,6 +99,10 @@
 
 			{% if dtrequerimento  %}
 
+				<form method="post" action="/calculo/geraGRU/{{ id }}/">
+					{% csrf_token %}
+					<td><input class="button_green" style="margin-right: 4px" type="submit" value="GERAR GRU"/></td>
+		    	
 				<table class="csstable" style="width:100%;text-align: left " >
 				<tbody>
 					<tr>
@@ -115,7 +116,6 @@
 						<td class="colunaTabelaConsulta" >Desconto</td>
 						<td class="colunaTabelaConsulta" >Total</td>
 						<td class="colunaTabelaConsulta" >Venc GRU</td>
-
 					</tr>
 
 					{% if calculotitulo %}
@@ -149,6 +149,9 @@
 					{% endif %}
 				</tbody>
 				</table>
+				</form>
+
+
 			<!--table class="csstable">
 			<tbody>
 				<tr>

@@ -65,17 +65,17 @@ def emissao(request,id):
     area = instance.area_medida
     valor_imovel = instance.valor_imovel.quantize(Decimal('1.00'))
     dtrequerimento = None
-    icorrecao = 3.7779 #mudar para indice correto
+    #icorrecao = 3.7779 #mudar para indice correto
     
     print "metodo ",request.method
     print "iten",request.POST
     #isenta pagamento para imoveis abaixo de 1 modulos fiscais'''
     isento = False
+    ijuros = 0.0
     if modulos < 1:
         isento = True
-
     #definicao de qual taxa de juros vai utilizar    
-    if modulos > 4:
+    elif modulos > 4:
         ijuros = 6.75
     else:
         if valor_imovel <= 40000:
@@ -103,8 +103,9 @@ def emissao(request,id):
         stNossaEscola = False
         if request.POST.get('stNossaEscola',False):
             stNossaEscola = True
-        ijuros = request.POST['ijuros'].replace(',','.')
-        icorrecao = request.POST['icorrecao'].replace(',','.')
+        #ijuros = request.POST['ijuros'].replace(',','.')
+
+        #icorrecao =  3.7779#request.POST['icorrecao'].replace(',','.')
         
         #verifica se existem GRUs geradas para o processo em questao
         calculotitulo = Tbcalculotitulo.objects.all().filter(tbextrato__numero_processo__icontains = instance.numero_processo).order_by('parcela')
@@ -226,8 +227,8 @@ def digitar(request):
     return render_to_response('portaria23/calculo.html' ,locals(), context_instance = RequestContext(request))
 
 def verificavencimento(request,dtrequerimento,dtvencimento,ijuros,prestacao,titulado,obj,numero_parcela,imulta,stNossaEscola,instance):
-    ijuros = float(request.POST.get('ijuros').replace(',','.'))
-    icorrecao = float(request.POST.get('icorrecao').replace(',','.'))
+    #ijuros = float(request.POST.get('ijuros').replace(',','.'))
+    #icorrecao = float(request.POST.get('icorrecao').replace(',','.'))
     correcao = 0
     principal = 0 
     principal_juros_correcao = 0
@@ -281,6 +282,10 @@ def verificavencimento(request,dtrequerimento,dtvencimento,ijuros,prestacao,titu
             # correcao de vencimento ate dtrequerimento + 30 dias
             # falta obter a correcao correta a ser aplicada de acordo com tabela do governo
             dias_correcao = (dtrequerimento - dtvencimento).days + 30
+            
+            #calcular a correcao: TbtrMensal
+            icorrecao = 3.7779
+
             correcao = prestacao_juros*((icorrecao/100.0))
             print"correcao",correcao
             print "icorrecao",icorrecao
@@ -405,7 +410,7 @@ def geraGRU(request,id):
 
 #    print "metodo", HttpRequest.method
 #    print HttpRequest.path
-#    print HttpRequest.POST['teste']     
+#    print 'Parcela: '+request.POST['258-parcela']     
 
     if calculotitulo:
         for obj in calculotitulo:
@@ -418,9 +423,9 @@ def geraGRU(request,id):
                 data = {}
                 data['recolhimento'] = "28874-8"
                 #data['prestacao'] = "{0:.2f}".format(prestacao)
-                #data['cpf'] = instance.cpf_req
+                data['cpf'] = instance.cpf_req
                 data['cdug'] = obj.cdug
-                #data['nome'] = instance.nome_req
+                data['nome'] = instance.nome_req
                 #data['vencimento'] = dtvencimento
                 #data['referencia'] = referencia
                 #data['desconto'] = "{0:.2f}".format(desconto)
@@ -433,14 +438,12 @@ def geraGRU(request,id):
                 #parcelas nao marcadas
                 print "parcela"+ str(obj.parcela)+" nao marcou. Pago = " + str(obj.stpaga)
 
-    return render_to_response('portaria23/calculo.html' ,locals(), context_instance = RequestContext(request))
-   
     # Render html content through html template with context
     for obj in pdf:
         if obj <> None:
             print "pdf 1",obj
-            template = get_template('portaria23/testePDF.html')
-            html  = template.render(Context(obj))
+            #template = get_template('portaria23/testePDF.html')
+            #html  = template.render(Context(obj))
 
             # Write PDF to file
             print"antes file"
@@ -453,5 +456,13 @@ def geraGRU(request,id):
             #pdf = file.read()
             #file.close()            # Don't forget to close the file handle
             #return HttpResponse(pdf, mimetype='application/pdf')
-            return HttpResponse(html)
+            #return HttpResponse(html)
+            return render_to_response('portaria23/testePDF.html' ,
+                {
+                    'nome':instance.nome_req,
+                    'cpf':instance.cpf_req
+                }, 
+                context_instance = RequestContext(request))
 
+    return render_to_response('portaria23/calculo.html' ,locals(), context_instance = RequestContext(request))
+   
