@@ -694,7 +694,7 @@ def edicao(request, id):
                 response = urllib2.urlopen('https://sigef.incra.gov.br/api/destinacao/parcelas/?cpf='+rural.nrcpfrequerente)
                 retorno = json.loads(response.read())
                 #jsonparcelas = serializers.serialize('json', html)
-                print 'pagina: '+str(retorno['parcelas'])
+                #print 'pagina: '+str(retorno['parcelas'])
                 x = 0
                 for parcela in retorno['parcelas']:
                     x +=1
