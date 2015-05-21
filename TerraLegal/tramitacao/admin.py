@@ -284,124 +284,126 @@ def buscar_processos_cpfs_sigef(csv_sigef):
 
 
 def list_json():
-    pecas = []
+    pecas = ""
     peca = Tbpecastecnicas.objects.filter(nrcpfrequerente = 47551810625)
     for p in peca:
-        obj = dict()
         if p.nrarea:
-            obj['area'] = str(p.nrarea)
+            pecas += str(p.nrarea)
         else:
-            obj['area'] = str('')
+            pecas += str('')
             
-        obj['municipio'] = str(p.tbmunicipio.nome_mun.encode("utf-8"))    
-        obj['gleba'] = str(p.tbgleba.nmgleba.encode("utf-8"))
-        obj['contrato'] = str(p.tbcontrato.nrcontrato.encode("utf-8"))
+        pecas += '|'+str(p.tbmunicipio.nome_mun.encode("utf-8"))    
+        pecas += '|'+str(p.tbgleba.nmgleba.encode("utf-8"))
+        pecas += '|'+str(p.tbcontrato.nrcontrato.encode("utf-8"))
         if p.dsobservacao:
-            obj['observacao'] = str(p.dsobservacao.encode("utf-8"))
+            pecas += '|'+str(p.dsobservacao.encode("utf-8"))
         else:
-            obj['observacao'] = str('')    
-        pecas.append(obj)
+            pecas += '|'+str('')    
+        pecas += 'FIMREG'
 
     print pecas
 
 
 def buscar_pecas(cpf):
-    pecas = []
+    pecas = ""
     peca = Tbpecastecnicas.objects.filter(nrcpfrequerente = cpf)
-    for p in peca:
-        obj = dict()
-        if p.nrarea:
-            obj['area'] = str(p.nrarea)
-        else:
-            obj['area'] = str('')
-        if p.tbmunicipio:    
-            obj['municipio'] = str(p.tbmunicipio.nome_mun.encode("utf-8"))    
-        else:
-            obj['municipio'] = str('')    
-        if p.tbgleba:
-            obj['gleba'] = str(p.tbgleba.nmgleba.encode("utf-8"))
-        else:
-            obj['gleba'] = str('')
-        if p.tbcontrato:
-            obj['contrato'] = str(p.tbcontrato.nrcontrato.encode("utf-8"))
-        else:
-            obj['contrato'] = str('')
-        if p.dsobservacao:
-            obj['observacao'] = str(p.dsobservacao.encode("utf-8"))
-        else:
-            obj['observacao'] = str('')    
-        pecas.append(obj)
+    if peca:
+        for p in peca:
+            if p.nrarea:
+                pecas += str(p.nrarea)
+            else:
+                pecas += str('')
+            if p.tbmunicipio:    
+                pecas += '|'+str(p.tbmunicipio.nome_mun.encode("utf-8"))    
+            else:
+                pecas += '|'+str('')    
+            if p.tbgleba:
+                pecas += '|'+str(p.tbgleba.nmgleba.encode("utf-8"))
+            else:
+                pecas += '|'+str('')
+            if p.tbcontrato:
+                pecas += '|'+str(p.tbcontrato.nrcontrato.encode("utf-8"))
+            else:
+                pecas += '|'+str('')
+            if p.dsobservacao:
+                pecas += '|'+str(p.dsobservacao.encode("utf-8"))
+            else:
+                pecas += '|'+str('')    
+            pecas += 'FIMREG'    
+        return str(pecas)
+    else:
+        return ''
 
-    return str(pecas)
 
 def buscar_anexos(id_processo):
-    anexos = []
+    anexos = ""
     anexo = Tbprocessosanexos.objects.filter(tbprocessobase__id = id_processo)
-    for a in anexo:
-        obj = dict()
-        obj['processo'] = str(a.tbprocessobase_id_anexo.nrprocesso.encode("utf-8"))
-        obj['tipo'] = str(a.tbprocessobase_id_anexo.tbtipoprocesso.nome.encode("utf-8"))    
-        if a.tbprocessobase_id_anexo.tbtipoprocesso.id == 1:
-            req = Tbprocessorural.objects.filter( tbprocessobase__id = a.tbprocessobase_id_anexo.id )
-            if req:
-                obj['requerente'] = str(req[0].nmrequerente.encode("utf-8"))
+    if anexo:
+        for a in anexo:
+            anexos += '|'+str(a.tbprocessobase_id_anexo.nrprocesso.encode("utf-8"))
+            anexos += '|'+str(a.tbprocessobase_id_anexo.tbtipoprocesso.nome.encode("utf-8"))    
+            if a.tbprocessobase_id_anexo.tbtipoprocesso.id == 1:
+                req = Tbprocessorural.objects.filter( tbprocessobase__id = a.tbprocessobase_id_anexo.id )
+                if req:
+                    anexos += '|'+str(req[0].nmrequerente.encode("utf-8"))
+                else:
+                    anexos += '|'+str('')
+            elif a.tbprocessobase_id_anexo.tbtipoprocesso.id == 2:
+                req = Tbprocessoclausula.objects.filter( tbprocessobase__id = a.tbprocessobase_id_anexo.id )
+                if req:
+                    anexos += '|'+str(req[0].nmrequerente.encode("utf-8"))
+                else:
+                    anexos += '|'+str('')
             else:
-                obj['requerente'] = str('')
-        elif a.tbprocesso_id_anexo.tbtipoprocesso.id == 2:
-            req = Tbprocessoclausula.objects.filter( tbprocessobase__id = a.tbprocessobase_id_anexo.id )
-            if req:
-                obj['requerente'] = str(req[0].nmrequerente.encode("utf-8"))
-            else:
-                obj['requerente'] = str('')
-        else:
-            req = Tbprocessourbano.objects.filter( tbprocessobase__id = a.tbprocessobase_id_anexo.id )
-            if req:
-                obj['requerente'] = str(req[0].nmpovoado.encode("utf-8"))
-            else:
-                obj['requerente'] = str('')
+                req = Tbprocessourbano.objects.filter( tbprocessobase__id = a.tbprocessobase_id_anexo.id )
+                if req:
+                    anexos += '|'+str(req[0].nmpovoado.encode("utf-8"))
+                else:
+                    anexos += '|'+str('')
 
-        obj['usuario'] = str(a.auth_user.username.encode("utf-8"))
-        obj['data'] = str(a.dtanexado.day)+'/'+str(a.dtanexado.month)+'/'+str(a.dtanexado.year)
+            anexos += '|'+str(a.auth_user.username.encode("utf-8"))
+            anexos += '|'+str(a.dtanexado.day)+'/'+str(a.dtanexado.month)+'/'+str(a.dtanexado.year)
 
-        anexos.append(obj)
-
-    return str(anexos)
+            anexos += 'FIMREG'
+        return str(anexos)
+    else:
+        return ''
 
 def buscar_movimentacoes(id_processo):
-    movimentacoes = []
+    movimentacoes = ""
     mov = Tbmovimentacao.objects.filter(tbprocessobase__id = id_processo)
     if mov:
         for m in mov:
-            obj = dict()
-            obj['localizacao'] = str(m.tbcaixa.nmlocalarquivo.encode("utf-8"))
-            obj['origem'] = str(m.tbcaixa_id_origem.nmlocalarquivo.encode("utf-8"))    
-            obj['usuario'] = str(m.auth_user.username.encode("utf-8"))
-            obj['data'] = str(m.dtmovimentacao.day)+'/'+str(m.dtmovimentacao.month)+'/'+str(m.dtmovimentacao.year)
-            movimentacoes.append(obj)
+            movimentacoes += '|'+str(m.tbcaixa.nmlocalarquivo.encode("utf-8"))
+            movimentacoes += '|'+str(m.tbcaixa_id_origem.nmlocalarquivo.encode("utf-8"))    
+            movimentacoes += '|'+str(m.auth_user.username.encode("utf-8"))
+            movimentacoes += '|'+str(m.dtmovimentacao.day)+'/'+str(m.dtmovimentacao.month)+'/'+str(m.dtmovimentacao.year)
+            movimentacoes += 'FIMREG'
+        return str(movimentacoes)
     else:
         return ''
-    return str(movimentacoes)
+    
 
 
 def buscar_pendencias(id_processo):
-    pendencias = []
+    pendencias = ""
     pend = Tbpendencia.objects.filter(tbprocessobase__id = id_processo)
     if pend:
         for p in pend:
-            obj = dict()
-            obj['descricao'] = str(p.dsdescricao.encode("utf-8"))
+            pendencias += '|'+str(p.dsdescricao.encode("utf-8"))
             if p.dsparecer:
-                obj['parecer'] = str(p.dsparecer.encode("utf-8"))
+                pendencias += '|'+str(p.dsparecer.encode("utf-8"))
             else:
-                obj['parecer'] = str('')    
-            obj['tipo'] = str(p.tbtipopendencia.dspendencia.encode("utf-8"))
-            obj['status'] = str(p.tbstatuspendencia.dspendencia.encode("utf-8"))
-            obj['updated'] = str(p.auth_user_updated.username.encode("utf-8"))
-            obj['data'] = str(p.dtpendencia.day)+'/'+str(p.dtpendencia.month)+'/'+str(p.dtpendencia.year)
-            pendencias.append(obj)
+                pendencias += '|'+str('')    
+            pendencias += '|'+str(p.tbtipopendencia.dspendencia.encode("utf-8"))
+            pendencias += '|'+str(p.tbstatuspendencia.dspendencia.encode("utf-8"))
+            pendencias += '|'+str(p.auth_user_updated.username.encode("utf-8"))
+            pendencias += '|'+str(p.dtpendencia.day)+'/'+str(p.dtpendencia.month)+'/'+str(p.dtpendencia.year)
+            pendencias += 'FIMREG'
+        return str(pendencias)
     else:
         return ''
-    return str(pendencias)
+    
 
 def export_to_sqlite_android(arquivo):
     conn = sqlite3.connect(arquivo)
