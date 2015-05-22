@@ -39,6 +39,7 @@ from TerraLegal.tramitacao.admin import reader,import_tr,list_json,export_to_sql
 import urllib2
 from django.core import serializers
 import json
+from TerraLegal.livro.models import Tbtituloprocesso
 
 nome_relatorio      = "relatorio_processo"
 response_consulta  = "/sicop/processo/consulta/"
@@ -52,6 +53,9 @@ def consultaprocesso(request):
 #    batimento_processo("/opt/tcu-processos.csv")
 #    reader("/opt/ok.csv")
 #    export_to_sqlite_android('/opt/sicopsqlite.db')
+#    tit = Tbtituloprocesso.objects.filter(id = 2616)
+#    if tit[0].tbtitulo.tbcaixa is not None:
+#        print 'ok'
 
     numero =  request.POST['processo_base'].replace('.','').replace('/','').replace('-','')
     if not numero:

@@ -12,6 +12,7 @@ import csv
 import sqlite3
 from datetime import datetime
 from TerraLegal.tramitacao.models import Tbpendencia,Tbprocessorural, Tbprocessoclausula, Tbprocessourbano
+from TerraLegal.livro.models import Tbtituloprocesso
 from django.core import serializers
 
 def verificar_permissao_grupo(usuario, grupos):
@@ -314,19 +315,19 @@ def buscar_pecas(cpf):
             else:
                 pecas += str('')
             if p.tbmunicipio:    
-                pecas += '|'+str(p.tbmunicipio.nome_mun.encode("utf-8"))    
+                pecas += '|'+str(p.tbmunicipio.nome_mun.encode("utf-8").replace('\'',''))    
             else:
                 pecas += '|'+str('')    
             if p.tbgleba:
-                pecas += '|'+str(p.tbgleba.nmgleba.encode("utf-8"))
+                pecas += '|'+str(p.tbgleba.nmgleba.encode("utf-8").replace('\'',''))
             else:
                 pecas += '|'+str('')
             if p.tbcontrato:
-                pecas += '|'+str(p.tbcontrato.nrcontrato.encode("utf-8"))
+                pecas += '|'+str(p.tbcontrato.nrcontrato.encode("utf-8").replace('\'',''))
             else:
                 pecas += '|'+str('')
             if p.dsobservacao:
-                pecas += '|'+str(p.dsobservacao.encode("utf-8"))
+                pecas += '|'+str(p.dsobservacao.encode("utf-8").replace('\'',''))
             else:
                 pecas += '|'+str('')    
             pecas += 'FIMREG'    
@@ -340,28 +341,28 @@ def buscar_anexos(id_processo):
     anexo = Tbprocessosanexos.objects.filter(tbprocessobase__id = id_processo)
     if anexo:
         for a in anexo:
-            anexos += '|'+str(a.tbprocessobase_id_anexo.nrprocesso.encode("utf-8"))
-            anexos += '|'+str(a.tbprocessobase_id_anexo.tbtipoprocesso.nome.encode("utf-8"))    
+            anexos += '|'+str(a.tbprocessobase_id_anexo.nrprocesso.encode("utf-8").replace('\'',''))
+            anexos += '|'+str(a.tbprocessobase_id_anexo.tbtipoprocesso.nome.encode("utf-8").replace('\'',''))    
             if a.tbprocessobase_id_anexo.tbtipoprocesso.id == 1:
                 req = Tbprocessorural.objects.filter( tbprocessobase__id = a.tbprocessobase_id_anexo.id )
                 if req:
-                    anexos += '|'+str(req[0].nmrequerente.encode("utf-8"))
+                    anexos += '|'+str(req[0].nmrequerente.encode("utf-8").replace('\'',''))
                 else:
                     anexos += '|'+str('')
             elif a.tbprocessobase_id_anexo.tbtipoprocesso.id == 2:
                 req = Tbprocessoclausula.objects.filter( tbprocessobase__id = a.tbprocessobase_id_anexo.id )
                 if req:
-                    anexos += '|'+str(req[0].nmrequerente.encode("utf-8"))
+                    anexos += '|'+str(req[0].nmrequerente.encode("utf-8").replace('\'',''))
                 else:
                     anexos += '|'+str('')
             else:
                 req = Tbprocessourbano.objects.filter( tbprocessobase__id = a.tbprocessobase_id_anexo.id )
                 if req:
-                    anexos += '|'+str(req[0].nmpovoado.encode("utf-8"))
+                    anexos += '|'+str(req[0].nmpovoado.encode("utf-8").replace('\'',''))
                 else:
                     anexos += '|'+str('')
 
-            anexos += '|'+str(a.auth_user.username.encode("utf-8"))
+            anexos += '|'+str(a.auth_user.username.encode("utf-8").replace('\'',''))
             anexos += '|'+str(a.dtanexado.day)+'/'+str(a.dtanexado.month)+'/'+str(a.dtanexado.year)
 
             anexos += 'FIMREG'
@@ -374,9 +375,9 @@ def buscar_movimentacoes(id_processo):
     mov = Tbmovimentacao.objects.filter(tbprocessobase__id = id_processo)
     if mov:
         for m in mov:
-            movimentacoes += '|'+str(m.tbcaixa.nmlocalarquivo.encode("utf-8"))
-            movimentacoes += '|'+str(m.tbcaixa_id_origem.nmlocalarquivo.encode("utf-8"))    
-            movimentacoes += '|'+str(m.auth_user.username.encode("utf-8"))
+            movimentacoes += '|'+str(m.tbcaixa.nmlocalarquivo.encode("utf-8").replace('\'',''))
+            movimentacoes += '|'+str(m.tbcaixa_id_origem.nmlocalarquivo.encode("utf-8").replace('\'',''))    
+            movimentacoes += '|'+str(m.auth_user.username.encode("utf-8").replace('\'',''))
             movimentacoes += '|'+str(m.dtmovimentacao.day)+'/'+str(m.dtmovimentacao.month)+'/'+str(m.dtmovimentacao.year)
             movimentacoes += 'FIMREG'
         return str(movimentacoes)
@@ -390,14 +391,14 @@ def buscar_pendencias(id_processo):
     pend = Tbpendencia.objects.filter(tbprocessobase__id = id_processo)
     if pend:
         for p in pend:
-            pendencias += '|'+str(p.dsdescricao.encode("utf-8"))
+            pendencias += '|'+str(p.dsdescricao.encode("utf-8").replace('\'',''))
             if p.dsparecer:
-                pendencias += '|'+str(p.dsparecer.encode("utf-8"))
+                pendencias += '|'+str(p.dsparecer.encode("utf-8").replace('\'',''))
             else:
                 pendencias += '|'+str('')    
-            pendencias += '|'+str(p.tbtipopendencia.dspendencia.encode("utf-8"))
-            pendencias += '|'+str(p.tbstatuspendencia.dspendencia.encode("utf-8"))
-            pendencias += '|'+str(p.auth_user_updated.username.encode("utf-8"))
+            pendencias += '|'+str(p.tbtipopendencia.dspendencia.encode("utf-8").replace('\'',''))
+            pendencias += '|'+str(p.tbstatuspendencia.dspendencia.encode("utf-8").replace('\'',''))
+            pendencias += '|'+str(p.auth_user_updated.username.encode("utf-8").replace('\'',''))
             pendencias += '|'+str(p.dtpendencia.day)+'/'+str(p.dtpendencia.month)+'/'+str(p.dtpendencia.year)
             pendencias += 'FIMREG'
         return str(pendencias)
@@ -413,6 +414,54 @@ def export_to_sqlite_android(arquivo):
     data1 = datetime.now()
 
     #select id,nrcpfrequerente,nmrequerente,tbcaixa_id,dsobservacao,nrarea,tbgleba_id,tbcontrato_id,nrentrega,tbmunicipio_id from tbpecastecnicas
+
+    #PECAS TECNICAS
+    pecas = Tbpecastecnicas.objects.all().order_by("id")
+    for p in pecas:
+        identificador = str(p.id)
+        contrato = str(p.tbcontrato.nrcontrato)
+        entrega = str(p.nrentrega)
+        nome = str(p.nmrequerente.encode("utf-8"))
+        cadastro_pessoa = str(p.nrcpfrequerente.encode("utf8"))
+        localizacao = str(p.tbcaixa.nmlocalarquivo.encode("utf-8"))
+        area = str(p.nrarea)
+        perimetro = str(p.nrperimetro)
+        gleba = str(p.tbgleba.nmgleba.encode("utf-8"))
+        if p.tbmunicipio:
+            municipio = str(p.tbmunicipio.nome_mun.encode("utf-8").replace('\'',''))
+        else:
+            municipio = ''
+        observacao = str(p.dsobservacao.encode("utf-8"))
+
+        sql = "insert into pecatecnica ('id','contrato','entrega','nome','cadastro_pessoa','localizacao','area','perimetro','gleba','municipio','observacao') values ("+identificador+",'"+contrato+"','"+entrega+"','"+nome+"','"+cadastro_pessoa+"','"+localizacao+"','"+area+"','"+perimetro+"','"+gleba+"','"+municipio+"','"+observacao+"')"
+        print sql
+        cursor.execute(sql)
+
+    #LIVRO FUNDIARIO
+    titulos = Tbtituloprocesso.objects.all().order_by("id")
+    for t in titulos:
+        identificador = str(t.id)
+        processo = str(t.tbprocessobase.nrprocesso)
+        rural = Tbprocessorural.objects.filter( tbprocessobase__id = t.tbprocessobase.id )
+        if rural:
+            nome = str(rural[0].nmrequerente.encode("utf-8"))
+            cadastro_pessoa = str(rural[0].nrcpfrequerente.encode("utf-8"))
+        else:
+            nome = ''
+            cadastro_pessoa = ''
+        titulo = str(t.tbtitulo.cdtitulo)
+        tipo = str(t.tbtitulo.tbtipotitulo.cdtipo.encode("utf-8"))
+        status = str(t.tbtitulo.tbstatustitulo.sttitulo.encode("utf-8"))
+        if t.tbtitulo:
+            if t.tbtitulo.tbcaixa is not None:
+                localizacao = str(t.tbtitulo.tbcaixa.nmlocalarquivo.encode("utf-8"))
+            else:
+                localizacao = ''
+        else:
+            localizacao = ''
+        sql = "insert into livrofundiario ('id','processo','nome','cadastro_pessoa','titulo','tipo','status','localizacao') values ("+identificador+",'"+processo+"','"+nome+"','"+cadastro_pessoa+"','"+titulo+"','"+tipo+"','"+status+"','"+localizacao+"')"
+        print sql
+        cursor.execute(sql)
 
     #PROCESSOS RURAIS
     rurais = Tbprocessorural.objects.all().order_by("tbprocessobase__id")

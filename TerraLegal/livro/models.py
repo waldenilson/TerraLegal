@@ -27,7 +27,7 @@ class Tbtitulo(models.Model):
     auth_user = models.ForeignKey('tramitacao.AuthUser')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    tbcaixa = models.ForeignKey('tramitacao.Tbcaixa')
+    tbcaixa = models.ForeignKey('tramitacao.Tbcaixa',null=True)
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbtitulo'
