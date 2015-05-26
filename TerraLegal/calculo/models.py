@@ -9,6 +9,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from TerraLegal.livro.models import Tbtitulo 
 
 class Tbcalculotitulo(models.Model):
     tbextrato = models.ForeignKey('Tbextrato',blank=True)
