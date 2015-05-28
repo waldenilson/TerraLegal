@@ -2,15 +2,18 @@
 from django.contrib import admin
 from django.conf.urls import patterns, url, include
 admin.autodiscover()
-
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView
 project = 'TerraLegal'
 
 handler404 = project+'.core.views_excecoes.pagina_nao_encontrada'
 handler403 = project+'.core.views_excecoes.permissao_negada'
 handler500 = project+'.core.views_excecoes.erro_servidor'
 
+
 urlpatterns = patterns('',
-    
+
     # DAJAXICE AJAX DO PROJETO
     #url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
     url(r'^livro/',include(project+'.livro.urls',namespace='livro')),
@@ -24,8 +27,9 @@ urlpatterns = patterns('',
     # ACESSO AO PUBLICO
     url(r'^$', project+'.web.views_publicas.inicio'),
     url(r'^web/estatisticas/', project+'.web.estatisticas.estatisticas'),
-    
-
+    url(r'^web/mobile/', project+'.web.views_publicas.mobile'),
+    url(r'^media/(?P<path>.*)$',project+'.tramitacao.util.media.download', {'document_root': settings.MEDIA_ROOT}),
+   
     # GEOINFORMACOES
     url(r'^geo/glebas_federais/', project+'.tramitacao.restrito.geoinformacao.glebas_federais'),
     url(r'^geo/openlayers/', project+'.tramitacao.restrito.geoinformacao.openlayers'),
@@ -237,6 +241,7 @@ urlpatterns = patterns('',
     # ACESSO RESTRITO SICOP RELATORIO
     url(r'^sicop/relatorio/lista/', 'TerraLegal.tramitacao.restrito.relatorio.lista'),
     url(r'^sicop/relatorio/processos/', 'TerraLegal.tramitacao.restrito.relatorio.processos'),
+    url(r'^sicop/relatorio/varredura_processos/', 'TerraLegal.tramitacao.restrito.relatorio.varredura_processos'),
     url(r'^sicop/relatorio/processo_peca/', 'TerraLegal.tramitacao.restrito.relatorio.processo_peca'),
     url(r'^sicop/relatorio/processo_sem_peca/', 'TerraLegal.tramitacao.restrito.relatorio.processo_sem_peca'),
     url(r'^sicop/relatorio/processo_sem_peca_com_parcela_sigef/', 'TerraLegal.tramitacao.restrito.relatorio.processo_sem_peca_com_parcela_sigef'),
@@ -270,3 +275,4 @@ urlpatterns = patterns('',
     url(r'^sicop/admin/', include(admin.site.urls)),
     
 )
+

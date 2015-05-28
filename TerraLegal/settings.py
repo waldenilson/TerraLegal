@@ -11,7 +11,7 @@ DATABASES = {
         'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', 
         #'ENGINE': 'django.contrib.gis.db.backends.postgis', 
-        'NAME': 'dbSicop',                      
+        'NAME': 'sicop_atual',                      
         'USER': 'admin',
         'PASSWORD': '123456',
         'HOST': 'localhost',                      
@@ -39,7 +39,7 @@ MANAGERS = ADMINS
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['localhost','sicop12','sicop.incra.gov.br','www.sicop.incra.gov.br']
+ALLOWED_HOSTS = ['localhost','sicop12','sicop.incra.gov.br','www.sicop.incra.gov.br','sicop']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -66,8 +66,8 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = ''#os.path.abspath(os.path.join(ABSOLUTE_PROJECT_ROOT, 'staticfiles/media/'))
-#MEDIA_ROOT = abspath(join(dirname(__file__), '../staticfiles/configCSV'))
+#MEDIA_ROOT = os.path.abspath(os.path.join(ABSOLUTE_PROJECT_ROOT, 'staticfiles/media/'))
+MEDIA_ROOT = abspath(join(dirname(__file__), '../media'))
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -76,7 +76,7 @@ STATIC_URL = '/static/'
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://example.com/media/", "http://media.example.com/"
-MEDIA_URL = ''#STATIC_URL + 'media/'
+MEDIA_URL = '/media/'
 
 
 # Absolute path to the directory static files should be collected to.

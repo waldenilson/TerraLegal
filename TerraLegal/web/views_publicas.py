@@ -36,4 +36,7 @@ def equipe(request):
 
 def organizacao(request):        
     return render(request, "organizacao.html")
+
+def mobile(request):        
+    return render(request, "mobile.html")
     
