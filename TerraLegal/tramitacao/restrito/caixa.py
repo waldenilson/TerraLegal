@@ -233,10 +233,11 @@ def relatorio_ods(request):
 
             nome = ''
             cpf = ''
-            if obj.tbprocessobase.tbtipoprocesso.tabela == 'tbprocessourbano':
+            print obj.tbprocessobase.id
+            if obj.tbprocessobase.tbtipoprocesso.id == 3:
                 nome += obj.nmpovoado    
                 cpf += obj.nrcnpj
-            elif obj.tbprocessobase.tbtipoprocesso.tabela == 'tbprocessorural':
+            elif obj.tbprocessobase.tbtipoprocesso.id == 1:
                 nome += obj.nmrequerente    
                 cpf += obj.nrcpfrequerente
             else:

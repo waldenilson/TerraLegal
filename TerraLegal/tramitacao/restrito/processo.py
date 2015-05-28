@@ -52,7 +52,7 @@ def consultaprocesso(request):
 #    list_json()
 #    batimento_processo("/opt/tcu-processos.csv")
 #    reader("/opt/ok.csv")
-#    export_to_sqlite_android('/opt/sicopsqlite.db')
+    export_to_sqlite_android('/opt/sicopsqlite.db')
 #    tit = Tbtituloprocesso.objects.filter(id = 2616)
 #    if tit[0].tbtitulo.tbcaixa is not None:
 #        print 'ok'
@@ -695,7 +695,7 @@ def edicao(request, id):
             parcelas = []
             total_area_sigef = 0.0
             try:
-                response = urllib2.urlopen('https://sigef.incra.gov.br/api/destinacao/parcelas/?cpf='+rural.nrcpfrequerente)
+                response = urllib2.urlopen('https://sigef.incra.gov.br/api/destinacao/parcelas/?cpf='+rural.nrcpfrequerente,timeout=1)
                 retorno = json.loads(response.read())
                 #jsonparcelas = serializers.serialize('json', html)
                 #print 'pagina: '+str(retorno['parcelas'])

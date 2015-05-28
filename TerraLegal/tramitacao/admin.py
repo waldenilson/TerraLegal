@@ -304,6 +304,24 @@ def list_json():
 
     print pecas
 
+def buscar_titulo(id_processo):
+    tit = ""
+    titulo = Tbtituloprocesso.objects.filter(tbprocessobase__id = id_processo)
+    if titulo:
+        objtit = titulo[0]
+        tit += str(objtit.tbtitulo.cdtitulo.encode("utf-8")+" ")
+        if objtit.tbtitulo.tbtipotitulo:
+            tit += '|'+str(objtit.tbtitulo.tbtipotitulo.cdtipo.encode("utf-8"))
+        else:
+            tit += '| '
+        if objtit.tbtitulo.tbstatustitulo:
+            tit += '|'+str(objtit.tbtitulo.tbstatustitulo.sttitulo.encode("utf-8"))
+        else:
+            tit += '| '
+        return str(tit)
+    else:
+        return ''
+
 
 def buscar_pecas(cpf):
     pecas = ""
@@ -313,23 +331,23 @@ def buscar_pecas(cpf):
             if p.nrarea:
                 pecas += str(p.nrarea)
             else:
-                pecas += str('')
+                pecas += str(' ')
             if p.tbmunicipio:    
-                pecas += '|'+str(p.tbmunicipio.nome_mun.encode("utf-8").replace('\'',''))    
+                pecas += '|'+str(p.tbmunicipio.nome_mun.encode("utf-8").replace('\'','').replace('|','')+' / '+p.tbmunicipio.uf.encode("utf-8"))    
             else:
-                pecas += '|'+str('')    
+                pecas += '|'+str(' ')    
             if p.tbgleba:
-                pecas += '|'+str(p.tbgleba.nmgleba.encode("utf-8").replace('\'',''))
+                pecas += '|'+str(p.tbgleba.nmgleba.encode("utf-8").replace('\'','').replace('|',''))
             else:
-                pecas += '|'+str('')
+                pecas += '|'+str(' ')
             if p.tbcontrato:
-                pecas += '|'+str(p.tbcontrato.nrcontrato.encode("utf-8").replace('\'',''))
+                pecas += '|'+str(p.tbcontrato.nrcontrato.encode("utf-8").replace('\'','').replace('|',''))
             else:
-                pecas += '|'+str('')
+                pecas += '|'+str(' ')
             if p.dsobservacao:
-                pecas += '|'+str(p.dsobservacao.encode("utf-8").replace('\'',''))
+                pecas += '|'+str(p.dsobservacao.encode("utf-8").replace('\'','').replace('|',''))
             else:
-                pecas += '|'+str('')    
+                pecas += '|'+str(' ')    
             pecas += 'FIMREG'    
         return str(pecas)
     else:
@@ -341,28 +359,28 @@ def buscar_anexos(id_processo):
     anexo = Tbprocessosanexos.objects.filter(tbprocessobase__id = id_processo)
     if anexo:
         for a in anexo:
-            anexos += '|'+str(a.tbprocessobase_id_anexo.nrprocesso.encode("utf-8").replace('\'',''))
-            anexos += '|'+str(a.tbprocessobase_id_anexo.tbtipoprocesso.nome.encode("utf-8").replace('\'',''))    
+            anexos += str(a.tbprocessobase_id_anexo.nrprocesso.encode("utf-8").replace('\'','').replace('|',''))
+            anexos += '|'+str(a.tbprocessobase_id_anexo.tbtipoprocesso.nome.encode("utf-8").replace('\'','').replace('|',''))    
             if a.tbprocessobase_id_anexo.tbtipoprocesso.id == 1:
                 req = Tbprocessorural.objects.filter( tbprocessobase__id = a.tbprocessobase_id_anexo.id )
                 if req:
-                    anexos += '|'+str(req[0].nmrequerente.encode("utf-8").replace('\'',''))
+                    anexos += '|'+str(req[0].nmrequerente.encode("utf-8").replace('\'','').replace('|',''))
                 else:
-                    anexos += '|'+str('')
+                    anexos += '|'+str(' ')
             elif a.tbprocessobase_id_anexo.tbtipoprocesso.id == 2:
                 req = Tbprocessoclausula.objects.filter( tbprocessobase__id = a.tbprocessobase_id_anexo.id )
                 if req:
-                    anexos += '|'+str(req[0].nmrequerente.encode("utf-8").replace('\'',''))
+                    anexos += '|'+str(req[0].nmrequerente.encode("utf-8").replace('\'','').replace('|',''))
                 else:
-                    anexos += '|'+str('')
+                    anexos += '|'+str(' ')
             else:
                 req = Tbprocessourbano.objects.filter( tbprocessobase__id = a.tbprocessobase_id_anexo.id )
                 if req:
-                    anexos += '|'+str(req[0].nmpovoado.encode("utf-8").replace('\'',''))
+                    anexos += '|'+str(req[0].nmpovoado.encode("utf-8").replace('\'','').replace('|',''))
                 else:
-                    anexos += '|'+str('')
+                    anexos += '|'+str(' ')
 
-            anexos += '|'+str(a.auth_user.username.encode("utf-8").replace('\'',''))
+            anexos += '|'+str(a.auth_user.username.encode("utf-8").replace('\'','').replace('|',''))
             anexos += '|'+str(a.dtanexado.day)+'/'+str(a.dtanexado.month)+'/'+str(a.dtanexado.year)
 
             anexos += 'FIMREG'
@@ -372,12 +390,12 @@ def buscar_anexos(id_processo):
 
 def buscar_movimentacoes(id_processo):
     movimentacoes = ""
-    mov = Tbmovimentacao.objects.filter(tbprocessobase__id = id_processo)
+    mov = Tbmovimentacao.objects.filter(tbprocessobase__id = id_processo).order_by("-dtmovimentacao")
     if mov:
         for m in mov:
-            movimentacoes += '|'+str(m.tbcaixa.nmlocalarquivo.encode("utf-8").replace('\'',''))
-            movimentacoes += '|'+str(m.tbcaixa_id_origem.nmlocalarquivo.encode("utf-8").replace('\'',''))    
-            movimentacoes += '|'+str(m.auth_user.username.encode("utf-8").replace('\'',''))
+            movimentacoes += str(m.tbcaixa_id_origem.nmlocalarquivo.encode("utf-8").replace('\'','').replace('|',''))    
+            movimentacoes += '|'+str(m.tbcaixa.nmlocalarquivo.encode("utf-8").replace('\'','').replace('|',''))
+            movimentacoes += '|'+str(m.auth_user.username.encode("utf-8").replace('\'','').replace('|',''))
             movimentacoes += '|'+str(m.dtmovimentacao.day)+'/'+str(m.dtmovimentacao.month)+'/'+str(m.dtmovimentacao.year)
             movimentacoes += 'FIMREG'
         return str(movimentacoes)
@@ -391,14 +409,17 @@ def buscar_pendencias(id_processo):
     pend = Tbpendencia.objects.filter(tbprocessobase__id = id_processo)
     if pend:
         for p in pend:
-            pendencias += '|'+str(p.dsdescricao.encode("utf-8").replace('\'',''))
-            if p.dsparecer:
-                pendencias += '|'+str(p.dsparecer.encode("utf-8").replace('\'',''))
+            if p.dsdescricao:
+                pendencias += str(p.dsdescricao.encode("utf-8").replace('\'','').replace('|',''))
             else:
-                pendencias += '|'+str('')    
-            pendencias += '|'+str(p.tbtipopendencia.dspendencia.encode("utf-8").replace('\'',''))
-            pendencias += '|'+str(p.tbstatuspendencia.dspendencia.encode("utf-8").replace('\'',''))
-            pendencias += '|'+str(p.auth_user_updated.username.encode("utf-8").replace('\'',''))
+                pendencias += str(' ')    
+            if p.dsparecer:
+                pendencias += '|'+str(p.dsparecer.encode("utf-8").replace('\'','').replace('|',''))
+            else:
+                pendencias += '|'+str(' ')    
+            pendencias += '|'+str(p.tbtipopendencia.dspendencia.encode("utf-8").replace('\'','').replace('|',''))
+            pendencias += '|'+str(p.tbstatuspendencia.dspendencia.encode("utf-8").replace('\'','').replace('|',''))
+            pendencias += '|'+str(p.auth_user_updated.username.encode("utf-8").replace('\'','').replace('|',''))
             pendencias += '|'+str(p.dtpendencia.day)+'/'+str(p.dtpendencia.month)+'/'+str(p.dtpendencia.year)
             pendencias += 'FIMREG'
         return str(pendencias)
@@ -479,31 +500,53 @@ def export_to_sqlite_android(arquivo):
         localizacao = str(r.tbprocessobase.tbcaixa.nmlocalarquivo.encode("utf-8").replace('\'',''))
         gleba = str(r.tbprocessobase.tbgleba.nmgleba.encode("utf-8").replace('\'',''))
         tipo = str(r.tbprocessobase.tbtipoprocesso.nome.encode("utf-8"))
-        classificacao = str(r.tbprocessobase.tbclassificacaoprocesso.nmclassificacao.encode("utf-8"))
         
-        if r.tbprocessobase.tbmunicipio.nome_mun:
-            municipio_declarado = str(r.tbprocessobase.tbmunicipio.nome_mun.encode("utf-8").replace('\'',''))
+        classificacao = str(r.tbprocessobase.tbclassificacaoprocesso.nmclassificacao.encode("utf-8")+".")
+        if classificacao == 'Anexo.':
+            # pegar o nrprocesso e requerente do principal
+            res = Tbprocessosanexos.objects.filter( tbprocessobase_id_anexo__id = r.tbprocessobase.id )
+            if res:
+                base = Tbprocessobase.objects.get(pk=res[0].tbprocessobase.id)
+                classificacao += str(base.nrprocesso)
+                if base.tbtipoprocesso.id == 1:
+                    rur = Tbprocessorural.objects.filter( tbprocessobase__id = base.id )[0]
+                    classificacao += '.'+str(rur.nmrequerente.encode("utf-8").replace('.',''))
+                elif base.tbtipoprocesso.id == 2:
+                    cla = Tbprocessoclausula.objects.filter( tbprocessobase__id = base.id )[0]
+                    classificacao += '.'+str(cla.nmrequerente.encode("utf-8").replace('.',''))
+                else:
+                    urb = Tbprocessourbano.objects.filter( tbprocessobase__id = base.id )[0]
+                    classificacao += '.'+str(urb.nmpovoado.encode("utf-8").replace('.',''))
+
+        if r.tbprocessobase.tbmunicipio:
+            municipio_declarado = str(r.tbprocessobase.tbmunicipio.nome_mun.encode("utf-8").replace('\'','')+' / '+r.tbprocessobase.tbmunicipio.uf)
         else:
-            municipio_declarado = str(r.tbprocessobase.tbmunicipio.nome_mun)
+            municipio_declarado = ' '
 
         if r.tbprocessobase.nmendereco:
             endereco = str(r.tbprocessobase.nmendereco.encode("utf-8").replace('\'',''))
+            if r.tbprocessobase.tbmunicipiodomicilio:
+                endereco += ' '
+                endereco += str(r.tbprocessobase.tbmunicipiodomicilio.nome_mun.encode("utf-8").replace('\'',''))
+                endereco += ' / '+str(r.tbprocessobase.tbmunicipiodomicilio.uf.encode("utf-8"))
         else:
-            endereco = str(r.tbprocessobase.nmendereco)
+            endereco = ' '
         if r.tbprocessobase.nmcontato:    
             contato = str(r.tbprocessobase.nmcontato.encode("utf-8").replace('\'',''))
         else:
-            contato = str(r.tbprocessobase.nmcontato)
+            contato = ' '
 
         pendencias = buscar_pendencias(r.tbprocessobase.id)
 
         movimentacoes = buscar_movimentacoes(r.tbprocessobase.id)
 
-        pecas = buscar_pecas(r.tbprocessobase.id)
+        pecas = buscar_pecas(r.nrcpfrequerente)
 
         anexos = buscar_anexos(r.tbprocessobase.id)
 
-        sql = "insert into processo ('id','numero','cadastro_pessoa','nome','subnome','localizacao','gleba','tipo','classificacao','municipio_declarado','endereco','contato','pendencias','movimentacoes','pecas','anexos') values ("+identificador+",'"+numero+"','"+cadastro_pessoa+"','"+nome+"','"+subnome+"','"+localizacao+"','"+gleba+"','"+tipo+"','"+classificacao+"','"+municipio_declarado+"','"+endereco+"','"+contato+"','"+pendencias+"','"+movimentacoes+"','"+pecas+"','"+anexos+"')"
+        titulo = buscar_titulo(r.tbprocessobase.id)
+
+        sql = "insert into processo ('id','numero','cadastro_pessoa','nome','subnome','localizacao','gleba','tipo','classificacao','municipio_declarado','endereco','contato','pendencias','movimentacoes','pecas','anexos','titulo') values ("+identificador+",'"+numero+"','"+cadastro_pessoa+"','"+nome+"','"+subnome+"','"+localizacao+"','"+gleba+"','"+tipo+"','"+classificacao+"','"+municipio_declarado+"','"+endereco+"','"+contato+"','"+pendencias+"','"+movimentacoes+"','"+pecas+"','"+anexos+"','"+titulo+"')"
         print sql
         cursor.execute(sql)
 
@@ -523,31 +566,52 @@ def export_to_sqlite_android(arquivo):
         localizacao = str(c.tbprocessobase.tbcaixa.nmlocalarquivo.encode("utf-8").replace('\'',''))
         gleba = str(c.tbprocessobase.tbgleba.nmgleba.encode("utf-8").replace('\'',''))
         tipo = str(c.tbprocessobase.tbtipoprocesso.nome.encode("utf-8"))
-        classificacao = str(c.tbprocessobase.tbclassificacaoprocesso.nmclassificacao.encode("utf-8"))
+        classificacao = str(c.tbprocessobase.tbclassificacaoprocesso.nmclassificacao.encode("utf-8")+".")
+        if classificacao == 'Anexo.':
+            # pegar o nrprocesso e requerente do principal
+            res = Tbprocessosanexos.objects.filter( tbprocessobase_id_anexo__id = c.tbprocessobase.id )
+            if res:
+                base = Tbprocessobase.objects.get(pk=res[0].tbprocessobase.id)
+                classificacao += str(base.nrprocesso)
+                if base.tbtipoprocesso.id == 1:
+                    rur = Tbprocessorural.objects.filter( tbprocessobase__id = base.id )[0]
+                    classificacao += '.'+str(rur.nmrequerente.encode("utf-8").replace('.',''))
+                elif base.tbtipoprocesso.id == 2:
+                    cla = Tbprocessoclausula.objects.filter( tbprocessobase__id = base.id )[0]
+                    classificacao += '.'+str(cla.nmrequerente.encode("utf-8").replace('.',''))
+                else:
+                    urb = Tbprocessourbano.objects.filter( tbprocessobase__id = base.id )[0]
+                    classificacao += '.'+str(urb.nmpovoado.encode("utf-8").replace('.',''))
         
-        if c.tbprocessobase.tbmunicipio.nome_mun:
-            municipio_declarado = str(c.tbprocessobase.tbmunicipio.nome_mun.encode("utf-8").replace('\'',''))
+        if c.tbprocessobase.tbmunicipio:
+            municipio_declarado = str(c.tbprocessobase.tbmunicipio.nome_mun.encode("utf-8").replace('\'','')+' / '+c.tbprocessobase.tbmunicipio.uf)
         else:
-            municipio_declarado = str(c.tbprocessobase.tbmunicipio.nome_mun)
+            municipio_declarado = ' '
 
         if c.tbprocessobase.nmendereco:
             endereco = str(c.tbprocessobase.nmendereco.encode("utf-8").replace('\'',''))
+            if c.tbprocessobase.tbmunicipiodomicilio:
+                endereco += ' '
+                endereco += str(c.tbprocessobase.tbmunicipiodomicilio.nome_mun.encode("utf-8").replace('\'',''))
+                endereco += ' / '+str(c.tbprocessobase.tbmunicipiodomicilio.uf.encode("utf-8"))
         else:
-            endereco = str(c.tbprocessobase.nmendereco)
+            endereco = ' '
         if c.tbprocessobase.nmcontato:    
             contato = str(c.tbprocessobase.nmcontato.encode("utf-8").replace('\'',''))
         else:
-            contato = str(c.tbprocessobase.nmcontato)
+            contato = ' '
 
         pendencias = buscar_pendencias(c.tbprocessobase.id)
 
         movimentacoes = buscar_movimentacoes(c.tbprocessobase.id)
 
-        pecas = buscar_pecas(c.tbprocessobase.id)
+        pecas = buscar_pecas(c.nrcpfrequerente)
 
         anexos = buscar_anexos(c.tbprocessobase.id)
-        
-        sql = "insert into processo ('id','numero','cadastro_pessoa','nome','subnome','localizacao','gleba','tipo','classificacao','municipio_declarado','endereco','contato','pendencias','movimentacoes','pecas','anexos') values ("+identificador+",'"+numero+"','"+cadastro_pessoa+"','"+nome+"','"+subnome+"','"+localizacao+"','"+gleba+"','"+tipo+"','"+classificacao+"','"+municipio_declarado+"','"+endereco+"','"+contato+"','"+pendencias+"','"+movimentacoes+"','"+pecas+"','"+anexos+"')"
+
+        titulo = buscar_titulo(c.tbprocessobase.id)
+
+        sql = "insert into processo ('id','numero','cadastro_pessoa','nome','subnome','localizacao','gleba','tipo','classificacao','municipio_declarado','endereco','contato','pendencias','movimentacoes','pecas','anexos','titulo') values ("+identificador+",'"+numero+"','"+cadastro_pessoa+"','"+nome+"','"+subnome+"','"+localizacao+"','"+gleba+"','"+tipo+"','"+classificacao+"','"+municipio_declarado+"','"+endereco+"','"+contato+"','"+pendencias+"','"+movimentacoes+"','"+pecas+"','"+anexos+"','"+titulo+"')"
         print sql
         cursor.execute(sql)
 
@@ -567,31 +631,53 @@ def export_to_sqlite_android(arquivo):
         localizacao = str(u.tbprocessobase.tbcaixa.nmlocalarquivo.encode("utf-8").replace('\'',''))
         gleba = str(u.tbprocessobase.tbgleba.nmgleba.encode("utf-8").replace('\'',''))
         tipo = str(u.tbprocessobase.tbtipoprocesso.nome.encode("utf-8"))
-        classificacao = str(u.tbprocessobase.tbclassificacaoprocesso.nmclassificacao.encode("utf-8"))
+        classificacao = str(u.tbprocessobase.tbclassificacaoprocesso.nmclassificacao.encode("utf-8")+".")
+        if classificacao == 'Anexo.':
+            # pegar o nrprocesso e requerente do principal
+            res = Tbprocessosanexos.objects.filter( tbprocessobase_id_anexo__id = u.tbprocessobase.id )
+            if res:
+                base = Tbprocessobase.objects.get(pk=res[0].tbprocessobase.id)
+                classificacao += str(base.nrprocesso)
+                if base.tbtipoprocesso.id == 1:
+                    rur = Tbprocessorural.objects.filter( tbprocessobase__id = base.id )[0]
+                    classificacao += '.'+str(rur.nmrequerente.encode("utf-8").replace('.',''))
+                elif base.tbtipoprocesso.id == 2:
+                    cla = Tbprocessoclausula.objects.filter( tbprocessobase__id = base.id )[0]
+                    classificacao += '.'+str(cla.nmrequerente.encode("utf-8").replace('.',''))
+                else:
+                    urb = Tbprocessourbano.objects.filter( tbprocessobase__id = base.id )[0]
+                    classificacao += '.'+str(urb.nmpovoado.encode("utf-8").replace('.',''))
         
-        if u.tbprocessobase.tbmunicipio.nome_mun:
-            municipio_declarado = str(u.tbprocessobase.tbmunicipio.nome_mun.encode("utf-8").replace('\'',''))
+        if u.tbprocessobase.tbmunicipio:
+            municipio_declarado = str(u.tbprocessobase.tbmunicipio.nome_mun.encode("utf-8").replace('\'','')+' / '+u.tbprocessobase.tbmunicipio.uf)
         else:
-            municipio_declarado = str(u.tbprocessobase.tbmunicipio.nome_mun)
+            municipio_declarado = ' '
 
         if u.tbprocessobase.nmendereco:
             endereco = str(u.tbprocessobase.nmendereco.encode("utf-8").replace('\'',''))
+            if u.tbprocessobase.tbmunicipiodomicilio:
+                endereco += ' '
+                endereco += str(u.tbprocessobase.tbmunicipiodomicilio.nome_mun.encode("utf-8").replace('\'',''))
+                endereco += ' / '+str(u.tbprocessobase.tbmunicipiodomicilio.uf.encode("utf-8"))
         else:
-            endereco = str(u.tbprocessobase.nmendereco)
+            endereco = ' '
         if u.tbprocessobase.nmcontato:    
             contato = str(u.tbprocessobase.nmcontato.encode("utf-8").replace('\'',''))
         else:
-            contato = str(u.tbprocessobase.nmcontato)
+            contato = ' '
 
         pendencias = buscar_pendencias(u.tbprocessobase.id)
 
         movimentacoes = buscar_movimentacoes(u.tbprocessobase.id)
 
-        pecas = buscar_pecas(u.tbprocessobase.id)
+#        pecas = buscar_pecas(u.tbprocessobase.id)
+        pecas = ''
 
         anexos = buscar_anexos(u.tbprocessobase.id)
-        
-        sql = "insert into processo ('id','numero','cadastro_pessoa','nome','subnome','localizacao','gleba','tipo','classificacao','municipio_declarado','endereco','contato','pendencias','movimentacoes','pecas','anexos') values ("+identificador+",'"+numero+"','"+cadastro_pessoa+"','"+nome+"','"+subnome+"','"+localizacao+"','"+gleba+"','"+tipo+"','"+classificacao+"','"+municipio_declarado+"','"+endereco+"','"+contato+"','"+pendencias+"','"+movimentacoes+"','"+pecas+"','"+anexos+"')"
+
+        titulo = buscar_titulo(u.tbprocessobase.id)
+
+        sql = "insert into processo ('id','numero','cadastro_pessoa','nome','subnome','localizacao','gleba','tipo','classificacao','municipio_declarado','endereco','contato','pendencias','movimentacoes','pecas','anexos','titulo') values ("+identificador+",'"+numero+"','"+cadastro_pessoa+"','"+nome+"','"+subnome+"','"+localizacao+"','"+gleba+"','"+tipo+"','"+classificacao+"','"+municipio_declarado+"','"+endereco+"','"+contato+"','"+pendencias+"','"+movimentacoes+"','"+pecas+"','"+anexos+"','"+titulo+"')"
         print sql
         cursor.execute(sql)
 

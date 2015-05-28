@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 from django.template.context import RequestContext
 from TerraLegal.tramitacao.models import Tbpecastecnicas, \
-    Tbprocessorural,Tbchecklistprocessobase, Tbprocessourbano, Tbcaixa, AuthUser, Tbmunicipio, Tbprocessoclausula, Tbpendencia, Tbetapa, Tbtransicao
+    Tbprocessorural,Tbchecklistprocessobase, Tbprocessosanexos, Tbprocessobase,Tbprocessourbano, Tbcaixa, AuthUser, Tbmunicipio, Tbprocessoclausula, Tbpendencia, Tbetapa, Tbtransicao
 from TerraLegal.tramitacao.relatorio_base import relatorio_ods_base_header,\
     relatorio_ods_base
 from django.db.models import Q
@@ -721,6 +721,106 @@ def processos(request):
                 )
     
     return render_to_response('relatorio/pecas-sem-processo.odt',dictionary=context,format='odt',filename='relatorio-pecas-sem-processo.odt')
+
+@permission_required('sicop.relatorio_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def varredura_processos(request):
+    
+    if request.method == "POST":
+        #CONSULTA ORDENADA E/OU BASEADA EM FILTROS DE PESQUISA
+        consulta = Tbprocessobase.objects.filter( tbclassificacaoprocesso__id = 1, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        processos = consulta.order_by( 'tbcaixa__nmlocalarquivo' )
+                            
+
+        #GERACAO
+        nome_relatorio = "relatorio-todos-processos"
+        titulo_relatorio    = "RELATORIO DE TODOS OS PROCESSOS"
+        planilha_relatorio  = "Todos os Processos"
+        ods = ODS()
+        sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, len(processos), ods)
+        
+        # TITULOS DAS COLUNAS
+        sheet.getCell(0, 6).setAlignHorizontal('center').stringValue( 'Caixa' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(1, 6).setAlignHorizontal('center').stringValue( 'Requerente' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'Processo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'Anexos' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(4, 6).setAlignHorizontal('center').stringValue( 'Tipo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getRow(1).setHeight('20pt')
+        sheet.getRow(2).setHeight('20pt')
+        sheet.getRow(6).setHeight('20pt')
+        
+        sheet.getColumn(0).setWidth("2in")
+        sheet.getColumn(1).setWidth("3in")
+        sheet.getColumn(2).setWidth("2.5in")
+        sheet.getColumn(3).setWidth("5in")
+        sheet.getColumn(4).setWidth("2.5in")
+       
+            
+        #DADOS DA CONSULTA
+        x = 5
+        for obj in processos:
+            print str(obj.id)
+            #verificar se existe obj tipo processo no processobase
+            if ( Tbprocessorural.objects.filter( tbprocessobase__id = obj.id ) or Tbprocessoclausula.objects.filter( tbprocessobase__id = obj.id ) or Tbprocessourbano.objects.filter( tbprocessobase__id = obj.id ) ) and obj.nrprocesso != '99999999999999999':
+                sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.tbcaixa.nmlocalarquivo)
+                #print str(obj.id)
+                #buscar nome requerente (rural,clausula) e povoado (urbano)
+                requerente = ''
+                if obj.tbtipoprocesso.id == 1:
+                    requerente = Tbprocessorural.objects.filter( tbprocessobase__id = obj.id )[0].nmrequerente    
+                elif obj.tbtipoprocesso.id == 2:
+                    requerente = Tbprocessoclausula.objects.filter( tbprocessobase__id = obj.id )[0].nmrequerente    
+                else:
+                    requerente = Tbprocessourbano.objects.filter( tbprocessobase__id = obj.id )[0].nmpovoado    
+                sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(requerente)    
+
+                sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue(obj.nrprocesso)
+                
+                #buscar os anexos do obj e concatenar numero com nome requerente ou povoado
+                anexo = ''
+                anexos = Tbprocessosanexos.objects.filter( tbprocessobase__id = obj.id )
+                for an in anexos:
+                    if an.tbprocessobase_id_anexo.tbtipoprocesso.id == 1:
+                        objan = Tbprocessorural.objects.filter( tbprocessobase__id = an.tbprocessobase_id_anexo.id )
+                        anexo += str(objan[0].tbprocessobase.nrprocesso.encode("utf-8"))+':'+objan[0].nmrequerente.encode("utf-8")+"|"
+                    elif an.tbprocessobase_id_anexo.tbtipoprocesso.id == 2:
+                        objan = Tbprocessoclausula.objects.filter( tbprocessobase__id = an.tbprocessobase_id_anexo.id )
+                        anexo += str(objan[0].tbprocessobase.nrprocesso.encode("utf-8"))+':'+str(objan[0].nmrequerente.encode("utf-8"))+"|"
+                    else:
+                        objan = Tbprocessorural.objects.filter( tbprocessobase__id = an.tbprocessobase_id_anexo.id )
+                        anexo += str(objan[0].tbprocessobase.nrprocesso.encode("utf-8"))+':'+str(objan[0].nmpovoado.encode("utf-8"))+"|"
+                #print anexo
+                sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(anexo.decode("utf-8"))
+
+                sheet.getCell(4, x+2).setAlignHorizontal('center').stringValue(obj.tbtipoprocesso.nome.encode("utf-8"))
+                x += 1
+            
+        #GERACAO DO DOCUMENTO  
+        relatorio_ods_base(ods, planilha_relatorio)
+        response = HttpResponse(mimetype=ods.mimetype.toString())
+        response['Content-Disposition'] = 'attachment; filename='+nome_relatorio+'.ods'
+        ods.save(response)
+        return response
+
+    return render_to_response('sicop/relatorio/processos.html',{}, context_instance = RequestContext(request))
+
+
+    #buscar as pecas tecnicas que nao estao ligadas a um processo
+    pecas = Tbpecastecnicas.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+    pecas_sem_proc = []
+    
+    for p in pecas:
+        if not Tbprocessorural.objects.filter( nrcpfrequerente = p.nrcpfrequerente ):
+            pecas_sem_proc.append(p)
+    
+    context = dict(        
+                    titulo='Relatório das Peças Técnicas sem processo',
+                    total=len(pecas_sem_proc),
+                    lista=pecas_sem_proc
+                )
+    
+    return render_to_response('relatorio/pecas-sem-processo.odt',dictionary=context,format='odt',filename='relatorio-pecas-sem-processo.odt')
+
+
 
 #PECAS TECNICAS VALIDADAS
 
