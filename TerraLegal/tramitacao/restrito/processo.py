@@ -314,7 +314,7 @@ def tramitar(request, base):
             f_movimentacao.save()
             
             #OBS ao tramitar o processo todos os processos anexados serao tramitados ( classificado como anexo )
-            anexado = Tbprocessosanexos.objects.all().filter( tbprocessobase = base.id )
+            anexado = Tbprocessosanexos.objects.all().filter( tbprocessobase__id = base.id )
             for nx in anexado:
                 proc_anexado = nx.tbprocessobase_id_anexo
                 f_base = Tbprocessobase (
@@ -342,9 +342,9 @@ def tramitar(request, base):
         municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
         tipo = base.tbtipoprocesso.tabela
         # movimentacoes deste processo
-        movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase = base.id ).order_by( "-dtmovimentacao" ) 
+        movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase__id = base.id ).order_by( "-dtmovimentacao" ) 
         # anexos deste processo
-        anexado = Tbprocessosanexos.objects.all().filter( tbprocessobase = base.id )
+        anexado = Tbprocessosanexos.objects.all().filter( tbprocessobase__id = base.id )
         
         #pre-selecao das caixas exibidas como caixa destino. Verifica a classe da divisao
         caixasdestino = Tbcaixa.objects.all().filter(
@@ -354,7 +354,7 @@ def tramitar(request, base):
         
 
         if tipo == "tbprocessorural":
-            rural = Tbprocessorural.objects.get( tbprocessobase = base.id )
+            rural = Tbprocessorural.objects.get( tbprocessobase__id = base.id )
             peca = Tbpecastecnicas.objects.all().filter( nrcpfrequerente = rural.nrcpfrequerente.replace('.','').replace('-','') )
             # caixas que podem ser tramitadas
             tram = []
@@ -368,7 +368,7 @@ def tramitar(request, base):
                                        'base':base,'rural':rural,'peca':peca}, context_instance = RequestContext(request))
         else:
             if tipo == "tbprocessourbano":
-                urbano = Tbprocessourbano.objects.get( tbprocessobase = base.id )
+                urbano = Tbprocessourbano.objects.get( tbprocessobase__id = base.id )
          
                 dtaberturaprocesso = formatDataToText( urbano.dtaberturaprocesso )
                 dttitulacao = formatDataToText( urbano.dttitulacao )
@@ -385,7 +385,7 @@ def tramitar(request, base):
                                        'dtaberturaprocesso':dtaberturaprocesso,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
             else:
                 if tipo == "tbprocessoclausula":
-                    clausula = Tbprocessoclausula.objects.get( tbprocessobase = base.id )
+                    clausula = Tbprocessoclausula.objects.get( tbprocessobase__id = base.id )
                     dttitulacao = formatDataToText( clausula.dttitulacao )
                     dtrequerimento = formatDataToText( clausula.dtrequerimento )
                     # caixas que podem ser tramitadas
@@ -429,15 +429,15 @@ def criar_pendencia(request, base):
         municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
         tipo = base.tbtipoprocesso.tabela
         # movimentacoes deste processo
-        movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase = base.id ).order_by( "-dtmovimentacao" ) 
+        movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase__id = base.id ).order_by( "-dtmovimentacao" ) 
         # caixa destino
         caixadestino = Tbcaixa.objects.all()
         # anexos deste processo
-        anexado = Tbprocessosanexos.objects.all().filter( tbprocessobase = base.id )
+        anexado = Tbprocessosanexos.objects.all().filter( tbprocessobase__id = base.id )
 
 
         if tipo == "tbprocessorural":
-            rural = Tbprocessorural.objects.get( tbprocessobase = base.id )
+            rural = Tbprocessorural.objects.get( tbprocessobase__id = base.id )
             peca = Tbpecastecnicas.objects.all().filter( nrcpfrequerente = rural.nrcpfrequerente.replace('.','').replace('-','') )
             return render_to_response('sicop/processo/rural/edicao.html',
                                       {'gleba':gleba,
@@ -446,7 +446,7 @@ def criar_pendencia(request, base):
                                        'base':base,'rural':rural,'peca':peca}, context_instance = RequestContext(request))
         else:
             if tipo == "tbprocessourbano":
-                urbano = Tbprocessourbano.objects.get( tbprocessobase = base.id )
+                urbano = Tbprocessourbano.objects.get( tbprocessobase__id = base.id )
          
                 dtaberturaprocesso = formatDataToText( urbano.dtaberturaprocesso )
                 dttitulacao = formatDataToText( urbano.dttitulacao )
@@ -459,7 +459,7 @@ def criar_pendencia(request, base):
                                        'dtaberturaprocesso':dtaberturaprocesso,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
             else:
                 if tipo == "tbprocessoclausula":
-                    clausula = Tbprocessoclausula.objects.get( tbprocessobase = base.id )
+                    clausula = Tbprocessoclausula.objects.get( tbprocessobase__id = base.id )
                     dttitulacao = formatDataToText( clausula.dttitulacao )
                     dtrequerimento = formatDataToText( clausula.dtrequerimento )
                     return render_to_response('sicop/processo/clausula/edicao.html',
@@ -511,15 +511,15 @@ def anexar(request, base):
         tipo = base.tbtipoprocesso.tabela
         municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
         # movimentacoes deste processo
-        movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase = base.id ).order_by( "-dtmovimentacao" ) 
+        movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase__id = base.id ).order_by( "-dtmovimentacao" ) 
         # caixa destino
         caixadestino = Tbcaixa.objects.all()
         # anexos deste processo
-        anexado = Tbprocessosanexos.objects.all().filter( tbprocessobase = base.id )
+        anexado = Tbprocessosanexos.objects.all().filter( tbprocessobase__id = base.id )
 
 
         if tipo == "tbprocessorural":
-            rural = Tbprocessorural.objects.get( tbprocessobase = base.id )
+            rural = Tbprocessorural.objects.get( tbprocessobase__id = base.id )
             peca = Tbpecastecnicas.objects.all().filter( nrcpfrequerente = rural.nrcpfrequerente.replace('.','').replace('-','') )
             return render_to_response('sicop/processo/rural/edicao.html',
                                       {'gleba':gleba,
@@ -528,7 +528,7 @@ def anexar(request, base):
                                        'base':base,'rural':rural,'peca':peca}, context_instance = RequestContext(request))
         else:
             if tipo == "tbprocessourbano":
-                urbano = Tbprocessourbano.objects.get( tbprocessobase = base.id )
+                urbano = Tbprocessourbano.objects.get( tbprocessobase__id = base.id )
          
                 dtaberturaprocesso = formatDataToText( urbano.dtaberturaprocesso )
                 dttitulacao = formatDataToText( urbano.dttitulacao )
@@ -541,7 +541,7 @@ def anexar(request, base):
                                        'dtaberturaprocesso':dtaberturaprocesso,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
             else:
                 if tipo == "tbprocessoclausula":
-                    clausula = Tbprocessoclausula.objects.get( tbprocessobase = base.id )
+                    clausula = Tbprocessoclausula.objects.get( tbprocessobase__id = base.id )
                     dttitulacao = formatDataToText( clausula.dttitulacao )
                     dtrequerimento = formatDataToText( clausula.dtrequerimento )
                     return render_to_response('sicop/processo/clausula/edicao.html',
@@ -588,15 +588,15 @@ def desanexar(request,id_anexo):
     tipo = base.tbtipoprocesso.tabela
     municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
     # movimentacoes deste processo
-    movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase = base.id ).order_by( "-dtmovimentacao" ) 
+    movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase__id = base.id ).order_by( "-dtmovimentacao" ) 
     # caixa destino
     caixadestino = Tbcaixa.objects.all()
     # anexos deste processo
-    anexado = Tbprocessosanexos.objects.filter( tbprocessobase = base.id )
+    anexado = Tbprocessosanexos.objects.filter( tbprocessobase__id = base.id )
 
 
     if tipo == "tbprocessorural":
-        rural = Tbprocessorural.objects.get( tbprocessobase = base.id )
+        rural = Tbprocessorural.objects.get( tbprocessobase__id = base.id )
         peca = Tbpecastecnicas.objects.all().filter( nrcpfrequerente = rural.nrcpfrequerente.replace('.','').replace('-','') )
         return render_to_response('sicop/processo/rural/edicao.html',
                                   {'gleba':gleba,
@@ -605,7 +605,7 @@ def desanexar(request,id_anexo):
                                    'base':base,'rural':rural,'peca':peca}, context_instance = RequestContext(request))
     else:
         if tipo == "tbprocessourbano":
-            urbano = Tbprocessourbano.objects.get( tbprocessobase = base.id )
+            urbano = Tbprocessourbano.objects.get( tbprocessobase__id = base.id )
      
             dtaberturaprocesso = formatDataToText( urbano.dtaberturaprocesso )
             dttitulacao = formatDataToText( urbano.dttitulacao )
@@ -618,7 +618,7 @@ def desanexar(request,id_anexo):
                                    'dtaberturaprocesso':dtaberturaprocesso,'dttitulacao':dttitulacao}, context_instance = RequestContext(request))
         else:
             if tipo == "tbprocessoclausula":
-                clausula = Tbprocessoclausula.objects.get( tbprocessobase = base.id )
+                clausula = Tbprocessoclausula.objects.get( tbprocessobase__id = base.id )
                 dttitulacao = formatDataToText( clausula.dttitulacao )
                 dtrequerimento = formatDataToText( clausula.dtrequerimento )
                 return render_to_response('sicop/processo/clausula/edicao.html',
@@ -663,7 +663,7 @@ def edicao(request, id):
     # movimentacoes deste processo
     movimentacao = Tbmovimentacao.objects.all().filter( tbprocessobase = id ).order_by( "-dtmovimentacao" ) 
     # anexos deste processo
-    anexado = Tbprocessosanexos.objects.all().filter( tbprocessobase = base.id )
+    anexado = Tbprocessosanexos.objects.all().filter( tbprocessobase__id = base.id )
     
     #se processobase pertencer a mesma divisao do usuario logado(teste anterior)
     #if base.auth_user.tbdivisao.id == AuthUser.objects.get( pk = request.user.id ).tbdivisao.id:
@@ -955,7 +955,7 @@ def executar_tramitacao_massa(request):
                 f_movimentacao.save()
                 
                 #OBS ao tramitar o processo todos os processos anexados serao tramitados ( classificado como anexo )
-                anexado = Tbprocessosanexos.objects.all().filter( tbprocessobase = base.id )
+                anexado = Tbprocessosanexos.objects.all().filter( tbprocessobase__id = base.id )
                 for nx in anexado:
                     proc_anexado = nx.tbprocessobase_id_anexo
                     f_base = Tbprocessobase (
@@ -1117,7 +1117,7 @@ def validarAnexo(request_form, base, processoanexo):
     #verifica se o anexo esta anexado a outro processo
     
     #verificar se ja foi anexado ao processo em questao    
-    result = Tbprocessosanexos.objects.all().filter( tbprocessobase = base.id, tbprocessobase_id_anexo__nrprocesso = processoanexo )
+    result = Tbprocessosanexos.objects.all().filter( tbprocessobase__id = base.id, tbprocessobase_id_anexo__nrprocesso = processoanexo )
     if result:
         messages.add_message(request_form, messages.WARNING, 'Processo '+processoanexo+' ja anexado.')
         warning = False
@@ -1159,7 +1159,7 @@ def carregarTbAuxProcesso(request, tipo):
     
 def carregarTbAuxFuncoesProcesso(request, base):
     global pendencia, tipopendencia, statuspendencia
-    pendencia = Tbpendencia.objects.all().filter( tbprocessobase = base.id ).order_by('dsdescricao')
+    pendencia = Tbpendencia.objects.filter( tbprocessobase__id = base.id ).order_by('dsdescricao')
     tipopendencia = Tbtipopendencia.objects.all().order_by('dspendencia')#filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by('dspendencia')
     statuspendencia = Tbstatuspendencia.objects.all().order_by("dspendencia")#filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ).order_by("dspendencia")
 
