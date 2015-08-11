@@ -11,7 +11,7 @@ DATABASES = {
         'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', 
         #'ENGINE': 'django.contrib.gis.db.backends.postgis', 
-        'NAME': 'sicop_atual',                      
+        'NAME': 'sicop',                      
         'USER': 'admin',
         'PASSWORD': '123456',
         'HOST': 'localhost',                      
@@ -167,7 +167,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     #'django.contrib.gis',
     'odslib',
-    'webodt',
+#    'webodt',
     'lxml',
 #    'xhtml2pdf',
     'TerraLegal.tramitacao',
