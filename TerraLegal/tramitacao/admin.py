@@ -5,7 +5,7 @@ from django.contrib import admin
 from TerraLegal.tramitacao.models import Tbtipocaixa, Tbtipoprocesso, Tbstatuspendencia,\
     Tbpecastecnicas, Tbprocessobase,Tbclassificacaoprocesso, Tbsubarea, Tbcaixa,\
     Tbgleba, Tbcontrato, Tbsituacaoprocesso, Tbtipopendencia, AuthUser,\
-    AuthUserGroups, AuthGroupPermissions, Tbmovimentacao, Tbprocessosanexos
+    AuthUserGroups, AuthGroupPermissions, Tbmovimentacao, Tbprocessosanexos, Tbparcela, TbparcelaGeo,TbCPFParcelaGeo, TbCNPJParcelaGeo, TbMunicipioParcelaGeo
 from TerraLegal.calculo.models import TbtrMensal
 from django.http.response import HttpResponse
 import csv
@@ -14,6 +14,8 @@ from datetime import datetime
 from TerraLegal.tramitacao.models import Tbpendencia,Tbprocessorural, Tbprocessoclausula, Tbprocessourbano
 from TerraLegal.livro.models import Tbtituloprocesso
 from django.core import serializers
+import urllib2
+import json
 
 def verificar_permissao_grupo(usuario, grupos):
     if usuario:
@@ -68,6 +70,69 @@ def diferenca_mes(d2, d1):
         else:
             break
     return delta
+
+def batimento_cpf_processo(csv_1, csv_2):
+    
+    with open(csv_1, 'rb') as csvfile:
+        parcelas = []
+        spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+        for row in spamreader:
+            parcelas.append(row)
+
+    with open(csv_2, 'rb') as csvfile:
+        processos = []
+        spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+        for row in spamreader:
+            processos.append(row)
+
+        
+        todos = []
+        tem = []
+        atrabalhar = []
+        for p in parcelas:
+            if p in processos:
+                tem.append(p)
+                todos.append('OK')
+            else:
+                atrabalhar.append(p)
+                todos.append('-')
+        print len(tem)
+        print len(atrabalhar)
+        print len(todos)
+
+        unico = []
+        for atr in atrabalhar:
+            if atr not in unico:
+                unico.append(atr)
+
+#564180010222015-34
+
+        print len(unico)
+
+#    with open('/opt/cig_matinha.csv', 'w') as csvfile:
+#        fieldnames = ['trabalhada']
+#        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+#        writer.writeheader()
+#        for cx in todos:
+#            writer.writerow({'trabalhada': str(cx) })
+
+
+#        lines = []
+#        x = 0
+#        for l in aux:
+#            if l:
+#                print str(l)
+#                rs = Tbprocessorural.objects.filter( nrcpfrequerente = l[0] )
+#                rs1 = Tbprocessorural.objects.filter( nrcpfconjuge = l[0] )
+#                cs = Tbprocessoclausula.objects.filter( nrcpfrequerente = l[0] )
+#                cs1 = Tbprocessoclausula.objects.filter( nrcpfinteressado = l[0] )
+#                if rs or rs1:
+#                    x += 1
+#            lines.append(l)
+
+#        print str(x)
+#        print len(lines)
 
 
 def reader(csv_):
@@ -147,7 +212,7 @@ def batimento_processo(csv_):
     print len(procs_line)
 
 
-    with open('/opt/tcu-localizacao.csv', 'w') as csvfile:
+    with open('/opt/matinha.csv', 'w') as csvfile:
         fieldnames = ['caixa']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
@@ -155,6 +220,124 @@ def batimento_processo(csv_):
         for cx in processos:
             writer.writerow({'caixa': str(cx) })
 
+def parcela_kml():
+    try:
+        response = urllib2.urlopen('https://sigef.incra.gov.br/geo/parcela/kml/5db8b1d3-bd31-44eb-90e0-e0847b09115d',timeout=5)
+        txt = response.read()
+        print txt
+    except:
+        pass    
+
+def buscar_parcelas_sigef(nrcpf):
+    # buscar parcelas do sigef pelo webservice do sigef
+    #    idkmls = []
+    parcelas = []
+    total_area_sigef = 0.0
+    try:
+        response = urllib2.urlopen('https://sigef.incra.gov.br/api/destinacao/parcelas/?cpf='+nrcpf,timeout=5)
+        txt = response.read()
+        #jsonparcelas = serializers.serialize('json', html)
+        parcelas = txt
+ #       x = 0
+ #       for parcela in retorno['parcelas']:
+ #           x +=1
+ #           for mun in parcela['municipios']: 
+ #               parc = dict()
+ #               parc['parcela'] = 'Parcela '+str(x)
+ #               parc['imovel'] = parcela['nome']
+ #               parc['area'] = mun['area_parcela']
+ #               parc['nome'] = mun['nome'].encode("utf-8")+' / '+mun['uf'].encode("utf-8")
+ #               parcelas.append(parc)
+ #               total_area_sigef += mun['area_parcela']
+#            idkmls.append(parcela['id'])
+    except:
+        parcelas = None
+        print 'error'
+    return parcelas    
+
+def sinc_parcelas():
+    parcelas = Tbparcela.objects.all()
+    total = 0
+    ids = []
+    for p in parcelas:
+        if p.dsjson is not None:
+            j = json.loads(p.dsjson)
+            total += len(j['parcelas'])
+            #print j['parcelas']
+            for p in j['parcelas']:
+                if p['id'] not in ids:
+
+                    #import para a tabela tbparcela_geo
+#                    p_geo = TbparcelaGeo(
+#                        id_sigef = p['id'],
+#                        nome = p['nome'],
+#                        area_total = p['area'],
+#                        status = p['status'],
+#                        kml = '' 
+#                        )
+#                    p_geo.save()
+
+                    #import para a tabela tbcpf_parcela_geo                    
+#                    for cpf in p['cpfs']:
+#                        cpf_geo = TbCPFParcelaGeo(
+#                            cpf = cpf,
+#                            tbparcela_geo = TbparcelaGeo.objects.filter(id_sigef=p['id'])[0]
+#                            )
+#                        cpf_geo.save()    
+                    
+                    #import para a tabela tbcnpj_parcela_geo
+#                    for cnpj in p['cnpjs']:
+#                        cnpj_geo = TbCNPJParcelaGeo(
+#                            cnpj = cnpj,
+#                            tbparcela_geo = TbparcelaGeo.objects.filter(id_sigef=p['id'])[0]
+#                            )
+#                        cnpj_geo.save()    
+
+                    #import para a tabela tbcnpj_parcela_geo
+#                    for mun in p['municipios']:
+#                        mun_geo = TbMunicipioParcelaGeo(
+#                            area = mun['area_parcela'],
+#                            area_perc = mun['area_parcela_perc'],
+#                            ibge = mun['cod_ibge'],
+#                            uf = mun['uf'],
+#                            nome = mun['nome'],
+#                            tbparcela_geo = TbparcelaGeo.objects.filter(id_sigef=p['id'])[0]
+#                            )
+#                        mun_geo.save()    
+                    
+                    ids.append( p['id'] )
+    print 'total de parcelas: '+str(len(ids))
+
+def sinc_sigef_parcelas_banco():
+#    rural = Tbprocessoclausula.objects.filter( tbprocessobase__tbclassificacaoprocesso__id = 2 )
+    rural = Tbparcela.objects.filter( dsjson = None )
+    total = 0
+    print str(len(rural))
+    for r in rural:
+#        print r.nrcpfrequerente
+        parcela = Tbparcela(
+            id = r.id,
+            cpf = r.cpf,
+            dsjson = buscar_parcelas_sigef( r.cpf )
+            )
+        parcela.save()
+#        if buscar_parcelas_sigef( r.nrcpfrequerente ):
+        total += 1
+        print 'processamento: '+ str( total )+'/'+ str(len(rural))
+
+def sinc_sigef_parcelas():
+    rural = Tbprocessorural.objects.all()
+    total = 0
+    for r in rural:
+        if r.nrcpfconjuge != None and r.nrcpfconjuge != '' and r.nrcpfconjuge != r.nrcpfrequerente:
+            parcela = Tbparcela(
+                cpf = r.nrcpfconjuge,
+                dsjson = buscar_parcelas_sigef( r.nrcpfconjuge )
+                )
+            parcela.save()
+    #        if buscar_parcelas_sigef( r.nrcpfrequerente ):
+            total += 1
+    print 'processamento: '+ str( total )+'/'+ str(len(rural))
 
 def buscar_processos_sem_pecas_sicop_sigef(request,csv_sigef):
     cpfs = []
@@ -425,7 +608,28 @@ def buscar_pendencias(id_processo):
         return str(pendencias)
     else:
         return ''
-    
+
+def refazer_movimentacao(request):
+    # verificar cada processo: se a caixa atual eh o ultimo obj de destino em movimentacao
+    procs = Tbprocessobase.objects.filter( tbclassificacaoprocesso__id = 1 )
+    qtd = 0
+    for p in procs:
+        cx = p.tbcaixa.id
+        movs = Tbmovimentacao.objects.filter( tbprocessobase__id = p.id ).order_by( "-dtmovimentacao" )
+        if movs:
+            m = movs[0]
+            if m.tbcaixa.id != cx:
+                qtd += 1
+                print 'Aqui esta diferente: '+p.nrprocesso+' - '+str(p.tbtipoprocesso.id)+' - '+str(p.tbcaixa.id)
+#                obj = Tbmovimentacao(
+#                    tbprocessobase = p,
+#                    tbcaixa_id = p.tbcaixa.id,
+#                    tbcaixa_id_origem = m.tbcaixa,
+#                    auth_user = AuthUser.objects.get( pk = request.user.id ),
+#                    dtmovimentacao = datetime(2015,5,29)
+#                    )
+#                obj.save()
+    print str(qtd)
 
 def export_to_sqlite_android(arquivo):
     conn = sqlite3.connect(arquivo)
@@ -454,7 +658,11 @@ def export_to_sqlite_android(arquivo):
             municipio = ''
         observacao = str(p.dsobservacao.encode("utf-8"))
 
-        sql = "insert into pecatecnica ('id','contrato','entrega','nome','cadastro_pessoa','localizacao','area','perimetro','gleba','municipio','observacao') values ("+identificador+",'"+contrato+"','"+entrega+"','"+nome+"','"+cadastro_pessoa+"','"+localizacao+"','"+area+"','"+perimetro+"','"+gleba+"','"+municipio+"','"+observacao+"')"
+        processo = 'FALSE'
+        if Tbprocessorural.objects.filter( nrcpfrequerente = p.nrcpfrequerente ):
+            processo = 'TRUE'
+
+        sql = "insert into pecatecnica ('id','contrato','entrega','nome','cadastro_pessoa','localizacao','area','perimetro','gleba','municipio','observacao','processo') values ("+identificador+",'"+contrato+"','"+entrega+"','"+nome+"','"+cadastro_pessoa+"','"+localizacao+"','"+area+"','"+perimetro+"','"+gleba+"','"+municipio+"','"+observacao+"','"+processo+"')"
         print sql
         cursor.execute(sql)
 
@@ -670,7 +878,7 @@ def export_to_sqlite_android(arquivo):
 
         movimentacoes = buscar_movimentacoes(u.tbprocessobase.id)
 
-#        pecas = buscar_pecas(u.tbprocessobase.id)
+ #        pecas = buscar_pecas(u.tbprocessobase.id)
         pecas = ''
 
         anexos = buscar_anexos(u.tbprocessobase.id)

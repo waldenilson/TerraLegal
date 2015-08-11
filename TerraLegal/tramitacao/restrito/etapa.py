@@ -23,9 +23,6 @@ from reportlab.platypus.tables import Table
 from reportlab.platypus.doctemplate import SimpleDocTemplate
 from reportlab.lib import styles
 from reportlab.lib.units import cm
-import webodt
-from webodt import converters, ODFDocument
-from webodt.converters import converter
 from TerraLegal import settings
 from django import conf
 import os

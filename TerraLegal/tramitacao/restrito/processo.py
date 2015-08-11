@@ -32,10 +32,10 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Count
 from TerraLegal.tramitacao.models import Glebaspublicas
 from calendar import monthrange
-from datetime import datetime, timedelta
+from datetime import timedelta
 import csv
 import sqlite3
-from TerraLegal.tramitacao.admin import reader,import_tr,list_json,export_to_sqlite_android, batimento_processo, buscar_processos_cpfs_abril_sigef, buscar_processos_sem_pecas_sicop_sigef
+from TerraLegal.tramitacao.admin import parcela_kml,sinc_parcelas,refazer_movimentacao,reader,batimento_cpf_processo,import_tr,list_json,export_to_sqlite_android, batimento_processo, buscar_processos_cpfs_abril_sigef, buscar_processos_sem_pecas_sicop_sigef, buscar_parcelas_sigef,sinc_sigef_parcelas,sinc_sigef_parcelas_banco
 import urllib2
 from django.core import serializers
 import json
@@ -50,12 +50,38 @@ planilha_relatorio  = "Processos"
 def consultaprocesso(request):
 
 #    list_json()
-#    batimento_processo("/opt/tcu-processos.csv")
-#    reader("/opt/ok.csv")
-    export_to_sqlite_android('/opt/sicopsqlite.db')
+    batimento_cpf_processo("/opt/cpfs.csv","/opt/cpfs_.csv")
+#    reader("/opt/cpfs.csv")
+
+#    export_to_sqlite_android('/opt/sicopsqlite.db')
+
 #    tit = Tbtituloprocesso.objects.filter(id = 2616)
 #    if tit[0].tbtitulo.tbcaixa is not None:
 #        print 'ok'
+#    refazer_movimentacao(request)
+
+#    buscar_processos_sem_pecas_sicop_sigef(request,"/opt/cpf-sigef-abril.csv")
+#    buscar_parcelas_sigef('44857225204')
+#    sinc_parcelas()
+#    parcela_kml()
+# verificar batimento cpfs em mais de um processo sem estarem na tbprocessosanexos
+
+    todos = []
+    clausulas = Tbprocessoclausula.objects.all()
+    rurais = Tbprocessorural.objects.all()
+
+    total = 0
+    for r in todos:
+        cont = 0
+        for r2 in todos:
+            if r.nrcpfrequerente == r2.nrcpfrequerente:
+                cont += 1
+        if cont > 1:
+            total += 1
+            print r.nrcpfrequerente +' - '+str(cont)
+    #print 'total '+str(total)
+
+# verificar batimento cpfs em mais de um processo sem estarem na tbprocessosanexos
 
     numero =  request.POST['processo_base'].replace('.','').replace('/','').replace('-','')
     if not numero:

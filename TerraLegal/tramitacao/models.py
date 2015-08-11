@@ -472,7 +472,49 @@ class Glebaspublicas(models.Model):
     consulta6 = models.CharField(max_length=254, blank=True)
     assent_p7 = models.CharField(max_length=254, blank=True)
     data_dou8 = models.CharField(max_length=254, blank=True)
-    #geom = models.MultiPolygonField(srid=4326, null=True, blank=True)
-    #objects = models.GeoManager()
+#    geom = models.MultiPolygonField(srid=4326, null=True, blank=True)
+#    objects = models.GeoManager()
     class Meta:
         db_table = 'glebaspublicas'
+
+class Tbparcela(models.Model):
+    dsjson = models.TextField(blank=True)
+    cpf = models.CharField(max_length=11, blank=True)
+    id = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = 'tbparcela'
+
+class TbparcelaGeo(models.Model):
+    area_total = models.DecimalField(null=True, max_digits=10, decimal_places=4, blank=True)
+    kml = models.TextField(blank=True)
+    id_sigef = models.CharField(max_length=80, blank=True)
+    nome = models.CharField(max_length=120, blank=True)
+    status = models.CharField(max_length=80, blank=True)
+    id = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = 'tbparcela_geo'
+
+class TbCPFParcelaGeo(models.Model):
+    tbparcela_geo = models.ForeignKey(TbparcelaGeo, null=False)
+    cpf = models.CharField(max_length=11, blank=True)
+    id = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = 'tbcpf_parcela_geo'
+
+class TbCNPJParcelaGeo(models.Model):
+    tbparcela_geo = models.ForeignKey(TbparcelaGeo, null=False)
+    cnpj = models.CharField(max_length=20, blank=True)
+    id = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = 'tbcnpj_parcela_geo'
+
+class TbMunicipioParcelaGeo(models.Model):
+    tbparcela_geo = models.ForeignKey(TbparcelaGeo, null=False)
+    ibge = models.CharField(max_length=20, blank=True)
+    nome = models.CharField(max_length=120, blank=True)
+    uf = models.CharField(max_length=2, blank=True)
+    area = models.DecimalField(null=True, max_digits=10, decimal_places=4, blank=True)
+    area_perc = models.DecimalField(null=True, max_digits=10, decimal_places=4, blank=True)
+    id = models.AutoField(primary_key=True)
+    class Meta:
+        db_table = 'tbmunicipio_parcela_geo'

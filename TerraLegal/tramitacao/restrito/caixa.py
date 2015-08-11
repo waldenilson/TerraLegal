@@ -23,9 +23,6 @@ from reportlab.platypus.tables import Table
 from reportlab.platypus.doctemplate import SimpleDocTemplate
 from reportlab.lib import styles
 from reportlab.lib.units import cm
-import webodt
-from webodt import converters, ODFDocument
-from webodt.converters import converter
 from TerraLegal import settings
 from django import conf
 import os
@@ -36,8 +33,6 @@ import django
 from django.core.files import storage
 from django.db.models import  Q
 from django.db.models import Count
-
-from webodt import shortcuts
 from django.shortcuts import render_to_response, get_object_or_404
 import datetime
 
