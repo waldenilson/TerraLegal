@@ -81,10 +81,6 @@
 										   		</td>
 										</tr>
 									{% endif %}
-										<tr> <td class="colunaTabela"> <label>Nome do Titulado:</label> </td>
-											<td> <input required="required" value="{{ clausula.nmrequerente }}" size="35" name="nmrequerente" /> </td> </tr>
-										<tr> <td class="colunaTabela"> <label>CPF do Titulado:</label> </td>
-											<td> <input required="required" size="15" value="{{ clausula.nrcpfrequerente }}" id="cpf" name="nrcpfrequerente" /> </td> </tr>
 
 										<tr> <td class="colunaTabela"> <label>Nome do Interessado:</label> </td>
 											<td> <input size="35" value="{{ clausula.nminteressado }}" name="nminteressado" /> </td> </tr>
@@ -92,10 +88,10 @@
 										<tr> <td class="colunaTabela"> <label>CPF do Interessado:</label> </td>
 											<td> <input size="15" id="cpf2" value="{{ clausula.nrcpfinteressado }}" name="nrcpfinteressado" /> </td> </tr>
 
-										<tr> 
-											<td class="colunaTabela"> <label>Data de Nasc.:</label> </td>
-											<td> <input value="{{ clausula.dtnascimento|date:'d/m/Y' }}" size="9" id="date3" name="dtnascimento" /> </td> 
-										</tr>
+										<tr> <td class="colunaTabela"> <label>Nome do Titulado:</label> </td>
+											<td> <input required="required" value="{{ clausula.nmrequerente }}" size="35" name="nmrequerente" /> </td> </tr>
+										<tr> <td class="colunaTabela"> <label>CPF do Titulado:</label> </td>
+											<td> <input required="required" size="15" value="{{ clausula.nrcpfrequerente }}" id="cpf" name="nrcpfrequerente" /> </td> </tr>
 
 										<tr> <td class="colunaTabela"> <label>Prioridade:</label> </td>
 										   		<td>
@@ -113,6 +109,11 @@
 										   				{% endif %}
 													</select>
 												</td>
+										</tr>
+
+										<tr> 
+											<td class="colunaTabela"> <label>Data de Nasc.:</label> </td>
+											<td> <input value="{{ clausula.dtnascimento|date:'d/m/Y' }}" size="9" id="date3" name="dtnascimento" /> </td> 
 										</tr>
 
 										<tr> <td class="colunaTabela"> <label>N do Titulo:</label> </td>
