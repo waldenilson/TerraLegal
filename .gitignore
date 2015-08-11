@@ -1,3 +1,13 @@
+bin
+build
+include
+lib
+local
+man
+share
+Scripts
+.Python
+*~
 *.log
 *.pot
 *.pyc
