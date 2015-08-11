@@ -69,6 +69,7 @@
 				<tr> <td class="colunaTabela"> <label>Municipio do domicílio:</label> </td>
 				   		<td>
 							<input size="40" name="tbmunicipiodomicilio" list="municipios" />
+							
 							<datalist id="municipios">
 								{% for obj in municipiodomicilio %}
 									<option value="{{ obj.nome_mun }},{{obj.uf}}"/>

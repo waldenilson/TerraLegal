@@ -812,7 +812,7 @@ def cadastro(request):
             carregarTbAuxProcesso(request, 'PAD')
             etapaprocesso = Tbetapa.objects.filter( blinicial = True, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ,tbtipoprocesso__id = 1 ).order_by('ordem')
             return render_to_response('sicop/processo/cadastro.html',
-                    {'tipoprocesso':tipoprocesso,'etapaprocesso':etapaprocesso,'gleba':gleba,'caixa':caixa,'municipio':municipio,'processo':escolha,
+                    {'tipoprocesso':tipoprocesso,'etapaprocesso':etapaprocesso,'gleba':gleba,'caixa':caixa,'municipio':municipio,'municipiodomicilio':Tbmunicipio.objects.all(),'processo':escolha,
                     'div_processo':div_processo},
                     context_instance = RequestContext(request));  
         else:
@@ -838,7 +838,7 @@ def cadastro(request):
                     context_instance = RequestContext(request));  
     carregarTbAuxProcesso(request, 'PAD')   
     etapaprocesso = Tbetapa.objects.filter( blinicial = True, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id ,tbtipoprocesso__id = 1 ).order_by('ordem')
-    return render_to_response('sicop/processo/cadastro.html',{'gleba':gleba,'caixa':caixa,'municipio':municipio,
+    return render_to_response('sicop/processo/cadastro.html',{'gleba':gleba,'caixa':caixa,'municipio':municipio,'municipiodomicilio':Tbmunicipio.objects.all(),
             'tipoprocesso':tipoprocesso,'processo':escolha,'div_processo':div_processo,'etapaprocesso':etapaprocesso}, context_instance = RequestContext(request))
 
 
