@@ -741,9 +741,12 @@ def varredura_processos(request):
         # TITULOS DAS COLUNAS
         sheet.getCell(0, 6).setAlignHorizontal('center').stringValue( 'Caixa' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getCell(1, 6).setAlignHorizontal('center').stringValue( 'Requerente' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
-        sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'Processo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
-        sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'Anexos' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
-        sheet.getCell(4, 6).setAlignHorizontal('center').stringValue( 'Tipo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'CPF/CNPJ' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'Processo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(4, 6).setAlignHorizontal('center').stringValue( 'Anexos' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(5, 6).setAlignHorizontal('center').stringValue( 'Municipio' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(6, 6).setAlignHorizontal('center').stringValue( 'Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(7, 6).setAlignHorizontal('center').stringValue( 'Tipo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getRow(1).setHeight('20pt')
         sheet.getRow(2).setHeight('20pt')
         sheet.getRow(6).setHeight('20pt')
@@ -751,10 +754,12 @@ def varredura_processos(request):
         sheet.getColumn(0).setWidth("2in")
         sheet.getColumn(1).setWidth("3in")
         sheet.getColumn(2).setWidth("2.5in")
-        sheet.getColumn(3).setWidth("5in")
-        sheet.getColumn(4).setWidth("2.5in")
-       
-            
+        sheet.getColumn(3).setWidth("2.5in")
+        sheet.getColumn(4).setWidth("5in")
+        sheet.getColumn(5).setWidth("5in")
+        sheet.getColumn(6).setWidth("5in")
+        sheet.getColumn(7).setWidth("2.5in")
+                   
         #DADOS DA CONSULTA
         x = 5
         for obj in processos:
@@ -765,15 +770,20 @@ def varredura_processos(request):
                 #print str(obj.id)
                 #buscar nome requerente (rural,clausula) e povoado (urbano)
                 requerente = ''
+                cpfcnpj = ''
                 if obj.tbtipoprocesso.id == 1:
                     requerente = Tbprocessorural.objects.filter( tbprocessobase__id = obj.id )[0].nmrequerente    
+                    cpfcnpj = Tbprocessorural.objects.filter( tbprocessobase__id = obj.id )[0].nrcpfrequerente    
                 elif obj.tbtipoprocesso.id == 2:
-                    requerente = Tbprocessoclausula.objects.filter( tbprocessobase__id = obj.id )[0].nmrequerente    
+                    requerente = Tbprocessoclausula.objects.filter( tbprocessobase__id = obj.id )[0].nminteressado    
+                    cpfcnpj = Tbprocessoclausula.objects.filter( tbprocessobase__id = obj.id )[0].nrcpfinteressado    
                 else:
                     requerente = Tbprocessourbano.objects.filter( tbprocessobase__id = obj.id )[0].nmpovoado    
+                    cpfcnpj = Tbprocessourbano.objects.filter( tbprocessobase__id = obj.id )[0].nrcnpj    
                 sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(requerente)    
+                sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue(cpfcnpj)    
 
-                sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue(obj.nrprocesso)
+                sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(obj.nrprocesso)
                 
                 #buscar os anexos do obj e concatenar numero com nome requerente ou povoado
                 anexo = ''
@@ -789,9 +799,11 @@ def varredura_processos(request):
                         objan = Tbprocessorural.objects.filter( tbprocessobase__id = an.tbprocessobase_id_anexo.id )
                         anexo += str(objan[0].tbprocessobase.nrprocesso.encode("utf-8"))+':'+str(objan[0].nmpovoado.encode("utf-8"))+"|"
                 #print anexo
-                sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(anexo.decode("utf-8"))
+                sheet.getCell(4, x+2).setAlignHorizontal('center').stringValue(anexo.decode("utf-8"))
+                sheet.getCell(5, x+2).setAlignHorizontal('center').stringValue(obj.tbmunicipio.nome_mun.encode("utf-8"))
+                sheet.getCell(6, x+2).setAlignHorizontal('center').stringValue(obj.tbgleba.nmgleba)
 
-                sheet.getCell(4, x+2).setAlignHorizontal('center').stringValue(obj.tbtipoprocesso.nome.encode("utf-8"))
+                sheet.getCell(7, x+2).setAlignHorizontal('center').stringValue(obj.tbtipoprocesso.nome.encode("utf-8"))
                 x += 1
             
         #GERACAO DO DOCUMENTO  
