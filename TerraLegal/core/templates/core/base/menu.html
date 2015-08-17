@@ -34,6 +34,10 @@
 					{% if perms.sicop.processo_consulta %}
 					<li><hr /><a href="/sicop/processo/consulta/">Processo</a> </li>
 					{% endif %}
+
+					{% if perms.sicop.peca_tecnica_consulta %}
+					<li> <a href="/geoinformacao/consulta/">GEO Informação</a> </li>
+					{% endif %}
 					
 					{% if perms.sicop.peca_tecnica_consulta %}
 					<li> <a href="/sicop/peca_tecnica/consulta/">Peça Técnica</a> </li>

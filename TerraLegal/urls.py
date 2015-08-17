@@ -22,6 +22,7 @@ urlpatterns = patterns('',
     url(r'^documento/',include(project+'.documento.urls',namespace='documento')),
     url(r'^web/',include(project+'.web.urls',namespace='web')),
     url(r'^core/',include(project+'.core.urls',namespace='core')),
+    url(r'^geoinformacao/',include(project+'.geoinformacao.urls',namespace='geoinformacao')),
 
 
     # ACESSO AO PUBLICO

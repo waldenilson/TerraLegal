@@ -76,7 +76,7 @@
 						Você está aqui: {% block breadcumbs %} {% endblock %}
 						</td>
 					
-					<form method="post" action="/sicop/processo/consultaProcesso/">
+					<form method="post" action="/sicop/processo/consultaProcesso/" enctype="multipart/form-data">
 						{% csrf_token %}
 						<td align="right">
 						<input name="processo_base" size=17 style="width:150px" id="processo_base" />

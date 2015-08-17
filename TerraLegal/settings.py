@@ -177,6 +177,7 @@ INSTALLED_APPS = (
     'TerraLegal.calculo',
     'TerraLegal.web',
     'TerraLegal.core',
+    'TerraLegal.geoinformacao',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )

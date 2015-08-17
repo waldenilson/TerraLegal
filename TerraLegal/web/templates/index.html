@@ -30,7 +30,7 @@
 								<td> <a href="/sicop/processo/consulta"> <img width="96px" src="{% static "img/processo.png" %}" title="PROCESSO" /> </a> </td>
 							{% endif %}
 							{% if perms.sicop.peca_tecnica_consulta %}
-								<td> <a href="/sicop/peca_tecnica/consulta"> <img width="96px" src="{% static "img/peca.png" %}" title="PEÇA TÉCNICA" /> </a> </td>
+								<td> <a href="/geoinformacao/consulta"> <img width="96px" src="{% static "img/peca.png" %}" title="GEO INFORMAÇÃO" /> </a> </td>
 							{% endif %}
 							{% if perms.sicop.livro_consulta %}
 								<td> <a href="/livro/consulta"> <img width="96px" src="{% static "img/livro.png" %}" title="LIVRO FUNDIÁRIO" /> </a> </td>
@@ -41,7 +41,7 @@
 								<td><div style="font-size:16px;font-weight:bold">Processo</div></td>
 							{% endif %}
 							{% if perms.sicop.peca_tecnica_consulta %}
-								<td><div style="font-size:16px;font-weight:bold">Peça Técnica</div></td>
+								<td><div style="font-size:16px;font-weight:bold">GEO Informação</div></td>
 							{% endif %}
 							{% if perms.sicop.livro_consulta %}
 								<td><div style="font-size:16px;font-weight:bold">Livro Fundiário</div></td>
