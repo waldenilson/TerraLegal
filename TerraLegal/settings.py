@@ -9,8 +9,8 @@ TEMPLATE_DEBUG = DEBUG
 DEBUG = TEMPLATE_DEBUG = True
 DATABASES = {
         'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', 
-        #'ENGINE': 'django.contrib.gis.db.backends.postgis', 
+        #'ENGINE': 'django.db.backends.postgresql_psycopg2', 
+        'ENGINE': 'django.contrib.gis.db.backends.postgis', 
         'NAME': 'sicop',                      
         'USER': 'admin',
         'PASSWORD': '123456',
@@ -165,20 +165,18 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-    #'django.contrib.gis',
+    'django.contrib.gis',
     'odslib',
 #    'webodt',
     'lxml',
-#    'xhtml2pdf',
+    'xhtml2pdf',
     'TerraLegal.livro',
     'TerraLegal.tramitacao',
     'TerraLegal.documento',
     'TerraLegal.servidor',
     'TerraLegal.calculo',
-    #'TerraLegal.livro',
     'TerraLegal.web',
     'TerraLegal.core',
-    'xhtml2pdf',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )

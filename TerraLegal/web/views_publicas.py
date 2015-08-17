@@ -20,7 +20,6 @@ import json
 import pprint
 from TerraLegal.tramitacao.models import AuthUser, Tbdivisao
 from TerraLegal.core.funcoes import verificaDivisaoUsuario
-from TerraLegal.tramitacao.models import Glebaspublicas
 
 #from TerraLegal.funcoes import verificaDivisaoUsuario
    
