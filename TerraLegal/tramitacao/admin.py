@@ -16,6 +16,8 @@ from TerraLegal.livro.models import Tbtituloprocesso
 from django.core import serializers
 import urllib2
 import json
+from odslib import ODS
+from pyexcel_ods import get_data
 
 def verificar_permissao_grupo(usuario, grupos):
     if usuario:
@@ -105,34 +107,44 @@ def batimento_cpf_processo(csv_1, csv_2):
             if atr not in unico:
                 unico.append(atr)
 
-#564180010222015-34
+    #564180010222015-34
 
         print len(unico)
 
-#    with open('/opt/cig_matinha.csv', 'w') as csvfile:
-#        fieldnames = ['trabalhada']
-#        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+    #    with open('/opt/cig_matinha.csv', 'w') as csvfile:
+    #        fieldnames = ['trabalhada']
+    #        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
-#        writer.writeheader()
-#        for cx in todos:
-#            writer.writerow({'trabalhada': str(cx) })
+    #        writer.writeheader()
+    #        for cx in todos:
+    #            writer.writerow({'trabalhada': str(cx) })
 
 
-#        lines = []
-#        x = 0
-#        for l in aux:
-#            if l:
-#                print str(l)
-#                rs = Tbprocessorural.objects.filter( nrcpfrequerente = l[0] )
-#                rs1 = Tbprocessorural.objects.filter( nrcpfconjuge = l[0] )
-#                cs = Tbprocessoclausula.objects.filter( nrcpfrequerente = l[0] )
-#                cs1 = Tbprocessoclausula.objects.filter( nrcpfinteressado = l[0] )
-#                if rs or rs1:
-#                    x += 1
-#            lines.append(l)
+    #        lines = []
+    #        x = 0
+    #        for l in aux:
+    #            if l:
+    #                print str(l)
+    #                rs = Tbprocessorural.objects.filter( nrcpfrequerente = l[0] )
+    #                rs1 = Tbprocessorural.objects.filter( nrcpfconjuge = l[0] )
+    #                cs = Tbprocessoclausula.objects.filter( nrcpfrequerente = l[0] )
+    #                cs1 = Tbprocessoclausula.objects.filter( nrcpfinteressado = l[0] )
+    #                if rs or rs1:
+    #                    x += 1
+    #            lines.append(l)
 
-#        print str(x)
-#        print len(lines)
+    #        print str(x)
+    #        print len(lines)
+
+
+def reader_ods(ods_):
+    data = get_data("/opt/teste.ods")
+    arquivo = json.dumps(data)
+    jarq = json.loads(arquivo)
+    for j in jarq['Sheet1']:
+        for j2 in j:
+            print j2
+        
 
 
 def reader(csv_):

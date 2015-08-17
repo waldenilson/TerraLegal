@@ -2,11 +2,11 @@
 {% load staticfiles %} 
 
 {% block breadcumbs %}
-	Geoinformações | Glebas Federais
+	Geoinformações | Parcelas Particulares ( Atualização em: 14/08/2015 )
 {% endblock %}
 
 {% block titulo %}
-	Glebas Federais
+	Parcelas Particulares ( Atualização em: 14/08/2015 )
 {% endblock %}
 
 {% block customhead %}		
@@ -47,15 +47,26 @@
 						  // Construct the polygon.
 						  poligono = new google.maps.Polygon({
 						    paths: coords,
-						    strokeColor: 'yellow',
+						    {% if multipolygon.situacao_p = 'Titulado' and multipolygon.natureza = 'Particular' %}
+						    	strokeColor: 'blue',
+						    	fillColor: 'blue',
+						    {% elif multipolygon.situacao_p != 'Titulado' and multipolygon.situacao_p != null and multipolygon.natureza = 'Particular' %}
+						    	strokeColor: 'yellow',
+						    	fillColor: 'yellow',
+						    {% elif multipolygon.natureza = 'Assentamento'  and multipolygon.cpf_detent = null %}
+						    	strokeColor: 'black',
+						    	fillColor: 'black',
+						    {% elif multipolygon.situacao_p = null and multipolygon.cpf_detent != null and multipolygon.natureza = 'Particular' %}
+						    	strokeColor: 'red',
+						    	fillColor: 'red',
+						    {% endif %}
 						    strokeOpacity: 0.8,
 						    strokeWeight: 2,
-						    fillColor: 'yellow',
 						    fillOpacity: 0.35
 						  });
 
 						  google.maps.event.addListener(poligono, 'mouseover', function(event) {
-						  	infowindow.setContent('{{multipolygon.nome3}}');
+						  	infowindow.setContent('{{multipolygon.nome_deten}}');
 						    infowindow.open(map, this);
 						    infowindow.setPosition(
 						    	new google.maps.LatLng( 
@@ -90,7 +101,7 @@
 		<div id="accordion" style="color:black;width:100%;font-size:11px">
 			<h3>
 				{% block subtitulo %}
-					GLEBAS PÚBLICAS FEDERAIS DO MARANHÃO ( DADOS DO MINISTÉRIO DO MEIO AMBIENTE )
+					Legenda: Cor Azul = Titulados; Cor Amarela = Processos no SisterLeg; Cor Vermelha = Parcelas sem Processo (SisterLeg)
 				{% endblock %}
 			</h3>
 			

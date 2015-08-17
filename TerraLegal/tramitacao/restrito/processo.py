@@ -30,16 +30,16 @@ from django.db.models import Q
 from operator import  itemgetter, attrgetter
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Count
-from TerraLegal.tramitacao.models import Glebaspublicas
 from calendar import monthrange
 from datetime import timedelta
 import csv
 import sqlite3
-from TerraLegal.tramitacao.admin import parcela_kml,sinc_parcelas,refazer_movimentacao,reader,batimento_cpf_processo,import_tr,list_json,export_to_sqlite_android, batimento_processo, buscar_processos_cpfs_abril_sigef, buscar_processos_sem_pecas_sicop_sigef, buscar_parcelas_sigef,sinc_sigef_parcelas,sinc_sigef_parcelas_banco
+from TerraLegal.tramitacao.admin import reader_ods,parcela_kml,sinc_parcelas,refazer_movimentacao,reader,batimento_cpf_processo,import_tr,list_json,export_to_sqlite_android, batimento_processo, buscar_processos_cpfs_abril_sigef, buscar_processos_sem_pecas_sicop_sigef, buscar_parcelas_sigef,sinc_sigef_parcelas,sinc_sigef_parcelas_banco
 import urllib2
 from django.core import serializers
 import json
 from TerraLegal.livro.models import Tbtituloprocesso
+from pyexcel_ods import get_data
 
 nome_relatorio      = "relatorio_processo"
 response_consulta  = "/sicop/processo/consulta/"
@@ -50,9 +50,17 @@ planilha_relatorio  = "Processos"
 def consultaprocesso(request):
 
 #    list_json()
-    batimento_cpf_processo("/opt/cpfs.csv","/opt/cpfs_.csv")
+#    batimento_cpf_processo("/opt/cpfs.csv","/opt/cpfs_.csv")
 #    reader("/opt/cpfs.csv")
-
+#    reader_ods("/opt/parcelas.ods")
+#    if request.FILES:
+#        print 'enviou'
+#        with open('/opt/upload.ods', 'wb+') as destination:
+#            for chunk in request.FILES['fileinput'].chunks():
+#                destination.write(chunk)
+#        request.FILES['fileinput']
+#    else:
+#        print 'nao adicionou arquivo'
 #    export_to_sqlite_android('/opt/sicopsqlite.db')
 
 #    tit = Tbtituloprocesso.objects.filter(id = 2616)

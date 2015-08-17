@@ -8,8 +8,8 @@
 # into your database.
 from __future__ import unicode_literals
 
-#from django.contrib.gis.db import models
-from django.db import models
+from django.contrib.gis.db import models
+#from django.db import models
 from TerraLegal.servidor.models import Tbservidor
 
 class AuthGroup(models.Model):
@@ -461,21 +461,19 @@ class Tbloganalise(models.Model):
     class Meta:
         db_table = 'tbloganalise'
         
-class Glebaspublicas(models.Model):
+class Roads(models.Model):
     gid = models.AutoField(primary_key=True)
-    gid0 = models.CharField(max_length=254, blank=True)
-    cod_imov1 = models.CharField(max_length=254, blank=True)
-    matricul2 = models.CharField(max_length=254, blank=True)
-    nome3 = models.CharField(max_length=254, blank=True)
-    sr4 = models.CharField(max_length=254, blank=True)
-    situacao5 = models.CharField(max_length=254, blank=True)
-    consulta6 = models.CharField(max_length=254, blank=True)
-    assent_p7 = models.CharField(max_length=254, blank=True)
-    data_dou8 = models.CharField(max_length=254, blank=True)
-#    geom = models.MultiPolygonField(srid=4326, null=True, blank=True)
-#    objects = models.GeoManager()
+    nome = models.CharField(max_length=254, blank=True)
+    gleba = models.CharField(max_length=254, blank=True)
+    nome_deten = models.CharField(max_length=254, blank=True)
+    cpf_detent = models.CharField(max_length=254, blank=True)
+    natureza = models.CharField(max_length=254, blank=True)
+    situacao_p = models.CharField(max_length=254, blank=True)
+    regional = models.CharField(max_length=254, blank=True)
+    geom = models.MultiPolygonField(srid=4326, null=True, blank=True)
+    objects = models.GeoManager()
     class Meta:
-        db_table = 'glebaspublicas'
+        db_table = 'roads'
 
 class Tbparcela(models.Model):
     dsjson = models.TextField(blank=True)
