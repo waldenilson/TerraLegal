@@ -19,6 +19,7 @@ class Roads(models.Model):
     natureza = models.CharField(max_length=254, blank=True)
     situacao_p = models.CharField(max_length=254, blank=True)
     regional = models.CharField(max_length=254, blank=True)
+    uf_id = models.IntegerField()
     geom = models.MultiPolygonField(srid=4326, null=True, blank=True)
     objects = models.GeoManager()
     class Meta:

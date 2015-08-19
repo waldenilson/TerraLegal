@@ -1,4 +1,4 @@
-from TerraLegal.tramitacao.models import Roads
+from TerraLegal.geoinformacao.models import Roads
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.contrib.gis.geos import GEOSGeometry

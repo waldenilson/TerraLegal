@@ -36,7 +36,17 @@
 					{% endif %}
 
 					{% if perms.sicop.peca_tecnica_consulta %}
-					<li> <a href="/geoinformacao/consulta/">GEO Informação</a> </li>
+					<li> <a href="#">GEO Informação</a>
+						<ul>
+							<li><a href="#">Processo</a>
+								<ul>
+									<li><a href="geoinformacao/processo/processo_parcela_titulo/">Processo x Parcela x Titulados</a></li>
+								</ul>
+							</li>
+							<li><a href="#">Titulação</a></li>
+							<li><a href="#">Glebas</a></li>
+						</ul>
+					</li>
 					{% endif %}
 					
 					{% if perms.sicop.peca_tecnica_consulta %}
