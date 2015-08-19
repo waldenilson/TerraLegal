@@ -15,3 +15,5 @@ local_settings.py
 .idea/*
 .DS_Store
 test.pdf
+.env
+pip-selfcheck-json
