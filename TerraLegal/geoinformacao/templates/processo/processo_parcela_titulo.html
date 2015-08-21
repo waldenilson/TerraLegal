@@ -110,10 +110,6 @@
 							   		<td>
 							   			<select name="regional" style="width:150px">
 												<option value="21">Maranhão</option>
-												<option value="12">Acre</option>
-												<option value="14">Roraima</option>
-												<option value="17">Tocantins</option>
-												<option value="16">Amapá</option>
 										</select>
 									</td>
 								</tr>
@@ -186,9 +182,9 @@
 		{% if retorno %}
 			<div>						
 				<div id="map" style="margin:2px"></div>	
-				<h6>
-					Legenda: Cor Azul = Titulados; Cor Amarela = Processos no SisterLeg; Cor Laranja = Parcelas sem Processo (SisterLeg)
-				</h6>
+				<div style="font-size:12px">
+					Legenda: {{cor_com_titulo}} = Titulados; {{cor_com_processo}} = Processos no SisterLeg; {{cor_sem_processo}} = Parcelas sem Processo (SisterLeg)
+				</div>
 			</div>
 		{% endif %}
 	{% endblock %}
