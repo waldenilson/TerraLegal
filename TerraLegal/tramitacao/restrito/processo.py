@@ -61,7 +61,7 @@ def consultaprocesso(request):
 #        request.FILES['fileinput']
 #    else:
 #        print 'nao adicionou arquivo'
-    export_to_sqlite_android('/opt/sicopsqlite.db')
+#    export_to_sqlite_android('/opt/sicopsqlite.db')
 
 #    tit = Tbtituloprocesso.objects.filter(id = 2616)
 #    if tit[0].tbtitulo.tbcaixa is not None:

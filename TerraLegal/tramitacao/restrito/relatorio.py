@@ -619,12 +619,15 @@ def processos(request):
         #CONSULTA ORDENADA E/OU BASEADA EM FILTROS DE PESQUISA
         consulta = Tbprocessorural.objects.filter( tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
         p_rural_com_peca = []
-        p_rural = consulta.order_by( request.POST['ordenacao'] )
-            
+        
+        if request.POST['ordenacao'] == 'nmrequerente':
+            p_rural = consulta.order_by( request.POST['ordenacao'] )
+        else:
+            p_rural = consulta.order_by( 'tbprocessobase__'+request.POST['ordenacao'] )
+        
         for r in p_rural:
             p_rural_com_peca.append( r )
                 
-
         #GERACAO
         nome_relatorio = "relatorio-todos-processos-rurais"
         titulo_relatorio    = "RELATORIO DOS PROCESSOS RURAIS"
@@ -661,8 +664,7 @@ def processos(request):
         sheet.getColumn(9).setWidth("1.5in")
         sheet.getColumn(10).setWidth("2in")
         sheet.getColumn(11).setWidth("2in")
-        
-            
+                    
         #DADOS DA CONSULTA
         x = 5
         for obj in p_rural_com_peca:
