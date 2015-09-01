@@ -37,6 +37,7 @@ from django.conf import settings
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.template import loader
+from TerraLegal import settings as configuracao
 
 def verificaDivisaoUsuario(request):
     classe_divisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao.nrclasse
@@ -122,6 +123,12 @@ def generatePDF(request):
     file.close()            # Don't forget to close the file handle
     return HttpResponse(pdf, mimetype='application/pdf')
 
+def upload_file_pdf(request_file,diretorio,nome_arquivo,nome):
+    if nome_arquivo[len(nome_arquivo)-3:len(nome_arquivo)] == 'pdf':        
+        with open(configuracao.MEDIA_ROOT+'/'+diretorio+'/'+nome+'.pdf', 'wb+') as destination:
+            for chunk in request_file.chunks():
+                destination.write(chunk)
+            destination.close()
 
 
 #def gerar_html2pdf():

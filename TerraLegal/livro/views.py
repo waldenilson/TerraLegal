@@ -13,8 +13,8 @@ from odslib import ODS
 import csv
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
+from TerraLegal.core.funcoes import upload_file_pdf
 
-from TerraLegal import settings
 
 nome_relatorio      = "relatorio_livro"
 processos_relatorio = "dados_processos_relatorio"
@@ -285,7 +285,6 @@ def titulos_nao_entregues(request):
     request.session[nome_relatorio] = lista
     request.session[processos_relatorio] = lista_processo
     return render_to_response('livro/consulta_nao_entregues.html' ,{'lista':lista,'lista_processo':lista_processo}, context_instance = RequestContext(request))
-
     
 @permission_required('sicop.livro_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_ods(request):
@@ -353,7 +352,6 @@ def relatorio_ods(request):
         return response
     else:
         return HttpResponseRedirect( response_consulta )
-
 
 @permission_required('sicop.livro_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_pdf(request):

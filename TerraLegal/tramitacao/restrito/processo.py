@@ -39,7 +39,6 @@ import urllib2
 from django.core import serializers
 import json
 from TerraLegal.livro.models import Tbtituloprocesso
-from pyexcel_ods import get_data
 
 nome_relatorio      = "relatorio_processo"
 response_consulta  = "/sicop/processo/consulta/"
@@ -53,14 +52,7 @@ def consultaprocesso(request):
 #    batimento_cpf_processo("/opt/cpfs.csv","/opt/cpfs_.csv")
 #    reader("/opt/cpfs.csv")
 #    reader_ods("/opt/parcelas.ods")
-#    if request.FILES:
-#        print 'enviou'
-#        with open('/opt/upload.ods', 'wb+') as destination:
-#            for chunk in request.FILES['fileinput'].chunks():
-#                destination.write(chunk)
-#        request.FILES['fileinput']
-#    else:
-#        print 'nao adicionou arquivo'
+
 #    export_to_sqlite_android('/opt/sicopsqlite.db')
 
 #    tit = Tbtituloprocesso.objects.filter(id = 2616)
