@@ -58,10 +58,19 @@
 						{% endfor %}
 					</select>
 					</td></tr>
+					<tr> 
+						<td class="colunaTabela"> <label>Digitalização: </label></td>
+						<td>
+							<input type="file" name="arquivo_digital" />&nbsp;(Somente PDFs)
+						</td>
+					</tr>
+					<tr> 
+						<td colspan="2" class="colunaTabela"><a href="#">Arquivo Digital</a></td>
+					</tr>
 				</table>
-				
+				<br/>
 				<table>
-					<tr><td class="colunaTabela"> <label>Dados do processo do titulo:</label></td></tr>	
+					<tr><td class="colunaTabela"> <label style="font-weight:bold">Dados do processo:</label></td></tr>	
 				   	<tr><td class="colunaTabela"> <label>Nome:</label></td>
 				   		<td><div name="nmrequerente" size=17  style="width:300px">{{rural.nmrequerente}}</div></td></tr>
 				   	<tr><td class="colunaTabela"> <label>CPF:</label></td><td>
