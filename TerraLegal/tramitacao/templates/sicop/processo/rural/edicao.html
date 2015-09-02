@@ -8,39 +8,41 @@
 
 {% block customhead %}
 
-	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-    <script>
+    {% if kmls %}
 
-    	{% if kmls %}
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+	    <script>
+
+			
+				function initialize() {
+
+				  var mapOptions = {
+				    zoom: 11,
+				    mapTypeId: google.maps.MapTypeId.HYBRID,
+				    streetViewControl: false,
+				    panControl: false 
+				  }
+
+				  var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+		     		{% for kml in kmls %}
+
+					  var ctaLayer = new google.maps.KmlLayer({
+					    url: 'https://sigef.incra.gov.br/geo/parcela/kml/{{kml}}',
+					  });
+
+					  ctaLayer.setMap(map);
+
+					{% endfor %}
+
+				}
+
+				google.maps.event.addDomListener(window, 'load', initialize);
+			
 		
-			function initialize() {
+	    </script>
 
-			  var mapOptions = {
-			    zoom: 11,
-			    mapTypeId: google.maps.MapTypeId.HYBRID,
-			    streetViewControl: false,
-			    panControl: false 
-			  }
-
-			  var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-
-	     		{% for kml in kmls %}
-
-				  var ctaLayer = new google.maps.KmlLayer({
-				    url: 'https://sigef.incra.gov.br/geo/parcela/kml/{{kml}}',
-				  });
-
-				  ctaLayer.setMap(map);
-
-				{% endfor %}
-
-			}
-
-			google.maps.event.addDomListener(window, 'load', initialize);
-		
-		{% endif %}
-
-    </script>
+	{% endif %}
 
 {% endblock %}
 
