@@ -101,12 +101,18 @@
 	<li><a href="#tabs-5">PEÇA TÉCNICA</a></li>
  {% endif %}
 
+<!--
 {% if fases and base.tbclassificacaoprocesso.id == 1 %}
-	<li><a href="#tabs-7">FLUXO DO PROCESSO</a></li>
+	<li><a href="#tabs-6">FLUXO DO PROCESSO</a></li>
+{% endif %}
+-->
+
+{% if fases and base.tbclassificacaoprocesso.id == 1 %}
+	<li><a href="#tabs-6">SOBREPOSIÇÃO</a></li>
 {% endif %}
 
 {% if titulo_processo %}
-	<li><a href="#tabs-6">TITULO</a></li>
+	<li><a href="#tabs-7">TITULO</a></li>
 {% endif %}
 
 </ul>
@@ -229,23 +235,23 @@
 												</td>
 										</tr>
 						
-<!--
-			 						    {% if fases and perms.sicop.etapa_checklist_posterior %}
-										<tr>
-											<td class="colunaTabela"> <label>Mudar Etapa:</label> </td>
-											<td>
-												<select name="etapaposterior"  style="width:200px">
-													<option value=""> Selecione uma etapa </option>
-													{% for obj in posteriores %}
-														<option value="{{ obj.tbposterior.id }}">{{obj.tbposterior.nmfase}}</option>
-													{% endfor %}
-												</select>
-									   		</td>
-										</tr>
-										{% else %}
-											<input name="etapaposterior" value="" type="hidden" />
-							   			{% endif %}										
--->
+	<!--
+				 						    {% if fases and perms.sicop.etapa_checklist_posterior %}
+											<tr>
+												<td class="colunaTabela"> <label>Mudar Etapa:</label> </td>
+												<td>
+													<select name="etapaposterior"  style="width:200px">
+														<option value=""> Selecione uma etapa </option>
+														{% for obj in posteriores %}
+															<option value="{{ obj.tbposterior.id }}">{{obj.tbposterior.nmfase}}</option>
+														{% endfor %}
+													</select>
+										   		</td>
+											</tr>
+											{% else %}
+												<input name="etapaposterior" value="" type="hidden" />
+								   			{% endif %}										
+	-->
 										</table>							
 								<input name="etapaposterior" value="" type="hidden" />
 							</div>
@@ -455,46 +461,23 @@
 </div>
 {% endif %}
 
-
-{% if titulo_processo %}
-{{ titulo_processo|length  }}
+{% if fases and base.tbclassificacaoprocesso.id == 1 %}
 	<div id="tabs-6">
 		<div style="font-size:12px;margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
-			TITULO<hr/>
+			VERIFICAÇÃO DE SOBREPOSIÇÃO<hr/>
 		</div>
 		<table>
 			<tr>
-				<td class="colunaTabela"> 
-					Titulo: 
-					<input style="margin-right:5px;" name="cdtitulo" size=8 value="{{titulo_processo.tbtitulo.cdtitulo}}" disabled/>
-					<select name="tbtipotitulo"  style="margin-right:10px;width:160px" disabled >
-						{% for obj in tipotitulo %}
-							{% if obj.id == titulo_processo.tbtitulo.tbtipotitulo.id %}
-								<option selected="selected" value="{{ obj.id }}">{{obj.cdtipo}} - {{obj.dstipo}}</option>
-							{% else %}
-								<option value="{{ obj.id }}">{{obj.cdtipo}} - {{obj.dstipo}}</option>
-							{% endif %}
-						{% endfor %}
-					</select>
-					Status:
-					<select name="tbstatustitulo" style="width:120px" disabled>
-				   		{% for obj in statustitulo %}
-							{% if obj.id == titulo_processo.tbtitulo.tbstatustitulo.id %}
-								<option selected="selected" value="{{ obj.id }}">{{obj.sttitulo}}</option>
-							{% else %}
-								<option value="{{ obj.id }}">{{obj.sttitulo}}</option>
-							{% endif %}
-						{% endfor %}
-					</select>
-							
+				<td class="colunaTabela">
 				</td>
 		   	</tr>
 		</table>		   	
 	</div>
 {% endif %}
 
+<!--
 {% if fases and base.tbclassificacaoprocesso.id == 1 %}
-	<div id="tabs-7">
+	<div id="tabs-6">
 			<div style="font-size:12px;margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
 				FLUXO DO PROCESSO<hr/>
 			</div>
@@ -566,6 +549,44 @@
 
 		{% endif %}
 
+	</div>
+{% endif %}
+-->
+
+{% if titulo_processo %}
+{{ titulo_processo|length  }}
+	<div id="tabs-7">
+		<div style="font-size:12px;margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
+			TITULO<hr/>
+		</div>
+		<table>
+			<tr>
+				<td class="colunaTabela"> 
+					Titulo: 
+					<input style="margin-right:5px;" name="cdtitulo" size=8 value="{{titulo_processo.tbtitulo.cdtitulo}}" disabled/>
+					<select name="tbtipotitulo"  style="margin-right:10px;width:160px" disabled >
+						{% for obj in tipotitulo %}
+							{% if obj.id == titulo_processo.tbtitulo.tbtipotitulo.id %}
+								<option selected="selected" value="{{ obj.id }}">{{obj.cdtipo}} - {{obj.dstipo}}</option>
+							{% else %}
+								<option value="{{ obj.id }}">{{obj.cdtipo}} - {{obj.dstipo}}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+					Status:
+					<select name="tbstatustitulo" style="width:120px" disabled>
+				   		{% for obj in statustitulo %}
+							{% if obj.id == titulo_processo.tbtitulo.tbstatustitulo.id %}
+								<option selected="selected" value="{{ obj.id }}">{{obj.sttitulo}}</option>
+							{% else %}
+								<option value="{{ obj.id }}">{{obj.sttitulo}}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+							
+				</td>
+		   	</tr>
+		</table>		   	
 	</div>
 {% endif %}
 
