@@ -10,7 +10,7 @@ from __future__ import unicode_literals
 
 from django.contrib.gis.db import models
 
-class Roads(models.Model):
+class TbparcelaGeo(models.Model):
     gid = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=254, blank=True)
     gleba = models.CharField(max_length=254, blank=True)
@@ -20,11 +20,28 @@ class Roads(models.Model):
     situacao_p = models.CharField(max_length=254, blank=True)
     regional = models.CharField(max_length=254, blank=True)
     uf_id = models.IntegerField()
+    id = models.DecimalField(null=True, max_digits=10, decimal_places=4, blank=True)
+    nr_process = models.CharField(max_length=24, blank=True)
+    planilha_o = models.CharField(max_length=154, blank=True)
+    data_recep = models.DateField(blank=True)
+    protocolo = models.CharField(max_length=28, blank=True)
+    status = models.CharField(max_length=254, blank=True)
+    identifica = models.CharField(max_length=54, blank=True)
+    contrato = models.CharField(max_length=54, blank=True)
+    id_contrat = models.DecimalField(null=True, max_digits=10, decimal_places=4, blank=True)
+    empresa = models.CharField(max_length=254, blank=True)
+    fiscal = models.CharField(max_length=254, blank=True)
+    email = models.CharField(max_length=254, blank=True)
+    fronteira = models.CharField(max_length=254, blank=True)
+    area_ha_ut = models.DecimalField(null=True, max_digits=10, decimal_places=4, blank=True)
+    migrada = models.CharField(max_length=254, blank=True)
+    municipio = models.DecimalField(null=True, max_digits=10, decimal_places=4, blank=True)
+    gleba_situ = models.CharField(max_length=254, blank=True)
     geom = models.MultiPolygonField(srid=4326, null=True, blank=True)
     objects = models.GeoManager()
     class Meta:
-        db_table = 'roads'
-
+        db_table = 'tbparcela_geo'
+'''
 class Tbparcela(models.Model):
     dsjson = models.TextField(blank=True)
     cpf = models.CharField(max_length=11, blank=True)
@@ -66,3 +83,4 @@ class TbMunicipioParcelaGeo(models.Model):
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbmunicipio_parcela_geo'
+'''
