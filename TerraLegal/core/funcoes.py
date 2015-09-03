@@ -11,9 +11,6 @@ from TerraLegal.tramitacao.models import Tbprocessorural, Tbtipoprocesso, Tbproc
     AuthUserGroups, Tbmovimentacao, Tbprocessosanexos, Tbpendencia,\
     Tbclassificacaoprocesso, Tbtipopendencia, Tbstatuspendencia, Tbpregao,\
     Tbdivisao
-from TerraLegal.tramitacao.forms import FormProcessoRural, FormProcessoUrbano,\
-    FormProcessoClausula
-from TerraLegal.tramitacao.restrito import processo_rural
 from types import InstanceType
 from TerraLegal.tramitacao.admin import verificar_permissao_grupo
 import datetime
@@ -65,15 +62,18 @@ def verificaDivisaoUsuario(request):
     request.session['uf'] = id_uf_classe
     request.session['classe'] = [1,2,3,4,5,6,7,8,9,10]
 
-def gerar_html2pdf():
-    template = get_template('sicop/2pdf.html')
-    context = Context({'titulo':'O Título do documento'})
-    html  = template.render(context)
-    result = StringIO.StringIO()
-    pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("ISO-8859-1")), result)
-    if not pdf.err:
-        return http.HttpResponse(result.getvalue(), mimetype='application/pdf')
-    return http.HttpResponse('We had some errors<pre>%s</pre>' % cgi.escape(html))
+def gerar_pdf(request, template, data):
+    
+    # Render html content through html template with context
+    t = loader.get_template('/sicop/processo/rural/'+template)
+    c = Context(data)
+    html =  t.render(c)
+    file = open(os.path.join(configuracao.MEDIA_ROOT, 'test.pdf'), "w+b")
+    pisaStatus = pisa.CreatePDF(html, dest=file)
+    file.seek(0)
+    pdf = file.read()
+    file.close()            # Don't forget to close the file handle
+    return HttpResponse(pdf, mimetype='application/pdf')
 
 
 # Convert HTML URIs to absolute system paths so xhtml2pdf can access those resources

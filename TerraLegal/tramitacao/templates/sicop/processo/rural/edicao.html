@@ -466,13 +466,34 @@
 		<div style="font-size:12px;margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
 			VERIFICAÇÃO DE SOBREPOSIÇÃO<hr/>
 		</div>
-		<table>
-			<tr>
-				<td class="colunaTabela">
-					Geração automática do documento através do preenchimento digital. (Em desenvolvimento).
-				</td>
-		   	</tr>
-		</table>		   	
+		<form method="post" target="blank" action="/sicop/processo/rural/sobreposicao/{{ rural.id }}/">
+		{% csrf_token %}
+
+			<table style="width:100%">
+				<tr>
+					<td class="colunaTabela">
+						<input name="resp_01" type="checkbox" />
+					</td>
+					<td class="colunaTabela">
+						01 – Reservada à administração militar federal ou possui outras finalidades de utilidade pública ou interesse social a cargo
+						da União?
+					</td>
+			   	</tr>
+				<tr>
+					<td colspan="2" class="colunaTabela">
+						Se SIM, especificar.
+					</td>
+			   	</tr>
+				<tr>
+					<td colspan="2" class="colunaTabela">
+						<textarea style="width:100%" name="resp_01_txt"></textarea>
+					</td>
+			   	</tr>
+			   	<tr>
+			   		<td colspan="2" class="colunaTabela"> <input class="button_green" type="submit" value="EMITIR DOCUMENTO" /> </td>
+			   	</tr>
+			</table>		   	
+		</form>
 	</div>
 {% endif %}
 

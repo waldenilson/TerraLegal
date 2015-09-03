@@ -627,7 +627,6 @@ def desanexar(request,id_anexo):
                                    'movimentacao':movimentacao,'caixadestino':caixadestino,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                    'base':base,'clausula':clausula,'dttitulacao':dttitulacao,'dtrequerimento':dtrequerimento}, context_instance = RequestContext(request))      
 
-
 def def_fluxo( tp ):
     ordem = Tbetapa.objects.filter( tbtipoprocesso__id = tp, tbdivisao__id = 1, blativo = True ).values('ordem').annotate(dcount=Count('ordem')).order_by('ordem')
     fluxo = []
@@ -638,7 +637,7 @@ def def_fluxo( tp ):
             ordem.append( obj2 )
         fluxo.append( ordem )
     return fluxo
-
+    
 @permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
 
@@ -844,6 +843,9 @@ def cadastro(request):
             'tipoprocesso':tipoprocesso,'processo':escolha,'div_processo':div_processo,'etapaprocesso':etapaprocesso}, context_instance = RequestContext(request))
 
 
+
+#metodos da tramitacao em lote
+
 @permission_required('sicop.processo_tramitacao_massa', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def ativar_tramitacao_massa(request):
     
@@ -979,6 +981,10 @@ def executar_tramitacao_massa(request):
 
     return render_to_response('sicop/processo/lista_tramitacao_massa.html',{'caixadestino':Tbcaixa.objects.filter( blativo = True,tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id).order_by('nmlocalarquivo'),'lista':lista}, context_instance = RequestContext(request))
 
+
+
+# metodos relatorios
+
 @permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_pdf(request):
     # montar objeto lista com os campos a mostrar no relatorio/pdf
@@ -1062,8 +1068,7 @@ def validarTramitacao(request_form, base, origem, destino):
         warning = False  
     
     return warning
-    
-
+   
 def validarPendencia(request_form, base, descricao,status_pendencia,tipo_pendencia):
     warning = True
     if descricao == '':
@@ -1083,8 +1088,6 @@ def validarPendencia(request_form, base, descricao,status_pendencia,tipo_pendenc
         warning = False
         
     return warning
-
-
 
 def validarAnexo(request_form, base, processoanexo):
     global fgexiste 

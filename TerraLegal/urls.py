@@ -55,8 +55,8 @@ urlpatterns = patterns('',
     url(r'^sicop/processo/relatorio/csv/', 'TerraLegal.tramitacao.restrito.processo.relatorio_csv'),
     url(r'^sicop/processo/desanexar/(?P<id_anexo>\d+)/', 'TerraLegal.tramitacao.restrito.processo.desanexar'),
     url(r'^sicop/processo/consultaProcesso/', 'TerraLegal.tramitacao.restrito.processo.consultaprocesso'),   
-    
 
+   
     # ACESSO RESTRITO SICOP PENDENCIA
     url(r'^sicop/pendencia/edicao/(?P<pendencia>\d+)/', 'TerraLegal.tramitacao.restrito.pendencia.edicao'),
     
@@ -64,6 +64,7 @@ urlpatterns = patterns('',
     url(r'^sicop/processo/rural/consulta/', 'TerraLegal.tramitacao.restrito.processo_rural.consulta'),
     url(r'^sicop/processo/rural/cadastro/', 'TerraLegal.tramitacao.restrito.processo_rural.cadastro'),
     url(r'^sicop/processo/rural/edicao/(?P<id>\d+)/', 'TerraLegal.tramitacao.restrito.processo_rural.edicao'),
+    url(r'^sicop/processo/rural/sobreposicao/(?P<id>\d+)/', 'TerraLegal.tramitacao.restrito.processo_rural.gerar_doc_sobreposicao'),
     # PROCESSO URBANO
     url(r'^sicop/processo/urbano/consulta/', 'TerraLegal.tramitacao.restrito.processo_urbano.consulta'),
     url(r'^sicop/processo/urbano/cadastro/', 'TerraLegal.tramitacao.restrito.processo_urbano.cadastro'),

@@ -11,6 +11,8 @@ from django.contrib import messages
 from django.http.response import HttpResponseRedirect
 import datetime
 from django.db.models import  Q
+from os.path import abspath, join, dirname
+from TerraLegal.core.funcoes import gerar_pdf
 
 @permission_required('sicop.processo_rural_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
@@ -188,6 +190,23 @@ def edicao(request, id):
                                    'base':base,'movimentacao':movimentacao,
                                    'municipiodomicilio':Tbmunicipio.objects.all(),'caixadestino':caixadestino,'rural':rural},
                                context_instance = RequestContext(request))   
+
+@permission_required('sicop.processo_rural_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def gerar_doc_sobreposicao(request, id):
+    # emitir a verificacao de sobreposicao em pdf atraves do modelo em html.
+    rural = Tbprocessorural.objects.get(pk=id)
+    resp_01 = 'NÃO'
+    if request.POST.get('resp_01',False):
+        resp_01 = 'SIM'
+    dados = {
+                'brasao':abspath(join(dirname(__file__), '../../../staticfiles'))+'/img/brasao.gif',
+                'data':str(datetime.datetime.now().day)+'/'+str(datetime.datetime.now().month)+'/'+str(datetime.datetime.now().year),
+                'cpf_detentor':rural.nrcpfrequerente,
+                'nome_detentor':rural.nmrequerente,
+                'resp_01':resp_01,
+                'resp_01_txt':request.POST['resp_01_txt']
+            }
+    return gerar_pdf(request,'sobreposicao.html',dados)
 
 def validacao(request_form, metodo):
     warning = True
