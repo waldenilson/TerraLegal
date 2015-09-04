@@ -1,4 +1,4 @@
-from TerraLegal.geoinformacao.models import Roads
+from TerraLegal.geoinformacao.models import TbparcelaGeo
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.contrib.gis.geos import GEOSGeometry
@@ -11,7 +11,7 @@ from django.db.models import Q
 @permission_required('sicop.peca_tecnica_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def processo_parcela_titulo(request):
     if request.method == "POST":
-        parcelas = Roads.objects.filter( uf_id = request.POST['regional'] )
+        parcelas = TbparcelaGeo.objects.filter( uf_id = request.POST['regional'] )
         parcelas = parcelas.filter( ~Q(nome__icontains = 'P.A.') )
         parcelas = parcelas.filter( ~Q(nome__startswith = 'PA ') )
         parcelas = parcelas.filter( ~Q(nome_deten__icontains = 'PREFEITURA') )

@@ -6,7 +6,7 @@ from TerraLegal.tramitacao.models import Tbtipocaixa, Tbtipoprocesso, Tbstatuspe
     Tbpecastecnicas, Tbprocessobase,Tbclassificacaoprocesso, Tbsubarea, Tbcaixa,\
     Tbgleba, Tbcontrato, Tbsituacaoprocesso, Tbtipopendencia, AuthUser,\
     AuthUserGroups, AuthGroupPermissions, Tbmovimentacao, Tbprocessosanexos
-from TerraLegal.geoinformacao.models import Tbparcela, TbparcelaGeo,TbCPFParcelaGeo, TbCNPJParcelaGeo, TbMunicipioParcelaGeo
+from TerraLegal.geoinformacao.models import TbparcelaGeo
 from TerraLegal.calculo.models import TbtrMensal
 from django.http.response import HttpResponse
 import csv

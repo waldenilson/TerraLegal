@@ -1,0 +1,55 @@
+{% extends "core/base/cadastro.html" %} 
+{% load staticfiles %}
+
+{% block breadcumbs %}
+	Acesso Restrito | GEO Informação | Importação
+{% endblock %}
+
+{% block subtitulo %}
+	
+	IMPORTAÇÃO DAS PARCELAS SIGEF
+	
+{% endblock %}
+
+
+{% block formulario %}
+<div id="tabs" style="color:black;width:100%;font-size:11px">
+<ul>
+	<li><a href="#tabs-1">IMPORTAR PARCELAS</a></li>
+</ul>
+<div id="tabs-1">		
+		
+	<form method="post" action="" enctype="multipart/form-data">
+		{% csrf_token %}
+		<div style="width:100%;font-size:12px;text-align:left">
+		</div>
+		<br />
+		<table style="width:100%">
+			<tr>
+				<td class="colunaTabela">
+					VW_PARCELAS (ODS):
+				</td>
+				<td class="colunaTabela">
+					<input type="file" name="arquivo" />
+				</td>
+			</tr>
+			<tr>
+				<td class="colunaTabela">
+					Nome da Planilha:
+				</td>
+				<td class="colunaTabela">
+					<input type="text" name="planilha" value="Sheet1" />
+				</td>
+			</tr>
+			<tr>
+				<td class="colunaTabela" colspan="2" style="text-align:left"> 
+					<a href="#" style="margin-right: 10px"><input type="button" class="button_yellow" value="CONSULTAR" /></a>
+					<input type="submit" class="button_green" value="SALVAR" />
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+</div>
+
+{% endblock %}

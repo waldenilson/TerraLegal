@@ -130,6 +130,13 @@ def upload_file_pdf(request_file,diretorio,nome_arquivo,nome):
                 destination.write(chunk)
             destination.close()
 
+def upload_file_vw_parcelas_ods(request_file,path,nome_arquivo):
+    if nome_arquivo[len(nome_arquivo)-3:len(nome_arquivo)] == 'ods':        
+        with open(path, 'wb+') as destination:
+            for chunk in request_file.chunks():
+                destination.write(chunk)
+            destination.close()
+
 
 #def gerar_html2pdf():
 #    template = get_template('sicop/2pdf.html')
