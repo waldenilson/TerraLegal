@@ -1,6 +1,8 @@
 Django==1.5.1
+psycopg2
 lxml==3.3.5
 django-webodt==0.3
 odslib==1.0
 pyexcel-ods
+xhtml2pdf
 python-decouple==2.2
