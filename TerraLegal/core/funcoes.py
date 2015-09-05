@@ -125,18 +125,29 @@ def generatePDF(request):
 
 def upload_file_pdf(request_file,diretorio,nome_arquivo,nome):
     if nome_arquivo[len(nome_arquivo)-3:len(nome_arquivo)] == 'pdf':        
-        with open(configuracao.MEDIA_ROOT+'/'+diretorio+'/'+nome+'.pdf', 'wb+') as destination:
-            for chunk in request_file.chunks():
-                destination.write(chunk)
-            destination.close()
+        try:
+            with open(configuracao.MEDIA_ROOT+'/'+diretorio+'/'+nome+'.pdf', 'wb+') as destination:
+                for chunk in request_file.chunks():
+                    destination.write(chunk)
+                destination.close()
+                return '1'
+        except:
+            return '0'
+    else:
+        return '2'
 
 def upload_file_vw_parcelas_ods(request_file,path,nome_arquivo):
     if nome_arquivo[len(nome_arquivo)-3:len(nome_arquivo)] == 'ods':        
-        with open(path, 'wb+') as destination:
-            for chunk in request_file.chunks():
-                destination.write(chunk)
-            destination.close()
-
+        try:
+            with open(path, 'wb+') as destination:
+                for chunk in request_file.chunks():
+                    destination.write(chunk)
+                destination.close()
+                return '1'
+        except:
+            return '0'
+    else:
+        return '2'
 
 #def gerar_html2pdf():
 #    template = get_template('sicop/2pdf.html')
