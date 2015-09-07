@@ -13,7 +13,6 @@ from odslib import ODS
 import csv
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
-from TerraLegal.core.funcoes import upload_file_pdf
 
 
 nome_relatorio      = "relatorio_livro"

@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test, per
 from utils import reader_ods
 from os.path import abspath, join, dirname
 from django.contrib import messages
+from TerraLegal.geoinformacao.models import TbparcelaGeo
 
 @permission_required('sicop.peca_tecnica_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def lista(request):
@@ -30,7 +31,16 @@ def importar_vw_parcelas(request):
 				messages.add_message(request,messages.ERROR,'Erro no tratamento dos dados. Verifique o nome da planilha e tente novamente.')
 			else:
 				try:
-					print json_ods
+					for line in json_ods:
+						obj_parcela = TbparcelaGeo()
+						consulta = TbparcelaGeo.objects.filter(id=line[0],identifica=line[11])
+						if consulta: # atualiza
+							obj_parcela.gid = consulta[0].gid
+						else: #cadastra
+							obj_parcela.id = line[0]
+							obj_parcela.identifica = line[11]
+						obj_parcela.geom = line[18]
+						obj_parcela.save()
 				except:
 					messages.add_message(request,messages.ERROR,'Erro na inserção dos dados. Tente novamente.')
 	return render_to_response('importacao.html',{}, context_instance = RequestContext(request))
