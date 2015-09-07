@@ -29,7 +29,7 @@ from django.template import Context
 
 #import ho.pisa as pisa
 import cStringIO as StringIO
-import os
+import os,sys,csv
 from django.conf import settings
 from django.template.loader import get_template
 from xhtml2pdf import pisa
@@ -135,7 +135,17 @@ def upload_file(request_file,path,nome_arquivo,extensao):
             return '0'
     else:
         return '2'
-        
+
+def reader_csv(path, delimitador):    
+    csv.field_size_limit(sys.maxsize)
+    retorno = []
+    with open(path, 'rb') as csvfile:
+        spamreader = csv.reader(csvfile, delimiter=str(delimitador), quotechar=' ')
+        for row in spamreader:
+            if row:
+                retorno.append(row) 
+    return retorno
+
 #def gerar_html2pdf():
 #    template = get_template('sicop/2pdf.html')
 #    context = Context({'titulo':'O Título do documento'})

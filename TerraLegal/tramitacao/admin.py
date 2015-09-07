@@ -10,6 +10,7 @@ from TerraLegal.geoinformacao.models import TbparcelaGeo
 from TerraLegal.calculo.models import TbtrMensal
 from django.http.response import HttpResponse
 import csv
+import sys
 import sqlite3
 from datetime import datetime
 from TerraLegal.tramitacao.models import Tbpendencia,Tbprocessorural, Tbprocessoclausula, Tbprocessourbano
@@ -146,25 +147,6 @@ def reader_ods(ods_):
         for j2 in j:
             print j2
         
-
-
-def reader(csv_):
-    with open(csv_, 'rb') as csvfile:
-        aux = []
-        spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
-        for row in spamreader:
-            aux.append(row)
-
-        lines = []
-        x = 0
-        for l in aux:
-            if l:
-                x += 1
-            lines.append(l)
-
-        print str(x)
-        print len(lines)
-
 def import_tr(csv_):
     trs = []
     aux = []

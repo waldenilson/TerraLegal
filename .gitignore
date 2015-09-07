@@ -17,4 +17,4 @@ local_settings.py
 test.pdf
 .env
 pip-selfcheck-json
-staticfiles/doc/upload
+staticfiles/doc/upload/
