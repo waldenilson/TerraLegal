@@ -206,7 +206,7 @@ def gerar_doc_sobreposicao(request, id):
                 'resp_01':resp_01,
                 'resp_01_txt':request.POST['resp_01_txt']
             }
-    return gerar_pdf(request,'sobreposicao.html',dados)
+    return gerar_pdf(request,'/sicop/processo/rural/sobreposicao.html',dados,'sobreposicao.pdf')
 
 def validacao(request_form, metodo):
     warning = True

@@ -62,13 +62,13 @@ def verificaDivisaoUsuario(request):
     request.session['uf'] = id_uf_classe
     request.session['classe'] = [1,2,3,4,5,6,7,8,9,10]
 
-def gerar_pdf(request, template, data):
+def gerar_pdf(request, template_path, data, name):
     
     # Render html content through html template with context
-    t = loader.get_template('/sicop/processo/rural/'+template)
+    t = loader.get_template(template_path)
     c = Context(data)
     html =  t.render(c)
-    file = open(os.path.join(configuracao.MEDIA_ROOT, 'test.pdf'), "w+b")
+    file = open(os.path.join(configuracao.MEDIA_ROOT, name), "w+b")
     pisaStatus = pisa.CreatePDF(html, dest=file)
     file.seek(0)
     pdf = file.read()
