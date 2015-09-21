@@ -35,6 +35,7 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.template import loader
 from TerraLegal import settings as configuracao
+import smtplib
 
 def verificaDivisaoUsuario(request):
     classe_divisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao.nrclasse
@@ -74,7 +75,6 @@ def gerar_pdf(request, template_path, data, name):
     pdf = file.read()
     file.close()            # Don't forget to close the file handle
     return HttpResponse(pdf, mimetype='application/pdf')
-
 
 # Convert HTML URIs to absolute system paths so xhtml2pdf can access those resources
 def link_callback(uri, rel):
@@ -145,6 +145,18 @@ def reader_csv(path, delimitador):
             if row:
                 retorno.append(row) 
     return retorno
+
+def send_smtp(to, user, pwd, smtp, assunto, msg):
+    try:
+        smtpserver = smtplib.SMTP_SSL(smtp)
+        smtpserver.login(user, pwd)
+        header = 'To:' + to + '\n' + 'From: ' + user + '\n' + 'Subject:'+assunto+' \n'
+        msg = header + msg
+        smtpserver.sendmail(user, to, msg)
+        smtpserver.close()
+        return True
+    except:
+        return False
 
 #def gerar_html2pdf():
 #    template = get_template('sicop/2pdf.html')
