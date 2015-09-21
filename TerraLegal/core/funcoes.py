@@ -35,6 +35,7 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.template import loader
 from TerraLegal import settings as configuracao
+from os.path import abspath, join, dirname
 import smtplib
 
 def verificaDivisaoUsuario(request):
@@ -158,6 +159,14 @@ def send_smtp(to, user, pwd, smtp, assunto, msg):
     except:
         return False
 
+def translate(section, key):
+    try:
+        file_ini = ConfigParser.ConfigParser()
+        file_ini.read( abspath(join(dirname(__file__), '../../../translation/'+config('TRANSLATION',default='default')+'.ini')) )
+        return file_ini.get(section,key)
+    except:
+        return ''
+        
 #def gerar_html2pdf():
 #    template = get_template('sicop/2pdf.html')
 #    context = Context({'titulo':'O Título do documento'})
