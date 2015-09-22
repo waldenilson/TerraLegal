@@ -55,29 +55,29 @@
 			<p class="P3"> </p><p class="P3"> </p><p class="P3">São Luís, <span class="T1">{{data}}</span></p>
 			<p class="P3">CPF detentor: <span class="T1">{{cpf_detentor}}</span></p>
 			<p class="P3">Nome detentor: <span class="T1">{{nome_detentor}}</span></p>
-			<p class="P4">Avaliação da ocupação denominada: <span class="T1">FAZENDA 7 CORAÇÕES</span></p>
-			<p class="P3">Nº de parcelas: <span class="T1">02</span></p>
-			<p class="P3">Gleba: <span class="T1">COLONE SUB AREA I</span></p>
-			<p class="P3">Área (ha): <span class="T1">61,3603 ha</span></p>
-			<p class="P3">Município (ODS): <span class="T1">ZÉ DOCA</span></p>
-			<p class="P3"><span class="T1">U</span>F: <span class="T1">MA</span></p>
+			<p class="P4">Avaliação da ocupação denominada: <span class="T1">{{nome_imovel}}</span></p>
+			<p class="P3">Nº de parcelas: <span class="T1">{{n_parcelas}}</span></p>
+			<p class="P3">Gleba: <span class="T1">{{nome_gleba}}</span></p>
+			<p class="P3">Área (ha): <span class="T1">{{area_imovel}} ha</span></p>
+			<p class="P3">Município (ODS): <span class="T1">{{nome_municipio}}</span></p>
+			<p class="P3"><span class="T1">U</span>F: <span class="T1">{{uf}}</span></p>
 			<p class="P6">VERIFICAÇÃO DE SOBREPOSIÇÃO</p>
 			<p class="P8"> </p>
 			<p class="P3">01 – Reservada à administração militar federal ou possui outras finalidades de utilidade pública ou interesse social a cargo da União? </p>
 			<p class="P7">{{resp_01}}</p><p class="P3">Se sim, especificar: {{resp_01_txt}}</p>
 			<p class="P9"> </p><p class="P3">02 – É ocupada tradicionalmente por população indígena identificada pela FUNAI?</p>
-			<p class="P7">NÃO  </p><p class="P3">Se sim, especificar: </p><p class="P9"> </p>
+			<p class="P7">{{resp_02}}</p><p class="P3">Se sim, especificar: {{resp_02_txt}}</p><p class="P9"> </p>
 			<p class="P3">03 – Esta inserida em florestas públicas? (Interesse do Serviço Florestal Brasileiro)</p>
-			<p class="P7">NÃO  </p><p class="P3">Se sim, especificar: ____________________________________________________</p><p class="P9"> </p>
+			<p class="P7">{{resp_03}}</p><p class="P3">Se sim, especificar: {{resp_03_txt}}</p><p class="P9"> </p>
 			<p class="P3">04 – Esta inserida em Unidades de Conservação? (Integrantes do Cadastro Nacional de Unidades de Conservação)</p>
-			<p class="P7">NÃO </p><p class="P3">Se sim, especificar: ____________________________________________________</p><p class="P9"> </p>
+			<p class="P7">{{resp_04}}</p><p class="P3">Se sim, especificar: {{resp_04_txt}}</p><p class="P9"> </p>
 			<p class="P3">05 – É objeto de processo administrativo voltado a criação de Unidades de Conservação? </p>
-			<p class="P7">NÃO  </p><p class="P3">Se sim, especificar: ____________________________________________________</p><p class="P9"> </p><p class="P3">06 – Possui benfeitorias ou acessões federais?</p><p class="P7">NÃO</p><p class="P3">Se sim, especificar: ____________________________________________________</p><p class="P9"> </p><p class="P3">07–Abrangem terrenos de Marinha, terrenos marginais ou reservados, seus acrescidos ou outras áreas insuscetíveis de alienação nos termos do Artigo 20 da Constituição Federal? (SPU)</p><p class="P7">NÃO</p><p class="P3">Se sim, especificar: _________________________________________________</p><p class="P9"> </p><p class="P3">08 – É ocupada por comunidades quilombolas? </p><p class="P7">NÃO </p><p class="P3">Se sim, especificar: ____________________________________________________</p><p class="P3"> </p><p class="P3">09 – Situa-se em faixa de fronteira? </p><p class="P7">NÃO</p><p class="P9"> </p><p class="P3">10–Sobrepõe a outro imóvel constante no Sistema de Informações Geográficas da SRFA?</p><p class="P7">NÃO  </p><p class="P9"> </p><p class="P3">11 – Sobrepõe a Projetos de Assentamento? </p>
-			<p class="P7">NÃO</p><p class="P3">Se sim, especificar: </p><p class="P9"> </p>
+			<p class="P7">{{resp_05}}</p><p class="P3">Se sim, especificar: {{resp_05_txt}}</p><p class="P9"> </p><p class="P3">06 – Possui benfeitorias ou acessões federais?</p><p class="P7">{{resp_06}}</p><p class="P3">Se sim, especificar: {{resp_06_txt}}</p><p class="P9"> </p><p class="P3">07–Abrangem terrenos de Marinha, terrenos marginais ou reservados, seus acrescidos ou outras áreas insuscetíveis de alienação nos termos do Artigo 20 da Constituição Federal? (SPU)</p><p class="P7">{{resp_07}}</p><p class="P3">Se sim, especificar: {{resp_07_txt}}<p class="P9"> </p><p class="P3">08 – É ocupada por comunidades quilombolas? </p><p class="P7">{{resp_08}}</p><p class="P3">Se sim, especificar: {{resp_08_txt}}</p><p class="P3"> </p><p class="P3">09 – Situa-se em faixa de fronteira? </p><p class="P7">{{resp_09}}</p><p class="P9"> </p><p class="P3">10–Sobrepõe a outro imóvel constante no Sistema de Informações Geográficas da SRFA?</p><p class="P7">{{resp_10}}</p><p class="P9"> </p><p class="P3">11 – Sobrepõe a Projetos de Assentamento? </p>
+			<p class="P7">{{resp_11}}</p><p class="P3">Se sim, especificar: {{resp_11_txt}}</p><p class="P9"> </p>
 			<p class="P3">12 – Foi georreferenciado pelo INCRA: </p>
-			<p class="P7">SIM</p>
-			<p style="margin-top:10px" class="P7">FIRMA ENGPLAGRI CONT. 22.400</p>
-			<p class="P3">Para consolidar esta avaliação, declaro ter utilizado o Sistema de Informações Geográficas cujo banco de dados é oficialmente distribuído pela SRFAC – Coordenação Geral de Cadastro e Cartografia, com data de atualização em <span class="T1">05/02/15</span></p>
+			<p class="P7">{{resp_12}}</p>
+			<p style="margin-top:10px" class="P7">{{forma_geo}}</p>
+			<p class="P3">Para consolidar esta avaliação, declaro ter utilizado o Sistema de Informações Geográficas cujo banco de dados é oficialmente distribuído pela SRFAC – Coordenação Geral de Cadastro e Cartografia, com data de atualização em <span class="T1">{{data_atualizacao}}</span></p>
 			<p class="P3"> </p><p class="P3"> </p>
 			<p class="P5">___________________________________________</p>
 			<p class="P5">Técnico Responsável pela Avaliação</p>

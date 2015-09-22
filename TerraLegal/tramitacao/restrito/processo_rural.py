@@ -191,22 +191,66 @@ def edicao(request, id):
                                    'municipiodomicilio':Tbmunicipio.objects.all(),'caixadestino':caixadestino,'rural':rural},
                                context_instance = RequestContext(request))   
 
-@permission_required('sicop.processo_rural_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.processo_rural_sobreposicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def gerar_doc_sobreposicao(request, id):
     # emitir a verificacao de sobreposicao em pdf atraves do modelo em html.
     rural = Tbprocessorural.objects.get(pk=id)
-    resp_01 = 'NÃO'
-    if request.POST.get('resp_01',False):
-        resp_01 = 'SIM'
+    resp_12 = 'NÃO'
+    if not request.POST['forma_geo'] == 'GEORREFERENCIAMENTO PARTICULAR':
+        resp_12 = 'SIM'
+    n_parcelas = ''
+    if not request.POST['n_parcelas'][0] == '0':
+        n_parcelas = '0'+request.POST['n_parcelas']
+    else:
+        n_parcelas = request.POST['n_parcelas']
+
+    mes = ''
+    if datetime.datetime.now().month < 10:
+        mes = '0'+str(datetime.datetime.now().month)
+
     dados = {
                 'brasao':abspath(join(dirname(__file__), '../../../staticfiles'))+'/img/brasao.gif',
-                'data':str(datetime.datetime.now().day)+'/'+str(datetime.datetime.now().month)+'/'+str(datetime.datetime.now().year),
-                'cpf_detentor':rural.nrcpfrequerente,
-                'nome_detentor':rural.nmrequerente,
-                'resp_01':resp_01,
-                'resp_01_txt':request.POST['resp_01_txt']
+                'data':str(datetime.datetime.now().day)+'/'+str(mes)+'/'+str(datetime.datetime.now().year),
+                'cpf_detentor':request.POST['cpf_detentor'],
+                'nome_detentor':request.POST['nome_detentor'],
+                'nome_imovel':request.POST['nome_imovel'],
+                'nome_municipio':request.POST['nome_municipio'],
+                'uf':request.POST['uf'],
+                'nome_gleba':request.POST['nome_gleba'],
+                'area_imovel':request.POST['area_imovel'],
+                'n_parcelas':n_parcelas,
+
+                'resp_01':check_boolean(request,'resp_01'),
+                'resp_02':check_boolean(request,'resp_02'),
+                'resp_03':check_boolean(request,'resp_03'),
+                'resp_04':check_boolean(request,'resp_04'),
+                'resp_05':check_boolean(request,'resp_05'),
+                'resp_06':check_boolean(request,'resp_06'),
+                'resp_07':check_boolean(request,'resp_07'),
+                'resp_08':check_boolean(request,'resp_08'),
+                'resp_09':check_boolean(request,'resp_09'),
+                'resp_10':check_boolean(request,'resp_10'),
+                'resp_11':check_boolean(request,'resp_11'),
+                'resp_12':resp_12,
+                'resp_01_txt':request.POST['resp_01_txt'],
+                'resp_02_txt':request.POST['resp_02_txt'],
+                'resp_03_txt':request.POST['resp_03_txt'],
+                'resp_04_txt':request.POST['resp_04_txt'],
+                'resp_05_txt':request.POST['resp_05_txt'],
+                'resp_06_txt':request.POST['resp_06_txt'],
+                'resp_07_txt':request.POST['resp_07_txt'],
+                'resp_08_txt':request.POST['resp_08_txt'],
+                'resp_11_txt':request.POST['resp_11_txt'],
+                'forma_geo':request.POST['forma_geo'],
+                'data_atualizacao':request.POST['data_atualizacao']
             }
     return gerar_pdf(request,'/sicop/processo/rural/sobreposicao.html',dados,'sobreposicao.pdf')
+
+def check_boolean(request,name):
+    if request.POST.get(name,False):
+        return 'SIM'
+    else:
+        return 'NÃO'
 
 def validacao(request_form, metodo):
     warning = True
