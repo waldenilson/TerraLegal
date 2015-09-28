@@ -241,6 +241,8 @@ def gerar_doc_sobreposicao(request, id):
                 'resp_06_txt':request.POST['resp_06_txt'],
                 'resp_07_txt':request.POST['resp_07_txt'],
                 'resp_08_txt':request.POST['resp_08_txt'],
+                'resp_08_txt':request.POST['resp_09_txt'],
+                'resp_08_txt':request.POST['resp_10_txt'],
                 'resp_11_txt':request.POST['resp_11_txt'],
                 'forma_geo':request.POST['forma_geo'],
                 'data_atualizacao':request.POST['data_atualizacao']
