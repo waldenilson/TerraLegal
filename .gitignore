@@ -17,6 +17,6 @@ local_settings.py
 test.pdf
 .env
 pip-selfcheck-json
-staticfiles/doc/upload
-media/doc/upload
+staticfiles/doc
+media/doc/upload/titulacao/MA/P23/*
 media/tmp/sobreposicao.pdf
