@@ -6,7 +6,7 @@ from TerraLegal.tramitacao.models import Tbtipoprocesso, Tbcaixa, Tbgleba, Tbmun
     AuthGroup, Tbprocessobase, Tbprocessorural, Tbclassificacaoprocesso, Tbsituacaoprocesso,\
     Tbpecastecnicas, Tbmovimentacao, Tbdivisao, Tbtransicao, Tbetapa,\
     Tbchecklist, Tbchecklistprocessobase
-from TerraLegal.tramitacao.forms import FormProcessoRural, FormProcessoBase
+from TerraLegal.documento.models import Sobreposicao
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect
 import datetime
@@ -247,6 +247,25 @@ def gerar_doc_sobreposicao(request, id):
                 'forma_geo':request.POST['forma_geo'],
                 'data_atualizacao':request.POST['data_atualizacao']
             }
+
+    #PERSISTENCIA DOS DADOS DO DOCUMENTO VERIFICACAO SOBREPOSICAO
+    doc = Sobreposicao.objects.filter( tbprocessobase__id = Tbprocessorural.objects.get(pk=id).tbprocessobase.id )
+    ds = Sobreposicao()    
+    if doc:
+        #Atualizar dados
+        ds.id = Sobreposicao.objects.get(pk = doc[0].id)
+        ds.tbprocessobase = Tbprocessorural.objects.get(pk=id).tbprocessobase
+        ds.auth_user = AuthUser.objects.get(pk=request.user.id)
+        ds.data_cadastro = doc[0].data_cadastro
+        ds.data_modificacao = datetime.datetime.now()
+    else:
+        #Persistir dados
+        ds.data_cadastro = datetime.datetime.now()
+        ds.data_modificacao = datetime.datetime.now()        
+        ds.tbprocessobase = Tbprocessorural.objects.get(pk=id).tbprocessobase
+        ds.auth_user = AuthUser.objects.get(pk=request.user.id)
+    ds.save()
+
     return gerar_pdf(request,'/sicop/processo/rural/sobreposicao.html',dados, settings.MEDIA_ROOT+'/tmp','sobreposicao.pdf')
 
 def check_boolean(request,name):

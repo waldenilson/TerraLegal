@@ -1,29 +1,12 @@
 from django.db import models
-from TerraLegal.tramitacao.models import Tbdivisao, AuthUser, Tbservidor, Tbprocessobase
+from TerraLegal.tramitacao.models import AuthUser, Tbprocessobase
 
-class DocumentoBase(models.Model):
-    titulo = models.CharField(max_length=80, blank=True)
-    data_cadastro = models.DateTimeField(null=True, blank=True)
-    data_movimentacao = models.DateTimeField(null=True, blank=True)
-    auth_user = models.ForeignKey(AuthUser)
-    tbdivisao = models.ForeignKey(Tbdivisao)
+class Sobreposicao(models.Model):
     id = models.AutoField(primary_key=True)
-    class Meta:
-        db_table = '"documento"."documento_base"'
-        
-class DocumentoServidor(models.Model):
-    documento = models.ForeignKey(DocumentoBase)
-    servidor = models.ForeignKey(Tbservidor)
-    id = models.AutoField(primary_key=True)
-    class Meta:
-        db_table = '"documento"."documento_servidor"'
-
-class DocumentoSobreposicao(models.Model):
-    id = models.AutoField(primary_key=True)
-    documento = models.ForeignKey(DocumentoBase)
     tbprocessobase = models.ForeignKey(Tbprocessobase)
-    forma_georreferenciamento = models.CharField(max_length=80, blank=True)
-    data_atualizacao = models.DateTimeField(null=True, blank=True)
+    auth_user = models.ForeignKey(AuthUser)
+    data_cadastro = models.DateTimeField(null=True, blank=True)
+    data_modificacao = models.DateTimeField(null=True, blank=True)
     bl_item_1 = models.BooleanField()
     txt_item_1 = models.TextField(blank=True)
     bl_item_2 = models.BooleanField()
@@ -46,5 +29,7 @@ class DocumentoSobreposicao(models.Model):
     txt_item_10 = models.TextField(blank=True)
     bl_item_11 = models.BooleanField()
     txt_item_11 = models.TextField(blank=True)
+    forma_georreferenciamento = models.CharField(max_length=80, blank=True)
+    data_atualizacao = models.DateTimeField(null=True, blank=True)
     class Meta:
-        db_table = '"documento"."documento_sobreposicao"'
+        db_table = '"documento"."sobreposicao"'
