@@ -1,4 +1,4 @@
-	{% extends "core/base/cadastro.html" %} 
+{% extends "core/base/cadastro.html" %} 
 {% load staticfiles %} 
 {% block breadcumbs %}
 	Acesso Restrito | Livro Fundiario | Edicao
@@ -14,7 +14,7 @@
 
 
 <div id="tabs-1">		
-	<form method="post" action=".">
+	<form method="post" action="." enctype="multipart/form-data">
 		{% csrf_token %}
 		<div style="width:100%;font-size:12px;text-align:left">
 				<table>
@@ -61,12 +61,14 @@
 					<tr> 
 						<td class="colunaTabela"> <label>Digitalização: </label></td>
 						<td>
-							<input type="file" name="arquivo_digital" />&nbsp;(Somente PDFs)
+							<input accept=".pdf" type="file" name="arquivo_digital" />&nbsp;(Somente PDFs)
 						</td>
 					</tr>
-					<tr> 
-						<td colspan="2" class="colunaTabela"><a href="#">Arquivo Digital</a></td>
-					</tr>
+					{% if titulo.path_file %}
+						<tr> 
+							<td colspan="2" class="colunaTabela"><a target="blank" href="{{titulo.path_file}}">Arquivo Digital</a></td>
+						</tr>
+					{% endif %}
 				</table>
 				<br/>
 				<table>

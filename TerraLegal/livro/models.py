@@ -28,6 +28,7 @@ class Tbtitulo(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     tbcaixa = models.ForeignKey('tramitacao.Tbcaixa',null=True)
+    path_file = models.TextField(blank=True,null=True)
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbtitulo'

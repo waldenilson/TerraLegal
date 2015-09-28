@@ -13,6 +13,8 @@ from odslib import ODS
 import csv
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
+from os.path import abspath, join, dirname
+from TerraLegal.core.funcoes import upload_file
 
 
 nome_relatorio      = "relatorio_livro"
@@ -134,13 +136,25 @@ def edicao(request, id):#id eh da relacao tituloprocesso
     
     
     if request.method == "POST":
+        
+        arquivo_digital = 0
+
         if not request.user.has_perm('sicop.livro_edicao'):
             return HttpResponseRedirect('/excecoes/permissao_negada/')
         
         if validarProcesso(request,'edicao'):
             processobase_novo = Tbprocessobase.objects.get(nrprocesso=request.POST['tbprocessobase'].replace('.','').replace('/','').replace('-',''))
             rural_novo = Tbprocessorural.objects.get(tbprocessobase__nrprocesso=processobase_novo.nrprocesso)
-                
+            
+            #upload do titulo pdf
+            if request.FILES:
+                arquivo_digital = upload_file(
+                    request.FILES['arquivo_digital'],
+                    abspath(join(dirname(__file__), '../../media'))+'/doc/upload/titulacao/'+AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.sigla+'/P23/'+request.POST['cdtitulo']+'.pdf',
+                    request.FILES['arquivo_digital'].name,
+                    'pdf'
+                )
+
             #altera os dados do titulo
             f_titulo = Tbtitulo(
                 cdtitulo = request.POST['cdtitulo'],
@@ -149,6 +163,10 @@ def edicao(request, id):#id eh da relacao tituloprocesso
                 tbcaixa = Tbcaixa.objects.get(id = request.POST['tbcaixa']),
                 id = titulo.id
                 )
+
+            if int(arquivo_digital) == 1:
+                print arquivo_digital
+                f_titulo.path_file = '/media/doc/upload/titulacao/MA/P23/'+f_titulo.cdtitulo+'.pdf'
             f_titulo.save()
             #verifica se usuario digitou processo para alterar o titulo
             if processobase.nrprocesso <> processobase_novo.nrprocesso:
@@ -167,6 +185,8 @@ def edicao(request, id):#id eh da relacao tituloprocesso
                                 auth_user       = AuthUser.objects.get( pk = request.user.id ),
                                 tbcaixa         = Tbcaixa.objects.get (pk = request.POST['tbcaixa'])
                                  )
+                    if arquivo_digital == 1:
+                        f_titulo.path_file = '/media/doc/upload/titulacao/MA/P23/'+f_titulo.cdtitulo+'.pdf'
                     f_titulo.save()
                     titulo = Tbtitulo.objects.get(id = f_titulo.id)
                 #associa o titulo jah existente ao processo digitado
