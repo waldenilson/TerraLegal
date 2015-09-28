@@ -12,6 +12,7 @@ from django.http.response import HttpResponseRedirect
 import datetime
 from django.db.models import  Q
 from os.path import abspath, join, dirname
+from TerraLegal import settings
 from TerraLegal.core.funcoes import gerar_pdf
 
 @permission_required('sicop.processo_rural_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -244,7 +245,7 @@ def gerar_doc_sobreposicao(request, id):
                 'forma_geo':request.POST['forma_geo'],
                 'data_atualizacao':request.POST['data_atualizacao']
             }
-    return gerar_pdf(request,'/sicop/processo/rural/sobreposicao.html',dados,'sobreposicao.pdf')
+    return gerar_pdf(request,'/sicop/processo/rural/sobreposicao.html',dados, settings.MEDIA_ROOT+'/tmp','sobreposicao.pdf')
 
 def check_boolean(request,name):
     if request.POST.get(name,False):
