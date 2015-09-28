@@ -111,16 +111,7 @@
 					{% endif %}
 					
 					{% if perms.servidor.documento_consulta or perms.servidor.tipo_documento_consulta %}
-					<li><a href="#">Documento</a>
-					<ul>
-					{% if perms.servidor.documento_consulta %}
-					<li><a href="/documento/consulta/">Controle (Beta)</a></li>
-					{% endif %}
-					{% if perms.servidor.tipo_documento_consulta %}
-					<li><a href="/documento/tipo/consulta/">Tipo Documento</a></li>
-					{% endif %}
-					</ul>
-					</li>
+					<li><a href="#">Documento</a></li>
 					{% endif %}
 					
 					{% if perms.sicop.relatorio_consulta %}
