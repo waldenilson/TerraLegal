@@ -141,7 +141,7 @@ def reader_csv(path, delimitador):
     csv.field_size_limit(sys.maxsize)
     retorno = []
     with open(path, 'rb') as csvfile:
-        spamreader = csv.reader(csvfile, delimiter=str(delimitador), quotechar=' ')
+        spamreader = csv.reader(csvfile, delimiter=str(delimitador), quotechar='\n')
         for row in spamreader:
             if row:
                 retorno.append(row) 
