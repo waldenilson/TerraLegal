@@ -24,6 +24,7 @@ class TbparcelaGeo(models.Model):
     nr_process = models.CharField(max_length=24, blank=True)
     planilha_o = models.CharField(max_length=154, blank=True)
     data_recep = models.DateField(blank=True)
+    data_situacao_processo = models.DateField(blank=True)
     protocolo = models.CharField(max_length=28, blank=True)
     status = models.CharField(max_length=254, blank=True)
     identifica = models.CharField(max_length=54, blank=True)

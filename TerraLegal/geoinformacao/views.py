@@ -12,6 +12,7 @@ from os.path import abspath, join, dirname
 from django.contrib import messages
 from TerraLegal.geoinformacao.models import TbparcelaGeo
 from TerraLegal.core.funcoes import reader_csv
+from django.contrib.gis.geos import GEOSGeometry, MultiPolygon, Polygon, LinearRing
 
 @permission_required('sicop.peca_tecnica_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def lista(request):
@@ -55,19 +56,24 @@ def importar_vw_parcelas(request):
 							fiscal = line[15],
 							email = line[16],
 							area_ha_ut = line[17],
-#							geom = line[18],
+#							geom = MultiPolygon(Polygon('01030000A0421200000100000009000000D540F7FACE4C49C02FFD25388F2414C0C3F5285C8F8A654020E2A60E9C4C49C0D71084950B2914C0AE47E17A1436654056663F539F4C49C050BB1B7A1E2914C0E17A14AE47096540E169BECFFA4C49C00A69594D9D2914C0713D0AD7A3E8664063447011644D49C091AFAEBB112A14C09A9999999929664064909CDDB14D49C06A06BD2A632A14C0D7A3703D0AC76440B59499EB004E49C0921119B0AB2A14C052B81E85EB4964406C01F2D2C54D49C08BC9EFD4F92514C07B14AE47E1AA6440D540F7FACE4C49C02FFD25388F2414C0C3F5285C8F8A6540')),
 							situacao_p = line[19],
 							natureza = line[20],
 							migrada = line[21],
 							municipio = line[22],
 							uf_id = line[23],
 							gleba_situ = line[24],
-							regional = line[25]
+							regional = line[25],
 #							data_situacao_processo = line[26]
 						)
-					if line[7] == '':
+					if line[7] != '':
+						obj_parcela.data_recep = line[7]
+					else:	
 						obj_parcela.data_recep = None
-					if line[26] == '':
+						
+					if line[26] != '':
+						obj_parcela.data_situacao_processo = line[26]
+					else:	
 						obj_parcela.data_situacao_processo = None
 					obj_parcela.save()
 					print str(x)
