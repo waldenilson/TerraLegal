@@ -39,6 +39,7 @@ import urllib2
 from django.core import serializers
 import json
 from TerraLegal.livro.models import Tbtituloprocesso
+from TerraLegal.documento.models import Sobreposicao
 
 nome_relatorio      = "relatorio_processo"
 response_consulta  = "/sicop/processo/consulta/"
@@ -740,8 +741,16 @@ def edicao(request, id):
                     idkmls.append(parcela['id'])
             except:
                 pass
+
+            #Dados da verificacao sobreposicao
+            lista_sobreposicao = Sobreposicao.objects.filter( tbprocessobase__id = Tbprocessobase.objects.get(pk=rural.tbprocessobase.id).id )
+            if lista_sobreposicao:
+                documento_sobreposicao = lista_sobreposicao[0]
+            else:
+                documento_sobreposicao = Sobreposicao()
+
             return render_to_response('sicop/processo/rural/edicao.html',
-                                      {'total_area_sigef':total_area_sigef,'parcelas':parcelas,'kmls':idkmls,'transicao':transicao,'fluxo':fluxo,'gleba':gleba,'fases':etapas,'etapa_atual':etapa_atual,
+                                      {'sobreposicao':documento_sobreposicao,'total_area_sigef':total_area_sigef,'parcelas':parcelas,'kmls':idkmls,'transicao':transicao,'fluxo':fluxo,'gleba':gleba,'fases':etapas,'etapa_atual':etapa_atual,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,'processo_principal':processo_principal,
                                        'base':base,'rural':rural,'peca':peca,'statustitulo':statustitulo,'posteriores':posteriores,

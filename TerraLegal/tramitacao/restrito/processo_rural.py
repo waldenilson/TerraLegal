@@ -184,11 +184,12 @@ def edicao(request, id):
             messages.add_message(request,messages.INFO,'Informações salvas com sucesso.')
             
             return HttpResponseRedirect("/sicop/processo/edicao/"+str(base.id)+"/")
-    
+
     return render_to_response('sicop/processo/rural/edicao.html',
                               {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
                                    'caixa':caixa,'municipio':municipio,
                                    'base':base,'movimentacao':movimentacao,
+                                   'sobreposicao':documento_sobreposicao,
                                    'municipiodomicilio':Tbmunicipio.objects.all(),'caixadestino':caixadestino,'rural':rural},
                                context_instance = RequestContext(request))   
 
@@ -241,8 +242,8 @@ def gerar_doc_sobreposicao(request, id):
                 'resp_06_txt':request.POST['resp_06_txt'],
                 'resp_07_txt':request.POST['resp_07_txt'],
                 'resp_08_txt':request.POST['resp_08_txt'],
-                'resp_08_txt':request.POST['resp_09_txt'],
-                'resp_08_txt':request.POST['resp_10_txt'],
+                'resp_09_txt':request.POST['resp_09_txt'],
+                'resp_10_txt':request.POST['resp_10_txt'],
                 'resp_11_txt':request.POST['resp_11_txt'],
                 'forma_geo':request.POST['forma_geo'],
                 'data_atualizacao':request.POST['data_atualizacao']
@@ -253,17 +254,41 @@ def gerar_doc_sobreposicao(request, id):
     ds = Sobreposicao()    
     if doc:
         #Atualizar dados
-        ds.id = Sobreposicao.objects.get(pk = doc[0].id)
-        ds.tbprocessobase = Tbprocessorural.objects.get(pk=id).tbprocessobase
-        ds.auth_user = AuthUser.objects.get(pk=request.user.id)
+        ds.id = Sobreposicao.objects.get(pk = doc[0].id).id
         ds.data_cadastro = doc[0].data_cadastro
-        ds.data_modificacao = datetime.datetime.now()
     else:
         #Persistir dados
         ds.data_cadastro = datetime.datetime.now()
-        ds.data_modificacao = datetime.datetime.now()        
-        ds.tbprocessobase = Tbprocessorural.objects.get(pk=id).tbprocessobase
-        ds.auth_user = AuthUser.objects.get(pk=request.user.id)
+    ds.data_modificacao = datetime.datetime.now()        
+    ds.auth_user = AuthUser.objects.get(pk=request.user.id)
+    ds.tbprocessobase = Tbprocessorural.objects.get(pk=id).tbprocessobase
+    dt = request.POST['data_atualizacao'].split('/')
+    ds.data_atualizacao = datetime.datetime(day=int(dt[0]),month=int(dt[1]),year=int(dt[2]))
+    ds.forma_georreferenciamento = request.POST['forma_geo']
+
+    ds.bl_item_1 = request.POST.get('resp_01',False)
+    ds.txt_item_1 = request.POST['resp_01_txt']
+    ds.bl_item_2 = request.POST.get('resp_02',False)
+    ds.txt_item_2 = request.POST['resp_02_txt']
+    ds.bl_item_3 = request.POST.get('resp_03',False)
+    ds.txt_item_3 = request.POST['resp_03_txt']
+    ds.bl_item_4 = request.POST.get('resp_04',False)
+    ds.txt_item_4 = request.POST['resp_04_txt']
+    ds.bl_item_5 = request.POST.get('resp_05',False)
+    ds.txt_item_5 = request.POST['resp_05_txt']
+    ds.bl_item_6 = request.POST.get('resp_06',False)
+    ds.txt_item_6 = request.POST['resp_06_txt']
+    ds.bl_item_7 = request.POST.get('resp_07',False)
+    ds.txt_item_7 = request.POST['resp_07_txt']
+    ds.bl_item_8 = request.POST.get('resp_08',False)
+    ds.txt_item_8 = request.POST['resp_08_txt']
+    ds.bl_item_9 = request.POST.get('resp_09',False)
+    ds.txt_item_9 = request.POST['resp_09_txt']
+    ds.bl_item_10 = request.POST.get('resp_10',False)
+    ds.txt_item_10 = request.POST['resp_10_txt']
+    ds.bl_item_11 = request.POST.get('resp_11',False)
+    ds.txt_item_11 = request.POST['resp_11_txt']
+
     ds.save()
 
     return gerar_pdf(request,'/sicop/processo/rural/sobreposicao.html',dados, settings.MEDIA_ROOT+'/tmp','sobreposicao.pdf')

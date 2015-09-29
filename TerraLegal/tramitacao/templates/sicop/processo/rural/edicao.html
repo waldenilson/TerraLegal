@@ -507,7 +507,11 @@
 			<table style="width:100%">
 				<tr>
 					<td class="colunaTabela">
-						<input name="resp_01" type="checkbox" />
+						{% if sobreposicao.bl_item_1 == True %}
+							<input name="resp_01" checked="checked" type="checkbox" />
+						{% else %}
+							<input name="resp_01" type="checkbox" />
+						{% endif %}
 					</td>
 					<td class="colunaTabela">
 						01 – Reservada à administração militar federal ou possui outras finalidades de utilidade pública ou interesse social a cargo
@@ -521,13 +525,17 @@
 			   	</tr>
 				<tr>
 					<td colspan="2" class="colunaTabela">
-						<textarea maxlength="100" style="width:100%" name="resp_01_txt"></textarea>
+						<textarea maxlength="100" style="width:100%" name="resp_01_txt">{{sobreposicao.txt_item_1}}</textarea>
 					</td>
 			   	</tr>
 				<!-- NOVA QUESTÃO -->
 				<tr>
 					<td class="colunaTabela">
-						<input name="resp_02" type="checkbox" />
+						{% if sobreposicao.bl_item_2 == True %}
+							<input name="resp_02" checked="checked" type="checkbox" />
+						{% else %}
+							<input name="resp_02" type="checkbox" />
+						{% endif %}
 					</td>
 					<td class="colunaTabela">
 						02 – É ocupada tradicionalmente por população indígena identificada pela FUNAI?
@@ -540,13 +548,17 @@
 			   	</tr>
 				<tr>
 					<td colspan="2" class="colunaTabela">
-						<textarea maxlength="100" style="width:100%" name="resp_02_txt"></textarea>
+						<textarea maxlength="100" style="width:100%" name="resp_02_txt">{{sobreposicao.txt_item_2}}</textarea>
 					</td>
 			   	</tr>
 				<!-- NOVA QUESTÃO -->
 				<tr>
 					<td class="colunaTabela">
-						<input name="resp_03" type="checkbox" />
+						{% if sobreposicao.bl_item_3 == True %}
+							<input name="resp_03" checked="checked" type="checkbox" />
+						{% else %}
+							<input name="resp_03" type="checkbox" />
+						{% endif %}
 					</td>
 					<td class="colunaTabela">
 						03 – Esta inserida em florestas públicas? (Interesse do Serviço Florestal Brasileiro)
@@ -559,13 +571,17 @@
 			   	</tr>
 				<tr>
 					<td colspan="2" class="colunaTabela">
-						<textarea maxlength="100" style="width:100%" name="resp_03_txt"></textarea>
+						<textarea maxlength="100" style="width:100%" name="resp_03_txt">{{sobreposicao.txt_item_3}}</textarea>
 					</td>
 			   	</tr>
 				<!-- NOVA QUESTÃO -->
 				<tr>
 					<td class="colunaTabela">
-						<input name="resp_04" type="checkbox" />
+						{% if sobreposicao.bl_item_4 == True %}
+							<input name="resp_04" checked="checked" type="checkbox" />
+						{% else %}
+							<input name="resp_04" type="checkbox" />
+						{% endif %}
 					</td>
 					<td class="colunaTabela">
 						04 – Esta inserida em Unidades de Conservação? (Integrantes do Cadastro Nacional de Unidades de Conservação)
@@ -578,13 +594,17 @@
 			   	</tr>
 				<tr>
 					<td colspan="2" class="colunaTabela">
-						<textarea maxlength="100" style="width:100%" name="resp_04_txt"></textarea>
+						<textarea maxlength="100" style="width:100%" name="resp_04_txt">{{sobreposicao.txt_item_4}}</textarea>
 					</td>
 			   	</tr>
 				<!-- NOVA QUESTÃO -->
 				<tr>
 					<td class="colunaTabela">
-						<input name="resp_05" type="checkbox" />
+						{% if sobreposicao.bl_item_5 == True %}
+							<input name="resp_05" checked="checked" type="checkbox" />
+						{% else %}
+							<input name="resp_05" type="checkbox" />
+						{% endif %}
 					</td>
 					<td class="colunaTabela">
 						05 – É objeto de processo administrativo voltado a criação de Unidades de Conservação?
@@ -597,13 +617,17 @@
 			   	</tr>
 				<tr>
 					<td colspan="2" class="colunaTabela">
-						<textarea maxlength="100" style="width:100%" name="resp_05_txt"></textarea>
+						<textarea maxlength="100" style="width:100%" name="resp_05_txt">{{sobreposicao.txt_item_5}}</textarea>
 					</td>
 			   	</tr>
 				<!-- NOVA QUESTÃO -->
 				<tr>
 					<td class="colunaTabela">
-						<input name="resp_06" type="checkbox" />
+						{% if sobreposicao.bl_item_6 == True %}
+							<input name="resp_06" checked="checked" type="checkbox" />
+						{% else %}
+							<input name="resp_06" type="checkbox" />
+						{% endif %}
 					</td>
 					<td class="colunaTabela">
 						06 – Possui benfeitorias ou acessões federais?
@@ -616,13 +640,17 @@
 			   	</tr>
 				<tr>
 					<td colspan="2" class="colunaTabela">
-						<textarea maxlength="100" style="width:100%" name="resp_06_txt"></textarea>
+						<textarea maxlength="100" style="width:100%" name="resp_06_txt">{{sobreposicao.txt_item_6}}</textarea>
 					</td>
 			   	</tr>
 				<!-- NOVA QUESTÃO -->
 				<tr>
 					<td class="colunaTabela">
-						<input name="resp_07" type="checkbox" />
+						{% if sobreposicao.bl_item_7 == True %}
+							<input name="resp_07" checked="checked" type="checkbox" />
+						{% else %}
+							<input name="resp_07" type="checkbox" />
+						{% endif %}
 					</td>
 					<td class="colunaTabela">
 						07 – Abrangem terrenos de Marinha, terrenos marginais ou reservados, seus acrescidos ou outras áreas insuscetíveis de alienação nos termos do Artigo 20 da Constituição Federal? (SPU)
@@ -635,13 +663,17 @@
 			   	</tr>
 				<tr>
 					<td colspan="2" class="colunaTabela">
-						<textarea maxlength="100" style="width:100%" name="resp_07_txt"></textarea>
+						<textarea maxlength="100" style="width:100%" name="resp_07_txt">{{sobreposicao.txt_item_7}}</textarea>
 					</td>
 			   	</tr>
 				<!-- NOVA QUESTÃO -->
 				<tr>
 					<td class="colunaTabela">
-						<input name="resp_08" type="checkbox" />
+						{% if sobreposicao.bl_item_8 == True %}
+							<input name="resp_08" checked="checked" type="checkbox" />
+						{% else %}
+							<input name="resp_08" type="checkbox" />
+						{% endif %}
 					</td>
 					<td class="colunaTabela">
 						08 – É ocupada por comunidades quilombolas?
@@ -654,13 +686,17 @@
 			   	</tr>
 				<tr>
 					<td colspan="2" class="colunaTabela">
-						<textarea maxlength="100" style="width:100%" name="resp_08_txt"></textarea>
+						<textarea maxlength="100" style="width:100%" name="resp_08_txt">{{sobreposicao.txt_item_8}}</textarea>
 					</td>
 			   	</tr>
 				<!-- NOVA QUESTÃO -->
 				<tr>
 					<td class="colunaTabela">
-						<input name="resp_09" type="checkbox" />
+						{% if sobreposicao.bl_item_9 == True %}
+							<input name="resp_09" checked="checked" type="checkbox" />
+						{% else %}
+							<input name="resp_09" type="checkbox" />
+						{% endif %}
 					</td>
 					<td class="colunaTabela">
 						09 – Situa-se em faixa de fronteira?
@@ -673,13 +709,17 @@
 			   	</tr>
 				<tr>
 					<td colspan="2" class="colunaTabela">
-						<textarea maxlength="100" style="width:100%" name="resp_09_txt"></textarea>
+						<textarea maxlength="100" style="width:100%" name="resp_09_txt">{{sobreposicao.txt_item_9}}</textarea>
 					</td>
 			   	</tr>
 				<!-- NOVA QUESTÃO -->
 				<tr>
 					<td class="colunaTabela">
-						<input name="resp_10" type="checkbox" />
+						{% if sobreposicao.bl_item_10 == True %}
+							<input name="resp_10" checked="checked" type="checkbox" />
+						{% else %}
+							<input name="resp_10" type="checkbox" />
+						{% endif %}
 					</td>
 					<td class="colunaTabela">
 						10 – Sobrepõe a outro imóvel constante no Sistema de Informações Geográficas da SRFA?
@@ -692,13 +732,17 @@
 			   	</tr>
 				<tr>
 					<td colspan="2" class="colunaTabela">
-						<textarea maxlength="100" style="width:100%" name="resp_10_txt"></textarea>
+						<textarea maxlength="100" style="width:100%" name="resp_10_txt">{{sobreposicao.txt_item_10}}</textarea>
 					</td>
 			   	</tr>
 				<!-- NOVA QUESTÃO -->
 				<tr>
 					<td class="colunaTabela">
-						<input name="resp_11" type="checkbox" />
+						{% if sobreposicao.bl_item_11 == True %}
+							<input name="resp_11" checked="checked" type="checkbox" />
+						{% else %}
+							<input name="resp_11" type="checkbox" />
+						{% endif %}
 					</td>
 					<td class="colunaTabela">
 						11 – Sobrepõe a Projetos de Assentamento?
@@ -711,7 +755,7 @@
 			   	</tr>
 				<tr>
 					<td colspan="2" class="colunaTabela">
-						<textarea maxlength="100" style="width:100%" name="resp_11_txt"></textarea>
+						<textarea maxlength="100" style="width:100%" name="resp_11_txt">{{sobreposicao.txt_item_11}}</textarea>
 					</td>
 			   	</tr>
 				<!-- NOVA QUESTÃO -->
@@ -720,14 +764,54 @@
 						12 – Forma do Georreferenciamento:
 						&nbsp;&nbsp;
 				   		<select required="required" name="forma_geo" style="width: 300px">
-							<option value="GEORREFERENCIAMENTO PARTICULAR">GEORREFERENCIAMENTO PARTICULAR</option>
-							<option value="EMPRESA ENGPLAGRI CONT. 12.000">EMPRESA ENGPLAGRI CONT. 12.000</option>
-							<option value="EMPRESA ENGPLAGRI CONT. 22.400">EMPRESA ENGPLAGRI CONT. 22.400</option>
-							<option value="EMPRESA SETA CONT. CRICIÚMA 19600">EMPRESA SETA CONT. CRICIÚMA 19600</option>
-							<option value="EMPRESA SETA CONT. CRICIÚMA 77/2013">EMPRESA SETA CONT. CRICIÚMA 77/2013</option>
-							<option value="EMPRESA SETA CONT. IMPERATRIZ 78/2013">EMPRESA SETA CONT. IMPERATRIZ 78/2013</option>
-							<option value="EMPRESA PROGETO CONT.35/2012">EMPRESA PROGETO CONT.35/2012</option>
-							<option value="EMPRESA SETA  078/2013">EMPRESA SETA  078/2013</option>
+				   			
+				   			{% if sobreposicao.forma_georreferenciamento == 'GEORREFERENCIAMENTO PARTICULAR' %}
+								<option selected="selected" value="GEORREFERENCIAMENTO PARTICULAR">GEORREFERENCIAMENTO PARTICULAR</option>
+							{% else %}
+								<option value="GEORREFERENCIAMENTO PARTICULAR">GEORREFERENCIAMENTO PARTICULAR</option>
+							{% endif %}
+
+				   			{% if sobreposicao.forma_georreferenciamento == 'EMPRESA ENGPLAGRI CONT. 12.000' %}
+								<option selected="selected" value="EMPRESA ENGPLAGRI CONT. 12.000">EMPRESA ENGPLAGRI CONT. 12.000</option>
+							{% else %}
+								<option value="EMPRESA ENGPLAGRI CONT. 12.000">EMPRESA ENGPLAGRI CONT. 12.000</option>
+							{% endif %}
+
+				   			{% if sobreposicao.forma_georreferenciamento == 'EMPRESA ENGPLAGRI CONT. 22.400' %}
+								<option selected="selected" value="EMPRESA ENGPLAGRI CONT. 22.400">EMPRESA ENGPLAGRI CONT. 22.400</option>
+							{% else %}
+								<option value="EMPRESA ENGPLAGRI CONT. 22.400">EMPRESA ENGPLAGRI CONT. 22.400</option>
+							{% endif %}
+
+				   			{% if sobreposicao.forma_georreferenciamento == 'EMPRESA SETA CONT. CRICIÚMA 19600' %}
+								<option selected="selected" value="EMPRESA SETA CONT. CRICIÚMA 19600">EMPRESA SETA CONT. CRICIÚMA 19600</option>
+							{% else %}
+								<option value="EMPRESA SETA CONT. CRICIÚMA 19600">EMPRESA SETA CONT. CRICIÚMA 19600</option>
+							{% endif %}
+
+				   			{% if sobreposicao.forma_georreferenciamento == 'EMPRESA SETA CONT. CRICIÚMA 77/2013' %}
+								<option selected="selected" value="EMPRESA SETA CONT. CRICIÚMA 77/2013">EMPRESA SETA CONT. CRICIÚMA 77/2013</option>
+							{% else %}
+								<option value="EMPRESA SETA CONT. CRICIÚMA 77/2013">EMPRESA SETA CONT. CRICIÚMA 77/2013</option>
+							{% endif %}
+
+				   			{% if sobreposicao.forma_georreferenciamento == 'EMPRESA SETA CONT. IMPERATRIZ 78/2013' %}
+								<option selected="selected" value="EMPRESA SETA CONT. IMPERATRIZ 78/2013">EMPRESA SETA CONT. IMPERATRIZ 78/2013</option>
+							{% else %}
+								<option value="GEORREFERENCIAMENTO PARTICULAR">GEORREFERENCIAMENTO PARTICULAR</option>
+							{% endif %}
+
+				   			{% if sobreposicao.forma_georreferenciamento == 'EMPRESA PROGETO CONT.35/2012' %}
+								<option selected="selected" value="EMPRESA PROGETO CONT.35/2012">EMPRESA PROGETO CONT.35/2012</option>
+							{% else %}
+								<option value="EMPRESA PROGETO CONT.35/2012">EMPRESA PROGETO CONT.35/2012</option>
+							{% endif %}
+
+				   			{% if sobreposicao.forma_georreferenciamento == 'EMPRESA SETA  078/2013' %}
+								<option selected="selected" value="EMPRESA SETA  078/2013">EMPRESA SETA  078/2013</option>
+							{% else %}
+								<option value="EMPRESA SETA  078/2013">EMPRESA SETA  078/2013</option>
+							{% endif %}
 						</select>						
 					</td>
 			   	</tr>
@@ -736,7 +820,7 @@
 					<td class="colunaTabela" colspan="2">
 						Data de Atualização:
 						&nbsp;&nbsp;
-						<input name="data_atualizacao" size="9" id="date" required type="text" />
+						<input value="{{sobreposicao.data_atualizacao|date:'d/m/Y'}}" name="data_atualizacao" size="9" id="date" required type="text" />
 					</td>
 			   	</tr>
 			   	<tr>
