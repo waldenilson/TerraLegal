@@ -210,11 +210,14 @@ def gerar_doc_sobreposicao(request, id):
     if datetime.datetime.now().month < 10:
         mes = '0'+str(datetime.datetime.now().month)
 
+    processo = rural.tbprocessobase.nrprocesso[0:5]+'.'+rural.tbprocessobase.nrprocesso[5:11]+'/'+rural.tbprocessobase.nrprocesso[11:15]+'-'+rural.tbprocessobase.nrprocesso[15:17]
+
     dados = {
                 'brasao':abspath(join(dirname(__file__), '../../../staticfiles'))+'/img/brasao.gif',
                 'data':str(datetime.datetime.now().day)+'/'+str(mes)+'/'+str(datetime.datetime.now().year),
                 'cpf_detentor':request.POST['cpf_detentor'],
                 'nome_detentor':request.POST['nome_detentor'],
+                'processo':processo,
                 'nome_imovel':request.POST['nome_imovel'],
                 'nome_municipio':request.POST['nome_municipio'],
                 'uf':request.POST['uf'],
