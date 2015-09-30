@@ -8,8 +8,8 @@
 # into your database.
 from __future__ import unicode_literals
 
-from django.contrib.gis.db import models
-#from django.db import models
+#from django.contrib.gis.db import models
+from django.db import models
 from TerraLegal.servidor.models import Tbservidor
 
 class AuthGroup(models.Model):

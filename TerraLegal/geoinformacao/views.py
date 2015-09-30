@@ -12,13 +12,14 @@ from os.path import abspath, join, dirname
 from django.contrib import messages
 from TerraLegal.geoinformacao.models import TbparcelaGeo
 from TerraLegal.core.funcoes import reader_csv
-from django.contrib.gis.geos import GEOSGeometry, MultiPolygon, Polygon, LinearRing
+
+#from django.contrib.gis.geos import GEOSGeometry, MultiPolygon, Polygon, LinearRing
 
 @permission_required('sicop.peca_tecnica_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def lista(request):
     return render_to_response('lista.html',{}, context_instance = RequestContext(request))
 
-@permission_required('sicop.peca_tecnica_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+@permission_required('sicop.tipo_processo_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def importar_vw_parcelas(request):
 	if request.method == 'POST' and request.FILES:
 		path = abspath(join(dirname(__file__), '../../media'))+'/tmp/vw_parcelas.csv'
