@@ -2,6 +2,7 @@
 from django.template.context import RequestContext
 from TerraLegal.tramitacao.models import Tbpecastecnicas, \
     Tbprocessorural,Tbchecklistprocessobase, Tbprocessosanexos, Tbprocessobase,Tbprocessourbano, Tbcaixa, AuthUser, Tbmunicipio, Tbprocessoclausula, Tbpendencia, Tbetapa, Tbtransicao
+from TerraLegal.geoinformacao.models import TbparcelaGeo
 from TerraLegal.tramitacao.relatorio_base import relatorio_ods_base_header,\
     relatorio_ods_base
 from django.db.models import Q
@@ -610,7 +611,6 @@ def processo_sem_peca_com_parcela_sigef(request):
 
     return render_to_response('sicop/relatorio/processo_sem_peca_com_parcela_sigef.html',{}, context_instance = RequestContext(request))
 
-
 @permission_required('sicop.relatorio_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def processos(request):
 
@@ -833,7 +833,6 @@ def varredura_processos(request):
                 )
     
     return render_to_response('relatorio/pecas-sem-processo.odt',dictionary=context,format='odt',filename='relatorio-pecas-sem-processo.odt')
-
 
 
 #PECAS TECNICAS VALIDADAS
@@ -1144,11 +1143,10 @@ def titulos(request):
         
     return render_to_response('sicop/relatorio/titulos.html',{"caixa":caixa}, context_instance = RequestContext(request))
 
-
 @permission_required('sicop.relatorio_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def em_programacao_p80(request):
 
-#    if request.method == "POST":
+    #if request.method == "POST":
         #CONSULTA ORDENADA E/OU BASEADA EM FILTROS DE PESQUISA
         consulta = []
         checks = Tbchecklistprocessobase.objects.filter( tbprocessobase__tbtipoprocesso__id = 2, tbprocessobase__tbclassificacaoprocesso__id = 1, tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id, bl_em_programacao = True, tbchecklist__blprogramacao = True ).order_by('tbprocessobase')
@@ -1226,11 +1224,10 @@ def em_programacao_p80(request):
         ods.save(response)
         return response
 
-
 @permission_required('sicop.relatorio_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def prazos_notificacoes_p80(request):
 
-#    if request.method == "POST":
+    #if request.method == "POST":
         #CONSULTA ORDENADA E/OU BASEADA EM FILTROS DE PESQUISA
         
         prazos = []
@@ -1302,3 +1299,197 @@ def prazos_notificacoes_p80(request):
         response['Content-Disposition'] = 'attachment; filename='+nome_relatorio+'.ods'
         ods.save(response)
         return response
+
+
+
+#PROCESSOS QUE TEM PARCELA
+@permission_required('sicop.relatorio_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def processo_parcela(request):
+
+    if request.method == "POST":
+        p_rural = []
+        #CONSULTA ORDENADA E/OU BASEADA EM FILTROS DE PESQUISA
+        consulta = Tbprocessorural.objects.filter( tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        p_rural_com_parcela = []
+        p_rural = consulta.order_by( request.POST['ordenacao'] )
+            
+        for r in p_rural:
+            if TbparcelaGeo.objects.filter( cpf_detent = r.nrcpfrequerente.replace('.','').replace('-','') ):
+                p_rural_com_parcela.append( r )
+                
+
+        #GERACAO
+        nome_relatorio = "relatorio-processos-com-parcela"
+        titulo_relatorio    = "RELATORIO DOS PROCESSOS COM PARCELA(S) NO SIGEF"
+        planilha_relatorio  = "Processos com parcela"
+        ods = ODS()
+        sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, len(p_rural_com_parcela), ods)
+        
+        # TITULOS DAS COLUNAS
+        sheet.getCell(0, 6).setAlignHorizontal('center').stringValue( 'Processo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(1, 6).setAlignHorizontal('center').stringValue( 'Requerente' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'Contato' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'Endereco' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(4, 6).setAlignHorizontal('center').stringValue( 'Conjuge' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(5, 6).setAlignHorizontal('center').stringValue( 'CPF' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(6, 6).setAlignHorizontal('center').stringValue( 'Caixa' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(7, 6).setAlignHorizontal('center').stringValue( 'Municipio' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(8, 6).setAlignHorizontal('center').stringValue( 'Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(9, 6).setAlignHorizontal('center').stringValue( 'Qtd. Pendencias' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(10, 6).setAlignHorizontal('center').stringValue( 'Pendentes' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(11, 6).setAlignHorizontal('center').stringValue( 'Notificadas' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getRow(1).setHeight('20pt')
+        sheet.getRow(2).setHeight('20pt')
+        sheet.getRow(6).setHeight('20pt')
+        
+        sheet.getColumn(0).setWidth("2in")
+        sheet.getColumn(1).setWidth("5in")
+        sheet.getColumn(2).setWidth("2.5in")
+        sheet.getColumn(3).setWidth("5in")
+        sheet.getColumn(4).setWidth("5in")
+        sheet.getColumn(5).setWidth("2in")
+        sheet.getColumn(6).setWidth("2.5in")
+        sheet.getColumn(7).setWidth("2.5in")
+        sheet.getColumn(8).setWidth("2.5in")
+        sheet.getColumn(9).setWidth("2in")
+        sheet.getColumn(9).setWidth("2in")
+        sheet.getColumn(10).setWidth("2in")
+        sheet.getColumn(11).setWidth("2in")
+        
+        #DADOS DA CONSULTA
+        x = 5
+        for obj in p_rural_com_parcela:
+            sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.nrprocesso)
+            sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.nmrequerente)    
+            sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.nmcontato)
+            sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.nmendereco)
+            sheet.getCell(4, x+2).setAlignHorizontal('center').stringValue(obj.nmconjuge)
+            sheet.getCell(5, x+2).setAlignHorizontal('center').stringValue(obj.nrcpfrequerente)
+            sheet.getCell(6, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbcaixa.nmlocalarquivo)
+            sheet.getCell(7, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbmunicipio.nome_mun)
+            sheet.getCell(8, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbgleba.nmgleba)
+            # buscar todas as pendencias do processo, que nao estao sanadas
+            pendencias_pendente = Tbpendencia.objects.filter( 
+               Q(tbprocessobase__id = obj.tbprocessobase.id, tbstatuspendencia__id = 2)
+              ) 
+            pendencias_notificado = Tbpendencia.objects.filter( 
+               Q(tbprocessobase__id = obj.tbprocessobase.id, tbstatuspendencia__id = 3)
+              ) 
+            sheet.getCell(9, x+2).setAlignHorizontal('center').stringValue( len(pendencias_pendente) + len(pendencias_notificado) )
+            # buscando as descricoes das pendencias pendentes
+            desc_pendencias = ''
+            for pend in pendencias_pendente:
+                desc_pendencias += pend.tbtipopendencia.dspendencia + ' : ' + pend.dsdescricao + ' | '
+            sheet.getCell(10, x+2).setAlignHorizontal('center').stringValue( desc_pendencias )
+            
+            # buscando as descricoes das pendencias  notificadas
+            desc_pendencias = ''
+            for pend in pendencias_notificado:
+                desc_pendencias += pend.tbtipopendencia.dspendencia + ' : ' + pend.dsdescricao + ' | '
+            sheet.getCell(11, x+2).setAlignHorizontal('center').stringValue( desc_pendencias )
+            x += 1
+            
+        #GERACAO DO DOCUMENTO  
+        relatorio_ods_base(ods, planilha_relatorio)
+        response = HttpResponse(mimetype=ods.mimetype.toString())
+        response['Content-Disposition'] = 'attachment; filename='+nome_relatorio+'.ods'
+        ods.save(response)
+        return response
+
+    return render_to_response('sicop/relatorio/processo_parcela.html',{}, context_instance = RequestContext(request))
+
+@permission_required('sicop.relatorio_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def processo_sem_parcela(request):
+
+    if request.method == "POST":
+        p_rural = []
+        #CONSULTA ORDENADA E/OU BASEADA EM FILTROS DE PESQUISA
+        consulta = Tbprocessorural.objects.filter( tbprocessobase__tbclassificacaoprocesso__id = 1, tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        p_rural_sem_parcela = []
+        p_rural = consulta.order_by( request.POST['ordenacao'] )
+            
+        x = 0
+        for rr in p_rural:
+            if not TbparcelaGeo.objects.filter( cpf_detent = rr.nrcpfrequerente ):
+                if rr.nrcpfrequerente != '99999999999' and rr.nrcpfrequerente != '00000000000':
+                    p_rural_sem_parcela.append(rr)
+
+        #GERACAO
+        nome_relatorio = "relatorio-processos-sem-parcela"
+        titulo_relatorio    = "RELATORIO DOS PROCESSOS SEM PARCELA(S) NO SIGEF"
+        planilha_relatorio  = "Processos sem parcela"
+        ods = ODS()
+        sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, len(p_rural_sem_parcela), ods)
+        
+        # TITULOS DAS COLUNAS
+        sheet.getCell(0, 6).setAlignHorizontal('center').stringValue( 'Processo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(1, 6).setAlignHorizontal('center').stringValue( 'Requerente' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'Contato' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'Endereco' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(4, 6).setAlignHorizontal('center').stringValue( 'Conjuge' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(5, 6).setAlignHorizontal('center').stringValue( 'CPF' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(6, 6).setAlignHorizontal('center').stringValue( 'Caixa' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(7, 6).setAlignHorizontal('center').stringValue( 'Municipio' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(8, 6).setAlignHorizontal('center').stringValue( 'Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(9, 6).setAlignHorizontal('center').stringValue( 'Qtd. Pendencias' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(10, 6).setAlignHorizontal('center').stringValue( 'Pendentes' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(11, 6).setAlignHorizontal('center').stringValue( 'Notificadas' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getRow(1).setHeight('20pt')
+        sheet.getRow(2).setHeight('20pt')
+        sheet.getRow(6).setHeight('20pt')
+        
+        sheet.getColumn(0).setWidth("2in")
+        sheet.getColumn(1).setWidth("5in")
+        sheet.getColumn(2).setWidth("2.5in")
+        sheet.getColumn(3).setWidth("5in")
+        sheet.getColumn(4).setWidth("5in")
+        sheet.getColumn(5).setWidth("2in")
+        sheet.getColumn(6).setWidth("2.5in")
+        sheet.getColumn(7).setWidth("2.5in")
+        sheet.getColumn(8).setWidth("2.5in")
+        sheet.getColumn(9).setWidth("1.5in")
+        sheet.getColumn(10).setWidth("2in")
+        sheet.getColumn(11).setWidth("2in")
+        
+            
+        #DADOS DA CONSULTA
+        x = 5
+        for obj in p_rural_sem_parcela:
+            sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.nrprocesso)
+            sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.nmrequerente)    
+            sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.nmcontato)
+            sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.nmendereco)
+            sheet.getCell(4, x+2).setAlignHorizontal('center').stringValue(obj.nmconjuge)
+            sheet.getCell(5, x+2).setAlignHorizontal('center').stringValue(obj.nrcpfrequerente)
+            sheet.getCell(6, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbcaixa.nmlocalarquivo)
+            sheet.getCell(7, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbmunicipio.nome_mun)
+            sheet.getCell(8, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbgleba.nmgleba)
+            # buscar todas as pendencias do processo, que nao estao sanadas
+            pendencias_pendente = Tbpendencia.objects.filter( 
+               Q(tbprocessobase__id = obj.tbprocessobase.id, tbstatuspendencia__id = 2)
+              ) 
+            pendencias_notificado = Tbpendencia.objects.filter( 
+               Q(tbprocessobase__id = obj.tbprocessobase.id, tbstatuspendencia__id = 3)
+              ) 
+            sheet.getCell(9, x+2).setAlignHorizontal('center').stringValue( len(pendencias_pendente) + len(pendencias_notificado) )
+            # buscando as descricoes das pendencias pendentes
+            desc_pendencias = ''
+            for pend in pendencias_pendente:
+                desc_pendencias += pend.tbtipopendencia.dspendencia + ' : ' + pend.dsdescricao + ' | '
+            sheet.getCell(10, x+2).setAlignHorizontal('center').stringValue( desc_pendencias )
+            
+            # buscando as descricoes das pendencias  notificadas
+            desc_pendencias = ''
+            for pend in pendencias_notificado:
+                desc_pendencias += pend.tbtipopendencia.dspendencia + ' : ' + pend.dsdescricao + ' | '
+            sheet.getCell(11, x+2).setAlignHorizontal('center').stringValue( desc_pendencias )
+            x += 1
+            
+        #GERACAO DO DOCUMENTO  
+        relatorio_ods_base(ods, planilha_relatorio)
+        response = HttpResponse(mimetype=ods.mimetype.toString())
+        response['Content-Disposition'] = 'attachment; filename='+nome_relatorio+'.ods'
+        ods.save(response)
+        return response
+
+    return render_to_response('sicop/relatorio/processo_sem_parcela.html',{}, context_instance = RequestContext(request))

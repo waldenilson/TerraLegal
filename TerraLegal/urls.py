@@ -254,7 +254,12 @@ urlpatterns = patterns('',
     url(r'^sicop/relatorio/peca_sem_processo/', 'TerraLegal.tramitacao.restrito.relatorio.peca_sem_processo'),
     url(r'^sicop/relatorio/peca_validada/', 'TerraLegal.tramitacao.restrito.relatorio.peca_validada'),
     url(r'^sicop/relatorio/peca/', 'TerraLegal.tramitacao.restrito.relatorio.pecas'),
+
+    #ACESSO RESTRITO SICOP RELATORIO SIGEF
+    url(r'^sicop/relatorio/processo_parcela/', 'TerraLegal.tramitacao.restrito.relatorio.processo_parcela'),
+    url(r'^sicop/relatorio/processo_sem_parcela/', 'TerraLegal.tramitacao.restrito.relatorio.processo_sem_parcela'),
     
+    #ACESSO RESTRITO SICOP FLUXO
     url(r'^sicop/relatorio/etapa/p23/', 'TerraLegal.tramitacao.restrito.relatorio.etapa_p23'),
     url(r'^sicop/relatorio/etapa/p80/', 'TerraLegal.tramitacao.restrito.relatorio.etapa_p80'),
     url(r'^sicop/relatorio/etapa/urbano/', 'TerraLegal.tramitacao.restrito.relatorio.etapa_urbano'),
