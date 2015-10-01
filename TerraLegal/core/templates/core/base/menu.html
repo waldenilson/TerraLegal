@@ -38,7 +38,7 @@
 					{% if perms.sicop.peca_tecnica_consulta %}
 					<li> <a href="#">GEO Informação</a>
 						<ul>
-							<li><a href="/geoinformacao/importacao/">Importação do SIGEF</a></li>
+							<li><a href="/geoinformacao/parcela/consulta/">Parcelas</a></li>
 							<li><a href="#">Processo</a>
 								<ul>
 									<li><a href="/geoinformacao/processo/processo_parcela_titulo/">Processo x Parcela x Titulados</a></li>
@@ -46,12 +46,13 @@
 							</li>
 							<li><a href="#">Titulação</a></li>
 							<li><a href="#">Glebas</a></li>
+							<li><a href="/geoinformacao/importacao/">Importação do SIGEF</a></li>
 						</ul>
 					</li>
 					{% endif %}
 					
 					{% if perms.sicop.peca_tecnica_consulta %}
-					<li> <a href="/sicop/peca_tecnica/consulta/">Peça Técnica</a> </li>
+					<li> <a href="/sicop/peca_tecnica/consulta/"><strike>Peça Técnica</strike></a> </li>
 					{% endif %}
 					
 					

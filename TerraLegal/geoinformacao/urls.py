@@ -6,4 +6,6 @@ urlpatterns = patterns('TerraLegal.geoinformacao',
    url(r'^consulta', 'views.lista'),
    url(r'^importacao', 'views.importar_vw_parcelas'),
    url(r'^processo/processo_parcela_titulo/', 'processo.processo_parcela_titulo'),
+    url(r'^parcela/consulta/', 'parcela.consulta'),
+    url(r'^parcela/visualizacao/(?P<id>\d+)/', 'parcela.visualizacao'),
    )
