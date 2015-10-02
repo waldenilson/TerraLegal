@@ -206,15 +206,23 @@ def gerar_doc_sobreposicao(request, id):
     else:
         n_parcelas = request.POST['n_parcelas']
 
+    dia = ''
+    if datetime.datetime.now().day < 10:
+        dia = '0'+str(datetime.datetime.now().day)
+    else:
+        dia = datetime.datetime.now().day
+
     mes = ''
     if datetime.datetime.now().month < 10:
         mes = '0'+str(datetime.datetime.now().month)
+    else:
+        mes = datetime.datetime.now().month
 
     processo = rural.tbprocessobase.nrprocesso[0:5]+'.'+rural.tbprocessobase.nrprocesso[5:11]+'/'+rural.tbprocessobase.nrprocesso[11:15]+'-'+rural.tbprocessobase.nrprocesso[15:17]
 
     dados = {
                 'brasao':abspath(join(dirname(__file__), '../../../staticfiles'))+'/img/brasao.gif',
-                'data':str(datetime.datetime.now().day)+'/'+str(mes)+'/'+str(datetime.datetime.now().year),
+                'data':str(dia)+'/'+str(mes)+'/'+str(datetime.datetime.now().year),
                 'cpf_detentor':request.POST['cpf_detentor'],
                 'nome_detentor':request.POST['nome_detentor'],
                 'processo':processo,
