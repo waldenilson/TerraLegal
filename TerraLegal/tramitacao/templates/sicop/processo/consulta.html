@@ -102,9 +102,9 @@
 					{% if request.session.tramitacao_massa_ativado %}
 						<td class="colunaTabelaConsulta" style="width:3%"> </td>
 					{% endif %}
-					<td class="colunaTabelaConsulta" style="width:25%">Nome </td>
+					<td class="colunaTabelaConsulta" style="width:28%">Nome </td>
 					<td class="colunaTabelaConsulta" style="width:15%">Processo</td>
-					<td class="colunaTabelaConsulta" style="width:20%">Municipio</td>
+					<td class="colunaTabelaConsulta" style="width:17%">Municipio</td>
 					<td class="colunaTabelaConsulta" style="width:12%">Gleba</td>
 					<td class="colunaTabelaConsulta" style="width:15%">Caixa</td>
 					<td  class="colunaTabelaConsulta" style="width:10%">Titulo</td>
@@ -128,7 +128,7 @@
 								{% else %}
 									{% if obj.tbprocessobase.tbtipoprocesso.id == 2 %}
 										<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');"
-											class="colunaTabelaConsulta" >{{ obj.nmrequerente }}</td>
+											class="colunaTabelaConsulta" >Interessado: {{ obj.nminteressado }} | Titulado: {{ obj.nmrequerente }}</td>
 									{% else %}
 										{% if obj.tbprocessobase.tbtipoprocesso.id == 3 %}
 											<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');"
