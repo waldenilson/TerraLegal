@@ -85,7 +85,7 @@
 	<br/><br/>
 {% endif %}
 
-<div id="tabs" style="color:black;width:100%;font-size:11px">
+<div id="tabs" style="color:black;width:100%;">
 {% ifnotequal request.session.processo_saida "unico"  %}
  <ul>
 	<li><a href="#tabs-1">EDIÇÃO</a></li>
@@ -971,6 +971,23 @@
 			TITULO<hr/>
 		</div>
 		<table>
+
+			<tr>
+				<td class="colunaTabela"> 
+					<b>Número</b>:&nbsp;<a href="/livro/edicao/{{titulo_processo.id}}/">{{titulo_processo.tbtitulo.cdtitulo}}</a> 
+				</td>
+			</tr>
+			<tr>
+				<td class="colunaTabela"> 
+					<b>Tipo</b>:&nbsp;{{titulo_processo.tbtitulo.tbtipotitulo.cdtipo}} - {{titulo_processo.tbtitulo.tbtipotitulo.dstipo}}  
+				</td>
+			</tr>
+			<tr>
+				<td class="colunaTabela"> 
+					<b>Status</b>:&nbsp;{{titulo_processo.tbtitulo.tbstatustitulo.sttitulo}} 
+				</td>
+			</tr>
+<!--
 			<tr>
 				<td class="colunaTabela"> 
 					Titulo: 
@@ -997,6 +1014,7 @@
 							
 				</td>
 		   	</tr>
+-->
 		</table>		   	
 	</div>
 {% endif %}
