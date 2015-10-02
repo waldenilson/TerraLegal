@@ -61,5 +61,5 @@ def visualizacao(request, id):
         numero_processo = num[0:5]+'.'+num[5:11]+'/'+num[11:15]+'-'+num[15:17]
 
     return render_to_response('parcela/visualizacao.html',
-                              {'parcela':parcela_obj,'processo':processo, 'numero_processo':numero_processo,'nome_municipio':nome_municipio}, 
+                              {'parcela':parcela_obj,'processo':processo, 'numero_processo':numero_processo}, 
                             context_instance = RequestContext(request))

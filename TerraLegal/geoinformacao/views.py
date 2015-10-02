@@ -7,10 +7,10 @@ from django.template import loader, Context
 import os
 from TerraLegal.core.funcoes import upload_file
 from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
-from utils import reader_ods
 from os.path import abspath, join, dirname
 from django.contrib import messages
 from TerraLegal.geoinformacao.models import TbparcelaGeo
+from TerraLegal.tramitacao.models import Tbmunicipio
 from TerraLegal.core.funcoes import reader_csv
 
 #from django.contrib.gis.geos import GEOSGeometry, MultiPolygon, Polygon, LinearRing
@@ -61,12 +61,14 @@ def importar_vw_parcelas(request):
 							situacao_p = line[19],
 							natureza = line[20],
 							migrada = line[21],
-							municipio = line[22],
+#							municipio = line[22],
 							uf_id = line[23],
 							gleba_situ = line[24],
 							regional = line[25],
 #							data_situacao_processo = line[26]
 						)
+
+					#VERIFICACAO DOS CAMPOS DE DATA
 					if line[7] != '':
 						obj_parcela.data_recep = line[7]
 					else:	
@@ -76,7 +78,17 @@ def importar_vw_parcelas(request):
 						obj_parcela.data_situacao_processo = line[26]
 					else:	
 						obj_parcela.data_situacao_processo = None
+
+					#CONCATENAR NOME DO MUNICIPIO
+					obj_municipio = Tbmunicipio.objects.filter( codigo_mun = int(line[22]) )
+					if obj_municipio:
+						nome_municipio = obj_municipio[0].nome_mun+' / '+obj_municipio[0].uf
+					else:
+						nome_municipio = ''
+					obj_parcela.municipio = nome_municipio
+
+					# SALVANDO OBJETO PARCELA
 					obj_parcela.save()
-					print str(x)
+					
 			print 'total cadastros: '+str(x)
 	return render_to_response('importacao.html',{}, context_instance = RequestContext(request))

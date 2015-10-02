@@ -755,7 +755,7 @@ def edicao(request, id):
             if parcelas_geo:
                 nome_imovel = parcelas_geo[0].nome
                 nome_gleba = parcelas_geo[0].gleba
-                nome_municipio = Tbmunicipio.objects.filter( codigo_mun = parcelas_geo[0].municipio )[0].nome_mun
+                nome_municipio = parcelas_geo[0].municipio[0:len(parcelas_geo[0].municipio)-5]
                 area_imovel = 0.0
                 for p in parcelas_geo:
                     area_imovel += float(p.area_ha_ut)

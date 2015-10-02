@@ -37,7 +37,7 @@ class TbparcelaGeo(models.Model):
     fronteira = models.CharField(max_length=254, blank=True)
     area_ha_ut = models.DecimalField(null=True, max_digits=10, decimal_places=4, blank=True)
     migrada = models.CharField(max_length=254, blank=True)
-    municipio = models.IntegerField()
+    municipio = models.CharField(max_length=120)
     gleba_situ = models.CharField(max_length=254, blank=True)
 #    geom = models.MultiPolygonField(srid=4326, null=True, blank=True)
 #    objects = models.GeoManager()
