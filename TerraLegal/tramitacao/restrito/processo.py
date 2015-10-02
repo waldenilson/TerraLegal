@@ -34,7 +34,6 @@ from calendar import monthrange
 from datetime import timedelta
 import csv
 import sqlite3
-from TerraLegal.tramitacao.admin import reader_ods,parcela_kml,sinc_parcelas,refazer_movimentacao,batimento_cpf_processo,import_tr,list_json,export_to_sqlite_android, batimento_processo, buscar_processos_cpfs_abril_sigef, buscar_processos_sem_pecas_sicop_sigef, buscar_parcelas_sigef,sinc_sigef_parcelas,sinc_sigef_parcelas_banco
 import urllib2
 from django.core import serializers
 import json

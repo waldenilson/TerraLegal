@@ -19,7 +19,6 @@ from django.core import serializers
 import urllib2
 import json
 from odslib import ODS
-from pyexcel_ods import get_data
 
 def verificar_permissao_grupo(usuario, grupos):
     if usuario:
@@ -139,14 +138,6 @@ def batimento_cpf_processo(csv_1, csv_2):
     #        print len(lines)
 
 
-def reader_ods(ods_):
-    data = get_data("/opt/teste.ods")
-    arquivo = json.dumps(data)
-    jarq = json.loads(arquivo)
-    for j in jarq['Sheet1']:
-        for j2 in j:
-            print j2
-        
 def import_tr(csv_):
     trs = []
     aux = []
