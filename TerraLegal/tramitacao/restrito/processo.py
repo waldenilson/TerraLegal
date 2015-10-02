@@ -12,6 +12,7 @@ from TerraLegal.tramitacao.models import Tbprocessorural, Tbtipoprocesso, Tbproc
     Tbdivisao,   Tbetapa, Tbtransicao, Tbetapaposterior, Tbchecklistprocessobase,\
     Tbchecklist
 from TerraLegal.livro.models import Tbtitulo, Tbstatustitulo, Tbtipotitulo , Tbtituloprocesso
+from TerraLegal.geoinformacao.models import TbparcelaGeo
 from TerraLegal.tramitacao.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
 from TerraLegal.tramitacao.restrito import processo_rural
@@ -748,8 +749,26 @@ def edicao(request, id):
             else:
                 documento_sobreposicao = Sobreposicao()
 
+
+            #PARCELA(S)
+            parcelas_geo = TbparcelaGeo.objects.filter( cpf_detent = rural.nrcpfrequerente )
+            if parcelas_geo:
+                nome_imovel = parcelas_geo[0].nome
+                nome_gleba = parcelas_geo[0].gleba
+                nome_municipio = Tbmunicipio.objects.filter( codigo_mun = parcelas_geo[0].municipio )[0].nome_mun
+                area_imovel = 0.0
+                for p in parcelas_geo:
+                    area_imovel += float(p.area_ha_ut)
+            else:
+                nome_imovel = ''
+                nome_gleba = ''
+                nome_municipio = ''
+                area_imovel = ''
+
             return render_to_response('sicop/processo/rural/edicao.html',
-                                      {'sobreposicao':documento_sobreposicao,'total_area_sigef':total_area_sigef,'parcelas':parcelas,'kmls':idkmls,'transicao':transicao,'fluxo':fluxo,'gleba':gleba,'fases':etapas,'etapa_atual':etapa_atual,
+                                      {'nome_imovel':nome_imovel,'nome_gleba':nome_gleba,'n_parcelas':str(len(parcelas_geo)),
+                                       'nome_municipio':nome_municipio,'area_imovel':area_imovel,
+                                       'sobreposicao':documento_sobreposicao,'total_area_sigef':total_area_sigef,'parcelas':parcelas,'kmls':idkmls,'transicao':transicao,'fluxo':fluxo,'gleba':gleba,'fases':etapas,'etapa_atual':etapa_atual,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,'processo_principal':processo_principal,
                                        'base':base,'rural':rural,'peca':peca,'statustitulo':statustitulo,'posteriores':posteriores,

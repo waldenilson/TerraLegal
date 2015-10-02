@@ -195,6 +195,7 @@ def edicao(request, id):
 
 @permission_required('sicop.processo_rural_sobreposicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def gerar_doc_sobreposicao(request, id):
+
     # emitir a verificacao de sobreposicao em pdf atraves do modelo em html.
     rural = Tbprocessorural.objects.get(pk=id)
     resp_12 = 'NÃO'
