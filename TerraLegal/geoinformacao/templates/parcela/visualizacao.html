@@ -8,7 +8,6 @@
 <div id="tabs" style="color:black;width:100%;font-size:11px">
 <ul>
 	<li><a href="#tabs-1">VISUALIZAR DADOS DA PARCELA</a></li>
-	<li><a href="#tabs-2">PROCESSO</a></li>
 </ul>
 <div id="tabs-1">
 	<form method="post" action=".">
@@ -17,18 +16,35 @@
 				<table>
 
 					<tr>
-						<td class="colunaTabela"> <label>Imóvel:</label> </td>
-						<td> {{ parcela.nome }} </td>
+						<td class="colunaTabela" colspan="2"> <b>DETENTOR</b> </td>
 					</tr>
 
 					<tr>
-						<td class="colunaTabela"> <label>Requerente:</label> </td>
+						<td class="colunaTabela"> <label>Nome:</label> </td>
 						<td> {{ parcela.nome_deten }} </td>
 					</tr>
 
 					<tr>
 						<td class="colunaTabela"> <label>CPF:</label> </td>
 						<td> {{ parcela.cpf_detent }} </td>
+					</tr>
+
+					<tr>
+						<td class="colunaTabela"> <label>Processo:</label> </td>
+						{% if processo %}
+							<td> <a href="/sicop/processo/edicao/{{processo.tbprocessobase.id}}/">{{ numero_processo }}</a> </td>
+						{% else %}
+							<td> Nenhum processo registrado. </td>
+						{% endif %}
+					</tr>
+
+					<tr>
+						<td class="colunaTabela" colspan="2"> <b>IMÓVEL</b> </td>
+					</tr>
+
+					<tr>
+						<td class="colunaTabela"> <label>Nome:</label> </td>
+						<td> {{ parcela.nome }} </td>
 					</tr>
 
 					<tr>
@@ -43,16 +59,20 @@
 
 					<tr>
 						<td class="colunaTabela"> <label>Município:</label> </td>
-						<td> {{ parcela.municipio }} </td>
+						<td> {{ nome_municipio }} </td>
 					</tr>
 
 					<tr>
-						<td class="colunaTabela"> <label>Área (ha):</label> </td>
-						<td> {{ parcela.area_ha_ut }} </td>
+						<td class="colunaTabela"> <label>Área:</label> </td>
+						<td> {{ parcela.area_ha_ut }} ha </td>
 					</tr>
 
 					<tr>
-						<td class="colunaTabela"> <label>Contrato:</label> </td>
+						<td class="colunaTabela" colspan="2"> <b>CONTRATO</b> </td>
+					</tr>
+
+					<tr>
+						<td class="colunaTabela"> <label>Número:</label> </td>
 						<td> {{ parcela.contrato }} </td>
 					</tr>
 
@@ -67,6 +87,10 @@
 					</tr>
 
 					<tr>
+						<td class="colunaTabela" colspan="2"> <b>HISTÓRICO</b> </td>
+					</tr>
+
+					<tr>
 						<td class="colunaTabela"> <label>Status:</label> </td>
 						<td> {{ parcela.status }} </td>
 					</tr>
@@ -78,7 +102,13 @@
 
 					<tr>
 						<td class="colunaTabela"> <label>Migrada:</label> </td>
-						<td> {{ parcela.migrada }} </td>
+						<td> 
+							{% if parcela.migrada %}
+								SIM
+							{% else %}
+								NÃO
+							{% endif %} 
+						</td>
 					</tr>
 
 					<tr>
@@ -94,24 +124,6 @@
 
 	</form>
 	<br/>
-</div>
-<div id="tabs-2">
-{% if processo %}
-	<table style="width:100%">
-		<tr> <td class="colunaTabela"> <label>Numero:</label> </td><td> {{ processo.tbprocessobase.nrprocesso }} </td> </tr>
-		<tr> <td class="colunaTabela"> <label>Gleba:</label> </td><td> {{ processo.tbprocessobase.tbgleba.nmgleba }} </td> </tr>
-		<tr> <td class="colunaTabela"> <label>Municipio:</label> </td><td> {{ processo.tbprocessobase.tbmunicipio.nome_mun }} </td> </tr>
-		<tr> <td class="colunaTabela"> <label>CPF Requerente:</label> </td><td> {{ processo.nrcpfrequerente }} </td> </tr>
-		<tr> <td class="colunaTabela"> <label>Nome Requerente:</label> </td><td> {{ processo.nmrequerente }} </td> </tr>
-		{% if processo.nrcpfconjuge %}
-			<tr> <td class="colunaTabela"> <label>CPF Conjuge:</label> </td><td> {{ processo.nrcpfconjuge }} </td> </tr>
-			<tr> <td class="colunaTabela"> <label>Nome Conjuge:</label> </td><td> {{ processo.nmconjuge }} </td> </tr>
-		{% endif %}
-		<tr> <td class="colunaTabela"> <label>Caixa:</label> </td><td> {{ processo.tbprocessobase.tbcaixa.nmlocalarquivo }} </td> </tr>
-	</table>
-{% else %}
-	Nenhum Processo ligado a esta parcela
-{% endif %}
 </div>
 		<table style="width:100%">
 			<tr>
