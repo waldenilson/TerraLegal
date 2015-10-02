@@ -16,7 +16,7 @@ local_settings.py
 .DS_Store
 test.pdf
 .env
-pip-selfcheck-json
+pip-selfcheck.json
 staticfiles/doc
 media/doc/upload/titulacao/MA/P23/*
 media/tmp/sobreposicao.pdf
