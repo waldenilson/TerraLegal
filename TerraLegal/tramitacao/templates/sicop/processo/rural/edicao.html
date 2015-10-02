@@ -90,19 +90,19 @@
  <ul>
 	<li><a href="#tabs-1">EDIÇÃO</a></li>
 
-{% if base.tbclassificacaoprocesso.id == 1 %}
-	<li><a href="#tabs-2">MOVIMENTAÇÕES</a></li>
-{% endif %}
-
-	<li><a href="#tabs-3">PENDÊNCIAS</a></li>
-
-{% if base.tbclassificacaoprocesso.id == 1 %}
-	<li><a href="#tabs-4">ANEXOS</a></li>
-{% endif %}
-
-{% if peca %}
-	<li><a href="#tabs-5">PEÇA TÉCNICA</a></li>
+{% if parcelas_geo %}
+	<li><a href="#tabs-2">PARCELA(S)</a></li>
  {% endif %}
+
+{% if base.tbclassificacaoprocesso.id == 1 %}
+	<li><a href="#tabs-3">MOVIMENTAÇÕES</a></li>
+{% endif %}
+
+	<li><a href="#tabs-4">PENDÊNCIAS</a></li>
+
+{% if base.tbclassificacaoprocesso.id == 1 %}
+	<li><a href="#tabs-5">ANEXOS</a></li>
+{% endif %}
 
 <!--
 {% if fases and base.tbclassificacaoprocesso.id == 1 %}
@@ -278,172 +278,11 @@
 	</form>
 </div>
 
-{% if base.tbclassificacaoprocesso.id == 1 %}
+{% if parcelas_geo %}
 <div id="tabs-2">
-	<form method="post" action="/sicop/processo/tramitacao/{{ base.id }}/">
-		{% csrf_token %}
-
-		<div style="font-size:12px;margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
-			TRAMITAÇÃO<hr/>
-		</div>
-
-		<table style="width:100%">
-			<tr>
-			   	<td class="colunaTabelaConsulta" >
-			   		Caixa Destino:
-
-			   		<select name="tbcaixadestino" style="width: 300px">
-			   			<option value="">-- Selecione uma caixa para tramitar --</option>
-			   			{% for obj in caixadestino %}
-							<option value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
-						{% endfor %}
-					</select>
-					<input type="submit" value="TRAMITAR" />
-				</td>
-			</tr>
-		</table>
-	</form>
-		{% if movimentacao %} 
-			<table class="csstable">
-				<tbody>
-					<tr>
-						<td class="colunaTabelaConsulta" style="width: 25%">Origem</td>
-						<td class="colunaTabelaConsulta" style="width: 25%">Destino</td>
-						<td class="colunaTabelaConsulta" style="width: 10%">Data</td>
-						<td class="colunaTabelaConsulta" style="width: 15%">Usuario</td>
-					</tr>
-					{% for mov in movimentacao %}
-					<tr>
-						<td class="colunaTabelaConsulta">{{ mov.tbcaixa_id_origem.nmlocalarquivo }}</td>
-						<td class="colunaTabelaConsulta">{{ mov.tbcaixa.nmlocalarquivo }}</td>
-						<td class="colunaTabelaConsulta">{{ mov.dtmovimentacao|date:"d/m/Y H:m" }}</td>
-						<td class="colunaTabelaConsulta">{{ mov.auth_user.first_name }}</td>
-					</tr>
-					{% endfor %} 
-				</tbody>
-			</table>
-		{% endif %}
-</div>
-{% endif %}
-
-
-<div id="tabs-3">
-	<form method="post" action="/sicop/processo/pendencia/{{ base.id }}/">
-		{% csrf_token %}
-		<div style="font-size:12px;margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
-			PENDÊNCIA<hr/>
-		</div>
-		
-		<table style="width:100%">
-			<tr> 
-			   	<td class="colunaTabelaConsulta" colspan="2">
-			   		<select name="tbtipopendencia" style="width: 200px">
-			   			<option value="">-- SELECIONE O TIPO --</option>
-			   			{% for obj in tipopendencia %}
-							<option value="{{ obj.id }}">{{ obj.dspendencia }}</option>
-						{% endfor %}
-					</select>
-
-			   		<select name="tbstatuspendencia" style="width: 200px">
-			   		<option value="">-- SELECIONE O STATUS --</option>
-			   			{% for obj in statuspendencia %}
-							<option value="{{ obj.id }}">{{ obj.dspendencia }}</option>
-						{% endfor %}
-					</select>
-
-				</td>
-
-			</tr>
-			<tr>
-				<td colspan="2" class="colunaTabelaConsulta">
-					<textarea cols="80" rows="5" name="dspendencia" /></textarea>
-			   	<td>
-			</tr>
-			<tr>
-			   	<td colspan="2" class="colunaTabelaConsulta">
-					<input type="submit" value="CRIAR PENDENCIA" />
-			   	<td>
-			</tr>
-		</table>
-
-	</form>
-
-		{% if pendencia %}
-			<table class="csstable">
-				<tbody>
-					<tr>
-						<td class="colunaTabelaConsulta" style="width: 30%">Tipo</td>
-						<td class="colunaTabelaConsulta" style="width: 35%">Descrição</td>
-						<td class="colunaTabelaConsulta" style="width: 15%">Status</td>
-						<td class="colunaTabelaConsulta" style="width: 20%">Atualizado em</td>
-						<td class="colunaTabelaConsulta" style="width: 20%">Usuário</td>
-					</tr>
-					   		{% for pen in pendencia %}
-								<tr onclick="editarID('/sicop/pendencia/edicao/{{ pen.id }}');">
-									<td class="colunaTabelaConsulta">{{	pen.tbtipopendencia.dspendencia }}</td>
-									<td class="colunaTabelaConsulta">{{ pen.dsdescricao }}</td>
-									<td class="colunaTabelaConsulta">{{	pen.tbstatuspendencia.dspendencia }}</td>
-									<td class="colunaTabelaConsulta">{{ pen.updated_at|date:"d/m/Y H:m" }}</td>
-									<td class="colunaTabelaConsulta">{{ pen.auth_user_updated.first_name }}</td>
-								</tr>
-							{% endfor %}
-				</tbody>
-			</table>
-		{% endif %}
-</div>
-
-{% if base.tbclassificacaoprocesso.id == 1 %}
-<div id="tabs-4">
-	<form method="post" action="/sicop/processo/anexo/{{ base.id }}/">
-		{% csrf_token %}
-		<div style="font-size:12px;margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
-			ANEXOS<hr/>
-		</div>
-		
-		<table style="width:100%">
-			<tr> 
-			   	<td class="colunaTabelaConsulta">
-					<input name="processoanexo" />
-					<input type="submit" value="ANEXAR" />
-				</td>
-			</tr>
-		</table>
-	</form>
-
-	{% if anexado %} 
-		<div style="overflow:auto">
-			<table class="csstable">
-				<tbody>
-					<tr>
-						<td class="colunaTabelaConsulta" style="width: 5%">Desanexar</td>
-						<td class="colunaTabelaConsulta" style="width: 15%">Data do	anexo</td>
-						<td class="colunaTabelaConsulta" style="width: 30%">Processo anexado</td>
-						<td class="colunaTabelaConsulta" style="width: 25%">Usuario</td>
-					</tr>
-						{% for anexo in anexado %}
-							<tr>
-								<td class="colunaTabelaConsulta">
-									<a	href="/sicop/processo/desanexar/{{ anexo.tbprocessobase_id_anexo.id}}"	onclick="return confirm('Deseja mesmo desanexar os processos ?');" > 
-										<img width="22" src="{% static "img/desanexar.jpg" %}" />
-									</a>
-								</td>
-								<td class="colunaTabelaConsulta">{{ anexo.dtanexado.day }}/{{ anexo.dtanexado.month }}/{{ anexo.dtanexado.year }}</td>
-								<td class="colunaTabelaConsulta" onclick="editarID('/sicop/processo/edicao/{{ anexo.tbprocessobase_id_anexo.id}}');" >{{ anexo.tbprocessobase_id_anexo.nrprocesso }}</td>
-								<td class="colunaTabelaConsulta">{{	anexo.tbprocessobase_id_anexo.auth_user.first_name }}</td>
-							</tr>
-						{% endfor %} 
-				</tbody>
-			</table>
-		</div>
-	{% endif %}
-</div>
-{% endif %}
-
-{% if peca%}
-<div id="tabs-5">
 
 	<div style="font-size:12px;margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
-		PEÇAS TÉCNICAS<hr/>
+		PARCELA(S)<hr/>
 	</div>
 
 				<table>
@@ -513,6 +352,167 @@
 			</body>
 	</table>
 -->
+</div>
+{% endif %}
+
+{% if base.tbclassificacaoprocesso.id == 1 %}
+<div id="tabs-3">
+	<form method="post" action="/sicop/processo/tramitacao/{{ base.id }}/">
+		{% csrf_token %}
+
+		<div style="font-size:12px;margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
+			TRAMITAÇÃO<hr/>
+		</div>
+
+		<table style="width:100%">
+			<tr>
+			   	<td class="colunaTabelaConsulta" >
+			   		Caixa Destino:
+
+			   		<select name="tbcaixadestino" style="width: 300px">
+			   			<option value="">-- Selecione uma caixa para tramitar --</option>
+			   			{% for obj in caixadestino %}
+							<option value="{{ obj.id }}">{{ obj.nmlocalarquivo }}</option>
+						{% endfor %}
+					</select>
+					<input type="submit" value="TRAMITAR" />
+				</td>
+			</tr>
+		</table>
+	</form>
+		{% if movimentacao %} 
+			<table class="csstable">
+				<tbody>
+					<tr>
+						<td class="colunaTabelaConsulta" style="width: 25%">Origem</td>
+						<td class="colunaTabelaConsulta" style="width: 25%">Destino</td>
+						<td class="colunaTabelaConsulta" style="width: 10%">Data</td>
+						<td class="colunaTabelaConsulta" style="width: 15%">Usuario</td>
+					</tr>
+					{% for mov in movimentacao %}
+					<tr>
+						<td class="colunaTabelaConsulta">{{ mov.tbcaixa_id_origem.nmlocalarquivo }}</td>
+						<td class="colunaTabelaConsulta">{{ mov.tbcaixa.nmlocalarquivo }}</td>
+						<td class="colunaTabelaConsulta">{{ mov.dtmovimentacao|date:"d/m/Y H:m" }}</td>
+						<td class="colunaTabelaConsulta">{{ mov.auth_user.first_name }}</td>
+					</tr>
+					{% endfor %} 
+				</tbody>
+			</table>
+		{% endif %}
+</div>
+{% endif %}
+
+
+<div id="tabs-4">
+	<form method="post" action="/sicop/processo/pendencia/{{ base.id }}/">
+		{% csrf_token %}
+		<div style="font-size:12px;margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
+			PENDÊNCIA<hr/>
+		</div>
+		
+		<table style="width:100%">
+			<tr> 
+			   	<td class="colunaTabelaConsulta" colspan="2">
+			   		<select name="tbtipopendencia" style="width: 200px">
+			   			<option value="">-- SELECIONE O TIPO --</option>
+			   			{% for obj in tipopendencia %}
+							<option value="{{ obj.id }}">{{ obj.dspendencia }}</option>
+						{% endfor %}
+					</select>
+
+			   		<select name="tbstatuspendencia" style="width: 200px">
+			   		<option value="">-- SELECIONE O STATUS --</option>
+			   			{% for obj in statuspendencia %}
+							<option value="{{ obj.id }}">{{ obj.dspendencia }}</option>
+						{% endfor %}
+					</select>
+
+				</td>
+
+			</tr>
+			<tr>
+				<td colspan="2" class="colunaTabelaConsulta">
+					<textarea cols="80" rows="5" name="dspendencia" /></textarea>
+			   	<td>
+			</tr>
+			<tr>
+			   	<td colspan="2" class="colunaTabelaConsulta">
+					<input type="submit" value="CRIAR PENDENCIA" />
+			   	<td>
+			</tr>
+		</table>
+
+	</form>
+
+		{% if pendencia %}
+			<table class="csstable">
+				<tbody>
+					<tr>
+						<td class="colunaTabelaConsulta" style="width: 30%">Tipo</td>
+						<td class="colunaTabelaConsulta" style="width: 35%">Descrição</td>
+						<td class="colunaTabelaConsulta" style="width: 15%">Status</td>
+						<td class="colunaTabelaConsulta" style="width: 20%">Atualizado em</td>
+						<td class="colunaTabelaConsulta" style="width: 20%">Usuário</td>
+					</tr>
+					   		{% for pen in pendencia %}
+								<tr onclick="editarID('/sicop/pendencia/edicao/{{ pen.id }}');">
+									<td class="colunaTabelaConsulta">{{	pen.tbtipopendencia.dspendencia }}</td>
+									<td class="colunaTabelaConsulta">{{ pen.dsdescricao }}</td>
+									<td class="colunaTabelaConsulta">{{	pen.tbstatuspendencia.dspendencia }}</td>
+									<td class="colunaTabelaConsulta">{{ pen.updated_at|date:"d/m/Y H:m" }}</td>
+									<td class="colunaTabelaConsulta">{{ pen.auth_user_updated.first_name }}</td>
+								</tr>
+							{% endfor %}
+				</tbody>
+			</table>
+		{% endif %}
+</div>
+
+{% if base.tbclassificacaoprocesso.id == 1 %}
+<div id="tabs-5">
+	<form method="post" action="/sicop/processo/anexo/{{ base.id }}/">
+		{% csrf_token %}
+		<div style="font-size:12px;margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
+			ANEXOS<hr/>
+		</div>
+		
+		<table style="width:100%">
+			<tr> 
+			   	<td class="colunaTabelaConsulta">
+					<input name="processoanexo" />
+					<input type="submit" value="ANEXAR" />
+				</td>
+			</tr>
+		</table>
+	</form>
+
+	{% if anexado %} 
+		<div style="overflow:auto">
+			<table class="csstable">
+				<tbody>
+					<tr>
+						<td class="colunaTabelaConsulta" style="width: 5%">Desanexar</td>
+						<td class="colunaTabelaConsulta" style="width: 15%">Data do	anexo</td>
+						<td class="colunaTabelaConsulta" style="width: 30%">Processo anexado</td>
+						<td class="colunaTabelaConsulta" style="width: 25%">Usuario</td>
+					</tr>
+						{% for anexo in anexado %}
+							<tr>
+								<td class="colunaTabelaConsulta">
+									<a	href="/sicop/processo/desanexar/{{ anexo.tbprocessobase_id_anexo.id}}"	onclick="return confirm('Deseja mesmo desanexar os processos ?');" > 
+										<img width="22" src="{% static "img/desanexar.jpg" %}" />
+									</a>
+								</td>
+								<td class="colunaTabelaConsulta">{{ anexo.dtanexado.day }}/{{ anexo.dtanexado.month }}/{{ anexo.dtanexado.year }}</td>
+								<td class="colunaTabelaConsulta" onclick="editarID('/sicop/processo/edicao/{{ anexo.tbprocessobase_id_anexo.id}}');" >{{ anexo.tbprocessobase_id_anexo.nrprocesso }}</td>
+								<td class="colunaTabelaConsulta">{{	anexo.tbprocessobase_id_anexo.auth_user.first_name }}</td>
+							</tr>
+						{% endfor %} 
+				</tbody>
+			</table>
+		</div>
+	{% endif %}
 </div>
 {% endif %}
 
