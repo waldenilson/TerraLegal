@@ -767,7 +767,7 @@ def edicao(request, id):
 
             return render_to_response('sicop/processo/rural/edicao.html',
                                       {'nome_imovel':nome_imovel,'nome_gleba':nome_gleba,'n_parcelas':str(len(parcelas_geo)),
-                                       'nome_municipio':nome_municipio,'area_imovel':area_imovel,
+                                       'nome_municipio':nome_municipio,'area_imovel':area_imovel,'parcelas_geo':parcelas_geo,
                                        'sobreposicao':documento_sobreposicao,'total_area_sigef':total_area_sigef,'parcelas':parcelas,'kmls':idkmls,'transicao':transicao,'fluxo':fluxo,'gleba':gleba,'fases':etapas,'etapa_atual':etapa_atual,
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'caixa':caixa,'municipio':municipio,'anexado':anexado,'pendencia':pendencia,'processo_principal':processo_principal,

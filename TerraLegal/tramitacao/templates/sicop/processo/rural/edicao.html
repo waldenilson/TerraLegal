@@ -438,7 +438,54 @@
 	<div style="font-size:12px;margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
 		PEÇAS TÉCNICAS<hr/>
 	</div>
-	
+
+				<table>
+					{% for p_geo in parcelas_geo %}
+						<tr>
+							<td class="colunaTabela" colspan="2"> 
+								<b>PARCELA {{forloop.counter}} : {{p_geo.nome}} </b>
+							</td>
+						</tr>
+
+						<tr>
+							<td><b>Gleba</b>:&nbsp;{{ p_geo.gleba }}</td>
+							<td><b>Situação</b>:&nbsp;{{ p_geo.gleba_situ }}</td>
+						</tr>
+
+						<tr>
+							<td><b>Município</b>:&nbsp;{{ p_geo.municipio }}</td>
+							<td><b>Área</b>:&nbsp;{{ p_geo.area_ha_ut }} ha</td>
+						</tr>
+
+						<tr>
+							<td><b>Contrato</b>:&nbsp;{{ p_geo.contrato }}</td>
+							<td><b>Empresa</b>:&nbsp;{{ p_geo.empresa }}</td>
+						</tr>
+
+						<tr>
+							<td><b>Migrada</b>:&nbsp;
+								{% if p_geo.migrada %}
+									SIM
+								{% else %}
+									NÃO
+								{% endif %} 
+							</td>
+							<td><b>Fiscal</b>:&nbsp;{{ p_geo.fiscal }}</td>
+						</tr>
+
+						<tr>
+							<td><b>Status</b>:&nbsp;{{ p_geo.status }}</td>
+							<td><b>Natureza</b>:&nbsp;{{ p_geo.natureza }}</td>
+						</tr>
+
+						<tr>
+							<td><b>Data de recepção</b>:&nbsp;{{ p_geo.data_recep }}</td>
+						</tr>
+
+					{% endfor %}
+				</table>
+<!--
+	<br/><br/>
 	<table class="csstable">
 			<tbody>
 				<tr>
@@ -458,6 +505,7 @@
 					{% endfor %}
 			</body>
 	</table>
+-->
 </div>
 {% endif %}
 
