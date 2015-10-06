@@ -167,7 +167,7 @@ INSTALLED_APPS = (
 #    'django.contrib.gis',
     'odslib',
 #    'webodt',
-    'lxml',
+#    'lxml',
     'xhtml2pdf',
     'TerraLegal.livro',
     'TerraLegal.tramitacao',
