@@ -121,8 +121,8 @@ def edicao(request, id):
             f_base = Tbprocessobase (
                                     id = base.id,
                                     nrprocesso = request.POST['tbprocessobase'].replace('.','').replace('-','').replace('/',''),
-#                                    tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
-#                                    tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
+                                    tbgleba = base.tbgleba,
+                                    tbmunicipio = base.tbmunicipio,
                                     tbcaixa = base.tbcaixa,
                                     tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessorural' ),
 #                                    tbetapaatual = base.tbetapaatual,
@@ -317,12 +317,6 @@ def validacao(request_form, metodo):
         if request_form.POST['nrprocesso'] == '':
             messages.add_message(request_form,messages.WARNING,'Informe o numero do processo')
             warning = False
-    if request_form.POST['tbgleba'] == '':
-        messages.add_message(request_form,messages.WARNING,'Escolha uma gleba')
-        warning = False
-    if request_form.POST['tbmunicipio'] == '':
-        messages.add_message(request_form,messages.WARNING,'Escolha um municipio')
-        warning = False
     if request_form.POST['nmrequerente'] == '':
         messages.add_message(request_form,messages.WARNING,'Informe o nome do requerente')
         warning = False
