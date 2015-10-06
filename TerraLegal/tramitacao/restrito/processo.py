@@ -40,6 +40,7 @@ from django.core import serializers
 import json
 from TerraLegal.livro.models import Tbtituloprocesso
 from TerraLegal.documento.models import Sobreposicao
+from TerraLegal.core.funcoes import emitir_documento
 
 nome_relatorio      = "relatorio_processo"
 response_consulta  = "/sicop/processo/consulta/"
@@ -66,6 +67,8 @@ def consultaprocesso(request):
 #    sinc_parcelas()
 #    parcela_kml()
 # verificar batimento cpfs em mais de um processo sem estarem na tbprocessosanexos
+
+    return emitir_documento('memorando.odt',dict())
 
     todos = []
     clausulas = Tbprocessoclausula.objects.all()

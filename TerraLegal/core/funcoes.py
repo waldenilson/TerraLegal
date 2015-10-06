@@ -38,6 +38,11 @@ from TerraLegal import settings as configuracao
 from os.path import abspath, join, dirname
 import smtplib
 
+from webodt.shortcuts import render_to
+from webodt import shortcuts
+from webodt.converters import converter
+import webodt
+
 def verificaDivisaoUsuario(request):
     classe_divisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao.nrclasse
     divisoes = []
@@ -166,13 +171,14 @@ def translate(section, key):
         return file_ini.get(section,key)
     except:
         return ''
-        
-#def gerar_html2pdf():
-#    template = get_template('sicop/2pdf.html')
-#    context = Context({'titulo':'O Título do documento'})
-#    html  = template.render(context)
-#    result = StringIO.StringIO()
-#    pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("ISO-8859-1")), result)
-#    if not pdf.err:
-#        return http.HttpResponse(result.getvalue(), mimetype='application/pdf')
-#    return http.HttpResponse('We had some errors<pre>%s</pre>' % cgi.escape(html))
+
+def emitir_documento(nome_template, dados=dict()):
+    
+    template = webodt.ODFTemplate(nome_template)
+#    context = dict(titulo='John Doe')
+    document = template.render(Context(dados))
+
+    conv = converter()
+    pdf = conv.convert(document, format='pdf')
+    document.close()
+    return HttpResponse(pdf, mimetype='application/pdf')
