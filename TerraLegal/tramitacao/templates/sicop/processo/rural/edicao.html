@@ -882,53 +882,61 @@
 						&nbsp;&nbsp;
 				   		<select required="required" name="forma_geo" style="width: 300px">
 				   			
-				   			{% if sobreposicao.forma_georreferenciamento == 'GEORREFERENCIAMENTO PARTICULAR' %}
-								<option selected="selected" value="GEORREFERENCIAMENTO PARTICULAR">GEORREFERENCIAMENTO PARTICULAR</option>
-							{% else %}
+				   			{% if not sobreposicao.forma_georreferenciamento %}
+								<option selected="selected" value="">--SELECIONE--</option>
 								<option value="GEORREFERENCIAMENTO PARTICULAR">GEORREFERENCIAMENTO PARTICULAR</option>
-							{% endif %}
-
-				   			{% if sobreposicao.forma_georreferenciamento == 'EMPRESA ENGPLAGRI CONT. 12.000' %}
-								<option selected="selected" value="EMPRESA ENGPLAGRI CONT. 12.000">EMPRESA ENGPLAGRI CONT. 12.000</option>
-							{% else %}
 								<option value="EMPRESA ENGPLAGRI CONT. 12.000">EMPRESA ENGPLAGRI CONT. 12.000</option>
-							{% endif %}
-
-				   			{% if sobreposicao.forma_georreferenciamento == 'EMPRESA ENGPLAGRI CONT. 22.400' %}
-								<option selected="selected" value="EMPRESA ENGPLAGRI CONT. 22.400">EMPRESA ENGPLAGRI CONT. 22.400</option>
-							{% else %}
 								<option value="EMPRESA ENGPLAGRI CONT. 22.400">EMPRESA ENGPLAGRI CONT. 22.400</option>
-							{% endif %}
-
-				   			{% if sobreposicao.forma_georreferenciamento == 'EMPRESA SETA CONT. CRICIÚMA 19600' %}
-								<option selected="selected" value="EMPRESA SETA CONT. CRICIÚMA 19600">EMPRESA SETA CONT. CRICIÚMA 19600</option>
-							{% else %}
 								<option value="EMPRESA SETA CONT. CRICIÚMA 19600">EMPRESA SETA CONT. CRICIÚMA 19600</option>
-							{% endif %}
-
-				   			{% if sobreposicao.forma_georreferenciamento == 'EMPRESA SETA CONT. CRICIÚMA 77/2013' %}
-								<option selected="selected" value="EMPRESA SETA CONT. CRICIÚMA 77/2013">EMPRESA SETA CONT. CRICIÚMA 77/2013</option>
-							{% else %}
 								<option value="EMPRESA SETA CONT. CRICIÚMA 77/2013">EMPRESA SETA CONT. CRICIÚMA 77/2013</option>
-							{% endif %}
-
-				   			{% if sobreposicao.forma_georreferenciamento == 'EMPRESA SETA CONT. IMPERATRIZ 78/2013' %}
-								<option selected="selected" value="EMPRESA SETA CONT. IMPERATRIZ 78/2013">EMPRESA SETA CONT. IMPERATRIZ 78/2013</option>
-							{% else %}
-								<option value="GEORREFERENCIAMENTO PARTICULAR">GEORREFERENCIAMENTO PARTICULAR</option>
-							{% endif %}
-
-				   			{% if sobreposicao.forma_georreferenciamento == 'EMPRESA PROGETO CONT.35/2012' %}
-								<option selected="selected" value="EMPRESA PROGETO CONT.35/2012">EMPRESA PROGETO CONT.35/2012</option>
-							{% else %}
+								<option value="EMPRESA SETA CONT. IMPERATRIZ 78/2013">EMPRESA SETA CONT. IMPERATRIZ 78/2013</option>
 								<option value="EMPRESA PROGETO CONT.35/2012">EMPRESA PROGETO CONT.35/2012</option>
+							
+							{% else %}
+
+					   			{% if sobreposicao.forma_georreferenciamento == 'GEORREFERENCIAMENTO PARTICULAR' %}
+									<option selected="selected" value="GEORREFERENCIAMENTO PARTICULAR">GEORREFERENCIAMENTO PARTICULAR</option>
+								{% else %}
+									<option value="GEORREFERENCIAMENTO PARTICULAR">GEORREFERENCIAMENTO PARTICULAR</option>
+								{% endif %}
+
+					   			{% if sobreposicao.forma_georreferenciamento == 'EMPRESA ENGPLAGRI CONT. 12.000' %}
+									<option selected="selected" value="EMPRESA ENGPLAGRI CONT. 12.000">EMPRESA ENGPLAGRI CONT. 12.000</option>
+								{% else %}
+									<option value="EMPRESA ENGPLAGRI CONT. 12.000">EMPRESA ENGPLAGRI CONT. 12.000</option>
+								{% endif %}
+
+					   			{% if sobreposicao.forma_georreferenciamento == 'EMPRESA ENGPLAGRI CONT. 22.400' %}
+									<option selected="selected" value="EMPRESA ENGPLAGRI CONT. 22.400">EMPRESA ENGPLAGRI CONT. 22.400</option>
+								{% else %}
+									<option value="EMPRESA ENGPLAGRI CONT. 22.400">EMPRESA ENGPLAGRI CONT. 22.400</option>
+								{% endif %}
+
+					   			{% if sobreposicao.forma_georreferenciamento == 'EMPRESA SETA CONT. CRICIÚMA 19600' %}
+									<option selected="selected" value="EMPRESA SETA CONT. CRICIÚMA 19600">EMPRESA SETA CONT. CRICIÚMA 19600</option>
+								{% else %}
+									<option value="EMPRESA SETA CONT. CRICIÚMA 19600">EMPRESA SETA CONT. CRICIÚMA 19600</option>
+								{% endif %}
+
+					   			{% if sobreposicao.forma_georreferenciamento == 'EMPRESA SETA CONT. CRICIÚMA 77/2013' %}
+									<option selected="selected" value="EMPRESA SETA CONT. CRICIÚMA 77/2013">EMPRESA SETA CONT. CRICIÚMA 77/2013</option>
+								{% else %}
+									<option value="EMPRESA SETA CONT. CRICIÚMA 77/2013">EMPRESA SETA CONT. CRICIÚMA 77/2013</option>
+								{% endif %}
+
+					   			{% if sobreposicao.forma_georreferenciamento == 'EMPRESA SETA CONT. IMPERATRIZ 78/2013' %}
+									<option selected="selected" value="EMPRESA SETA CONT. IMPERATRIZ 78/2013">EMPRESA SETA CONT. IMPERATRIZ 78/2013</option>
+								{% else %}
+									<option value="EMPRESA SETA CONT. IMPERATRIZ 78/2013">EMPRESA SETA CONT. IMPERATRIZ 78/2013</option>
+								{% endif %}
+
+					   			{% if sobreposicao.forma_georreferenciamento == 'EMPRESA PROGETO CONT.35/2012' %}
+									<option selected="selected" value="EMPRESA PROGETO CONT.35/2012">EMPRESA PROGETO CONT.35/2012</option>
+								{% else %}
+									<option value="EMPRESA PROGETO CONT.35/2012">EMPRESA PROGETO CONT.35/2012</option>
+								{% endif %}
 							{% endif %}
 
-				   			{% if sobreposicao.forma_georreferenciamento == 'EMPRESA SETA  078/2013' %}
-								<option selected="selected" value="EMPRESA SETA  078/2013">EMPRESA SETA  078/2013</option>
-							{% else %}
-								<option value="EMPRESA SETA  078/2013">EMPRESA SETA  078/2013</option>
-							{% endif %}
 						</select>						
 					</td>
 			   	</tr>
