@@ -13,7 +13,9 @@ from TerraLegal.tramitacao.relatorio_base import relatorio_csv_base, relatorio_o
     relatorio_pdf_base_header_title, relatorio_pdf_base_header
 from odslib import ODS
 import datetime
-from TerraLegal.core.funcoes import format_datetime
+from TerraLegal.core.funcoes import format_datetime, gerar_pdf
+from os.path import abspath, join, dirname
+from TerraLegal import settings
 
 nome_relatorio      = "relatorio_documento_memorando"
 response_consulta  = "/documento/memorando/consulta/"
@@ -37,7 +39,6 @@ def consulta(request):
 @permission_required('documento.memorando_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
     if request.method == "POST":
-        next = request.GET.get('next', '/')    
         f_obj = Memorando(
             numero = request.POST['numero'],
             mensagem = request.POST['mensagem'],
@@ -55,10 +56,10 @@ def cadastro(request):
         f_obj.data_documento = datetime.datetime(day=int(dt[0]),month=int(dt[1]),year=int(dt[2]))
 
         f_obj.save()
-        if next == "/":
-            return HttpResponseRedirect("/documento/memorando/consulta/")
-        else:    
-            return HttpResponseRedirect( next ) 
+        dados = {
+            'brasao':abspath(join(dirname(__file__), '../../../staticfiles'))+'/img/brasao.gif'        
+        }
+        return gerar_pdf(request,'/documento/memorando/memorando.html',dados, settings.MEDIA_ROOT+'/tmp','memorando.pdf')
 
     return render_to_response('documento/memorando/cadastro.html',{'data_hoje':format_datetime(datetime.datetime.now()).replace('/','')}, context_instance = RequestContext(request))
 
@@ -88,5 +89,10 @@ def edicao(request, id):
         f_obj.data_documento = datetime.datetime(day=int(dt[0]),month=int(dt[1]),year=int(dt[2]))
 
         f_obj.save()
-        return HttpResponseRedirect("/documento/memorando/edicao/"+str(id)+"/")
+        #return HttpResponseRedirect("/documento/memorando/edicao/"+str(id)+"/")
+        dados = {
+            'brasao':abspath(join(dirname(__file__), '../../../staticfiles'))+'/img/brasao.gif'        
+        }
+        return gerar_pdf(request,'/documento/memorando/memorando.html',dados, settings.MEDIA_ROOT+'/tmp','memorando.pdf')
+
     return render_to_response('documento/memorando/edicao.html', {"memorando":instance}, context_instance = RequestContext(request))
