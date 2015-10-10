@@ -182,3 +182,19 @@ def emitir_documento(nome_template, dados=dict()):
     pdf = conv.convert(document, format='pdf')
     document.close()
     return HttpResponse(pdf, mimetype='application/pdf')
+
+# datetime to 00/00/0000
+def format_datetime(date_time):
+    dia = ''
+    if date_time.day < 10:
+        dia = '0'+str(date_time.day)
+    else:
+        dia = date_time.day
+
+    mes = ''
+    if date_time.month < 10:
+        mes = '0'+str(date_time.month)
+    else:
+        mes = date_time.month
+    retorno = str(dia)+'/'+str(mes)+'/'+str(date_time.year)
+    return retorno
