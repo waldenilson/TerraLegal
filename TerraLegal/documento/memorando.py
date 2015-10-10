@@ -8,12 +8,10 @@ from TerraLegal.documento.models import Memorando
 from django.contrib import messages
 from TerraLegal.tramitacao.admin import verificar_permissao_grupo
 from django.http.response import HttpResponse
-from TerraLegal.tramitacao.relatorio_base import relatorio_csv_base, relatorio_ods_base,\
-    relatorio_ods_base_header, relatorio_pdf_base,\
-    relatorio_pdf_base_header_title, relatorio_pdf_base_header
+
 from odslib import ODS
 import datetime
-from TerraLegal.core.funcoes import format_datetime, gerar_pdf
+from TerraLegal.core.funcoes import format_datetime, gerar_pdf,mes_do_ano_texto
 from os.path import abspath, join, dirname
 from TerraLegal import settings
 
@@ -57,7 +55,7 @@ def cadastro(request):
 
         f_obj.save()
         dados = {
-            'brasao':abspath(join(dirname(__file__), '../../../staticfiles'))+'/img/brasao.gif'        
+            'brasao':abspath(join(dirname(__file__), '../../../staticfiles'))+'/img/slide_1.jpg'        
         }
         return gerar_pdf(request,'/documento/memorando/memorando.html',dados, settings.MEDIA_ROOT+'/tmp','memorando.pdf')
 
@@ -91,7 +89,18 @@ def edicao(request, id):
         f_obj.save()
         #return HttpResponseRedirect("/documento/memorando/edicao/"+str(id)+"/")
         dados = {
-            'brasao':abspath(join(dirname(__file__), '../../../staticfiles'))+'/img/brasao.gif'        
+            'brasao':abspath(join(dirname(__file__), '../../staticfiles'))+'/img/slide_1.jpg',
+            'numero':f_obj.numero,
+            'assunto':f_obj.assunto,
+            'mensagem':f_obj.mensagem,
+            'remetente':f_obj.remetente,
+            'destinatario':f_obj.destinatario,
+            'localidade':f_obj.localidade,
+            'dia':dt[0],
+            'mes':mes_do_ano_texto(int(dt[1])),
+            'ano':dt[2],
+            'signatario':f_obj.signatario,
+            'cargo_signatario':f_obj.cargo_signatario        
         }
         return gerar_pdf(request,'/documento/memorando/memorando.html',dados, settings.MEDIA_ROOT+'/tmp','memorando.pdf')
 
