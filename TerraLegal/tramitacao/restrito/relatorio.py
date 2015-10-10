@@ -626,7 +626,8 @@ def processos(request):
             p_rural = consulta.order_by( 'tbprocessobase__'+request.POST['ordenacao'] )
         
         for r in p_rural:
-            p_rural_com_peca.append( r )
+            if r.nrcpfrequerente != '99999999999' and r.nrcpfrequerente != '00000000000':
+                p_rural_com_peca.append( r )
                 
         #GERACAO
         nome_relatorio = "relatorio-todos-processos-rurais"
@@ -1314,13 +1315,12 @@ def processo_parcela(request):
         p_rural = consulta.order_by( request.POST['ordenacao'] )
             
         for r in p_rural:
-            if TbparcelaGeo.objects.filter( cpf_detent = r.nrcpfrequerente.replace('.','').replace('-','') ):
+            if TbparcelaGeo.objects.filter( cpf_detent = r.nrcpfrequerente.replace('.','').replace('-','') ) or Tbpecastecnicas.objects.filter( nrcpfrequerente = r.nrcpfrequerente.replace('.','').replace('-','') ):
                 p_rural_com_parcela.append( r )
                 
-
         #GERACAO
         nome_relatorio = "relatorio-processos-com-parcela"
-        titulo_relatorio    = "RELATORIO DOS PROCESSOS COM PARCELA(S) NO SIGEF"
+        titulo_relatorio    = "RELATORIO DOS PROCESSOS COM PARCELA(S)"
         planilha_relatorio  = "Processos com parcela"
         ods = ODS()
         sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, len(p_rural_com_parcela), ods)
@@ -1410,13 +1410,14 @@ def processo_sem_parcela(request):
             
         x = 0
         for rr in p_rural:
-            if not TbparcelaGeo.objects.filter( cpf_detent = rr.nrcpfrequerente ):
+            if not TbparcelaGeo.objects.filter( cpf_detent = rr.nrcpfrequerente ) and not Tbpecastecnicas.objects.filter( nrcpfrequerente = rr.nrcpfrequerente ):
                 if rr.nrcpfrequerente != '99999999999' and rr.nrcpfrequerente != '00000000000':
                     p_rural_sem_parcela.append(rr)
 
+
         #GERACAO
         nome_relatorio = "relatorio-processos-sem-parcela"
-        titulo_relatorio    = "RELATORIO DOS PROCESSOS SEM PARCELA(S) NO SIGEF"
+        titulo_relatorio    = "RELATORIO DOS PROCESSOS SEM PARCELA(S)"
         planilha_relatorio  = "Processos sem parcela"
         ods = ODS()
         sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, len(p_rural_sem_parcela), ods)
