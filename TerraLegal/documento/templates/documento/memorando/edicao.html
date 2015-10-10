@@ -1,0 +1,77 @@
+{% extends "core/base/cadastro.html" %} 
+{% load staticfiles %} 
+{% block breadcumbs %}
+	Acesso Restrito | Documento | Memorando | Edicao
+{% endblock %}
+
+{% block customhead %}
+	<script src="{% static "ckeditor/ckeditor.js" %}"></script>
+{% endblock %}
+
+{% block formulario %}
+<div id="tabs" style="color:black;width:100%;font-size:11px">
+<ul>
+	<li><a href="#tabs-1">EDITAR MEMORANDO</a></li>
+</ul>
+<div id="tabs-1">		
+
+	<form method="post" action=".">
+		{% csrf_token %}
+		<div style="width:100%;font-size:12px;text-align:left">
+				<table>
+				   <tr>
+				   		<td class="colunaTabela"> <label>Número:</label> </td>
+				   		<td> <input required onkeypress="return SomenteNumeroOK(event, this);" size="10" name="numero" value="{{memorando.numero}}" /></td> 
+				   </tr>
+				   <tr>
+				   		<td class="colunaTabela"> <label>Data:</label> </td>
+				   		<td> <input size="9" id="date" value="{{memorando.data_documento|date:'d/m/Y'}}" name="data_documento" /></td> 
+				   </tr>
+				   <tr> 
+				   		<td class="colunaTabela"> <label>Remetente:</label> </td>
+				   		<td> <input required value="{{memorando.remetente}}" name="remetente" size="30" /></td>
+				   </tr>
+				   <tr>
+				   		<td class="colunaTabela"> <label>Destinatário:</label> </td>
+				   		<td> <input required value="{{memorando.destinatario}}" name="destinatario" size="30" /></td> 
+				   </tr>
+				   <tr> 
+				   		<td class="colunaTabela"> <label>Localidade:</label> </td>
+				   		<td> <input required value="{{memorando.localidade}}" name="localidade" /></td>
+				   </tr>
+				   <tr>
+				   		<td class="colunaTabela"> <label>Assunto:</label> </td>
+				   		<td> <input required value="{{memorando.assunto}}" name="assunto" size="30" /></td> 
+				   </tr>
+				   <tr> 
+				   		<td class="colunaTabela"> <label>Signatário:</label> </td>
+				   		<td> <input required value="{{memorando.signatario}}" name="signatario" size="40" /></td> 
+				   </tr>
+				   <tr>
+				   		<td class="colunaTabela"> <label>Cargo do signatário:</label> </td>
+				   		<td> <input required value="{{memorando.cargo_signatario}}" name="cargo_signatario" size="40" /></td> 
+				   </tr> 
+				   <tr> 
+				   		<td class="colunaTabela"> <label>Mensagem:</label> </td>
+				   		<td> 
+				   			<textarea id="mensagem" required name="mensagem">{{memorando.mensagem}}</textarea>
+				   			<script>
+				                CKEDITOR.replace( 'mensagem' );
+				            </script>
+				   		</td> 
+				   </tr>
+				</table>
+		</div>
+		<br />
+		<table style="width:100%">
+			<tr>
+				<td class="colunaTabela" style="text-align:left"> 
+					<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
+					<input type="submit" class="button_green" value="SALVAR" />
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+</div>
+{% endblock %}
