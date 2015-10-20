@@ -678,6 +678,7 @@ def processos(request):
             sheet.getCell(6, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbcaixa.nmlocalarquivo)
             sheet.getCell(7, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbmunicipio.nome_mun)
             sheet.getCell(8, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbgleba.nmgleba)
+
             # buscar todas as pendencias do processo, que nao estao sanadas
             pendencias_pendente = Tbpendencia.objects.filter( 
                Q(tbprocessobase__id = obj.tbprocessobase.id, tbstatuspendencia__id = 2)
@@ -750,6 +751,9 @@ def varredura_processos(request):
         sheet.getCell(5, 6).setAlignHorizontal('center').stringValue( 'Municipio' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getCell(6, 6).setAlignHorizontal('center').stringValue( 'Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getCell(7, 6).setAlignHorizontal('center').stringValue( 'Tipo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(8, 6).setAlignHorizontal('center').stringValue( 'Qtd. Pendencias' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(9, 6).setAlignHorizontal('center').stringValue( 'Pendentes' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(10, 6).setAlignHorizontal('center').stringValue( 'Notificadas' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getRow(1).setHeight('20pt')
         sheet.getRow(2).setHeight('20pt')
         sheet.getRow(6).setHeight('20pt')
@@ -762,6 +766,9 @@ def varredura_processos(request):
         sheet.getColumn(5).setWidth("5in")
         sheet.getColumn(6).setWidth("5in")
         sheet.getColumn(7).setWidth("2.5in")
+        sheet.getColumn(8).setWidth("1.5in")
+        sheet.getColumn(9).setWidth("2in")
+        sheet.getColumn(10).setWidth("2in")
                    
         #DADOS DA CONSULTA
         x = 5
@@ -807,6 +814,28 @@ def varredura_processos(request):
                 sheet.getCell(6, x+2).setAlignHorizontal('center').stringValue(obj.tbgleba.nmgleba)
 
                 sheet.getCell(7, x+2).setAlignHorizontal('center').stringValue(obj.tbtipoprocesso.nome.encode("utf-8"))
+
+
+                # buscar todas as pendencias do processo, que nao estao sanadas
+                pendencias_pendente = Tbpendencia.objects.filter( 
+                   Q(tbprocessobase__id = obj.id, tbstatuspendencia__id = 2)
+                  ) 
+                pendencias_notificado = Tbpendencia.objects.filter( 
+                   Q(tbprocessobase__id = obj.id, tbstatuspendencia__id = 3)
+                  ) 
+                sheet.getCell(8, x+2).setAlignHorizontal('center').stringValue( len(pendencias_pendente) + len(pendencias_notificado) )
+                # buscando as descricoes das pendencias pendentes
+                desc_pendencias = ''
+                for pend in pendencias_pendente:
+                    desc_pendencias += pend.tbtipopendencia.dspendencia + ' : ' + pend.dsdescricao + ' | '
+                sheet.getCell(9, x+2).setAlignHorizontal('center').stringValue( desc_pendencias )
+                
+                # buscando as descricoes das pendencias  notificadas
+                desc_pendencias = ''
+                for pend in pendencias_notificado:
+                    desc_pendencias += pend.tbtipopendencia.dspendencia + ' : ' + pend.dsdescricao + ' | '
+                sheet.getCell(10, x+2).setAlignHorizontal('center').stringValue( desc_pendencias )
+
                 x += 1
             
         #GERACAO DO DOCUMENTO  

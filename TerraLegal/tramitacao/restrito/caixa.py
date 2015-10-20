@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required, permission_required,\
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext, Context
 from TerraLegal.tramitacao.models import Tbcaixa, Tbtipocaixa, AuthUser, Tbprocessobase,\
-    Tbpecastecnicas, Tbmovimentacao, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano, Tbdivisao, Tbetapa
+    Tbpecastecnicas, Tbmovimentacao, Tbprocessorural, Tbprocessoclausula, Tbpendencia, Tbprocessourbano, Tbdivisao, Tbetapa
 from TerraLegal.livro.models import Tbtituloprocesso
 from django.http import HttpResponseRedirect
 from django.contrib import messages
@@ -207,6 +207,9 @@ def relatorio_ods(request):
         sheet.getCell(6, 6).setAlignHorizontal('center').stringValue( 'Endereco' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getCell(7, 6).setAlignHorizontal('center').stringValue( 'Contato' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getCell(8, 6).setAlignHorizontal('center').stringValue( 'Ultima Caixa' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(9, 6).setAlignHorizontal('center').stringValue( 'Qtd. Pendencias' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(10, 6).setAlignHorizontal('center').stringValue( 'Pendentes' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(11, 6).setAlignHorizontal('center').stringValue( 'Notificadas' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getRow(1).setHeight('20pt')
         sheet.getRow(2).setHeight('20pt')
         sheet.getRow(6).setHeight('20pt')
@@ -220,6 +223,9 @@ def relatorio_ods(request):
         sheet.getColumn(6).setWidth("3in")
         sheet.getColumn(7).setWidth("2in")
         sheet.getColumn(8).setWidth("2.5in")
+        sheet.getColumn(9).setWidth("1.5in")
+        sheet.getColumn(10).setWidth("2in")
+        sheet.getColumn(11).setWidth("2in")
             
         #DADOS DA CONSULTA
         x = 5
@@ -259,6 +265,27 @@ def relatorio_ods(request):
             mov = Tbmovimentacao.objects.filter( tbprocessobase__id = obj.tbprocessobase.id ).order_by("-id")[:1]
             if mov:
                 sheet.getCell(8, x+2).setAlignHorizontal('center').stringValue(mov[0].tbcaixa_id_origem.nmlocalarquivo)
+
+            # buscar todas as pendencias do processo, que nao estao sanadas
+            pendencias_pendente = Tbpendencia.objects.filter( 
+                Q(tbprocessobase__id = obj.tbprocessobase.id, tbstatuspendencia__id = 2)
+                ) 
+            pendencias_notificado = Tbpendencia.objects.filter( 
+                Q(tbprocessobase__id = obj.tbprocessobase.id, tbstatuspendencia__id = 3)
+                ) 
+            sheet.getCell(9, x+2).setAlignHorizontal('center').stringValue( len(pendencias_pendente) + len(pendencias_notificado) )
+            # buscando as descricoes das pendencias pendentes
+            desc_pendencias = ''
+            for pend in pendencias_pendente:
+                desc_pendencias += pend.tbtipopendencia.dspendencia + ' : ' + pend.dsdescricao + ' | '
+            sheet.getCell(10, x+2).setAlignHorizontal('center').stringValue( desc_pendencias )
+                
+            # buscando as descricoes das pendencias  notificadas
+            desc_pendencias = ''
+            for pend in pendencias_notificado:
+                desc_pendencias += pend.tbtipopendencia.dspendencia + ' : ' + pend.dsdescricao + ' | '
+            sheet.getCell(11, x+2).setAlignHorizontal('center').stringValue( desc_pendencias )
+
             x += 1
                 
 
