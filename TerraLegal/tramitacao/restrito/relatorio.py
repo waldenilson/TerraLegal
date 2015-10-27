@@ -731,9 +731,8 @@ def varredura_processos(request):
     
     if request.method == "POST":
         #CONSULTA ORDENADA E/OU BASEADA EM FILTROS DE PESQUISA
-        consulta = Tbprocessobase.objects.filter( tbclassificacaoprocesso__id = 1, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-        processos = consulta.order_by( 'tbcaixa__nmlocalarquivo' )
-                            
+        consulta = Tbprocessobase.objects.filter( nrprocesso__icontains=request.POST['processo'],tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        processos = consulta.order_by( request.POST['ordenacao'] )                        
 
         #GERACAO
         nome_relatorio = "relatorio-todos-processos"
@@ -773,7 +772,6 @@ def varredura_processos(request):
         #DADOS DA CONSULTA
         x = 5
         for obj in processos:
-            print str(obj.id)
             #verificar se existe obj tipo processo no processobase
             if ( Tbprocessorural.objects.filter( tbprocessobase__id = obj.id ) or Tbprocessoclausula.objects.filter( tbprocessobase__id = obj.id ) or Tbprocessourbano.objects.filter( tbprocessobase__id = obj.id ) ) and obj.nrprocesso != '99999999999999999':
                 sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.tbcaixa.nmlocalarquivo)
@@ -845,7 +843,7 @@ def varredura_processos(request):
         ods.save(response)
         return response
 
-    return render_to_response('sicop/relatorio/processos.html',{}, context_instance = RequestContext(request))
+    return render_to_response('sicop/relatorio/processos_varredura.html',{}, context_instance = RequestContext(request))
 
 
     #buscar as pecas tecnicas que nao estao ligadas a um processo
@@ -1523,3 +1521,64 @@ def processo_sem_parcela(request):
         return response
 
     return render_to_response('sicop/relatorio/processo_sem_parcela.html',{}, context_instance = RequestContext(request))
+
+@permission_required('sicop.relatorio_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def parcela_sem_processo(request):
+
+    if request.method == "POST":
+        pecas = []
+        #CONSULTA ORDENADA E/OU BASEADA EM FILTROS DE PESQUISA
+        #consulta = Tbpecastecnicas.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        parcelas = TbparcelaGeo.objects.all()
+
+        pecas_sem_proc = []
+        #pecas = consulta.order_by( request.POST['ordenacao'] )
+            
+        for p in parcelas:
+            if len(Tbprocessorural.objects.filter( nrcpfrequerente = p.cpf_detent )) == 0 and len(Tbprocessoclausula.objects.filter( nrcpfrequerente = p.cpf_detent )) == 0 and len(Tbprocessoclausula.objects.filter( nrcpfinteressado = p.cpf_detent )) == 0:
+                pecas_sem_proc.append(p)
+  
+        #GERACAO
+        nome_relatorio = "relatorio-parcelas-sem-processo"
+        titulo_relatorio    = "RELATORIO DAS PARCELAS SEM PROCESSO"
+        planilha_relatorio  = "Parcelas sem processo"
+        ods = ODS()
+        sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, len(pecas_sem_proc), ods)
+        
+        # TITULOS DAS COLUNAS
+        sheet.getCell(0, 6).setAlignHorizontal('center').stringValue( 'Requerente' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(1, 6).setAlignHorizontal('center').stringValue( 'CPF' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'Area' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'Imovel' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(4, 6).setAlignHorizontal('center').stringValue( 'Municipio' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(5, 6).setAlignHorizontal('center').stringValue( 'Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getRow(1).setHeight('20pt')
+        sheet.getRow(2).setHeight('20pt')
+        sheet.getRow(6).setHeight('20pt')
+        
+        sheet.getColumn(0).setWidth("2.5in")
+        sheet.getColumn(1).setWidth("2in")
+        sheet.getColumn(2).setWidth("2in")
+        sheet.getColumn(3).setWidth("2in")
+        sheet.getColumn(4).setWidth("2in")
+        sheet.getColumn(5).setWidth("2in")
+        
+        #DADOS DA CONSULTA
+        x = 5
+        for obj in pecas_sem_proc:
+            sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.nome_deten)
+            sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.cpf_detent)    
+            sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue(obj.area_ha_ut)
+            sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(obj.nome)
+            sheet.getCell(4, x+2).setAlignHorizontal('center').stringValue(obj.municipio)
+            sheet.getCell(5, x+2).setAlignHorizontal('center').stringValue(obj.gleba)
+            x += 1
+            
+        #GERACAO DO DOCUMENTO  
+        relatorio_ods_base(ods, planilha_relatorio)
+        response = HttpResponse(mimetype=ods.mimetype.toString())
+        response['Content-Disposition'] = 'attachment; filename='+nome_relatorio+'.ods'
+        ods.save(response)
+        return response
+
+    return render_to_response('sicop/relatorio/peca_sem_processo.html',{}, context_instance = RequestContext(request))

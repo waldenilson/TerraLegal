@@ -1036,35 +1036,123 @@ def relatorio_pdf(request):
 @permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def relatorio_ods(request):
 
-    # montar objeto lista com os campos a mostrar no relatorio/pdf
-    lista = request.session[nome_relatorio]
+    global nome_relatorio
+
+    processos = request.session[nome_relatorio]
     
-    if lista:
+    if processos:
+        #GERACAO
+        nome_relatorio = "relatorio-processos"
+        titulo_relatorio    = "RELATORIO DOS PROCESSOS"
+        planilha_relatorio  = "Processos"
         ods = ODS()
-        sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, len(lista), ods)
+        sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, len(processos), ods)
         
-        # subtitle
-        sheet.getCell(0, 1).setAlignHorizontal('center').stringValue( 'Numero' ).setFontSize('14pt')
-        sheet.getCell(1, 1).setAlignHorizontal('center').stringValue( 'Tipo' ).setFontSize('14pt')
+        # TITULOS DAS COLUNAS
+        sheet.getCell(0, 6).setAlignHorizontal('center').stringValue( 'Processo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        if processos[0].tbprocessobase.tbtipoprocesso.tabela == 'tbprocessourbano':
+            sheet.getCell(1, 6).setAlignHorizontal('center').stringValue( 'Povoado' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        else:
+            sheet.getCell(1, 6).setAlignHorizontal('center').stringValue( 'Requerente' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        
+        if processos[0].tbprocessobase.tbtipoprocesso.tabela == 'tbprocessourbano':
+            sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'CNPJ' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        else:
+            sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'CPF' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        
+        sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'Principal | Anexo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        
+        sheet.getCell(4, 6).setAlignHorizontal('center').stringValue( 'Tipo' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(5, 6).setAlignHorizontal('center').stringValue( 'Imovel / Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(6, 6).setAlignHorizontal('center').stringValue( 'Endereco' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(7, 6).setAlignHorizontal('center').stringValue( 'Contato' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(8, 6).setAlignHorizontal('center').stringValue( 'Caixa' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(9, 6).setAlignHorizontal('center').stringValue( 'Qtd. Pendencias' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(10, 6).setAlignHorizontal('center').stringValue( 'Pendentes' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(11, 6).setAlignHorizontal('center').stringValue( 'Notificadas' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getRow(1).setHeight('20pt')
+        sheet.getRow(2).setHeight('20pt')
+        sheet.getRow(6).setHeight('20pt')
         
-    #TRECHO PERSONALIZADO DE CADA CONSULTA
-        #DADOS
-        x = 0
-        for obj in lista:
+        sheet.getColumn(0).setWidth("2in")
+        sheet.getColumn(1).setWidth("5in")
+        sheet.getColumn(2).setWidth("2in")
+        sheet.getColumn(3).setWidth("2in")
+        sheet.getColumn(4).setWidth("2.5in")
+        sheet.getColumn(5).setWidth("2.5in")
+        sheet.getColumn(6).setWidth("3in")
+        sheet.getColumn(7).setWidth("2in")
+        sheet.getColumn(8).setWidth("2.5in")
+        sheet.getColumn(9).setWidth("1.5in")
+        sheet.getColumn(10).setWidth("2in")
+        sheet.getColumn(11).setWidth("2in")
+            
+        #DADOS DA CONSULTA
+        x = 5
+        for obj in processos:
             sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.nrprocesso)
-            sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbtipoprocesso.nome)    
+
+            nome = ''
+            cpf = ''
+            print obj.tbprocessobase.id
+            if obj.tbprocessobase.tbtipoprocesso.id == 3:
+                nome += obj.nmpovoado    
+                cpf += obj.nrcnpj
+            elif obj.tbprocessobase.tbtipoprocesso.id == 1:
+                nome += obj.nmrequerente    
+                cpf += obj.nrcpfrequerente
+            else:
+                if obj.nminteressado:
+                    nome += obj.nminteressado+" (Interessado) "
+                    cpf += obj.nrcpfinteressado+" (Interessado) "
+                if obj.nmrequerente:
+                    cpf += obj.nrcpfrequerente+" (Titulado)"
+                    nome += obj.nmrequerente+" (Titulado)"
+
+            sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(nome)    
+            sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue(cpf)
+
+            if obj.tbprocessobase.tbclassificacaoprocesso.id == 2:
+                sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue('ANEXO')
+            else:
+                sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue('PRINCIPAL')
+            
+            sheet.getCell(4, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbtipoprocesso.nome)
+            sheet.getCell(5, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbmunicipio.nome_mun+" / "+obj.tbprocessobase.tbgleba.nmgleba)
+            sheet.getCell(6, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.nmendereco)
+            sheet.getCell(7, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.nmcontato)
+            sheet.getCell(8, x+2).setAlignHorizontal('center').stringValue(obj.tbprocessobase.tbcaixa.nmlocalarquivo)
+            
+            # buscar todas as pendencias do processo, que nao estao sanadas
+            pendencias_pendente = Tbpendencia.objects.filter( 
+                Q(tbprocessobase__id = obj.tbprocessobase.id, tbstatuspendencia__id = 2)
+                ) 
+            pendencias_notificado = Tbpendencia.objects.filter( 
+                Q(tbprocessobase__id = obj.tbprocessobase.id, tbstatuspendencia__id = 3)
+                ) 
+            sheet.getCell(9, x+2).setAlignHorizontal('center').stringValue( len(pendencias_pendente) + len(pendencias_notificado) )
+            # buscando as descricoes das pendencias pendentes
+            desc_pendencias = ''
+            for pend in pendencias_pendente:
+                desc_pendencias += pend.tbtipopendencia.dspendencia + ' : ' + pend.dsdescricao + ' | '
+            sheet.getCell(10, x+2).setAlignHorizontal('center').stringValue( desc_pendencias )
+                
+            # buscando as descricoes das pendencias  notificadas
+            desc_pendencias = ''
+            for pend in pendencias_notificado:
+                desc_pendencias += pend.tbtipopendencia.dspendencia + ' : ' + pend.dsdescricao + ' | '
+            sheet.getCell(11, x+2).setAlignHorizontal('center').stringValue( desc_pendencias )
+
             x += 1
-        
-    #TRECHO PERSONALIZADO DE CADA CONSULTA     
-       
+                
+
+        #GERACAO DO DOCUMENTO  
         relatorio_ods_base(ods, planilha_relatorio)
-        # generating response
         response = HttpResponse(mimetype=ods.mimetype.toString())
         response['Content-Disposition'] = 'attachment; filename='+nome_relatorio+'.ods'
         ods.save(response)
-    
         return response
+
     else:
         return HttpResponseRedirect( response_consulta )
 
