@@ -276,6 +276,8 @@ urlpatterns = patterns('',
     url(r'^sicop/situacao/edicao/(?P<id>\d+)/','TerraLegal.tramitacao.restrito.situacao.edicao'),
     url(r'^sicop/situacao/cadastro/', 'TerraLegal.tramitacao.restrito.situacao.cadastro'),
     #END------------------------------CONTROLE---------------------------------------------------------------------------------
+
+    url(r'^sicop/processamento/', 'TerraLegal.tramitacao.admin.processamento'),
         
     # CONTROLE AUTENTICACAO
     url(r'^login/', 'django.contrib.auth.views.login', {"template_name":"index.html"}),

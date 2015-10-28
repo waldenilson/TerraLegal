@@ -17,7 +17,7 @@ from TerraLegal.tramitacao.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
 from TerraLegal.tramitacao.restrito import processo_rural
 from types import InstanceType
-from TerraLegal.tramitacao.admin import verificar_permissao_grupo
+from TerraLegal.tramitacao.admin import verificar_permissao_grupo, cadastro_automatico_p23
 import datetime
 from django.contrib import messages
 from django.utils import simplejson
@@ -68,7 +68,10 @@ def consultaprocesso(request):
 #    parcela_kml()
 # verificar batimento cpfs em mais de um processo sem estarem na tbprocessosanexos
 
-    return emitir_documento('memorando.odt',dict())
+    #admin.batimento_txt_n_processo_result_localidade("/opt/processos.csv","situacao.csv")
+    #cadastro_automatico_p23(request)
+
+    #return emitir_documento('memorando.odt',dict())
 
     todos = []
     clausulas = Tbprocessoclausula.objects.all()

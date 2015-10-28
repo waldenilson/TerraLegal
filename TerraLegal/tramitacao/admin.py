@@ -1,6 +1,9 @@
 
 # -*- coding: UTF-8 -*-
 
+from django.contrib.auth.decorators import login_required, permission_required
+from django.shortcuts import render_to_response, get_object_or_404
+from django.template.context import RequestContext
 from django.contrib import admin
 from TerraLegal.tramitacao.models import Tbtipocaixa, Tbtipoprocesso, Tbstatuspendencia,\
     Tbpecastecnicas, Tbprocessobase,Tbclassificacaoprocesso, Tbsubarea, Tbcaixa,\
@@ -19,6 +22,82 @@ from django.core import serializers
 import urllib2
 import json
 from odslib import ODS
+
+@permission_required('sicop.processamento', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def processamento(request):
+    cadastro_automatico_p23(request)
+    return render_to_response('core/excecao/pagina_nao_encontrada.html',
+                              context_instance = RequestContext(request))   
+
+
+def cadastro_automatico_p23(request):
+    print 'cadastro automatico p23'
+    obss = Tbprocessoclausula.objects.filter( dsobs__startswith = '56418' )
+    total = []
+    other = []
+    processos = []
+    cad = []
+
+    for obs in obss:
+        txt = obs.dsobs.replace('.','').replace('/','').replace('-','').replace(' ','').replace('\\','').replace('\n','').replace('\r','')
+        lista = txt.split(',')
+        #for l in lista:
+        if len(txt) == 17:
+            total.append(txt)
+            obj = Tbprocessobase.objects.filter( nrprocesso = txt )
+            if not obj:
+                processos.append(txt)
+                    #criar objeto tbprocessobase
+                obj_base = Tbprocessobase(
+                        nrprocesso = txt,
+                        tbgleba = obs.tbprocessobase.tbgleba,
+                        tbmunicipio = obs.tbprocessobase.tbmunicipio,
+                        tbcaixa = obs.tbprocessobase.tbcaixa,
+                        tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessorural' ),
+                        dtcadastrosistema = datetime.now(),
+                        auth_user = AuthUser.objects.get( pk = request.user.id ),
+                        tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 2 ),
+                        tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao,
+                        nmendereco = obs.tbprocessobase.nmendereco,
+                        nmcontato = obs.tbprocessobase.nmcontato,
+                        tbmunicipiodomicilio = obs.tbprocessobase.tbmunicipiodomicilio
+                        )
+                obj_base.save()
+
+                    #criar objeto tbprocessobase
+                obj_rural = Tbprocessorural(
+                        nmrequerente = obs.nminteressado,
+                        nrcpfrequerente = obs.nrcpfinteressado,
+                        nmconjuge = '',
+                        nrcpfconjuge = '',
+                        tbprocessobase = obj_base,
+                        blconjuge = False
+                )
+                if obs.nminteressado == 'O MESMO':
+                    obj_rural.nmrequerente = obs.nmrequerente
+                obj_rural.save()
+
+                f_anexos = Tbprocessosanexos(
+                        tbprocessobase = obs.tbprocessobase,
+                        tbprocessobase_id_anexo = obj_base,
+                        auth_user = AuthUser.objects.get( pk = request.user.id ),
+                        dtanexado = datetime.now()
+                )
+                f_anexos.save()
+
+            else:
+                cad.append(txt)
+        else:
+            other.append(txt)
+
+    for o in other:
+        print str(o.encode('utf-8'))
+    print 'total de registros: '+str(len(obss))
+    print 'registros fora da formatacao: '+str(len(other))
+    print 'total processos: '+str(len(total))
+    print 'aptos a cadastrar: '+str(len(processos))
+    print 'ja cadastrados: '+str(len(cad))
+
 
 def mes_do_ano_texto(inteiro):
     mes_texto = ""
@@ -137,7 +216,6 @@ def batimento_cpf_processo(csv_1, csv_2):
     #        print str(x)
     #        print len(lines)
 
-
 def import_tr(csv_):
     trs = []
     aux = []
@@ -151,7 +229,7 @@ def import_tr(csv_):
         #lines.append(l[0])
         sp = l[0].split('|')
         
-#        print "ano "+sp[0] + ", mes "+str(1)+", valor "+sp[1]
+        #print "ano "+sp[0] + ", mes "+str(1)+", valor "+sp[1]
         if sp[12] == '-':
             obj = TbtrMensal( ano = sp[0], mes = 12, valor = None )
         else:    
@@ -169,6 +247,41 @@ def import_tr(csv_):
 
     print len(lines)
     print lines
+
+def batimento_txt_n_processo_result_localidade(csv_, filename):
+    procs = []
+    with open(csv_, 'rb') as csvfile:
+        spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+        for row in spamreader:
+            procs.append(row)
+
+    procs_line = []
+    for proc in procs:
+        if proc:
+            #if not cpf[0] in cpfs_line:
+            procs_line.append(proc[0])
+        else:
+            procs_line.append('0')
+
+    processos = []
+    for p in procs_line:
+        obj = Tbprocessorural.objects.filter( nrcpfrequerente__icontains = p.replace('/','').replace('.','').replace('-','') )
+        if obj:
+            #print obj[0].nrprocesso+'|'+obj[0].tbprocessobase.tbcaixa.nmlocalarquivo
+            processos.append( obj[0].tbprocessobase.tbcaixa.nmlocalarquivo.encode("utf-8") )
+        else:
+            processos.append( "-" )
+
+    print len(procs_line)
+
+
+    with open('/opt/'+filename, 'w') as csvfile:
+        fieldnames = ['caixa']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+        writer.writeheader()
+        for cx in processos:
+            writer.writerow({'caixa': str(cx) })
 
 
 def batimento_processo(csv_):
@@ -235,7 +348,7 @@ def buscar_parcelas_sigef(nrcpf):
  #               parc['nome'] = mun['nome'].encode("utf-8")+' / '+mun['uf'].encode("utf-8")
  #               parcelas.append(parc)
  #               total_area_sigef += mun['area_parcela']
-#            idkmls.append(parcela['id'])
+            #idkmls.append(parcela['id'])
     except:
         parcelas = None
         print 'error'
@@ -295,12 +408,12 @@ def sinc_parcelas():
     print 'total de parcelas: '+str(len(ids))
 
 def sinc_sigef_parcelas_banco():
-#    rural = Tbprocessoclausula.objects.filter( tbprocessobase__tbclassificacaoprocesso__id = 2 )
+    #rural = Tbprocessoclausula.objects.filter( tbprocessobase__tbclassificacaoprocesso__id = 2 )
     rural = Tbparcela.objects.filter( dsjson = None )
     total = 0
     print str(len(rural))
     for r in rural:
-#        print r.nrcpfrequerente
+        #print r.nrcpfrequerente
         parcela = Tbparcela(
             id = r.id,
             cpf = r.cpf,
@@ -570,9 +683,7 @@ def buscar_movimentacoes(id_processo):
         return str(movimentacoes)
     else:
         return ''
-    
-
-
+  
 def buscar_pendencias(id_processo):
     pendencias = ""
     pend = Tbpendencia.objects.filter(tbprocessobase__id = id_processo)
