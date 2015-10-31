@@ -258,6 +258,7 @@ urlpatterns = patterns('',
     #ACESSO RESTRITO SICOP RELATORIO SIGEF
     url(r'^sicop/relatorio/processo_parcela/', 'TerraLegal.tramitacao.restrito.relatorio.processo_parcela'),
     url(r'^sicop/relatorio/processo_sem_parcela/', 'TerraLegal.tramitacao.restrito.relatorio.processo_sem_parcela'),
+    url(r'^sicop/relatorio/parcela_processo/', 'TerraLegal.tramitacao.restrito.relatorio.parcela_processo'),
     url(r'^sicop/relatorio/parcela_sem_processo/', 'TerraLegal.tramitacao.restrito.relatorio.parcela_sem_processo'),
         
     #ACESSO RESTRITO SICOP FLUXO

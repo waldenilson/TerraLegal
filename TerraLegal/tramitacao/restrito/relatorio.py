@@ -1328,21 +1328,21 @@ def prazos_notificacoes_p80(request):
         ods.save(response)
         return response
 
-
-
 #PROCESSOS QUE TEM PARCELA
 @permission_required('sicop.relatorio_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def processo_parcela(request):
 
     if request.method == "POST":
         p_rural = []
+        parcelas = []
         #CONSULTA ORDENADA E/OU BASEADA EM FILTROS DE PESQUISA
         consulta = Tbprocessorural.objects.filter( tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
         p_rural_com_parcela = []
         p_rural = consulta.order_by( request.POST['ordenacao'] )
             
         for r in p_rural:
-            if TbparcelaGeo.objects.filter( cpf_detent = r.nrcpfrequerente.replace('.','').replace('-','') ) or Tbpecastecnicas.objects.filter( nrcpfrequerente = r.nrcpfrequerente.replace('.','').replace('-','') ):
+            parcelas = TbparcelaGeo.objects.filter( cpf_detent = r.nrcpfrequerente.replace('.','').replace('-','') ) or Tbpecastecnicas.objects.filter( nrcpfrequerente = r.nrcpfrequerente.replace('.','').replace('-','') )
+            if parcelas:
                 p_rural_com_parcela.append( r )
                 
         #GERACAO
@@ -1365,6 +1365,7 @@ def processo_parcela(request):
         sheet.getCell(9, 6).setAlignHorizontal('center').stringValue( 'Qtd. Pendencias' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getCell(10, 6).setAlignHorizontal('center').stringValue( 'Pendentes' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getCell(11, 6).setAlignHorizontal('center').stringValue( 'Notificadas' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(12, 6).setAlignHorizontal('center').stringValue( 'Area (ha)' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
         sheet.getRow(1).setHeight('20pt')
         sheet.getRow(2).setHeight('20pt')
         sheet.getRow(6).setHeight('20pt')
@@ -1381,6 +1382,7 @@ def processo_parcela(request):
         sheet.getColumn(9).setWidth("2in")
         sheet.getColumn(9).setWidth("2in")
         sheet.getColumn(10).setWidth("2in")
+        sheet.getColumn(11).setWidth("2in")
         sheet.getColumn(11).setWidth("2in")
         
         #DADOS DA CONSULTA
@@ -1414,6 +1416,12 @@ def processo_parcela(request):
             for pend in pendencias_notificado:
                 desc_pendencias += pend.tbtipopendencia.dspendencia + ' : ' + pend.dsdescricao + ' | '
             sheet.getCell(11, x+2).setAlignHorizontal('center').stringValue( desc_pendencias )
+            
+            area_total = 0
+            for p in TbparcelaGeo.objects.filter( cpf_detent = obj.nrcpfrequerente.replace('.','').replace('-','') ):
+                area_total += p.area_ha_ut
+            sheet.getCell(12, x+2).setAlignHorizontal('center').stringValue( str(area_total) )
+
             x += 1
             
         #GERACAO DO DOCUMENTO  
@@ -1528,8 +1536,10 @@ def parcela_sem_processo(request):
     if request.method == "POST":
         pecas = []
         #CONSULTA ORDENADA E/OU BASEADA EM FILTROS DE PESQUISA
-        #consulta = Tbpecastecnicas.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
         parcelas = TbparcelaGeo.objects.all()
+        
+        #pesquisar pela base local e sigef
+        #parcelas = TbparcelaGeo.objects.filter( cpf_detent = r.nrcpfrequerente.replace('.','').replace('-','') ) or Tbpecastecnicas.objects.filter( nrcpfrequerente = r.nrcpfrequerente.replace('.','').replace('-','') )
 
         pecas_sem_proc = []
         #pecas = consulta.order_by( request.POST['ordenacao'] )
@@ -1582,3 +1592,67 @@ def parcela_sem_processo(request):
         return response
 
     return render_to_response('sicop/relatorio/peca_sem_processo.html',{}, context_instance = RequestContext(request))
+
+
+@permission_required('sicop.relatorio_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def parcela_processo(request):
+
+    if request.method == "POST":
+        pecas = []
+        #CONSULTA ORDENADA E/OU BASEADA EM FILTROS DE PESQUISA
+        parcelas = TbparcelaGeo.objects.all()
+        
+        #pesquisar pela base local e sigef
+        #parcelas = TbparcelaGeo.objects.filter( cpf_detent = r.nrcpfrequerente.replace('.','').replace('-','') ) or Tbpecastecnicas.objects.filter( nrcpfrequerente = r.nrcpfrequerente.replace('.','').replace('-','') )
+
+        pecas_com_proc = []
+        #pecas = consulta.order_by( request.POST['ordenacao'] )
+            
+        for p in parcelas:
+            if len(Tbprocessorural.objects.filter( nrcpfrequerente = p.cpf_detent )) > 0:
+                pecas_com_proc.append(p)
+  
+        #GERACAO
+        nome_relatorio = "relatorio-parcelas-sem-processo"
+        titulo_relatorio    = "RELATORIO DAS PARCELAS COM PROCESSO(S) P23"
+        planilha_relatorio  = "Parcelas com processo(s) P23"
+        ods = ODS()
+        sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, len(pecas_com_proc), ods)
+        
+        # TITULOS DAS COLUNAS
+        sheet.getCell(0, 6).setAlignHorizontal('center').stringValue( 'Requerente' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(1, 6).setAlignHorizontal('center').stringValue( 'CPF' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(2, 6).setAlignHorizontal('center').stringValue( 'Area' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(3, 6).setAlignHorizontal('center').stringValue( 'Imovel' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(4, 6).setAlignHorizontal('center').stringValue( 'Municipio' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getCell(5, 6).setAlignHorizontal('center').stringValue( 'Gleba' ).setFontSize('14pt').setBold(True).setCellColor("#ccff99")
+        sheet.getRow(1).setHeight('20pt')
+        sheet.getRow(2).setHeight('20pt')
+        sheet.getRow(6).setHeight('20pt')
+        
+        sheet.getColumn(0).setWidth("2.5in")
+        sheet.getColumn(1).setWidth("2in")
+        sheet.getColumn(2).setWidth("2in")
+        sheet.getColumn(3).setWidth("2in")
+        sheet.getColumn(4).setWidth("2in")
+        sheet.getColumn(5).setWidth("2in")
+        
+        #DADOS DA CONSULTA
+        x = 5
+        for obj in pecas_com_proc:
+            sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.nome_deten)
+            sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(obj.cpf_detent)    
+            sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue(obj.area_ha_ut)
+            sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(obj.nome)
+            sheet.getCell(4, x+2).setAlignHorizontal('center').stringValue(obj.municipio)
+            sheet.getCell(5, x+2).setAlignHorizontal('center').stringValue(obj.gleba)
+            x += 1
+            
+        #GERACAO DO DOCUMENTO  
+        relatorio_ods_base(ods, planilha_relatorio)
+        response = HttpResponse(mimetype=ods.mimetype.toString())
+        response['Content-Disposition'] = 'attachment; filename='+nome_relatorio+'.ods'
+        ods.save(response)
+        return response
+
+    return render_to_response('sicop/relatorio/parcela_processo.html',{}, context_instance = RequestContext(request))
