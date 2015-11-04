@@ -1,6 +1,6 @@
 # coding: utf-8
 from TerraLegal.geoinformacao.models import TbparcelaGeo
-from TerraLegal.tramitacao.models import Tbprocessorural, Tbmunicipio
+from TerraLegal.tramitacao.models import Tbprocessorural, Tbprocessoclausula, Tbmunicipio
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 import datetime
@@ -55,6 +55,11 @@ def visualizacao(request, id):
     parcela_obj = get_object_or_404(TbparcelaGeo, gid=id)
         
     processo = Tbprocessorural.objects.filter( nrcpfrequerente = parcela_obj.cpf_detent.replace('.','').replace('-','') )
+    if not processo:
+        processo = Tbprocessoclausula.objects.filter( nrcpfinteressado = parcela_obj.cpf_detent.replace('.','').replace('-','') )
+    if not processo:
+        processo = Tbprocessoclausula.objects.filter( nrcpfrequerente = parcela_obj.cpf_detent.replace('.','').replace('-','') )
+        
     numero_processo = ''
     if processo:
         processo = processo[0] 
