@@ -418,9 +418,9 @@
 									<img width="22" src="{% static "img/desanexar.jpg" %}" />
 								</a>
 							</td>
-							<td class="colunaTabelaConsulta">{{ anexo.dtanexado.day }}/{{ anexo.dtanexado.month }}/{{ anexo.dtanexado.year }}</td>
+							<td class="colunaTabelaConsulta">{{ anexo.dtanexado|date:"d/m/Y" }}</td>
 							<td class="colunaTabelaConsulta" onclick="editarID('/sicop/processo/edicao/{{ anexo.tbprocessobase_id_anexo.id}}');" >{{ anexo.tbprocessobase_id_anexo.nrprocesso }}</td>
-							<td class="colunaTabelaConsulta">{{	anexo.tbprocessobase_id_anexo.auth_user.first_name }}</td>
+							<td class="colunaTabelaConsulta">{{	anexo.auth_user.first_name }}</td>
 						</tr>
 					{% endfor %} 
 				</tbody>
