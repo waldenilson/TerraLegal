@@ -17,7 +17,7 @@ from TerraLegal.tramitacao.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
 from TerraLegal.tramitacao.restrito import processo_rural
 from types import InstanceType
-from TerraLegal.tramitacao.admin import verificar_permissao_grupo, cadastro_automatico_p23
+from TerraLegal.tramitacao.admin import export_to_sqlite_android, verificar_permissao_grupo, cadastro_automatico_p23
 import datetime
 from django.contrib import messages
 from django.utils import simplejson
@@ -733,7 +733,11 @@ def edicao(request, id):
                 response = urllib2.urlopen('https://sigef.incra.gov.br/api/destinacao/parcelas/?cpf='+rural.nrcpfrequerente,timeout=1)
                 retorno = json.loads(response.read())
                 #jsonparcelas = serializers.serialize('json', html)
-                #print 'pagina: '+str(retorno['parcelas'])
+                if not retorno['parcelas']:
+                    print 'nao achou'
+                else:
+                    print 'achou'
+                    
                 x = 0
                 for parcela in retorno['parcelas']:
                     x +=1
@@ -762,7 +766,7 @@ def edicao(request, id):
             if parcelas_geo:
                 nome_imovel = parcelas_geo[0].nome
                 nome_gleba = parcelas_geo[0].gleba
-                nome_municipio = parcelas_geo[0].municipio[0:len(parcelas_geo[0].municipio)-5]
+                nome_municipio = parcelas_geo[0].municipio#:len(parcelas_geo[0].municipio)-5]
                 area_imovel = 0.0
                 for p in parcelas_geo:
                     area_imovel += float(p.area_ha_ut)

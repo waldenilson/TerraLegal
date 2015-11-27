@@ -1447,8 +1447,13 @@ def processo_sem_parcela(request):
         for rr in p_rural:
             if not TbparcelaGeo.objects.filter( cpf_detent = rr.nrcpfrequerente ) and not Tbpecastecnicas.objects.filter( nrcpfrequerente = rr.nrcpfrequerente ):
                 if rr.nrcpfrequerente != '99999999999' and rr.nrcpfrequerente != '00000000000':
-                    p_rural_sem_parcela.append(rr)
-
+                    try:
+                        response = urllib2.urlopen('https://sigef.incra.gov.br/api/destinacao/parcelas/?cpf='+rr.nrcpfrequerente,timeout=1)
+                        retorno = json.loads(response.read())
+                        if not retorno['parcelas']:
+                            p_rural_sem_parcela.append(rr)
+                    except:
+                            p_rural_sem_parcela.append(rr)    
 
         #GERACAO
         nome_relatorio = "relatorio-processos-sem-parcela"
@@ -1536,7 +1541,7 @@ def parcela_sem_processo(request):
     if request.method == "POST":
         pecas = []
         #CONSULTA ORDENADA E/OU BASEADA EM FILTROS DE PESQUISA
-        parcelas = TbparcelaGeo.objects.all()
+        parcelas = TbparcelaGeo.objects.all()#filter(gleba__icontains = 'CIGANA')
         
         #pesquisar pela base local e sigef
         #parcelas = TbparcelaGeo.objects.filter( cpf_detent = r.nrcpfrequerente.replace('.','').replace('-','') ) or Tbpecastecnicas.objects.filter( nrcpfrequerente = r.nrcpfrequerente.replace('.','').replace('-','') )
@@ -1545,7 +1550,7 @@ def parcela_sem_processo(request):
         #pecas = consulta.order_by( request.POST['ordenacao'] )
             
         for p in parcelas:
-            if len(Tbprocessorural.objects.filter( nrcpfrequerente = p.cpf_detent )) == 0 and len(Tbprocessoclausula.objects.filter( nrcpfrequerente = p.cpf_detent )) == 0 and len(Tbprocessoclausula.objects.filter( nrcpfinteressado = p.cpf_detent )) == 0:
+            if len(Tbprocessorural.objects.filter( nrcpfrequerente = p.cpf_detent )) == 0 and len(Tbprocessoclausula.objects.filter( nrcpfrequerente = p.cpf_detent )) == 0 and len(Tbprocessoclausula.objects.filter( nrcpfinteressado = p.cpf_detent )) == 0 and len(Tbprocessoclausula.objects.filter( nrcpfrequerente = p.cpf_detent )) == 0:
                 pecas_sem_proc.append(p)
   
         #GERACAO

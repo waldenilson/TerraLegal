@@ -286,4 +286,3 @@ urlpatterns = patterns('',
     url(r'^sicop/admin/', include(admin.site.urls)),
     
 )
-

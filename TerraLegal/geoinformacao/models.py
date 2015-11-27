@@ -8,8 +8,8 @@
 # into your database.
 from __future__ import unicode_literals
 
-#from django.contrib.gis.db import models
-from django.db import models
+from django.contrib.gis.db import models
+#from django.db import models
 
 class TbparcelaGeo(models.Model):
     gid = models.AutoField(primary_key=True)
@@ -25,7 +25,7 @@ class TbparcelaGeo(models.Model):
     nr_process = models.CharField(max_length=24, blank=True)
     planilha_o = models.CharField(max_length=154, blank=True)
     data_recep = models.DateField(blank=True)
-    data_situacao_processo = models.DateField(blank=True)
+#    data_situacao_processo = models.DateField(blank=True)
     protocolo = models.CharField(max_length=28, blank=True)
     status = models.CharField(max_length=254, blank=True)
     identifica = models.CharField(max_length=54, blank=True)
@@ -39,8 +39,8 @@ class TbparcelaGeo(models.Model):
     migrada = models.CharField(max_length=254, blank=True)
     municipio = models.CharField(max_length=120)
     gleba_situ = models.CharField(max_length=254, blank=True)
-#    geom = models.MultiPolygonField(srid=4326, null=True, blank=True)
-#    objects = models.GeoManager()
+    geom = models.MultiPolygonField(srid=4326, null=True, blank=True)
+    objects = models.GeoManager()
     class Meta:
         db_table = 'tbparcela_geo'
 '''
