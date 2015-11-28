@@ -189,11 +189,8 @@ def importacao(request):
         elif res == '2':
             messages.add_message(request,messages.WARNING,'Arquivo com extensão incorreta.')
         elif res == '1':
-            data = get_data(path)
-            plan = data['cadastro-p80']
-            
-            #header
-            if len(plan[0]) == 10 and plan[0][0].encode('utf-8') == 'Nº DO PROCESSO P23':
+            plan = get_data(path)['cadastro-p80']
+            if verify_header_import_p80(plan):
                 x = 0
                 lista = []
                 for row in plan:
@@ -201,11 +198,30 @@ def importacao(request):
                         if row:
                             lista.append(row)
                     x += 1
-                print 'registros: '+str(len(lista))
+                if lista:
+                    pass
+                else:
+                    messages.add_message(request,messages.WARNING,'Planilha cadastro-p80 vazia.')
             else:
                 messages.add_message(request,messages.WARNING,'Cabeçalho do arquivo incorreto.')
 
     return render_to_response('sicop/processo/clausula/importacao.html',{}, context_instance = RequestContext(request))
+
+def verify_header_import_p80(plan):
+    header = plan[0]
+    if len(header) == 10:
+        if header[0].encode('utf-8') == 'Nº DO PROCESSO P23':
+            if header[1].encode('utf-8') == 'Nº DO PROCESSO P80':
+                if header[2].encode('utf-8') == 'INTERESSADO':
+                    if header[3].encode('utf-8') == 'CPF DO INTERESSADO':
+                        if header[4].encode('utf-8') == 'TITULADO':
+                            if header[5].encode('utf-8') == 'CPF DO TITULADO':
+                                if header[6].encode('utf-8') == 'Nº DO TÍTULO':
+                                    if header[7].encode('utf-8') == 'ÁREA':
+                                        if header[8].encode('utf-8') == 'GLEBA':
+                                            if header[9].encode('utf-8') == 'MUNICÍPIO':
+                                                return True
+    return False
 
 @permission_required('sicop.processo_clausula_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
