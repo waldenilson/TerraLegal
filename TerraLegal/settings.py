@@ -169,6 +169,7 @@ INSTALLED_APPS = (
     'odslib',
     'webodt',
     'lxml',
+    'pyexcel_ods',
     'xhtml2pdf',
     'TerraLegal.livro',
     'TerraLegal.tramitacao',

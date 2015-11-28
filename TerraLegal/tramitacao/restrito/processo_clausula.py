@@ -10,6 +10,10 @@ from TerraLegal.tramitacao.forms import FormProcessoClausula
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect
 import datetime
+from os.path import abspath, join, dirname
+from TerraLegal.core.funcoes import upload_file
+from pyexcel_ods import get_data
+import json
 
 @permission_required('sicop.processo_clausula_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
@@ -176,6 +180,31 @@ def cadastro(request):
 
 @permission_required('sicop.processo_clausula_importacao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def importacao(request):
+    if request.method == 'POST' and request.FILES:
+        nome = 'importacao_p80_'+str(datetime.datetime.now())
+        path = abspath(join(dirname(__file__), '../../../media'))+'/tmp/'+nome+'.ods'
+        res = upload_file(request.FILES['arquivo'],path,request.FILES['arquivo'].name,'ods')
+        if res == '0':
+            messages.add_message(request,messages.ERROR,'Erro no upload. Tente novamente.')
+        elif res == '2':
+            messages.add_message(request,messages.WARNING,'Arquivo com extensão incorreta.')
+        elif res == '1':
+            data = get_data(path)
+            plan = data['cadastro-p80']
+            
+            #header
+            if len(plan[0]) == 10 and plan[0][0].encode('utf-8') == 'Nº DO PROCESSO P23':
+                x = 0
+                lista = []
+                for row in plan:
+                    if x != 0:
+                        if row:
+                            lista.append(row)
+                    x += 1
+                print 'registros: '+str(len(lista))
+            else:
+                messages.add_message(request,messages.WARNING,'Cabeçalho do arquivo incorreto.')
+
     return render_to_response('sicop/processo/clausula/importacao.html',{}, context_instance = RequestContext(request))
 
 @permission_required('sicop.processo_clausula_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
