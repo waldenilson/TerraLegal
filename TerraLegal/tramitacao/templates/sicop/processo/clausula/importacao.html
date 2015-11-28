@@ -1,0 +1,46 @@
+{% extends "core/base/cadastro.html" %} 
+{% load staticfiles %}
+
+{% block breadcumbs %}
+	Acesso Restrito | Processo Clausulas Resolutivas | Importação
+{% endblock %}
+
+{% block subtitulo %}
+	
+	IMPORTAÇÃO DE NOVOS CADASTROS PORTARIA 80
+	
+{% endblock %}
+
+
+{% block formulario %}
+<div id="tabs" style="color:black;width:100%;font-size:11px">
+<ul>
+	<li><a href="#tabs-1">IMPORTAR NOVOS CADASTROS</a></li>
+</ul>
+<div id="tabs-1">		
+		
+	<form method="post" action="." enctype="multipart/form-data">
+		{% csrf_token %}
+		<div style="width:100%;font-size:12px;text-align:left">
+		</div>
+		<br />
+		<table style="width:100%">
+			<tr>
+				<td class="colunaTabela">
+					 PLANILHA (ODS / XLS):
+				</td>
+				<td class="colunaTabela">
+					<input type="file" name="arquivo" required accept=".ods" />
+				</td>
+			</tr>
+			<tr>
+				<td class="colunaTabela" colspan="2" style="text-align:left"> 
+					<input type="submit" class="button_green" value="SALVAR" />
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+</div>
+
+{% endblock %}

@@ -76,6 +76,7 @@ urlpatterns = patterns('',
     url(r'^sicop/processo/clausula/consulta/', 'TerraLegal.tramitacao.restrito.processo_clausula.consulta'),
     url(r'^sicop/processo/clausula/cadastro/', 'TerraLegal.tramitacao.restrito.processo_clausula.cadastro'),
     url(r'^sicop/processo/clausula/edicao/(?P<id>\d+)/', 'TerraLegal.tramitacao.restrito.processo_clausula.edicao'),
+    url(r'^sicop/processo/clausula/importacao/', 'TerraLegal.tramitacao.restrito.processo_clausula.importacao'),
    
     
    # ACESSO RESTRITO SICOP PECA TECNICA 

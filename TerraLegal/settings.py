@@ -6,7 +6,7 @@ DEBUG = config('DEBUG',default=False,cast=bool)
 
 DATABASES = {
         'default': {
-        'ENGINE': config('DEFAULT_ENGINE'), 
+        'ENGINE': config('DEFAULT_ENGINE_GIS'), 
         'NAME': config('DEFAULT_NAME'),                      
         'USER': config('DEFAULT_USER'),
         'PASSWORD': config('DEFAULT_PASSWORD'),

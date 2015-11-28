@@ -12,13 +12,16 @@ from django.http.response import HttpResponseRedirect
 import datetime
 
 @permission_required('sicop.processo_clausula_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def consulta(request):
+    return render_to_response('sicop/processo/clausula/consulta.html',{}, context_instance = RequestContext(request))    
+
+@permission_required('sicop.processo_clausula_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def programacao_p80(request):
     consulta = []
     checks = Tbchecklistprocessobase.objects.filter( tbprocessobase__tbtipoprocesso__id = 2, tbprocessobase__tbclassificacaoprocesso__id = 1, tbprocessobase__tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id, bl_em_programacao = True, tbchecklist__blprogramacao = True ).order_by('tbprocessobase')
     for c in checks:
         consulta.append( Tbprocessoclausula.objects.filter(tbprocessobase__id = c.tbprocessobase.id)[0] )
     return render_to_response('sicop/processo/clausula/programacao_p80.html',{'consulta':consulta}, context_instance = RequestContext(request))    
-
 
 @permission_required('sicop.processo_clausula_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def notificacao(request):
@@ -63,10 +66,6 @@ def analise(request):
                 consulta.append(obj)
 
     return render_to_response('sicop/processo/clausula/analise.html',{'consulta':consulta,'etapas':etapas}, context_instance = RequestContext(request))    
-
-@permission_required('sicop.processo_clausula_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
-def consulta(request):
-    return render_to_response('sicop/processo/clausula/consulta.html',{}, context_instance = RequestContext(request))    
     
 @permission_required('sicop.processo_clausula_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
@@ -174,6 +173,10 @@ def cadastro(request):
     return render_to_response('sicop/processo/cadastro.html',
         {'tipoprocesso':tipoprocesso,'etapaprocesso':etapaprocesso,'processo':escolha, 'gleba':gleba,'caixa':caixa,'municipio':municipio,'div_processo':div_processo},
          context_instance = RequestContext(request))     
+
+@permission_required('sicop.processo_clausula_importacao', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def importacao(request):
+    return render_to_response('sicop/processo/clausula/importacao.html',{}, context_instance = RequestContext(request))
 
 @permission_required('sicop.processo_clausula_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
