@@ -199,7 +199,59 @@ def importacao(request):
                             lista.append(row)
                     x += 1
                 if lista:
-                    pass
+                    processo_p23 = plan[0]
+                    processo_p80 = plan[1]
+                    interessado = plan[2]
+                    cpf_interessado = plan[3]
+                    titulado = plan[4]
+                    cpf_titulado = plan[5]
+                    titulo = plan[6]
+                    area = plan[7]
+                    gleba = plan[8]
+                    municipio = plan[9]
+
+                    #selecionar uma caixa na importacao
+                    #verificar se campos nao estao vazios
+                    #verificar se processo p80 ja existe
+
+                    f_base = Tbprocessobase (
+                        nrprocesso = processo_p80.replace('.','').replace('/','').replace('-',''),
+                        tbgleba = Tbgleba.objects.filter( nmgleba__icontains = gleba )[0],
+                        tbmunicipio = Tbmunicipio.objects.filter( nome_mun__icontains = municipio )[0],
+                        tbcaixa = Tbcaixa.objects.filter( nmlocalarquivo__icontains = 'PDCA CICLO 2015.4 CADASTRO P80' )[0],
+                        tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessoclausula' ),
+                        dtcadastrosistema = datetime.datetime.now(),
+                        auth_user = AuthUser.objects.get( pk = request.user.id ),
+                        tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 ),
+                        tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao,
+                        nmendereco = '',
+                        nmcontato = '', 
+                        tbmunicipiodomicilio = None                                   
+                    )
+                    f_base.save()
+
+                    f_clausula = Tbprocessoclausula (
+                        nmrequerente = titulado,
+                        nrcpfrequerente = cpf_titulado.replace('.','').replace('-',''),
+                        nmtitulo = titulo,
+                        tptitulo = '',
+                        nmimovel = '',
+                        nmloteimovel = '',
+                        nminteressado = interessado,
+                        nrcpfinteressado = cpf_interessado.replace('.','').replace('-',''),
+                        tbprocessobase = f_base,
+                        nrarea = area.replace(',','.'),
+                        stprocuracao = False,
+                        dsobs = processo_p23,
+                        dsprioridade = '',
+                        stcertquitacao = False,
+                        stcertliberacao = False,
+                        blgeoimovel = False,
+                        dttitulacao = None,
+                        dtrequerimento = None,
+                        dtnascimento = None
+                    )
+                    f_clausula.save()
                 else:
                     messages.add_message(request,messages.WARNING,'Planilha cadastro-p80 vazia.')
             else:
