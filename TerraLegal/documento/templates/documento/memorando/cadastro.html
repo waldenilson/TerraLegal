@@ -5,6 +5,10 @@
 	Acesso Restrito | Documento | Memorando | Cadastro
 {% endblock %}
 
+{% block customhead %}
+	<script src="{% static "ckeditor/ckeditor.js" %}"></script>
+{% endblock %}
+
 {% block formulario %}
 <div id="tabs" style="color:black;width:100%;font-size:11px">
 <ul>
@@ -52,6 +56,9 @@
 				   		<td class="colunaTabela"> <label>Mensagem:</label> </td>
 				   		<td> 
 				   			<textarea id="mensagem" rows="6" cols="40" required name="mensagem"></textarea>
+				   			<script>
+				                CKEDITOR.replace( 'mensagem' );
+				            </script>
 				   		</td> 
 				   </tr>
 				</table>

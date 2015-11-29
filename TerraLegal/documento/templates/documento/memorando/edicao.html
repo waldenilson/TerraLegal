@@ -1,7 +1,12 @@
 {% extends "core/base/cadastro.html" %} 
 {% load staticfiles %} 
+
 {% block breadcumbs %}
 	Acesso Restrito | Documento | Memorando | Edicao
+{% endblock %}
+
+{% block customhead %}
+	<script src="{% static "ckeditor/ckeditor.js" %}"></script>
 {% endblock %}
 
 {% block formulario %}
@@ -51,6 +56,10 @@
 				   		<td class="colunaTabela"> <label>Mensagem:</label> </td>
 				   		<td> 
 				   			<textarea id="mensagem" rows="6" cols="40" required name="mensagem">{{memorando.mensagem}}</textarea>
+				   			<script>
+				                CKEDITOR.replace( 'mensagem' );
+				            </script>
+
 				   		</td> 
 				   </tr>
 				</table>
