@@ -48,14 +48,24 @@ def cadastro(request):
             signatario = request.POST['signatario'].upper(),
             cargo_signatario = request.POST['cargo_signatario'].title(),
             data_cadastro = datetime.datetime.now()
-        )
-        
+        )        
         dt = request.POST['data_documento'].split('/')
         f_obj.data_documento = datetime.datetime(day=int(dt[0]),month=int(dt[1]),year=int(dt[2]))
-
         f_obj.save()
+        
         dados = {
-            'brasao':abspath(join(dirname(__file__), '../../../staticfiles'))+'/img/slide_1.jpg'        
+            'brasao':abspath(join(dirname(__file__), '../../staticfiles'))+'/img/slide_1.jpg',
+            'numero':f_obj.numero,
+            'assunto':f_obj.assunto,
+            'mensagem':f_obj.mensagem,
+            'remetente':f_obj.remetente,
+            'destinatario':f_obj.destinatario,
+            'localidade':f_obj.localidade,
+            'dia':dt[0],
+            'mes':mes_do_ano_texto(int(dt[1])),
+            'ano':dt[2],
+            'signatario':f_obj.signatario,
+            'cargo_signatario':f_obj.cargo_signatario        
         }
         return gerar_pdf(request,'/documento/memorando/memorando.html',dados, settings.MEDIA_ROOT+'/tmp','memorando.pdf')
 
