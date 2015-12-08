@@ -9,9 +9,12 @@ from TerraLegal.core.funcoes import upload_file
 from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 from os.path import abspath, join, dirname
 from django.contrib import messages
-from TerraLegal.geoinformacao.models import TbparcelaGeo
 from TerraLegal.tramitacao.models import Tbmunicipio
 from TerraLegal.core.funcoes import reader_csv
+
+from TerraLegal.geoinformacao.models import TbparcelaGeo, Indigena
+from django.contrib.gis.gdal import DataSource
+from django.contrib.gis.utils import LayerMapping
 
 #from django.contrib.gis.geos import GEOSGeometry, MultiPolygon, Polygon, LinearRing
 
@@ -46,7 +49,7 @@ def importar_vw_parcelas(request):
 							cpf_detent = line[4],
 							nr_process = line[5],
 							planilha_o = line[6],
-#							data_recep = line[7],
+							data_recep = line[7],
 							protocolo = line[8],
 							status = line[9],
 							fronteira = line[10],
@@ -57,15 +60,15 @@ def importar_vw_parcelas(request):
 							fiscal = line[15],
 							email = line[16],
 							area_ha_ut = line[17],
-#							geom = MultiPolygon(Polygon('01030000A0421200000100000009000000D540F7FACE4C49C02FFD25388F2414C0C3F5285C8F8A654020E2A60E9C4C49C0D71084950B2914C0AE47E17A1436654056663F539F4C49C050BB1B7A1E2914C0E17A14AE47096540E169BECFFA4C49C00A69594D9D2914C0713D0AD7A3E8664063447011644D49C091AFAEBB112A14C09A9999999929664064909CDDB14D49C06A06BD2A632A14C0D7A3703D0AC76440B59499EB004E49C0921119B0AB2A14C052B81E85EB4964406C01F2D2C54D49C08BC9EFD4F92514C07B14AE47E1AA6440D540F7FACE4C49C02FFD25388F2414C0C3F5285C8F8A6540')),
+							geom = MultiPolygon(Polygon('01030000A0421200000100000009000000D540F7FACE4C49C02FFD25388F2414C0C3F5285C8F8A654020E2A60E9C4C49C0D71084950B2914C0AE47E17A1436654056663F539F4C49C050BB1B7A1E2914C0E17A14AE47096540E169BECFFA4C49C00A69594D9D2914C0713D0AD7A3E8664063447011644D49C091AFAEBB112A14C09A9999999929664064909CDDB14D49C06A06BD2A632A14C0D7A3703D0AC76440B59499EB004E49C0921119B0AB2A14C052B81E85EB4964406C01F2D2C54D49C08BC9EFD4F92514C07B14AE47E1AA6440D540F7FACE4C49C02FFD25388F2414C0C3F5285C8F8A6540')),
 							situacao_p = line[19],
 							natureza = line[20],
 							migrada = line[21],
-#							municipio = line[22],
+							municipio = line[22],
 							uf_id = line[23],
 							gleba_situ = line[24],
 							regional = line[25],
-#							data_situacao_processo = line[26]
+							data_situacao_processo = line[26]
 						)
 
 					#VERIFICACAO DOS CAMPOS DE DATA
@@ -92,3 +95,41 @@ def importar_vw_parcelas(request):
 					
 			print 'total cadastros: '+str(x)
 	return render_to_response('importacao.html',{}, context_instance = RequestContext(request))
+
+@permission_required('sicop.tipo_processo_edicao', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def read_shp(request):
+
+    ds = DataSource('/opt/terra_indigena/tis_sirgas2000.shp')
+    print ds[0].fields
+    
+    print ds[0][0][0]
+    print ds[0][0].get('superficie')
+    print ds[0][0].geom
+    
+    mapping = {'nome':'terrai_nom','geom':'POLYGON'}
+    lm = LayerMapping(Indigena, '/opt/terra_indigena/tis_sirgas2000.shp', mapping)
+    lm.save(verbose=True)
+
+    parcelas = Indigena.objects.filter(nome__icontains='k')
+    #print len(parcelas)
+
+    return render_to_response('terra_indigena.html',{"geo":parcelas}, context_instance = RequestContext(request))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

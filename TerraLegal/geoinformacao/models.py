@@ -11,6 +11,15 @@ from __future__ import unicode_literals
 from django.contrib.gis.db import models
 #from django.db import models
 
+class Indigena(models.Model):
+    id = models.AutoField(primary_key=True)
+    nome = models.CharField(max_length=80)
+    geom = models.PolygonField(srid=4326, null=True, blank=True)
+    objects = models.GeoManager()
+    class Meta:
+        db_table = 'indigena'
+
+
 class TbparcelaGeo(models.Model):
     gid = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=254, blank=True)
