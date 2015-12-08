@@ -36,11 +36,13 @@ from datetime import timedelta
 import csv
 import sqlite3
 import urllib2
+from os.path import abspath, join, dirname
 from django.core import serializers
 import json
 from TerraLegal.livro.models import Tbtituloprocesso
 from TerraLegal.documento.models import Sobreposicao
-from TerraLegal.core.funcoes import emitir_documento
+from TerraLegal.core.funcoes import emitir_documento, upload_file
+from pyexcel_ods import get_data
 
 nome_relatorio      = "relatorio_processo"
 response_consulta  = "/sicop/processo/consulta/"
@@ -880,7 +882,436 @@ def cadastro(request):
     return render_to_response('sicop/processo/cadastro.html',{'gleba':gleba,'caixa':caixa,'municipio':municipio,'municipiodomicilio':Tbmunicipio.objects.all(),
             'tipoprocesso':tipoprocesso,'processo':escolha,'div_processo':div_processo,'etapaprocesso':etapaprocesso}, context_instance = RequestContext(request))
 
+@permission_required('sicop.processo_importacao', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def importacao(request):
+    cadastrados = []
+    if request.method == 'POST' and request.FILES:
+        nome = 'importacao_p23_p80_'+str(datetime.datetime.now())
+        path = abspath(join(dirname(__file__), '../../../media'))+'/tmp/'+nome+'.ods'
+        res = upload_file(request.FILES['arquivo'],path,request.FILES['arquivo'].name,'ods')
+        if res == '0':
+            messages.add_message(request,messages.ERROR,'Erro no upload. Tente novamente.')
+        elif res == '2':
+            messages.add_message(request,messages.WARNING,'Arquivo com extensão incorreta.')
+        elif res == '1':
+            #INICIA LEITURA DO ARQUIVO
+            #VERIFICA NOME DAS PLANILHAS
+            try:
+                plan_p23 = get_data(path)['P23']
+                plan_p80 = get_data(path)['P80']
+            except:
+                messages.add_message(request,messages.WARNING,'Nome da(s) planilha(s) incorreto.')
+                return render_to_response('sicop/processo/importacao.html',{}, context_instance = RequestContext(request))
+            #VERIFICA CABECALHO DAS PLANILHAS
+            if verify_header_import_p80_ods(plan_p80) and verify_header_import_p23_ods(plan_p23):
+                x = 0
+                registro = dict()
+                lista = []
+                
+                #CRIANDO A LISTA DA PLANILHA P23 E P80
+                lista_p23 = list_plan(plan_p23)
+                lista_p80 = list_plan(plan_p80)
 
+                #ITERANDO REGISTROS P23
+                if lista_23:
+                    identificador = 2
+                    for obj in lista_p23:
+                        #CRIANDO DICIONARIO DO OBJETO P23
+                        registro['processo'] = obj[0]
+                        registro['requerente'] = obj[1]
+                        registro['cpf_requerente'] = str(obj[2])[0:len(str(obj[2]))-2]
+                        registro['conjuge'] = obj[3]
+                        registro['cpf_conjuge'] = str(obj[4])[0:len(str(obj[4]))-2]
+                        registro['gleba'] = obj[5]
+                        registro['municipio'] = str(obj[6]).encode('utf-8')
+                        registro['obs'] = obj[7]
+                        
+                        #verificar qual o tipo de cadastro a efetuar
+                        nprocesso = ''
+                        tipoprocesso = ''
+                        if len(registro['processo_p23']) > 3:
+                            tipoprocesso = 'p23'
+                            nprocesso = registro['processo_p23']
+                        elif len(registro['processo_p80']) > 3:
+                            tipoprocesso = 'p80'
+                            nprocesso = registro['processo_p80']
+                        else:
+                            result = dict()
+                            result['id'] = str(identificador)
+                            result['plan'] = request.POST['planilha']
+                            result['message'] = 'Faltou preencher numero do processo. (17 caracteres).'
+                            result['status'] = 'error'
+                            cadastrados.append(result)
+                            identificador += 1
+                            continue
+
+                        #verificar se numero processo tem 17 caracteres
+                        nprocesso = nprocesso.replace('.','').replace('-','').replace('/','')
+                        if len(nprocesso) != 17:
+                            result = dict()
+                            result['id'] = str(identificador)
+                            result['plan'] = request.POST['planilha']
+                            result['message'] = 'Numero do processo incorreto. Verifique o formato padrao de 17 caracteres.'
+                            result['status'] = 'error'
+                            cadastrados.append(result)
+                            identificador += 1
+                            continue
+                        
+                        #verificar se processo realmente nao foi cadastrado
+                        if not Tbprocessobase.objects.filter(nrprocesso = nprocesso.replace('.','').replace('-','').replace('/','')):
+                            if tipoprocesso == 'p23':
+                                print 'p23'
+                                #campos necessarios:
+                                #nrprocesso,nome,cpf,gleba,municipio,caixa
+                                try:
+                                    f_base = Tbprocessobase (
+                                            nrprocesso = nprocesso.replace('.','').replace('/','').replace('-',''),
+                                            tbgleba = Tbgleba.objects.filter( nmgleba__icontains = registro['gleba'] )[0],
+                                            tbmunicipio = Tbmunicipio.objects.filter( nome_mun__icontains = registro['municipio'] )[0],
+                                            tbcaixa = Tbcaixa.objects.get( pk = request.POST['caixa'] ),
+                                            tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessorural' ),
+                                            dtcadastrosistema = datetime.datetime.now(),
+                                            auth_user = AuthUser.objects.get( pk = request.POST['usuario'] ),
+                                            tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 ),
+                                            tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao,
+                                            nmendereco = registro['obs'],
+                                            nmcontato = '', 
+                                            tbmunicipiodomicilio = None                                   
+                                    )
+                                    f_base.save()
+                                    f_p23 = Tbprocessorural (
+                                            nmrequerente = registro['interessado'],
+                                            nrcpfrequerente = registro['cpf_interessado'].replace('.','').replace('-',''),
+                                            tbprocessobase = f_base
+                                    )
+                                    f_p23.save()
+                                    result = dict()
+                                    result['id'] = str(identificador)
+                                    result['plan'] = request.POST['planilha']
+                                    result['message'] = 'P23 cadastrado.'
+                                    result['status'] = 'info'
+                                    cadastrados.append(result)
+                                except:
+                                    result = dict()
+                                    result['id'] = str(identificador)
+                                    result['plan'] = request.POST['planilha']
+                                    result['message'] = 'Registro nao cadastrado. Verifique os dados no *.ods.'
+                                    result['status'] = 'error'
+                                    cadastrados.append(result)
+
+                            elif tipoprocesso == 'p80':
+                                print 'p80'
+                                try:
+                                    f_base = Tbprocessobase (
+                                            nrprocesso = nprocesso.replace('.','').replace('/','').replace('-',''),
+                                            tbgleba = Tbgleba.objects.filter( nmgleba__icontains = registro['gleba'] )[0],
+                                            tbmunicipio = Tbmunicipio.objects.filter( nome_mun__icontains = registro['municipio'] )[0],
+                                            tbcaixa = Tbcaixa.objects.get( pk = request.POST['caixa'] ),
+                                            tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessoclausula' ),
+                                            dtcadastrosistema = datetime.datetime.now(),
+                                            auth_user = AuthUser.objects.get( pk = request.POST['usuario'] ),
+                                            tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 ),
+                                            tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao,
+                                            nmendereco = '',
+                                            nmcontato = '', 
+                                            tbmunicipiodomicilio = None                                   
+                                        )
+                                    f_base.save()
+                                    f_clausula = Tbprocessoclausula (
+                                        nmrequerente = registro['titulado'],
+                                        nrcpfrequerente = registro['cpf_titulado'].replace('.','').replace('-',''),
+                                        nmtitulo = registro['titulo'],
+                                        tptitulo = '',
+                                        nmimovel = '',
+                                        nmloteimovel = '',
+                                        nminteressado = registro['interessado'],
+                                        nrcpfinteressado = registro['cpf_interessado'].replace('.','').replace('-',''),
+                                        tbprocessobase = f_base,
+                                        nrarea = registro['area'].replace(',','.'),
+                                        stprocuracao = False,
+                                        dsobs = registro['obs'],
+                                        dsprioridade = '',
+                                        stcertquitacao = False,
+                                        stcertliberacao = False,
+                                        blgeoimovel = False,
+                                        dttitulacao = None,
+                                        dtrequerimento = None,
+                                        dtnascimento = None
+                                    )
+                                    f_clausula.save()
+                                    result = dict()
+                                    result['id'] = str(identificador)
+                                    result['plan'] = request.POST['planilha']
+                                    result['message'] = 'P80 cadastrado.'
+                                    result['status'] = 'info'
+                                    cadastrados.append(result)
+                                except:
+                                    result = dict()
+                                    result['id'] = str(identificador)
+                                    result['plan'] = request.POST['planilha']
+                                    result['message'] = 'Registro nao cadastrado. Verifique os dados no *.ods.'
+                                    result['status'] = 'error'
+                                    cadastrados.append(result)
+                        else:
+                            print 'ja cadastrado'
+                            #nrprocesso ja cadastrado no sistema
+                            result = dict()
+                            result['id'] = str(identificador)
+                            result['plan'] = request.POST['planilha']
+                            result['message'] = 'Nr. do processo ja existe no sistema.'
+                            result['status'] = 'warning'
+                            cadastrados.append(result)
+
+                        identificador += 1
+                    messages.add_message(request,messages.INFO,'Planilha cadastrada. Observe abaixo o extrato do processamento.')
+                else:        
+                    messages.add_message(request,messages.INFO,'Planilha vazia.')
+                        
+            else:
+                messages.add_message(request,messages.WARNING,'Cabeçalho do arquivo incorreto.')
+
+    #print 'cadastrados: '+str(cadastrados)
+
+    return render_to_response('sicop/processo/importacao.html',
+        {
+            'resultado':cadastrados,
+            'usuarios':AuthUser.objects.filter(is_active = True),
+            'caixas':Tbcaixa.objects.filter(tbtipocaixa__nmtipocaixa__icontains = 'FT', nmlocalarquivo__icontains='CICLO')
+            }, context_instance = RequestContext(request))
+
+
+@permission_required('sicop.processo_importacao', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def importacao_ods(request):
+    registros = []
+    if request.method == 'POST' and request.FILES:
+        nome = 'importacao_p23_p80_'+str(datetime.datetime.now())
+        path = abspath(join(dirname(__file__), '../../../media'))+'/tmp/'+nome+'.ods'
+        res = upload_file(request.FILES['arquivo'],path,request.FILES['arquivo'].name,'ods')
+        if res == '0':
+            messages.add_message(request,messages.ERROR,'Erro no upload. Tente novamente.')
+        elif res == '2':
+            messages.add_message(request,messages.WARNING,'Arquivo com extensão incorreta.')
+        elif res == '1':
+            #INICIA LEITURA DO ARQUIVO
+            #VERIFICA NOME DAS PLANILHAS
+            try:
+                plan_p23 = get_data(path)['P23']
+                plan_p80 = get_data(path)['P80']
+            except:
+                messages.add_message(request,messages.WARNING,'Nome da(s) planilha(s) incorreto.')
+                return render_to_response('sicop/processo/importacao.html',
+                    {
+                        'resultado':registros,
+                        'usuarios':AuthUser.objects.filter(is_active = True),
+                        'caixas':Tbcaixa.objects.filter(tbtipocaixa__nmtipocaixa__icontains = 'FT', nmlocalarquivo__icontains='CICLO')
+                        }, context_instance = RequestContext(request))
+            #VERIFICA CABECALHO DAS PLANILHAS
+            if verify_header_import_p80_ods(plan_p80) and verify_header_import_p23_ods(plan_p23):
+                x = 0
+                registro = dict()
+                lista = []
+                
+                #CRIANDO A LISTA DA PLANILHA P23 E P80
+                lista_p23 = list_plan(plan_p23)
+                lista_p80 = list_plan(plan_p80)
+
+                #VERIFICA SE ARQUIVO ESTA VAZIO
+                if not lista_p23 and not lista_p80:
+                    messages.add_message(request,messages.INFO,'Planilha vazia.')
+                    return render_to_response('sicop/processo/importacao.html',
+                        {
+                            'resultado':registros,
+                            'usuarios':AuthUser.objects.filter(is_active = True),
+                            'caixas':Tbcaixa.objects.filter(tbtipocaixa__nmtipocaixa__icontains = 'FT', nmlocalarquivo__icontains='CICLO')
+                            }, context_instance = RequestContext(request))
+
+                #ITERANDO REGISTROS P23
+                if lista_23:
+                    identificador = 2
+                    for obj in lista_p23:
+                        #CRIANDO DICIONARIO DO OBJETO P23
+                        registro['processo'] = obj[0]
+                        registro['requerente'] = obj[1]
+                        registro['cpf_requerente'] = str(obj[2])[0:len(str(obj[2]))-2]
+                        registro['conjuge'] = obj[3]
+                        registro['cpf_conjuge'] = str(obj[4])[0:len(str(obj[4]))-2]
+                        registro['gleba'] = obj[5]
+                        registro['municipio'] = str(obj[6]).encode('utf-8')
+                        registro['obs'] = obj[7]                        
+                        #VERIFICA SE NR DO PROCESSO TEM 17 CARACTERES
+                        if len(registro['processo'].replace('.','').replace('-','').replace('/','')) != 17:
+                            registros.append( obj_dict(str(identificador),'P23','Numero do processo incorreto. Verifique o formato padrao de 17 caracteres.','error') )
+                            identificador += 1
+                            continue
+                        #VERIFICA SE NR DO PROCESSO JA FOI CADASTRADO
+                        if not Tbprocessobase.objects.filter(nrprocesso = registro['processo'].replace('.','').replace('-','').replace('/','')):
+                            #VERIFICA SE CAMPOS OBRIGATORIOS ESTAO TODOS PREENCHIDOS. NOME, CPF
+                            if len(registro['requerente']) > 0 and len(registro['cpf_requerente']) > 0):
+                                try:
+                                    f_base = Tbprocessobase (
+                                            nrprocesso = registro['processo'].replace('.','').replace('/','').replace('-',''),
+                                            tbgleba = Tbgleba.objects.filter( nmgleba__icontains = registro['gleba'] )[0],
+                                            tbmunicipio = Tbmunicipio.objects.filter( nome_mun__icontains = registro['municipio'] )[0],
+                                            tbcaixa = Tbcaixa.objects.get( pk = request.POST['caixa'] ),
+                                            tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessorural' ),
+                                            dtcadastrosistema = datetime.datetime.now(),
+                                            auth_user = AuthUser.objects.get( pk = request.POST['usuario'] ),
+                                            tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 ),
+                                            tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao,
+                                            nmendereco = registro['obs'],
+                                            nmcontato = '', 
+                                            tbmunicipiodomicilio = None                                   
+                                    )
+                                    f_base.save()
+                                    f_p23 = Tbprocessorural (
+                                            nmrequerente = registro['requerente'],
+                                            nrcpfrequerente = registro['cpf_requerente'].replace('.','').replace('-',''),
+                                            nmconjuge = registro['conjuge'],
+                                            nrcpfconjuge = registro['cpf_conjuge'].replace('.','').replace('-',''),
+                                            tbprocessobase = f_base
+                                    )
+                                    f_p23.save()
+                                    registros.append( obj_dict(str(identificador),'P23','p23 cadastrado.','info') )
+                                except:
+                                    registros.append( obj_dict(str(identificador),'P23','Registro nao cadastrado. Verifique os dados no *.ods.','error') )
+                            else:
+                                registros.append( obj_dict(str(identificador),'P23','Campos obrigatorios nao preenchidos. Verifique os dados no *.ods.','error') )
+                        else:
+                            #NR DO PROCESSO JA CADASTRADO NO SISTEMA
+                            registros.append( obj_dict(str(identificador),'P23','Nr. do processo ja existe no sistema.','warning') )
+                        identificador += 1
+                    messages.add_message(request,messages.INFO,'Planilha cadastrada. Observe abaixo o extrato do processamento.')
+                    
+                #ITERANDO REGISTROS P80
+                if lista_80:
+                    identificador = 2
+                    for obj in lista_p80:
+                        #CRIANDO DICIONARIO DO OBJETO P80
+                        registro['tipo'] = obj[0]
+                        registro['processo'] = obj[1]
+                        registro['interessado'] = obj[2]
+                        registro['cpf_interessado'] = str(obj[3])[0:len(str(obj[3]))-2]
+                        registro['titulado'] = obj[4]
+                        registro['cpf_titulado'] = str(obj[5])[0:len(str(obj[5]))-2]
+                        registro['titulo'] = obj[6]
+                        registro['area'] = obj[7]
+                        registro['gleba'] = obj[8]
+                        registro['municipio'] = str(obj[9]).encode('utf-8')
+                        registro['obs'] = obj[10]                        
+                        #VERIFICA SE NR DO PROCESSO TEM 17 CARACTERES
+                        if len(registro['processo'].replace('.','').replace('-','').replace('/','')) != 17:
+                            registros.append( obj_dict(str(identificador),'P80','Numero do processo incorreto. Verifique o formato padrao de 17 caracteres.','error') )
+                            identificador += 1
+                            continue
+                        #VERIFICA SE NR DO PROCESSO JA FOI CADASTRADO
+                        if not Tbprocessobase.objects.filter(nrprocesso = registro['processo'].replace('.','').replace('-','').replace('/','')):
+                            #VERIFICA SE CAMPOS OBRIGATORIOS ESTAO TODOS PREENCHIDOS. NOME, CPF
+                            if len(registro['interessado']) > 0 and len(registro['cpf_interessado']) > 0):
+                                try:
+                                    f_base = Tbprocessobase (
+                                            nrprocesso = registro['processo'].replace('.','').replace('/','').replace('-',''),
+                                            tbgleba = Tbgleba.objects.filter( nmgleba__icontains = registro['gleba'] )[0],
+                                            tbmunicipio = Tbmunicipio.objects.filter( nome_mun__icontains = registro['municipio'] )[0],
+                                            tbcaixa = Tbcaixa.objects.get( pk = request.POST['caixa'] ),
+                                            tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessoclausula' ),
+                                            dtcadastrosistema = datetime.datetime.now(),
+                                            auth_user = AuthUser.objects.get( pk = request.POST['usuario'] ),
+                                            tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 ),
+                                            tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao,
+                                            nmendereco = '',
+                                            nmcontato = '', 
+                                            tbmunicipiodomicilio = None                                   
+                                    )
+                                    f_base.save()
+                                    f_clausula = Tbprocessoclausula (
+                                        nmrequerente = registro['titulado'],
+                                        nrcpfrequerente = registro['cpf_titulado'].replace('.','').replace('-',''),
+                                        nmtitulo = registro['titulo'],
+                                        tptitulo = '',
+                                        nmimovel = '',
+                                        nmloteimovel = '',
+                                        nminteressado = registro['interessado'],
+                                        nrcpfinteressado = registro['cpf_interessado'].replace('.','').replace('-',''),
+                                        tbprocessobase = f_base,
+                                        nrarea = registro['area'].replace(',','.'),
+                                        stprocuracao = False,
+                                        dsobs = registro['tipo']+'. '+registro['obs'],
+                                        dsprioridade = '',
+                                        stcertquitacao = False,
+                                        stcertliberacao = False,
+                                        blgeoimovel = False,
+                                        dttitulacao = None,
+                                        dtrequerimento = None,
+                                        dtnascimento = None
+                                    )
+                                    f_clausula.save()
+                                    registros.append( obj_dict(str(identificador),'P80','p80 cadastrado.','info') )
+                                except:
+                                    registros.append( obj_dict(str(identificador),'P80','Registro nao cadastrado. Verifique os dados no *.ods.','error') )
+                            else:
+                                registros.append( obj_dict(str(identificador),'P80','Campos obrigatorios nao preenchidos. Verifique os dados no *.ods.','error') )
+                        else:
+                            #NR DO PROCESSO JA CADASTRADO NO SISTEMA
+                            registros.append( obj_dict(str(identificador),'P80','Nr. do processo ja existe no sistema.','warning') )
+                        identificador += 1
+                    messages.add_message(request,messages.INFO,'Planilha cadastrada. Observe abaixo o extrato do processamento.')
+            else:
+                messages.add_message(request,messages.WARNING,'Cabeçalho do arquivo incorreto.')
+
+    return render_to_response('sicop/processo/importacao.html',
+        {
+            'resultado':registros,
+            'usuarios':AuthUser.objects.filter(is_active = True),
+            'caixas':Tbcaixa.objects.filter(tbtipocaixa__nmtipocaixa__icontains = 'FT', nmlocalarquivo__icontains='CICLO')
+            }, context_instance = RequestContext(request))
+
+def list_plan(plan):
+    lista = []
+    for row in plan:
+        if x != 0:
+            if row:
+                lista.append(row)
+        x += 1
+    return lista
+                
+def verify_header_import_p80_ods(plan):
+    header = plan[0]
+    if len(header) == 11:
+        if header[0].encode('utf-8') == 'TIPO PROCESSO P80':
+            if header[1].encode('utf-8') == 'Nº DO PROCESSO':
+                if header[2].encode('utf-8') == 'INTERESSADO':
+                    if header[3].encode('utf-8') == 'CPF DO INTERESSADO':
+                        if header[4].encode('utf-8') == 'TITULADO':
+                            if header[5].encode('utf-8') == 'CPF DO TITULADO':
+                                if header[6].encode('utf-8') == 'Nº DO TÍTULO':
+                                    if header[7].encode('utf-8') == 'ÁREA':
+                                        if header[8].encode('utf-8') == 'GLEBA':
+                                            if header[9].encode('utf-8') == 'MUNICÍPIO':
+                                                if header[10].encode('utf-8') == 'OBSERVAÇÕES':
+                                                    return True
+    return False
+
+def verify_header_import_p23_ods(plan):
+    header = plan[0]
+    if len(header) == 11:
+        if header[0].encode('utf-8') == 'Nº DO PROCESSO':
+            if header[1].encode('utf-8') == 'REQUERENTE':
+                if header[2].encode('utf-8') == 'CPF DO REQUERENTE':
+                    if header[3].encode('utf-8') == 'CÔNJUGE':
+                        if header[4].encode('utf-8') == 'CPF DO CÔNJUGE':
+                            if header[5].encode('utf-8') == 'GLEBA':
+                                if header[6].encode('utf-8') == 'MUNICÍPIO':
+                                    if header[7].encode('utf-8') == 'OBSERVAÇÕES':
+                                        return True
+    return False
+
+def obj_dict(ident, plan, message, status):
+    result = dict()
+    result['id'] = ident
+    result['plan'] = plan
+    result['message'] = message
+    result['status'] = status
+    return result
 
 #metodos da tramitacao em lote
 

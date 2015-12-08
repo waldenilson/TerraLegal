@@ -59,6 +59,9 @@ urlpatterns = patterns('',
    
     # ACESSO RESTRITO SICOP PENDENCIA
     url(r'^sicop/pendencia/edicao/(?P<pendencia>\d+)/', 'TerraLegal.tramitacao.restrito.pendencia.edicao'),
+
+    # IMPORTACAO DE PROCESSOS ATRAVES DE PLANILHA ODS
+    url(r'^sicop/processo/importacao/', 'TerraLegal.tramitacao.restrito.processo.importacao'),
     
     # PROCESSO RURAL
     url(r'^sicop/processo/rural/consulta/', 'TerraLegal.tramitacao.restrito.processo_rural.consulta'),
@@ -75,9 +78,7 @@ urlpatterns = patterns('',
     url(r'^sicop/processo/clausula/notificacao/', 'TerraLegal.tramitacao.restrito.processo_clausula.notificacao'),
     url(r'^sicop/processo/clausula/consulta/', 'TerraLegal.tramitacao.restrito.processo_clausula.consulta'),
     url(r'^sicop/processo/clausula/cadastro/', 'TerraLegal.tramitacao.restrito.processo_clausula.cadastro'),
-    url(r'^sicop/processo/clausula/edicao/(?P<id>\d+)/', 'TerraLegal.tramitacao.restrito.processo_clausula.edicao'),
-    url(r'^sicop/processo/clausula/importacao/', 'TerraLegal.tramitacao.restrito.processo_clausula.importacao'),
-   
+    url(r'^sicop/processo/clausula/edicao/(?P<id>\d+)/', 'TerraLegal.tramitacao.restrito.processo_clausula.edicao'),   
     
    # ACESSO RESTRITO SICOP PECA TECNICA 
     url(r'^sicop/peca_tecnica/consulta/', 'TerraLegal.tramitacao.restrito.peca_tecnica.consulta'),
