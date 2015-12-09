@@ -50,3 +50,16 @@ class Sobreposicao(models.Model):
     data_atualizacao = models.DateTimeField(null=True, blank=True)
     class Meta:
         db_table = '"documento"."sobreposicao"'
+
+class DespachoAprovacaoRegional(models.Model):
+    id = models.AutoField(primary_key=True)
+    tbprocessobase = models.ForeignKey(Tbprocessobase)
+    auth_user = models.ForeignKey(AuthUser)
+    data_cadastro = models.DateTimeField(null=True, blank=True)
+    data_modificacao = models.DateTimeField(auto_now=True)
+    numero = models.IntegerField(blank=True)
+    ano = models.IntegerField(blank=True)
+    folha = models.IntegerField(blank=True)
+    data_despacho = models.DateField(null=True, blank=True)
+    class Meta:
+        db_table = '"documento"."despacho_aprovacao_regional"'

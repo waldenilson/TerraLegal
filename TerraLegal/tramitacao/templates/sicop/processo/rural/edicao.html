@@ -87,7 +87,7 @@
 
 <div id="tabs" style="color:black;width:100%;">
 {% ifnotequal request.session.processo_saida "unico"  %}
- <ul>
+ <ul style="font-size:11px;">
 	<li><a href="#tabs-1">EDIÇÃO</a></li>
 
 {% if base.tbclassificacaoprocesso.id == 1 %}
@@ -106,12 +106,12 @@
 {% endif %}
 -->
 
-{% if fases and base.tbclassificacaoprocesso.id == 1 %}
-	<li><a href="#tabs-6">SOBREPOSIÇÃO</a></li>
+{% if base.tbclassificacaoprocesso.id == 1 %}
+	<li><a href="#tabs-6">DOC. SOBREPOSIÇÃO</a></li>
 {% endif %}
 
-{% if titulo_processo %}
-	<li><a href="#tabs-7">TITULO</a></li>
+{% if base.tbclassificacaoprocesso.id == 1 %}
+	<li><a href="#tabs-7">DESPACHO APROV. REGIONAL</a></li>
 {% endif %}
 
 </ul>
@@ -127,6 +127,21 @@
 			<tbody>
 				<tr>
 					<td>					
+
+							{% if titulo_processo %}
+								<div style="font-size:12px;margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
+									TITULO<hr/>
+								</div>
+									<table>
+											<tr>
+												<td><b>Número</b>:&nbsp;<a href="/livro/edicao/{{titulo_processo.id}}/">{{titulo_processo.tbtitulo.cdtitulo}}</a></td>
+												<td><b>Tipo</b>:&nbsp;{{titulo_processo.tbtitulo.tbtipotitulo.cdtipo}} - {{titulo_processo.tbtitulo.tbtipotitulo.dstipo}}</td>
+												<td><b>Status</b>:&nbsp;{{titulo_processo.tbtitulo.tbstatustitulo.sttitulo}}</td>
+											</tr>
+									</table>
+									<br/>
+							{% endif %}
+
 							<div style="width: 100%; font-size: 12px; text-align: left">
 							
 										<div style="margin-bottom:5px;width:98%;font-weight:bold;color: green">
@@ -161,39 +176,6 @@
 										   		</td>
 										</tr>
 									{% endif %}
-<!--
-										<tr> 
-											<td class="colunaTabela"> <label>Gleba:</label> </td>
-										   	<td>
-										   		<select required="required" name="tbgleba" style="width: 200px">
-										   			{% for obj in gleba %}
-														{% if obj.id == base.tbgleba.id %}
-															<option selected="selected" value="{{ obj.id }}">{{ obj.nmgleba }}</option>
-														{% else %}
-															<option value="{{ obj.id }}">{{ obj.nmgleba }}</option>
-														{% endif %}
-													{% endfor %}
-												</select>
-											</td>
-											<td>
-												<a href="/sicop/gleba/cadastro/?next=/sicop/processo/rural/cadastro/" title="Nova Gleba"> <img src="{% static "img/add.png" %}" width="24" /> </a>
-											</td>
-										</tr>
-										<tr> <td class="colunaTabela"> <label>Municipio:</label> </td>
-										   		<td>
-										   			<select required="required" name="tbmunicipio" style="width: 200px">
-										   				<option value="">-- Selecione um Municipio --</option>
-														{% for obj in municipio %}
-															{% if obj.id == base.tbmunicipio.id %}
-																<option selected="selected" value="{{ obj.id }}">{{ obj.nome_mun }}</option>
-															{% else %}
-																<option value="{{ obj.id }}">{{ obj.nome_mun }}</option>
-															{% endif %}
-														{% endfor %}
-													</select>
-												</td>
-										</tr>
--->
 										<tr> 
 											<td class="colunaTabela"> 
 												<label>Nome do Requerente:</label></td>
@@ -215,13 +197,6 @@
 										   			{{ base.tbcaixa.nmlocalarquivo }}
 												</td>
 										</tr>
-<!--
-										<tr> <td class="colunaTabela"> <label>Etapa Atual:</label> </td>
-										   		<td>
-										   			{{ base.tbetapaatual.nmfase }}
-												</td>
-										</tr>
--->
 										<tr> 
 											<td class="colunaTabela"> <label>Contato:</label> </td>
 											<td> <input value="{{ base.nmcontato|default:''}}" name="nmcontato" style="width: 250px"/> </td> 
@@ -245,25 +220,8 @@
 													</datalist>
 												</td>
 										</tr>
-						
-	<!--
-				 						    {% if fases and perms.sicop.etapa_checklist_posterior %}
-											<tr>
-												<td class="colunaTabela"> <label>Mudar Etapa:</label> </td>
-												<td>
-													<select name="etapaposterior"  style="width:200px">
-														<option value=""> Selecione uma etapa </option>
-														{% for obj in posteriores %}
-															<option value="{{ obj.tbposterior.id }}">{{obj.tbposterior.nmfase}}</option>
-														{% endfor %}
-													</select>
-										   		</td>
-											</tr>
-											{% else %}
-												<input name="etapaposterior" value="" type="hidden" />
-								   			{% endif %}										
-	-->
-										</table>							
+								</table>
+
 								<input name="etapaposterior" value="" type="hidden" />
 							</div>
 
@@ -578,7 +536,7 @@
 </div>
 {% endif %}
 
-{% if fases and base.tbclassificacaoprocesso.id == 1 %}
+{% if base.tbclassificacaoprocesso.id == 1 %}
 	<div id="tabs-6">
 		<div style="font-size:12px;margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
 			VERIFICAÇÃO DE SOBREPOSIÇÃO<hr/>
@@ -1034,58 +992,66 @@
 {% endif %}
 -->
 
-{% if titulo_processo %}
-{{ titulo_processo|length  }}
+{% if base.tbclassificacaoprocesso.id == 1 %}
 	<div id="tabs-7">
 		<div style="font-size:12px;margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
-			TITULO<hr/>
+			DESPACHO APROVAÇÃO REGIONAL<hr/>
 		</div>
-		<table>
+		<form method="post" target="blank" action="/sicop/processo/rural/despacho_aprovacao_regional/{{ rural.id }}/">
+		{% csrf_token %}
 
-			<tr>
-				<td class="colunaTabela"> 
-					<b>Número</b>:&nbsp;<a href="/livro/edicao/{{titulo_processo.id}}/">{{titulo_processo.tbtitulo.cdtitulo}}</a> 
-				</td>
-			</tr>
-			<tr>
-				<td class="colunaTabela"> 
-					<b>Tipo</b>:&nbsp;{{titulo_processo.tbtitulo.tbtipotitulo.cdtipo}} - {{titulo_processo.tbtitulo.tbtipotitulo.dstipo}}  
-				</td>
-			</tr>
-			<tr>
-				<td class="colunaTabela"> 
-					<b>Status</b>:&nbsp;{{titulo_processo.tbtitulo.tbstatustitulo.sttitulo}} 
-				</td>
-			</tr>
-<!--
-			<tr>
-				<td class="colunaTabela"> 
-					Titulo: 
-					<input style="margin-right:5px;" name="cdtitulo" size=8 value="{{titulo_processo.tbtitulo.cdtitulo}}" disabled/>
-					<select name="tbtipotitulo"  style="margin-right:10px;width:160px" disabled >
-						{% for obj in tipotitulo %}
-							{% if obj.id == titulo_processo.tbtitulo.tbtipotitulo.id %}
-								<option selected="selected" value="{{ obj.id }}">{{obj.cdtipo}} - {{obj.dstipo}}</option>
-							{% else %}
-								<option value="{{ obj.id }}">{{obj.cdtipo}} - {{obj.dstipo}}</option>
-							{% endif %}
-						{% endfor %}
-					</select>
-					Status:
-					<select name="tbstatustitulo" style="width:120px" disabled>
-				   		{% for obj in statustitulo %}
-							{% if obj.id == titulo_processo.tbtitulo.tbstatustitulo.id %}
-								<option selected="selected" value="{{ obj.id }}">{{obj.sttitulo}}</option>
-							{% else %}
-								<option value="{{ obj.id }}">{{obj.sttitulo}}</option>
-							{% endif %}
-						{% endfor %}
-					</select>
-							
-				</td>
-		   	</tr>
--->
-		</table>		   	
+			<table>
+				<tr>
+					<td class="colunaTabela">Nome do Interessado:</td>
+					<td> <input name="nome_detentor" value="{{rural.nmrequerente}}" size="50" required type="text" /> </td>
+			   	</tr>
+				<tr>
+					<td class="colunaTabela">CPF do Interessado:</td>
+					<td> <input name="cpf_detentor" value="{{rural.nrcpfrequerente}}" size="15" id="cpf4" required type="text" /> </td>
+			   	</tr>
+				<tr>
+					<td class="colunaTabela">Nome do Imóvel:</td>
+					<td> <input name="nome_imovel" value="{{nome_imovel}}" size="40" required type="text" /> </td>
+			   	</tr>
+				<tr>
+					<td class="colunaTabela">Nome da Gleba:</td>
+					<td> <input name="nome_gleba" value="{{nome_gleba}}" size="30" required type="text" /> </td>
+			   	</tr>
+				<tr>
+					<td class="colunaTabela">Área (ha):</td>
+					<td> <input name="area_imovel" value="{{area_imovel}}" onkeypress="return SomenteNumero(event, this);" size="10" required type="text" /> </td>
+			   	</tr>
+				<tr>
+					<td class="colunaTabela">Município (ODS):</td>
+					<td> <input name="nome_municipio" value="{{nome_municipio}}" size="30" required type="text" /> </td>
+			   	</tr>
+				<tr>
+					<td class="colunaTabela">UF:</td>
+					<td> <input name="uf" size="2" value="MA" required type="text" /> </td>
+			   	</tr>
+				<tr>
+					<td class="colunaTabela">Número do despacho:</td>
+					<td> <input name="numero_aprovacao_regional" value="{{aprovacao_regional.numero}}" size="5" required onkeypress="return SomenteNumeroOK(event, this);" type="text" /> </td>
+			   	</tr>
+				<tr>
+					<td class="colunaTabela">Ano:</td>
+					<td> <input name="ano_aprovacao_regional" value="{{aprovacao_regional.ano}}" size="5" required onkeypress="return SomenteNumeroOK(event, this);" type="text" /> </td>
+			   	</tr>
+				<tr>
+					<td class="colunaTabela">Folha (fls.):</td>
+					<td> <input name="folha_aprovacao_regional" value="{{aprovacao_regional.folha}}" size="3" required  onkeypress="return SomenteNumeroOK(event, this);" type="text" /> </td>
+			   	</tr>
+				<tr>
+					<td class="colunaTabela">Data:</td>
+					<td class="colunaTabela">
+						<input value="{{aprovacao_regional.data_despacho|date:'d/m/Y'}}" name="data_despacho" size="9" id="date2" required type="text" />
+					</td>
+			   	</tr>
+			   	<tr>
+			   		<td colspan="2" class="colunaTabela"> <input class="button_green" type="submit" value="EMITIR DOCUMENTO" /> </td>
+			   	</tr>
+			</table>		   	
+		</form>
 	</div>
 {% endif %}
 

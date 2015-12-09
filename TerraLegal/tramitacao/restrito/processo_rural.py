@@ -6,7 +6,7 @@ from TerraLegal.tramitacao.models import Tbtipoprocesso, Tbcaixa, Tbgleba, Tbmun
     AuthGroup, Tbprocessobase, Tbprocessorural, Tbclassificacaoprocesso, Tbsituacaoprocesso,\
     Tbpecastecnicas, Tbmovimentacao, Tbdivisao, Tbtransicao, Tbetapa,\
     Tbchecklist, Tbchecklistprocessobase
-from TerraLegal.documento.models import Sobreposicao
+from TerraLegal.documento.models import Sobreposicao, DespachoAprovacaoRegional
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect
 import datetime
@@ -304,6 +304,66 @@ def gerar_doc_sobreposicao(request, id):
     ds.save()
 
     return gerar_pdf(request,'/sicop/processo/rural/sobreposicao.html',dados, settings.MEDIA_ROOT+'/tmp','sobreposicao.pdf')
+
+@permission_required('sicop.processo_rural_despacho_aprovacao_regional', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def gerar_doc_despacho_aprovacao_regional(request, id):
+
+    # emitir a verificacao de sobreposicao em pdf atraves do modelo em html.
+    rural = Tbprocessorural.objects.get(pk=id)
+
+    dia = ''
+    if datetime.datetime.now().day < 10:
+        dia = '0'+str(datetime.datetime.now().day)
+    else:
+        dia = datetime.datetime.now().day
+
+    mes = ''
+    if datetime.datetime.now().month < 10:
+        mes = '0'+str(datetime.datetime.now().month)
+    else:
+        mes = datetime.datetime.now().month
+
+    processo = rural.tbprocessobase.nrprocesso[0:5]+'.'+rural.tbprocessobase.nrprocesso[5:11]+'/'+rural.tbprocessobase.nrprocesso[11:15]+'-'+rural.tbprocessobase.nrprocesso[15:17]
+
+    dados = {
+                'brasao':abspath(join(dirname(__file__), '../../../staticfiles'))+'/img/brasao.gif',
+                'data':str(dia)+'/'+str(mes)+'/'+str(datetime.datetime.now().year),
+                'cpf_detentor':request.POST['cpf_detentor'],
+                'nome_detentor':request.POST['nome_detentor'],
+                'processo':processo,
+                'nome_imovel':request.POST['nome_imovel'],
+                'nome_municipio':request.POST['nome_municipio'],
+                'uf':request.POST['uf'],
+                'nome_gleba':request.POST['nome_gleba'],
+                'area_imovel':request.POST['area_imovel'],
+
+                'numero':request.POST['numero_aprovacao_regional'],
+                'ano':request.POST['ano_aprovacao_regional'],
+                'folha':request.POST['folha_aprovacao_regional'],
+                'data_despacho':request.POST['data_despacho']
+            }
+
+    #PERSISTENCIA DOS DADOS DO DOCUMENTO VERIFICACAO SOBREPOSICAO
+    doc = DespachoAprovacaoRegional.objects.filter( tbprocessobase__id = Tbprocessorural.objects.get(pk=id).tbprocessobase.id )
+    ds = DespachoAprovacaoRegional()    
+    if doc:
+        #Atualizar dados
+        ds.id = DespachoAprovacaoRegional.objects.get(pk = doc[0].id).id
+        ds.data_cadastro = doc[0].data_cadastro
+    else:
+        #Persistir dados
+        ds.data_cadastro = datetime.datetime.now()
+    ds.data_despacho = datetime.datetime.now()        
+    ds.auth_user = AuthUser.objects.get(pk=request.user.id)
+    ds.tbprocessobase = Tbprocessorural.objects.get(pk=id).tbprocessobase
+    dt = request.POST['data_despacho'].split('/')
+    ds.data_atualizacao = datetime.datetime(day=int(dt[0]),month=int(dt[1]),year=int(dt[2]))
+    ds.numero = request.POST['numero_aprovacao_regional']
+    ds.ano = request.POST['ano_aprovacao_regional']
+    ds.folha = request.POST['folha_aprovacao_regional']
+    ds.save()
+
+    return gerar_pdf(request,'/sicop/processo/rural/despacho_aprovacao_regional.html',dados, settings.MEDIA_ROOT+'/tmp','aprovacao_regional.pdf')
 
 def check_boolean(request,name):
     if request.POST.get(name,False):

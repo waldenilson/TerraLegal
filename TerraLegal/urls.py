@@ -61,13 +61,14 @@ urlpatterns = patterns('',
     url(r'^sicop/pendencia/edicao/(?P<pendencia>\d+)/', 'TerraLegal.tramitacao.restrito.pendencia.edicao'),
 
     # IMPORTACAO DE PROCESSOS ATRAVES DE PLANILHA ODS
-    url(r'^sicop/processo/importacao/', 'TerraLegal.tramitacao.restrito.processo.importacao'),
+    url(r'^sicop/processo/importacao/', 'TerraLegal.tramitacao.restrito.processo.importacao_ods'),
     
     # PROCESSO RURAL
     url(r'^sicop/processo/rural/consulta/', 'TerraLegal.tramitacao.restrito.processo_rural.consulta'),
     url(r'^sicop/processo/rural/cadastro/', 'TerraLegal.tramitacao.restrito.processo_rural.cadastro'),
     url(r'^sicop/processo/rural/edicao/(?P<id>\d+)/', 'TerraLegal.tramitacao.restrito.processo_rural.edicao'),
     url(r'^sicop/processo/rural/sobreposicao/(?P<id>\d+)/', 'TerraLegal.tramitacao.restrito.processo_rural.gerar_doc_sobreposicao'),
+    url(r'^sicop/processo/rural/despacho_aprovacao_regional/(?P<id>\d+)/', 'TerraLegal.tramitacao.restrito.processo_rural.gerar_doc_despacho_aprovacao_regional'),
     # PROCESSO URBANO
     url(r'^sicop/processo/urbano/consulta/', 'TerraLegal.tramitacao.restrito.processo_urbano.consulta'),
     url(r'^sicop/processo/urbano/cadastro/', 'TerraLegal.tramitacao.restrito.processo_urbano.cadastro'),
