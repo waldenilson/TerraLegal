@@ -13,7 +13,7 @@ import datetime
 from django.db.models import  Q
 from os.path import abspath, join, dirname
 from TerraLegal import settings
-from TerraLegal.core.funcoes import gerar_pdf
+from TerraLegal.core.funcoes import gerar_pdf, emitir_documento,mes_do_ano_texto
 
 @permission_required('sicop.processo_rural_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
@@ -323,6 +323,8 @@ def gerar_doc_despacho_aprovacao_regional(request, id):
     else:
         mes = datetime.datetime.now().month
 
+    data_despacho = request.POST['data_despacho']
+
     processo = rural.tbprocessobase.nrprocesso[0:5]+'.'+rural.tbprocessobase.nrprocesso[5:11]+'/'+rural.tbprocessobase.nrprocesso[11:15]+'-'+rural.tbprocessobase.nrprocesso[15:17]
 
     dados = {
@@ -338,9 +340,13 @@ def gerar_doc_despacho_aprovacao_regional(request, id):
                 'area_imovel':request.POST['area_imovel'],
 
                 'numero':request.POST['numero_aprovacao_regional'],
+                'assunto':request.POST['assunto_aprovacao_regional'],
+                'cidade':request.POST['cidade_aprovacao_regional'],
                 'ano':request.POST['ano_aprovacao_regional'],
                 'folha':request.POST['folha_aprovacao_regional'],
-                'data_despacho':request.POST['data_despacho']
+                'dia_despacho': data_despacho.split('/')[0],
+                'mes_despacho': mes_do_ano_texto(int(data_despacho.split('/')[1])),
+                'ano_despacho': data_despacho.split('/')[2]
             }
 
     #PERSISTENCIA DOS DADOS DO DOCUMENTO VERIFICACAO SOBREPOSICAO
@@ -357,13 +363,16 @@ def gerar_doc_despacho_aprovacao_regional(request, id):
     ds.auth_user = AuthUser.objects.get(pk=request.user.id)
     ds.tbprocessobase = Tbprocessorural.objects.get(pk=id).tbprocessobase
     dt = request.POST['data_despacho'].split('/')
+    ds.assunto = request.POST['assunto_aprovacao_regional']
     ds.data_atualizacao = datetime.datetime(day=int(dt[0]),month=int(dt[1]),year=int(dt[2]))
+    ds.cidade = request.POST['cidade_aprovacao_regional']
     ds.numero = request.POST['numero_aprovacao_regional']
     ds.ano = request.POST['ano_aprovacao_regional']
     ds.folha = request.POST['folha_aprovacao_regional']
     ds.save()
 
-    return gerar_pdf(request,'/sicop/processo/rural/despacho_aprovacao_regional.html',dados, settings.MEDIA_ROOT+'/tmp','aprovacao_regional.pdf')
+    return emitir_documento('despacho_aprovacao_regional.odt',dados)
+    #return gerar_pdf(request,'/sicop/processo/rural/despacho_aprovacao_regional.html',dados, settings.MEDIA_ROOT+'/tmp','aprovacao_regional.pdf')
 
 def check_boolean(request,name):
     if request.POST.get(name,False):

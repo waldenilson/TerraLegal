@@ -1031,15 +1031,23 @@
 			   	</tr>
 				<tr>
 					<td class="colunaTabela">Número do despacho:</td>
-					<td> <input name="numero_aprovacao_regional" value="{{aprovacao_regional.numero}}" size="5" required onkeypress="return SomenteNumeroOK(event, this);" type="text" /> </td>
+					<td> <input name="numero_aprovacao_regional" value="{{aprovacao_regional.numero|default:''}}" size="5" required onkeypress="return SomenteNumeroOK(event, this);" type="text" /> </td>
+			   	</tr>
+				<tr>
+					<td class="colunaTabela">Assunto:</td>
+					<td> <input name="assunto_aprovacao_regional" size="50" maxlength="120" value="{{aprovacao_regional.assunto|default:'Regularização Fundiária de Ocupação Rural'}}" required type="text" /> </td>
 			   	</tr>
 				<tr>
 					<td class="colunaTabela">Ano:</td>
-					<td> <input name="ano_aprovacao_regional" value="{{aprovacao_regional.ano}}" size="5" required onkeypress="return SomenteNumeroOK(event, this);" type="text" /> </td>
+					<td> <input name="ano_aprovacao_regional" value="{{aprovacao_regional.ano|default:''}}" size="5" required onkeypress="return SomenteNumeroOK(event, this);" type="text" /> </td>
 			   	</tr>
 				<tr>
 					<td class="colunaTabela">Folha (fls.):</td>
-					<td> <input name="folha_aprovacao_regional" value="{{aprovacao_regional.folha}}" size="3" required  onkeypress="return SomenteNumeroOK(event, this);" type="text" /> </td>
+					<td> <input name="folha_aprovacao_regional" value="{{aprovacao_regional.folha|default:''}}" size="3" required  onkeypress="return SomenteNumeroOK(event, this);" type="text" /> </td>
+			   	</tr>
+				<tr>
+					<td class="colunaTabela">Cidade:</td>
+					<td> <input name="cidade_aprovacao_regional" size="30" maxlength="80" value="{{aprovacao_regional.cidade|default:'São Luis'}}" required type="text" /> </td>
 			   	</tr>
 				<tr>
 					<td class="colunaTabela">Data:</td>

@@ -59,6 +59,8 @@ class DespachoAprovacaoRegional(models.Model):
     data_modificacao = models.DateTimeField(auto_now=True)
     numero = models.IntegerField(blank=True)
     ano = models.IntegerField(blank=True)
+    assunto = models.CharField(max_length=120)
+    cidade = models.CharField(max_length=80)
     folha = models.IntegerField(blank=True)
     data_despacho = models.DateField(null=True, blank=True)
     class Meta:
