@@ -43,6 +43,7 @@ from webodt import shortcuts
 from webodt.converters import converter
 import webodt
 
+import unicodedata
 
 def mes_do_ano_texto(inteiro):
     mes_texto = ""
@@ -217,3 +218,6 @@ def format_datetime(date_time):
         mes = date_time.month
     retorno = str(dia)+'/'+str(mes)+'/'+str(date_time.year)
     return retorno
+
+def normalizar_string(string, cod):
+    return = unicodedata.normalize('NFKD', string.decode(cod)).encode('ASCII','ignore')
