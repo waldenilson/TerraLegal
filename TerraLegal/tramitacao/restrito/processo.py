@@ -941,133 +941,152 @@ def importacao_ods(request):
                             }, context_instance = RequestContext(request))
 
                 #ITERANDO REGISTROS P23
-                if lista_23:
+                if lista_p23:
                     identificador = 2
                     for obj in lista_p23:
-                        #CRIANDO DICIONARIO DO OBJETO P23
-                        registro['processo'] = obj[0]
-                        registro['requerente'] = obj[1]
-                        registro['cpf_requerente'] = str(obj[2])[0:len(str(obj[2]))-2]
-                        registro['conjuge'] = obj[3]
-                        registro['cpf_conjuge'] = str(obj[4])[0:len(str(obj[4]))-2]
-                        registro['obs'] = obj[5]                        
-                        #VERIFICA SE NR DO PROCESSO TEM 17 CARACTERES
-                        if len(registro['processo'].replace('.','').replace('-','').replace('/','')) != 17:
-                            registros.append( obj_dict(str(identificador),'P23','Numero do processo incorreto. Verifique o formato padrao de 17 caracteres.','error') )
-                            identificador += 1
-                            continue
-                        #VERIFICA SE NR DO PROCESSO JA FOI CADASTRADO
-                        if not Tbprocessobase.objects.filter(nrprocesso = registro['processo'].replace('.','').replace('-','').replace('/','')):
-                            #VERIFICA SE CAMPOS OBRIGATORIOS ESTAO TODOS PREENCHIDOS. NOME, CPF
-                            if len(registro['requerente']) > 0 and len(registro['cpf_requerente']) > 0:
-                                try:
-                                    f_base = Tbprocessobase (
-                                            nrprocesso = registro['processo'].replace('.','').replace('/','').replace('-',''),
-                                            tbgleba =  None,
-                                            tbmunicipio =  None,
-                                            tbcaixa = Tbcaixa.objects.get( pk = request.POST['caixa'] ),
-                                            tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessorural' ),
-                                            dtcadastrosistema = datetime.datetime.now(),
-                                            auth_user = AuthUser.objects.get( pk = request.POST['usuario'] ),
-                                            tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 ),
-                                            tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao,
-                                            nmendereco = registro['obs'],
-                                            nmcontato = '', 
-                                            tbmunicipiodomicilio = None                                   
-                                    )
-                                    f_base.save()
-                                    f_p23 = Tbprocessorural (
-                                            nmrequerente = registro['requerente'],
-                                            nrcpfrequerente = registro['cpf_requerente'].replace('.','').replace('-',''),
-                                            nmconjuge = registro['conjuge'],
-                                            nrcpfconjuge = registro['cpf_conjuge'].replace('.','').replace('-',''),
-                                            tbprocessobase = f_base
-                                    )
-                                    f_p23.save()
-                                    registros.append( obj_dict(str(identificador),'P23','p23 cadastrado.','info') )
-                                except:
-                                    registros.append( obj_dict(str(identificador),'P23','Registro nao cadastrado. Verifique os dados no *.ods.','error') )
+                        if len(lista_p23) == 6:
+                            #CRIANDO DICIONARIO DO OBJETO P23
+                            registro['processo'] = obj[0]
+                            registro['requerente'] = obj[1]
+                            registro['cpf_requerente'] = str(obj[2])[0:len(str(obj[2]))-2]
+                            registro['conjuge'] = obj[3]
+                            registro['cpf_conjuge'] = str(obj[4])[0:len(str(obj[4]))-2]
+                            registro['obs'] = obj[5]                        
+                            #VERIFICA SE NR DO PROCESSO TEM 17 CARACTERES
+                            if len(registro['processo'].replace('.','').replace('-','').replace('/','')) != 17:
+                                registros.append( obj_dict(str(identificador),'P23','Numero do processo incorreto. Verifique o formato padrao de 17 caracteres.','error') )
+                                identificador += 1
+                                continue
+                            #VERIFICA SE NR DO PROCESSO JA FOI CADASTRADO
+                            if not Tbprocessobase.objects.filter(nrprocesso = registro['processo'].replace('.','').replace('-','').replace('/','')):
+                                #VERIFICA SE CAMPOS OBRIGATORIOS ESTAO TODOS PREENCHIDOS. NOME, CPF
+                                if len(registro['requerente']) > 0 and len(registro['cpf_requerente']) > 0:
+                                    try:
+                                        f_base = Tbprocessobase (
+                                                nrprocesso = registro['processo'].replace('.','').replace('/','').replace('-',''),
+                                                tbgleba =  None,
+                                                tbmunicipio =  None,
+                                                tbcaixa = Tbcaixa.objects.get( pk = request.POST['caixa'] ),
+                                                tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessorural' ),
+                                                dtcadastrosistema = datetime.datetime.now(),
+                                                auth_user = AuthUser.objects.get( pk = request.POST['usuario'] ),
+                                                tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 ),
+                                                tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao,
+                                                nmendereco = registro['obs'],
+                                                nmcontato = '', 
+                                                tbmunicipiodomicilio = None                                   
+                                        )
+                                        f_base.save()
+                                        f_p23 = Tbprocessorural (
+                                                nmrequerente = registro['requerente'],
+                                                nrcpfrequerente = registro['cpf_requerente'].replace('.','').replace('-',''),
+                                                nmconjuge = registro['conjuge'],
+                                                nrcpfconjuge = registro['cpf_conjuge'].replace('.','').replace('-',''),
+                                                tbprocessobase = f_base
+                                        )
+                                        f_p23.save()
+                                        registros.append( obj_dict(str(identificador),'P23','p23 cadastrado.','info') )
+                                    except:
+                                        registros.append( obj_dict(str(identificador),'P23','Registro nao cadastrado. Verifique os dados no *.ods.','error') )
+                                else:
+                                    registros.append( obj_dict(str(identificador),'P23','Campos obrigatorios nao preenchidos. Verifique os dados no *.ods.','error') )
                             else:
-                                registros.append( obj_dict(str(identificador),'P23','Campos obrigatorios nao preenchidos. Verifique os dados no *.ods.','error') )
+                                #NR DO PROCESSO JA CADASTRADO NO SISTEMA
+                                registros.append( obj_dict(str(identificador),'P23','Nr. do processo ja existe no sistema.','warning') )
+                            identificador += 1
                         else:
-                            #NR DO PROCESSO JA CADASTRADO NO SISTEMA
-                            registros.append( obj_dict(str(identificador),'P23','Nr. do processo ja existe no sistema.','warning') )
-                        identificador += 1
-                    messages.add_message(request,messages.INFO,'Planilha cadastrada. Observe abaixo o extrato do processamento.')
+                            registros.append( obj_dict(str(identificador),'P23','Informações incompletas para cadastro.','error') )
+                            identificador += 1
+
+                    messages.add_message(request,messages.INFO,'Planilha processada. Observe abaixo o extrato do processamento.')
                     
                 #ITERANDO REGISTROS P80
-                if lista_80:
+                if lista_p80:
                     identificador = 2
                     for obj in lista_p80:
-                        #CRIANDO DICIONARIO DO OBJETO P80
-                        registro['tipo'] = obj[0]
-                        registro['processo'] = obj[1]
-                        registro['interessado'] = obj[2]
-                        registro['cpf_interessado'] = str(obj[3])[0:len(str(obj[3]))-2]
-                        registro['titulado'] = obj[4]
-                        registro['cpf_titulado'] = str(obj[5])[0:len(str(obj[5]))-2]
-                        registro['titulo'] = obj[6]
-                        registro['area'] = obj[7]
-                        registro['gleba'] = obj[8]
-                        registro['municipio'] = str(obj[9]).encode('utf-8')
-                        registro['obs'] = obj[10]                        
-                        #VERIFICA SE NR DO PROCESSO TEM 17 CARACTERES
-                        if len(registro['processo'].replace('.','').replace('-','').replace('/','')) != 17:
-                            registros.append( obj_dict(str(identificador),'P80','Numero do processo incorreto. Verifique o formato padrao de 17 caracteres.','error') )
-                            identificador += 1
-                            continue
-                        #VERIFICA SE NR DO PROCESSO JA FOI CADASTRADO
-                        if not Tbprocessobase.objects.filter(nrprocesso = registro['processo'].replace('.','').replace('-','').replace('/','')):
-                            #VERIFICA SE CAMPOS OBRIGATORIOS ESTAO TODOS PREENCHIDOS. NOME, CPF
-                            if len(registro['interessado']) > 0 and len(registro['cpf_interessado']) > 0:
-                                try:
-                                    f_base = Tbprocessobase (
-                                            nrprocesso = registro['processo'].replace('.','').replace('/','').replace('-',''),
-                                            tbgleba =  search_gleba(registro['gleba']),
-                                            tbmunicipio =  search_municipio(registro['municipio']),
-                                            tbcaixa = Tbcaixa.objects.get( pk = request.POST['caixa'] ),
-                                            tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessoclausula' ),
-                                            dtcadastrosistema = datetime.datetime.now(),
-                                            auth_user = AuthUser.objects.get( pk = request.POST['usuario'] ),
-                                            tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 ),
-                                            tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao,
-                                            nmendereco = '',
-                                            nmcontato = '', 
-                                            tbmunicipiodomicilio = None                                   
-                                    )
-                                    f_base.save()
-                                    f_clausula = Tbprocessoclausula (
-                                        nmrequerente = registro['titulado'],
-                                        nrcpfrequerente = registro['cpf_titulado'].replace('.','').replace('-',''),
-                                        nmtitulo = registro['titulo'],
-                                        tptitulo = '',
-                                        nmimovel = '',
-                                        nmloteimovel = '',
-                                        nminteressado = registro['interessado'],
-                                        nrcpfinteressado = registro['cpf_interessado'].replace('.','').replace('-',''),
-                                        tbprocessobase = f_base,
-                                        nrarea = registro['area'].replace(',','.'),
-                                        stprocuracao = False,
-                                        dsobs = registro['tipo']+'. '+registro['obs'],
-                                        dsprioridade = '',
-                                        stcertquitacao = False,
-                                        stcertliberacao = False,
-                                        blgeoimovel = False,
-                                        dttitulacao = None,
-                                        dtrequerimento = None,
-                                        dtnascimento = None
-                                    )
-                                    f_clausula.save()
-                                    registros.append( obj_dict(str(identificador),'P80','p80 cadastrado.','info') )
-                                except:
-                                    registros.append( obj_dict(str(identificador),'P80','Registro nao cadastrado. Verifique os dados no *.ods.','error') )
+                        if len(obj) == 11:
+                            #CRIANDO DICIONARIO DO OBJETO P80
+                            registro['tipo'] = obj[0]
+                            registro['processo'] = obj[1]
+                            registro['interessado'] = obj[2]
+                            registro['cpf_interessado'] = str(obj[3])[0:len(str(obj[3]))-2]
+                            registro['titulado'] = obj[4]
+                            registro['cpf_titulado'] = str(obj[5])[0:len(str(obj[5]))-2]
+                            registro['titulo'] = obj[6]
+                            registro['area'] = obj[7]
+                            registro['gleba'] = obj[8]
+                            registro['municipio'] = str(obj[9]).encode('utf-8')
+                            registro['obs'] = obj[10]                        
+                            #VERIFICA SE NR DO PROCESSO TEM 17 CARACTERES
+                            if len(registro['processo'].replace('.','').replace('-','').replace('/','')) != 17:
+                                registros.append( obj_dict(str(identificador),'P80','Numero do processo incorreto. Verifique o formato padrao de 17 caracteres.','error') )
+                                identificador += 1
+                                continue
+                            #VERIFICA SE NR DO PROCESSO JA FOI CADASTRADO
+                            if not Tbprocessobase.objects.filter(nrprocesso = registro['processo'].replace('.','').replace('-','').replace('/','')):
+                                #VERIFICA SE CAMPOS OBRIGATORIOS ESTAO TODOS PREENCHIDOS. NOME, CPF
+                                if len(registro['interessado']) > 0 and len(registro['cpf_interessado']) > 0:
+                                    try:
+                                        f_base = Tbprocessobase (
+                                                nrprocesso = registro['processo'].replace('.','').replace('/','').replace('-',''),
+                                                tbgleba =  None,
+                                                tbmunicipio =  None,
+                                                tbcaixa = Tbcaixa.objects.get( pk = request.POST['caixa'] ),
+                                                tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessoclausula' ),
+                                                dtcadastrosistema = datetime.datetime.now(),
+                                                auth_user = AuthUser.objects.get( pk = request.POST['usuario'] ),
+                                                tbclassificacaoprocesso = Tbclassificacaoprocesso.objects.get( pk = 1 ),
+                                                tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao,
+                                                nmendereco = '',
+                                                nmcontato = '', 
+                                                tbmunicipiodomicilio = None                                   
+                                        )
+                                        
+                                        obj_g = search_gleba(registro['gleba'])
+                                        if obj_g:
+                                            f_base.tbgleba = obj_g
+
+                                        obj_m = search_municipio(registro['municipio'])
+                                        if obj_m:
+                                            f_base.tbmunicipio = obj_m
+                                        
+                                        f_base.save()
+
+                                        f_clausula = Tbprocessoclausula (
+                                            nmrequerente = registro['titulado'],
+                                            nrcpfrequerente = registro['cpf_titulado'].replace('.','').replace('-',''),
+                                            nmtitulo = registro['titulo'],
+                                            tptitulo = '',
+                                            nmimovel = '',
+                                            nmloteimovel = '',
+                                            nminteressado = registro['interessado'],
+                                            nrcpfinteressado = registro['cpf_interessado'].replace('.','').replace('-',''),
+                                            tbprocessobase = f_base,
+                                            nrarea = registro['area'].replace(',','.'),
+                                            stprocuracao = False,
+                                            dsobs = registro['tipo']+'. '+registro['obs'],
+                                            dsprioridade = '',
+                                            stcertquitacao = False,
+                                            stcertliberacao = False,
+                                            blgeoimovel = False,
+                                            dttitulacao = None,
+                                            dtrequerimento = None,
+                                            dtnascimento = None
+                                        )
+                                        f_clausula.save()
+                                        registros.append( obj_dict(str(identificador),'P80','p80 cadastrado.','info') )
+                                    except:
+                                        registros.append( obj_dict(str(identificador),'P80','Registro nao cadastrado. Verifique os dados no *.ods.','error') )
+                                else:
+                                    registros.append( obj_dict(str(identificador),'P80','Campos obrigatorios nao preenchidos. Verifique os dados no *.ods.','error') )
                             else:
-                                registros.append( obj_dict(str(identificador),'P80','Campos obrigatorios nao preenchidos. Verifique os dados no *.ods.','error') )
+                                #NR DO PROCESSO JA CADASTRADO NO SISTEMA
+                                registros.append( obj_dict(str(identificador),'P80','Nr. do processo ja existe no sistema.','warning') )
+                            identificador += 1
                         else:
-                            #NR DO PROCESSO JA CADASTRADO NO SISTEMA
-                            registros.append( obj_dict(str(identificador),'P80','Nr. do processo ja existe no sistema.','warning') )
-                        identificador += 1
-                    messages.add_message(request,messages.INFO,'Planilha cadastrada. Observe abaixo o extrato do processamento.')
+                            registros.append( obj_dict(str(identificador),'P80','Informações incompletas para cadastro.','error') )
+                            identificador += 1
+                    messages.add_message(request,messages.INFO,'Planilha processada. Observe abaixo o extrato do processamento.')
             else:
                 messages.add_message(request,messages.WARNING,'Cabeçalho do arquivo incorreto.')
 
@@ -1080,6 +1099,7 @@ def importacao_ods(request):
 
 def list_plan(plan):
     lista = []
+    x = 0
     for row in plan:
         if x != 0:
             if row:
@@ -1090,7 +1110,7 @@ def list_plan(plan):
 def verify_header_import_p80_ods(plan):
     header = plan[0]
     if len(header) == 11:
-        if header[0].encode('utf-8') == 'TIPO PROCESSO P80':
+        if header[0].encode('utf-8') == 'TIPO DO PROCESSO P80':
             if header[1].encode('utf-8') == 'Nº DO PROCESSO':
                 if header[2].encode('utf-8') == 'INTERESSADO':
                     if header[3].encode('utf-8') == 'CPF DO INTERESSADO':
@@ -1106,7 +1126,7 @@ def verify_header_import_p80_ods(plan):
 
 def verify_header_import_p23_ods(plan):
     header = plan[0]
-    if len(header) == 11:
+    if len(header) == 6:
         if header[0].encode('utf-8') == 'Nº DO PROCESSO':
             if header[1].encode('utf-8') == 'REQUERENTE':
                 if header[2].encode('utf-8') == 'CPF DO REQUERENTE':
