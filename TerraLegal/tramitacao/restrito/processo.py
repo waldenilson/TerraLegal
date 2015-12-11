@@ -962,7 +962,7 @@ def importacao_ods(request):
                                     f_base = Tbprocessobase (
                                             nrprocesso = registro['processo'].replace('.','').replace('/','').replace('-',''),
                                             tbgleba =  search_gleba(registro['gleba']),
-                                            tbmunicipio = Tbmunicipio.objects.filter( nome_mun__icontains = registro['municipio'] )[0],
+                                            tbmunicipio =  search_municipio(registro['municipio']),
                                             tbcaixa = Tbcaixa.objects.get( pk = request.POST['caixa'] ),
                                             tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessorural' ),
                                             dtcadastrosistema = datetime.datetime.now(),
@@ -1022,7 +1022,7 @@ def importacao_ods(request):
                                     f_base = Tbprocessobase (
                                             nrprocesso = registro['processo'].replace('.','').replace('/','').replace('-',''),
                                             tbgleba =  search_gleba(registro['gleba']),
-                                            tbmunicipio = Tbmunicipio.objects.filter( nome_mun__icontains = registro['municipio'] )[0],
+                                            tbmunicipio =  search_municipio(registro['municipio']),
                                             tbcaixa = Tbcaixa.objects.get( pk = request.POST['caixa'] ),
                                             tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessoclausula' ),
                                             dtcadastrosistema = datetime.datetime.now(),
@@ -1126,6 +1126,9 @@ def obj_dict(ident, plan, message, status):
 
 def search_gleba(string):
     return Tbgleba.objects.filter( nmgleba__icontains = string )[0]
+
+def search_municipio(string):
+    return Tbmunicipio.objects.filter( nome_mun__icontains = string )[0]
 
 #metodos da tramitacao em lote
 
