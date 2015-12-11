@@ -1140,7 +1140,19 @@ def search_gleba(string):
     return obj
 
 def search_municipio(string):
-    return Tbmunicipio.objects.filter( nome_mun__icontains = string )[0]
+    obj = None
+    l = Tbmunicipio.objects.filter( nome_mun__icontains = string, tbuf__sigla = 'MA' )
+    if l:
+        obj = l[0]
+    else:
+        mun_all = Tbmunicipio.objects.filter(tbuf__sigla = 'MA')
+        for m in mun_all:
+            param = string.replace(' ','').replace('/','').replace('-','').replace('\'','').lower()
+            nome_municipio = m.nome_mun.replace(' ','').replace('/','').replace('-','').replace('\'','').lower()
+            if param in nome_municipio:
+                obj = m
+                break
+    return obj
 
 #metodos da tramitacao em lote
 
