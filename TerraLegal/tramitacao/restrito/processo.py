@@ -950,9 +950,7 @@ def importacao_ods(request):
                         registro['cpf_requerente'] = str(obj[2])[0:len(str(obj[2]))-2]
                         registro['conjuge'] = obj[3]
                         registro['cpf_conjuge'] = str(obj[4])[0:len(str(obj[4]))-2]
-                        registro['gleba'] = obj[5]
-                        registro['municipio'] = str(obj[6]).encode('utf-8')
-                        registro['obs'] = obj[7]                        
+                        registro['obs'] = obj[5]                        
                         #VERIFICA SE NR DO PROCESSO TEM 17 CARACTERES
                         if len(registro['processo'].replace('.','').replace('-','').replace('/','')) != 17:
                             registros.append( obj_dict(str(identificador),'P23','Numero do processo incorreto. Verifique o formato padrao de 17 caracteres.','error') )
@@ -965,8 +963,8 @@ def importacao_ods(request):
                                 try:
                                     f_base = Tbprocessobase (
                                             nrprocesso = registro['processo'].replace('.','').replace('/','').replace('-',''),
-                                            tbgleba =  search_gleba(registro['gleba']),
-                                            tbmunicipio =  search_municipio(registro['municipio']),
+                                            tbgleba =  None,
+                                            tbmunicipio =  None,
                                             tbcaixa = Tbcaixa.objects.get( pk = request.POST['caixa'] ),
                                             tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessorural' ),
                                             dtcadastrosistema = datetime.datetime.now(),
@@ -1114,10 +1112,8 @@ def verify_header_import_p23_ods(plan):
                 if header[2].encode('utf-8') == 'CPF DO REQUERENTE':
                     if header[3].encode('utf-8') == 'CÔNJUGE':
                         if header[4].encode('utf-8') == 'CPF DO CÔNJUGE':
-                            if header[5].encode('utf-8') == 'GLEBA':
-                                if header[6].encode('utf-8') == 'MUNICÍPIO':
-                                    if header[7].encode('utf-8') == 'OBSERVAÇÕES':
-                                        return True
+                            if header[5].encode('utf-8') == 'OBSERVAÇÕES':
+                                return True
     return False
 
 def obj_dict(ident, plan, message, status):
