@@ -227,9 +227,9 @@ class Tbsituacao(models.Model):
 
 class Tbprocessobase(models.Model):
     nrprocesso = models.CharField(max_length=17, blank=True)
-    tbgleba = models.ForeignKey(Tbgleba)
+    tbgleba = models.ForeignKey(Tbgleba,null=True)
     tbcaixa = models.ForeignKey(Tbcaixa)
-    tbmunicipio = models.ForeignKey(Tbmunicipio)
+    tbmunicipio = models.ForeignKey(Tbmunicipio,null=True)
     auth_user = models.ForeignKey(AuthUser)
     tbtipoprocesso = models.ForeignKey('Tbtipoprocesso')
     tbetapaatual = models.ForeignKey('Tbetapa', null=True, blank=True)

@@ -41,8 +41,6 @@ def cadastro(request):
             # cadastrando o registro processo base            
             f_base = Tbprocessobase (
                                     nrprocesso = request.POST['nrprocesso'].replace('.','').replace('/','').replace('-',''),
-                                    tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
-                                    tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
                                     tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
                                     tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessorural' ),
                                     dtcadastrosistema = datetime.datetime.now(),
@@ -52,6 +50,16 @@ def cadastro(request):
                                     nmendereco = request.POST['nmendereco'],
                                     nmcontato = request.POST['nmcontato'],
                                     )
+            if request.POST['tbgleba'] != '0':
+                f_base.tbgleba = Tbgleba.objects.get(pk = request.POST['tbgleba'])
+            else:
+                f_base.tbgleba = None
+
+            if request.POST['tbmunicipio'] != '0':
+                f_base.tbmunicipio = Tbmunicipio.objects.get(pk = request.POST['tbmunicipio'])
+            else:
+                f_base.tbmunicipio = None
+                
             try:
                 mun = request.POST['tbmunicipiodomicilio'].split(',',1)[0]
                 sigla = request.POST['tbmunicipiodomicilio'].split(',',1)[1]

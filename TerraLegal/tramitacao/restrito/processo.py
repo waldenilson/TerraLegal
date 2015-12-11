@@ -41,7 +41,7 @@ from django.core import serializers
 import json
 from TerraLegal.livro.models import Tbtituloprocesso
 from TerraLegal.documento.models import Sobreposicao, DespachoAprovacaoRegional
-from TerraLegal.core.funcoes import emitir_documento, upload_file
+from TerraLegal.core.funcoes import emitir_documento, upload_file,normalizar_string
 from pyexcel_ods import get_data
 
 nome_relatorio      = "relatorio_processo"
@@ -51,6 +51,10 @@ planilha_relatorio  = "Processos"
 
 @permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consultaprocesso(request):
+
+    obj = search_gleba('boca da matabarre')
+    if obj:
+        print obj.nmgleba 
 
 #    list_json()
 #    batimento_cpf_processo("/opt/cpfs.csv","/opt/cpfs_.csv")
@@ -1125,7 +1129,19 @@ def obj_dict(ident, plan, message, status):
     return result
 
 def search_gleba(string):
-    return Tbgleba.objects.filter( nmgleba__icontains = string )[0]
+    obj = None
+    l = Tbgleba.objects.filter( nmgleba__icontains = string, tbuf__sigla = 'MA' )
+    if l:
+        obj = l[0]
+    else:
+        gleba_all = Tbgleba.objects.filter(tbuf__sigla = 'MA')
+        for g in gleba_all:
+            param = string.replace(' ','').replace('/','').replace('-','').replace('\'','').lower()
+            nome_gleba = g.nmgleba.replace(' ','').replace('/','').replace('-','').replace('\'','').lower()
+            if param in nome_gleba:
+                obj = g
+                break
+    return obj
 
 def search_municipio(string):
     return Tbmunicipio.objects.filter( nome_mun__icontains = string )[0]

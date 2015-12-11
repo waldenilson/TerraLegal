@@ -11,8 +11,8 @@
 				<tr> 
 					<td class="colunaTabela"> <label>Gleba:</label> </td>
 				   	<td>
-				   		<select required="required" name="tbgleba" style="width: 200px">
-				   			<option value="">-- Selecione uma Gleba --</option>
+				   		<select name="tbgleba" style="width: 200px">
+				   			<option value="0">-- Selecione uma Gleba --</option>
 							{% for obj in gleba %}
 								<option value="{{ obj.id }}">{{ obj.nmgleba }}</option>
 							{% endfor %}
@@ -24,8 +24,8 @@
 				</tr>
 				<tr> <td class="colunaTabela"> <label>Municipio do Imóvel:</label> </td>
 				   		<td>
-				   			<select required="required" name="tbmunicipio" style="width: 200px">
-								<option value="">-- Selecione um Municipio --</option>
+				   			<select name="tbmunicipio" style="width: 200px">
+								<option value="0">-- Selecione um Municipio --</option>
 								{% for obj in municipio %}
 									<option value="{{ obj.id }}">{{ obj.nome_mun }}</option>
 								{% endfor %}
@@ -53,7 +53,8 @@
 							<a href="/sicop/caixa/cadastro/?next=/sicop/processo/rural/cadastro/" title="Nova Caixa"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 						</td>
 				</tr>
-<!--				
+				<input type="hidden" name="etapainicial" />
+<!--			
 				<tr> <td class="colunaTabela"> <label>Etapa Inicial:</label> </td>
 				   		<td>
 				   			<select name="etapainicial" style="width: 200px">

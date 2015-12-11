@@ -220,4 +220,4 @@ def format_datetime(date_time):
     return retorno
 
 def normalizar_string(string, cod):
-    return = unicodedata.normalize('NFKD', string.decode(cod)).encode('ASCII','ignore')
+    return unicodedata.normalize('NFKD', string.decode(cod)).encode('ASCII','ignore')
