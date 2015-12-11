@@ -961,7 +961,7 @@ def importacao_ods(request):
                                 try:
                                     f_base = Tbprocessobase (
                                             nrprocesso = registro['processo'].replace('.','').replace('/','').replace('-',''),
-                                            tbgleba = Tbgleba.objects.filter( nmgleba__icontains = registro['gleba'] )[0],
+                                            tbgleba =  search_gleba(registro['gleba']),
                                             tbmunicipio = Tbmunicipio.objects.filter( nome_mun__icontains = registro['municipio'] )[0],
                                             tbcaixa = Tbcaixa.objects.get( pk = request.POST['caixa'] ),
                                             tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessorural' ),
@@ -1021,7 +1021,7 @@ def importacao_ods(request):
                                 try:
                                     f_base = Tbprocessobase (
                                             nrprocesso = registro['processo'].replace('.','').replace('/','').replace('-',''),
-                                            tbgleba = Tbgleba.objects.filter( nmgleba__icontains = registro['gleba'] )[0],
+                                            tbgleba =  search_gleba(registro['gleba']),
                                             tbmunicipio = Tbmunicipio.objects.filter( nome_mun__icontains = registro['municipio'] )[0],
                                             tbcaixa = Tbcaixa.objects.get( pk = request.POST['caixa'] ),
                                             tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessoclausula' ),
@@ -1124,7 +1124,8 @@ def obj_dict(ident, plan, message, status):
     result['status'] = status
     return result
 
-
+def search_gleba(string):
+    return Tbgleba.objects.filter( nmgleba__icontains = string )[0]
 
 #metodos da tramitacao em lote
 
