@@ -134,8 +134,8 @@
 
 										<tr> <td class="colunaTabela"> <label>Gleba:</label> </td>
 										   		<td>
-										   			<select required="required" name="tbgleba" style="width: 200px">
-										   				<option value="">-- Selecione uma Gleba --</option>
+										   			<select name="tbgleba" style="width: 200px">
+										   				<option value="0">-- Selecione uma Gleba --</option>
 														{% for obj in gleba %}
 															{% if obj.id == base.tbgleba.id %}
 																<option selected="selected" value="{{ obj.id }}">{{ obj.nmgleba }}</option>
@@ -175,8 +175,8 @@
 
 										<tr> <td class="colunaTabela"> <label>Municipio:</label> </td>
 										   		<td>
-										   			<select required="required" name="tbmunicipio" style="width: 200px">
-														<option value="">-- Selecione um Municipio --</option>
+										   			<select name="tbmunicipio" style="width: 200px">
+														<option value="0">-- Selecione um Municipio --</option>
 														{% for obj in municipio %}
 															{% if obj.id == base.tbmunicipio.id %}
 																<option selected="selected" value="{{ obj.id }}">{{ obj.nome_mun }}</option>

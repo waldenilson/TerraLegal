@@ -101,8 +101,6 @@ def cadastro(request):
             # cadastrando o registro processo base            
             f_base = Tbprocessobase (
                                     nrprocesso = request.POST['nrprocesso'].replace('.','').replace('/','').replace('-',''),
-                                    tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
-                                    tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
                                     tbcaixa = Tbcaixa.objects.get( pk = request.POST['tbcaixa'] ),
                                     tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessoclausula' ),
                                     dtcadastrosistema = datetime.datetime.now(),
@@ -117,6 +115,16 @@ def cadastro(request):
                 f_base.tbmunicipiodomicilio = Tbmunicipio.objects.get(pk = request.POST['tbmunicipiodomicilio'])
             except:
                 f_base.tbmunicipiodomicilio = None
+
+            if request.POST['tbgleba'] != '0':
+                f_base.tbgleba = Tbgleba.objects.get(pk = request.POST['tbgleba'])
+            else:
+                f_base.tbgleba = None
+
+            if request.POST['tbmunicipio'] != '0':
+                f_base.tbmunicipio = Tbmunicipio.objects.get(pk = request.POST['tbmunicipio'])
+            else:
+                f_base.tbmunicipio = None
 
             f_base.save()
             
@@ -211,8 +219,6 @@ def edicao(request, id):
             f_base = Tbprocessobase (
                                     id = base.id,
                                     nrprocesso = request.POST['tbprocessobase'].replace('.','').replace('-','').replace('/',''),
-                                    tbgleba = Tbgleba.objects.get( pk = request.POST['tbgleba'] ),
-                                    tbmunicipio = Tbmunicipio.objects.get( pk = request.POST['tbmunicipio'] ),
                                     tbcaixa = base.tbcaixa,
                                     tbtipoprocesso = Tbtipoprocesso.objects.get( tabela = 'tbprocessoclausula' ),
                                     dtcadastrosistema = base.dtcadastrosistema,
@@ -227,6 +233,17 @@ def edicao(request, id):
                 f_base.tbmunicipiodomicilio = Tbmunicipio.objects.get(pk = request.POST['tbmunicipiodomicilio'])
             except:
                 f_base.tbmunicipiodomicilio = None
+
+            if request.POST['tbgleba'] != '0':
+                f_base.tbgleba = Tbgleba.objects.get(pk = request.POST['tbgleba'])
+            else:
+                f_base.tbgleba = None
+
+            if request.POST['tbmunicipio'] != '0':
+                f_base.tbmunicipio = Tbmunicipio.objects.get(pk = request.POST['tbmunicipio'])
+            else:
+                f_base.tbmunicipio = None
+
             f_base.save()
             
             # cadastrando o registro processo clausula
