@@ -38,7 +38,7 @@ import sqlite3
 import urllib2
 from os.path import abspath, join, dirname
 from django.core import serializers
-import json
+import json, random
 from TerraLegal.livro.models import Tbtituloprocesso
 from TerraLegal.documento.models import Sobreposicao, DespachoAprovacaoRegional
 from TerraLegal.core.funcoes import emitir_documento, upload_file,normalizar_string
@@ -51,10 +51,6 @@ planilha_relatorio  = "Processos"
 
 @permission_required('sicop.processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consultaprocesso(request):
-
-    obj = search_gleba('boca da matabarre')
-    if obj:
-        print obj.nmgleba 
 
 #    list_json()
 #    batimento_cpf_processo("/opt/cpfs.csv","/opt/cpfs_.csv")

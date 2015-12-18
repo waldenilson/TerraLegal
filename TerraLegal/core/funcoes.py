@@ -221,3 +221,20 @@ def format_datetime(date_time):
 
 def normalizar_string(string, cod):
     return unicodedata.normalize('NFKD', string.decode(cod)).encode('ASCII','ignore')
+
+def create_randomic_list_number(tam,minimo,maximo,fixos,repeticao):
+    lista = []
+    while len(lista) < repeticao:
+        count = repeticao - len(lista)
+        for i in range(0, count):
+            nums = []
+            for n in fixos:
+                nums.append(n)
+            while len(nums) < tam:
+                x = random.randint(minimo,maximo)
+                if not x in nums:
+                    nums.append(x)
+            nums = sorted(nums)
+            if not nums in lista:
+                lista.append(nums)
+    return lista
