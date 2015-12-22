@@ -171,6 +171,7 @@ INSTALLED_APPS = (
     'lxml',
     'pyexcel_ods',
     'xhtml2pdf',
+    'TerraLegal.bootstrap_tags',
     'TerraLegal.livro',
     'TerraLegal.tramitacao',
     'TerraLegal.documento',

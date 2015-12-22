@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load bootstrap_tags %}
 <!DOCTYPE html>
 <html>
 	<head>
@@ -8,11 +9,12 @@
 		<title> {% block subtitulo %} {% endblock %} : SICOP - Portal Terra Legal </title>
 		<link rel="icon" type="image/jpg" href="{% static "img/favicon.jpg" %}" />
       
-		<link rel="stylesheet" type="text/css" media="screen" href="{% static "css/new/styles.css" %}" />
+		<link rel="stylesheet" type="text/css" media="screen" href="{% static "css/bootstrap/bootstrap.css" %}" />		
 		<link rel="stylesheet" type="text/css" media="screen" href="{% static "css/bootstrap/bootstrap-responsive.min.css" %}" />
 		<link rel="stylesheet" type="text/css" media="screen" href="{% static "css/jquery-ui.css" %}" />
 		<link rel="stylesheet" type="text/css" media="screen" href="{% static "css/estatisticas.css" %}" />
 		<link rel="stylesheet" type="text/css" media="screen" href="{% static "css/nv.d3.css" %}" />
+		<link rel="stylesheet" type="text/css" media="screen" href="{% static "css/new/styles.css" %}" />
 		
 		<script src="{% static "js/jquery-1.9.1.js" %}"></script>
 		<script src="{% static "js/jquery-ui.js" %}"></script>
