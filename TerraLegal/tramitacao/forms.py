@@ -1,3 +1,5 @@
+#coding:utf-8
+
 # formularios customizados
 from django.forms import models
 from django import forms
@@ -7,6 +9,8 @@ from TerraLegal.tramitacao.models import Tbpecastecnicas, Tbprocessobase, Tbtipo
     Tbtipoprocesso, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano,\
     Tbsituacaoprocesso, Tbsituacaogeo, AuthGroup, Tbdivisao,\
     Tbpendencia, Tbmunicipio
+from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
 
 
 class FormPecasTecnicas(forms.ModelForm):
@@ -93,10 +97,28 @@ class FormMunicipio(forms.ModelForm):
     class Meta:
         model = Tbmunicipio   
 
+# validadores
+
+def NomeValidator(value):
+    if len(value) <= 3:
+        raise ValidationError('Informe um nome maior que 3 letras.')
+
 
 # construcao dos modelforms
 
 class ContratoForm(forms.ModelForm):        
+    nrcontrato = forms.CharField(
+        label=str('Número do Contrato').decode('utf-8'),
+        widget=forms.TextInput(
+            attrs={
+                'title':'Contrato'
+            }
+        )
+    )
+    nmempresa = forms.CharField(label='Nome da Empresa')
     class Meta:
         model = Tbcontrato
         exclude = ('tbdivisao',)
+    def __init__(self,*args,**kwargs):
+        super(ContratoForm,self).__init__(*args,**kwargs)
+        self.fields['nmempresa'].validators.append(NomeValidator)

@@ -118,8 +118,8 @@ class Tbclassificacaoprocesso(models.Model):
 
 class Tbcontrato(models.Model):
     nrcontrato = models.CharField(max_length=10, blank=False, null=False)
-    nmempresa = models.CharField(max_length=100, blank=True)
-    tbdivisao = models.ForeignKey('Tbdivisao', null=True, blank=True)
+    nmempresa = models.CharField(max_length=100, blank=False, null=False)
+    tbdivisao = models.ForeignKey('Tbdivisao', null=True, blank=False)
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbcontrato'

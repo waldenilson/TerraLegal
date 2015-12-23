@@ -33,13 +33,12 @@
 				</tr>
 				<tr>
 					<td class="colunaTabela" colspan="2" style="text-align:left"> 
-						<div>Total de registros: {{ request.session.relatorio_contrato|length }}</div>
+						<div>Total de registros: {{ lista|length }}</div>
 					</td>
 				</tr>
 			</table>
 		</form>
 {% endblock %}
-
 
 {% block resultado %}
 		<table class="csstable">
