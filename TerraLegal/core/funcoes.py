@@ -38,7 +38,7 @@ from TerraLegal import settings as configuracao
 from os.path import abspath, join, dirname
 import smtplib
 
-from webodt.shortcuts import render_to
+from webodt.shortcuts import render_to_response
 from webodt import shortcuts
 from webodt.converters import converter
 import webodt
@@ -197,11 +197,12 @@ def emitir_documento(nome_template, dados=dict()):
     template = webodt.ODFTemplate(nome_template)
 #    context = dict(titulo='John Doe')
     document = template.render(Context(dados))
+    return shortcuts.render_to_response(template_name= nome_template, dictionary=dados)
 
-    conv = converter()
-    pdf = conv.convert(document, format='pdf')
+    #conv = converter()
+    #pdf = conv.convert(document, format='pdf')
     #document.close()
-    return HttpResponse(pdf, mimetype='application/pdf')
+    #return HttpResponse(pdf, mimetype='application/pdf')
 
 # datetime to 00/00/0000
 def format_datetime(date_time):
