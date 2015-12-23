@@ -378,7 +378,7 @@ def gerar_doc_despacho_aprovacao_regional(request, id):
     ds.ano = request.POST['ano_aprovacao_regional']
     ds.folha = request.POST['folha_aprovacao_regional']
     ds.save()
-
+    
     return emitir_documento('despacho_aprovacao_regional.odt',dados)
     #return gerar_pdf(request,'/sicop/processo/rural/despacho_aprovacao_regional.html',dados, settings.MEDIA_ROOT+'/tmp','aprovacao_regional.pdf')
 

@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required, permission_required,\
     user_passes_test
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
-from TerraLegal.tramitacao.forms import FormContrato
+from TerraLegal.tramitacao.forms import ContratoForm
 from django.contrib import messages
 from TerraLegal.tramitacao.models import Tbcontrato, AuthUser
 from django.http.response import HttpResponseRedirect, HttpResponse
@@ -35,21 +35,14 @@ def consulta(request):
 
 @permission_required('sicop.contrato_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
+    form = ContratoForm()
     if request.method == "POST":
-        next = request.GET.get('next', '/')
-        if validacao(request):
-            f_contrato = Tbcontrato(
-                                        nrcontrato = request.POST['nrcontrato'],
-                                        nmempresa = request.POST['nmempresa'],
-                                        tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
-                                    )
-            f_contrato.save()
-            if next == "/":
-                return HttpResponseRedirect("/sicop/contrato/consulta/")
-            else:    
-                return HttpResponseRedirect( next ) 
-    return render_to_response('sicop/contrato/cadastro.html',
-                               context_instance = RequestContext(request))
+        form = ContratoForm(request.POST)
+        if form.is_valid():
+            form.tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
+            form.save()
+            return HttpResponseRedirect('/sicop/contrato/consulta')
+    return render_to_response('sicop/contrato/cadastro.html',{'form':form},context_instance = RequestContext(request))
 
 @permission_required('sicop.contrato_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):

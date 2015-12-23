@@ -117,7 +117,7 @@ class Tbclassificacaoprocesso(models.Model):
         db_table = 'tbclassificacaoprocesso'
 
 class Tbcontrato(models.Model):
-    nrcontrato = models.CharField(max_length=10, blank=True)
+    nrcontrato = models.CharField(max_length=10, blank=False, null=False)
     nmempresa = models.CharField(max_length=100, blank=True)
     tbdivisao = models.ForeignKey('Tbdivisao', null=True, blank=True)
     id = models.AutoField(primary_key=True)
