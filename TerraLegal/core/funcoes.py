@@ -200,7 +200,7 @@ def emitir_documento(nome_template, dados=dict()):
 
     conv = converter()
     pdf = conv.convert(document, format='pdf')
-    document.close()
+    #document.close()
     return HttpResponse(pdf, mimetype='application/pdf')
 
 # datetime to 00/00/0000
