@@ -8,7 +8,7 @@ from TerraLegal.tramitacao.models import Tbpecastecnicas, Tbpregao,Tbprocessobas
     Tbclassificacaoprocesso,\
     Tbtipoprocesso, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano,\
     Tbsituacaoprocesso, Tbsituacaogeo, AuthGroup, Tbdivisao,\
-    Tbpendencia, Tbmunicipio
+    Tbpendencia, Tbmunicipio, Tbuf
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
@@ -45,12 +45,7 @@ class FormCaixa(forms.ModelForm):
 class FormDivisao(forms.ModelForm):
     class Meta:
         model = Tbdivisao
-                
-class FormGleba(forms.ModelForm):
-    class Meta:
-        model = Tbgleba
-        fields = ('nmgleba', 'tbsubarea','tbuf')     
-        
+                        
 class FormPendencia(forms.ModelForm):        
     class Meta:
         model = Tbpendencia
@@ -157,3 +152,13 @@ class TipoCaixaForm(forms.ModelForm):
     )
     class Meta:
         model = Tbtipocaixa
+
+
+class GlebaForm(forms.ModelForm):        
+    nmgleba = forms.CharField(
+        label=str('Nome').decode('utf-8')
+    )
+    tbuf = forms.Select()
+    tbsubarea = forms.Select()
+    class Meta:
+        model = Tbgleba

@@ -1,5 +1,6 @@
 {% extends "core/base/cadastro.html" %} 
 {% load staticfiles %} 
+{% load bootstrap_tags %}
 
 {% block breadcumbs %}
 	Acesso Restrito | Gleba | Cadastro
@@ -12,45 +13,9 @@
 </ul>
 <div id="tabs-1">		
 
-	<form method="post" action="">
+	<form method="post" action=".">
 		{% csrf_token %}
-		<div style="width:100%;font-size:12px;text-align:left">
-				<table>
-				   <tr> <td class="colunaTabela"> <label>Nome:</label></td><td><input required name="nmgleba"/> </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Sub Area:</label> </td>
-				   		<td>
-				   			<select name="tbsubarea">
-							<option value="">-- Selecione uma Sub Area --</option>
-							{% for obj in subarea %}
-									<option value="{{ obj.id }}">{{ obj.nmsubarea }}</option>
-								{% endfor %}
-							</select>
-						</td>
-					<td>
-						<a href="/sicop/sub_area/cadastro/?next=/sicop/sub_area/cadastro/" title="Nova SubArea"> <img src="{% static "img/add.png" %}" width="24" /> </a>
-					</td>						
-				   	</tr>
-				    
-				    <tr> <td class="colunaTabela"> <label>UF:</label> </td>
-				   		<td>
-				   		{% if not request.session.isdivisao %}
-				   			<select name="tbuf">
-								{% for obj in uf %}
-									<option value="{{ obj.id }}">{{ obj.nmuf }}</option>
-								{% endfor %}
-							</select>
-						{% else %}
-					   			{% for obj in uf %}
-									{% if obj.id == ufdiv %}
-										<input name="tbuf" type="hidden" value="{{ obj.id }}">{{ obj.nmuf }}
-									{% endif %}
-								{% endfor %}
-							</select>
-						{% endif%}
-						</td>
-				   	</tr>
-			</table>
-		</div>
+		{% bootstrap_form form %}
 		<br />
 		<table style="width:100%">
 			<tr>

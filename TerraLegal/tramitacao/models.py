@@ -133,18 +133,15 @@ class Tbdivisao(models.Model):
     class Meta:
         db_table = 'tbdivisao'
 
-
-
 class Tbgleba(models.Model):
     #cdgleba = models.IntegerField(null=True, blank=True)
-    nmgleba = models.CharField(max_length=80, blank=True)
+    nmgleba = models.CharField(max_length=80, blank=False,null=False)
     tbsubarea = models.ForeignKey('Tbsubarea')
-    tbuf = models.ForeignKey('Tbuf', null=True, blank=True)
+    tbuf = models.ForeignKey('Tbuf', null=False, blank=False)
     id = models.AutoField(primary_key=True)
     class Meta:
-        db_table = 'tbgleba'
-        
-    def __str__(self):              # __unicode__ on Python 2
+        db_table = 'tbgleba'        
+    def __str__(self):
         return self.nmgleba
 
 class Tbmovimentacao(models.Model):
@@ -341,6 +338,8 @@ class Tbsubarea(models.Model):
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbsubarea'
+    def __str__(self):
+        return self.nmsubarea
 
 class Tbtipocaixa(models.Model):
     nmtipocaixa = models.CharField(max_length=80, blank=False,null=False)
@@ -373,6 +372,8 @@ class Tbuf(models.Model):
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbuf'
+    def __str__(self):
+        return self.sigla
 
 '''
     Models FLuxo do processo
