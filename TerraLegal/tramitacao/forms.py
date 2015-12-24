@@ -38,10 +38,6 @@ class FormProcessoClausula(forms.ModelForm):
 
 # ----PROCESSOS----------------------------------------------------------------------------------------------------------------------
         
-class FormTipoCaixa(forms.ModelForm):
-    class Meta:
-        model = Tbtipocaixa
-        
 class FormCaixa(forms.ModelForm):
     class Meta:
         model = Tbcaixa
@@ -145,3 +141,19 @@ class SubAreaForm(forms.ModelForm):
     class Meta:
         model = Tbsubarea
         exclude = ('cdsubarea','tbdivisao',)
+
+class TipoCaixaForm(forms.ModelForm):        
+    nmtipocaixa = forms.CharField(
+        label=str('Nome').decode('utf-8')
+    )
+    desctipocaixa = forms.CharField(
+        required = False,
+        label=str('Descrição').decode('utf-8'),
+        widget=forms.Textarea(
+            attrs={
+                'rows':'5'
+            }
+        )
+    )
+    class Meta:
+        model = Tbtipocaixa

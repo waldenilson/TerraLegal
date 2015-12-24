@@ -343,7 +343,7 @@ class Tbsubarea(models.Model):
         db_table = 'tbsubarea'
 
 class Tbtipocaixa(models.Model):
-    nmtipocaixa = models.CharField(max_length=80, blank=True)
+    nmtipocaixa = models.CharField(max_length=80, blank=False,null=False)
     desctipocaixa = models.TextField(blank=True)
     #tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True) removido 20140214 
     id = models.AutoField(primary_key=True)
