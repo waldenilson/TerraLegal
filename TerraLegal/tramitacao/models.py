@@ -336,8 +336,8 @@ class Tbstatuspendencia(models.Model):
         
 class Tbsubarea(models.Model):
     cdsubarea = models.CharField(max_length=10, blank=True)
-    nmsubarea = models.CharField(max_length=80, blank=True)
-    tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True)
+    nmsubarea = models.CharField(max_length=80, blank=False,null=False)
+    tbdivisao = models.ForeignKey(Tbdivisao, null=False, blank=False)
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbsubarea'

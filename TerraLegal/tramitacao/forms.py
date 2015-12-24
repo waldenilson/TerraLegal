@@ -49,12 +49,7 @@ class FormCaixa(forms.ModelForm):
 class FormDivisao(forms.ModelForm):
     class Meta:
         model = Tbdivisao
-        
-class FormSubArea(forms.ModelForm):
-    class Meta:
-        model = Tbsubarea
-        fields = ('cdsubarea','nmsubarea','tbdivisao')
-        
+                
 class FormGleba(forms.ModelForm):
     class Meta:
         model = Tbgleba
@@ -141,3 +136,12 @@ class PregaoForm(forms.ModelForm):
     def __init__(self,*args,**kwargs):
         super(PregaoForm,self).__init__(*args,**kwargs)
         self.fields['nrpregao'].validators.append(ThreeLengthValidator)
+
+
+class SubAreaForm(forms.ModelForm):        
+    nmsubarea = forms.CharField(
+        label=str('Nome').decode('utf-8')
+    )
+    class Meta:
+        model = Tbsubarea
+        exclude = ('cdsubarea','tbdivisao',)

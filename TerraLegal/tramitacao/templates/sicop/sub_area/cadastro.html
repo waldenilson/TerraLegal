@@ -1,5 +1,6 @@
 {% extends "core/base/cadastro.html" %} 
 {% load staticfiles %} 
+{% load bootstrap_tags %}
 
 {% block breadcumbs %}
 	Acesso Restrito | Sub Area | Cadastro
@@ -14,11 +15,9 @@
 
 	<form method="post" action=".">
 		{% csrf_token %}
-		<div style="width:100%;font-size:12px;text-align:left">
-				<table>
-				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td> <input name="nmsubarea" /> </td> </tr>
-				</table>
-		</div>
+
+		{% bootstrap_form form %}
+
 		<br />
 		<table style="width:100%">
 			<tr>

@@ -1,141 +1,40 @@
-from django.contrib.auth.decorators import login_required, permission_required,\
-    user_passes_test
+from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
-from TerraLegal.tramitacao.forms import FormSubArea
+from TerraLegal.tramitacao.forms import SubAreaForm
 from TerraLegal.tramitacao.models import Tbsubarea, AuthUser
-from django.http import HttpResponseRedirect
-from django.contrib import messages
-from TerraLegal.tramitacao.admin import verificar_permissao_grupo
-from django.http.response import HttpResponse
-from TerraLegal.tramitacao.relatorio_base import relatorio_csv_base, relatorio_ods_base,\
-    relatorio_ods_base_header, relatorio_pdf_base,\
-    relatorio_pdf_base_header_title, relatorio_pdf_base_header
-from odslib import ODS
-
-nome_relatorio      = "relatorio_sub_area"
-response_consulta  = "/sicop/sub_area/consulta/"
-titulo_relatorio    = "Relatorio Sub Areas"
-planilha_relatorio  = "Sub Areas"
-
+from django.http.response import HttpResponseRedirect, HttpResponse
 
 @permission_required('sicop.sub_area_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
     if request.method == "POST":
-        num = request.POST['nmsubarea']
-        lista = Tbsubarea.objects.all().filter( nmsubarea__icontains=num, tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        lista = Tbsubarea.objects.filter( nmsubarea__icontains=request.POST['nmsubarea'], tbdivisao__id__in = request.session['divisoes']).order_by('nmsubarea') #AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     else:
-        lista = Tbsubarea.objects.all().filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-    lista = lista.order_by( 'id' )
-    #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
-    request.session['relatorio_sub_area'] = lista
+        lista = Tbsubarea.objects.filter( tbdivisao__id__in = request.session['divisoes']).order_by('nmsubarea')# = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     return render_to_response('sicop/sub_area/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
-    
 @permission_required('sicop.sub_area_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
+    form = SubAreaForm()
     if request.method == "POST":
-        next = request.GET.get('next', '/')
-        if validacao(request):
-            f_subarea = Tbsubarea(
-                                        nmsubarea = request.POST['nmsubarea'],
-                                        tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
-                                      )
-            f_subarea.save()
-            if next == "/":
-                return HttpResponseRedirect("/sicop/sub_area/consulta/")
-            else:    
-                return HttpResponseRedirect( next ) 
-    return render_to_response('sicop/sub_area/cadastro.html',{}, context_instance = RequestContext(request))
+        form = SubAreaForm(request.POST)
+        if form.is_valid():
+            return form_save(request, form)
+    return render_to_response('sicop/sub_area/cadastro.html',{'form':form},context_instance = RequestContext(request))
 
 @permission_required('sicop.sub_area_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def edicao(request, id):
-    instance = get_object_or_404(Tbsubarea, id=id)
+    obj = get_object_or_404(Tbsubarea, id=id)
+    form = SubAreaForm(instance=obj)
     if request.method == "POST":
-
         if not request.user.has_perm('sicop.sub_area_edicao'):
             return HttpResponseRedirect('/excecoes/permissao_negada/') 
+        form = SubAreaForm(request.POST, instance=obj)
+        if form.is_valid():
+            return form_save(request, form)
+    return render_to_response('sicop/sub_area/cadastro.html',{'form':form},context_instance = RequestContext(request))
 
-        if validacao(request):
-            f_subarea = Tbsubarea(
-                                        id = instance.id,
-                                        nmsubarea = request.POST['nmsubarea'],
-                                        tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
-                                      )
-            f_subarea.save()
-            return HttpResponseRedirect("/sicop/sub_area/edicao/"+str(id)+"/")
-    return render_to_response('sicop/sub_area/edicao.html', {"subarea":instance}, context_instance = RequestContext(request))
-
-
-@permission_required('sicop.sub_area_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
-def relatorio_pdf(request):
-    # montar objeto lista com os campos a mostrar no relatorio/pdf
-    lista = request.session[nome_relatorio]
-    if lista:
-        response = HttpResponse(mimetype='application/pdf')
-        doc = relatorio_pdf_base_header(response, nome_relatorio)   
-        elements=[]
-        
-        dados = relatorio_pdf_base_header_title(titulo_relatorio)
-        dados.append( ('NOME') )
-        for obj in lista:
-            dados.append( ( obj.nmsubarea ) )
-        return relatorio_pdf_base(response, doc, elements, dados)
-    else:
-        return HttpResponseRedirect(response_consulta)
-
-@permission_required('sicop.sub_area_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
-def relatorio_ods(request):
-
-    # montar objeto lista com os campos a mostrar no relatorio/pdf
-    lista = request.session[nome_relatorio]
-    
-    if lista:
-        ods = ODS()
-        sheet = relatorio_ods_base_header(planilha_relatorio, titulo_relatorio, ods)
-        
-        # subtitle
-        sheet.getCell(0, 1).setAlignHorizontal('center').stringValue( 'Nome' ).setFontSize('14pt')
-        sheet.getRow(1).setHeight('20pt')
-        
-    #TRECHO PERSONALIZADO DE CADA CONSULTA
-        #DADOS
-        x = 0
-        for obj in lista:
-            sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.nmsubarea)    
-            x += 1
-        
-    #TRECHO PERSONALIZADO DE CADA CONSULTA     
-       
-        relatorio_ods_base(ods, planilha_relatorio)
-        # generating response
-        response = HttpResponse(mimetype=ods.mimetype.toString())
-        response['Content-Disposition'] = 'attachment; filename='+nome_relatorio+'.ods'
-        ods.save(response)
-    
-        return response
-    else:
-        return HttpResponseRedirect( response_consulta )
-
-@permission_required('sicop.sub_area_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
-def relatorio_csv(request):
-    # montar objeto lista com os campos a mostrar no relatorio/pdf
-    lista = request.session[nome_relatorio]
-    if lista:
-        response = HttpResponse(content_type='text/csv')     
-        writer = relatorio_csv_base(response, nome_relatorio)
-        writer.writerow(['Nome'])
-        for obj in lista:
-            writer.writerow([obj.nmsubarea])
-        return response
-    else:
-        return HttpResponseRedirect( response_consulta )
-
-
-
-def validacao(request_form):
-    warning = True
-    if request_form.POST['nmsubarea'] == '':
-        messages.add_message(request_form,messages.WARNING,'Informe um nome para a sub area')
-        warning = False
-    return warning
+def form_save(request, form):
+    form.tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
+    form.save()
+    return HttpResponseRedirect( '/sicop/sub_area/consulta' )
