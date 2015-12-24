@@ -2,7 +2,6 @@ from django.contrib.auth.decorators import login_required, permission_required,\
     user_passes_test
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
-from TerraLegal.tramitacao.forms import FormTipoCaixa
 from django.http import HttpResponseRedirect
 from TerraLegal.tramitacao.models import Tbsituacao
 from django.contrib import messages

@@ -93,26 +93,17 @@ urlpatterns = patterns('',
     url(r'^sicop/contrato/consulta/', 'TerraLegal.tramitacao.restrito.contrato.consulta'),
     url(r'^sicop/contrato/cadastro/', 'TerraLegal.tramitacao.restrito.contrato.cadastro'),
     url(r'^sicop/contrato/edicao/(?P<id>\d+)/', 'TerraLegal.tramitacao.restrito.contrato.edicao'),
-    url(r'^sicop/contrato/relatorio/pdf/', 'TerraLegal.tramitacao.restrito.contrato.relatorio_pdf'),    
-    url(r'^sicop/contrato/relatorio/ods/', 'TerraLegal.tramitacao.restrito.contrato.relatorio_ods'),
-    url(r'^sicop/contrato/relatorio/csv/', 'TerraLegal.tramitacao.restrito.contrato.relatorio_csv'),
- 
+    
    # ACESSO RESTRITO SICOP PREGAO 
     url(r'^sicop/pregao/consulta/', 'TerraLegal.tramitacao.restrito.pregao.consulta'),
     url(r'^sicop/pregao/cadastro/', 'TerraLegal.tramitacao.restrito.pregao.cadastro'),
     url(r'^sicop/pregao/edicao/(?P<id>\d+)/', 'TerraLegal.tramitacao.restrito.pregao.edicao'),
-    url(r'^sicop/pregao/relatorio/pdf/', 'TerraLegal.tramitacao.restrito.pregao.relatorio_pdf'),    
-    url(r'^sicop/pregao/relatorio/ods/', 'TerraLegal.tramitacao.restrito.pregao.relatorio_ods'),
-    url(r'^sicop/pregao/relatorio/csv/', 'TerraLegal.tramitacao.restrito.pregao.relatorio_csv'),
     
     # ACESSO RESTRITO SICOP GLEBA
     url(r'^sicop/gleba/consulta/', 'TerraLegal.tramitacao.restrito.gleba.consulta'),
     url(r'^sicop/gleba/cadastro/', 'TerraLegal.tramitacao.restrito.gleba.cadastro'),
     url(r'^sicop/gleba/edicao/(?P<id>\d+)/', 'TerraLegal.tramitacao.restrito.gleba.edicao'),
-    url(r'^sicop/gleba/relatorio/pdf/', 'TerraLegal.tramitacao.restrito.gleba.relatorio_pdf'),
-    url(r'^sicop/gleba/relatorio/ods/', 'TerraLegal.tramitacao.restrito.gleba.relatorio_ods'),
-    url(r'^sicop/gleba/relatorio/csv/', 'TerraLegal.tramitacao.restrito.gleba.relatorio_csv'),
-
+    
     # ACESSO RESTRITO SICOP CAIXA
     url(r'^sicop/caixa/consulta/', 'TerraLegal.tramitacao.restrito.caixa.consulta'),
     url(r'^sicop/caixa/cadastro/', 'TerraLegal.tramitacao.restrito.caixa.cadastro'),
@@ -144,18 +135,12 @@ urlpatterns = patterns('',
     url(r'^sicop/sub_area/consulta/', 'TerraLegal.tramitacao.restrito.sub_area.consulta'),
     url(r'^sicop/sub_area/cadastro/', 'TerraLegal.tramitacao.restrito.sub_area.cadastro'),
     url(r'^sicop/sub_area/edicao/(?P<id>\d+)/', 'TerraLegal.tramitacao.restrito.sub_area.edicao'),
-    url(r'^sicop/sub_area/relatorio/pdf/', 'TerraLegal.tramitacao.restrito.sub_area.relatorio_pdf'),
-    url(r'^sicop/sub_area/relatorio/ods/', 'TerraLegal.tramitacao.restrito.sub_area.relatorio_ods'),
-    url(r'^sicop/sub_area/relatorio/csv/', 'TerraLegal.tramitacao.restrito.sub_area.relatorio_csv'),
-
+    
     # ACESSO RESTRITO SICOP TIPO CAIXA
     url(r'^sicop/tipo_caixa/consulta/', 'TerraLegal.tramitacao.restrito.tipo_caixa.consulta'),
     url(r'^sicop/tipo_caixa/cadastro/', 'TerraLegal.tramitacao.restrito.tipo_caixa.cadastro'),
     url(r'^sicop/tipo_caixa/edicao/(?P<id>\d+)/', 'TerraLegal.tramitacao.restrito.tipo_caixa.edicao'),
-    url(r'^sicop/tipo_caixa/relatorio/pdf/', 'TerraLegal.tramitacao.restrito.tipo_caixa.relatorio_pdf'),
-    url(r'^sicop/tipo_caixa/relatorio/ods/', 'TerraLegal.tramitacao.restrito.tipo_caixa.relatorio_ods'),
-    url(r'^sicop/tipo_caixa/relatorio/csv/', 'TerraLegal.tramitacao.restrito.tipo_caixa.relatorio_csv'),
-
+    
     # ACESSO RESTRITO SICOP TIPO PROCESSO
     url(r'^sicop/tipo_processo/consulta/', 'TerraLegal.tramitacao.restrito.tipo_processo.consulta'),
     url(r'^sicop/tipo_processo/cadastro/', 'TerraLegal.tramitacao.restrito.tipo_processo.cadastro'),
