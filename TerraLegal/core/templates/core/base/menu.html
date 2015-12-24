@@ -112,10 +112,12 @@
 					<li><hr/><a href="/servidor/consulta/">Servidor</a></li>
 					{% endif %}
 					
-					{% if perms.servidor.documento_consulta or perms.servidor.tipo_documento_consulta %}
+					{% if perms.documento.documento_consulta %}
 						<li><a href="#">Documento</a>
 							<ul>
-								<li><a href="/documento/memorando/consulta">Memorando</a></li>
+								{% if perms.documento.memorando_consulta %}
+									<li><a href="/documento/memorando/consulta">Memorando</a></li>
+								{% endif %}
 							</ul>
 						</li>
 					{% endif %}

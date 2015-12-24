@@ -56,7 +56,7 @@
 							{% if perms.servidor.servidor_consulta %}
 								<td> <a href="/servidor/consulta"> <img width="96px" src="{% static "img/servidor.png" %}" title="SERVIDOR" /> </a> </td>
 							{% endif %}
-							{% if perms.sicop.documento_consulta %}
+							{% if perms.documento.documento_consulta %}
 								<td> <a href="#"> <img width="96px" src="{% static "img/documento.png" %}" title="DOCUMENTO" /> </a> </td>
 							{% endif %}
 							{% if perms.sicop.titulo_calculo_portaria23 %}
@@ -67,7 +67,7 @@
 							{% if perms.servidor.servidor_consulta %}
 								<td><div style="font-size:16px;font-weight:bold">Servidor</div></td>
 							{% endif %}
-							{% if perms.sicop.documento_consulta %}
+							{% if perms.documento.documento_consulta %}
 								<td><div style="font-size:16px;font-weight:bold">Documento</div></td>
 							{% endif %}
 							{% if perms.sicop.titulo_calculo_portaria23 %}
