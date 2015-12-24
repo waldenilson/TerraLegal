@@ -211,9 +211,9 @@ class Tbpendencia(models.Model):
         db_table = 'tbpendencia'
 
 class Tbpregao(models.Model):
-    nrpregao = models.CharField(max_length=30, blank=True)
+    nrpregao = models.CharField(max_length=30, blank=False,null=True)
     dspregao = models.TextField(blank=True)
-    tbdivisao = models.ForeignKey(Tbdivisao, null=True, blank=True)
+    tbdivisao = models.ForeignKey(Tbdivisao, null=False, blank=False)
     id = models.AutoField(primary_key=True)
     class Meta:
         db_table = 'tbpregao'

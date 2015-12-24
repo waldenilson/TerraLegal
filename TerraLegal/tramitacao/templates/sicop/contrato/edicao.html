@@ -13,12 +13,9 @@
 <div id="tabs-1">		
 	<form method="post" action=".">
 		{% csrf_token %}
-		<div style="width:100%;font-size:12px;text-align:left">
-				<table>
-				   <tr> <td class="colunaTabela"> <label>Numero:</label> </td><td> <input name="nrcontrato" value="{{ contrato.nrcontrato }}" /> </td> </tr>
-				   <tr> <td class="colunaTabela"> <label>Nome da Empresa:</label> </td><td> <input name="nmempresa" value="{{ contrato.nmempresa }}" /> </td> </tr>
-				</table>
-		</div>
+
+		{% bootstrap_form form %}
+
 		<br />
 		<table style="width:100%">
 			<tr>

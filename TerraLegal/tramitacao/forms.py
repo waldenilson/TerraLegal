@@ -3,7 +3,7 @@
 # formularios customizados
 from django.forms import models
 from django import forms
-from TerraLegal.tramitacao.models import Tbpecastecnicas, Tbprocessobase, Tbtipopendencia,\
+from TerraLegal.tramitacao.models import Tbpecastecnicas, Tbpregao,Tbprocessobase, Tbtipopendencia,\
     Tbtipocaixa, Tbcaixa, Tbsubarea, Tbgleba, Tbcontrato, Tbstatuspendencia,\
     Tbclassificacaoprocesso,\
     Tbtipoprocesso, Tbprocessorural, Tbprocessoclausula, Tbprocessourbano,\
@@ -99,9 +99,9 @@ class FormMunicipio(forms.ModelForm):
 
 # validadores
 
-def NomeValidator(value):
+def ThreeLengthValidator(value):
     if len(value) <= 3:
-        raise ValidationError('Informe um nome maior que 3 letras.')
+        raise ValidationError('Informe no mínimo 3 caracteres.')
 
 
 # construcao dos modelforms
@@ -121,4 +121,23 @@ class ContratoForm(forms.ModelForm):
         exclude = ('tbdivisao',)
     def __init__(self,*args,**kwargs):
         super(ContratoForm,self).__init__(*args,**kwargs)
-        self.fields['nmempresa'].validators.append(NomeValidator)
+        self.fields['nmempresa'].validators.append(ThreeLengthValidator)
+
+
+class PregaoForm(forms.ModelForm):        
+    nrpregao = forms.CharField( label=str('Número do Pregão').decode('utf-8') )
+    dspregao = forms.CharField(
+        required = False,
+        label=str('Descrição').decode('utf-8'),
+        widget=forms.Textarea(
+            attrs={
+                'rows':'5'
+            }
+        )
+    )
+    class Meta:
+        model = Tbpregao
+        exclude = ('tbdivisao',)
+    def __init__(self,*args,**kwargs):
+        super(PregaoForm,self).__init__(*args,**kwargs)
+        self.fields['nrpregao'].validators.append(ThreeLengthValidator)

@@ -8,10 +8,9 @@ from django.http.response import HttpResponseRedirect, HttpResponse
 @permission_required('sicop.contrato_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
     if request.method == "POST":
-        lista = Tbcontrato.objects.filter( nrcontrato__icontains=request.POST['nrcontrato'], nmempresa__contains=request.POST['nmempresa'], tbdivisao__id__in = request.session['divisoes']) #AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        lista = Tbcontrato.objects.filter( nrcontrato__icontains=request.POST['nrcontrato'], nmempresa__contains=request.POST['nmempresa'], tbdivisao__id__in = request.session['divisoes']).order_by('nmempresa') #AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     else:
-        lista = Tbcontrato.objects.filter( tbdivisao__id__in = request.session['divisoes'])# = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
-    lista = lista.order_by( 'id' )
+        lista = Tbcontrato.objects.filter( tbdivisao__id__in = request.session['divisoes']).order_by('nmempresa')# = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
     return render_to_response('sicop/contrato/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
 
 @permission_required('sicop.contrato_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
