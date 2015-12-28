@@ -2,12 +2,12 @@
 
 from django.conf.urls import patterns, url
 
-project = 'project'
-urlpatterns = patterns(project+'.web.views_publicas',  
-    url(r'^terra_legal/', 'terra_legal'),
-    url(r'^equipe/', 'equipe'),
-    url(r'^organizacao/', 'organizacao'),
-    
+urlpatterns = patterns('project.web',  
+    url(r'^terra_legal/', 'views_publicas.terra_legal'),
+    url(r'^equipe/', 'views_publicas.equipe'),
+    url(r'^organizacao/', 'views_publicas.organizacao'),
+    url(r'^mobile/', 'views_publicas.mobile'),
+    url(r'^estatisticas/', 'estatisticas.estatisticas'),
     )
 
 
