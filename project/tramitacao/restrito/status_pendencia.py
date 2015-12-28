@@ -13,7 +13,7 @@ from project.tramitacao.relatorio_base import relatorio_csv_base, relatorio_ods_
 from odslib import ODS
 
 nome_relatorio      = "relatorio_status_pendencia"
-response_consulta  = "/sicop/status_pendencia/consulta/"
+response_consulta  = "/tramitacao/status_pendencia/consulta/"
 titulo_relatorio    = "Relatorio Status das Pendencias"
 planilha_relatorio  = "Status das Pendencias"
 
@@ -39,7 +39,7 @@ def cadastro(request):
                                         tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                       )
             f_statuspendencia.save()
-            return HttpResponseRedirect("/sicop/status_pendencia/consulta/") 
+            return HttpResponseRedirect("/tramitacao/status_pendencia/consulta/") 
     return render_to_response('sicop/status_pendencia/cadastro.html',{}, context_instance = RequestContext(request))
 
 @permission_required('sicop.status_pendencia_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -57,7 +57,7 @@ def edicao(request, id):
                                         tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                       )
             f_statuspendencia.save()
-            return HttpResponseRedirect("/sicop/status_pendencia/edicao/"+str(id)+"/")
+            return HttpResponseRedirect("/tramitacao/status_pendencia/edicao/"+str(id)+"/")
     return render_to_response('sicop/status_pendencia/edicao.html', {"statuspendencia":instance}, context_instance = RequestContext(request))
 
 

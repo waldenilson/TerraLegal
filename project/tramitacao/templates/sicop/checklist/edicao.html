@@ -18,7 +18,7 @@
 				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td>
 				   		<textarea rows="2" cols="40" name="nmchecklist" required >{{checklist.nmchecklist}}</textarea>
 				   	</td> </tr>
-				   <tr> <td class="colunaTabela"> <label> <a href="/sicop/etapa/edicao/{{checklist.tbetapa.id}}/"> Etapa do Processo: </a> </label> </td>
+				   <tr> <td class="colunaTabela"> <label> <a href="/tramitacao/etapa/edicao/{{checklist.tbetapa.id}}/"> Etapa do Processo: </a> </label> </td>
 				   	<td>
 				   		<select name="tbfase" style="width:350px">
 							{% for obj in fase %}
@@ -31,7 +31,7 @@
 						</select>		
 				   	</td>
 				   	<td>
-						<a href="/sicop/etapa/cadastro/?next=/sicop/checklist/cadastro/" title="Nova Fase"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+						<a href="/tramitacao/etapa/cadastro/?next=/tramitacao/checklist/cadastro/" title="Nova Fase"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>						
 				   </tr>
 				   <tr> <td class="colunaTabela"> <label>Descricao:</label> </td><td> <textarea rows="4" cols="40" name="dschecklist">{{checklist.dschecklist}}</textarea></td> </tr>

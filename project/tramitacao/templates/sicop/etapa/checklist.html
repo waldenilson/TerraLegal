@@ -22,7 +22,7 @@
 												<b style="color:red">{{ check.nmchecklist }}</b>
 											</td>
 											<td>
-												<a href="/sicop/etapa/checklist/{{processo.id}}/{{check.tbetapa.id}}">{{ check.tbetapa.nmfase }}</a>
+												<a href="/tramitacao/etapa/checklist/{{processo.id}}/{{check.tbetapa.id}}">{{ check.tbetapa.nmfase }}</a>
 											</td>
 										</tr>
 									{% endfor %}
@@ -32,7 +32,7 @@
 				<table>
 				   <tr> 
 				   		<td class="colunaTabela"> <label>Processo:</label> </td>
-				   		<td><a href="/sicop/processo/edicao/{{processo.id}}">{{processo.nrprocesso}} - {{etapa.tbtipoprocesso.nome}}</a>
+				   		<td><a href="/tramitacao/processo/edicao/{{processo.id}}">{{processo.nrprocesso}} - {{etapa.tbtipoprocesso.nome}}</a>
 				   	</tr>
 				   <tr> <td class="colunaTabela"> <label>Etapa:</label> </td><td>{{etapa.nmfase}}</tr>
 				   <tr>

@@ -14,7 +14,7 @@ from project.tramitacao.relatorio_base import relatorio_pdf_base_header,\
 from odslib import ODS
 
 nome_relatorio      = "relatorio_grupo"
-response_consulta  = "/sicop/grupo/consulta/"
+response_consulta  = "/tramitacao/grupo/consulta/"
 titulo_relatorio    = "Relatorio Grupos"
 planilha_relatorio  = "Grupos"
 
@@ -42,7 +42,7 @@ def cadastro(request):
                                       )
             f_grupo.save()
             if next == "/":
-                return HttpResponseRedirect("/sicop/grupo/consulta/")
+                return HttpResponseRedirect("/tramitacao/grupo/consulta/")
             else:    
                 return HttpResponseRedirect( next ) 
     return render_to_response('sicop/grupo/cadastro.html',{}, context_instance = RequestContext(request))
@@ -101,7 +101,7 @@ def edicao(request, id):
                                         tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                       )
             f_grupo.save()
-            return HttpResponseRedirect("/sicop/grupo/edicao/"+str(id)+"/")
+            return HttpResponseRedirect("/tramitacao/grupo/edicao/"+str(id)+"/")
     return render_to_response('sicop/grupo/edicao.html', {'content':contenttype,"grupo":instance,'result':result,'permissao':permissao,'grupopermissao':grupoPermissao}, context_instance = RequestContext(request))
 
 

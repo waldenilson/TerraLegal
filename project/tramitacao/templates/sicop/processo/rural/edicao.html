@@ -120,7 +120,7 @@
 {% endifnotequal%}
 
 <div id="tabs-1">
-	<form method="post" action="/sicop/processo/rural/edicao/{{ rural.id }}/">
+	<form method="post" action="/tramitacao/processo/rural/edicao/{{ rural.id }}/">
 	{% csrf_token %}
 
 		<table style="width:100%">
@@ -167,12 +167,12 @@
 										</tr>
 										<tr style="color: red;font-weight: bold;"> 
 												<td class="colunaTabela" > 
-													<a href="/sicop/processo/edicao/{{ processo_principal.id }}">
+													<a href="/tramitacao/processo/edicao/{{ processo_principal.id }}">
 														Processo Principal:
 													</a>
 												</td>
 										   		<td>
-										   			<a href="/sicop/processo/edicao/{{ processo_principal.id }}"> {{ processo_principal.nrprocesso }} </a>
+										   			<a href="/tramitacao/processo/edicao/{{ processo_principal.id }}"> {{ processo_principal.nrprocesso }} </a>
 										   		</td>
 										</tr>
 									{% endif %}
@@ -361,7 +361,7 @@
 					<td class="colunaTabelaConsulta" >Contrato</td>
 				</tr>					    
 					{% for obj in peca %}
-						<tr onclick="editarID('/sicop/peca_tecnica/edicao/{{ obj.id }}');">
+						<tr onclick="editarID('/tramitacao/peca_tecnica/edicao/{{ obj.id }}');">
 							<td class="colunaTabelaConsulta" align="left" >{{ obj.tbgleba.nmgleba }}</td>
 							<td class="colunaTabelaConsulta" align="left" >{{ obj.nrarea }}</td>
 							<td class="colunaTabelaConsulta" align="left" >{{ obj.tbmunicipio.nome_mun_maiusculo }}</td>
@@ -377,7 +377,7 @@
 -->
 {% if base.tbclassificacaoprocesso.id == 1 %}
 <div id="tabs-3">
-	<form method="post" action="/sicop/processo/tramitacao/{{ base.id }}/">
+	<form method="post" action="/tramitacao/processo/tramitacao/{{ base.id }}/">
 		{% csrf_token %}
 
 		<div style="font-size:12px;margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
@@ -425,7 +425,7 @@
 
 
 <div id="tabs-4">
-	<form method="post" action="/sicop/processo/pendencia/{{ base.id }}/">
+	<form method="post" action="/tramitacao/processo/pendencia/{{ base.id }}/">
 		{% csrf_token %}
 		<div style="font-size:12px;margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
 			PENDÊNCIA<hr/>
@@ -476,7 +476,7 @@
 						<td class="colunaTabelaConsulta" style="width: 20%">Usuário</td>
 					</tr>
 					   		{% for pen in pendencia %}
-								<tr onclick="editarID('/sicop/pendencia/edicao/{{ pen.id }}');">
+								<tr onclick="editarID('/tramitacao/pendencia/edicao/{{ pen.id }}');">
 									<td class="colunaTabelaConsulta">{{	pen.tbtipopendencia.dspendencia }}</td>
 									<td class="colunaTabelaConsulta">{{ pen.dsdescricao }}</td>
 									<td class="colunaTabelaConsulta">{{	pen.tbstatuspendencia.dspendencia }}</td>
@@ -491,7 +491,7 @@
 
 {% if base.tbclassificacaoprocesso.id == 1 %}
 <div id="tabs-5">
-	<form method="post" action="/sicop/processo/anexo/{{ base.id }}/">
+	<form method="post" action="/tramitacao/processo/anexo/{{ base.id }}/">
 		{% csrf_token %}
 		<div style="font-size:12px;margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
 			ANEXOS<hr/>
@@ -520,12 +520,12 @@
 						{% for anexo in anexado %}
 							<tr>
 								<td class="colunaTabelaConsulta">
-									<a	href="/sicop/processo/desanexar/{{ anexo.tbprocessobase_id_anexo.id}}"	onclick="return confirm('Deseja mesmo desanexar os processos ?');" > 
+									<a	href="/tramitacao/processo/desanexar/{{ anexo.tbprocessobase_id_anexo.id}}"	onclick="return confirm('Deseja mesmo desanexar os processos ?');" > 
 										<img width="22" src="{% static "img/desanexar.jpg" %}" />
 									</a>
 								</td>
 								<td class="colunaTabelaConsulta">{{ anexo.dtanexado.day }}/{{ anexo.dtanexado.month }}/{{ anexo.dtanexado.year }}</td>
-								<td class="colunaTabelaConsulta" onclick="editarID('/sicop/processo/edicao/{{ anexo.tbprocessobase_id_anexo.id}}');" >{{ anexo.tbprocessobase_id_anexo.nrprocesso }}</td>
+								<td class="colunaTabelaConsulta" onclick="editarID('/tramitacao/processo/edicao/{{ anexo.tbprocessobase_id_anexo.id}}');" >{{ anexo.tbprocessobase_id_anexo.nrprocesso }}</td>
 								<td class="colunaTabelaConsulta">{{	anexo.tbprocessobase_id_anexo.auth_user.first_name }}</td>
 							</tr>
 						{% endfor %} 
@@ -541,7 +541,7 @@
 		<div style="font-size:12px;margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
 			VERIFICAÇÃO DE SOBREPOSIÇÃO<hr/>
 		</div>
-		<form method="post" target="blank" action="/sicop/processo/rural/sobreposicao/{{ rural.id }}/">
+		<form method="post" target="blank" action="/tramitacao/processo/rural/sobreposicao/{{ rural.id }}/">
 		{% csrf_token %}
 
 			<table>
@@ -925,7 +925,7 @@
 
 		    {% if perms.sicop.etapa_checklist_posterior %}
 				<div style="width:100%;text-align:right">
-					<a href="/sicop/etapa/restaurar/{{ base.id }}/">
+					<a href="/tramitacao/etapa/restaurar/{{ base.id }}/">
 						<input type="button" style="width:200px" value="VOLTAR ETAPA" />
 					</a>
 				</div>
@@ -942,18 +942,18 @@
 										{% if etapa_atual %}
 											{% if etapa_atual.tbetapa.id == fase.id %}
 												{% if perms.sicop.processo_edicao %}
-													onclick="editarID('/sicop/etapa/checklist/{{ rural.tbprocessobase.id }}/{{ fase.id }}');" 
+													onclick="editarID('/tramitacao/etapa/checklist/{{ rural.tbprocessobase.id }}/{{ fase.id }}');" 
 												{% endif %}
 												class="bt_blue"
 											{% else %}
 												{% if perms.sicop.etapa_checklist_edicao %}
-													onclick="editarID('/sicop/etapa/checklist/{{ rural.tbprocessobase.id }}/{{ fase.id }}');" 
+													onclick="editarID('/tramitacao/etapa/checklist/{{ rural.tbprocessobase.id }}/{{ fase.id }}');" 
 												{% endif %}
 												class="bt_grey"
 											{% endif %}
 										{% else %}
 											{% if perms.sicop.etapa_checklist_edicao %}
-												onclick="editarID('/sicop/etapa/checklist/{{ rural.tbprocessobase.id }}/{{ fase.id }}');" 
+												onclick="editarID('/tramitacao/etapa/checklist/{{ rural.tbprocessobase.id }}/{{ fase.id }}');" 
 											{% endif %}
 											class="bt_grey"
 										{% endif %}
@@ -997,7 +997,7 @@
 		<div style="font-size:12px;margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
 			DESPACHO APROVAÇÃO REGIONAL<hr/>
 		</div>
-		<form method="post" target="blank" action="/sicop/processo/rural/despacho_aprovacao_regional/{{ rural.id }}/">
+		<form method="post" target="blank" action="/tramitacao/processo/rural/despacho_aprovacao_regional/{{ rural.id }}/">
 		{% csrf_token %}
 
 			<table>

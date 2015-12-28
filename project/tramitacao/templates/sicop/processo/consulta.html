@@ -53,29 +53,29 @@
 				<tr>
 					<td class="colunaTabela" style="text-align:left"> 
 						<input class="button_yellow" style="margin-right: 10px" type="submit" value="PESQUISAR" />
-						<a href="/sicop/processo/cadastro/"> <input class="button_green" value="NOVO" type="button" /> </a>
-						<a href="/sicop/processo/importacao/" style="margin-left: 10px"> <input class="button_green" value="IMPORTAÇÃO *.ODS" type="button" /> </a>
+						<a href="/tramitacao/processo/cadastro/"> <input class="button_green" value="NOVO" type="button" /> </a>
+						<a href="/tramitacao/processo/importacao/" style="margin-left: 10px"> <input class="button_green" value="IMPORTAÇÃO *.ODS" type="button" /> </a>
 					</td>
  
 					<td class="colunaTabela" style="text-align:right;font-weight:bold"> 
 						TRAMITAÇÃO EM LOTE: 
 						{% if request.session.tramitacao_massa_ativado %}
-							<a href="/sicop/processo/lista_tramitacao_massa/"> {{ request.session.tramitacao_massa|length }} Selecionado(s) </a>
+							<a href="/tramitacao/processo/lista_tramitacao_massa/"> {{ request.session.tramitacao_massa|length }} Selecionado(s) </a>
 							&nbsp;|&nbsp;
 						{% endif %}
 						{% if request.session.tramitacao_massa_ativado %}
-							<a href="/sicop/processo/tramitacao_massa/"> DESATIVAR </a>
+							<a href="/tramitacao/processo/tramitacao_massa/"> DESATIVAR </a>
 						{% else %}
-							<a href="/sicop/processo/tramitacao_massa/"> ATIVAR </a>
+							<a href="/tramitacao/processo/tramitacao_massa/"> ATIVAR </a>
 						{% endif %}
 					</td>				
 
 
  <!-- 
 					<td class="colunaTabela" style="text-align:right"> 
-	 					<a href="/sicop/restrito/processo/relatorio/pdf/"> <img width="36" alt="PDF" src="{% static "img/pdf.png" %}" /> </a>
-						<a href="/sicop/restrito/processo/relatorio/ods/"> <img width="36" alt="ODS" src="{% static "img/ods.png" %}" /> </a>
-						<a href="/sicop/restrito/processo/relatorio/csv/"> <img width="36" alt="CSV" src="{% static "img/csv.png" %}" /> </a>
+	 					<a href="/tramitacao/restrito/processo/relatorio/pdf/"> <img width="36" alt="PDF" src="{% static "img/pdf.png" %}" /> </a>
+						<a href="/tramitacao/restrito/processo/relatorio/ods/"> <img width="36" alt="ODS" src="{% static "img/ods.png" %}" /> </a>
+						<a href="/tramitacao/restrito/processo/relatorio/csv/"> <img width="36" alt="CSV" src="{% static "img/csv.png" %}" /> </a>
 					</td>
 -->	
 				</tr>
@@ -88,7 +88,7 @@
 					</td>
 					<td>
 						<div style="text-align:right">
-							<a href="/sicop/processo/relatorio/ods/"> <img width="36" alt="ODS" src="{% static "img/ods.png" %}" /> </a>					
+							<a href="/tramitacao/processo/relatorio/ods/"> <img width="36" alt="ODS" src="{% static "img/ods.png" %}" /> </a>					
 						</div>
 					</td>
 				</tr>
@@ -119,28 +119,28 @@
 								style="background: {{ obj.tbprocessobase.tbtipoprocesso.coridentificacao }}">
 
 								{% if request.session.tramitacao_massa_ativado %}
-									<td onclick="editarID('/sicop/processo/add_tramitacao_massa/{{ obj.tbprocessobase.id }}');" 
+									<td onclick="editarID('/tramitacao/processo/add_tramitacao_massa/{{ obj.tbprocessobase.id }}');" 
 										class="colunaTabelaConsulta">
 											<img title="Selecionar para tramitação em massa" width="22" src="{% static "img/rb-off.png" %}" />
 									</td>
 								{% endif %}
 								
 								{% if obj.tbprocessobase.tbtipoprocesso.id == 1 %}
-									<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');"
+									<td onclick="editarID('/tramitacao/processo/edicao/{{ obj.tbprocessobase.id }}');"
 										class="colunaTabelaConsulta">{{ obj.nmrequerente }}</td>
 								{% else %}
 									{% if obj.tbprocessobase.tbtipoprocesso.id == 2 %}
-										<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');"
+										<td onclick="editarID('/tramitacao/processo/edicao/{{ obj.tbprocessobase.id }}');"
 											class="colunaTabelaConsulta" >Interessado: {{ obj.nminteressado }} | Titulado: {{ obj.nmrequerente }}</td>
 									{% else %}
 										{% if obj.tbprocessobase.tbtipoprocesso.id == 3 %}
-											<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');"
+											<td onclick="editarID('/tramitacao/processo/edicao/{{ obj.tbprocessobase.id }}');"
 												class="colunaTabelaConsulta">{{ obj.nmpovoado }}</td>
 										{% endif %}
 									{% endif %}
 								{% endif %}
 								
-									<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">
+									<td onclick="editarID('/tramitacao/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">
 										{{ obj.tbprocessobase.nrprocesso }}
 										
 										{% if obj.tbprocessobase.tbclassificacaoprocesso.id == 2 %}
@@ -148,12 +148,12 @@
 										{% endif %}
 										
 									</td>
-									<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbmunicipio.nome_mun }}</td>
-									<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbgleba.nmgleba }}</td>
-									<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbcaixa.nmlocalarquivo }}</td>
+									<td onclick="editarID('/tramitacao/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbmunicipio.nome_mun }}</td>
+									<td onclick="editarID('/tramitacao/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbgleba.nmgleba }}</td>
+									<td onclick="editarID('/tramitacao/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbcaixa.nmlocalarquivo }}</td>
 									
-									<!--td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta"></td-->
-									<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">
+									<!--td onclick="editarID('/tramitacao/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta"></td-->
+									<td onclick="editarID('/tramitacao/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">
 										{% for obj2 in lista_processo_titulo %}
 										{% if obj2.tbprocessobase.id = obj.tbprocessobase.id  %}
 											{{ obj2.tbtitulo.cdtitulo }}

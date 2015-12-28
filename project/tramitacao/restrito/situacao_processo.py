@@ -13,7 +13,7 @@ from project.tramitacao.relatorio_base import relatorio_pdf_base_header,\
 from odslib import ODS
 
 nome_relatorio      = "relatorio_situacao_processo"
-response_consulta  = "/sicop/situacao_processo/consulta/"
+response_consulta  = "/tramitacao/situacao_processo/consulta/"
 titulo_relatorio    = "Relatorio das Situacoes dos Processos"
 planilha_relatorio  = "Situacoes dos Processos"
 
@@ -42,7 +42,7 @@ def cadastro(request):
                                             )
             f_situacaogeo.save()
             if next == "/":
-                return HttpResponseRedirect("/sicop/situacao_processo/consulta/")
+                return HttpResponseRedirect("/tramitacao/situacao_processo/consulta/")
             else:    
                 return HttpResponseRedirect( next ) 
     return render_to_response('sicop/situacao_processo/cadastro.html', context_instance = RequestContext(request))
@@ -63,7 +63,7 @@ def edicao(request, id):
                                                 tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                             )
            f_situacaogeo.save()
-           return HttpResponseRedirect("/sicop/situacao_processo/edicao/"+str(id)+"/")
+           return HttpResponseRedirect("/tramitacao/situacao_processo/edicao/"+str(id)+"/")
     return render_to_response('sicop/situacao_processo/edicao.html', {"situacaoprocesso":instance}, context_instance = RequestContext(request))
 
 

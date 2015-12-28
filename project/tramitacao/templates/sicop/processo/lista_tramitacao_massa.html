@@ -26,7 +26,7 @@
 			<table style="width:100%">
 				<tr>
 					<td class="colunaTabela" style="text-align:left"> 
-						<a href="/sicop/processo/consulta/"> <input class="button_yellow" value="CONSULTAR" type="button" /></a>
+						<a href="/tramitacao/processo/consulta/"> <input class="button_yellow" value="CONSULTAR" type="button" /></a>
 						<input class="button_green" style="margin-left: 10px" type="submit" value="EXECUTAR" />
 					</td>
 					<td class="colunaTabela" style="text-align:right;font-weight:bold"> 
@@ -36,9 +36,9 @@
 							&nbsp;|&nbsp;
 						{% endif %}
 						{% if request.session.tramitacao_massa_ativado %}
-							<a href="/sicop/processo/tramitacao_massa/"> DESATIVAR </a>
+							<a href="/tramitacao/processo/tramitacao_massa/"> DESATIVAR </a>
 						{% else %}
-							<a href="/sicop/processo/tramitacao_massa/"> ATIVAR </a>
+							<a href="/tramitacao/processo/tramitacao_massa/"> ATIVAR </a>
 						{% endif %}
 					</td>				
 
@@ -73,27 +73,27 @@
 							<tr 
 								style="background: {{ obj.tbprocessobase.tbtipoprocesso.coridentificacao }}">
 
-								<td onclick="editarID('/sicop/processo/rem_tramitacao_massa/{{ obj.tbprocessobase.id }}');" 
+								<td onclick="editarID('/tramitacao/processo/rem_tramitacao_massa/{{ obj.tbprocessobase.id }}');" 
 									class="colunaTabelaConsulta">
 										<img title="Retirar processo da tramitação em massa" width="22" src="{% static "img/delete.png" %}" />
 								</td>
 								
 								{% if obj.tbprocessobase.tbtipoprocesso.id == 1 %}
-									<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');"
+									<td onclick="editarID('/tramitacao/processo/edicao/{{ obj.tbprocessobase.id }}');"
 										class="colunaTabelaConsulta">{{ obj.nmrequerente }}</td>
 								{% else %}
 									{% if obj.tbprocessobase.tbtipoprocesso.id == 2 %}
-										<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');"
+										<td onclick="editarID('/tramitacao/processo/edicao/{{ obj.tbprocessobase.id }}');"
 											class="colunaTabelaConsulta" >{{ obj.nmrequerente }}</td>
 									{% else %}
 										{% if obj.tbprocessobase.tbtipoprocesso.id == 3 %}
-											<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');"
+											<td onclick="editarID('/tramitacao/processo/edicao/{{ obj.tbprocessobase.id }}');"
 												class="colunaTabelaConsulta">{{ obj.nmpovoado }}</td>
 										{% endif %}
 									{% endif %}
 								{% endif %}
 								
-									<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">
+									<td onclick="editarID('/tramitacao/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">
 										{{ obj.tbprocessobase.nrprocesso }}
 										
 										{% if obj.tbprocessobase.tbclassificacaoprocesso.id == 2 %}
@@ -101,10 +101,10 @@
 										{% endif %}
 										
 									</td>
-									<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbmunicipio.nome_mun }}</td>
-									<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbgleba.nmgleba }}</td>
-									<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbcaixa.nmlocalarquivo }}</td>
-									<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbtitulo.cdtitulo }}</td>
+									<td onclick="editarID('/tramitacao/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbmunicipio.nome_mun }}</td>
+									<td onclick="editarID('/tramitacao/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbgleba.nmgleba }}</td>
+									<td onclick="editarID('/tramitacao/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbcaixa.nmlocalarquivo }}</td>
+									<td onclick="editarID('/tramitacao/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">{{ obj.tbprocessobase.tbtitulo.cdtitulo }}</td>
 							</tr>
 						{% endfor %}
 					{% else %}

@@ -45,7 +45,7 @@ from project.core.funcoes import emitir_documento, upload_file,normalizar_string
 from pyexcel_ods import get_data
 
 nome_relatorio      = "relatorio_processo"
-response_consulta  = "/sicop/processo/consulta/"
+response_consulta  = "/tramitacao/processo/consulta/"
 titulo_relatorio    = "Relatorio Processos"
 planilha_relatorio  = "Processos"
 
@@ -126,7 +126,7 @@ def consultaprocesso(request):
     
     for obj in lista:
         request.session['processo_saida'] = 'unico'
-        return HttpResponseRedirect("/sicop/processo/edicao/"+str(obj.tbprocessobase.id)+"/")
+        return HttpResponseRedirect("/tramitacao/processo/edicao/"+str(obj.tbprocessobase.id)+"/")
         #edicao(request,obj.tbprocessobase.id)
         #usar http_redirect alguma coisa assim passando a url do edicao  e o id
 
@@ -271,7 +271,7 @@ def consulta(request):
         if 'tramitacao_massa_ativado' in request.session and request.session['tramitacao_massa_ativado']:
                 add_tramitacao_massa(request, lista[0].tbprocessobase.id)
         else:
-            return HttpResponseRedirect("/sicop/processo/edicao/"+str(lista[0].tbprocessobase.id))
+            return HttpResponseRedirect("/tramitacao/processo/edicao/"+str(lista[0].tbprocessobase.id))
     lista_processo_titulo = []
     if lista:
         for obj in lista:
@@ -343,7 +343,7 @@ def tramitar(request, base):
                                         )
                 f_base.save()
                     
-            return HttpResponseRedirect("/sicop/processo/edicao/"+str(base.id)+"/")
+            return HttpResponseRedirect("/tramitacao/processo/edicao/"+str(base.id)+"/")
         #segue abaixo se a validacao da tramitacao nao der certo
         carregarTbAuxProcesso(request, base.tbcaixa.tbtipocaixa.nmtipocaixa)
         carregarTbAuxFuncoesProcesso(request, base)
@@ -430,7 +430,7 @@ def criar_pendencia(request, base):
                                       )
             f_pendencia.save()
                     
-            return HttpResponseRedirect("/sicop/processo/edicao/"+str(base.id)+"/")
+            return HttpResponseRedirect("/tramitacao/processo/edicao/"+str(base.id)+"/")
         
         carregarTbAuxProcesso(request, base.tbcaixa.tbtipocaixa.nmtipocaixa)
         carregarTbAuxFuncoesProcesso(request, base)
@@ -512,7 +512,7 @@ def anexar(request, base):
                                   
                                     )
             f_anexo.save()
-            return HttpResponseRedirect("/sicop/processo/edicao/"+str(base.id)+"/")
+            return HttpResponseRedirect("/tramitacao/processo/edicao/"+str(base.id)+"/")
         
         carregarTbAuxProcesso(request, base.tbcaixa.tbtipocaixa.nmtipocaixa)
         carregarTbAuxFuncoesProcesso(request, base)
@@ -588,7 +588,7 @@ def desanexar(request,id_anexo):
                                 )
         f_anexo.save()
         messages.add_message(request, messages.WARNING, 'Processo desanexado')
-        return HttpResponseRedirect("/sicop/processo/edicao/"+str(base.id)+"/")
+        return HttpResponseRedirect("/tramitacao/processo/edicao/"+str(base.id)+"/")
   
         #se nao passar na validacao
         
@@ -842,7 +842,7 @@ def edicao(request, id):
                                        'movimentacao':movimentacao,'caixadestino':tram,'tipopendencia':tipopendencia,'statuspendencia':statuspendencia,
                                        'base':base,'clausula':clausula,'analises':Tbloganalise.objects.filter( tbprocessobase__id = base.id ).order_by('dtanalise')}, context_instance = RequestContext(request))
         
-    return HttpResponseRedirect("/sicop/processo/consulta/")
+    return HttpResponseRedirect("/tramitacao/processo/consulta/")
     
 @permission_required('sicop.processo_cadastro', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def cadastro(request):
@@ -1185,7 +1185,7 @@ def ativar_tramitacao_massa(request):
             request.session['tramitacao_massa_ativado'] = True
             request.session['tramitacao_massa'] = []
      
-    return HttpResponseRedirect("/sicop/processo/consulta/")
+    return HttpResponseRedirect("/tramitacao/processo/consulta/")
 
 @permission_required('sicop.processo_tramitacao_massa', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def add_tramitacao_massa(request, base):
@@ -1218,7 +1218,7 @@ def add_tramitacao_massa(request, base):
                 lista.append( processo )
             request.session['tramitacao_massa'] = lista
         
-    return HttpResponseRedirect("/sicop/processo/consulta/")
+    return HttpResponseRedirect("/tramitacao/processo/consulta/")
 
 @permission_required('sicop.processo_tramitacao_massa', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def rem_tramitacao_massa(request, base):
@@ -1237,7 +1237,7 @@ def rem_tramitacao_massa(request, base):
     lista.remove( processo )
     request.session['tramitacao_massa'] = lista
         
-    return HttpResponseRedirect("/sicop/processo/lista_tramitacao_massa/")
+    return HttpResponseRedirect("/tramitacao/processo/lista_tramitacao_massa/")
 
 @permission_required('sicop.processo_tramitacao_massa', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def executar_tramitacao_massa(request):

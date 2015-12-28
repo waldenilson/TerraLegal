@@ -14,7 +14,7 @@ from project.tramitacao.relatorio_base import relatorio_pdf_base_header,\
 from odslib import ODS
 
 nome_relatorio      = "relatorio_divisao"
-response_consulta  = "/sicop/divisao/consulta/"
+response_consulta  = "/tramitacao/divisao/consulta/"
 titulo_relatorio    = "Relatorio Divisao"
 planilha_relatorio  = "Divisoes"
 
@@ -41,7 +41,7 @@ def cadastro(request):
             if form.is_valid():
                 form.save()
                 if next == "/":
-                    return HttpResponseRedirect("/sicop/divisao/consulta/")
+                    return HttpResponseRedirect("/tramitacao/divisao/consulta/")
                 else:    
                     return HttpResponseRedirect( next ) 
     else:
@@ -61,7 +61,7 @@ def edicao(request, id):
         if validacao(request):
             if form.is_valid():
                 form.save()
-                return HttpResponseRedirect("/sicop/divisao/edicao/"+str(id)+"/")
+                return HttpResponseRedirect("/tramitacao/divisao/edicao/"+str(id)+"/")
     else:
         form = FormDivisao(instance=instance)
     return render_to_response('sicop/divisao/edicao.html', {"form":form,"uf":uf,"classe":request.session['classe']}, context_instance = RequestContext(request))

@@ -13,7 +13,7 @@
 
 {% block consulta %}
 		<div style="text-align:right">
-			<a href="/sicop/relatorio/programacao_p80"> <img width="36" alt="ODS" src="{% static "img/ods.png" %}" /> </a>					
+			<a href="/tramitacao/relatorio/programacao_p80"> <img width="36" alt="ODS" src="{% static "img/ods.png" %}" /> </a>					
 		</div>
 {% endblock %}
 
@@ -32,17 +32,17 @@
 							<tr 
 								style="background: {{ obj.proc.tbprocessobase.tbtipoprocesso.coridentificacao }}">
 
-								<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">{{ obj.nmrequerente }}</td>
+								<td onclick="editarID('/tramitacao/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">{{ obj.nmrequerente }}</td>
 								
-								<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">
+								<td onclick="editarID('/tramitacao/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">
 										{{ obj.tbprocessobase.nrprocesso }}
 									</td>
 
-								<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">
+								<td onclick="editarID('/tramitacao/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">
 										{{ obj.tbprocessobase.tbcaixa.nmlocalarquivo }}
 									</td>
 
-								<td onclick="editarID('/sicop/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">
+								<td onclick="editarID('/tramitacao/processo/edicao/{{ obj.tbprocessobase.id }}');" class="colunaTabelaConsulta">
 										{{ obj.tbprocessobase.tbetapaatual.nmfase }}
 									</td>
 							</tr>

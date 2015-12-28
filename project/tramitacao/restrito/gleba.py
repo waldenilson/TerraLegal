@@ -37,4 +37,4 @@ def edicao(request, id):
 
 def form_save(request, form):
     form.save()
-    return HttpResponseRedirect( '/sicop/gleba/consulta' )
+    return HttpResponseRedirect( '/tramitacao/gleba/consulta' )

@@ -20,7 +20,7 @@ from odslib import ODS
 from project.tramitacao.admin import verificar_permissao_grupo
 
 nome_relatorio      = "relatorio_usuario"
-response_consulta  = "/sicop/usuario/consulta/"
+response_consulta  = "/tramitacao/usuario/consulta/"
 titulo_relatorio    = "Relatorio Usuarios"
 planilha_relatorio  = "Usuarios"
 
@@ -94,7 +94,7 @@ def cadastro(request):
                                           group = AuthGroup.objects.get( pk = obj.id ) )
                     ug.save()
             
-            return HttpResponseRedirect("/sicop/usuario/consulta/") 
+            return HttpResponseRedirect("/tramitacao/usuario/consulta/") 
     
     return render_to_response('sicop/usuario/cadastro.html',{'divisao':divisao,'result':result,'grupo':grupo}, context_instance = RequestContext(request))
 
@@ -172,7 +172,7 @@ def edicao(request, id):
                                    date_joined = user_obj.date_joined
                                    )
             usuario.save()
-            return HttpResponseRedirect("/sicop/usuario/edicao/"+str(id)+"/")
+            return HttpResponseRedirect("/tramitacao/usuario/edicao/"+str(id)+"/")
     
     return render_to_response('sicop/usuario/edicao.html', 
                               {'result':result,'grupo':grupo,'usergrupo':userGrupo,'user_obj':user_obj,'divisao':divisao}, context_instance = RequestContext(request))
@@ -252,12 +252,12 @@ def edicao_usuario_logado(request, id):
                                        date_joined = user_obj.date_joined
                                        )
                 usuario.save()
-                return HttpResponseRedirect("/sicop/usuario/edicao/usuario/"+str(id)+"/")
+                return HttpResponseRedirect("/tramitacao/usuario/edicao/usuario/"+str(id)+"/")
         
         return render_to_response('sicop/usuario/edicao.html', 
                                   {'result':result,'grupo':grupo,'usergrupo':userGrupo,'user_obj':user_obj,'divisao':divisao}, context_instance = RequestContext(request))
     else:
-        return HttpResponseRedirect("/sicop/usuario/edicao/"+str(id)+"/")
+        return HttpResponseRedirect("/tramitacao/usuario/edicao/"+str(id)+"/")
 
 
 @permission_required('sicop.usuario_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)

@@ -94,7 +94,7 @@ def cadastro(request):
                 f_base.save()           
 
             messages.add_message(request,messages.INFO,'Informações salvas com sucesso.')            
-            return HttpResponseRedirect("/sicop/processo/consulta/")
+            return HttpResponseRedirect("/tramitacao/processo/consulta/")
         
     return render_to_response('sicop/processo/cadastro.html',
         {'gleba':gleba,'etapaprocesso':etapaprocesso,'caixa':caixa,
@@ -191,7 +191,7 @@ def edicao(request, id):
                                
             messages.add_message(request,messages.INFO,'Informações salvas com sucesso.')
             
-            return HttpResponseRedirect("/sicop/processo/edicao/"+str(base.id)+"/")
+            return HttpResponseRedirect("/tramitacao/processo/edicao/"+str(base.id)+"/")
 
     return render_to_response('sicop/processo/rural/edicao.html',
                               {'situacaoprocesso':situacaoprocesso,'gleba':gleba,
@@ -311,7 +311,7 @@ def gerar_doc_sobreposicao(request, id):
 
     ds.save()
 
-    return gerar_pdf(request,'/sicop/processo/rural/sobreposicao.html',dados, settings.MEDIA_ROOT+'/tmp','sobreposicao.pdf')
+    return gerar_pdf(request,'/tramitacao/processo/rural/sobreposicao.html',dados, settings.MEDIA_ROOT+'/tmp','sobreposicao.pdf')
 
 @permission_required('sicop.processo_rural_despacho_aprovacao_regional', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def gerar_doc_despacho_aprovacao_regional(request, id):
@@ -380,7 +380,7 @@ def gerar_doc_despacho_aprovacao_regional(request, id):
     ds.save()
     
     return emitir_documento('despacho_aprovacao_regional.odt',dados)
-    #return gerar_pdf(request,'/sicop/processo/rural/despacho_aprovacao_regional.html',dados, settings.MEDIA_ROOT+'/tmp','aprovacao_regional.pdf')
+    #return gerar_pdf(request,'/tramitacao/processo/rural/despacho_aprovacao_regional.html',dados, settings.MEDIA_ROOT+'/tmp','aprovacao_regional.pdf')
 
 def check_boolean(request,name):
     if request.POST.get(name,False):

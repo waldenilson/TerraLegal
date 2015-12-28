@@ -13,7 +13,7 @@ from project.tramitacao.relatorio_base import relatorio_csv_base, relatorio_ods_
 from odslib import ODS
 
 nome_relatorio      = "relatorio_tipo_situacao"
-response_consulta  = "/sicop/tipo_caixa/consulta/"
+response_consulta  = "/tramitacao/tipo_caixa/consulta/"
 titulo_relatorio    = "Relatorio dos Tipos de Caixa"
 planilha_relatorio  = "Tipos de Caixa"
 '''
@@ -42,7 +42,7 @@ def cadastro(request):
                                     dsSituacao = request.POST['dsSituacao'],)
             f_situacao.save()
             if next == "/":
-                return HttpResponseRedirect("/sicop/situacao/consulta/")
+                return HttpResponseRedirect("/tramitacao/situacao/consulta/")
             else:    
                 return HttpResponseRedirect( next ) 
     return render_to_response('sicop/situacao/cadastro.html',{}, context_instance = RequestContext(request))
@@ -63,7 +63,7 @@ def edicao(request, id):
                                         
                                       )
             f_situacao.save()
-            return HttpResponseRedirect("/sicop/situacao/edicao/"+str(id)+"/")
+            return HttpResponseRedirect("/tramitacao/situacao/edicao/"+str(id)+"/")
     return render_to_response('sicop/situacao/edicao.html', {"situacao":instance}, context_instance = RequestContext(request))
 
 

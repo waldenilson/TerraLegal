@@ -26,7 +26,7 @@ def edicao(request, pendencia):
                                        dsparecer = request.POST['dsparecer'],
                                       )
             f_pendencia.save()
-            return HttpResponseRedirect("/sicop/processo/edicao/"+str(instance.tbprocessobase.id)+"/")
+            return HttpResponseRedirect("/tramitacao/processo/edicao/"+str(instance.tbprocessobase.id)+"/")
      
     return render_to_response('sicop/pendencia/edicao.html', 
                               {"pendencia":instance,'tipopendencia':tipopendencia,

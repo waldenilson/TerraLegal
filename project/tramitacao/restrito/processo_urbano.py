@@ -99,7 +99,7 @@ def cadastro(request):
 
             messages.add_message(request,messages.INFO,'Informações salvas com sucesso.')
             
-            return HttpResponseRedirect("/sicop/processo/consulta/")
+            return HttpResponseRedirect("/tramitacao/processo/consulta/")
            
     return render_to_response('sicop/processo/cadastro.html',
         {'tipoprocesso':tipoprocesso,'processo':escolha,'etapaprocesso':etapaprocesso, 
@@ -211,7 +211,7 @@ def edicao(request, id):
 
             messages.add_message(request,messages.INFO,'Informações salvas com sucesso.')
             
-            return HttpResponseRedirect("/sicop/processo/edicao/"+str(base.id)+"/")
+            return HttpResponseRedirect("/tramitacao/processo/edicao/"+str(base.id)+"/")
            
     
     return render_to_response('sicop/processo/urbano/edicao.html',

@@ -37,7 +37,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 import datetime
 
 nome_relatorio      = "relatorio_caixa"
-response_consulta  = "/sicop/caixa/consulta/"
+response_consulta  = "/tramitacao/caixa/consulta/"
 titulo_relatorio    = "Relatorio Caixas"
 planilha_relatorio  = "Caixas"
 
@@ -113,7 +113,7 @@ def edicao(request, id):
             if form.is_valid():
                 form.blativo = ativo
                 form.save()
-                return HttpResponseRedirect("/sicop/caixa/edicao/"+str(id)+"/")
+                return HttpResponseRedirect("/tramitacao/caixa/edicao/"+str(id)+"/")
     else:
         if divisao.id <> AuthUser.objects.get(pk = request.user.id).tbdivisao.id:
             return HttpResponseRedirect('/excecoes/permissao_negada/')

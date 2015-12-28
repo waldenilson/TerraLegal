@@ -12,7 +12,7 @@
 			</table>
 			<div style="text-align: left;padding-bottom: 20px">
 				<input class="button_yellow" type="submit" value="Consultar" />
-				<a class="button_green" href="/sicop/processo/cadastro/"> Cadastrar Processo </a>
+				<a class="button_green" href="/tramitacao/processo/cadastro/"> Cadastrar Processo </a>
 			</div>
 	</form>
 	
@@ -33,7 +33,7 @@
 					{% autopaginate lista 5 %}
 					{% for obj in lista %}
 						<tr>
-							<td class="colunaTabelaConsulta"> <a href="/sicop/processo/rural/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
+							<td class="colunaTabelaConsulta"> <a href="/tramitacao/processo/rural/edicao/{{ obj.id }}"> <img width="16" src="{% static "img/search.png" %}" /> </a> </td> 
 							<td class="colunaTabelaConsulta">{{ obj.nrcpfrequerente }}</td>
 						</tr>
 					{% endfor %}

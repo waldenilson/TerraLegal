@@ -18,7 +18,7 @@ import csv
 import unicodedata
 
 nome_relatorio      = "relatorio_municipio"
-response_consulta  = "/sicop/municipio/consulta/"
+response_consulta  = "/tramitacao/municipio/consulta/"
 titulo_relatorio    = "Relatorio Municipios"
 planilha_relatorio  = "Municipios"
 
@@ -51,7 +51,7 @@ def edicao(request, id):
         if validacao(request):
             if form.is_valid():
                 form.save()
-                return HttpResponseRedirect("/sicop/municipio/edicao/"+str(id)+"/")
+                return HttpResponseRedirect("/tramitacao/municipio/edicao/"+str(id)+"/")
     else:
         form = FormMunicipio(instance=instance) 
     return render_to_response('sicop/municipio/edicao.html', {"form":form,'uf':uf}, context_instance = RequestContext(request))

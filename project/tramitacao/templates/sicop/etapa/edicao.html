@@ -35,7 +35,7 @@
 							</select>		
 					   	</td>
 					   	<td>
-							<a href="/sicop/tipo_processo/cadastro/?next=/sicop/fase/cadastro/" title="Novo Tipo Processo"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+							<a href="/tramitacao/tipo_processo/cadastro/?next=/tramitacao/fase/cadastro/" title="Novo Tipo Processo"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 						</td>						
 					   </tr>
 					   <tr> <td class="colunaTabela"> <label>Ordem:</label> </td><td><input onkeypress="return SomenteNumeroOK(event, this);" required="required" name="ordem" value="{{fase.ordem}}" /></td> </tr>
@@ -131,20 +131,20 @@
 						{% if checklists %}
 							{% for obj in checklists %}
 								<tr>
-									<td class="colunaTabelaConsulta"><a href="/sicop/checklist/edicao/{{obj.id}}"> {{ obj.nmchecklist }} </a> </td>
+									<td class="colunaTabelaConsulta"><a href="/tramitacao/checklist/edicao/{{obj.id}}"> {{ obj.nmchecklist }} </a> </td>
 								</tr>
 							{% endfor %}
 						{% endif %}
 					</tbody>
 				</table>
 				<br />
-				<a href="/sicop/checklist/cadastro/">Novo CheckList</a>
+				<a href="/tramitacao/checklist/cadastro/">Novo CheckList</a>
 		</div>
 
 		<table style="width:100%">
 			<tr>
 				<td class="colunaTabela" style="text-align:left"> 
-					<a href="/sicop/etapa/consulta" style="margin-right: 10px"><input type="button" class="button_yellow" value="CONSULTAR" /></a>
+					<a href="/tramitacao/etapa/consulta" style="margin-right: 10px"><input type="button" class="button_yellow" value="CONSULTAR" /></a>
 					<input type="submit" class="button_green" value="SALVAR" />
 				</td>
 			</tr>

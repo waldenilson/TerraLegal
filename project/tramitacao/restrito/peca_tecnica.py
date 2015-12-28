@@ -19,7 +19,7 @@ from django.db.models import  Q
 
 
 nome_relatorio      = "relatorio_peca_tecnica"
-response_consulta  = "/sicop/peca_tecnica/consulta/"
+response_consulta  = "/tramitacao/peca_tecnica/consulta/"
 titulo_relatorio    = "Relatorio Pecas Tecnicas"
 planilha_relatorio  = "Pecas Tecnicas"
 
@@ -120,7 +120,7 @@ def cadastro(request):
                                    )
             peca.save()
             messages.add_message(request,messages.INFO,'Informações salvas com sucesso.')
-            return HttpResponseRedirect("/sicop/peca_tecnica/consulta/") 
+            return HttpResponseRedirect("/tramitacao/peca_tecnica/consulta/") 
     
     return render_to_response('sicop/peca_tecnica/cadastro.html',{'caixa':caixa,'contrato':contrato,'gleba':gleba,'municipio':municipio}, context_instance = RequestContext(request))
 
@@ -188,7 +188,7 @@ def edicao(request, id):
                                    )
             peca.save()
             messages.add_message(request,messages.INFO,'Informações salvas com sucesso.')
-            return HttpResponseRedirect("/sicop/peca_tecnica/edicao/"+str(peca_obj.id)+"/")
+            return HttpResponseRedirect("/tramitacao/peca_tecnica/edicao/"+str(peca_obj.id)+"/")
 
     processo = Tbprocessorural.objects.all().filter( nrcpfrequerente = peca_obj.nrcpfrequerente.replace('.','').replace('-','') )
     if processo:

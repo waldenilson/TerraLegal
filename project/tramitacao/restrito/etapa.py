@@ -35,7 +35,7 @@ from django.db.models import Q
 import datetime
 
 nome_relatorio = "relatorio_etapa"
-response_consulta = "/sicop/etapa/consulta/"
+response_consulta = "/tramitacao/etapa/consulta/"
 titulo_relatorio = "Relatorio Etapas"
 planilha_relatorio = "Etapas"
 
@@ -49,7 +49,7 @@ def restaurar(request, processo):
         proc = Tbprocessobase.objects.get( pk = processo )
         proc.tbetapaatual = tran[1].tbetapa
         proc.save()
-    return HttpResponseRedirect("/sicop/processo/edicao/"+str(processo)+"/")
+    return HttpResponseRedirect("/tramitacao/processo/edicao/"+str(processo)+"/")
     
 
 @permission_required('sicop.etapa_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -233,7 +233,7 @@ def edicao(request, id):
                             )
             f_fase.save()
             if next == "/":
-                return HttpResponseRedirect("/sicop/etapa/edicao/"+str(id)+"/")
+                return HttpResponseRedirect("/tramitacao/etapa/edicao/"+str(id)+"/")
             else:
                 return HttpResponseRedirect(next)
     return render_to_response('sicop/etapa/edicao.html',
@@ -318,7 +318,7 @@ def checklist(request, processo, etapa):
             proc.tbetapaatual = transicao.tbetapa
             proc.save()
 
-            return HttpResponseRedirect("/sicop/processo/edicao/"+str(processo))
+            return HttpResponseRedirect("/tramitacao/processo/edicao/"+str(processo))
         else:
             if request.POST['etapaposterior'] != '':
                 transicao = Tbtransicao(
@@ -464,7 +464,7 @@ def checklist(request, processo, etapa):
         # se o usuario selecionou alguma etapa posterior para forcar a sequencia do processo
 #        else:
 
-        return HttpResponseRedirect("/sicop/processo/edicao/"+str(processo))
+        return HttpResponseRedirect("/tramitacao/processo/edicao/"+str(processo))
 
     return render_to_response('sicop/etapa/checklist.html',{"checkpendentes":checkpendentes,"processo":obj_processo,"etapa":obj_etapa,'result':result,'posteriores':posteriores,'dsparecer':dsparecer}, context_instance = RequestContext(request))
 

@@ -13,7 +13,7 @@ from project.tramitacao.relatorio_base import relatorio_csv_base, relatorio_ods_
 from odslib import ODS
 
 nome_relatorio      = "relatorio_tipo_pendencia"
-response_consulta  = "/sicop/tipo_pendencia/consulta/"
+response_consulta  = "/tramitacao/tipo_pendencia/consulta/"
 titulo_relatorio    = "Relatorio dos Tipos das Pendencias"
 planilha_relatorio  = "Tipos das Pendencias"
 
@@ -41,7 +41,7 @@ def cadastro(request):
                                         tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                       )
             f_tipopendencia.save()
-            return HttpResponseRedirect("/sicop/tipo_pendencia/consulta/") 
+            return HttpResponseRedirect("/tramitacao/tipo_pendencia/consulta/") 
     return render_to_response('sicop/tipo_pendencia/cadastro.html',{'tipoprocesso':tipoprocesso}, context_instance = RequestContext(request))
 
 @permission_required('sicop.tipo_pendencia_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -61,7 +61,7 @@ def edicao(request, id):
                                         tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                       )
             f_tipopendencia.save()
-            return HttpResponseRedirect("/sicop/tipo_pendencia/edicao/"+str(id)+"/")
+            return HttpResponseRedirect("/tramitacao/tipo_pendencia/edicao/"+str(id)+"/")
     return render_to_response('sicop/tipo_pendencia/edicao.html', {"tipopendencia":instance,'tipoprocesso':tipoprocesso}, context_instance = RequestContext(request))
 
 

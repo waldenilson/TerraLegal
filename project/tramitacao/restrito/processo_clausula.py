@@ -180,7 +180,7 @@ def cadastro(request):
 
             messages.add_message(request,messages.INFO,'Informações salvas com sucesso.')
             
-            return HttpResponseRedirect("/sicop/processo/consulta/")
+            return HttpResponseRedirect("/tramitacao/processo/consulta/")
     
     return render_to_response('sicop/processo/cadastro.html',
         {'tipoprocesso':tipoprocesso,'etapaprocesso':etapaprocesso,'processo':escolha, 'gleba':gleba,'caixa':caixa,'municipio':municipio,'div_processo':div_processo},
@@ -323,7 +323,7 @@ def edicao(request, id):
 
             messages.add_message(request,messages.INFO,'Informações salvas com sucesso.')
             
-            return HttpResponseRedirect("/sicop/processo/edicao/"+str(base.id)+"/")
+            return HttpResponseRedirect("/tramitacao/processo/edicao/"+str(base.id)+"/")
         
     return render_to_response('sicop/processo/clausula/edicao.html',
                                           {'gleba':gleba,'analises':Tbloganalise.objects.filter( tbprocessobase__id = base.id ).order_by('dtanalise'),

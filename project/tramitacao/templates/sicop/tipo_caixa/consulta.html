@@ -27,7 +27,7 @@
 				<tr>
 					<td class="colunaTabela" style="text-align:left"> 
 						<input class="button_yellow" style="margin-right: 10px" type="submit" value="PESQUISAR" />
-						<a href="/sicop/tipo_caixa/cadastro/"> <input class="button_green" value="NOVO" type="button" /> </a>
+						<a href="/tramitacao/tipo_caixa/cadastro/"> <input class="button_green" value="NOVO" type="button" /> </a>
 					</td>
 				</tr>
 				<tr>
@@ -52,7 +52,7 @@
 				</tr>
 				{% if lista %}
 					{% for obj in lista %}
-						<tr onclick="editarID('/sicop/tipo_caixa/edicao/{{ obj.id }}');">
+						<tr onclick="editarID('/tramitacao/tipo_caixa/edicao/{{ obj.id }}');">
 							<td class="colunaTabelaConsulta">{{ obj.nmtipocaixa }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.desctipocaixa }}</td>
 						</tr>

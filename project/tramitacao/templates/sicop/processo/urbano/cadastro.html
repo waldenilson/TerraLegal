@@ -1,7 +1,7 @@
 {% load staticfiles %} 
 {% block formulario %}
 
-		<form name="form_cadastro" method="post" action="/sicop/processo/urbano/cadastro/">
+		<form name="form_cadastro" method="post" action="/tramitacao/processo/urbano/cadastro/">
 			{% csrf_token %}
 			<table>
 				<tr> <td class="colunaTabela"> <label>N do Processo:</label> </td>
@@ -20,7 +20,7 @@
 							</select>
 						</td>
 					<td>
-						<a href="/sicop/contrato/cadastro/?next=/sicop/processo/urbano/cadastro/" title="Novo Contrato"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+						<a href="/tramitacao/contrato/cadastro/?next=/tramitacao/processo/urbano/cadastro/" title="Novo Contrato"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>						
 				</tr>
 				<tr> <td class="colunaTabela"> <label>Situacao GEO:</label> </td>
@@ -33,7 +33,7 @@
 							</select>
 						</td>
 					<td>
-						<a href="/sicop/situacao_geo/cadastro/?next=/sicop/processo/urbano/cadastro/" title="Nova Situacao GEO"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+						<a href="/tramitacao/situacao_geo/cadastro/?next=/tramitacao/processo/urbano/cadastro/" title="Nova Situacao GEO"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>						
 				</tr>
 				<tr> <td class="colunaTabela"> <label>Area:</label> </td>
@@ -54,7 +54,7 @@
 							</select>
 						</td>
 					<td>
-						<a href="/sicop/pregao/cadastro/?next=/sicop/processo/urbano/cadastro/" title="Novo Pregao"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+						<a href="/tramitacao/pregao/cadastro/?next=/tramitacao/processo/urbano/cadastro/" title="Novo Pregao"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>						
 				</tr>
 				<tr> <td class="colunaTabela"> <label>Gleba:</label> </td>
@@ -67,7 +67,7 @@
 							</select>
 						</td>
 					<td>
-						<a href="/sicop/gleba/cadastro/?next=/sicop/processo/urbano/cadastro/" title="Nova Gleba"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+						<a href="/tramitacao/gleba/cadastro/?next=/tramitacao/processo/urbano/cadastro/" title="Nova Gleba"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>
 				</tr>
 				<tr> <td class="colunaTabela"> <label>Municipio:</label> </td>
@@ -92,7 +92,7 @@
 							</select>
 						</td>
 					<td>
-						<a href="/sicop/caixa/cadastro/?next=/sicop/processo/urbano/cadastro/" title="Nova Caixa"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+						<a href="/tramitacao/caixa/cadastro/?next=/tramitacao/processo/urbano/cadastro/" title="Nova Caixa"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>
 				</tr>
 				<tr> <td class="colunaTabela"> <label>Data Abertura:</label> </td><td> <input required="required" size="9" id="date" name="dtaberturaprocesso" /> </td> </tr>
@@ -112,7 +112,7 @@
 			<table style="width:100%">
 				<tr>
 					<td class="colunaTabela" style="text-align:left"> 
-						<a href="/sicop/processo/consulta/" style="margin-right: 10px"><input type="button" class="button_yellow" value="CONSULTAR" /></a>
+						<a href="/tramitacao/processo/consulta/" style="margin-right: 10px"><input type="button" class="button_yellow" value="CONSULTAR" /></a>
 						<input type="submit" class="button_green" value="SALVAR" />
 					</td>
 				</tr>

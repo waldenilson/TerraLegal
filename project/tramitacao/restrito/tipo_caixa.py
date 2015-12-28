@@ -36,4 +36,4 @@ def edicao(request, id):
 
 def form_save(request, form):
     form.save()
-    return HttpResponseRedirect( '/sicop/tipo_caixa/consulta' )
+    return HttpResponseRedirect( '/tramitacao/tipo_caixa/consulta' )

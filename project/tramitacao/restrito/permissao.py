@@ -34,7 +34,7 @@ from django.core.files import storage
 from django.db.models import  Q
 
 nome_relatorio      = "relatorio_permissao"
-response_consulta  = "/sicop/permissao/consulta/"
+response_consulta  = "/tramitacao/permissao/consulta/"
 titulo_relatorio    = "Relatorio Permissoes"
 planilha_relatorio  = "Permissoes"
 
@@ -87,7 +87,7 @@ def edicao(request, id):
                               )
             f_permissao.save()
  
-        return HttpResponseRedirect("/sicop/permissao/edicao/"+str(id)+"/")
+        return HttpResponseRedirect("/tramitacao/permissao/edicao/"+str(id)+"/")
     
     return render_to_response('sicop/permissao/edicao.html', {"permissao":instance,"content":content}, context_instance = RequestContext(request))
 

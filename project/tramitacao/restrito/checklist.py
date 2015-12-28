@@ -34,7 +34,7 @@ from django.core.files import storage
 from django.db.models import  Q
 
 nome_relatorio      = "relatorio_checklist"
-response_consulta  = "/sicop/checklist/consulta/"
+response_consulta  = "/tramitacao/checklist/consulta/"
 titulo_relatorio    = "Relatorio Checklist"
 planilha_relatorio  = "Checklist"
 
@@ -127,7 +127,7 @@ def edicao(request, id):
             f_checklist.save()
 
             if next == "/":
-                return HttpResponseRedirect("/sicop/checklist/edicao/"+str(id)+"/")
+                return HttpResponseRedirect("/tramitacao/checklist/edicao/"+str(id)+"/")
             else:    
                 return HttpResponseRedirect(next)
     return render_to_response('sicop/checklist/edicao.html',{"checklist":instance,"fase":fase}, context_instance = RequestContext(request))

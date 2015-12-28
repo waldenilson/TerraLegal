@@ -26,7 +26,7 @@
 				<tr>
 					<td class="colunaTabela" style="text-align:left"> 
 						<input class="button_yellow" style="margin-right: 10px" type="submit" value="PESQUISAR" />
-						<!--  a href="/sicop/restrito/gleba/cadastro/"> <input class="button_green" value="NOVO" type="button" /> </a-->
+						<!--  a href="/tramitacao/restrito/gleba/cadastro/"> <input class="button_green" value="NOVO" type="button" /> </a-->
 					</td>
 				</tr>
 				<tr>
@@ -49,7 +49,7 @@
 				</tr>
 				{% if lista %}
 					{% for obj in lista %}
-						<tr onclick="editarID('/sicop/municipio/edicao/{{ obj.id }}');"> 
+						<tr onclick="editarID('/tramitacao/municipio/edicao/{{ obj.id }}');"> 
 							<td class="colunaTabelaConsulta">{{ obj.nome_mun }}</td>
 							<!-- td class="colunaTabelaConsulta">{{ obj.tbsubarea.nmsubarea }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.tbuf.nmuf }}</td-->

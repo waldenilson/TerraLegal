@@ -1,7 +1,7 @@
 {% load staticfiles %} 
 {% block formulario %}
 
-		<form name="form_cadastro" method="post" action="/sicop/processo/clausula/cadastro/">
+		<form name="form_cadastro" method="post" action="/tramitacao/processo/clausula/cadastro/">
 			{% csrf_token %}
 			<table>
 				<tr> <td class="colunaTabela"> <label>N do Processo:</label> </td>
@@ -53,7 +53,7 @@
 							</select>
 						</td>
 					<td>
-						<a href="/sicop/gleba/cadastro/?next=/sicop/processo/clausula/cadastro/" title="Nova Gleba"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+						<a href="/tramitacao/gleba/cadastro/?next=/tramitacao/processo/clausula/cadastro/" title="Nova Gleba"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>
 				</tr>
 
@@ -72,7 +72,7 @@
 							</select>
 						</td>
 					<td>
-						<a href="/sicop/caixa/cadastro/?next=/sicop/processo/clausula/cadastro/" title="Nova Caixa"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+						<a href="/tramitacao/caixa/cadastro/?next=/tramitacao/processo/clausula/cadastro/" title="Nova Caixa"> <img src="{% static "img/add.png" %}" width="24" /> </a>
 					</td>
 				</tr>
 
@@ -130,7 +130,7 @@
 			<table style="width:100%">
 				<tr>
 					<td class="colunaTabela" style="text-align:left"> 
-						<a href="/sicop/processo/consulta/" style="margin-right: 10px"><input type="button" class="button_yellow" value="CONSULTAR" /></a>
+						<a href="/tramitacao/processo/consulta/" style="margin-right: 10px"><input type="button" class="button_yellow" value="CONSULTAR" /></a>
 						<input type="submit" class="button_green" value="SALVAR" />
 					</td>
 				</tr>

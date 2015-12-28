@@ -13,7 +13,7 @@ from project.tramitacao.relatorio_base import relatorio_csv_base, relatorio_ods_
 from odslib import ODS
 
 nome_relatorio      = "relatorio_tipo_processo"
-response_consulta  = "/sicop/tipo_processo/consulta/"
+response_consulta  = "/tramitacao/tipo_processo/consulta/"
 titulo_relatorio    = "Relatorio dos Tipos de Processos"
 planilha_relatorio  = "Tipos de Processos"
 
@@ -41,7 +41,7 @@ def cadastro(request):
                                                 tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                             )
             f_tipoprocesso.save()
-            return HttpResponseRedirect("/sicop/tipo_processo/consulta/") 
+            return HttpResponseRedirect("/tramitacao/tipo_processo/consulta/") 
     return render_to_response('sicop/tipo_processo/cadastro.html', context_instance = RequestContext(request))
 
 @permission_required('sicop.tipo_processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -61,7 +61,7 @@ def edicao(request, id):
                                                 tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                             )
             f_tipoprocesso.save()
-            return HttpResponseRedirect("/sicop/tipo_processo/edicao/"+str(id)+"/")
+            return HttpResponseRedirect("/tramitacao/tipo_processo/edicao/"+str(id)+"/")
     return render_to_response('sicop/tipo_processo/edicao.html', {"tipoprocesso":instance}, context_instance = RequestContext(request))
 
 

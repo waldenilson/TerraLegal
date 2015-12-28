@@ -37,4 +37,4 @@ def edicao(request, id):
 def form_save(request, form):
     form.tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
     form.save()
-    return HttpResponseRedirect( '/sicop/sub_area/consulta' )
+    return HttpResponseRedirect( '/tramitacao/sub_area/consulta' )

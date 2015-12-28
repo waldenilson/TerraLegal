@@ -13,7 +13,7 @@ from project.tramitacao.relatorio_base import relatorio_pdf_base_header,\
 from odslib import ODS
 
 nome_relatorio      = "relatorio_classificacao_processo"
-response_consulta  = "/sicop/classificacao_processo/consulta/"
+response_consulta  = "/tramitacao/classificacao_processo/consulta/"
 titulo_relatorio    = "Relatorio das Classificacoes de Processos"
 planilha_relatorio  = "Classificacoes de Processos"
 
@@ -38,7 +38,7 @@ def cadastro(request):
                                                         tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                                       )
             f_classificacao.save()
-            return HttpResponseRedirect("/sicop/classificacao_processo/consulta/") 
+            return HttpResponseRedirect("/tramitacao/classificacao_processo/consulta/") 
     return render_to_response('sicop/classificacao_processo/cadastro.html', context_instance = RequestContext(request))
 
 @permission_required('sicop.classificacao_processo_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
@@ -56,7 +56,7 @@ def edicao(request, id):
                                                         tbdivisao = AuthUser.objects.get( pk = request.user.id ).tbdivisao
                                                       )
             f_classificacao.save()
-            return HttpResponseRedirect("/sicop/classificacao_processo/edicao/"+str(id)+"/")
+            return HttpResponseRedirect("/tramitacao/classificacao_processo/edicao/"+str(id)+"/")
     return render_to_response('sicop/classificacao_processo/edicao.html', {"classificacao":instance}, context_instance = RequestContext(request))
 
 
