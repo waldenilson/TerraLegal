@@ -1,7 +1,0 @@
-#joao sebastiao
-#pygame
-#pip install -> python-pygame
-#pygame.display.set_mode([640,480])
-#pygame.event
-#pygame.key
-#keys[pygame.K_'key']
