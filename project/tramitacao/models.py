@@ -132,6 +132,9 @@ class Tbdivisao(models.Model):
     nrclasse = models.SmallIntegerField()
     class Meta:
         db_table = 'tbdivisao'
+    def __str__(self):
+        return self.nmdivisao
+
 
 class Tbgleba(models.Model):
     #cdgleba = models.IntegerField(null=True, blank=True)

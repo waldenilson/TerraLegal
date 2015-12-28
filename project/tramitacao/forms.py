@@ -104,7 +104,7 @@ class ContratoForm(forms.ModelForm):
     nmempresa = forms.CharField(label='Nome da Empresa')
     class Meta:
         model = Tbcontrato
-        exclude = ('tbdivisao',)
+        exclude = ()
     def __init__(self,*args,**kwargs):
         super(ContratoForm,self).__init__(*args,**kwargs)
         self.fields['nmempresa'].validators.append(ThreeLengthValidator)
@@ -123,7 +123,7 @@ class PregaoForm(forms.ModelForm):
     )
     class Meta:
         model = Tbpregao
-        exclude = ('tbdivisao',)
+        exclude = ()
     def __init__(self,*args,**kwargs):
         super(PregaoForm,self).__init__(*args,**kwargs)
         self.fields['nrpregao'].validators.append(ThreeLengthValidator)
@@ -135,7 +135,7 @@ class SubAreaForm(forms.ModelForm):
     )
     class Meta:
         model = Tbsubarea
-        exclude = ('cdsubarea','tbdivisao',)
+        exclude = ('cdsubarea',)
 
 class TipoCaixaForm(forms.ModelForm):        
     nmtipocaixa = forms.CharField(
