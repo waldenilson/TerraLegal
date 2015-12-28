@@ -30,10 +30,6 @@ urlpatterns = patterns('',
     url(r'^web/mobile/', project+'.web.views_publicas.mobile'),
     url(r'^media/(?P<path>.*)$',project+'.tramitacao.util.media.download', {'document_root': settings.MEDIA_ROOT}),
    
-    # GEOINFORMACOES
-    url(r'^geo/glebas_federais/', project+'.tramitacao.restrito.geoinformacao.glebas_federais'),
-    url(r'^geo/openlayers/', project+'.tramitacao.restrito.geoinformacao.openlayers'),
-    
     # CONTROLE AUTENTICACAO
     url(r'^login/', 'django.contrib.auth.views.login', {"template_name":"index.html"}),
     url(r'^logout/', 'django.contrib.auth.views.logout_then_login', {"login_url":"/"}),
