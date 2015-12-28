@@ -7,15 +7,19 @@
 # Also note: You'll have to insert the output of 'django-admin.py sqlcustom [appname]'
 # into your database.
 from __future__ import unicode_literals
+from decouple import config
 
-from django.contrib.gis.db import models
-#from django.db import models
+if config('GIS',default=False,cast=bool):
+    from django.contrib.gis.db import models
+else:
+    from django.db import models
 
 class Indigena(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=80)
-    geom = models.PolygonField(srid=4326, null=True, blank=True)
-    objects = models.GeoManager()
+    if config('GIS',default=False,cast=bool):
+        geom = models.PolygonField(srid=4326, null=True, blank=True)
+        objects = models.GeoManager()
     class Meta:
         db_table = 'indigena'
 
@@ -34,7 +38,7 @@ class TbparcelaGeo(models.Model):
     nr_process = models.CharField(max_length=24, blank=True)
     planilha_o = models.CharField(max_length=154, blank=True)
     data_recep = models.DateField(blank=True)
-#    data_situacao_processo = models.DateField(blank=True)
+    #data_situacao_processo = models.DateField(blank=True)
     protocolo = models.CharField(max_length=28, blank=True)
     status = models.CharField(max_length=254, blank=True)
     identifica = models.CharField(max_length=54, blank=True)
@@ -48,8 +52,9 @@ class TbparcelaGeo(models.Model):
     migrada = models.CharField(max_length=254, blank=True)
     municipio = models.CharField(max_length=120)
     gleba_situ = models.CharField(max_length=254, blank=True)
-    geom = models.MultiPolygonField(srid=4326, null=True, blank=True)
-    objects = models.GeoManager()
+    if config('GIS',default=False,cast=bool):
+        geom = models.MultiPolygonField(srid=4326, null=True, blank=True)
+        objects = models.GeoManager()
     class Meta:
         db_table = 'tbparcela_geo'
 '''

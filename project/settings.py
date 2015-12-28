@@ -6,7 +6,7 @@ DEBUG = config('DEBUG',default=False,cast=bool)
 
 DATABASES = {
         'default': {
-        'ENGINE': config('DEFAULT_ENGINE_GIS'), 
+        'ENGINE': config('DEFAULT_ENGINE'), 
         'NAME': config('DEFAULT_NAME'),                      
         'USER': config('DEFAULT_USER'),
         'PASSWORD': config('DEFAULT_PASSWORD'),
@@ -14,6 +14,11 @@ DATABASES = {
         'PORT': config('DEFAULT_PORT')                      
         },
         }
+
+if config('GIS',default=False,cast=bool):
+    DATABASES['default']['ENGINE'] = config('DEFAULT_ENGINE_GIS')
+else:
+    DATABASES['default']['ENGINE'] = config('DEFAULT_ENGINE')
 
 #usuario e senha estava admin e 123456
 
@@ -165,7 +170,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-    'django.contrib.gis',
     'odslib',
     'webodt',
     'lxml',
@@ -183,6 +187,9 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
+
+if config('GIS',default=False,cast=bool):
+    INSTALLED_APPS += ('django.contrib.gis',)
 
 LOGIN_URL = "/"
 LOGOUT_URL = "/logout/"
