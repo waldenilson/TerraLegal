@@ -28,7 +28,7 @@
 				<tr>
 					<td class="colunaTabela" style="text-align:left"> 
 						<input class="button_yellow" style="margin-right: 10px" type="submit" value="PESQUISAR" />
-						<a href="/sicop/contrato/cadastro/"> <input class="button_green" value="NOVO" type="button" /> </a>
+						<a href="/tramitacao/contrato/cadastro/"> <input class="button_green" value="NOVO" type="button" /> </a>
 					</td>
 				</tr>
 				<tr>
@@ -49,7 +49,7 @@
 				</tr>
 				{% if lista %}
 					{% for obj in lista %}
-						<tr onclick="editarID('/sicop/contrato/edicao/{{ obj.id }}');">
+						<tr onclick="editarID('/tramitacao/contrato/edicao/{{ obj.id }}');">
 							<td class="colunaTabelaConsulta">{{ obj.nrcontrato }}</td>
 							<td class="colunaTabelaConsulta">{{ obj.nmempresa }}</td>
 						</tr>

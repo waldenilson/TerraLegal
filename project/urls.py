@@ -22,6 +22,7 @@ urlpatterns = patterns('',
     url(r'^web/',include(project+'.web.urls',namespace='web')),
     url(r'^core/',include(project+'.core.urls',namespace='core')),
     url(r'^geoinformacao/',include(project+'.geoinformacao.urls',namespace='geoinformacao')),
+    url(r'^tramitacao/',include(project+'.tramitacao.urls',namespace='tramitacao')),
 
 
     # ACESSO AO PUBLICO
@@ -86,11 +87,6 @@ urlpatterns = patterns('',
     url(r'^sicop/peca_tecnica/relatorio/pdf/', project+'.tramitacao.restrito.peca_tecnica.relatorio_pdf'),
     url(r'^sicop/peca_tecnica/relatorio/ods/', project+'.tramitacao.restrito.peca_tecnica.relatorio_ods'),
     url(r'^sicop/peca_tecnica/relatorio/csv/', project+'.tramitacao.restrito.peca_tecnica.relatorio_csv'),
-
-   # ACESSO RESTRITO SICOP CONTRATO 
-    url(r'^sicop/contrato/consulta/', project+'.tramitacao.restrito.contrato.consulta'),
-    url(r'^sicop/contrato/cadastro/', project+'.tramitacao.restrito.contrato.cadastro'),
-    url(r'^sicop/contrato/edicao/(?P<id>\d+)/', project+'.tramitacao.restrito.contrato.edicao'),
     
    # ACESSO RESTRITO SICOP PREGAO 
     url(r'^sicop/pregao/consulta/', project+'.tramitacao.restrito.pregao.consulta'),
