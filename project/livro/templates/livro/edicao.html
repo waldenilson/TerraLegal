@@ -1,0 +1,149 @@
+{% extends "core/base/cadastro.html" %} 
+{% load staticfiles %} 
+{% block breadcumbs %}
+	Acesso Restrito | Livro Fundiario | Edicao
+{% endblock %}
+
+{% block formulario %}
+<div id="tabs" style="color:black;width:100%;font-size:11px">
+<ul>
+	<li><a href="#tabs-1">EDITAR TITULO</a></li>
+	<li><a href="#tabs-2">PECA</a></li>
+	<li><a href="#tabs-3">PROCESSO</a></li>
+</ul>
+
+
+<div id="tabs-1">		
+	<form method="post" action="." enctype="multipart/form-data">
+		{% csrf_token %}
+		<div style="width:100%;font-size:12px;text-align:left">
+				<table>
+				<tr>
+				<td class="colunaTabela"> <label>Tipo: </label></td>
+				<td><select name="tbtipotitulo" style="width:150px">
+						{% for obj in tipotitulo %}
+							{% if obj.id == titulo.tbtipotitulo.id %}
+								<option selected="selected" value="{{ obj.id }}">{{obj.cdtipo}} - {{obj.dstipo}}</option>
+							{% else %}
+								<option value="{{ obj.id }}">{{obj.cdtipo}} - {{obj.dstipo}}</option>
+							{% endif %}
+						{% endfor %}f
+					</select>		
+				   	</td>
+				 	</tr>
+				 	  	
+					<tr> <td class="colunaTabela"> <label>Status: </label></td>
+				   	<td><select name="tbstatustitulo" style="width:150px">
+				   		{% for obj in statustitulo %}
+							{% if obj.id == titulo.tbstatustitulo.id %}
+								<option selected="selected" value="{{ obj.id }}">{{obj.sttitulo}}</option>
+							{% else %}
+								<option value="{{ obj.id }}">{{obj.sttitulo}}</option>
+							{% endif %}
+						{% endfor %}
+					</select>		
+				   	</td></tr>
+					<tr> <td class="colunaTabela" style="width:54px"> <label >Titulo:</label> </td><td><input name="cdtitulo" size=8 value="{{titulo.cdtitulo}}"/> </td></tr>
+					<tr><td class="colunaTabela"> <label>Processo:</label></td><td><input name="tbprocessobase" size=17 value="{{processo.nrprocesso}}" style="width:150px" id="processo"/></td></tr>
+					
+					<tr> <td class="colunaTabela"> <label>Pasta: </label></td>
+					<td> <select name="tbcaixa" style="width: 300px">
+						<option value="">-- Selecione uma caixa --</option>
+						{% for obj in caixa %}
+							{% if obj.id == titulo.tbcaixa.id %}
+								<option selected="selected" value="{{ obj.id }}">{{obj.nmlocalarquivo}}</option>
+							{% else %}
+								<option value="{{ obj.id }}">{{obj.nmlocalarquivo}}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+					</td></tr>
+					<tr> 
+						<td class="colunaTabela"> <label>Digitalização: </label></td>
+						<td>
+							<input accept=".pdf" type="file" name="arquivo_digital" />&nbsp;(Somente PDFs)
+						</td>
+					</tr>
+					{% if titulo.path_file %}
+						<tr> 
+							<td colspan="2" class="colunaTabela"><a target="blank" href="{{titulo.path_file}}">Arquivo Digital</a></td>
+						</tr>
+					{% endif %}
+				</table>
+				<br/>
+				<table>
+					<tr><td class="colunaTabela"> <label style="font-weight:bold">Dados do processo:</label></td></tr>	
+				   	<tr><td class="colunaTabela"> <label>Nome:</label></td>
+				   		<td><div name="nmrequerente" size=17  style="width:300px">{{rural.nmrequerente}}</div></td></tr>
+				   	<tr><td class="colunaTabela"> <label>CPF:</label></td><td>
+				   		<div name="nrcpfrequerente" size=17 style="width:120px" id="cpf">{{rural.nrcpfrequerente}}</div></td></tr>				 
+				   	<tr><td class="colunaTabela"><label>Endereco:</label></td><td>{{processo.nmendereco|default:'-'}}</td></tr>
+					<tr><td class="colunaTabela"><label>Contato:</label></td><td>{{processo.nmcontato|default:'-'}}</td></tr>
+				   	<tr><td class="colunaTabela"> <label>Gleba:</label> </td><td> {{ rural.tbprocessobase.tbgleba.nmgleba }} </td> </tr>
+					<tr> <td class="colunaTabela"> <label>Municipio:</label> </td><td> {{ rural.tbprocessobase.tbmunicipio.nome_mun }} </td> </tr>
+		
+		</table>		   	
+	</div>
+		<br/>
+		<table style="width:100%">
+			<tr>
+				<td class="colunaTabela" style="text-align:left"> 
+					<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
+					<input type="submit" class="button_green" value="SALVAR" />
+				</td>
+			</tr>
+		</table>
+		<br/>
+	</form>
+</div>
+
+<div id="tabs-2">
+{% if peca %}
+	<table class="csstable">
+			<tbody>
+				<tr>
+					<td class="colunaTabelaConsulta" >Gleba</td>
+					<td class="colunaTabelaConsulta" >Area</td>
+					<td class="colunaTabelaConsulta" >Municipio</td>
+					<td class="colunaTabelaConsulta" >Contrato</td>
+				</tr>					    
+					{% for obj in peca %}
+						<tr onclick="editarID('/sicop/restrito/peca_tecnica/edicao/{{ obj.id }}');">
+							<td class="colunaTabelaConsulta" align="left" >{{ obj.tbgleba.nmgleba }}</td>
+							<td class="colunaTabelaConsulta" align="left" >{{ obj.nrarea }}</td>
+							<td class="colunaTabelaConsulta" align="left" >{{ obj.tbmunicipio.nome_mun_maiusculo }}</td>
+							<td class="colunaTabelaConsulta" align="left" >{{ obj.tbcontrato.nrcontrato }}</td>
+							
+						</tr>
+					{% endfor %}
+			</body>
+		</table>
+		{% else %}
+			<a  style="padding-top: 20px" colspan="6">PECA TECNICA NAO IDENTIFICADA. Isso e um problema se for um titulo emitido de area rural. Verificar com equipe tecnica</a>
+		{% endif %}</br></br>
+</div>
+<div id="tabs-3">
+{% if processo %}
+	<table style="width:60%">
+		<tr><td class="colunaTabela"> <label>Numero:</label> </td><td> {{ rural.tbprocessobase.nrprocesso }} </td>
+		<td> <a href="/sicop/processo/edicao/{{processo.id}}" title="Pesquisa processo"> <img src="{% static "img/search.png"%}" width="18" /> </a></td>
+		</tr>
+		<tr> <td class="colunaTabela"> <label>CPF Requerente:</label> </td><td> {{ rural.nrcpfrequerente }} </td> </tr>
+		<tr> <td class="colunaTabela"> <label>Nome Requerente:</label> </td><td> {{ rural.nmrequerente }} </td> </tr>
+		{% if processo.nrcpfconjuge %}
+			<tr> <td class="colunaTabela"> <label>CPF Conjuge:</label> </td><td> {{ rural.nrcpfconjuge }} </td> </tr>
+			<tr> <td class="colunaTabela"> <label>Nome Conjuge:</label> </td><td> {{ rural.nmconjuge }} </td> </tr>
+		{% endif %}
+		<tr><td class="colunaTabela"><label>Caixa:</label></td><td> {{ rural.tbprocessobase.tbcaixa.nmlocalarquivo }} </td> </tr>
+		<tr><td class="colunaTabela"><label>Situacao:</label></td><td>{{ rural.tbprocessobase.tbsituacaoprocesso.nmsituacao }} </td> </tr>
+		
+	</table>
+{% else %}
+	Nenhum Processo ligado a este titulo
+{% endif %}
+
+
+</div>
+
+</div>
+{% endblock %}

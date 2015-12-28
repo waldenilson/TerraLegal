@@ -1,0 +1,65 @@
+{% extends "core/base/consulta.html" %} 
+{% load staticfiles %} 
+
+{% block breadcumbs %}
+	Acesso Restrito | Processo | Clausulas Resolutivas | Notificações
+{% endblock %}
+
+{% block subtitulo %}
+	
+	PROCESSOS EM PRAZO DE NOTIFICAÇÃO
+	
+{% endblock %}
+
+{% block consulta %}
+		<div style="text-align:right">
+			<a href="/sicop/relatorio/prazos_notificacoes_p80"> <img width="36" alt="ODS" src="{% static "img/ods.png" %}" /> </a>					
+		</div>
+{% endblock %}
+
+{% block resultado %}
+		<div style="overflow:auto;max-height:500px">	
+			<table class="csstable">
+			<tbody>
+				<tr>
+					<td class="colunaTabelaConsulta" style="width:20%">Titulado</td>
+					<td class="colunaTabelaConsulta" style="width:15%">Processo</td>
+					<td class="colunaTabelaConsulta" style="width:15%">Caixa</td>
+					<td class="colunaTabelaConsulta" style="width:15%">Etapa</td>
+					<td class="colunaTabelaConsulta" style="width:25%">Checklist</td>
+					<td class="colunaTabelaConsulta" style="width:5%">Restante</td>
+				</tr>
+				{% if consulta %}
+				  		{% for obj in consulta %}
+							<tr 
+								style="background: {{ obj.proc.tbprocessobase.tbtipoprocesso.coridentificacao }}">
+
+								<td onclick="editarID('/sicop/processo/edicao/{{ obj.proc.tbprocessobase.id }}');" class="colunaTabelaConsulta">{{ obj.proc.nmrequerente }}</td>
+								
+								<td onclick="editarID('/sicop/processo/edicao/{{ obj.proc.tbprocessobase.id }}');" class="colunaTabelaConsulta">
+										{{ obj.proc.tbprocessobase.nrprocesso }}
+									</td>
+
+								<td onclick="editarID('/sicop/processo/edicao/{{ obj.proc.tbprocessobase.id }}');" class="colunaTabelaConsulta">
+										{{ obj.proc.tbprocessobase.tbcaixa.nmlocalarquivo }}
+									</td>
+
+								<td onclick="editarID('/sicop/processo/edicao/{{ obj.proc.tbprocessobase.id }}');" class="colunaTabelaConsulta">
+										{{ obj.proc.tbprocessobase.tbetapaatual.nmfase }}
+									</td>
+
+								<td onclick="editarID('/sicop/processo/edicao/{{ obj.proc.tbprocessobase.id }}');" class="colunaTabelaConsulta">
+										{{ obj.check }}
+									</td>
+								<td onclick="editarID('/sicop/processo/edicao/{{ obj.proc.tbprocessobase.id }}');" class="colunaTabelaConsulta">
+										{{ obj.dias }} Dia(s)
+									</td>
+							</tr>
+						{% endfor %}
+				{% else %}
+					<tr> <td style="padding-top: 20px" colspan="6"> Nenhum Processo Encontrado </td> </tr>
+				{% endif %}
+			</tbody>
+		</table>
+		</div>		
+{% endblock %}

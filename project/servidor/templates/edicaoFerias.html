@@ -1,0 +1,118 @@
+{% extends "core/base/cadastro.html" %} 
+{% load staticfiles %} 
+{% block breadcumbs %}
+	Acesso Restrito | Servidor | Edicao Ferias
+{% endblock %}
+
+{% block formulario %}
+<div id="tabs" style="color:black;width:100%;font-size:11px">
+<ul>
+	<li><a href="#tabs-1">EDITAR FERIAS SERVIDOR </a></li>
+</ul>
+
+<div id="tabs-1">
+	<form method="post" action=".">
+		{% csrf_token %}
+		<div style="width:100%;font-size:12px;text-align:left">
+			<table>
+				<tr><td class="colunaTabela"> <label>Servidor:</label> </td>	<td>	{{ servidor.nmservidor }}</td> </tr></br>
+			</table>
+			<table>
+				<tr> <td class="colunaTabela"> <label>Ano:</label> </td><td> <input name="nrAno" size=4 value="{{ferias.nrAno }}" /> </td> </tr>
+				<td></td><td></td><td></td><td></td><td></td><td>Situacao</td>
+				<tr> 
+					<td class="colunaTabela"> <label>1o.periodo:</label> </td>
+					<td>	<input size="9" id="id_myDate" name="dtInicio1" value="{{dtInicio1}}" type="text"/> </td>
+					<td class="colunaTabela"> <label>Dias:</label> </td>
+					<td><input name="nrDias1" id="nrDias1" size = 2  onblur ="return somardia1();" value="{{ ferias.nrDias1 }}" />	</td>
+					<td class="colunaTabela"><input id="date" disabled type = "text" name="dtFim1"  size=9 value="{{dtFim1}}" /></td>
+					<td>	<select id="tbsituacao1" style="width: 200px" name="tbsituacao1">
+					{% for obj in situacao %}
+						{% if obj.id == ferias.stSituacao1.id %}
+							<option selected="selected" value="{{ obj.id }}"> {{ obj.dsSituacao }}</option>
+						{% else %}
+							<option value="{{ obj.id }}">{{ obj.dsSituacao }}</option>
+						{% endif %}
+					{% endfor %}
+					</select>
+					</td>	
+					</tr>
+				<tr> 
+					<td class="colunaTabela"> <label>2o.periodo:</label> </td>
+					<td>	<input size="9" id="id_myDate2" name="dtInicio2" value="{{dtInicio2}}" type="text"/> </td>
+					<td class="colunaTabela"> <label>Dias:</label> </td>
+					<td><input name="nrDias2" id="nrDias2" size = 2  onblur ="return somardia2();" value="{{ ferias.nrDias2 }}" />	</td>
+					<td class="colunaTabela"><input id="date2" disabled type = "text" name="dtFim2"  size=9 value="{{dtFim2}}"/></td>
+					<td>	<select id="tbsituacao2" style="width: 200px" name="tbsituacao2">
+					{% for obj in situacao %}
+						{% if obj.id == ferias.stSituacao2.id %}
+							<option selected="selected" value="{{ obj.id }}"> {{ obj.dsSituacao }}</option>
+						{% else %}
+							<option value="{{ obj.id }}">{{ obj.dsSituacao }}</option>
+						{% endif %}
+					{% endfor %}
+					</select>
+					</td>	
+
+				</tr>
+				
+				
+				<tr> 
+					<td class="colunaTabela"> <label>Inicio 3o.periodo:</label> </td>
+					<td>	<input size="9" id="id_myDate3" name="dtInicio3" value="{{dtInicio3}}" type="text"/> </td>
+					<td class="colunaTabela"> <label>Dias:</label> </td>
+					<td><input name="nrDias3" id="nrDias3" size = 2  onblur ="return somardia3();" value="{{ ferias.nrDias3 }}" />	</td>
+					<td class="colunaTabela"><input id="date3" disabled type = "text" name="dtFim3"  size=9 value="{{dtFim3}}" /></td>
+					<td>	<select id="tbsituacao3" style="width: 200px" name="tbsituacao3">
+					{% for obj in situacao %}
+						{% if obj.id == ferias.stSituacao3.id %}
+							<option selected="selected" value="{{ obj.id }}"> {{ obj.dsSituacao }}</option>
+						{% else %}
+							<option value="{{ obj.id }}">{{ obj.dsSituacao }}</option>
+						{% endif %}
+					{% endfor %}
+					</select>
+					</td>	
+				
+				</tr>
+				
+				<tr> <td class="colunaTabela"> <label>Antecipa:</label> </td>
+				   <td>
+				   	{% if ferias.stAntecipa == True %} 
+						<input checked="checked" type="checkbox" name="stAntecipa" />
+					{% else %}
+						<input type="checkbox" name="stAntecipa" />
+					{% endif %} 
+				   </td>
+				</tr>
+				<tr> <td class="colunaTabela"> <label>Decimo Terceiro:</label> </td>
+				   <td>
+				   	{% if ferias.stDecimoTerceiro == True %} 
+						<input checked="checked" type="checkbox" name="stDecimoTerceiro" />
+					{% else %}
+						<input type="checkbox" name="stDecimoTerceiro" />
+					{% endif %} 
+				   </td>
+				</tr>
+				</table>
+				<table>
+					
+				</table>
+				</br>
+			</div>
+		<br/>
+		<table style="width:100%">
+			<tr>
+				<td class="colunaTabela" style="text-align:left"> 
+					<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
+					<input type="submit" class="button_green" value="SALVAR" />
+					<a href="/demo_linewithfocuschart/"> <input class="button_green" value="GRAFICOS" type="button" /> </a>
+				</td>
+				
+			</tr>
+		</table>
+	</form>
+</div>
+</div>
+
+{% endblock %}

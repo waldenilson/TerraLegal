@@ -1,0 +1,188 @@
+{% extends "core/base/consulta.html" %} 
+{% load staticfiles %} 
+
+{% block breadcumbs %}
+	Acesso Restrito | atualização título
+{% endblock %}
+
+{% block subtitulo %}
+	
+	Atualização monetária de título definitivo
+		
+{% endblock %}
+
+{% block consulta %}
+		<body onload="setafoco();">
+		<form method="post" >
+			{% csrf_token %}
+			<meta charset="utf-8" />
+
+			<!--tr><td class="colunaTabela"> <label>Data </label></td>
+			<td><input name="data" value="{{data}}"/></td></tr>
+			
+			<a href="/core/generatePDF/"><span>PDF</span></a-->
+
+			<table style="width:90%;text-align: left ">
+				
+				<tr><td class="colunaTabela" colspan="3" style="font-weight:bold" >IDENTIFICAÇÃO DO TITULADO (sisterleg - preencher)</td></tr>
+				<tr><td class="colunaTabela"> <label>Processo: </label> </td><td><input name="processo" value="{{instance.numero_processo}}" id="processo"/></td>
+			   	<td><input  name="requerente" style="width:300px" value="{{ instance.nome_req}}"></td></tr>
+			   	<tr><td class="colunaTabela"> <label>CPF: </label></td><td><input   name="cpf" id="cpf" value="{{ instance.cpf_req }}"></td> </tr>
+			</table>
+			<table style="width:90%;text-align: left ">
+			   	<tr><td class="colunaTabela" colspan="3" style="font-weight:bold">IDENTIFICAÇÃO DO IMÓVEL (sisterleg - preencher)</td></tr>
+			   	<tr><td class="colunaTabela"> <label>Título: </label> </td><td><input disabled colspan="2" name="titulo" style="width:100px" value="{{ instance.id_req}}"></td>
+			   		<td><input name="imovel" style="width:300px" value="{{ instance.nome_imovel }}"></td>
+				<tr><td class="colunaTabela"> <label>Município: </label> </td><td><input name="municipio" style="width:180px" value="{{ instance.nome_municipio }}"></td>
+			   	<td><input name="uf_imovel" style="width:20px" value="{{ instance.uf_imovel }}"></td></tr>
+			   	<tr><td class="colunaTabela"> <label>Área do imóvel: </label></td><td><input name="area" style="width:50px" value="{{ instance.area_total_imovel }}"> ha</td></tr>
+			   	<tr><td class="colunaTabela"> <label>Módulos fiscais: </label> </td><td><input name="tamanho_modulos" style="width:50px" value="{{ instance.tamanho_modulos_fiscais}}"></td> </tr>
+			</table>
+
+			<table style="width:35%;text-align: left ">
+				 <tr><td class="colunaTabela" colspan="2" style="font-weight:bold">DADOS PARA CALCULO</td></tr>
+				<table style="width:50%;text-align: left ">
+				<tr><td class="colunaTabela"> <label>Data emissão titulo: </label> </td><td><input disabled  name="titulado"  value="{{titulado}}"size="9" id="id_myDate"></td></tr> 
+				<tr><td class="colunaTabela"  > <label>Data do requerimento do pagamento : </label> </td><td><input name="dtrequerimento"  value="{{dtrequerimento}}" size="9" id="id_myDate2"></td></tr> 
+			</table>
+
+			<table style="width:50%;text-align: left ">
+				   	<tr><td class="colunaTabela"> <label>Valor do imóvel: </label> </td><td>R$ <input disabled name="valor_imovel" style="width:50px" value="{{ valor_imovel }}"></td></tr> 
+			</table>
+			{% endblock %}
+
+			{% block resultado %}
+			{% if isento = True %}
+				<table style="width:90%;text-align: left ">
+				   	<tr><td class="colunaTabela" style="font-weight:bold;font-size:x-large"> <label>Imóvel isento de pagamento por ser menor que 1 módulo fiscal </label> </td></tr>
+				</table>
+			{% else %}
+				<table style="width:35%;text-align: left ">	   
+					   	<tr><td class="colunaTabela"> <label>Valor da prestação: </label>  </td><td>R$ <input disabled name="prestacao" style="width:50px" value="{{prestacao}}"></td></tr>
+					   	
+					   	<!--<tr><td class="colunaTabela"> <label>Juros: </label>  </td><td><input name="ijuros" style="width:30px" value="{{ijuros}}">% aa </td></tr>-->
+					   	
+					   	<tr><td class="colunaTabela"> <label>Multa: </label>  </td><td><input disabled name="imulta" style="width:30px" value="{{imulta}}">% am </td></tr>
+					   	
+					   	<!--<tr><td class="colunaTabela"> <label>Correção: </label>  </td><td><input name="icorrecao" style="width:50px" value="{{icorrecao}}">% aa </td></tr>-->
+	   			</table>
+
+   				<table style="width:90%;text-align: left "> 	
+				{% if instance.tamanho_modulos_fiscais < 4 %}
+			   		<td class="colunaTabela"> <label>Nossa Escola:</label> </td>
+			   		<form method="post" action="/calculo/emissao/{{ id }}/">
+						{% csrf_token %}
+						{% if stNossaEscola == True %}
+							<td><input  type="checkbox" name="stNossaEscola" checked="checked" /></td> 
+						{% else %}
+							<td><input  type="checkbox" name="stNossaEscola"/></td> 
+						{% endif %}
+						<!--td><input class="button_yellow" style="margin-right: 4px" type="submit" value="ATUALIZAR"/></td-->
+					</form>
+				{% endif %}	
+				<td><input class="button_yellow" style="margin-right: 4px" type="submit" value="ATUALIZAR"/></td>
+		    		
+
+		    	<!--teste-->
+		    	
+		    	<form method="post">
+		    		{% csrf_token %}
+  					<button formaction="/calculo/geraGRU/{{ id }}/" type="submit" name="teste" value="valor">Go</button>
+				</form>
+		    	<!--td><a href="/calculo/geraPDF"> <input class="button_green" value="GERAR PDF" type="button" /> </a></td-->				
+				</table>
+
+				<!--a href="/servidor/ferias/cadastro/{{ servidor.id }}/"> <input class="button_green" value="NOVO PEDIDO" type="button" /> </a-->
+
+
+
+
+			{% if dtrequerimento  %}
+
+				<form method="post" action="/calculo/geraGRU/{{ id }}/">
+					{% csrf_token %}
+					<td><input class="button_green" style="margin-right: 4px" type="submit" value="GERAR GRU"/></td>
+		    	
+				<table class="csstable" style="width:100%;text-align: left " >
+				<tbody>
+					<tr>
+						<td class="colunaTabelaConsulta" >Status GRU</td>
+						<td class="colunaTabelaConsulta" >No.</td>
+						<td class="colunaTabelaConsulta" >Venc Parcela</td>
+						<td class="colunaTabelaConsulta" >Prestação</td>	
+						<td class="colunaTabelaConsulta" >Juros</td>
+						<td class="colunaTabelaConsulta" >Multa</td>
+						<td class="colunaTabelaConsulta" >Correcao</td>
+						<td class="colunaTabelaConsulta" >Desconto</td>
+						<td class="colunaTabelaConsulta" >Total</td>
+						<td class="colunaTabelaConsulta" >Venc GRU</td>
+					</tr>
+
+					{% if calculotitulo %}
+						{% for obj in calculotitulo %}
+						<!--tr onclick="editarID('/calculo/geraGRU/{{ obj.id }}');"-->
+						<tr>
+						<td class="colunaTabelaConsulta" >
+							{% if obj.stpaga %}
+								<input disabled checked="checked" name="{{ obj.id }}-parcela" type="checkbox"/>PAGA
+							{% else %}
+								{% if obj.stgerada %}
+									<input disabled checked="checked" name="{{ obj.id }}-parcela" type="checkbox" />GERADA
+								{% else %}
+									<input name="{{ obj.id }}-parcela" type="checkbox" />
+								{% endif %}
+							{% endif %}
+						</td>
+
+
+						<td class="colunaTabelaConsulta"> {{ obj.parcela }} </td>
+						<td class="colunaTabelaConsulta"> {{ obj.dtvencimento|date:"d/m/Y" }} </td>
+						<td class="colunaTabelaConsulta" name="prestacao"> {{ obj.vlprincipal }}</td>
+						
+						<td class="colunaTabelaConsulta" name="juros">{{ obj.vljuros}}</td>
+						<td class="colunaTabelaConsulta" name="multa">{{ obj.vlmulta}}</td>
+						<td class="colunaTabelaConsulta" name="multa">{{ obj.vlcorrecao}}</td>
+						<td class="colunaTabelaConsulta" name="desconto">{{ obj.vldesconto}}</td>
+						<td class="colunaTabelaConsulta" name="principal_corrigido_multa">{{ obj.vltotal}}</td>
+						<td class="colunaTabelaConsulta"> {{ obj.dtvencGRU|date:"d/m/Y" }} </td>
+						{% endfor %}
+					{% endif %}
+				</tbody>
+				</table>
+				</form>
+
+
+			<!--table class="csstable">
+			<tbody>
+				<tr>
+					<td class="colunaTabelaConsulta" >Imprimir</td>
+					<td class="colunaTabelaConsulta" >Parcela</td>
+					<td class="colunaTabelaConsulta" >Vencimento</td>
+					<td class="colunaTabelaConsulta" >Prestação</td>	
+					<td class="colunaTabelaConsulta" >Desconto</td>
+					<td class="colunaTabelaConsulta" >Correção</td>
+					<td class="colunaTabelaConsulta" >Juros</td>
+					<td class="colunaTabelaConsulta" >Total</td>
+				</tr>
+				<tr>	
+					<td><input  type="checkbox" name="stNossaEscola"	/></td>
+					<td class="colunaTabelaConsulta">{{ordem}}</td>
+					<td class="colunaTabelaConsulta">{{vencimento}}</td>
+					<td class="colunaTabelaConsulta">{{prestacao}}</td>
+					<td class="colunaTabelaConsulta">{{desconto}}</td>
+					<td class="colunaTabelaConsulta">{{juros}}</td>
+					<td class="colunaTabelaConsulta">{{multa}}</td>
+					<td class="colunaTabelaConsulta">{{principal_corrigido_multa}}</td>
+				</tr>
+			</table-->
+			</tbody>
+			</br>
+			Base de cálculos de correção monetária efetuada com base na Portaria Serfal Nº 1 de 19 de maio de 2010, 
+			Lei 11.952 de 25 de junho de 2009 e  Decreto 6.992/09.  Para os pagamento após o vencimento da prestação, 
+			estão sendo aplicados juros de 1% ao mês, conforme estabelecido na MP nº 2.183-56 de 24 de agosto de 2001.
+		</form>
+		{% endif %}
+		{% endif %}
+		{% endblock %}
+	</body>
+		

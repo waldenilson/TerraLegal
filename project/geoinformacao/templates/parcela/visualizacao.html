@@ -1,0 +1,137 @@
+{% extends "core/base/cadastro.html" %} 
+{% load staticfiles %} 
+{% block breadcumbs %}
+	Acesso Restrito | Parcela | Visualização
+{% endblock %}
+
+{% block formulario %}
+<div id="tabs" style="color:black;width:100%;font-size:11px">
+<ul>
+	<li><a href="#tabs-1">VISUALIZAR DADOS DA PARCELA</a></li>
+</ul>
+<div id="tabs-1">
+	<form method="post" action=".">
+		{% csrf_token %}
+		<div style="width:100%;font-size:12px;text-align:left">
+				<table>
+
+					<tr>
+						<td class="colunaTabela" colspan="2"> <b>DETENTOR</b> </td>
+					</tr>
+
+					<tr>
+						<td class="colunaTabela"> <label>Nome:</label> </td>
+						<td> {{ parcela.nome_deten }} </td>
+					</tr>
+
+					<tr>
+						<td class="colunaTabela"> <label>CPF:</label> </td>
+						<td> {{ parcela.cpf_detent }} </td>
+					</tr>
+
+					<tr>
+						<td class="colunaTabela"> <label>Processo:</label> </td>
+						{% if processo %}
+							<td> <a href="/sicop/processo/edicao/{{processo.tbprocessobase.id}}/">{{ numero_processo }}</a> </td>
+						{% else %}
+							<td> Nenhum processo registrado. </td>
+						{% endif %}
+					</tr>
+
+					<tr>
+						<td class="colunaTabela" colspan="2"> <b>IMÓVEL</b> </td>
+					</tr>
+
+					<tr>
+						<td class="colunaTabela"> <label>Nome:</label> </td>
+						<td> {{ parcela.nome }} </td>
+					</tr>
+
+					<tr>
+						<td class="colunaTabela"> <label>Gleba:</label> </td>
+						<td> {{ parcela.gleba }} </td>
+					</tr>
+
+					<tr>
+						<td class="colunaTabela"> <label>Situação da Gleba:</label> </td>
+						<td> {{ parcela.gleba_situ }} </td>
+					</tr>
+
+					<tr>
+						<td class="colunaTabela"> <label>Município:</label> </td>
+						<td> {{ parcela.municipio }} </td>
+					</tr>
+
+					<tr>
+						<td class="colunaTabela"> <label>Área:</label> </td>
+						<td> {{ parcela.area_ha_ut }} ha </td>
+					</tr>
+
+					<tr>
+						<td class="colunaTabela" colspan="2"> <b>CONTRATO</b> </td>
+					</tr>
+
+					<tr>
+						<td class="colunaTabela"> <label>Número:</label> </td>
+						<td> {{ parcela.contrato }} </td>
+					</tr>
+
+					<tr>
+						<td class="colunaTabela"> <label>Empresa:</label> </td>
+						<td> {{ parcela.empresa }} </td>
+					</tr>
+
+					<tr>
+						<td class="colunaTabela"> <label>Fiscal:</label> </td>
+						<td> {{ parcela.fiscal }} </td>
+					</tr>
+
+					<tr>
+						<td class="colunaTabela" colspan="2"> <b>HISTÓRICO</b> </td>
+					</tr>
+
+					<tr>
+						<td class="colunaTabela"> <label>Status:</label> </td>
+						<td> {{ parcela.status }} </td>
+					</tr>
+
+					<tr>
+						<td class="colunaTabela"> <label>Natureza:</label> </td>
+						<td> {{ parcela.natureza }} </td>
+					</tr>
+
+					<tr>
+						<td class="colunaTabela"> <label>Migrada:</label> </td>
+						<td> 
+							{% if parcela.migrada %}
+								SIM
+							{% else %}
+								NÃO
+							{% endif %} 
+						</td>
+					</tr>
+
+					<tr>
+						<td class="colunaTabela"> <label>Data Recepção:</label> </td>
+						<td> {{ parcela.data_recep }} </td>
+					</tr>
+				   
+			   </table>
+
+		</div>
+
+		<br />
+
+	</form>
+	<br/>
+</div>
+		<table style="width:100%">
+			<tr>
+				<td class="colunaTabela" style="text-align:left"> 
+					<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
+				</td>
+			</tr>
+		</table>
+
+</div>
+{% endblock %}

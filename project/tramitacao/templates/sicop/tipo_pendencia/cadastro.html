@@ -1,0 +1,47 @@
+{% extends "core/base/cadastro.html" %} 
+{% load staticfiles %} 
+
+{% block breadcumbs %}
+	Acesso Restrito | Tipo Pendencia | Cadastro
+{% endblock %}
+
+{% block formulario %}
+<div id="tabs" style="color:black;width:100%;font-size:11px">
+<ul>
+	<li><a href="#tabs-1">CADASTRAR TIPO PENDENCIA</a></li>
+</ul>
+<div id="tabs">		
+
+	<form method="post" action=".">
+		{% csrf_token %}
+		<div style="width:100%;font-size:12px;text-align:left">
+				<table>
+				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td> <input name="dspendencia" /> </td> </tr>
+				 <tr>
+				 		<td class="colunaTabela">
+				 			<label>Tipo Processo:</label>
+				 		</td>
+				 		<td >
+				   			<select name="tbtipoprocesso" style="width:200px">
+								{% for obj in tipoprocesso %}
+										<option value="{{ obj.id }}">{{ obj.nome }}</option>
+								{% endfor %}
+							</select>
+						</td>
+				   	</tr>
+
+				</table>
+		</div>
+		<br />
+		<table style="width:100%">
+			<tr>
+				<td class="colunaTabela" style="text-align:left"> 
+					<a href="/sicop/tipo_pendencia/consulta/" style="margin-right: 10px"><input type="button" class="button_yellow" value="CONSULTAR" /></a>
+					<input type="submit" class="button_green" value="SALVAR" />
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "core/base/index.html" %} 
+{% load staticfiles %} 
+
+{% block breadcumbs %}
+	Mobile
+{% endblock %}
+
+{% block titulo %}
+	SICOP App no celular android
+{% endblock %}
+			
+{% block index %}
+
+<!--========================================================================== Content Part 1 =====================================================================================-->
+
+<div class="wrapper">
+
+	<div class="grids">
+
+		<!--end of grid-10-->
+		<div id="accordio" style="color:black;width:100%;font-size:11px">
+			<h3>
+				{% block subtitulo %}
+					SICOP App no celular android
+				{% endblock %}
+			</h3>
+			<br/>
+			<h4>Passos para instalação</h4><br/>
+
+			<div class="grids top">
+			
+				
+				<h4>1- Instalador</h4><br/>
+				<h5>1.1- <a href="/media/SICOP.apk">CLIQUE AQUI</a>, para baixar o instalador do aplicativo.</h5><br/>
+				<h5>1.2- Execute o arquivo no celular para iniciar a instalação.</h5><br/><br/>
+
+				<h4>2- Configure seu celular caso não permita a instalação</h4><br/>	
+				<h5>2.1- Menu Configurações -> Segurança -> Marcar a opção: Fontes Desconhecidas ( Permitir a instalação de aplicativos de outras fontes além da Play Store)</h5><br/><br/>
+
+				<h4>3- Arquivo de dados do SICOP</h4><br/>			
+				<h5>3.1- <a href="/media/sicopsqlite.db">CLIQUE AQUI</a>, para baixar o arquivo de dados gerado pelo sistema. Data do arquivo atual: 27/05/2015 - 17hs00</h5><br/>
+				<h5>3.2- Ao completar o download, coloque o arquivo, copie e cole, na seguinte pasta no seu celular:</h5><br/>
+				<h5>3.2.1- Meus Arquivos -> sdcard0 -> sicop -> files -> control</h5><br/><br/>
+				<h4>4- Abertura do Aplicativo</h4><br/>
+				<h5>4.1- Abra o aplicativo e navegue nas suas funcionalidades</h5>
+			</div>	
+						
+		</div>
+		
+	</div>
+	<!--end of grids-->
+
+</div>
+<!--end of wrapper-->
+
+
+{% endblock %}

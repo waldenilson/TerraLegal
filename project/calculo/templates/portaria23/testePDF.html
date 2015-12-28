@@ -1,0 +1,199 @@
+<!doctype html>
+
+<html>
+<head>
+<style>
+    @page {
+        size: a4 portrait;
+        @frame header_frame {           /* Static Frame */
+            -pdf-frame-content: header_content;
+            left: 50pt; width: 512pt; top: 50pt; height: 40pt;
+        }
+        @frame content_frame {          /* Content Frame */
+            left: 50pt; width: 512pt; top: 90pt; height: 632pt;
+        }
+        @frame footer_frame {           /* Another static Frame */
+            -pdf-frame-content: footer_content;
+            left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+        }
+    }
+
+
+.colunaTabelaConsulta
+{
+    padding: 1px;
+    padding: 1px;
+    border: 2px #ccc solid;
+}
+
+
+.colunaTabelaConsulta2
+{
+    
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 2px;
+    padding-left: 30px;
+    border: 2px #ccc solid;
+    vertical-align:bottom;
+    font-size:14px;
+
+}
+
+.colunaSemBordasBaixo
+{
+    padding: 1px;
+    border-bottom: none;
+    border-left: 2px #ccc solid;
+    border-right: 2px #ccc solid;
+    border-top: 2px #ccc solid;
+}
+
+.colunaSemBordasCima
+{
+    padding: 1px;
+    border-bottom: 2px #ccc solid;
+    border-left: 2px #ccc solid;
+    border-right: 2px #ccc solid;
+    border-top: none;
+}
+
+.colunaBordasLados
+{
+    padding: 1px;
+    border-bottom: none;
+    border-left: 2px #ccc solid;
+    border-right: 2px #ccc solid;
+    border-top: none;
+}
+
+.button_yellow {
+    box-shadow:inset 0px 1px 0px 0px #f9eca0;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffcc00), color-stop(1, #f2ab1e) );
+    background:-moz-linear-gradient( center top, #ffcc00 5%, #f2ab1e 100% );
+    background-color:#ffcc00;
+    border-radius:6px;
+    border:1px solid #ffcc00;
+    display:inline-block;
+    color:#ffffff;
+    font-family:arial;
+    font-size:15px;
+    font-weight:bold;
+    padding:6px 24px;
+    text-decoration:none;
+    text-shadow:1px 1px 0px #ded17c;
+}
+
+
+#box-table-a td{
+    padding: 8px;
+    background: #e8edff; 
+}
+
+</style>
+</head>
+
+<body>
+    {% csrf_token %}
+    <a href="javascript:history.back()" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
+   
+    <!-- Content for Static Frame 'header_frame' -->
+</br>
+
+    <div id="header_content">Gerado a partir de sistema SICOP</div>
+</br>
+    
+    <!-- Content for Static Frame 'footer_frame' -->
+    
+    <!-- HTML Content -->
+
+    <div style="width:100%;font-size:20px;text-align:left">
+        <table>
+
+            <tr >
+                <td class="colunaTabelaConsulta" rowspan="4" style="width=20%"> LOGO </td>
+                <td class="colunaSemBordasBaixo"  style="width=70%;text-align:center;"> <label>MINISTERIO DA FAZENDA</label> </td> 
+                <td class="colunaTabelaConsulta" style="text-align:left;font-size:80%" > Codigo de Recolhimento </td> 
+                <td class="colunaTabelaConsulta2" style="text-align:right" > {{ recolhimento }} </td> 
+            </tr>
+            <tr>
+                <td class="colunaBordasLados"  style="width=70%;text-align:center;"> <label>SECRETARIA DO TESOURO NACIONAL</label> </td> 
+                <td class="colunaTabelaConsulta" style="text-align:left;font-size:80%" > Numero de Referencia </td> 
+                <td class="colunaTabelaConsulta2" style="text-align:right"> {{ referencia }} </td> 
+            </tr>
+           <tr>
+            <td class="colunaSemBordasCima" rowspan="2" style="width=70%;text-align:center;" > <label>Guia de Recolhimento da Uniao - GRU</label> </td> 
+            <td class="colunaTabelaConsulta" style="text-align:left;font-size:80%" > Competencia</td> 
+                <td class="colunaTabelaConsulta2" style="text-align:right"> competencia{{ competencia }} </td> 
+           </tr>
+            <tr>
+                <td class="colunaTabelaConsulta" style="text-align:left;font-size:80%" > Vencimento </td> 
+                <td class="colunaTabelaConsulta2" style="text-align:right"> {{ vencimento|date:"d/m/Y"  }} </td> 
+            </tr>
+
+            
+
+            <tr>
+                <td class="colunaSemBordasBaixo" colspan="2" style="text-align:left;font-size:80%"> Nome do contribuinte / Recolhedor</td>
+                <td class="colunaTabelaConsulta" style="text-align:left;font-size:80%;vertical-align:top;" rowspan="2"> CNPJ ou CPF do contribuinte </td> 
+                <td class="colunaTabelaConsulta2" style="text-align:right" rowspan="2" id="cpf"> {{ cpf }} </td> 
+           
+            </tr>
+            <tr>
+                <td class="colunaSemBordasCima" style="text-align:right;" colspan="2"> {{ nome }} </td>      
+            </tr>
+            <tr>
+                <td class="colunaSemBordasBaixo" colspan="2" style="text-align:left;font-size:80%"> Nome da Unidade Favorecida</td>
+                <td class="colunaTabelaConsulta" style="text-align:left;font-size:80%;vertical-align:top;" rowspan="2">UG/Gestao</td> 
+                <td class="colunaTabelaConsulta2" style="text-align:right" rowspan="2">  {{ cdug }} </td> 
+           
+            </tr>
+            <tr>
+                <td class="colunaSemBordasCima" style="text-align:right;" colspan="2"> unidade{{ unidade }} </td>      
+            </tr>
+
+
+            <tr >
+                <td class="colunaTabelaConsulta" style="text-align:left;font-size:80%;vertical-align:top;" rowspan="4" style="width=20%" colspan="2" > Instrucoes </td>
+                <td class="colunaTabelaConsulta" style="text-align:left;font-size:80%" >(=) Valor do Principal </td> 
+                <td class="colunaTabelaConsulta2" style="text-align:right" > {{ prestacao }} </td> 
+            </tr>
+            <tr>
+                <td class="colunaTabelaConsulta" style="text-align:left;font-size:80%" > (-) Desconto/Abatimento </td> 
+                <td class="colunaTabelaConsulta2" style="text-align:right"> {{ desconto }} </td> 
+            </tr>
+           <tr>
+            <td class="colunaTabelaConsulta" style="text-align:left;font-size:80%" >(-)Outras deducoes</td> 
+            <td class="colunaTabelaConsulta2" style="text-align:right"> {{ deducoes }} </td> 
+           </tr>
+            <tr>
+                <td class="colunaTabelaConsulta" style="text-align:left;font-size:80%" >(+) Mora / Multa </td> 
+                <td class="colunaTabelaConsulta2" style="text-align:right"> {{ multa }} </td> 
+            </tr>
+
+            <tr >
+                <td class="colunaSemBordasBaixo" style="width=20%;text-align:center;" colspan="2"> GRU SIMPLES </td>
+                <td class="colunaTabelaConsulta" style="text-align:left;font-size:80%" >(+) Juros / Encargos</td> 
+                <td class="colunaTabelaConsulta2" style="text-align:right" > {{ juros }} </td> 
+            </tr>
+            <tr>
+                <td class="colunaBordasLados" style="width=20%;text-align:center;" colspan="2" > Pagamento exclusivo no Banco do Brasil S.A.</td>
+                <td class="colunaTabelaConsulta" style="text-align:left;font-size:80%" > (+) Outros/Acrescimos </td> 
+                <td class="colunaTabelaConsulta2" style="text-align:right"> {{ acrescimos }} </td> 
+            </tr>
+           <tr>
+            <td class="colunaSemBordasCima" style="width=20%;text-align:center;" colspan="2" > Codigo</td>
+            <td class="colunaTabelaConsulta" style="text-align:left;font-size:80%" >(=) Valor Total</td> 
+            <td class="colunaTabelaConsulta2" style="text-align:right"> {{ total }} </td> 
+           </tr>
+            
+
+        </table>
+    </div>
+    <!--div id="footer_content">(c) - page <pdf:pagenumber>
+        of <pdf:pagecount>
+    </div-->
+
+    <!--{% for k,v in animals %}{{k}} </br>{{v}}{% endfor %}</br-->
+</body>
+</html>

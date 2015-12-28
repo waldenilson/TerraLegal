@@ -1,0 +1,142 @@
+{% extends "core/base/cadastro.html" %} 
+{% load staticfiles %} 
+{% block breadcumbs %}
+	Acesso Restrito | Etapa | CheckList
+{% endblock %}
+
+{% block formulario %}
+<div id="tabs" style="color:black;width:100%;font-size:11px">
+<ul>
+	<li><a href="#tabs-1">CHECKLISTS DA ETAPA</a></li>
+</ul>
+<div id="tabs-1">		
+	<form method="post" action=".">
+		{% csrf_token %}
+		<div style="font-size:12px;text-align:left">
+							{% if etapa.id == processo.tbetapaatual.id %}
+								<br/><b>CHECKLISTS PENDENTES</b><br/>
+								<table>
+									{% for check in checkpendentes %}
+										<tr>
+											<td>
+												<b style="color:red">{{ check.nmchecklist }}</b>
+											</td>
+											<td>
+												<a href="/sicop/etapa/checklist/{{processo.id}}/{{check.tbetapa.id}}">{{ check.tbetapa.nmfase }}</a>
+											</td>
+										</tr>
+									{% endfor %}
+								</table>
+								<hr/>
+							{% endif %}
+				<table>
+				   <tr> 
+				   		<td class="colunaTabela"> <label>Processo:</label> </td>
+				   		<td><a href="/sicop/processo/edicao/{{processo.id}}">{{processo.nrprocesso}} - {{etapa.tbtipoprocesso.nome}}</a>
+				   	</tr>
+				   <tr> <td class="colunaTabela"> <label>Etapa:</label> </td><td>{{etapa.nmfase}}</tr>
+				   <tr>
+				   	<td class="colunaTabela" colspan="2">
+				   		<hr/>				 
+				   		<br/><b>CHECKLISTS</b><br/>  	
+						<table style="width:100%">
+							<tbody>
+								{% for k,v in result %}
+										<tr>
+											<td class="colunaTabelaConsulta" style="width:5%">
+												{% if v and v.blsanado %}
+													<input checked="checked" name="{{ k.nmchecklist }}" type="checkbox" />
+												{% else %}
+													<input name="{{ k.nmchecklist }}" type="checkbox" />
+												{% endif %}
+											</td>
+											<td class="colunaTabelaConsulta" style="width:75%">
+											
+												{{ k.nmchecklist }}
+
+											</td>
+											<td class="colunaTabelaConsulta" style="width:20%;text-align:left">
+												Não se aplica.&nbsp;
+												{% if v and v.blnao_obrigatorio %}
+													<input checked="checked" name="{{ k.id }}" type="checkbox" />
+												{% else %}
+													<input name="{{ k.id }}" type="checkbox" />
+												{% endif %}
+											
+											</td>
+										</tr>
+										{% if k.blcustomtext or k.blcustomdate %}
+											<tr>
+												<td style="padding-left:4em" colspan="3">
+													{% if k.blprogramacao %}
+														{% if v and v.bl_em_programacao %}
+															<input checked="checked" name="{{ k.id }}-emprogramacao" type="checkbox" />
+														{% else %}
+															<input name="{{ k.id }}-emprogramacao" type="checkbox" />
+														{% endif %}
+														Em Programação&nbsp;|
+													{% endif %}
+													{% if k.blcustomtext %}
+														{{ k.lbcustomtext }}&nbsp;
+														<input size="10" name="{{k.id}}-nmcustom" value="{{v.nmcustom}}" />&nbsp;|
+													{% endif %}
+													{% if k.blcustomdate %}
+														{{ k.lbcustomdate }}
+														<input size="9" name="{{k.id}}-dtcustom" value="{{v.dtcustom|date:'d/m/Y'}}" />
+														&nbsp;<b style="color:red">( Formato: 10/10/2010 )</b>&nbsp;
+													{% endif %}
+												</td>
+											</tr>
+										{% endif %}
+								{% endfor %}
+							</tbody>
+						</table>
+				   	</td>
+				   </tr>
+				   <tr> <td class="colunaTabela"> <label>Parecer:</label> </td>
+					   	<td>
+					   		<textarea rows="4" cols="40" name="dsparecer">{{dsparecer}}</textarea>
+					   	</td>
+				   </tr>
+					{% if perms.sicop.etapa_checklist_edicao %}
+
+					   <tr> <td class="colunaTabela"> <label>Próxima Etapa:</label> </td>
+					   	<td>
+					   		<select name="etapaposterior"  style="width:200px">
+								<option value="">-- SELECIONE --</option>
+								{% for obj in posteriores %}
+									<option value="{{ obj.tbposterior.id }}">{{obj.tbposterior.nmfase}}</option>
+								{% endfor %}
+							</select>		
+					   	</td>						
+					   </tr>
+					   {% if perms.sicop.etapa_checklist_posterior %}
+							<tr> <td class="colunaTabela"> <label>Marcar Etapa como atual ?</label> </td>
+						   		<td>
+						   			<input type="checkbox" name="atual" />
+						   		</td>						
+						   	</tr>
+						{% endif %}
+					{% else %}
+						<input name="etapaposterior" value="" type="hidden" />
+				   {% endif %}
+				</table>
+		</div>
+		<br />
+		<table style="width:100%">
+			<tr>
+				<td class="colunaTabela" style="text-align:left"> 
+					<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
+					{% if perms.sicop.etapa_checklist_edicao %}
+						<input type="submit" class="button_green" value="SALVAR" />
+					{% endif %}
+				</td>
+			</tr>
+		</table>
+
+		<br/>
+		
+	</form>
+</div>
+</div>
+{% endblock %}

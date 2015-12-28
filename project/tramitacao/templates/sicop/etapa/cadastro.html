@@ -1,0 +1,59 @@
+{% extends "core/base/cadastro.html" %} 
+{% load staticfiles %} 
+
+{% block breadcumbs %}
+	Acesso Restrito | Etapa | Cadastro
+{% endblock %}
+
+{% block formulario %}
+<div id="tabs" style="color:black;width:100%;font-size:11px">
+
+<ul>
+	<li><a href="#tabs-1">CADASTRAR ETAPA</a></li>
+</ul>
+
+<div id="tabs-1">		
+	<form method="post" action="">
+		{% csrf_token %}
+		<div style="width:100%;font-size:12px;text-align:left">
+				<table>
+				   <tr> <td class="colunaTabela"> <label>Nome:</label> </td><td><input size="40" required="required" name="nmfase"/></td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Titulo p/ relatório:</label> </td><td><input size="40" required="required" name="titulo"/></td> </tr>
+				   <tr> <td class="colunaTabela"> <label>Tipo Processo:</label> </td>
+				   	<td>
+				   		<select name="tbtipoprocesso"  style="width:250px">
+							<option value="">-- Selecione um Tipo --</option>
+							{% for obj in tipoprocesso %}
+								<option value="{{ obj.id }}">{{obj.nome}}</option>
+							{% endfor %}
+						</select>		
+				   	</td>
+				   	<td>
+						<a href="/sicop/tipo_processo/cadastro/?next=/sicop/etapa/cadastro/" title="Novo Tipo Processo"> <img src="{% static "img/add.png" %}" width="24" /> </a>
+					</td>						
+				   </tr>
+				   <tr> <td class="colunaTabela"> <label>Ordem:</label> </td><td><input onkeypress="return SomenteNumeroOK(event, this);" required="required" name="ordem"/></td> </tr>
+						
+						<tr>
+							<td class="colunaTabela"> <label>Opção no Cadastro:</label> </td>
+						    <td>
+								<input type="checkbox" name="blinicial" />
+							</td> 
+						</tr>
+				   
+				   <tr> <td class="colunaTabela"> <label>Descricao:</label> </td><td> <textarea rows="4" cols="40" name="dsfase"></textarea></td> </tr>				   
+				</table>				
+		</div>
+		<br />
+		<table style="width:100%">
+			<tr>
+				<td class="colunaTabela" style="text-align:left"> 
+					<a href="/sicop/etapa/consulta/" style="margin-right: 10px"><input type="button" class="button_yellow" value="CONSULTAR" /></a>
+					<input type="submit" class="button_green" value="SALVAR" />
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>	
+</div>
+{% endblock %}

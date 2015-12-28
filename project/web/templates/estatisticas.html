@@ -1,0 +1,330 @@
+{% extends "core/base/index.html" %}
+{% load staticfiles %} 
+
+{% block breadcumbs %}
+	Estatiscas
+{% endblock %}
+{% block titulo %}
+Estatisticas
+{% endblock %}
+
+{% block style %}
+
+
+{% endblock style %}
+
+{% block index %}
+
+<div class="span12">
+			<h3>
+				{% block subtitulo %}
+					Estatísticas - Maranhão
+				{% endblock %}
+			</h3>
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="span2">
+            <div class="stat-box medium-blue">
+            	<span class="count">{{qtd_processos}} </span>
+            	<span class="stat-text">Processos</span>
+            </div>
+        </div>
+        
+        <div class="span2">
+            <div class="stat-box medium-blue">
+            <span class="count">{{ qtd_pecas}}</span>
+            <span class="stat-text">Peças</span>
+            </div>
+        </div>
+        
+        <div class="span2">
+            <div class="stat-box medium-blue">
+            <span class="count">{{qtd_mov}}</span>
+            <span class="stat-text">Tramitações</span>
+            </div>
+        </div>
+        <div class="span2">
+            <div class="stat-box medium-blue">
+            <span class="count">{{qtd_pend}}</span>
+            <span class="stat-text">Pendências</span>
+            </div>
+        </div>
+        
+    </div>
+    </div>
+  </br>  
+    <div class="span8">
+       	<div class="" id="chart_tipos" style="" >
+           	 <h4>Processos por tipo</h4>
+               <svg style="height:350px;width:500px"></svg>
+       	</div>
+	</div>
+	<div class="span8">
+       	<div class="" id="chart_titulos" style="" >
+           	 <h4>Titulos</h4>
+               <svg style="height:350px;width:500px"></svg>
+       	</div>
+	</div>
+	
+	
+     
+    <div class="span8">
+        <div class="" id="chart_pend" style="" >
+       		<h4>Pendencias por tipo</h4>
+             <svg style="height:350px;width:410px"></svg>
+        </div>
+    </div>
+</br>
+</br>
+<div class="row-fluid" >
+    <div class="span12">
+        <h4>Movimentacao por dia (últimos 3 meses)</h4>
+        <div class="" id="chart_qtd_by_day" style="" >
+                <svg style="height:350px;width:750px"></svg>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid" >
+    <div class="span12">
+        <h4>Batimento Processos</h4>
+        <div class="" id="chart_bat" style="" >
+             <svg style="height:350px;width:750px"></svg>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- div class="row-fluid" >
+    <div class="span12">
+        <h4>Cadastro de processos</h4>
+        <div class="" id="chart_cad" style="" >
+                <svg style="height:350px;width:750px"></svg>
+        </div>
+    </div>
+</div-->
+
+</div>
+
+{% endblock %}
+{% block body_scripts %}
+
+<script src="{{ STATIC_URL }}/js/d3.min.js" type="text/javascript"></script>
+<script src="{{ STATIC_URL }}/js/nv.d3.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+
+
+//TRAMITACOES POR DIA
+nv.addGraph(function() {
+    var chart = nv.models.multiBarChart()
+           .x(function(d) { return d.label })
+           .y(function(d) { return d.value })
+           .showControls(false);
+     
+    chart.xAxis.tickFormat(function(d) {
+       return d3.time.format('%d/%m/%y,')(new Date(d))
+     });
+     
+     d3.select('#chart_qtd_by_day svg')
+         	.datum(diarioQtd())
+       		.transition().duration(100)
+       		.call(chart);
+     
+    return chart;});
+    
+function diarioQtd() 
+{
+  return [
+  {
+    color: "#B29F3E",
+    key: "Tramitacoes",
+    values: {{tramitados_por_dia|safe}}
+  }
+  ];
+}
+//FIM TRAMITACAO POR DIA
+
+//CADASTROS - EVOLUCAO
+nv.addGraph
+(function() 
+{
+    var chart = nv.models.cumulativeLineChart()
+           .x(function(d) { return d.label })
+           .y(function(d) { return d.value })
+           .color(d3.scale.category10().range())
+           ;
+     
+    chart.xAxis
+    .showMaxMin(false)
+    .tickFormat(function(d) {
+       return d3.time.format('%d/%m/%y,')(new Date(d))
+     });
+
+    chart.yAxis
+    .tickFormat(d3.format(',f'));
+
+     
+     d3.select('#chart_cad svg')
+         	.datum(diarioCad())
+       		.call(chart);
+     nv.utils.windowResize(chart.update);
+     
+    return chart;
+});
+    
+function diarioCad() 
+{
+  return [
+  {
+    color: "#B29333",
+    key: "Cadastros",
+    values: {{qtd_cadastro|safe}}
+  }
+  ];
+}
+//FIM
+
+
+
+//TIPOS DE PROCESSO
+nv.addGraph(function() {
+   var chart = nv.models.pieChart()
+      .x(function(d) { return d.label })
+      .y(function(d) { return d.value })
+      .showLabels(false)
+      .donut(true)
+      .color(['blue', 'orange', 'yellow'])
+      .width(400).height(360)
+      .showLegend(true);
+  	  ;
+   d3.select("#chart_tipos svg")
+       .datum(TiposQtd())
+       .transition().duration(500)
+       .call(chart);
+   
+
+   return chart;
+ });
+ 
+function TiposQtd() {
+  return [
+  {
+    key: "submissoes",
+    values: {{qtd_tipos|safe}}
+  }
+  ];
+}
+
+
+//Fim
+
+//TITULOS
+nv.addGraph(function() {
+   var chart = nv.models.pieChart()
+      .x(function(d) { return d.label })
+      .y(function(d) { return d.value })
+      .showLabels(false)
+      .donut(true)
+      .color(['green', 'orange', 'yellow','gray'])
+      .width(400).height(360)
+      .showLegend(true);
+  	  ;
+   d3.select("#chart_titulos svg")
+       .datum(TiposTit())
+       .transition().duration(500)
+       .call(chart);
+   
+
+   return chart;
+ });
+ 
+function TiposTit() {
+  return [
+  {
+    key: "titulos",
+    values: {{qtd_titulo_registro|safe}}
+  }
+  ];
+}
+
+
+//Fim
+
+
+
+
+//TIPOS DE pendencias
+nv.addGraph(function() {
+   var chart = nv.models.pieChart()
+      .x(function(d) { return d.label })
+      .y(function(d) { return d.value })
+      .showLabels(false)
+      .donut(true)
+      .width(400).height(400)
+      .showLegend(false)
+   	  ;
+   
+   d3.select("#chart_pend svg")
+       .datum(TiposPend())
+       .transition().duration(500)
+       .call(chart);
+   return chart;
+ });
+ 
+function TiposPend() {
+  return [
+  {
+    key: "tipo",
+    values: {{qtd_pend_c|safe}}
+  }
+  ];
+}
+//Fim
+
+//BATIMENTO PROCESSO COM PECAS
+nv.addGraph(function() {
+    var chart = nv.models.multiBarHorizontalChart()
+           .x(function(d) { return d.label })
+           .y(function(d) { return d.value })
+           .showControls(false)
+           .showValues(true)           //Show bar value next to each bar.
+           .tooltips(true) 
+           .margin({top:0, right: 20, bottom: 50, left: 175})
+           .color(['yellow','blue'])
+            
+        ;
+     
+    chart.yAxis
+    .tickFormat(d3.format(',.2f'));
+     
+     d3.select('#chart_bat svg')
+         	.datum(BatQtd())
+       		.transition().duration(1500)
+       		.call(chart);
+
+     nv.utils.windowResize(chart.update);
+    return chart;});
+    
+function BatQtd() 
+{
+  return [
+  {
+    key: "Batimento",
+    values: {{qtd_bat|safe}}
+  }
+  ];
+}
+
+
+
+//FIM BATIMENTO
+
+
+
+</script>
+{% endblock body_scripts %}
+
