@@ -180,7 +180,6 @@ INSTALLED_APPS = (
     'project.tramitacao',
     'project.documento',
     'project.servidor',
-    'project.calculo',
     'project.web',
     'project.core',
     'project.geoinformacao',

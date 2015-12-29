@@ -9,7 +9,6 @@ from project.tramitacao.models import Tbtipocaixa, Tbtipoprocesso, Tbstatuspende
     Tbgleba, Tbcontrato, Tbsituacaoprocesso, Tbtipopendencia, AuthUser,\
     AuthUserGroups, AuthGroupPermissions, Tbmovimentacao, Tbprocessosanexos
 from project.geoinformacao.models import TbparcelaGeo
-from project.calculo.models import TbtrMensal
 from django.http.response import HttpResponse
 import csv
 import sys
