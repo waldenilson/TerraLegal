@@ -269,6 +269,20 @@ def gerar_doc_sobreposicao(request, id):
                 'data_atualizacao':request.POST['data_atualizacao']
             }
 
+    #VERIFICAR RESPONSAVEL TECNICO
+    if request.POST['responsavel'] == 'QUINTO':            
+        dados['nome_responsavel'] = 'Quinto Fernando GEO'
+        dados['credenciamento_responsavel'] = 'Quinto Fernando GEO'
+        dados['crea_responsavel'] = 'Quinto Fernando GEO'
+    elif request.POST['responsavel'] == 'GARRET':            
+        dados['nome_responsavel'] = 'GARRET GEO'
+        dados['credenciamento_responsavel'] = 'Quinto Fernando GEO'
+        dados['crea_responsavel'] = 'Quinto Fernando GEO'
+    elif request.POST['responsavel'] == 'ESTEVAM':            
+        dados['nome_responsavel'] = 'ESTEVAM GEO'
+        dados['credenciamento_responsavel'] = 'Quinto Fernando GEO'
+        dados['crea_responsavel'] = 'Quinto Fernando GEO'
+
     #PERSISTENCIA DOS DADOS DO DOCUMENTO VERIFICACAO SOBREPOSICAO
     doc = Sobreposicao.objects.filter( tbprocessobase__id = Tbprocessorural.objects.get(pk=id).tbprocessobase.id )
     ds = Sobreposicao()    
@@ -311,7 +325,7 @@ def gerar_doc_sobreposicao(request, id):
 
     ds.save()
 
-    return gerar_pdf(request,'/tramitacao/processo/rural/sobreposicao.html',dados, settings.MEDIA_ROOT+'/tmp','sobreposicao.pdf')
+    return gerar_pdf(request,'/sicop/processo/rural/sobreposicao.html',dados, settings.MEDIA_ROOT+'/tmp','sobreposicao.pdf')
 
 @permission_required('sicop.processo_rural_despacho_aprovacao_regional', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def gerar_doc_despacho_aprovacao_regional(request, id):

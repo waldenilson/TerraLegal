@@ -5,7 +5,6 @@
  Acesso Restrito | Processo Rural | Edicao 
 {% endblock %}
 
-
 {% block customhead %}
 
     {% if kmls %}
@@ -904,6 +903,18 @@
 						Data de Atualização:
 						&nbsp;&nbsp;
 						<input value="{{sobreposicao.data_atualizacao|date:'d/m/Y'}}" name="data_atualizacao" size="9" id="date" required type="text" />
+					</td>
+			   	</tr>
+				<tr>
+					<td class="colunaTabela" colspan="2">
+						Responsável Técnico:
+						&nbsp;&nbsp;
+				   		<select required="required" name="responsavel" style="width: 300px">   			
+							<option selected="selected" value="">--SELECIONE--</option>
+							<option value="QUINTO">Quinto Fernando Antunes Ramos</option>
+							<option value="GARRET">Luiz Gonzaga Barros Neto</option>
+							<option value="ESTEVAM">Estevam Teixeira Lima</option>
+						</select>
 					</td>
 			   	</tr>
 			   	<tr>
