@@ -910,10 +910,12 @@
 						Responsável Técnico:
 						&nbsp;&nbsp;
 				   		<select required="required" name="responsavel" style="width: 300px">   			
-							<option selected="selected" value="">--SELECIONE--</option>
-							<option value="QUINTO">Quinto Fernando Antunes Ramos</option>
-							<option value="GARRET">Luiz Gonzaga Barros Neto</option>
-							<option value="ESTEVAM">Estevam Teixeira Lima</option>
+				   			{% if not sobreposicao.responsavel %}
+								<option selected="selected" value="">--SELECIONE--</option>
+								<option value="QUINTO">Quinto Fernando Antunes Ramos</option>
+								<option value="GARRET">Luiz Gonzaga Barros Neto</option>
+								<option value="ESTEVAM">Estevam Teixeira Lima</option>
+							{% endif %}
 						</select>
 					</td>
 			   	</tr>

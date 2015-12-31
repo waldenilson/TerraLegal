@@ -299,6 +299,7 @@ def gerar_doc_sobreposicao(request, id):
     dt = request.POST['data_atualizacao'].split('/')
     ds.data_atualizacao = datetime.datetime(day=int(dt[0]),month=int(dt[1]),year=int(dt[2]))
     ds.forma_georreferenciamento = request.POST['forma_geo']
+    ds.responsavel = request.POST['responsavel']
 
     ds.bl_item_1 = request.POST.get('resp_01',False)
     ds.txt_item_1 = request.POST['resp_01_txt']
