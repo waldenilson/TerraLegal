@@ -7,7 +7,7 @@ urlpatterns = patterns('project.documento',
     url(r'^memorando/consulta/', 'memorando.consulta'),   
     url(r'^memorando/cadastro/', 'memorando.cadastro'),   
     url(r'^memorando/edicao/(?P<id>\d+)/', 'memorando.edicao'),   
-    url(r'^memorando/lista/', 'views.lista'),
+    url(r'^lista/', 'views.lista'),
 
    )
    
