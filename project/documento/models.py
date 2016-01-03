@@ -15,6 +15,7 @@ class Memorando(models.Model):
     localidade = models.CharField(max_length=80)
     signatario = models.CharField(max_length=80)
     cargo_signatario = models.CharField(max_length=80)
+    circular = models.BooleanField(blank=False,null=False)
     class Meta:
         db_table = '"documento"."memorando"'    
 

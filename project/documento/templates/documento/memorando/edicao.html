@@ -19,7 +19,7 @@
 	<form method="post" action="." target="blank">
 		{% csrf_token %}
 		<div style="width:100%;font-size:12px;text-align:left">
-				<table>
+				<table style="width:50%">
 				   <tr>
 				   		<td class="colunaTabela"> <label>Número:</label> </td>
 				   		<td> <input required onkeypress="return SomenteNumeroOK(event, this);" size="10" name="numero" value="{{memorando.numero}}" /></td> 
@@ -53,16 +53,20 @@
 				   		<td> <input required value="{{memorando.cargo_signatario}}" name="cargo_signatario" size="40" /></td> 
 				   </tr> 
 				   <tr> 
-				   		<td class="colunaTabela"> <label>Mensagem:</label> </td>
-				   		<td> 
-				   			<textarea id="mensagem" rows="6" cols="40" required name="mensagem">{{memorando.mensagem}}</textarea>
-				   			<script>
-				                CKEDITOR.replace( 'mensagem' );
-				            </script>
-
-				   		</td> 
+				   		<td class="colunaTabela"> <label>Circular:</label> </td>
+						<td>
+							{% if memorando.circular == True %} 
+								<input checked="checked" type="checkbox" name="circular" />
+							{% else %}
+								<input type="checkbox" name="circular" />
+							{% endif %} 
+						</td>
 				   </tr>
 				</table>
+				<textarea id="mensagem" rows="6" cols="40" required name="mensagem">{{memorando.mensagem}}</textarea>
+				<script>
+					CKEDITOR.replace( 'mensagem' );
+				</script>
 		</div>
 		<br />
 		<table style="width:100%">

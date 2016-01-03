@@ -20,7 +20,6 @@ response_consulta  = "/documento/memorando/consulta/"
 titulo_relatorio    = "Relatorio dos Memorandos"
 planilha_relatorio  = "Memorandos"
 
-
 @permission_required('documento.memorando_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
     lista = []
@@ -47,7 +46,8 @@ def cadastro(request):
             destinatario = request.POST['destinatario'],
             signatario = request.POST['signatario'].upper(),
             cargo_signatario = request.POST['cargo_signatario'].title(),
-            data_cadastro = datetime.datetime.now()
+            data_cadastro = datetime.datetime.now(),
+            circular = request.POST.get('circular',False)
         )        
         dt = request.POST['data_documento'].split('/')
         f_obj.data_documento = datetime.datetime(day=int(dt[0]),month=int(dt[1]),year=int(dt[2]))
@@ -65,7 +65,8 @@ def cadastro(request):
             'mes':mes_do_ano_texto(int(dt[1])),
             'ano':dt[2],
             'signatario':f_obj.signatario,
-            'cargo_signatario':f_obj.cargo_signatario        
+            'cargo_signatario':f_obj.cargo_signatario,
+            'circular':f_obj.circular
         }
         return gerar_pdf(request,'/documento/memorando/memorando.html',dados, settings.MEDIA_ROOT+'/tmp','memorando.pdf')
 
@@ -90,7 +91,8 @@ def edicao(request, id):
             destinatario = request.POST['destinatario'],
             signatario = request.POST['signatario'].upper(),
             cargo_signatario = request.POST['cargo_signatario'].title(),
-            data_cadastro = instance.data_cadastro
+            data_cadastro = instance.data_cadastro,
+            circular = request.POST.get('circular',False)
         )
 
         dt = request.POST['data_documento'].split('/')
@@ -110,7 +112,8 @@ def edicao(request, id):
             'mes':mes_do_ano_texto(int(dt[1])),
             'ano':dt[2],
             'signatario':f_obj.signatario,
-            'cargo_signatario':f_obj.cargo_signatario        
+            'cargo_signatario':f_obj.cargo_signatario,
+            'circular':f_obj.circular        
         }
         return gerar_pdf(request,'/documento/memorando/memorando.html',dados, settings.MEDIA_ROOT+'/tmp','memorando.pdf')
 
