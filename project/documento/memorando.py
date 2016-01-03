@@ -14,6 +14,7 @@ import datetime
 from project.core.funcoes import format_datetime, gerar_pdf,mes_do_ano_texto
 from os.path import abspath, join, dirname
 from project import settings
+from django.db.models import Q
 
 nome_relatorio      = "relatorio_documento_memorando"
 response_consulta  = "/documento/memorando/consulta/"
@@ -28,7 +29,20 @@ def consulta(request):
         if request.POST['numero'] != '':
             lista = Memorando.objects.filter( numero__icontains=numero)
             lista = lista.order_by( '-data_documento' )
-        
+        texto = request.POST['texto']
+        if texto != '':
+            lista = Memorando.objects.filter(
+                Q( assunto__icontains=texto )|
+                Q( mensagem__icontains=texto )|
+                Q( remetente__icontains=texto )|
+                Q( destinatario__icontains=texto )|
+                Q( localidade__icontains=texto )|
+                Q( signatario__icontains=texto )|                
+                Q( cargo_signatario__icontains=texto )|
+                Q( data_documento__icontains=texto )
+            )
+            lista = lista.order_by( '-data_documento' )
+
     #gravando na sessao o resultado da consulta preparando para o relatorio/pdf
     request.session['relatorio_documento_memorando'] = lista
     return render_to_response('documento/memorando/consulta.html' ,{'lista':lista}, context_instance = RequestContext(request))
