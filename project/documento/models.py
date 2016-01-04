@@ -19,6 +19,28 @@ class Memorando(models.Model):
     class Meta:
         db_table = '"documento"."memorando"'    
 
+class Oficio(models.Model):
+    id = models.AutoField(primary_key=True)
+    auth_user = models.ForeignKey(AuthUser)
+    data_cadastro = models.DateTimeField(null=False)
+    data_modificacao = models.DateTimeField(auto_now=True)
+    numero = models.IntegerField(null=False)
+    data_documento = models.DateField(null=False)
+    assunto = models.CharField(max_length=80)
+    mensagem = models.TextField(blank=True)
+    remetente = models.CharField(max_length=80)
+    nome_destinatario = models.CharField(max_length=80)
+    cargo_destinatario = models.CharField(max_length=80)
+    cidade_destinatario = models.CharField(max_length=80)
+    uf_destinatario = models.CharField(max_length=80)
+    empresa_destinatario = models.CharField(max_length=80)
+    cep_destinatario = models.CharField(max_length=80)
+    localidade = models.CharField(max_length=80)
+    signatario = models.CharField(max_length=80)
+    cargo_signatario = models.CharField(max_length=80)
+    class Meta:
+        db_table = '"documento"."oficio"'    
+
 class Sobreposicao(models.Model):
     id = models.AutoField(primary_key=True)
     tbprocessobase = models.ForeignKey(Tbprocessobase)

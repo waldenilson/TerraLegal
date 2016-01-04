@@ -118,6 +118,9 @@
 								{% if perms.documento.memorando_consulta %}
 									<li><a href="/documento/memorando/consulta">Memorando</a></li>
 								{% endif %}
+								{% if perms.documento.oficio_consulta %}
+									<li><a href="/documento/oficio/consulta">Ofício</a></li>
+								{% endif %}
 							</ul>
 						</li>
 					{% endif %}
