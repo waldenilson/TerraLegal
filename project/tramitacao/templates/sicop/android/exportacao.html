@@ -1,0 +1,39 @@
+{% extends "core/base/cadastro.html" %} 
+{% load staticfiles %}
+
+{% block breadcumbs %}
+	Acesso Restrito | Android | Exportação
+{% endblock %}
+
+{% block subtitulo %}
+	
+	EXPORTAÇÃO DE DADOS PARA O APP SICOP ANDROID
+	
+{% endblock %}
+
+
+{% block formulario %}
+<div id="tabs" style="color:black;width:100%;font-size:11px">
+<ul>
+	<li><a href="#tabs-1">EXPORTAR DADOS</a></li>
+</ul>
+<div id="tabs-1">		
+		
+	<form method="post" action=".">
+		{% csrf_token %}
+		<div style="width:100%;font-size:12px;text-align:left">
+		</div>
+		<br />
+		<table style="width:100%">
+			<tr>
+				<td class="colunaTabela" colspan="2" style="text-align:left"> 
+					<input type="submit" class="button_green" value="GERAR EXPORTAÇÃO" />
+				</td>
+			</tr>
+		</table>
+	</form>
+
+</div>
+</div>
+
+{% endblock %}

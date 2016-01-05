@@ -94,6 +94,9 @@ urlpatterns = patterns('project.tramitacao',
 
     # IMPORTACAO DE PROCESSOS ATRAVES DE PLANILHA ODS
     url(r'^processo/importacao/', 'restrito.processo.importacao_ods'),
+
+    # EXPORTACAO SQLITE
+    url(r'^android/exportacao/', 'util.app_android.gerar_sqlite'),
     
     # PROCESSO RURAL
     url(r'^processo/rural/consulta/', 'restrito.processo_rural.consulta'),

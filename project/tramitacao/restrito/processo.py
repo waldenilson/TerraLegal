@@ -17,7 +17,7 @@ from project.tramitacao.forms import FormProcessoRural, FormProcessoUrbano,\
     FormProcessoClausula
 from project.tramitacao.restrito import processo_rural
 from types import InstanceType
-from project.tramitacao.admin import export_to_sqlite_android, verificar_permissao_grupo, cadastro_automatico_p23
+from project.tramitacao.admin import verificar_permissao_grupo
 import datetime
 from django.contrib import messages
 from django.utils import simplejson
