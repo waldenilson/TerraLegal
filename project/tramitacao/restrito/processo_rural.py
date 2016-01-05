@@ -271,17 +271,17 @@ def gerar_doc_sobreposicao(request, id):
 
     #VERIFICAR RESPONSAVEL TECNICO
     if request.POST['responsavel'] == 'QUINTO':            
-        dados['nome_responsavel'] = 'Quinto Fernando GEO'
-        dados['credenciamento_responsavel'] = 'Quinto Fernando GEO'
-        dados['crea_responsavel'] = 'Quinto Fernando GEO'
+        dados['nome_responsavel'] = 'Quinto Fernando Antunes Ramos'
+        dados['credenciamento_responsavel'] = 'Geógrafo Credenciado INCRA D2O'
+        dados['crea_responsavel'] = 'CREA 6975/D-MA'
     elif request.POST['responsavel'] == 'GARRET':            
-        dados['nome_responsavel'] = 'GARRET GEO'
-        dados['credenciamento_responsavel'] = 'Quinto Fernando GEO'
-        dados['crea_responsavel'] = 'Quinto Fernando GEO'
+        dados['nome_responsavel'] = 'Luiz Gonzaga Barros Neto'
+        dados['credenciamento_responsavel'] = 'Topógrafo Credenciado INCRA FT0'
+        dados['crea_responsavel'] = 'CREA 2639/TD-MA'
     elif request.POST['responsavel'] == 'ESTEVAM':            
-        dados['nome_responsavel'] = 'ESTEVAM GEO'
-        dados['credenciamento_responsavel'] = 'Quinto Fernando GEO'
-        dados['crea_responsavel'] = 'Quinto Fernando GEO'
+        dados['nome_responsavel'] = 'Estevam Teixeira Lima'
+        dados['credenciamento_responsavel'] = 'Topógrafo Credenciado INCRA FT1'
+        dados['crea_responsavel'] = 'CREA 2590/TD-MA'
 
     #PERSISTENCIA DOS DADOS DO DOCUMENTO VERIFICACAO SOBREPOSICAO
     doc = Sobreposicao.objects.filter( tbprocessobase__id = Tbprocessorural.objects.get(pk=id).tbprocessobase.id )

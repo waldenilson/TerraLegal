@@ -36,7 +36,7 @@ def login_form(request):
         else:
             form = AuthenticationForm(request)    
     
-        return {'login_form': form}
+        return {'form': form}
 
 def init(request):
     return {

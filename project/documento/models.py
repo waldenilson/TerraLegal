@@ -71,6 +71,7 @@ class Sobreposicao(models.Model):
     txt_item_11 = models.TextField(blank=True)
     forma_georreferenciamento = models.CharField(max_length=80, blank=True)
     data_atualizacao = models.DateTimeField(null=True, blank=True)
+    responsavel = models.CharField(max_length=80, blank=False, null=False)
     class Meta:
         db_table = '"documento"."sobreposicao"'
 

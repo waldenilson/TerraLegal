@@ -915,6 +915,22 @@
 								<option value="QUINTO">Quinto Fernando Antunes Ramos</option>
 								<option value="GARRET">Luiz Gonzaga Barros Neto</option>
 								<option value="ESTEVAM">Estevam Teixeira Lima</option>
+							{% else %}
+					   			{% if sobreposicao.responsavel == 'QUINTO' %}
+									<option selected="selected" value="QUINTO">Quinto Fernando Antunes Ramos</option>
+								{% else %}
+									<option value="QUINTO">Quinto Fernando Antunes Ramos</option>
+								{% endif %}
+					   			{% if sobreposicao.responsavel == 'GARRET' %}
+									<option selected="selected" value="GARRET">Luiz Gonzaga Barros Neto</option>
+								{% else %}
+									<option value="GARRET">Luiz Gonzaga Barros Neto</option>
+								{% endif %}
+					   			{% if sobreposicao.responsavel == 'ESTEVAM' %}
+									<option selected="selected" value="ESTEVAM">Estevam Teixeira Lima</option>
+								{% else %}
+									<option value="ESTEVAM">Estevam Teixeira Lima</option>
+								{% endif %}
 							{% endif %}
 						</select>
 					</td>
