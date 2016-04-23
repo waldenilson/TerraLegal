@@ -1,8 +1,8 @@
-{% extends "core/base/cadastro.html" %} 
-{% load staticfiles %} 
+{% extends "core/base/cadastro.html" %}
+{% load staticfiles %}
 
 {% block breadcumbs %}
- Acesso Restrito | Processo Rural | Edicao 
+ Acesso Restrito | Processo Rural | Edicao
 {% endblock %}
 
 {% block customhead %}
@@ -12,14 +12,14 @@
 		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 	    <script>
 
-			
+
 				function initialize() {
 
 				  var mapOptions = {
 				    zoom: 11,
 				    mapTypeId: google.maps.MapTypeId.HYBRID,
 				    streetViewControl: false,
-				    panControl: false 
+				    panControl: false
 				  }
 
 				  var map = new google.maps.Map(document.getElementById('map'), mapOptions);
@@ -37,8 +37,8 @@
 				}
 
 				google.maps.event.addDomListener(window, 'load', initialize);
-			
-		
+
+
 	    </script>
 
 	{% endif %}
@@ -125,7 +125,7 @@
 		<table style="width:100%">
 			<tbody>
 				<tr>
-					<td>					
+					<td>
 
 							{% if titulo_processo %}
 								<div style="font-size:12px;margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
@@ -142,13 +142,13 @@
 							{% endif %}
 
 							<div style="width: 100%; font-size: 12px; text-align: left">
-							
+
 										<div style="margin-bottom:5px;width:98%;font-weight:bold;color: green">
 											PROCESSO<hr/>
 										</div>
-							
+
 								<table>
-									<tr> 
+									<tr>
 										<td class="colunaTabela"> <label>Número:</label></td>
 										<td>
 											{% if perms.sicop.processo_edicao_numero %}
@@ -164,8 +164,8 @@
 										   			{{ base.tbclassificacaoprocesso.nmclassificacao }}
 										   		</td>
 										</tr>
-										<tr style="color: red;font-weight: bold;"> 
-												<td class="colunaTabela" > 
+										<tr style="color: red;font-weight: bold;">
+												<td class="colunaTabela" >
 													<a href="/tramitacao/processo/edicao/{{ processo_principal.id }}">
 														Processo Principal:
 													</a>
@@ -175,17 +175,17 @@
 										   		</td>
 										</tr>
 									{% endif %}
-										<tr> 
-											<td class="colunaTabela"> 
+										<tr>
+											<td class="colunaTabela">
 												<label>Nome do Requerente:</label></td>
 											<td> <input required="required" size="40" value="{{ rural.nmrequerente }}" name="nmrequerente" /> </td> </tr>
-										
-										<tr> 
+
+										<tr>
 											<td class="colunaTabela"> <label>CPF do Requerente:</label> </td>
 											<td> <input required="required" size="15" value="{{ rural.nrcpfrequerente }}" id="cpf" name="nrcpfrequerente" /> </td>
 										</tr>
 
-										<tr> 
+										<tr>
 											<td class="colunaTabela"> <label>Nome do Conjuge:</label> </td>
 											<td> <input size="40" value="{{ rural.nmconjuge }}" name="nmconjuge" /> </td>
 										</tr>
@@ -196,15 +196,15 @@
 										   			{{ base.tbcaixa.nmlocalarquivo }}
 												</td>
 										</tr>
-										<tr> 
+										<tr>
 											<td class="colunaTabela"> <label>Contato:</label> </td>
-											<td> <input value="{{ base.nmcontato|default:''}}" name="nmcontato" style="width: 250px"/> </td> 
+											<td> <input value="{{ base.nmcontato|default:''}}" name="nmcontato" style="width: 250px"/> </td>
 										</tr>
-										<tr> 
+										<tr>
 											<td class="colunaTabela"> <label>Endereço:</label> </td>
-											<td> <textarea name="nmendereco" rows="4" cols="30">{{base.nmendereco|default:''}}</textarea></td> 
+											<td> <textarea name="nmendereco" rows="4" cols="30">{{base.nmendereco|default:''}}</textarea></td>
 										</tr>
-						
+
 										<tr> <td class="colunaTabela"> <label>Municipio do domicílio:</label> </td>
 										   		<td>
 													<input size="40" name="tbmunicipiodomicilio" value="{{ base.tbmunicipiodomicilio.nome_mun }},{{base.tbmunicipiodomicilio.uf}}" list="municipios" />
@@ -235,7 +235,7 @@
 								<table>
 									{% for p_geo in parcelas_geo %}
 										<tr>
-											<td class="colunaTabela" colspan="2"> 
+											<td class="colunaTabela" colspan="2">
 												<b>PARCELA {{forloop.counter}} : {{p_geo.nome}} </b>
 											</td>
 										</tr>
@@ -246,13 +246,12 @@
 										</tr>
 
 										<tr>
-											<td><b>Município</b>:&nbsp;{{ p_geo.municipio }}</td>
-											<td><b>Área</b>:&nbsp;{{ p_geo.area_ha_ut }} ha</td>
+											<td><b>Município</b>:&nbsp;{{ p_geo.nome_municipio }}</td>
+											<td><b>Área</b>:&nbsp;{{ p_geo.area_ha_ut|floatformat:4 }} ha</td>
 										</tr>
 
 										<tr>
-											<td><b>Contrato</b>:&nbsp;{{ p_geo.contrato }}</td>
-											<td><b>Empresa</b>:&nbsp;{{ p_geo.empresa }}</td>
+											<td colspan="2"><b>Contrato</b>:&nbsp;{{ p_geo.contrato }}&nbsp;|&nbsp;<b>Empresa</b>:&nbsp;{{ p_geo.empresa }}</td>
 										</tr>
 
 										<tr>
@@ -261,7 +260,7 @@
 													SIM
 												{% else %}
 													NÃO
-												{% endif %} 
+												{% endif %}
 											</td>
 											<td><b>Fiscal</b>:&nbsp;{{ p_geo.fiscal }}</td>
 										</tr>
@@ -279,11 +278,11 @@
 								</table>
 								<br/>
 							{% else %}
-								Nenhuma parcela encontrada através do CPF do requerente. 
+								Nenhuma parcela encontrada através do CPF do requerente.
 							{% endif %}
 							<table style="width:100%">
 								<tr>
-									<td class="colunaTabela" style="text-align:left"> 
+									<td class="colunaTabela" style="text-align:left">
 										<a href="javascript:history.back();" style="margin-right: 10px"><input type="button" class="button_yellow" value="VOLTAR" /></a>
 										<input type="submit" class="button_green" value="SALVAR" />
 									</td>
@@ -307,7 +306,7 @@
 				<table>
 					{% for p_geo in parcelas_geo %}
 						<tr>
-							<td class="colunaTabela" colspan="2"> 
+							<td class="colunaTabela" colspan="2">
 								<b>PARCELA {{forloop.counter}} : {{p_geo.nome}} </b>
 							</td>
 						</tr>
@@ -333,7 +332,7 @@
 									SIM
 								{% else %}
 									NÃO
-								{% endif %} 
+								{% endif %}
 							</td>
 							<td><b>Fiscal</b>:&nbsp;{{ p_geo.fiscal }}</td>
 						</tr>
@@ -358,14 +357,14 @@
 					<td class="colunaTabelaConsulta" >Area</td>
 					<td class="colunaTabelaConsulta" >Municipio</td>
 					<td class="colunaTabelaConsulta" >Contrato</td>
-				</tr>					    
+				</tr>
 					{% for obj in peca %}
 						<tr onclick="editarID('/tramitacao/peca_tecnica/edicao/{{ obj.id }}');">
 							<td class="colunaTabelaConsulta" align="left" >{{ obj.tbgleba.nmgleba }}</td>
 							<td class="colunaTabelaConsulta" align="left" >{{ obj.nrarea }}</td>
 							<td class="colunaTabelaConsulta" align="left" >{{ obj.tbmunicipio.nome_mun_maiusculo }}</td>
 							<td class="colunaTabelaConsulta" align="left" >{{ obj.tbcontrato.nrcontrato }}</td>
-							
+
 						</tr>
 					{% endfor %}
 			</body>
@@ -399,7 +398,7 @@
 			</tr>
 		</table>
 	</form>
-		{% if movimentacao %} 
+		{% if movimentacao %}
 			<table class="csstable">
 				<tbody>
 					<tr>
@@ -415,7 +414,7 @@
 						<td class="colunaTabelaConsulta">{{ mov.dtmovimentacao|date:"d/m/Y H:m" }}</td>
 						<td class="colunaTabelaConsulta">{{ mov.auth_user.first_name }}</td>
 					</tr>
-					{% endfor %} 
+					{% endfor %}
 				</tbody>
 			</table>
 		{% endif %}
@@ -429,9 +428,9 @@
 		<div style="font-size:12px;margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
 			PENDÊNCIA<hr/>
 		</div>
-		
+
 		<table style="width:100%">
-			<tr> 
+			<tr>
 			   	<td class="colunaTabelaConsulta" colspan="2">
 			   		<select name="tbtipopendencia" style="width: 200px">
 			   			<option value="">-- SELECIONE O TIPO --</option>
@@ -495,9 +494,9 @@
 		<div style="font-size:12px;margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
 			ANEXOS<hr/>
 		</div>
-		
+
 		<table style="width:100%">
-			<tr> 
+			<tr>
 			   	<td class="colunaTabelaConsulta">
 					<input name="processoanexo" />
 					<input type="submit" value="ANEXAR" />
@@ -506,7 +505,7 @@
 		</table>
 	</form>
 
-	{% if anexado %} 
+	{% if anexado %}
 		<div style="overflow:auto">
 			<table class="csstable">
 				<tbody>
@@ -519,7 +518,7 @@
 						{% for anexo in anexado %}
 							<tr>
 								<td class="colunaTabelaConsulta">
-									<a	href="/tramitacao/processo/desanexar/{{ anexo.tbprocessobase_id_anexo.id}}"	onclick="return confirm('Deseja mesmo desanexar os processos ?');" > 
+									<a	href="/tramitacao/processo/desanexar/{{ anexo.tbprocessobase_id_anexo.id}}"	onclick="return confirm('Deseja mesmo desanexar os processos ?');" >
 										<img width="22" src="{% static "img/desanexar.jpg" %}" />
 									</a>
 								</td>
@@ -527,7 +526,7 @@
 								<td class="colunaTabelaConsulta" onclick="editarID('/tramitacao/processo/edicao/{{ anexo.tbprocessobase_id_anexo.id}}');" >{{ anexo.tbprocessobase_id_anexo.nrprocesso }}</td>
 								<td class="colunaTabelaConsulta">{{	anexo.tbprocessobase_id_anexo.auth_user.first_name }}</td>
 							</tr>
-						{% endfor %} 
+						{% endfor %}
 				</tbody>
 			</table>
 		</div>
@@ -838,7 +837,7 @@
 						12 – Forma do Georreferenciamento:
 						&nbsp;&nbsp;
 				   		<select required="required" name="forma_geo" style="width: 300px">
-				   			
+
 				   			{% if not sobreposicao.forma_georreferenciamento %}
 								<option selected="selected" value="">--SELECIONE--</option>
 								<option value="GEORREFERENCIAMENTO PARTICULAR">GEORREFERENCIAMENTO PARTICULAR</option>
@@ -848,7 +847,7 @@
 								<option value="EMPRESA SETA CONT. CRICIÚMA 77/2013">EMPRESA SETA CONT. CRICIÚMA 77/2013</option>
 								<option value="EMPRESA SETA CONT. IMPERATRIZ 78/2013">EMPRESA SETA CONT. IMPERATRIZ 78/2013</option>
 								<option value="EMPRESA PROGETO CONT.35/2012">EMPRESA PROGETO CONT.35/2012</option>
-							
+
 							{% else %}
 
 					   			{% if sobreposicao.forma_georreferenciamento == 'GEORREFERENCIAMENTO PARTICULAR' %}
@@ -894,7 +893,7 @@
 								{% endif %}
 							{% endif %}
 
-						</select>						
+						</select>
 					</td>
 			   	</tr>
 				<!-- NOVA QUESTÃO -->
@@ -909,7 +908,7 @@
 					<td class="colunaTabela" colspan="2">
 						Responsável Técnico:
 						&nbsp;&nbsp;
-				   		<select required="required" name="responsavel" style="width: 300px">   			
+				   		<select required="required" name="responsavel" style="width: 300px">
 				   			{% if not sobreposicao.responsavel %}
 								<option selected="selected" value="">--SELECIONE--</option>
 								<option value="QUINTO">Quinto Fernando Antunes Ramos</option>
@@ -938,7 +937,7 @@
 			   	<tr>
 			   		<td colspan="2" class="colunaTabela"> <input class="button_green" type="submit" value="EMITIR DOCUMENTO" /> </td>
 			   	</tr>
-			</table>		   	
+			</table>
 		</form>
 	</div>
 {% endif %}
@@ -965,24 +964,24 @@
 				{% for obj in fluxo %}
 					<br/><br/>
 					{% for fase in obj %}
-						
-									<input 
+
+									<input
 										type="button"
 										{% if etapa_atual %}
 											{% if etapa_atual.tbetapa.id == fase.id %}
 												{% if perms.sicop.processo_edicao %}
-													onclick="editarID('/tramitacao/etapa/checklist/{{ rural.tbprocessobase.id }}/{{ fase.id }}');" 
+													onclick="editarID('/tramitacao/etapa/checklist/{{ rural.tbprocessobase.id }}/{{ fase.id }}');"
 												{% endif %}
 												class="bt_blue"
 											{% else %}
 												{% if perms.sicop.etapa_checklist_edicao %}
-													onclick="editarID('/tramitacao/etapa/checklist/{{ rural.tbprocessobase.id }}/{{ fase.id }}');" 
+													onclick="editarID('/tramitacao/etapa/checklist/{{ rural.tbprocessobase.id }}/{{ fase.id }}');"
 												{% endif %}
 												class="bt_grey"
 											{% endif %}
 										{% else %}
 											{% if perms.sicop.etapa_checklist_edicao %}
-												onclick="editarID('/tramitacao/etapa/checklist/{{ rural.tbprocessobase.id }}/{{ fase.id }}');" 
+												onclick="editarID('/tramitacao/etapa/checklist/{{ rural.tbprocessobase.id }}/{{ fase.id }}');"
 											{% endif %}
 											class="bt_grey"
 										{% endif %}
@@ -995,7 +994,7 @@
 			</div>
 
 			<div style="margin-top:20px">
-				{% if transicao %} 	
+				{% if transicao %}
 						<table class="csstable">
 							<tbody>
 								<tr>
@@ -1087,7 +1086,7 @@
 			   	<tr>
 			   		<td colspan="2" class="colunaTabela"> <input class="button_green" type="submit" value="EMITIR DOCUMENTO" /> </td>
 			   	</tr>
-			</table>		   	
+			</table>
 		</form>
 	</div>
 {% endif %}

@@ -1,10 +1,8 @@
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 from django.conf.urls import patterns, url, include
-admin.autodiscover()
 from django.conf import settings
-from django.contrib.auth.decorators import login_required
-from django.views.generic import TemplateView
+admin.autodiscover()
 
 project = 'project'
 
@@ -29,10 +27,10 @@ urlpatterns = patterns('',
 
     # DIRETORIO MEDIA
     url(r'^media/(?P<path>.*)$',project+'.tramitacao.util.media.download', {'document_root': settings.MEDIA_ROOT}),
-   
+
     # CONTROLE AUTENTICACAO
     url(r'^login/', 'django.contrib.auth.views.login', {"template_name":"index.html"}),
     url(r'^logout/', 'django.contrib.auth.views.logout_then_login', {"login_url":"/"}),
     #url(r'^admin/', include(admin.site.urls)),
-    
+
 )
