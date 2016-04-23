@@ -219,6 +219,22 @@
 													</datalist>
 												</td>
 										</tr>
+
+                    <tr> <td class="colunaTabela"> <label>Municipio do Imóvel (Declaratório):</label> </td>
+										   		<td>
+                          <input size="40" name="tbmunicipio" value="{{ base.tbmunicipio.nome_mun }},{{base.tbmunicipio.uf}}" list="municipios_imovel" />
+													<datalist id="municipios_imovel">
+														{% for obj in municipio %}
+															{% if obj.id == base.tbmunicipio.id %}
+																<option selected="selected" value="{{ obj.nome_mun }},{{obj.uf}}"/>
+															{% else %}
+																<option value="{{ obj.nome_mun }},{{obj.uf}}"/>
+															{% endif %}
+														{% endfor %}
+													</datalist>
+												</td>
+										</tr>
+
 								</table>
 
 								<input name="etapaposterior" value="" type="hidden" />
