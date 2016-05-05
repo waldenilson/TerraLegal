@@ -867,7 +867,7 @@ def processos_agrupados(request):
 
     if request.method == "POST":
         #CONSULTA ORDENADA E/OU BASEADA EM FILTROS DE PESQUISA
-        processos = Tbprocessobase.objects.filter( nrprocesso__icontains=request.POST['processo'], tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
+        processos = Tbprocessobase.objects.filter( tbdivisao__id = AuthUser.objects.get( pk = request.user.id ).tbdivisao.id )
 
         #GERACAO
         nome_relatorio = "relatorio-todos-processos-agrupados"
@@ -921,7 +921,6 @@ def processos_agrupados(request):
         #DADOS DA CONSULTA
         x = 5
         for obj in lp:
-            print 'obj processo: '+str(obj.nrprocesso)
             #verificar se existe obj tipo processo no processobase
             if ( Tbprocessorural.objects.filter( tbprocessobase__id = obj.id ) or Tbprocessoclausula.objects.filter( tbprocessobase__id = obj.id ) ) and obj.nrprocesso != '99999999999999999':
                 sheet.getCell(0, x+2).setAlignHorizontal('center').stringValue(obj.tbcaixa.nmlocalarquivo)
@@ -935,11 +934,11 @@ def processos_agrupados(request):
                     cpfcnpj = Tbprocessorural.objects.filter( tbprocessobase__id = obj.id )[0].nrcpfrequerente
                 elif obj.tbtipoprocesso.id == 2:
                     requerente = Tbprocessoclausula.objects.filter( tbprocessobase__id = obj.id )[0].nminteressado
-                    conjuge_titulado = Tbprocessoclausula.objects.filter( tbprocessobase__id = obj.id )[0].nmtitulado
+                    conjuge_titulado = Tbprocessoclausula.objects.filter( tbprocessobase__id = obj.id )[0].nmrequerente
                     cpfcnpj = Tbprocessoclausula.objects.filter( tbprocessobase__id = obj.id )[0].nrcpfinteressado
                 sheet.getCell(1, x+2).setAlignHorizontal('center').stringValue(requerente)
                 sheet.getCell(2, x+2).setAlignHorizontal('center').stringValue(cpfcnpj)
-                sheet.getCell(10, x+2).setAlignHorizontal('center').stringValue(conjuge_titulado)
+                sheet.getCell(9, x+2).setAlignHorizontal('center').stringValue(conjuge_titulado)
 
                 sheet.getCell(3, x+2).setAlignHorizontal('center').stringValue(obj.nrprocesso)
 
@@ -975,7 +974,7 @@ def processos_agrupados(request):
                 #    desc_pendencias += pend.tbtipopendencia.dspendencia + ' : ' + pend.dsdescricao + ' | '
                 #sheet.getCell(10, x+2).setAlignHorizontal('center').stringValue( desc_pendencias )
 
-                sheet.getCell(9, x+2).setAlignHorizontal('center').stringValue( obj.nmendereco )
+                sheet.getCell(10, x+2).setAlignHorizontal('center').stringValue( obj.nmendereco )
 
                 sheet.getCell(11, x+2).setAlignHorizontal('center').stringValue( obj.nmcontato )
 
