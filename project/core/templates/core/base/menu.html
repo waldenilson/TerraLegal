@@ -1,17 +1,17 @@
-					
+
 					<ul id="menu" style="font-size:15px">
 					<li>
 					<a href="/" title="">
 					<span>Página Inicial</span>
 					</a>
 					</li>
-					
+
 					<li>
 					<a href="/web/equipe/" title="">
 					<span>Equipe</span>
 					</a>
 					</li>
-					
+
 					<li>
 					<a href="/web/organizacao/" title="">
 					<span>Organização</span>
@@ -29,8 +29,8 @@
 					<span>Estatísticas</span>
 					</a>
 					</li>
-					
-					
+
+
 					{% if perms.sicop.processo_consulta %}
 					<li><hr /><a href="/tramitacao/processo/consulta/">Processo</a></li>
 					{% endif %}
@@ -51,14 +51,14 @@
 						</ul>
 					</li>
 					{% endif %}
-					
+
 					{% if perms.sicop.peca_tecnica_consulta %}
 					<li> <a href="/tramitacao/peca_tecnica/consulta/"><strike>Peça Técnica</strike></a> </li>
 					{% endif %}
-					
-					
+
+
 					{% if perms.sicop.livro_consulta %}
-					
+
 					<li><a href="/livro/consulta/">Livro fundiário</a>
 					<ul>
 						{% if perms.sicop.livro_consulta %}
@@ -73,7 +73,7 @@
 					</ul>
 					</li>
 					{% endif %}
-					
+
 					{% if perms.sicop.caixa_consulta or perms.sicop.tipo_caixa_consulta %}
 					<li><hr/> <a href="#">Caixa</a>
 					<ul>
@@ -86,7 +86,7 @@
 					</ul>
 					</li>
 					{% endif %}
-					
+
 					{% if perms.sicop.gleba_consulta or perms.sicop.sub_area_consulta %}
 					<li><a href="#">Gleba</a>
 					<ul>
@@ -99,19 +99,19 @@
 					</ul>
 					</li>
 					{% endif %}
-					
+
 					{% if perms.sicop.contrato_consulta %}
 					<li><a href="/tramitacao/contrato/consulta/">Contrato</a></li>
 					{% endif %}
-					
+
 					{% if perms.sicop.pregao_consulta %}
 					<li><a href="/tramitacao/pregao/consulta/">Pregão</a></li>
 					{% endif %}
-					
+
 					{% if perms.servidor.servidor_consulta %}
 					<li><hr/><a href="/servidor/consulta/">Servidor</a></li>
 					{% endif %}
-					
+
 					{% if perms.documento.documento_consulta %}
 						<li><a href="/documento/lista/">Documento</a>
 							<ul>
@@ -124,7 +124,7 @@
 							</ul>
 						</li>
 					{% endif %}
-					
+
 					{% if perms.sicop.relatorio_consulta %}
 					<li><hr/><a href="/tramitacao/relatorio/lista/">Relatório</a>
 					<ul style="width: 250px">
@@ -132,11 +132,12 @@
 							<ul>
 								<li><a href="/tramitacao/relatorio/processos/">Todos os Processos Rurais</a></li>
 								<li><a href="/tramitacao/relatorio/varredura_processos/">Todos os Processos - Varredura</a></li>
+								<li><a href="/tramitacao/relatorio/processos_agrupados/">Todos os Processos - Agrupados</a></li>
 								<li><a href="/tramitacao/relatorio/processo_parcela/">Processos com parcela(s)</a></li>
 								<li><a href="/tramitacao/relatorio/processo_sem_parcela/">Processos sem parcela(s)</a></li>
 								<li><a href="/tramitacao/relatorio/processo_peca/"><strike>Processos com peças técnicas</strike></a></li>
 								<li><a href="/tramitacao/relatorio/processo_sem_peca/"><strike>Processos sem peças técnicas</strike></a></li>
-								
+
 								<!--<li><a href="/tramitacao/relatorio/processo_sem_peca_com_parcela_sigef/">Processos sem peças técnicas com parcela(s) no SIGEF</a></li>-->
 							</ul>
 						</li>
@@ -177,7 +178,7 @@
 					</ul>
 					</li>
 					{% endif %}
-					
+
 					{% if perms.sicop.tipo_processo_consulta or perms.sicop.classificacao_processo_consulta or perms.sicop.situacao_processo_consulta or perms.sicop.situacao_geo_consulta or perms.sicop.tipo_pendencia_consulta or perms.sicop.status_pendencia_consulta or perms.sicop.status_titulo_consulta or perms.sicop.checklist_consulta %}
 					<li><a href="#">Configuração</a>
 					<ul>
@@ -211,13 +212,13 @@
 					{% if perms.sicop.status_titulo_consulta %}
 					<li><a href="/livro/status_titulo/consulta/">Status titulo</a></li>
 					{% endif %}
-					
-					
-					
+
+
+
 					</ul>
 					</li>
 					{% endif %}
-					
+
 					{% if perms.sicop.usuario_consulta or perms.sicop.grupo_consulta or perms.sicop.divisao_consulta %}
 					<li><a href="#">Usuário</a>
 					<ul>
@@ -236,7 +237,7 @@
 					</ul>
 					</li>
 					{% endif %}
-										
+
 					{% if perms.sicop.municipio_consulta %}
 						<li><a href="#">Município</a>
 						<ul>
@@ -246,6 +247,6 @@
 						</ul>
 						</li>
 					{% endif %}
-					
-					
+
+
 					</ul>

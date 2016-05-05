@@ -4,12 +4,12 @@ from django.conf.urls import patterns, url
 
 urlpatterns = patterns('project.tramitacao',
 
-   # ACESSO RESTRITO SICOP CONTRATO 
+   # ACESSO RESTRITO SICOP CONTRATO
     url(r'^contrato/consulta/', 'restrito.contrato.consulta'),
     url(r'^contrato/cadastro/', 'restrito.contrato.cadastro'),
     url(r'^contrato/edicao/(?P<id>\d+)/', 'restrito.contrato.edicao'),
 
-   # ACESSO RESTRITO SICOP PREGAO 
+   # ACESSO RESTRITO SICOP PREGAO
     url(r'^pregao/consulta/', 'restrito.pregao.consulta'),
     url(r'^pregao/cadastro/', 'restrito.pregao.cadastro'),
     url(r'^pregao/edicao/(?P<id>\d+)/', 'restrito.pregao.edicao'),
@@ -18,7 +18,7 @@ urlpatterns = patterns('project.tramitacao',
     url(r'^gleba/consulta/', 'restrito.gleba.consulta'),
     url(r'^gleba/cadastro/', 'restrito.gleba.cadastro'),
     url(r'^gleba/edicao/(?P<id>\d+)/', 'restrito.gleba.edicao'),
-    
+
     # ACESSO RESTRITO SICOP CAIXA
     url(r'^caixa/consulta/', 'restrito.caixa.consulta'),
     url(r'^caixa/cadastro/', 'restrito.caixa.cadastro'),
@@ -55,7 +55,7 @@ urlpatterns = patterns('project.tramitacao',
     url(r'^tipo_caixa/consulta/', 'restrito.tipo_caixa.consulta'),
     url(r'^tipo_caixa/cadastro/', 'restrito.tipo_caixa.cadastro'),
     url(r'^tipo_caixa/edicao/(?P<id>\d+)/', 'restrito.tipo_caixa.edicao'),
-    
+
     # ACESSO RESTRITO SICOP TIPO PROCESSO
     url(r'^tipo_processo/consulta/', 'restrito.tipo_processo.consulta'),
     url(r'^tipo_processo/cadastro/', 'restrito.tipo_processo.cadastro'),
@@ -73,7 +73,7 @@ urlpatterns = patterns('project.tramitacao',
     url(r'^tipo_pendencia/relatorio/csv/', 'restrito.tipo_pendencia.relatorio_csv'),
 
     # ESCOLHA DO TIPO DE PROCESSO
-    url(r'^processo/consulta/', 'restrito.processo.consulta'),   
+    url(r'^processo/consulta/', 'restrito.processo.consulta'),
     url(r'^processo/cadastro/', 'restrito.processo.cadastro'),
     url(r'^processo/edicao/(?P<id>\d+)/', 'restrito.processo.edicao'),
     url(r'^processo/tramitacao/(?P<base>\d+)/', 'restrito.processo.tramitar'),
@@ -82,13 +82,13 @@ urlpatterns = patterns('project.tramitacao',
     url(r'^processo/rem_tramitacao_massa/(?P<base>\d+)/', 'restrito.processo.rem_tramitacao_massa'),
     url(r'^processo/lista_tramitacao_massa/', 'restrito.processo.executar_tramitacao_massa'),
     url(r'^processo/anexo/(?P<base>\d+)/', 'restrito.processo.anexar'),
-    url(r'^processo/pendencia/(?P<base>\d+)/', 'restrito.processo.criar_pendencia'),   
-    url(r'^processo/relatorio/pdf/', 'restrito.processo.relatorio_pdf'),   
+    url(r'^processo/pendencia/(?P<base>\d+)/', 'restrito.processo.criar_pendencia'),
+    url(r'^processo/relatorio/pdf/', 'restrito.processo.relatorio_pdf'),
     url(r'^processo/relatorio/ods/', 'restrito.processo.relatorio_ods'),
     url(r'^processo/relatorio/csv/', 'restrito.processo.relatorio_csv'),
     url(r'^processo/desanexar/(?P<id_anexo>\d+)/', 'restrito.processo.desanexar'),
-    url(r'^processo/consultaProcesso/', 'restrito.processo.consultaprocesso'),   
-   
+    url(r'^processo/consultaProcesso/', 'restrito.processo.consultaprocesso'),
+
     # ACESSO RESTRITO SICOP PENDENCIA
     url(r'^pendencia/edicao/(?P<pendencia>\d+)/', 'restrito.pendencia.edicao'),
 
@@ -97,7 +97,7 @@ urlpatterns = patterns('project.tramitacao',
 
     # EXPORTACAO SQLITE
     url(r'^android/exportacao/', 'util.app_android.gerar_sqlite'),
-    
+
     # PROCESSO RURAL
     url(r'^processo/rural/consulta/', 'restrito.processo_rural.consulta'),
     url(r'^processo/rural/cadastro/', 'restrito.processo_rural.cadastro'),
@@ -114,16 +114,16 @@ urlpatterns = patterns('project.tramitacao',
     url(r'^processo/clausula/notificacao/', 'restrito.processo_clausula.notificacao'),
     url(r'^processo/clausula/consulta/', 'restrito.processo_clausula.consulta'),
     url(r'^processo/clausula/cadastro/', 'restrito.processo_clausula.cadastro'),
-    url(r'^processo/clausula/edicao/(?P<id>\d+)/', 'restrito.processo_clausula.edicao'),   
-    
-   # ACESSO RESTRITO SICOP PECA TECNICA 
+    url(r'^processo/clausula/edicao/(?P<id>\d+)/', 'restrito.processo_clausula.edicao'),
+
+   # ACESSO RESTRITO SICOP PECA TECNICA
     url(r'^peca_tecnica/consulta/', 'restrito.peca_tecnica.consulta'),
     url(r'^peca_tecnica/cadastro/', 'restrito.peca_tecnica.cadastro'),
     url(r'^peca_tecnica/edicao/(?P<id>\d+)/', 'restrito.peca_tecnica.edicao'),
     url(r'^peca_tecnica/relatorio/pdf/', 'restrito.peca_tecnica.relatorio_pdf'),
     url(r'^peca_tecnica/relatorio/ods/', 'restrito.peca_tecnica.relatorio_ods'),
     url(r'^peca_tecnica/relatorio/csv/', 'restrito.peca_tecnica.relatorio_csv'),
-            
+
     # ACESSO RESTRITO SICOP SITUACAO PROCESSO
     url(r'^situacao_processo/consulta/', 'restrito.situacao_processo.consulta'),
     url(r'^situacao_processo/cadastro/', 'restrito.situacao_processo.cadastro'),
@@ -163,7 +163,7 @@ urlpatterns = patterns('project.tramitacao',
     url(r'^divisao/relatorio/pdf/', 'restrito.divisao.relatorio_pdf'),
     url(r'^divisao/relatorio/ods/', 'restrito.divisao.relatorio_ods'),
     url(r'^divisao/relatorio/csv/', 'restrito.divisao.relatorio_csv'),
-  
+
   # ACESSO RESTRITO SICOP GRUPO
     url(r'^grupo/consulta/', 'restrito.grupo.consulta'),
     url(r'^grupo/cadastro/', 'restrito.grupo.cadastro'),
@@ -190,14 +190,15 @@ urlpatterns = patterns('project.tramitacao',
     url(r'^usuario/relatorio/csv/', 'restrito.usuario.relatorio_csv'),
 
     # ACESSO RESTRITO SICOP MUNICIPIO
-    
+
     url(r'^municipio/consulta/', 'restrito.municipio.consulta'),
     url(r'^municipio/edicao/(?P<id>\d+)/', 'restrito.municipio.edicao'),
-   
+
     # ACESSO RESTRITO SICOP RELATORIO
     url(r'^relatorio/lista/', 'restrito.relatorio.lista'),
     url(r'^relatorio/processos/', 'restrito.relatorio.processos'),
-    url(r'^relatorio/varredura_processos/', 'restrito.relatorio.varredura_processos'),
+    url(r'^relatorio/varredura_processos/', 'restrito.relatorio.varredura_processo'),
+    url(r'^relatorio/processos_agrupados/', 'restrito.relatorio.processos_agrupados'),
     url(r'^relatorio/processo_peca/', 'restrito.relatorio.processo_peca'),
     url(r'^relatorio/processo_sem_peca/', 'restrito.relatorio.processo_sem_peca'),
     url(r'^relatorio/processo_sem_peca_com_parcela_sigef/', 'restrito.relatorio.processo_sem_peca_com_parcela_sigef'),
@@ -214,19 +215,19 @@ urlpatterns = patterns('project.tramitacao',
     url(r'^relatorio/processo_sem_parcela/', 'restrito.relatorio.processo_sem_parcela'),
     url(r'^relatorio/parcela_processo/', 'restrito.relatorio.parcela_processo'),
     url(r'^relatorio/parcela_sem_processo/', 'restrito.relatorio.parcela_sem_processo'),
-        
+
     #ACESSO RESTRITO SICOP FLUXO
     url(r'^relatorio/etapa/p23/', 'restrito.relatorio.etapa_p23'),
     url(r'^relatorio/etapa/p80/', 'restrito.relatorio.etapa_p80'),
     url(r'^relatorio/etapa/urbano/', 'restrito.relatorio.etapa_urbano'),
-    
+
     url(r'^relatorio/programacao_p80/', 'restrito.relatorio.em_programacao_p80'),
     url(r'^relatorio/prazos_notificacoes_p80/', 'restrito.relatorio.prazos_notificacoes_p80'),
     url(r'^relatorio/titulo/', 'restrito.relatorio.titulos'),
-    
+
     #END------------------------------SICOP---------------------------------------------------------------------------------
-   
-    # ACESSO RESTRITO TABELA SITUACAO 
+
+    # ACESSO RESTRITO TABELA SITUACAO
     url(r'^situacao/consulta/', 'restrito.situacao.consulta'),
     url(r'^situacao/edicao/(?P<id>\d+)/','restrito.situacao.edicao'),
     url(r'^situacao/cadastro/', 'restrito.situacao.cadastro'),
