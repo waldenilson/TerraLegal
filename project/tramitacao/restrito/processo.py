@@ -775,16 +775,16 @@ def edicao(request, id):
             if parcelas_geo:
                 nome_imovel = parcelas_geo[0].nome
                 nome_gleba = parcelas_geo[0].gleba
-                
+
                 mun = str(parcelas_geo[0].municipio)
                 try:
                     nome_municipio = Tbmunicipio.objects.filter( codigo_mun = mun[0:len(mun)-1] )[0]
                     parcelas_geo[0].nome_municipio = nome_municipio.nome_mun
                     parcelas_geo[0].save()
                 except:
+                    nome_municipio = Tbmunicipio.objects.filter( codigo_mun = mun )[0]
                     parcelas_geo[0].nome_municipio = nome_municipio.nome_mun
                     parcelas_geo[0].save()
-                    nome_municipio = Tbmunicipio.objects.filter( codigo_mun = mun )[0]
 
                 area_imovel = 0.0
                 for p in parcelas_geo:
