@@ -41,7 +41,7 @@ from django.core import serializers
 import json, random
 from project.livro.models import Tbtituloprocesso
 from project.documento.models import Sobreposicao, DespachoAprovacaoRegional
-from project.core.funcoes import emitir_documento, upload_file,normalizar_string
+from project.core.funcoes import emitir_documento, upload_file,normalizar_string, reader_csv
 from pyexcel_ods import get_data
 
 nome_relatorio      = "relatorio_processo"
@@ -54,7 +54,30 @@ def consultaprocesso(request):
 
 #    list_json()
 #    batimento_cpf_processo("/opt/cpfs.csv","/opt/cpfs_.csv")
-#    reader("/opt/cpfs.csv")
+
+'''
+    retorno = reader_csv("/opt/cpfs_novas_parcelas.csv",'\n')
+    caixa = []
+    for cpf in retorno:
+        print cpf[0]
+        l = Tbprocessorural.objects.filter( nmrequerente = cpf[0] )#.replace('.','').replace('-','') )
+        if l:
+            caixa.append( l[0].tbprocessobase.tbcaixa.nmlocalarquivo.encode("utf-8") )
+        else:
+            caixa.append('--')
+
+    filename = "cpfs_novas_parcelas2.csv"
+    with open('/opt/'+filename, 'w') as csvfile:
+        fieldnames = ['caixa']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for cx in caixa:
+            writer.writerow({'caixa': str(cx) })
+
+    print len(retorno)
+    print len(caixa)
+'''
+
 #    reader_ods("/opt/parcelas.ods")
 
 #    export_to_sqlite_android('/opt/sicopsqlite.db')
