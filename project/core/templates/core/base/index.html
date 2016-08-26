@@ -45,7 +45,7 @@
 						{% if user.is_active %}
 							<div style="color:white;font-weight:bold;font-size:12px;text-align:right">
 								Usuário:
-								<a href="/sicop/usuario/edicao/usuario/{{user.id}}/">
+								<a href="/tramitacao/usuario/edicao/usuario/{{user.id}}/">
 								{% filter force_escape %} {% firstof user.get_short_name user.get_username %} {% endfilter %}
 								</a>
 								<br/>
