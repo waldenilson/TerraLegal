@@ -55,28 +55,28 @@ def consultaprocesso(request):
 #    list_json()
 #    batimento_cpf_processo("/opt/cpfs.csv","/opt/cpfs_.csv")
 
-'''
-    retorno = reader_csv("/opt/cpfs_novas_parcelas.csv",'\n')
-    caixa = []
-    for cpf in retorno:
-        print cpf[0]
-        l = Tbprocessorural.objects.filter( nmrequerente = cpf[0] )#.replace('.','').replace('-','') )
-        if l:
-            caixa.append( l[0].tbprocessobase.tbcaixa.nmlocalarquivo.encode("utf-8") )
-        else:
-            caixa.append('--')
 
-    filename = "cpfs_novas_parcelas2.csv"
-    with open('/opt/'+filename, 'w') as csvfile:
-        fieldnames = ['caixa']
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        writer.writeheader()
-        for cx in caixa:
-            writer.writerow({'caixa': str(cx) })
+#    retorno = reader_csv("/opt/cpfs_novas_parcelas.csv",'\n')
+#    caixa = []
+#    for cpf in retorno:
+#        print cpf[0]
+#        l = Tbprocessorural.objects.filter( nmrequerente = cpf[0] )#.replace('.','').replace('-','') )
+#        if l:
+#            caixa.append( l[0].tbprocessobase.tbcaixa.nmlocalarquivo.encode("utf-8") )
+#        else:
+#            caixa.append('--')
+#
+#    filename = "cpfs_novas_parcelas2.csv"
+#    with open('/opt/'+filename, 'w') as csvfile:
+#        fieldnames = ['caixa']
+#        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+#        writer.writeheader()
+#        for cx in caixa:
+#            writer.writerow({'caixa': str(cx) })
+#
+#    print len(retorno)
+#    print len(caixa)
 
-    print len(retorno)
-    print len(caixa)
-'''
 
 #    reader_ods("/opt/parcelas.ods")
 
@@ -111,7 +111,7 @@ def consultaprocesso(request):
         if cont > 1:
             total += 1
             print r.nrcpfrequerente +' - '+str(cont)
-    #print 'total '+str(total)
+    print 'total '+str(total)
 
 # verificar batimento cpfs em mais de um processo sem estarem na tbprocessosanexos
 

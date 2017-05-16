@@ -1,4 +1,4 @@
-# coding: utf-8
+    # coding: utf-8
 
 from django.conf.urls import patterns, url
 
@@ -115,6 +115,7 @@ urlpatterns = patterns('project.tramitacao',
     url(r'^processo/clausula/consulta/', 'restrito.processo_clausula.consulta'),
     url(r'^processo/clausula/cadastro/', 'restrito.processo_clausula.cadastro'),
     url(r'^processo/clausula/edicao/(?P<id>\d+)/', 'restrito.processo_clausula.edicao'),
+    url(r'^processo/clausula/pedido_cancelamento/(?P<id>\d+)/', 'restrito.processo_clausula.gerar_pedido_cancelamento'),
 
    # ACESSO RESTRITO SICOP PECA TECNICA
     url(r'^peca_tecnica/consulta/', 'restrito.peca_tecnica.consulta'),

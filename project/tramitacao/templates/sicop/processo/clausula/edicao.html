@@ -29,6 +29,11 @@
 	<li><a href="#tabs-6">FLUXO DO PROCESSO</a></li>
 {% endif %}
 
+{% if base.tbclassificacaoprocesso.id == 1 %}
+	<li><a href="#tabs-7">CANCELAMENTO</a></li>
+{% endif %}
+
+
 </ul>
 
 <div id="tabs-1">
@@ -521,6 +526,200 @@
 		{% endif %}
 	</div>
 {% endif %}
+
+{% if base.tbclassificacaoprocesso.id == 1 %}
+
+			<!div id="tabs-7">
+				<div style="font-size:12px;margin-bottom:10px;margin-top:20px;width:98%;font-weight:bold;color: green">
+					PEDIDO CANCELAMENTO<hr/>
+				</div>
+				<form method="post" target="blank" action="/tramitacao/processo/clausula/pedido_cancelamento/{{ clausula.id }}/">
+				{% csrf_token %}
+				
+				<div style="width: 100%; font-size: 12px; text-align: left">
+					<table>
+						<tr>
+							<td class="colunaTabela">Interessado:</td>
+							<td> <input name="nome_interessado" value="{{clausula.nmrequerente|default:''}}" size="50" required type="text" /> </td>
+					   		<td class="colunaTabela">Processo:</td>
+							<td><input required="required" name="tbprocessobase" size="17" value="{{base.nrprocesso}}" style="width:150px" id="processo"/> </td>
+					   	</tr>
+						<tr>
+							<td class="colunaTabela">Nome do Imóvel:</td>
+							<td> <input name="nome_imovel" value="{{clausula.nmimovel}}" size="40" required type="text" /> </td>
+					   	</tr>
+						
+						<tr>
+							<td class="colunaTabela">Área (ha):</td>
+							<td> <input name="area_imovel" value="{{clausula.nrarea}}" onkeypress="return SomenteNumero(event, this);" size="10" required type="text" /> </td>
+					   	</tr>
+
+					   	<tr> 
+					   	<td class="colunaTabela"> <label>Gleba:</label> </td>
+				   	   		<td>
+				   	   			<select name="nome_gleba" style="width: 200px">
+				   	   				<option value="0">-- Selecione uma Gleba --</option>
+				   					{% for obj in gleba %}
+				   						{% if obj.id == base.tbgleba.id %}
+				   							<option selected="selected" value="{{ obj.id }}">{{ obj.nmgleba }}</option>
+				   					{% else %}
+				   						<option value="{{ obj.id }}">{{ obj.nmgleba }}</option>
+				   					{% endif %}
+				   				{% endfor %}
+				   			</select>
+				   		</td>
+				   	  	</tr>
+						
+						<tr>
+							<td class="colunaTabela"> Municipio:</td>
+							   		<td>
+							   			<select name="municipio_imovel" style="width: 200px">
+											<option value="0">Selecione um Municipio </option>
+											{% for obj in municipio %}
+												{% if obj.id == base.tbmunicipio.id %}
+													<option selected="selected" value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+												{% else %}
+													<option value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+												{% endif %}
+											{% endfor %}
+										</select>
+									</td>
+							
+					   		<td class="colunaTabela">UF:</td>
+							<td> <input name="uf" size="2" value="MA" required type="text" /> </td>
+					   	</tr>
+					   	   	<tr>
+					   			<td class="colunaTabela">Expedição título:</td>
+					   			<td class="colunaTabela">
+					   				<input  name="data_expedicao_titulo" value="{{clausula.dttitulacao|date:'d/m/Y'}}" size="9" id="date4" required type="text" />
+					   			</td>
+					   	   	</tr>
+					   	<tr>
+					   			<td class="colunaTabela">Lote:</td>
+					   			<td class="colunaTabela">
+					   				<input  name="lote"  value="{{clausula.nmloteimovel}}" size="9"  required type="text" />
+					   			</td>
+					   	   	</tr>
+
+
+					   	<tr>
+					   		<td colspan="2" class="colunaTabela">DADOS DO DOCUMENTO</td>
+					   	</tr>
+					   		<tr>
+					   			<!--td class="colunaTabela">Ofício no.:</td>
+					   			<td> <input name="numero_oficio"  size="10" required  type="text" /> </td-->
+					   	   		<td class="colunaTabela">Ano:</td>
+					   			<td> <input name="ano_oficio"  size="4" required  type="text" /> </td>
+					   	   	</tr>
+					   	   	
+					   	   	<tr>
+					   			<td class="colunaTabela">Data do Oficio:</td>
+					   			<td class="colunaTabela">
+					   				<input  name="data_oficio" size="9" id="date5" required type="text" />
+					   			</td>
+					   			<td class="colunaTabela">Local do Oficio:</td>
+					   			<td class="colunaTabela">
+					   				<input  name="local_oficio" value="São Luis" size="20" required type="text" />
+					   			</td>
+
+
+
+					   	   	</tr>
+						
+						<tr>
+							<td class="colunaTabela">Assunto:</td>
+							<td> <input name="assunto_cancelamento" size="50" maxlength="120" value="{{'Pedido de cancelamento de título'}}" required type="text" /> </td>
+					   	</tr>
+					   	<tr>
+					   			<td class="colunaTabela">Boletim serviço:</td>
+					   			<td> <input name="boletim_servico"   size="50" required  type="text" /> </td>
+					   	   	</tr>
+					   	   	
+						<!--tr>
+					   			<td class="colunaTabela">Link:</td>
+					   			<td> <input name="link"   size="50" required  type="text" /> </td>
+					   	   	</tr>
+					   	 
+					   	<tr-->
+					   		<td colspan="2" class="colunaTabela">DADOS DO REGISTRO</td>
+					   	</tr>
+					   	<tr>
+							<td class="colunaTabela">Matricula:</td>
+							<td> <input name="matricula"  size="15" required  type="text" /> </td>
+					   	</tr>
+					   	<tr>
+							<td class="colunaTabela">Livro:</td>
+							<td> <input name="livro"  size="7" required  type="text" /> </td>
+					   	</tr>
+					   	<tr>
+							<td class="colunaTabela">Folha (fls.):</td>
+							<td> <input name="folhas"  size="7" required  type="text" /> </td>
+					   	</tr>
+				   	   	<tr>
+				   			<td class="colunaTabela">Data Matricula:</td>
+				   			<td class="colunaTabela">
+				   				<input  name="data_matricula"  size="9" id="date6" required type="text" />
+				   			</td>
+				   	   	</tr>
+
+				   	   	<tr> <td class="colunaTabela"> Municipio do Cartorio:</td>
+				   	   	   		<td>
+				   	   	   			<select name="municipio_cartorio" style="width: 200px">
+				   	   					<option value="0">-- Selecione um Municipio --</option>
+				   	   					{% for obj in municipio %}
+				   	   						{% if obj.id == base.tbmunicipio.id %}
+				   	   							<option selected="selected" value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+				   	   						{% else %}
+				   	   							<option value="{{ obj.id }}">{{ obj.nome_mun }}</option>
+				   	   						{% endif %}
+				   	   					{% endfor %}
+				   	   				</select>
+				   	   			</td>
+				   	   
+
+
+				   	   	</tr>
+				   	   		<tr>
+							<td class="colunaTabela">Cartorio:</td>
+							<td> <input name="nome_cartorio" size="50" required  type="text" /> </td>
+					   	</tr>
+					   
+					   	<tr>
+					   		<td colspan="2" class="colunaTabela">DADOS DO CARTÓRIO</td>
+					   	</tr>
+					   	<tr>
+							<td class="colunaTabela">Titular:</td>
+							<td> <input name="nome_titular"  size="30" maxlength="80"  required type="text" /> </td>
+					   	</tr>
+					   	<tr>
+							<td class="colunaTabela">Substituto:</td>
+							<td> <input name="nome_substituto"  size="30" maxlength="80"  required type="text" /> </td>
+					   	</tr>
+					   	<tr>
+							<td class="colunaTabela">Endereco:</td>
+							<td> <input name="endereco_cartorio_1"  size="50" maxlength="80"  required type="text" /> </td>
+					   	</tr>
+				   	   	
+				   	   	<tr>
+				   			<td class="colunaTabela">CEP:</td>
+				   			<td> <input name="cep" size="9" maxlength="12" type="text" /> </td>
+				   		<tr>
+				   			<td class="colunaTabela">Telefone:</td>
+				   			<td> <input name="telefone" size="50" maxlength="20" type="text" /> </td>
+				   		</tr>
+				   		<tr>
+							<td class="colunaTabela">Mail:</td>	   			
+				   			<td> <input name="mail" size="50" maxlength="50" type="text" /> </td> </tr>
+
+					   	<tr>
+					   		<td colspan="2" class="colunaTabela"> <input class="button_green" type="submit" value="EMITIR DOCUMENTO" /> </td>
+					   	</tr>
+					</table>
+				</form>
+			</div>
+
+{% endif %}
+
 
 </div>
 

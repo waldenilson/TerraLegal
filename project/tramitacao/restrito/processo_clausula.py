@@ -14,6 +14,8 @@ from os.path import abspath, join, dirname
 from project.core.funcoes import upload_file
 from pyexcel_ods import get_data
 import json
+from project.core.funcoes import gerar_pdf, emitir_documento,mes_do_ano_texto
+
 
 @permission_required('sicop.processo_clausula_consulta', login_url='/excecoes/permissao_negada/', raise_exception=True)
 def consulta(request):
@@ -384,3 +386,98 @@ def carregarTbAuxProcesso(request):
     gleba = Tbgleba.objects.all().filter( tbuf__id__in = request.session['uf'])
     municipio = Tbmunicipio.objects.all().filter( codigo_uf = AuthUser.objects.get( pk = request.user.id ).tbdivisao.tbuf.id ).order_by( "nome_mun" )
 
+
+@permission_required('sicop.processo_clausula_pedido_cancelamento', login_url='/excecoes/permissao_negada/', raise_exception=True)
+def gerar_pedido_cancelamento(request, id):
+    print 'gerar_pedido_cancelamento'
+    clausula = Tbprocessoclausula.objects.get(pk=id)
+    municipio_cartorio = Tbmunicipio.objects.get(pk=request.POST['municipio_cartorio'])
+    municipio_imovel = Tbmunicipio.objects.get(pk=request.POST['municipio_imovel'])
+
+    dia = ''
+    if datetime.datetime.now().day < 10:
+        dia = '0'+str(datetime.datetime.now().day)
+    else:
+        dia = datetime.datetime.now().day
+
+    mes = ''
+    if datetime.datetime.now().month < 10:
+        mes = '0'+str(datetime.datetime.now().month)
+    else:
+        mes = datetime.datetime.now().month
+
+    data_oficio = request.POST['data_oficio']
+
+    processo = clausula.tbprocessobase.nrprocesso[0:5]+'.'+clausula.tbprocessobase.nrprocesso[5:11]+'/'+clausula.tbprocessobase.nrprocesso[11:15]+'-'+clausula.tbprocessobase.nrprocesso[15:17]
+    
+    dados = {
+                'brasao':abspath(join(dirname(__file__), '../../../staticfiles'))+'/img/brasao.gif',
+                'data':str(dia)+'/'+str(mes)+'/'+str(datetime.datetime.now().year),
+                #'cpf_detentor':request.POST['cpf_detentor'],
+                'nome_interessado':request.POST['nome_interessado'],
+                'processo':processo,
+                'nome_imovel':request.POST['nome_imovel'],
+                'municipio_imovel':municipio_imovel.nome_mun,
+                'uf':request.POST['uf'],
+                'nome_gleba':request.POST['nome_gleba'],
+                'area_imovel':request.POST['area_imovel'],
+                
+                #'numero_oficio':request.POST['numero_oficio'],
+                'ano_oficio':request.POST['ano_oficio'],
+                'assunto':request.POST['assunto_cancelamento'],
+                
+                              
+                'matricula':request.POST['matricula'],
+                'livro':request.POST['livro'],
+                'folhas':request.POST['folhas'],
+                'dia_despacho': data_oficio.split('/')[0],
+                'mes_despacho': mes_do_ano_texto(int(data_oficio.split('/')[1])),
+                'ano_despacho': data_oficio.split('/')[2],
+                'local_oficio': request.POST['local_oficio'],
+                'data_matricula': request.POST['data_matricula'],
+              
+               
+              
+                'nome_cartorio':request.POST['nome_cartorio'], 
+                'nome_titular': request.POST['nome_titular'],
+                'nome_substituto': request.POST['nome_substituto'],
+                'end_carto_1': request.POST['endereco_cartorio_1'],
+                'cep': request.POST['cep'],
+                'telefone': request.POST['telefone'],
+                'mail': request.POST['mail'],
+                'municipio': municipio_cartorio.nome_mun,                
+
+
+                'data_expedicao_titulo':request.POST['data_expedicao_titulo'],
+                'boletim_servico':request.POST['boletim_servico'],
+                'lote':request.POST['lote']
+                #'link':request.POST['link']
+
+            }
+
+    #PERSISTENCIA DOS DADOS DO DOCUMENTO VERIFICACAO SOBREPOSICAO
+    #descomentar
+    '''
+    doc = DespachoAprovacaoRegional.objects.filter( tbprocessobase__id = Tbprocessorural.objects.get(pk=id).tbprocessobase.id )
+    ds = DespachoAprovacaoRegional()
+    if doc:
+        #Atualizar dados
+        ds.id = DespachoAprovacaoRegional.objects.get(pk = doc[0].id).id
+        ds.data_cadastro = doc[0].data_cadastro
+    else:
+        #Persistir dados
+        ds.data_cadastro = datetime.datetime.now()
+    ds.data_despacho = datetime.datetime.now()
+    ds.auth_user = AuthUser.objects.get(pk=request.user.id)
+    ds.tbprocessobase = Tbprocessorural.objects.get(pk=id).tbprocessobase
+    dt = request.POST['data_despacho'].split('/')
+    ds.assunto = request.POST['assunto_aprovacao_regional']
+    ds.data_atualizacao = datetime.datetime(day=int(dt[0]),month=int(dt[1]),year=int(dt[2]))
+    ds.cidade = request.POST['cidade_aprovacao_regional']
+    ds.numero = request.POST['numero_aprovacao_regional']
+    ds.ano = request.POST['ano_aprovacao_regional']
+    ds.folha = request.POST['folha_aprovacao_regional']
+    ds.save()
+    '''
+    return emitir_documento('pedido_cancelamento_matricula.odt',dados)
+    #return gerar_pdf(request,'/tramitacao/processo/rural/despacho_aprovacao_regional.html',dados, settings.MEDIA_ROOT+'/tmp','aprovacao_regional.pdf')
