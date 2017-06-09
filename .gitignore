@@ -21,3 +21,5 @@ staticfiles/doc
 media/upload/titulacao/MA/P23/*
 media/tmp/sobreposicao.pdf
 media/tmp/vw_parcelas.csv
+media/tmp/*
+sicop_env
